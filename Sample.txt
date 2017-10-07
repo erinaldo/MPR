@@ -1,0 +1,191 @@
+public String insert_PO_MASTER(cls_PO_Master_Prop clsPropObj)
+        {
+
+            Int32 i;
+            double _POD_ID, _POS_ID;
+            _POD_ID = 0;
+            Int64  intRetPONo;
+
+            Common_Class commObj = new Common_Class();
+            _POD_ID = commObj.genrateMaxCode("PO_DETAIL", "POD_ID", "");
+            _POS_ID = commObj.genrateMaxCode("PO_STATUS", "POS_ID", "");
+
+            SqlTransaction tran;
+            tran = con.BeginTransaction();
+            try
+            {
+                /// <summary>
+                /// Sieps for Saving Purchase Order
+                /// 
+                /// 1. Insert in PO_Master Table with transaction.
+                /// 2. Insert in PO_Detail Table with Transaction.
+                /// 3. Insert in PO_Status Table with Transaction.
+                /// 4. Update Indent_status Table with Transaction.
+                /// 5. Update Indent_Master Table's Status to Clear if all Items are Ordered or Entre in Purchase Order.
+                /// 
+                /// </summary>
+                /// 
+
+
+                cmd = new SqlCommand(); cmd.CommandTimeout = 0;
+                cmd.Connection = con;
+                cmd.Transaction = tran;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "PROC_PO_MASTER";
+
+                cmd.Parameters.AddWithValue("@V_PO_ID", clsPropObj.PO_ID);
+                cmd.Parameters.AddWithValue("@V_PO_CODE", clsPropObj.PO_CODE);
+                cmd.Parameters.AddWithValue("@V_PO_NO", clsPropObj.PO_NO);
+                cmd.Parameters.AddWithValue("@V_PO_DATE", clsPropObj.PO_DATE);
+                cmd.Parameters.AddWithValue("@V_PO_START_DATE", clsPropObj.PO_START_DATE);
+                cmd.Parameters.AddWithValue("@V_PO_END_DATE", clsPropObj.PO_END_DATE);
+                cmd.Parameters.AddWithValue("@V_PO_REMARKS", clsPropObj.PO_REMARKS);
+                cmd.Parameters.AddWithValue("@V_PO_SUPP_ID", clsPropObj.PO_SUPP_ID);
+                cmd.Parameters.AddWithValue("@V_PO_QUALITY_ID", clsPropObj.PO_QUALITY_ID);
+                cmd.Parameters.AddWithValue("@V_PO_DELIVERY_ID", clsPropObj.PO_DELIVERY_ID);
+                cmd.Parameters.AddWithValue("@V_PO_STATUS", clsPropObj.PO_STATUS);
+                cmd.Parameters.AddWithValue("@V_PATMENT_TERMS", clsPropObj.PATMENT_TERMS);
+                cmd.Parameters.AddWithValue("@V_PRICE_BASIS_REMARKS", clsPropObj.PRICE_BASIS_REMARKS);
+                cmd.Parameters.AddWithValue("@V_TRANSPORT_MODE", clsPropObj.TRANSPORT_MODE);
+                cmd.Parameters.AddWithValue("@V_TOTAL_AMOUNT", clsPropObj.TOTAL_AMOUNT);
+                cmd.Parameters.AddWithValue("@V_VAT_AMOUNT", clsPropObj.VAT_AMOUNT);
+                cmd.Parameters.AddWithValue("@V_NET_AMOUNT", clsPropObj.NET_AMOUNT);
+                cmd.Parameters.AddWithValue("@V_CREATED_BY", clsPropObj.CREATED_BY);
+                cmd.Parameters.AddWithValue("@V_CREATION_DATE", clsPropObj.CREATION_DATE);
+                cmd.Parameters.AddWithValue("@V_MODIFIED_BY", clsPropObj.MODIFIED_BY);
+                cmd.Parameters.AddWithValue("@V_MODIFIED_DATE", clsPropObj.MODIFIED_DATE);
+                cmd.Parameters.AddWithValue("@V_DIVISION_ID", clsPropObj.DIVISION_ID);
+                cmd.Parameters.AddWithValue("@V_PROC_TYPE", 1);
+
+                SqlParameter retPONo = new SqlParameter("@PO", SqlDbType.BigInt);
+                retPONo.Direction = ParameterDirection.ReturnValue;
+                cmd.Parameters.Add(retPONo);   
+
+                cmd.ExecuteNonQuery();
+                intRetPONo = Convert.ToInt64(cmd.Parameters["@PO"].Value); 
+                cmd.Dispose();
+
+
+                DataTable dt;
+                dt = clsPropObj.PO_Items;
+
+                for (i = 0; i < dt.Rows.Count; i++)
+                {
+                    cmd = new SqlCommand(); cmd.CommandTimeout = 0;
+                    cmd.Connection = con;
+                    cmd.Transaction = tran;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "PROC_PO_DETAIL";
+
+                    //dTable_POItems.Columns.Add("gross_amount", Type.GetType("System.Double"));
+                    //dTable_POItems.Columns.Add("vat_amount", Type.GetType("System.Int32"));
+                    //Code for inserting into Purchase Order Status Table
+
+                    cmd.Parameters.AddWithValue("@V_PO_ID", clsPropObj.PO_ID);
+                    cmd.Parameters.AddWithValue("@V_POD_ID", _POD_ID);
+                    cmd.Parameters.AddWithValue("@V_ITEM_ID", dt.Rows[i]["item_id"]);
+                    cmd.Parameters.AddWithValue("@V_INDENT_ID", dt.Rows[i]["indent_id"]);
+                    cmd.Parameters.AddWithValue("@V_ITEM_QTY", dt.Rows[i]["ORDER_QTY"]);
+                    cmd.Parameters.AddWithValue("@V_VAT_ID", dt.Rows[i]["vat_id"]);
+                    cmd.Parameters.AddWithValue("@V_VAT_PER", dt.Rows[i]["item_vat"]);
+                    cmd.Parameters.AddWithValue("@V_ITEM_RATE", dt.Rows[i]["item_rate"]);
+                    cmd.Parameters.AddWithValue("@V_ITEM_AMOUNT", dt.Rows[i]["gross_amount"]);
+                    cmd.Parameters.AddWithValue("@V_VAT_AMOUNT", dt.Rows[i]["vat_amount"]);
+                    cmd.Parameters.AddWithValue("@V_TOTAL_AMOUNT", dt.Rows[i]["amount"]);
+                    cmd.Parameters.AddWithValue("@V_CREATED_BY", clsPropObj.CREATED_BY);
+                    cmd.Parameters.AddWithValue("@V_CREATION_DATE", clsPropObj.CREATION_DATE);
+                    cmd.Parameters.AddWithValue("@V_MODIFIED_BY", clsPropObj.MODIFIED_BY);
+                    cmd.Parameters.AddWithValue("@V_MODIFIED_DATE", clsPropObj.MODIFIED_DATE);
+                    cmd.Parameters.AddWithValue("@V_DIVISION_ID", clsPropObj.DIVISION_ID);
+                    cmd.Parameters.AddWithValue("@V_PROC_TYPE", 1);
+                    cmd.ExecuteNonQuery();
+                    cmd.Dispose();
+
+                    //Code for inserting into Purchase Order Status Table
+                    cmd = new SqlCommand(); cmd.CommandTimeout = 0;
+                    cmd.Connection = con;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "PROC_PO_STATUS";
+                    cmd.Transaction = tran;
+                    cmd.Parameters.AddWithValue("@V_POS_ID", _POS_ID);
+                    cmd.Parameters.AddWithValue("@V_PO_ID", clsPropObj.PO_ID);
+                    cmd.Parameters.AddWithValue("@V_ITEM_ID", dt.Rows[i]["item_id"]);
+                    cmd.Parameters.AddWithValue("@V_INDENT_ID", dt.Rows[i]["indent_id"]);
+                    cmd.Parameters.AddWithValue("@V_REQUIRED_QTY", dt.Rows[i]["ORDER_QTY"]);
+                    cmd.Parameters.AddWithValue("@V_RECIEVED_QTY", 0);
+                    cmd.Parameters.AddWithValue("@V_BALANCE_QTY", dt.Rows[i]["ORDER_QTY"]);
+                    cmd.Parameters.AddWithValue("@V_CREATED_BY", clsPropObj.CREATED_BY);
+                    cmd.Parameters.AddWithValue("@V_CREATION_DATE", clsPropObj.CREATION_DATE);
+                    cmd.Parameters.AddWithValue("@V_MODIFIED_BY", clsPropObj.MODIFIED_BY);
+                    cmd.Parameters.AddWithValue("@V_MODIFIED_DATE", clsPropObj.MODIFIED_DATE);
+                    cmd.Parameters.AddWithValue("@V_DIVISION_ID", clsPropObj.DIVISION_ID);
+                    cmd.Parameters.AddWithValue("@V_PROC_TYPE", 1);
+                    cmd.ExecuteNonQuery();
+                    cmd.Dispose();
+                    _POD_ID += 1;
+                    _POS_ID += 1;
+                }
+
+
+                tran.Commit();
+                tran.Dispose();
+
+                try
+                {
+
+                    for (i = 0; i < dt.Rows.Count; i++)
+                    {
+                        //Code for Update Indent Status Table
+
+                        cmd = new SqlCommand(); cmd.CommandTimeout = 0;
+                        cmd.Connection = con;
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandText = "UPDATE_INDENT_STATUS";
+                     
+                        cmd.Parameters.AddWithValue("@V_INDENT_ID", dt.Rows[i]["indent_id"]);
+                        cmd.Parameters.AddWithValue("@V_ITEM_ID", dt.Rows[i]["item_id"]);
+                        cmd.Parameters.AddWithValue("@V_PO_QTY", dt.Rows[i]["ORDER_QTY"]);
+
+
+                        cmd.ExecuteNonQuery();
+                        cmd.Dispose();
+
+                    }
+
+                    int previous_indent_id;
+                    previous_indent_id = 0;
+                    for (i = 0; i < dt.Rows.Count; i++)
+                    {
+                        if (previous_indent_id != Convert.ToInt32(dt.Rows[i]["indent_id"]))
+                        {
+                            previous_indent_id = Convert.ToInt32(dt.Rows[i]["indent_id"]);
+
+                            cmd = new SqlCommand(); cmd.CommandTimeout = 0;
+                            cmd.Connection = con;
+                            cmd.CommandType = CommandType.StoredProcedure;
+                            cmd.CommandText = "UPDATE_INDENT_STATUS_master";
+
+                            cmd.Parameters.AddWithValue("@V_INDENT_ID", previous_indent_id );
+                            cmd.ExecuteNonQuery();
+                            cmd.Dispose();
+
+                        }
+                    }
+                }
+                catch
+                {
+                }
+                con.Close();
+                con.Dispose();
+                 return "Record saved successfully with code " + clsPropObj.PO_CODE.ToString()  + intRetPONo.ToString();
+            }
+            catch (Exception ex) 
+            {
+                
+                tran.Rollback();
+                con.Close();
+                con.Dispose();
+                return ex.Message;
+            }
+
+        }

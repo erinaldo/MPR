@@ -1,0 +1,1036 @@
+Imports C1.Win.C1FlexGrid
+Imports System.Data.SqlClient
+Imports System.Data
+
+Public Class frm_material_rec_against_PO
+
+    Implements IForm
+
+    Public I As Integer
+    Dim obj As New CommonClass
+    Dim ds As New DataSet
+    Dim FLXGRD_PO_Items_Rowindex As Int16
+    Dim v_frm_Batch_Entry_Qty As frm_Batch_Entry_Qty
+    Dim dtable_Item_List As DataTable
+    Dim prop As material_rec_against_PO.cls_Material_rec_Against_PO_Prop
+    Dim Master As material_rec_against_PO.cls_material_recieved_against_po_master
+    Dim flag As String
+    Dim receive_Id As Integer
+    Dim datatbl_NonStockable_Items As DataTable
+    Dim Open_Po_Qty As Boolean
+
+
+    Dim _rights As Form_Rights
+    Public Sub New(ByVal rights As Form_Rights)
+        _rights = rights
+        InitializeComponent()
+    End Sub
+
+    Public Sub CloseClick(ByVal sender As Object, ByVal e As System.EventArgs) Implements IForm.CloseClick
+
+    End Sub
+
+    Public Sub DeleteClick(ByVal sender As Object, ByVal e As System.EventArgs) Implements IForm.DeleteClick
+
+    End Sub
+
+    Public Sub NewClick(ByVal sender As Object, ByVal e As System.EventArgs) Implements IForm.NewClick
+        Try
+            new_initilization()
+        Catch ex As Exception
+            'MsgBox(ex.Message, MsgBoxStyle.Critical, "Error newClick --> frm_Indent_Master")
+            MsgBox(gblMessageHeading_Error & vbCrLf & gblMessage_ContactInfo & vbCrLf & ex.Message, MsgBoxStyle.Critical, gblMessageHeading)
+        End Try
+    End Sub
+
+    Private Sub new_initilization()
+        TabControl1.SelectTab(1)
+        cmb_MRNAgainst.SelectedValue = "1"
+        FLXGRD_PO_Items.DataSource = Nothing
+        FLXGRD_PO_NON_STOCKABLEITEMS.DataSource = Nothing
+        table_style()
+        ' Grid_Formatting()
+        cmbPurchaseOrders.SelectedValue = 0
+        dtpReceiveDate.Text = Now.ToString("dd-MMM-yyyy")
+        flag = "save"
+
+
+    End Sub
+
+    Public Sub RefreshClick(ByVal sender As Object, ByVal e As System.EventArgs) Implements IForm.RefreshClick
+
+    End Sub
+
+    Public Sub SaveClick(ByVal sender As Object, ByVal e As System.EventArgs) Implements IForm.SaveClick
+        FLXGRD_PO_Items.FinishEditing()
+        Dim cmd As SqlCommand
+        cmd = obj.MyCon_BeginTransaction
+
+        prop = New material_rec_against_PO.cls_Material_rec_Against_PO_Prop
+        Master = New material_rec_against_PO.cls_material_recieved_against_po_master
+
+        If txt_Invoice_No.Text <> "" Then
+            Dim invoicecount = Convert.ToInt32(obj.ExecuteScalar("SELECT COUNT(Receipt_ID) FROM    dbo.MATERIAL_RECEIVED_AGAINST_PO_MASTER INNER JOIN dbo.PO_MASTER ON dbo.PO_MASTER.PO_ID = dbo.MATERIAL_RECEIVED_AGAINST_PO_MASTER.PO_ID WHERE   PO_SUPP_ID in ( SELECT po_supp_id FROM dbo.PO_MASTER WHERE po_id = " & cmbPurchaseOrders.SelectedValue & " ) AND Invoice_No = '" & txt_Invoice_No.Text & "'"))
+            If invoicecount > 0 Then
+                MsgBox("Invoice No. cannot be same for the single supplier.")
+                Exit Sub
+            End If
+        End If
+
+        If Open_Po_Qty = False Then
+            Dim iRowCount As Int32
+            Dim iRow As Int32
+            Dim dtable As New DataTable
+            dtable = FLXGRD_PO_NON_STOCKABLEITEMS.DataSource
+            If Not dtable Is Nothing Then
+                iRowCount = dtable.Rows.Count - 1
+                For iRow = 0 To iRowCount
+
+                    If dtable.Rows(iRow)("BATCH_QTY") = 0 Then
+                        MsgBox("Batch Qty Cannot be Empty")
+                        Exit Sub
+                    End If
+
+
+                    If dtable.Rows(iRow)("BATCH_QTY") > dtable.Rows(iRow)("PO_QTY") Then
+                        MsgBox("Batch Qty Cannot be greater than PO QTY")
+                        Exit Sub
+                    End If
+
+
+
+                Next iRow
+
+            End If
+
+
+            dtable = FLXGRD_PO_Items.DataSource
+            If Not dtable Is Nothing Then
+                iRowCount = dtable.Rows.Count - 1
+                For iRow = 0 To iRowCount
+                    If dtable.Rows(iRow)("BATCH_QTY") = 0 Then
+                        MsgBox("Batch Qty Cannot be Empty")
+                        Exit Sub
+                    End If
+
+                    If dtable.Rows(iRow)("BATCH_QTY") > dtable.Rows(iRow)("PO_QTY") Then
+                        MsgBox("Batch Qty Cannot be greater than PO QTY")
+                        Exit Sub
+                    End If
+                Next iRow
+            End If
+        End If
+        Try
+            If flag = "save" Then
+
+                Dim MRN_Code As String
+                Dim MRN_No As Integer
+
+                Dim ds As New DataSet()
+                ds = obj.fill_Data_set("GET_MRN_NO", "@DIV_ID", v_the_current_division_id)
+                If ds.Tables(0).Rows.Count = 0 Then
+                    MsgBox("MRN series does not exists", MsgBoxStyle.Information, gblMessageHeading)
+                    ds.Dispose()
+                    Exit Sub
+                Else
+                    If ds.Tables(0).Rows(0)(0).ToString() = "-1" Then
+                        MsgBox("MRN series does not exists", MsgBoxStyle.Information, gblMessageHeading)
+                        ds.Dispose()
+                        Exit Sub
+                    ElseIf ds.Tables(0).Rows(0)(0).ToString() = "-2" Then
+                        MsgBox("MRN series has been completed", MsgBoxStyle.Information, gblMessageHeading)
+                        ds.Dispose()
+                        Exit Sub
+                    Else
+                        MRN_Code = ds.Tables(0).Rows(0)(0).ToString()
+                        MRN_No = Convert.ToDecimal(ds.Tables(0).Rows(0)(1).ToString()) + 1
+                        ds.Dispose()
+                    End If
+                End If
+
+
+
+                Dim RECEIPT_ID As Integer
+                RECEIPT_ID = Convert.ToInt32(obj.getMaxValue("RECEIPT_ID", "MATERIAL_RECEIVED_AGAINST_PO_MASTER"))
+                prop.Receipt_ID = RECEIPT_ID
+                prop.Receipt_No = RECEIPT_ID
+                prop.Receipt_Code = GetReceiptCode()
+                prop.Po_ID = Convert.ToInt32(cmbPurchaseOrders.SelectedValue)
+                prop.Receipt_Date = Now 'Convert.ToDateTime(dtpReceiveDate.Text).ToString()
+                prop.Invoice_Date = Convert.ToDateTime(dt_Invoice_Date.Value)
+                prop.Invoice_No = txt_Invoice_No.Text
+                prop.Remarks = txt_Remarks.Text
+                prop.MRN_NO = MRN_No
+                prop.MRN_PREFIX = MRN_Code
+                prop.Created_By = v_the_current_logged_in_user_name
+                prop.Creation_Date = Now
+                prop.Modified_By = v_the_current_logged_in_user_name
+                prop.Modification_Date = Now
+                prop.Division_ID = v_the_current_division_id
+                prop.mrn_status = Convert.ToInt32(GlobalModule.MRNStatus.normal)
+                prop.MRNCompanies_ID = Convert.ToInt16(cmb_MRNAgainst.SelectedValue)
+                prop.freight = Convert.ToDouble(txt_Amount.Text)
+                prop.Other_Charges = Convert.ToDouble(txtotherchrgs.Text)
+                prop.Discount_amt = Convert.ToDouble(txtdiscount.Text)
+                If chk_VatCal.Checked = True Then
+                    prop.VAT_ON_EXICE = 1
+                Else
+                    prop.VAT_ON_EXICE = 0
+                End If
+
+                Master.insert_MATERIAL_RECIEVED_AGAINST_PO_MASTER(prop, cmd, FLXGRD_PO_Items.DataSource, FLXGRD_PO_NON_STOCKABLEITEMS.DataSource)
+
+                obj.MyCon_CommitTransaction(cmd)
+                fill_PO()
+                ''MsgBox("Record Saved", MsgBoxStyle.Information, gblMessageHeading)
+                If flag = "save" Then
+                    If MsgBox("Record Saved" & vbCrLf & "Do You Want to Print Preview.", MsgBoxStyle.Question + MsgBoxStyle.YesNo, gblMessageHeading) = MsgBoxResult.Yes Then
+                        obj.RptShow(enmReportName.RptMaterialRecAgainstPOPrint, "rec_id", CStr(prop.Receipt_ID), CStr(enmDataType.D_int))
+                        frm_Report.Mrn_id = CInt(prop.Receipt_ID)
+                        frm_Report.formName = "MRN_AgainstPO"
+                    End If
+                End If
+                obj.Clear_All_TextBox(Me.GroupBox1.Controls)
+                obj.Clear_All_ComoBox(Me.GroupBox1.Controls)
+                new_initilization()
+            End If
+        Catch ex As Exception
+            obj.MyCon_RollBackTransaction(cmd)
+            MsgBox(gblMessageHeading_Error & vbCrLf & gblMessage_ContactInfo & vbCrLf & ex.Message, MsgBoxStyle.Critical, gblMessageHeading)
+        End Try
+
+
+    End Sub
+
+    Public Sub ViewClick(ByVal sender As Object, ByVal e As System.EventArgs) Implements IForm.ViewClick
+        Try
+            If TabControl1.SelectedIndex = 0 Then
+                obj.RptShow(enmReportName.RptMaterialRecAgainstPOPrint, "Receipt_Id", CStr(dgvList.Rows(dgvList.CursorCell.r1).Item("Receipt_Id").ToString()), CStr(enmDataType.D_int))
+                frm_Report.Mrn_id = CInt(dgvList.Rows(dgvList.CursorCell.r1).Item("Receipt_Id"))
+                frm_Report.formName = "MRN_AgainstPO"
+            Else
+                If flag <> "save" Then
+                    obj.RptShow(enmReportName.RptMaterialRecAgainstPOPrint, "Receipt_Id", CStr(receive_Id), CStr(enmDataType.D_int))
+                    frm_Report.Mrn_id = CInt(receive_Id)
+                    frm_Report.formName = "MRN_AgainstPO"
+                End If
+            End If
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub frm_material_rec_against_PO_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        obj.ComboBind(cmb_MRNAgainst, "SELECT Company_id, Company_name FROM MRN_COMPANIES", "Company_name", "Company_id")
+        fill_PO()
+        table_style()
+        dtpFrom.Value = Now.AddDays(-7)
+        btnIssueSlip_Click(Nothing, Nothing)
+        new_initilization()
+
+    End Sub
+    Private Sub fill_PO1()
+        ''********************************************************************''
+        ''Fill material requisition combo - show only pending (2) requisitions
+        ''********************************************************************''
+        Dim TemporaryTable As New DataTable
+        Dim TemporaryRow As DataRow
+        Dim DSpO As New DataSet
+        DSpO = obj.fill_Data_set("Fill_PO", "@Div_ID", v_the_current_division_id.ToString())
+        TemporaryTable = DSpO.Tables(0)
+        TemporaryRow = TemporaryTable.NewRow
+        TemporaryRow("PO_ID") = -1
+        TemporaryRow("PO_CODE") = "Select Cost Center"
+        TemporaryTable.Rows.InsertAt(TemporaryRow, 0)
+        cmbPurchaseOrders.DisplayMember = "PO_CODE"
+        cmbPurchaseOrders.ValueMember = "PO_ID"
+        cmbPurchaseOrders.DataSource = TemporaryTable
+        ''********************************************************************''
+        ''********************************************************************''
+    End Sub
+
+
+    Private Sub fill_PO()
+        ds = obj.fill_Data_set("Fill_PO", "@Div_ID", v_the_current_division_id)
+        If ds.Tables.Count > 0 Then
+            cmbPurchaseOrders.ValueMember = "PO_ID"
+            cmbPurchaseOrders.DisplayMember = "PO_CODE"
+            cmbPurchaseOrders.DataSource = ds.Tables(0).Copy()
+        End If
+        ds.Clear()
+
+    End Sub
+    Private Sub table_style()
+        If Not dtable_Item_List Is Nothing Then dtable_Item_List.Dispose()
+
+        dtable_Item_List = New DataTable()
+        dtable_Item_List.Columns.Add("Item_ID", GetType(System.Int32))
+        dtable_Item_List.Columns.Add("UM_ID", GetType(System.Int32))
+        dtable_Item_List.Columns.Add("Item_Code", GetType(System.String))
+        dtable_Item_List.Columns.Add("Item_Name", GetType(System.String))
+        dtable_Item_List.Columns.Add("UM_Name", GetType(System.String))
+        dtable_Item_List.Columns.Add("PO_Qty", GetType(System.Double))
+        dtable_Item_List.Columns.Add("Item_Rate", GetType(System.Double))
+        dtable_Item_List.Columns.Add("Vat_Per", GetType(System.Double))
+        dtable_Item_List.Columns.Add("EXICE_Per", GetType(System.Double))
+        dtable_Item_List.Columns.Add("BATCH_NO", GetType(System.String))
+        dtable_Item_List.Columns.Add("EXPIRY_DATE", GetType(System.DateTime))
+        dtable_Item_List.Columns.Add("BATCH_QTY", GetType(System.Double))
+        dtable_Item_List.Columns.Add("Net_Amount", GetType(System.Double))
+        dtable_Item_List.Columns.Add("Gross_Amount", GetType(System.Double))
+        FLXGRD_PO_Items.DataSource = dtable_Item_List
+        FLXGRD_PO_Items.Rows.Add()
+        FLXGRD_PO_Items.Cols(1).Visible = False
+        FLXGRD_PO_Items.Cols(2).Visible = False
+
+
+        FLXGRD_PO_Items.Cols(3).Caption = "Item Code"
+        FLXGRD_PO_Items.Cols(4).Caption = "Item Name"
+        FLXGRD_PO_Items.Cols(5).Caption = "UOM"
+        FLXGRD_PO_Items.Cols(6).Caption = "PO Qty"
+        FLXGRD_PO_Items.Cols(7).Caption = "Item Rate"
+        FLXGRD_PO_Items.Cols(8).Caption = "GST%"
+        FLXGRD_PO_Items.Cols(9).Caption = "EXICE%"
+        FLXGRD_PO_Items.Cols(10).Caption = "Batch No."
+        FLXGRD_PO_Items.Cols(11).Caption = "Expiry Date"
+        FLXGRD_PO_Items.Cols(12).Caption = "Batch Qty"
+        FLXGRD_PO_Items.Cols(13).Caption = "Net Amt."
+        FLXGRD_PO_Items.Cols(14).Caption = "Gross Amt."
+
+        FLXGRD_PO_Items.Cols(3).Width = 60
+        FLXGRD_PO_Items.Cols(4).Width = 300
+        FLXGRD_PO_Items.Cols(5).Width = 40
+        FLXGRD_PO_Items.Cols(6).Width = 70
+        FLXGRD_PO_Items.Cols(7).Width = 70
+        FLXGRD_PO_Items.Cols(8).Width = 30
+
+        FLXGRD_PO_Items.Cols(9).Width = 50
+        FLXGRD_PO_Items.Cols(9).Visible = False
+
+        FLXGRD_PO_Items.Cols(10).Width = 120
+        FLXGRD_PO_Items.Cols(11).Width = 120
+        FLXGRD_PO_Items.Cols(12).Width = 120
+        FLXGRD_PO_Items.Cols(13).Width = 120
+        FLXGRD_PO_Items.Cols(14).Width = 120
+
+
+        '----------------- Non Stockable Table ---------------------'
+
+
+        datatbl_NonStockable_Items = New DataTable()
+        datatbl_NonStockable_Items.Columns.Add("Item_ID", GetType(System.Int32))
+        datatbl_NonStockable_Items.Columns.Add("UM_ID", GetType(System.Int32))
+        datatbl_NonStockable_Items.Columns.Add("Item_Code", GetType(System.String))
+        datatbl_NonStockable_Items.Columns.Add("Item_Name", GetType(System.String))
+        datatbl_NonStockable_Items.Columns.Add("UM_Name", GetType(System.String))
+        datatbl_NonStockable_Items.Columns.Add("CostCenter_ID", GetType(System.Int32))
+        datatbl_NonStockable_Items.Columns.Add("CostCenter_Code", GetType(System.String))
+        datatbl_NonStockable_Items.Columns.Add("CostCenter_Name", GetType(System.String))
+        datatbl_NonStockable_Items.Columns.Add("PO_Qty", GetType(System.Double))
+        datatbl_NonStockable_Items.Columns.Add("Item_Rate", GetType(System.Double))
+        datatbl_NonStockable_Items.Columns.Add("Vat_Per", GetType(System.Double))
+        datatbl_NonStockable_Items.Columns.Add("EXICE_Per", GetType(System.Double))
+        datatbl_NonStockable_Items.Columns.Add("BATCH_NO", GetType(System.String))
+        datatbl_NonStockable_Items.Columns.Add("EXPIRY_DATE", GetType(System.DateTime))
+        datatbl_NonStockable_Items.Columns.Add("BATCH_QTY", GetType(System.Double))
+        datatbl_NonStockable_Items.Columns.Add("Net_Amount", GetType(System.Double))
+        datatbl_NonStockable_Items.Columns.Add("Gross_Amount", GetType(System.Double))
+        datatbl_NonStockable_Items.Columns.Add("IS_STOCKABLE", GetType(System.Boolean))
+        FLXGRD_PO_NON_STOCKABLEITEMS.DataSource = datatbl_NonStockable_Items
+
+        FLXGRD_PO_NON_STOCKABLEITEMS.Rows.Add()
+        ''''FLXGRD_PO_NON_STOCKABLEITEMS.Cols("Item_ID").Visible = False
+        ''''FLXGRD_PO_NON_STOCKABLEITEMS.Cols("UM_ID").Visible = False
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("CostCenter_ID").Visible = False
+
+
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("Item_Code").Caption = "Item Code"
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("Item_Name").Caption = "Item Name"
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("UM_Name").Caption = "UOM"
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("CostCenter_Code").Caption = "CC Code"
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("CostCenter_Name").Caption = "CC Name"
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("PO_Qty").Caption = "PO Qty"
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("Item_Rate").Caption = "Item Rate"
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("Vat_Per").Caption = "GST%"
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("EXICE_Per").Caption = "EXICE%"
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("BATCH_NO").Caption = "Batch No."
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("EXPIRY_DATE").Caption = "Expiry Date"
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("BATCH_QTY").Caption = "Batch Qty"
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("Net_Amount").Caption = "Net Amt."
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("Gross_Amount").Caption = "Gross Amt."
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("IS_STOCKABLE").Caption = "Stockable"
+        ''''FLXGRD_PO_NON_STOCKABLEITEMS.Cols("CostCenter_Code").Visible = False
+
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("Item_Name").Width = 180
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("UM_Name").Width = 30
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("CostCenter_Name").Width = 70
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("PO_Qty").Width = 30
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("Item_Rate").Width = 30
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("Vat_Per").Width = 25
+
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("EXICE_Per").Width = 25
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("EXICE_Per").Visible = False
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("BATCH_NO").Width = 120
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("EXPIRY_DATE").Width = 120
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("BATCH_QTY").Width = 120
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("Net_Amount").Width = 120
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("Gross_Amount").Width = 120
+
+
+        '----------------- Non Stockable Table ---------------------'
+
+    End Sub
+
+
+    Public Sub C1FlexGrid2_KeyDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs)
+        Try
+            If e.KeyCode = Keys.Space Then
+                Dim dt_batch As DataTable
+                Dim dt_GridData As DataTable
+                Dim row As DataRow
+                Dim dt_test As New DataTable
+
+                dt_test.Columns.Add("Batch_No", GetType(System.String))
+                dt_test.Columns.Add("Expiry_Date", GetType(System.DateTime))
+                dt_test.Columns.Add("Item_Qty", GetType(System.Double))
+                FLXGRD_PO_Items_Rowindex = FLXGRD_PO_Items.RowSel
+                v_frm_Batch_Entry_Qty = New frm_Batch_Entry_Qty
+                If Not FLXGRD_PO_Items.Item(FLXGRD_PO_Items_Rowindex, "BATCH_QTY") = "" Then
+
+                    dt_GridData = CType(FLXGRD_PO_Items.DataSource, DataTable)
+
+
+
+                    For Each row In dt_GridData.Select("Item_ID = '" + FLXGRD_PO_Items.Item(FLXGRD_PO_Items_Rowindex, "Item_ID").ToString() + "'")
+                        frm_Batch_Entry_Qty.InitilizeGrid()
+                        dt_test.Rows.Add(row("BATCH_NO"), Convert.ToDateTime(row("EXPIRY_DATE")), Convert.ToDecimal(row("BATCH_QTY")))
+                    Next
+                    v_frm_Batch_Entry_Qty.grdMaterialQty.DataSource = dt_test
+                End If
+                frm_Batch_Entry_Qty.ShowDialog()
+
+                dt_batch = frm_Batch_Entry_Qty.grdMaterialQty.DataSource
+                If dt_batch.Rows.Count = 1 Then
+                    FLXGRD_PO_Items.Item(FLXGRD_PO_Items.RowSel, "BATCH_NO") = dt_batch.Rows(0)("Batch_No").ToString()
+                    FLXGRD_PO_Items.Item(FLXGRD_PO_Items.RowSel, "EXPIRY_DATE") = dt_batch.Rows(0)("Expiry_Date").ToString()
+                    FLXGRD_PO_Items.Item(FLXGRD_PO_Items.RowSel, "BATCH_QTY") = dt_batch.Rows(0)("Item_Qty").ToString()
+                End If
+                If dt_batch.Rows.Count > 1 Then
+                    Dim i As Int32
+
+                    For i = 0 To dt_batch.Rows.Count Step 1
+                        FLXGRD_PO_Items.Rows.Insert(5)
+                    Next
+
+
+                End If
+                'MsgBox("hi")
+                'get_row(frm_Show_search.search_result)
+            End If
+        Catch ex As Exception
+            MsgBox(gblMessageHeading_Error & vbCrLf & gblMessage_ContactInfo & vbCrLf & ex.Message, MsgBoxStyle.Critical, gblMessageHeading)
+        End Try
+    End Sub
+
+    Private Sub cmbPurchaseOrders_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmbPurchaseOrders.SelectedIndexChanged
+        If cmbPurchaseOrders.SelectedValue = Nothing Then
+            lblSupplier.Text = ""
+
+            lblSupplierAddress.Text = ""
+            lblPODate.Text = ""
+
+        Else
+            datatbl_NonStockable_Items.Clear()
+            lblSupplier.Text = ""
+
+            lblSupplierAddress.Text = ""
+            lblPODate.Text = ""
+
+            bind_FLXGRD_PO_Items(cmbPurchaseOrders.SelectedValue)
+            generate_tree()
+        End If
+
+    End Sub
+
+    Private Sub bind_FLXGRD_PO_Items(ByVal po_id As String)
+        ds = obj.fill_Data_set_val("FILL_PO_ITEMS", "@PO_ID", "@DIV_ID", po_id, v_the_current_division_id.ToString())
+        dtable_Item_List = ds.Tables(0).Copy()
+        If dtable_Item_List.Rows.Count > 0 Then
+            Open_Po_Qty = Convert.ToBoolean(dtable_Item_List.Rows(0)("OPEN_PO_QTY"))
+        End If
+        Dim dv As DataView
+        dv = dtable_Item_List.DefaultView
+        dv.RowFilter = "IS_STOCKABLE = 1"
+        dtable_Item_List = dv.ToTable
+        FLXGRD_PO_Items.DataSource = dtable_Item_List
+
+
+
+        Dim dv1 As DataView
+        dtable_Item_List = ds.Tables(0).Copy()
+        dv1 = dtable_Item_List.DefaultView
+
+        dv1.RowFilter = "IS_STOCKABLE = 0"
+
+        Dim dtable As New DataTable
+        Dim ds_CC As DataSet
+        Dim drItem As DataRow
+
+        dtable = dv1.ToTable
+        Dim rowcount As Int16
+        Dim innerRowCount As Int16
+        ds_CC = obj.Fill_DataSet("SELECT * FROM dbo.COST_CENTER_MASTER where display_at_mrn=1")
+
+        For rowcount = 0 To dtable.Rows.Count - 1 Step 1
+
+            If ds_CC.Tables.Count > 0 Then
+
+                If ds_CC.Tables(0).Rows.Count > 0 Then
+
+                    For innerRowCount = 0 To ds_CC.Tables(0).Rows.Count - 1 Step 1
+                        drItem = datatbl_NonStockable_Items.NewRow
+
+                        drItem("Item_Id") = dtable.Rows(rowcount)("Item_ID")
+                        drItem("Item_Code") = dtable.Rows(rowcount)("Item_Code").ToString()
+                        drItem("Item_Name") = dtable.Rows(rowcount)("Item_Name").ToString()
+                        drItem("um_Name") = dtable.Rows(rowcount)("UM_Name").ToString()
+                        drItem("PO_Qty") = dtable.Rows(rowcount)("PO_Qty").ToString()
+                        drItem("Item_Rate") = dtable.Rows(rowcount)("Item_Rate").ToString()
+                        drItem("Vat_Per") = dtable.Rows(rowcount)("Vat_Per").ToString()
+                        drItem("EXICE_Per") = dtable.Rows(rowcount)("EXICE_Per").ToString()
+                        drItem("BATCH_NO") = dtable.Rows(rowcount)("BATCH_NO").ToString()
+                        drItem("EXPIRY_DATE") = dtable.Rows(rowcount)("EXPIRY_DATE").ToString()
+                        drItem("BATCH_QTY") = dtable.Rows(rowcount)("BATCH_QTY").ToString()
+                        drItem("Net_Amount") = dtable.Rows(rowcount)("Net_Amount").ToString()
+                        drItem("Gross_Amount") = dtable.Rows(rowcount)("Gross_Amount").ToString()
+                        drItem("IS_STOCKABLE") = dtable.Rows(rowcount)("IS_STOCKABLE").ToString()
+
+                        drItem("CostCenter_Id") = ds_CC.Tables(0).Rows(innerRowCount)("CostCenter_Id").ToString()
+                        drItem("CostCenter_Code") = ds_CC.Tables(0).Rows(innerRowCount)("CostCenter_Code").ToString()
+                        drItem("CostCenter_Name") = ds_CC.Tables(0).Rows(innerRowCount)("CostCenter_Name").ToString()
+                        datatbl_NonStockable_Items.Rows.Add(drItem)
+
+                    Next
+
+                End If
+            End If
+        Next
+
+        FLXGRD_PO_NON_STOCKABLEITEMS.DataSource = datatbl_NonStockable_Items
+
+        'If FLXGRD_PO_Items.Rows.Count > 1 Then
+
+        Grid_Formatting()
+
+        'End If
+
+
+
+
+
+        'Get Supplier
+        lblSupplier.Text = ""
+
+        lblSupplierAddress.Text = ""
+        lblPODate.Text = ""
+
+
+        lblSupplier.Text = Convert.ToString(obj.ExecuteScalar("select ACC_NAME from ACCOUNT_MASTER  WHERE Acc_ID = (select po_supp_id from po_master where po_id = " + po_id + ")"))
+        lblSupplierAddress.Text = Convert.ToString(obj.ExecuteScalar("select ADDRESS_PRIM from ACCOUNT_MASTER  WHERE Acc_ID = (select po_supp_id from po_master where po_id = " + po_id + ")"))
+        lblPODate.Text = Convert.ToString(obj.ExecuteScalar("select dbo.fn_format(po_date) as po_date from po_master where po_id = " + po_id))
+
+    End Sub
+
+    Private Sub Grid_Formatting()
+        FLXGRD_PO_Items.Cols("item_id").Caption = "Item Id"
+        FLXGRD_PO_Items.Cols("item_code").Caption = "Item Code"
+        FLXGRD_PO_Items.Cols("item_name").Caption = "Item Name"
+        FLXGRD_PO_Items.Cols("um_name").Caption = "UOM"
+        FLXGRD_PO_Items.Cols("PO_QTY").Caption = "PO Qty"
+        FLXGRD_PO_Items.Cols("item_rate").Caption = "Item Rate"
+        FLXGRD_PO_Items.Cols("VAT_PER").Caption = "GST %"
+
+        FLXGRD_PO_Items.Cols("exice_per").Caption = "Exice %"
+        FLXGRD_PO_Items.Cols("exice_per").Visible = False
+
+        FLXGRD_PO_Items.Cols("BATCH_NO").Caption = "Batch No."
+        FLXGRD_PO_Items.Cols("expiry_date").Caption = "Expiry Date"
+        FLXGRD_PO_Items.Cols("BATCH_QTY").Caption = "Batch Qty"
+        FLXGRD_PO_Items.Cols("Net_amount").Caption = "Net Amount"
+        FLXGRD_PO_Items.Cols("Gross_amount").Caption = "Gross amount"
+
+
+        FLXGRD_PO_Items.Cols(0).Width = 8
+        FLXGRD_PO_Items.Cols("item_id").Width = 40
+        FLXGRD_PO_Items.Cols("item_code").Width = 50
+        FLXGRD_PO_Items.Cols("item_name").Width = 200
+        FLXGRD_PO_Items.Cols("um_name").Width = 30
+        FLXGRD_PO_Items.Cols("PO_QTY").Width = 50
+        FLXGRD_PO_Items.Cols("item_rate").Width = 50
+        FLXGRD_PO_Items.Cols("VAT_PER").Width = 40
+        FLXGRD_PO_Items.Cols("exice_per").Width = 40
+        FLXGRD_PO_Items.Cols("BATCH_NO").Width = 70
+        FLXGRD_PO_Items.Cols("expiry_date").Width = 70
+        FLXGRD_PO_Items.Cols("BATCH_QTY").Width = 60
+        FLXGRD_PO_Items.Cols("Net_amount").Width = 80
+        FLXGRD_PO_Items.Cols("Gross_amount").Width = 80
+
+
+
+
+        FLXGRD_PO_Items.Cols("item_id").AllowEditing = False
+        FLXGRD_PO_Items.Cols("item_code").AllowEditing = False
+        FLXGRD_PO_Items.Cols("item_name").AllowEditing = False
+        FLXGRD_PO_Items.Cols("um_name").AllowEditing = False
+        FLXGRD_PO_Items.Cols("PO_QTY").AllowEditing = False
+        FLXGRD_PO_Items.Cols("item_rate").AllowEditing = True
+        FLXGRD_PO_Items.Cols("VAT_PER").AllowEditing = True
+        FLXGRD_PO_Items.Cols("exice_per").AllowEditing = True
+        FLXGRD_PO_Items.Cols("BATCH_NO").AllowEditing = True
+        FLXGRD_PO_Items.Cols("expiry_date").AllowEditing = True
+        FLXGRD_PO_Items.Cols("BATCH_QTY").AllowEditing = True
+        FLXGRD_PO_Items.Cols("Net_amount").AllowEditing = False
+        FLXGRD_PO_Items.Cols("Gross_amount").AllowEditing = False
+
+        FLXGRD_PO_Items.Cols("po_id").Visible = False
+        FLXGRD_PO_Items.Cols("um_id").Visible = False
+        FLXGRD_PO_Items.Cols("item_id").Visible = False
+        FLXGRD_PO_Items.Cols("IS_STOCKABLE").Visible = False
+        FLXGRD_PO_Items.Cols("CostCenter_ID").Visible = False
+        FLXGRD_PO_Items.Cols("CostCenter_Code").Visible = False
+        FLXGRD_PO_Items.Cols("CostCenter_Name").Visible = False
+        FLXGRD_PO_Items.Cols("OPEN_PO_QTY").Visible = False
+        'FLXGRD_PO_Items.Cols(1).Visible = False
+        'FLXGRD_PO_Items.Cols(2).Visible = False
+        'FLXGRD_PO_Items.Cols(3).Visible = False
+
+        '---------------Formatting FLXGRD_PO_NON_STOCKABLEITEMS -----------------'
+
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("item_id").Caption = "Item Id"
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("item_code").Caption = "Item Code"
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("item_name").Caption = "Item Name"
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("um_name").Caption = "UOM"
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("PO_QTY").Caption = "PO Qty"
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("Item_Rate").Caption = "Item Rate"
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("VAT_PER").Caption = "GST %"
+
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("exice_per").Caption = "Exice %"
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("exice_per").Visible = False
+
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("BATCH_NO").Caption = "Batch No."
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("expiry_date").Caption = "Expiry Date"
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("BATCH_QTY").Caption = "Item Qty"
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("Net_amount").Caption = "Net Amt"
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("Gross_amount").Caption = "Gross amt"
+
+
+
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols(0).Width = 8
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("item_id").Width = 40
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("item_code").Width = 60
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("item_name").Width = 180
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("um_name").Width = 30
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("PO_QTY").Width = 50
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("item_rate").Width = 60
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("VAT_PER").Width = 40
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("exice_per").Width = 40
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("BATCH_NO").Width = 70
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("expiry_date").Width = 60
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("BATCH_QTY").Width = 45
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("Net_amount").Width = 60
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("Gross_amount").Width = 60
+
+
+
+
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("item_id").AllowEditing = False
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("item_code").AllowEditing = False
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("item_name").AllowEditing = False
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("um_name").AllowEditing = False
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("PO_QTY").AllowEditing = False
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("Item_Rate").AllowEditing = True
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("VAT_PER").AllowEditing = True
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("exice_per").AllowEditing = False
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("BATCH_NO").AllowEditing = True
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("expiry_date").AllowEditing = True
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("BATCH_QTY").AllowEditing = True
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("Net_amount").AllowEditing = False
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("Gross_amount").AllowEditing = False
+
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("CostCenter_ID").Visible = False
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("CostCenter_Code").Visible = False
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("IS_STOCKABLE").Visible = False
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("CostCenter_Name").Visible = True
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols(1).Visible = False
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols(2).Visible = False
+        'FLXGRD_PO_NON_STOCKABLEITEMS.Cols(3).Visible = False
+
+
+        FLXGRD_PO_Items.Cols(0).Width = 10
+
+        '---------------Formatting FLXGRD_PO_NON_STOCKABLEITEMS -----------------'
+    End Sub
+
+    Private Sub FLXGRD_PO_Items_AfterDataRefresh(ByVal sender As System.Object, ByVal e As System.ComponentModel.ListChangedEventArgs) Handles FLXGRD_PO_Items.AfterDataRefresh
+        'generate_tree()
+    End Sub
+    Private Sub generate_tree()
+
+        Dim strSort As String = FLXGRD_PO_NON_STOCKABLEITEMS.Cols(1).Name + ", " + FLXGRD_PO_NON_STOCKABLEITEMS.Cols(2).Name + ", " + FLXGRD_PO_NON_STOCKABLEITEMS.Cols(3).Name + ", " + FLXGRD_PO_NON_STOCKABLEITEMS.Cols(4).Name
+        Dim dt As DataTable = CType(FLXGRD_PO_NON_STOCKABLEITEMS.DataSource, DataTable)
+
+        'RemoveHandler FLXGRD_PO_NON_STOCKABLEITEMS.AfterDataRefresh, AddressOf FLXGRD_PO_NON_STOCKABLEITEMS_AfterDataRefresh
+
+        If Not dt Is Nothing Then
+            dt.DefaultView.Sort = strSort
+        End If
+        'AddHandler FLXGRD_PO_NON_STOCKABLEITEMS.AfterDataRefresh, AddressOf FLXGRD_PO_NON_STOCKABLEITEMS_AfterDataRefresh
+
+        FLXGRD_PO_NON_STOCKABLEITEMS.Tree.Style = TreeStyleFlags.Complete
+        FLXGRD_PO_NON_STOCKABLEITEMS.Tree.Column = 3
+        FLXGRD_PO_NON_STOCKABLEITEMS.AllowMerging = AllowMergingEnum.Nodes
+
+        Dim totalOn As Integer = FLXGRD_PO_NON_STOCKABLEITEMS.Cols("BATCH_QTY").SafeIndex
+        FLXGRD_PO_NON_STOCKABLEITEMS.Subtotal(AggregateEnum.Sum, 0, 4, totalOn)
+
+
+    End Sub
+
+    Public Function GetReceiptCode() As String
+        Dim Pre As String
+        Dim CCID As String
+        Dim POCode As String
+        Pre = obj.getPrefixCode("RECEIPT_PREFIX", "DIVISION_SETTINGS")
+        'CCID = obj.getMaxValue("RECEIPT_ID", "MATERIAL_RECEIVED_AGAINST_PO_MASTER")
+        POCode = Pre '& "" & CCID
+        Return POCode
+    End Function
+
+    Public Function GetMrnPrefix() As String
+        Dim Pre As String
+        Dim CCID As String
+        Dim POCode As String
+        Pre = obj.getPrefixCode("PREFIX", "MRN_SERIES")
+        CCID = obj.getMaxValue("CURRENT_USED", "MRN_SERIES")
+        POCode = Pre & "" & CCID
+        Return POCode
+    End Function
+
+    Private Sub FLXGRD_PO_Items_AfterEdit(ByVal sender As System.Object, ByVal e As C1.Win.C1FlexGrid.RowColEventArgs) Handles FLXGRD_PO_Items.AfterEdit
+        If Not Open_Po_Qty Then
+            Dim Rec_Qty As Double
+            Dim PO_Qty As Double
+            If FLXGRD_PO_Items.ColSel = 19 Then
+                Rec_Qty = FLXGRD_PO_Items.Item(FLXGRD_PO_Items.RowSel, FLXGRD_PO_Items.ColSel)
+                PO_Qty = FLXGRD_PO_Items.Item(FLXGRD_PO_Items.RowSel, "PO_QTY")
+                If Not Rec_Qty.ToString() = "" Then
+                    If Convert.ToDouble(obj.NumericOnly(Rec_Qty)) > Convert.ToDouble(PO_Qty) Then
+                        MsgBox("Received Qty cannot be greater than PO Qty")
+                    End If
+                End If
+            End If
+        End If
+
+        If Open_Po_Qty Then
+            If FLXGRD_PO_Items.ColSel = 7 Then
+                Dim ds As New DataSet
+                Dim newrate As Double
+                Dim minrate As Double
+                Dim maxrate As Double
+
+                ds = obj.Fill_DataSet("SELECT  dbo.PO_DETAIL.ITEM_RATE, " & _
+                                     "dbo.DIVISION_SETTINGS.item_rate_min_per AS minper, " & _
+                                    "dbo.DIVISION_SETTINGS.item_rate_max_per AS maxper " & _
+                                    "FROM dbo.PO_MASTER " & _
+                                    "INNER JOIN dbo.PO_DETAIL ON dbo.PO_MASTER.PO_ID = dbo.PO_DETAIL.PO_ID " & _
+                                    "INNER JOIN dbo.DIVISION_SETTINGS ON dbo.PO_MASTER.DIVISION_ID = dbo.DIVISION_SETTINGS.DIV_ID " & _
+                                    "WHERE dbo.PO_MASTER.po_id = " & cmbPurchaseOrders.SelectedValue & " AND ITEM_ID = " & FLXGRD_PO_Items.Item(FLXGRD_PO_Items.RowSel, "item_id") & "")
+                minrate = Convert.ToDouble(ds.Tables(0).Rows(0)("item_rate")) - (Convert.ToDouble(ds.Tables(0).Rows(0)("item_rate")) * Convert.ToDouble(ds.Tables(0).Rows(0)("minper"))) / 100
+                maxrate = Convert.ToDouble(ds.Tables(0).Rows(0)("item_rate")) + (Convert.ToDouble(ds.Tables(0).Rows(0)("item_rate")) * Convert.ToDouble(ds.Tables(0).Rows(0)("maxper"))) / 100
+                newrate = FLXGRD_PO_Items.Item(FLXGRD_PO_Items.RowSel, "item_rate")
+
+                If newrate < minrate Then
+                    FLXGRD_PO_Items.Item(FLXGRD_PO_Items.RowSel, "item_rate") = ds.Tables(0).Rows(0)("item_rate")
+                    MsgBox("Item rate cannot be less than " & minrate & "")
+                End If
+
+                If newrate > maxrate Then
+                    FLXGRD_PO_Items.Item(FLXGRD_PO_Items.RowSel, "item_rate") = ds.Tables(0).Rows(0)("item_rate")
+                    MsgBox("Item rate cannot be more than " & maxrate & "")
+                End If
+            End If
+        End If
+        Calculate_Amount()
+    End Sub
+    'Sub NumericValueDGVIndentItem(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyPressEventArgs)
+
+    '    Dim colindex As Decimal = DGVIndentItem.CurrentCell.ColumnIndex
+    '    If colindex = 4 Then
+    '        Select Case Asc(e.KeyChar)
+    '            Case AscW(ControlChars.Cr) 'Enter key
+    '                e.Handled = True
+    '            Case AscW(ControlChars.Back) 'Backspace
+    '            Case 45, 46, 48 To 57 'Negative sign, Decimal and Numbers
+    '            Case Else ' Everything else
+    '                e.Handled = True
+    '        End Select
+    '    End If
+    'End Sub
+
+    Private Sub btnIssueSlip_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnIssueSlip.Click
+        Try
+            Dim qry As String
+
+            qry = " SELECT  MATERIAL_RECEIVED_AGAINST_PO_MASTER.Receipt_ID," & _
+                    "         MATERIAL_RECEIVED_AGAINST_PO_MASTER.MRN_PREFIX" & _
+                    "         + CAST(MATERIAL_RECEIVED_AGAINST_PO_MASTER.MRN_NO AS VARCHAR(20)) AS [MRN No]," & _
+                    "         dbo.fn_Format(MATERIAL_RECEIVED_AGAINST_PO_MASTER.Receipt_Date) AS [MRN Date]," & _
+                    "         PO_MASTER.PO_CODE + CAST(PO_MASTER.PO_NO AS VARCHAR) AS [PO No]," & _
+                    "         dbo.fn_Format(PO_MASTER.PO_DATE) AS [PO Date]," & _
+                    "         ACCOUNT_MASTER.ACC_NAME AS [Supplier]," & _
+                    "         CASE WHEN mrn_status = 1 THEN 'NORMAL'" & _
+                    "              WHEN mrn_status = 3 THEN 'CLEAR'" & _
+                    "              ELSE 'CANCEL'" & _
+                    "         END AS MRNStatus, PO_MASTER.OPEN_PO_QTY" & _
+                    " FROM    MATERIAL_RECEIVED_AGAINST_PO_MASTER" & _
+                    "         INNER JOIN PO_MASTER ON MATERIAL_RECEIVED_AGAINST_PO_MASTER.PO_ID = PO_MASTER.PO_ID" & _
+                    "         INNER JOIN ACCOUNT_MASTER ON PO_MASTER.PO_SUPP_ID = ACCOUNT_MASTER.ACC_ID" & _
+                    " WHERE   cast(dbo.fn_format(Receipt_Date) as datetime) >= '" & dtpFrom.Value.Date & "'" & _
+                    "        AND cast(dbo.fn_format(Receipt_Date) as datetime)<= '" & dtpTo.Value.Date & "'" & _
+                    " and (MATERIAL_RECEIVED_AGAINST_PO_MASTER.Receipt_Code + CAST(MATERIAL_RECEIVED_AGAINST_PO_MASTER.Receipt_No AS VARCHAR(20)) +dbo.fn_Format(MATERIAL_RECEIVED_AGAINST_PO_MASTER.Receipt_Date) +PO_MASTER.PO_CODE + CAST(PO_MASTER.PO_NO AS VARCHAR) +dbo.fn_Format(PO_MASTER.PO_DATE) + ACCOUNT_MASTER.ACC_NAME) like '%" & txtSearch.Text.Replace(" ", "%") & "%' " & _
+                    " ORDER BY MATERIAL_RECEIVED_AGAINST_PO_MASTER.Receipt_ID"
+
+            'dgvList.DataSource = obj.fill_Data_set("FILL_MATERIAL_Rec_Against_PO_LIST", "@FromDate,@Todate", dtpFrom.Value.Date & "," & dtpTo.Value.Date).Tables(0)
+
+            dgvList.DataSource = obj.Fill_DataSet(qry).Tables(0)
+
+            dgvList.Cols(0).Width = 10
+            dgvList.Cols("Receipt_ID").Visible = False
+            dgvList.Cols("OPEN_PO_QTY").Visible = False
+            dgvList.Cols("MRN No").Width = 120
+            dgvList.Cols("MRN Date").Width = 120
+            dgvList.Cols("PO No").Width = 120
+            dgvList.Cols("PO Date").Width = 120
+            dgvList.Cols("Supplier").Width = 300
+            dgvList.Cols("MRNStatus").Width = 80
+
+
+        Catch ex As Exception
+            MsgBox(gblMessageHeading_Error & vbCrLf & gblMessage_ContactInfo & vbCrLf & ex.Message, MsgBoxStyle.Critical, gblMessageHeading)
+        End Try
+    End Sub
+    Private Sub dgvList_DoubleClick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles dgvList.DoubleClick
+        MsgBox("You can't Edit this MRN." & vbCrLf & "To view this MRN Click on ""Print""")
+        'Dim Receipt_Id As Integer
+        'Dim dtMaster As New DataTable
+        'Dim dtDetail As New DataTable
+        'Dim ds As New DataSet
+        'Receipt_Id = Convert.ToInt32(dgvList.Rows(dgvList.CursorCell.r1)("Receipt_ID"))
+        'receive_Id = Convert.ToInt32(dgvList.Rows(dgvList.CursorCell.r1)("Receipt_ID"))
+        'flag = "update"
+        'ds = obj.fill_Data_set("Get_MRN_AgainstPO_Detail", "@V_Receipt_Id", Receipt_Id)
+        'If ds.Tables.Count > 0 Then
+        '    dtMaster = ds.Tables(0)
+        '    txt_Remarks.Text = obj.NZ(dtMaster.Rows(0)("REMARKS"), True)
+
+        '    txtotherchrgs.Text = IIf(String.IsNullOrEmpty(dtMaster.Rows(0)("other_charges")), 0, dtMaster.Rows(0)("other_charges"))
+        '    txtdiscount.Text = IIf(String.IsNullOrEmpty(dtMaster.Rows(0)("discount_amt")), 0, dtMaster.Rows(0)("discount_amt"))
+        '    txt_Amount.Text = IIf(String.IsNullOrEmpty(dtMaster.Rows(0)("freight")), 0, dtMaster.Rows(0)("freight"))
+
+        '    dtable_Item_List = ds.Tables(1).Copy
+        '    FLXGRD_PO_Items.DataSource = dtable_Item_List
+
+        '    datatbl_NonStockable_Items = ds.Tables(2).Copy
+        '    FLXGRD_PO_NON_STOCKABLEITEMS.DataSource = datatbl_NonStockable_Items
+
+        '    Grid_Formatting()
+        '    'I = Convert.ToInt32(dtDetail.Rows(0)("PO_Id"))
+        '    'cmbPurchaseOrders.SelectedValue = I
+        '    TabControl1.SelectTab(1)
+        '    ds.Dispose()
+        'End If
+        'Calculate_Amount()
+    End Sub
+
+    Private Sub FLXGRD_PO_NON_STOCKABLEITEMS_KeyPressEdit(ByVal sender As System.Object, ByVal e As C1.Win.C1FlexGrid.KeyPressEditEventArgs) Handles FLXGRD_PO_NON_STOCKABLEITEMS.KeyPressEdit
+        e.Handled = FLXGRD_PO_NON_STOCKABLEITEMS.Rows(FLXGRD_PO_NON_STOCKABLEITEMS.CursorCell.r1).IsNode
+    End Sub
+
+    Private Sub txtSearch_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtSearch.TextChanged
+        btnIssueSlip_Click(Nothing, Nothing)
+    End Sub
+
+    Private Sub BtnActualMRN_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BtnActualMRN.Click
+
+        obj.RptShow(enmReportName.RptMaterialRecAgainstPOPrint, "Receipt_Id", CStr(dgvList.Rows(dgvList.CursorCell.r1).Item("Receipt_Id").ToString()), CStr(enmDataType.D_int))
+        frm_Report.Mrn_id = CInt(dgvList.Rows(dgvList.CursorCell.r1).Item("Receipt_Id"))
+        frm_Report.formName = "MRN_AgainstPO"
+
+    End Sub
+
+    Private Sub BtnRevisedMRN_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BtnRevisedMRN.Click
+
+        obj.RptShow(enmReportName.RptMaterialRecAgainstPOPrintRevised, "Receipt_Id", CStr(dgvList.Rows(dgvList.CursorCell.r1).Item("Receipt_Id").ToString()), CStr(enmDataType.D_int))
+        frm_Report.Mrn_id = CInt(dgvList.Rows(dgvList.CursorCell.r1).Item("Receipt_Id"))
+        frm_Report.formName = "MRN_AgainstPO"
+
+    End Sub
+
+  
+    Private Sub FLXGRD_PO_NON_STOCKABLEITEMS_AfterEdit(ByVal sender As System.Object, ByVal e As C1.Win.C1FlexGrid.RowColEventArgs) Handles FLXGRD_PO_NON_STOCKABLEITEMS.AfterEdit
+        Dim dt As DataTable
+        dt = FLXGRD_PO_NON_STOCKABLEITEMS.DataSource
+
+        If Open_Po_Qty Then
+            Dim ds As New DataSet
+            Dim newrate As Double
+            Dim minrate As Double
+            Dim maxrate As Double
+
+            For irow As Integer = 0 To dt.Rows.Count - 1
+
+                ds = obj.Fill_DataSet("SELECT  dbo.PO_DETAIL.ITEM_RATE, " & _
+                                     "dbo.DIVISION_SETTINGS.item_rate_min_per AS minper, " & _
+                                    "dbo.DIVISION_SETTINGS.item_rate_max_per AS maxper " & _
+                                    "FROM dbo.PO_MASTER " & _
+                                    "INNER JOIN dbo.PO_DETAIL ON dbo.PO_MASTER.PO_ID = dbo.PO_DETAIL.PO_ID " & _
+                                    "INNER JOIN dbo.DIVISION_SETTINGS ON dbo.PO_MASTER.DIVISION_ID = dbo.DIVISION_SETTINGS.DIV_ID " & _
+                                    "WHERE dbo.PO_MASTER.po_id = " & cmbPurchaseOrders.SelectedValue & " AND ITEM_ID = " & dt.Rows(irow)("item_id") & "")
+                minrate = Convert.ToDouble(ds.Tables(0).Rows(0)("item_rate")) - (Convert.ToDouble(ds.Tables(0).Rows(0)("item_rate")) * Convert.ToDouble(ds.Tables(0).Rows(0)("minper"))) / 100
+                maxrate = Convert.ToDouble(ds.Tables(0).Rows(0)("item_rate")) + (Convert.ToDouble(ds.Tables(0).Rows(0)("item_rate")) * Convert.ToDouble(ds.Tables(0).Rows(0)("maxper"))) / 100
+                newrate = dt.Rows(irow)("item_rate")
+
+                If newrate < minrate Then
+                    dt.Rows(irow)("item_rate") = ds.Tables(0).Rows(0)("item_rate")
+                    MsgBox("Item rate cannot be less than " & minrate & "")
+                End If
+                If newrate > maxrate Then
+                    dt.Rows(irow)("item_rate") = ds.Tables(0).Rows(0)("item_rate")
+                    MsgBox("Item rate cannot be more than " & maxrate & "")
+                End If
+            Next
+        End If
+        generate_tree()
+        Calculate_Amount()
+    End Sub
+
+    Private Sub Calculate_Amount()
+        Dim dt As DataTable
+        Dim item_value As Double = 0
+        Dim gross_amt As Double = 0
+        Dim tot_vat_amt As Double = 0
+        Dim tot_exice_amt As Double = 0
+        Dim exice_per As Double = 0
+        Dim Net_amt As Double = 0
+        Dim item_value_dis As Double = 0
+        Dim discount_value As Double = 0
+        Dim tot_gross_amt As Double = 0
+
+        dt = FLXGRD_PO_Items.DataSource
+
+        If Not dt Is Nothing Then
+            For i As Integer = 0 To dt.Rows.Count - 1
+                item_value = (Convert.ToDouble(IIf((dt.Rows(i)("Item_Rate")) Is DBNull.Value, 0, dt.Rows(i)("Item_Rate"))) * Convert.ToDouble(IIf((dt.Rows(i)("Batch_qty")) Is DBNull.Value, 0, dt.Rows(i)("Batch_qty"))))
+                tot_gross_amt = tot_gross_amt + item_value
+            Next
+        End If
+        If tot_gross_amt > 0 Then
+            discount_value = Convert.ToDouble(Convert.ToDouble(IIf(IsNumeric(txtdiscount.Text), txtdiscount.Text, 0)) / tot_gross_amt)
+        Else
+            discount_value = 0
+        End If
+
+
+
+        If Not dt Is Nothing Then
+
+            For i As Integer = 0 To dt.Rows.Count - 1
+                item_value = (Convert.ToDouble(IIf((dt.Rows(i)("Item_Rate")) Is DBNull.Value, 0, dt.Rows(i)("Item_Rate"))) * Convert.ToDouble(IIf((dt.Rows(i)("Batch_qty")) Is DBNull.Value, 0, dt.Rows(i)("Batch_qty"))))
+                gross_amt = gross_amt + item_value
+                exice_per = Convert.ToDouble(IIf((dt.Rows(i)("exice_per")) Is DBNull.Value, 0, dt.Rows(i)("exice_per")))
+                exice_per = exice_per / 100
+                tot_exice_amt = tot_exice_amt + (item_value * exice_per)
+                item_value_dis = item_value - (item_value * discount_value)
+                If chk_VatCal.Checked = True Then
+                    tot_vat_amt = tot_vat_amt + ((item_value_dis + (item_value * exice_per)) * Convert.ToDouble(IIf((dt.Rows(i)("VAT_PER")) Is DBNull.Value, 0, dt.Rows(i)("VAT_PER"))) / 100)
+                Else
+                    tot_vat_amt = tot_vat_amt + ((item_value_dis) * Convert.ToDouble(IIf((dt.Rows(i)("VAT_PER")) Is DBNull.Value, 0, dt.Rows(i)("VAT_PER"))) / 100)
+                End If
+            Next
+        End If
+
+
+        dt = FLXGRD_PO_NON_STOCKABLEITEMS.DataSource
+
+        If Not dt Is Nothing Then
+            For i As Integer = 0 To dt.Rows.Count - 1
+                item_value = (Convert.ToDouble(IIf((dt.Rows(i)("Item_Rate")) Is DBNull.Value, 0, dt.Rows(i)("Item_Rate"))) * Convert.ToDouble(IIf((dt.Rows(i)("Batch_qty")) Is DBNull.Value, 0, dt.Rows(i)("Batch_qty"))))
+                tot_gross_amt = tot_gross_amt + item_value
+            Next
+        End If
+
+        If tot_gross_amt > 0 Then
+            discount_value = Convert.ToDouble(IIf(IsNumeric(txtdiscount.Text), txtdiscount.Text, 0)) / tot_gross_amt
+        Else
+            discount_value = 0
+        End If
+
+
+
+        If Not dt Is Nothing Then
+            For i As Integer = 0 To dt.Rows.Count - 1
+                item_value = (Convert.ToDouble(IIf((dt.Rows(i)("Item_Rate")) Is DBNull.Value, 0, dt.Rows(i)("Item_Rate"))) * Convert.ToDouble(IIf((dt.Rows(i)("Batch_qty")) Is DBNull.Value, 0, dt.Rows(i)("Batch_qty"))))
+                gross_amt = gross_amt + item_value
+                exice_per = Convert.ToDouble(IIf((dt.Rows(i)("exice_per")) Is DBNull.Value, 0, dt.Rows(i)("exice_per")))
+                exice_per = exice_per / 100
+                tot_exice_amt = tot_exice_amt + (item_value * exice_per)
+                item_value_dis = item_value - (item_value * discount_value)
+                If chk_VatCal.Checked = True Then
+                    tot_vat_amt = tot_vat_amt + ((item_value_dis + (item_value * exice_per)) * Convert.ToDouble(IIf((dt.Rows(i)("VAT_PER")) Is DBNull.Value, 0, dt.Rows(i)("VAT_PER"))) / 100)
+                Else
+                    tot_vat_amt = tot_vat_amt + ((item_value_dis) * Convert.ToDouble(IIf((dt.Rows(i)("VAT_PER")) Is DBNull.Value, 0, dt.Rows(i)("VAT_PER"))) / 100)
+                End If
+            Next
+
+        End If
+        lblgrossamt.Text = gross_amt.ToString("0.00")
+        lblvatamt.Text = tot_vat_amt.ToString("0.00")
+        lblexciseamt.Text = tot_exice_amt.ToString("0.00")
+
+        Net_amt = (gross_amt + tot_vat_amt + tot_exice_amt + Convert.ToDouble(IIf(IsNumeric(txt_Amount.Text), txt_Amount.Text, 0)) + Convert.ToDouble(IIf(IsNumeric(txtotherchrgs.Text), txtotherchrgs.Text, 0))) - Convert.ToDouble(IIf(IsNumeric(txtdiscount.Text), txtdiscount.Text, 0))
+        lblnetamt.Text = Net_amt.ToString("0.00")
+
+    End Sub
+
+    Private Sub lnkCalculateAmount_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lnkCalculateAmount.LinkClicked
+        Calculate_Amount()
+    End Sub
+
+    Private Sub txt_Amount_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txt_Amount.TextChanged
+        Calculate_Amount()
+    End Sub
+
+    Private Sub txtotherchrgs_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtotherchrgs.TextChanged
+        Calculate_Amount()
+    End Sub
+
+    Private Sub txtdiscount_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtdiscount.TextChanged
+        Calculate_Amount()
+    End Sub
+
+    Private Sub FLXGRD_PO_Items_BeforeEdit(ByVal sender As System.Object, ByVal e As C1.Win.C1FlexGrid.RowColEventArgs) Handles FLXGRD_PO_Items.BeforeEdit
+       
+    End Sub
+
+    Private Sub FLXGRD_PO_NON_STOCKABLEITEMS_BeforeEdit(ByVal sender As System.Object, ByVal e As C1.Win.C1FlexGrid.RowColEventArgs) Handles FLXGRD_PO_NON_STOCKABLEITEMS.BeforeEdit
+    
+    End Sub
+
+    Private Sub chk_VatCal_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chk_VatCal.CheckedChanged
+        Calculate_Amount()
+    End Sub
+
+    Private Sub Panel14_Paint(sender As Object, e As PaintEventArgs) Handles Panel14.Paint
+
+    End Sub
+End Class
