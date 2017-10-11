@@ -992,6 +992,7 @@ Partial Class MDIMain
         Me.Purchase_rpt.ForeColor = System.Drawing.Color.White
         Me.Purchase_rpt.Image = Global.MMSPlus.My.Resources.Resources.Reports
         Me.Purchase_rpt.Name = "Purchase_rpt"
+        Me.Purchase_rpt.ShowShortcutKeys = False
         Me.Purchase_rpt.Size = New System.Drawing.Size(280, 22)
         Me.Purchase_rpt.Text = "Total Purchase (category Wise)"
         '
