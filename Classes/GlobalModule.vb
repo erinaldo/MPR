@@ -208,6 +208,7 @@ Module GlobalModule
         Stock_Transfer_accepted_other_outlet = 15
         Sale_Invoice = 16
         CreditNote = 17
+        Invoice_Settlement = 18
     End Enum
 
     ''********************************************************************''

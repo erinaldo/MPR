@@ -164,6 +164,7 @@
     <Compile Include="ClassesRecipe\Cls_Semi_Finished_Item_Master.vb" />
     <Compile Include="Classes\cls_Debit_note.vb" />
     <Compile Include="Classes\cls_Division_Settings.vb" />
+    <Compile Include="Classes\cls_Invoice_Settlement.vb" />
     <Compile Include="Classes\cls_Material_Received_Without_PO.vb">
       <SubType>Code</SubType>
     </Compile>
@@ -244,10 +245,10 @@
     <Compile Include="Forms\frm_CreditNote.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Forms\frm_Gate_Pass.Designer.vb">
-      <DependentUpon>frm_Gate_Pass.vb</DependentUpon>
+    <Compile Include="Forms\frm_Invoice_Settlement.Designer.vb">
+      <DependentUpon>frm_Invoice_Settlement.vb</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frm_Gate_Pass.vb">
+    <Compile Include="Forms\frm_Invoice_Settlement.vb">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Forms\frm_RateList_Mapping.Designer.vb">
@@ -660,12 +661,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="ReportsForms\cryPurchaserpt.vb">
-      <DependentUpon>cryPurchaserpt.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <Compile Include="Reports\Copy of cryMrsDetail.vb">
       <DependentUpon>cryMrsDetailMStore.rpt</DependentUpon>
       <SubType>Component</SubType>
@@ -966,6 +961,12 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
+    <Compile Include="Reports\cryPurchaserpt.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>cryPurchaserpt.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Reports\CryReverseMaterialReceivedAgainstPOMaster.vb">
       <DependentUpon>CryReverseMaterialReceivedAgainstPOMaster.rpt</DependentUpon>
       <SubType>Component</SubType>
@@ -1212,8 +1213,8 @@
       <DependentUpon>frm_CreditNote.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frm_Gate_Pass.resx">
-      <DependentUpon>frm_Gate_Pass.vb</DependentUpon>
+    <EmbeddedResource Include="Forms\frm_Invoice_Settlement.resx">
+      <DependentUpon>frm_Invoice_Settlement.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frm_RateList_Mapping.resx">
       <DependentUpon>frm_RateList_Mapping.vb</DependentUpon>
@@ -1472,10 +1473,6 @@
       <DependentUpon>MDIMain.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\licenses.licx" />
-    <EmbeddedResource Include="ReportsForms\cryPurchaserpt.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>cryPurchaserpt.vb</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Include="Reports\CryCustomerrateList.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>CryCustomerrateList.vb</LastGenOutput>
@@ -1676,6 +1673,10 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>cryPurchaseOrderPrint.vb</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Reports\cryPurchaserpt.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cryPurchaserpt.vb</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reports\CryReverseMaterialReceivedAgainstPOMaster.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>CryReverseMaterialReceivedAgainstPOMaster.vb</LastGenOutput>
@@ -1836,6 +1837,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Scripts\Updates\0001_09_oct_2017.sql">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="app.config" />
     <None Include="ClassDiagram1.cd" />
     <None Include="Images and Icons\Report.ico" />

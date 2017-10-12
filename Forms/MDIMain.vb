@@ -39,7 +39,7 @@ Public Class MDIMain
         End If
     End Sub
 
-    Private Sub Menu_Item_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles frm_Item_Master.Click, frm_Cost_Center.Click, frm_user_master.Click, frm_user_rights.Click, frm_Approve_Indent.Click, frm_Cancel_Indent.Click, frm_Purchase_Order.Click, frm_Supplier_Rate_List_Master.Click, frm_Open_PO_Master.Click, frm_Material_Issue_To_Cost_Center_Master.Click, frm_LedgerSummary.Click, frm_MRNDetails.Click, frm_IssueDetail.Click, frm_Approve_PO.Click, frm_Cancel_PO.Click, frm_Approve_Open_PO.Click, frm_Cancel_Open_PO.Click, frm_Indent_Master.Click, frm_Wastage_Master.Click, frm_Material_Received_Without_PO_Master.Click, frm_material_rec_against_PO.Click, frm_Reverse_Wastage_Master.Click, frm_ReverseMaterial_Issue_To_Cost_Center_Master.Click, frm_ReverseMaterial_Received_Without_PO_Master.Click, frm_LedgerSummary.Click, frm_DebitNote.Click, frm_ReverseMaterial_Received_Against_PO_Master.Click, frm_ReverseMaterial.Click, ItemWiseMaterialIssueToCostCenterToolStripMenuItem.Click, CostofIssueReport.Click, ItemWiseMaterialIssueToCostCenterCatHeadWiseToolStripMenuItem.Click, frm_Item_Ledger.Click, frm_StockAdjustment.Click, frm_Item_rate_list.Click, Purchase_rpt.Click, frm_Semi_Finished_Recipe_Master.Click, frm_Recipe_Master.Click, frm_menu_item_recipe.Click, frm_define_recipe.Click, frm_Define_SemiFinished_Recipe.Click, LastPurchaseratelist.Click, frm_ListIndents.Click, ItemWiseIndentbetweenDatesCategoryHeadWiseToolStripMenuItem.Click, frm_ListIndentDetail.Click, frm_ItemWiseIndent.Click, ItemWiseMRSBetweenDatesCategoryHeadWiseToolStripMenuItem.Click, frm_MRSListMStore.Click, frm_MRSDetailMStore.Click, frm_ItemWiseMRSMStore.Click, ItemWiseWastagebetweenDatesCategoryHeadWiseToolStripMenuItem.Click, frm_WastageItemWise.Click, frm_WastageItemDetail.Click, frm_mrnItemWiseSupplier.Click, frm_ListMRNDetail.Click, frm_ListMRN_supplierwise.Click, frm_ListMRN.Click, frm_ItemWiseMRN.Click, StockValueCategoryWise.Click, frmStockValueBatchWise.Click, frmStockValue.Click, frm_MRNWithPOSUPWISEe.Click, frm_mrnPOItemWiseSupplier.Click, cmd_ListMRNwithPO.Click, cmd_ItemWiseMRNwithPO.Click, cmd_DetailMRNwithPO.Click, AllPurchaseRate.Click, NonMovingItemList.Click, frm_Sale_Invoice.Click, frmsaleInvoicesummary.Click, frmSaleInvoiceDetail.Click, frm_credit_note.Click, frm_Customer_Rate_List_Master.Click, frm_open_invoice.Click
+    Private Sub Menu_Item_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles frm_Item_Master.Click, frm_Cost_Center.Click, frm_user_master.Click, frm_user_rights.Click, frm_Approve_Indent.Click, frm_Cancel_Indent.Click, frm_Purchase_Order.Click, frm_Supplier_Rate_List_Master.Click, frm_Open_PO_Master.Click, frm_Material_Issue_To_Cost_Center_Master.Click, frm_LedgerSummary.Click, frm_MRNDetails.Click, frm_IssueDetail.Click, frm_Approve_PO.Click, frm_Cancel_PO.Click, frm_Approve_Open_PO.Click, frm_Cancel_Open_PO.Click, frm_Indent_Master.Click, frm_Wastage_Master.Click, frm_Material_Received_Without_PO_Master.Click, frm_material_rec_against_PO.Click, frm_Reverse_Wastage_Master.Click, frm_ReverseMaterial_Issue_To_Cost_Center_Master.Click, frm_ReverseMaterial_Received_Without_PO_Master.Click, frm_LedgerSummary.Click, frm_DebitNote.Click, frm_ReverseMaterial_Received_Against_PO_Master.Click, frm_ReverseMaterial.Click, ItemWiseMaterialIssueToCostCenterToolStripMenuItem.Click, CostofIssueReport.Click, ItemWiseMaterialIssueToCostCenterCatHeadWiseToolStripMenuItem.Click, frm_Item_Ledger.Click, frm_StockAdjustment.Click, frm_Item_rate_list.Click, Purchase_rpt.Click, frm_Semi_Finished_Recipe_Master.Click, frm_Recipe_Master.Click, frm_menu_item_recipe.Click, frm_define_recipe.Click, frm_Define_SemiFinished_Recipe.Click, LastPurchaseratelist.Click, frm_ListIndents.Click, ItemWiseIndentbetweenDatesCategoryHeadWiseToolStripMenuItem.Click, frm_ListIndentDetail.Click, frm_ItemWiseIndent.Click, ItemWiseMRSBetweenDatesCategoryHeadWiseToolStripMenuItem.Click, frm_MRSListMStore.Click, frm_MRSDetailMStore.Click, frm_ItemWiseMRSMStore.Click, ItemWiseWastagebetweenDatesCategoryHeadWiseToolStripMenuItem.Click, frm_WastageItemWise.Click, frm_WastageItemDetail.Click, frm_mrnItemWiseSupplier.Click, frm_ListMRNDetail.Click, frm_ListMRN_supplierwise.Click, frm_ListMRN.Click, frm_ItemWiseMRN.Click, StockValueCategoryWise.Click, frmStockValueBatchWise.Click, frmStockValue.Click, frm_MRNWithPOSUPWISEe.Click, frm_mrnPOItemWiseSupplier.Click, cmd_ListMRNwithPO.Click, cmd_ItemWiseMRNwithPO.Click, cmd_DetailMRNwithPO.Click, AllPurchaseRate.Click, NonMovingItemList.Click, frm_Sale_Invoice.Click, frmsaleInvoicesummary.Click, frmSaleInvoiceDetail.Click, frm_credit_note.Click, frm_Customer_Rate_List_Master.Click, frm_open_invoice.Click, frm_Invoice_Settlement.Click
         Dim menuItem As New ToolStripMenuItem
         If TypeOf sender Is ToolStripMenuItem Then
             menuItem = CType(sender, ToolStripMenuItem)
@@ -53,7 +53,22 @@ Public Class MDIMain
                     Case UCase("frm_Item_Master")
                         tbp.Text = "Item Master"
                         tbp.Controls.Add(New frm_Item_Master(prpty_form_rights))
-
+        Dim menuItem As New ToolStripMenuItem
+        If TypeOf sender Is ToolStripMenuItem Then
+            menuItem = CType(sender, ToolStripMenuItem)
+        End If
+        prpty_form_rights = cls_obj.Get_Form_Rights(menuItem.Name)
+        If prpty_form_rights.allow_view = "Y" Then
+            '''' "or" condition for that time when user login first time and company is not created yet
+            If Check_Form_in_tab(menuItem.Name) = False Then
+                Dim tbp As New TabPage
+                Select Case UCase(menuItem.Name)
+                    Case UCase("frm_Item_Master")
+                        tbp.Text = "Item Master"
+                        tbp.Controls.Add(New frm_Item_Master(prpty_form_rights))
+                    Case UCase("frm_Invoice_Settlement")
+                        tbp.Text = "Invoice Settlement"
+                        tbp.Controls.Add(New frm_Invoice_Settlement(prpty_form_rights))
                     Case UCase("frm_Cost_Center")
                         tbp.Text = "Cost Center Master"
                         tbp.Controls.Add(New frm_Cost_Center(prpty_form_rights))
