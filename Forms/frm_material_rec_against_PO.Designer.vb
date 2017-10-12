@@ -234,21 +234,23 @@ Partial Class frm_material_rec_against_PO
         '
         'BtnActualMRN
         '
-        Me.BtnActualMRN.Location = New System.Drawing.Point(628, 461)
+        Me.BtnActualMRN.Location = New System.Drawing.Point(762, 461)
         Me.BtnActualMRN.Name = "BtnActualMRN"
         Me.BtnActualMRN.Size = New System.Drawing.Size(128, 30)
         Me.BtnActualMRN.TabIndex = 5
         Me.BtnActualMRN.Text = "Actual MRN"
         Me.BtnActualMRN.UseVisualStyleBackColor = True
+        Me.BtnActualMRN.Visible = False
         '
         'BtnRevisedMRN
         '
-        Me.BtnRevisedMRN.Location = New System.Drawing.Point(762, 461)
+        Me.BtnRevisedMRN.Location = New System.Drawing.Point(628, 460)
         Me.BtnRevisedMRN.Name = "BtnRevisedMRN"
         Me.BtnRevisedMRN.Size = New System.Drawing.Size(128, 30)
         Me.BtnRevisedMRN.TabIndex = 6
         Me.BtnRevisedMRN.Text = "Revised MRN"
         Me.BtnRevisedMRN.UseVisualStyleBackColor = True
+        Me.BtnRevisedMRN.Visible = False
         '
         'dgvList
         '
