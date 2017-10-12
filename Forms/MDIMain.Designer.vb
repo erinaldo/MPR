@@ -134,6 +134,7 @@ Partial Class MDIMain
         Me.LogOffToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.picLogo = New System.Windows.Forms.PictureBox()
+        Me.frm_open_invoice = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.toolbar.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
@@ -1278,6 +1279,15 @@ Partial Class MDIMain
         Me.picLogo.TabIndex = 4
         Me.picLogo.TabStop = False
         '
+        'frm_open_invoice
+        '
+        Me.frm_open_invoice.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.frm_open_invoice.ForeColor = System.Drawing.Color.White
+        Me.frm_open_invoice.Image = Global.MMSPlus.My.Resources.Resources.Stock_Out
+        Me.frm_open_invoice.Name = "frm_open_invoice"
+        Me.frm_open_invoice.Size = New System.Drawing.Size(181, 22)
+        Me.frm_open_invoice.Text = "Opne Invoice"
+        '
         'MDIMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1418,5 +1428,6 @@ Partial Class MDIMain
     Friend WithEvents frm_Sale_Invoice As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents frm_credit_note As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents frm_Customer_Rate_List_Master As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents frm_open_invoice As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents frm_Invoice_Settlement As ToolStripMenuItem
 End Class
