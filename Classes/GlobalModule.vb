@@ -119,7 +119,6 @@ Module GlobalModule
         RptLastpurchaserate = 62
         RptAllPurchaseRate = 63
         RptNonMovingItemList = 64
-
         'Invoice 
         RptInvoicePrint = 65
         RptDCInvoicePrint = 66
@@ -258,15 +257,11 @@ Module GlobalModule
         Dim icnt As Integer
 
         sTmp = StrReverse(sSTR)
-
         sResult = ""
-
         For icnt = 1 To Len(sTmp)
             sResult = sResult & Chr(Asc(Mid(sTmp, icnt, 1)) - Asc("g"))
         Next
-
         Decrypt = sResult
-
     End Function
 
     Public Sub main()

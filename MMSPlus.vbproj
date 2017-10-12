@@ -67,40 +67,43 @@
     <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="adodb, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\..\SYNC\POSPlus_Retail\bin\dlls\adodb.dll</HintPath>
+    </Reference>
+    <Reference Include="AxInterop.CrystalActiveXReportViewerLib105">
+      <HintPath>..\..\SYNC\POSPlus_Retail\bin\dlls\AxInterop.CrystalActiveXReportViewerLib105.dll</HintPath>
+    </Reference>
     <Reference Include="C1.Common, Version=1.0.20031.116, Culture=neutral, PublicKeyToken=e272bb32d11b1948">
-      <HintPath>DLL\C1.Common.dll</HintPath>
+      <HintPath>..\..\SYNC\POSPlus_Retail\bin\dlls\C1.Common.dll</HintPath>
     </Reference>
     <Reference Include="C1.Data, Version=1.0.20022.0, Culture=neutral, PublicKeyToken=900b028620cd3a1b">
-      <HintPath>DLL\C1.Data.dll</HintPath>
+      <HintPath>..\..\SYNC\POSPlus_Retail\bin\dlls\C1.Data.dll</HintPath>
     </Reference>
     <Reference Include="C1.Data.Design, Version=1.0.20024.0, Culture=neutral, PublicKeyToken=bf19f4b831d5eff2">
-      <HintPath>DLL\C1.Data.Design.dll</HintPath>
+      <HintPath>..\..\SYNC\POSPlus_Retail\bin\dlls\C1.Data.Design.dll</HintPath>
     </Reference>
     <Reference Include="C1.Data.Express, Version=1.0.20022.0, Culture=neutral, PublicKeyToken=253763f1c3e4ceec">
-      <HintPath>DLL\C1.Data.Express.dll</HintPath>
+      <HintPath>..\..\SYNC\POSPlus_Retail\bin\dlls\C1.Data.Express.dll</HintPath>
     </Reference>
     <Reference Include="C1.Win.C1FlexGrid, Version=2.5.20052.212, Culture=neutral, PublicKeyToken=c9c7ad9c0a5706c9">
-      <HintPath>DLL\C1.Win.C1FlexGrid.dll</HintPath>
+      <HintPath>..\..\SYNC\POSPlus_Retail\bin\dlls\C1.Win.C1FlexGrid.dll</HintPath>
     </Reference>
     <Reference Include="C1.Win.C1FlexGrid.Classic, Version=2.5.20052.212, Culture=neutral, PublicKeyToken=c9c7ad9c0a5706c9">
-      <HintPath>DLL\C1.Win.C1FlexGrid.Classic.dll</HintPath>
+      <HintPath>..\..\SYNC\POSPlus_Retail\bin\dlls\C1.Win.C1FlexGrid.Classic.dll</HintPath>
     </Reference>
     <Reference Include="C1.Win.C1Report, Version=2.5.20052.176, Culture=neutral, PublicKeyToken=c9c7ad9c0a5706c9">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>DLL\C1.Win.C1Report.dll</HintPath>
+      <HintPath>..\..\SYNC\POSPlus_Retail\bin\dlls\C1.Win.C1Report.dll</HintPath>
     </Reference>
     <Reference Include="C1.Win.C1TrueDBGrid, Version=1.3.20052.50415, Culture=neutral, PublicKeyToken=75ae3fb0e2b1e0da">
-      <HintPath>DLL\C1.Win.C1TrueDBGrid.dll</HintPath>
+      <HintPath>..\..\SYNC\POSPlus_Retail\bin\dlls\C1.Win.C1TrueDBGrid.dll</HintPath>
     </Reference>
     <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.ReportSource, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.Shared, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.Windows.Forms, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
-    <Reference Include="Interop.CrystalActiveXReportViewerLib105, Version=10.5.0.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-      <HintPath>bin\Debug\Interop.CrystalActiveXReportViewerLib105.dll</HintPath>
-    </Reference>
     <Reference Include="MTGCCombobox, Version=1.0.0.0, Culture=neutral">
       <HintPath>DLL\MTGCCombobox.dll</HintPath>
     </Reference>
@@ -229,10 +232,22 @@
     <Compile Include="CostCenterForms\frm_Wastage Master_cc.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Forms\frm_OpenSale_Invoice.Designer.vb">
+      <DependentUpon>frm_OpenSale_Invoice.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frm_OpenSale_Invoice.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Forms\frm_CreditNote.Designer.vb">
       <DependentUpon>frm_CreditNote.vb</DependentUpon>
     </Compile>
     <Compile Include="Forms\frm_CreditNote.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\frm_Gate_Pass.Designer.vb">
+      <DependentUpon>frm_Gate_Pass.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frm_Gate_Pass.vb">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Forms\frm_RateList_Mapping.Designer.vb">
@@ -1189,9 +1204,16 @@
       <DependentUpon>frm_Wastage Master_cc.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frm_OpenSale_Invoice.resx">
+      <DependentUpon>frm_OpenSale_Invoice.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\frm_CreditNote.resx">
       <DependentUpon>frm_CreditNote.vb</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frm_Gate_Pass.resx">
+      <DependentUpon>frm_Gate_Pass.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frm_RateList_Mapping.resx">
       <DependentUpon>frm_RateList_Mapping.vb</DependentUpon>
@@ -1817,9 +1839,7 @@
     <None Include="app.config" />
     <None Include="ClassDiagram1.cd" />
     <None Include="Images and Icons\Report.ico" />
-    <Content Include="bin\Debug\connection.xml">
-      <SubType>Designer</SubType>
-    </Content>
+    <Content Include="bin\Debug\connection.xml" />
     <Content Include="DLL\MTGCCombobox.dll" />
     <None Include="Images and Icons\Approve PO.jpg" />
     <None Include="Images and Icons\Cancel PO.jpg" />
