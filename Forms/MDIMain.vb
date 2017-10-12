@@ -45,19 +45,7 @@ Public Class MDIMain
             menuItem = CType(sender, ToolStripMenuItem)
         End If
         prpty_form_rights = cls_obj.Get_Form_Rights(menuItem.Name)
-        If prpty_form_rights.allow_view = "Y" Then
-            '''' "or" condition for that time when user login first time and company is not created yet
-            If Check_Form_in_tab(menuItem.Name) = False Then
-                Dim tbp As New TabPage
-                Select Case UCase(menuItem.Name)
-                    Case UCase("frm_Item_Master")
-                        tbp.Text = "Item Master"
-                        tbp.Controls.Add(New frm_Item_Master(prpty_form_rights))
-        Dim menuItem As New ToolStripMenuItem
-        If TypeOf sender Is ToolStripMenuItem Then
-            menuItem = CType(sender, ToolStripMenuItem)
-        End If
-        prpty_form_rights = cls_obj.Get_Form_Rights(menuItem.Name)
+
         If prpty_form_rights.allow_view = "Y" Then
             '''' "or" condition for that time when user login first time and company is not created yet
             If Check_Form_in_tab(menuItem.Name) = False Then
