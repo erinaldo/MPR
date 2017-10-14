@@ -7,7 +7,6 @@ Public Class frm_CreditNote
 
     Implements IForm
     Dim obj As New CommonClass
-
     Dim flag As String
     Dim dtable_Item_List As DataTable
     Dim dtable As DataTable
@@ -105,7 +104,7 @@ Public Class frm_CreditNote
 
     Private Sub FillGrid(Optional ByVal condition As String = "")
         Try
-            obj.GridBind(dgvList, "SELECT  *FROM (SELECT CreditNote_Id,  CreditNote_Code + CAST(CreditNote_No AS VARCHAR(10)) AS CreditNoteNo , dbo.fn_format(CreditNote_Date) AS CreditNote_Date , SI_ID, SIM.SI_CODE+CAST(sim.SI_NO AS VARCHAR(50))AS INVNo,cnm.Remarks, cnm.Created_by FROM CreditNote_Master CNM JOIN dbo.SALE_INVOICE_MASTER SIM ON CNM.INVId=sim.SI_ID)tb where (tb.CreditNoteNo+tb.CreditNote_Date+INVNo+tb.Remarks+tb.Created_by) LIKE '%" & condition & "%'")
+            obj.GridBind(dgvList, "SELECT  *FROM (SELECT CreditNote_Id,  CreditNote_Code + CAST(CreditNote_No AS VARCHAR(10)) AS CreditNoteNo , dbo.fn_format(CreditNote_Date) AS CreditNote_Date , SI_ID, SIM.SI_CODE+CAST(sim.SI_NO AS VARCHAR(50))AS INVNo,CN_Amount , ACC_NAME ,cnm.Remarks, cnm.Created_by FROM CreditNote_Master CNM JOIN dbo.SALE_INVOICE_MASTER SIM ON CNM.INVId=sim.SI_ID  INNER JOIN dbo.ACCOUNT_MASTER AM ON am.ACC_ID = CNM.CN_CustId )tb where (tb.CreditNoteNo+tb.CreditNote_Date+INVNo+tb.Remarks+CAST(tb.CN_Amount AS VARCHAR(20)) +tb.ACC_NAME+tb.Created_by) LIKE '%" & condition & "%'")
             dgvList.Width = 100
             dgvList.Columns(0).Visible = False 'Reverse_ID
             dgvList.Columns(0).Width = 100
@@ -118,10 +117,18 @@ Public Class frm_CreditNote
             dgvList.Columns(3).Visible = False
             dgvList.Columns(4).HeaderText = "INV No."
             dgvList.Columns(4).Width = 100
-            dgvList.Columns(5).HeaderText = "Remarks"
-            dgvList.Columns(5).Width = 300
-            dgvList.Columns(6).HeaderText = "User"
-            dgvList.Columns(6).Width = 150
+
+            dgvList.Columns(5).HeaderText = "CN. Amount"
+            dgvList.Columns(5).Width = 100
+
+            dgvList.Columns(6).HeaderText = "Customer"
+            dgvList.Columns(6).Width = 170
+
+            dgvList.Columns(7).HeaderText = "Remarks"
+            dgvList.Columns(7).Width = 200
+            dgvList.Columns(8).HeaderText = "User"
+            dgvList.Columns(8).Width = 50
+
         Catch ex As Exception
             MsgBox(gblMessageHeading_Error & vbCrLf & gblMessage_ContactInfo & vbCrLf & ex.Message, MsgBoxStyle.Critical, gblMessageHeading)
         End Try
@@ -194,7 +201,8 @@ Public Class frm_CreditNote
                 prpty.Division_ID = v_the_current_division_id
                 prpty.Cn_Amount = lblCredit.Text
                 prpty.CN_CustId = cmbCustomer.SelectedValue
-
+                prpty.INV_No = lblInvNo.Text
+                prpty.INV_Date = lblInvdate.Text
                 clsObj.insert_CreditNote_MASTER(prpty, cmd)
 
                 Dim iRowCount As Int32
@@ -231,6 +239,8 @@ Public Class frm_CreditNote
                 End If
 
                 set_new_initilize()
+                cmbCustomer.SelectedValue = 0
+                cmbINVNo.SelectedValue = 0
             End If
         Catch ex As Exception
             obj.MyCon_RollBackTransaction(cmd)
@@ -266,11 +276,13 @@ Public Class frm_CreditNote
         dtable_Item_List.Columns.Add("INV_Qty", GetType(System.Double))
         dtable_Item_List.Columns.Add("Item_Rate", GetType(System.Double))
         dtable_Item_List.Columns.Add("Vat_Per", GetType(System.Double))
-
-
-
         dtable_Item_List.Columns.Add("Item_Qty", GetType(System.Double))
         dtable_Item_List.Columns.Add("Stock_Detail_Id", GetType(System.Double))
+        dtable_Item_List.Columns.Add("INvDate", GetType(System.Double))
+        dtable_Item_List.Columns.Add("SiNo", GetType(System.Double))
+
+
+
         FLXGRD_MaterialItem.DataSource = dtable_Item_List
         dtable_Item_List.Rows.Add(dtable_Item_List.NewRow)
         FLXGRD_MaterialItem.Cols(0).Width = 10
@@ -305,6 +317,9 @@ Public Class frm_CreditNote
         FLXGRD_MaterialItem.Cols("Item_Qty").AllowEditing = True
 
         FLXGRD_MaterialItem.Cols("Stock_Detail_Id").AllowEditing = False
+
+        FLXGRD_MaterialItem.Cols("INvDate").Visible = False
+        FLXGRD_MaterialItem.Cols("SiNo").Visible = False
 
         FLXGRD_MaterialItem.Cols("Item_Code").Width = 60
         FLXGRD_MaterialItem.Cols("Item_Name").Width = 300
@@ -370,16 +385,18 @@ Public Class frm_CreditNote
 
     End Sub
 
-    Private Sub cmbMRNNo_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmbINVNo.SelectedIndexChanged
+    Private Sub cmbINV_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmbINVNo.SelectedIndexChanged
         Try
             set_new_initilize()
             Dim ds As DataSet
-            Dim MRNNo As Int32
-            MRNNo = Convert.ToInt32(cmbINVNo.SelectedValue)
-            ds = clsObj.fill_Data_set("Get_INV_Details_CreditNote", "@Si_ID", MRNNo)
-            If ds.Tables.Count > 0 Then
+            Dim INVNo As Int32
+            INVNo = Convert.ToInt32(cmbINVNo.SelectedValue)
+            ds = clsObj.fill_Data_set("Get_INV_Details_CreditNote", "@Si_ID", INVNo)
+            If ds.Tables(0).Rows.Count > 0 Then
                 dtable_Item_List = ds.Tables(0).Copy
                 FLXGRD_MaterialItem.DataSource = dtable_Item_List
+                lblInvdate.Text = ds.Tables(0).Rows(0)(10)
+                lblInvNo.Text = ds.Tables(0).Rows(0)(11)
                 SetGridSettingValues()
             End If
             TbRMRN.SelectTab(1)
@@ -405,6 +422,14 @@ Public Class frm_CreditNote
         Dim Query As String
         Dim Dt As DataTable
         Dim Dtrow As DataRow
+        Dim ds As DataSet
+
+        ds = clsObj.FillDataSet("SELECT ADDRESS_PRIM +ADDRESS_SEC AS Address FROM dbo.ACCOUNT_MASTER WHERE ACC_ID=" & cmbCustomer.SelectedValue)
+        If ds.Tables(0).Rows.Count > 0 Then
+            lblAddress.Text = ds.Tables(0).Rows(0)(0)
+
+        End If
+
         Query = "  SELECT SI_ID,SI_CODE+CAST(SI_NO as varchar(20)) AS SiNo FROM dbo.SALE_INVOICE_MASTER WHERE CUST_ID=" & cmbCustomer.SelectedValue & " and DIVISION_ID = " & v_the_current_division_id
         Dt = clsObj.Fill_DataSet(Query).Tables(0)
         Dtrow = Dt.NewRow

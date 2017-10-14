@@ -53,6 +53,8 @@ Public Class frm_DebitNote
         GetDNCode()
         lblDN_Code.Text = DN_Code & DN_No
         txtRemarks.Text = ""
+        txt_INVNo.Text = ""
+        txt_INVDate.Text = ""
         dtable_Item_List = FLXGRD_MaterialItem.DataSource
 
         lblAmount.Text = 0
@@ -61,7 +63,9 @@ Public Class frm_DebitNote
         If Not dtable_Item_List Is Nothing Then dtable_Item_List.Rows.Clear()
         TbRMRN.SelectTab(1)
         ' intColumnIndex = -1
+
         FillGrid()
+
         flag = "save"
     End Sub
 
@@ -114,7 +118,7 @@ Public Class frm_DebitNote
 
     Private Sub FillGrid(Optional ByVal condition As String = "")
         Try
-            obj.GridBind(dgvList, "SELECT *FROM ( SELECT DebitNote_Id,DebitNote_Code + CAST(DebitNote_No AS VARCHAR(10)) AS DebitNote_No ,dbo.fn_format(DebitNote_Date) AS DebitNote_Date ,MRNId ,MM.MRN_PREFIX + CAST(MM.MRN_NO AS VARCHAR(10)) AS MRNNo ,DN_Amount ,ACC_NAME,DM.Remarks,DM.Created_by FROM DebitNote_Master Dm INNER JOIN MATERIAL_RECEIVED_AGAINST_PO_MASTER MM ON DM.MRNId = MM.Receipt_ID INNER JOIN dbo.ACCOUNT_MASTER AM ON am.ACC_ID=dm.DN_CustId) tb  WHERE (tb.DebitNote_No+tb.DebitNote_Date+MRNNo+tb.Remarks+tb.Created_by+ACC_NAME + CAST(DN_Amount as varchar(50))) LIKE '%" & condition & "%'")
+            obj.GridBind(dgvList, "SELECT *FROM ( SELECT DebitNote_Id,DebitNote_Code + CAST(DebitNote_No AS VARCHAR(10)) AS DebitNote_No ,dbo.fn_format(DebitNote_Date) AS DebitNote_Date ,MRNId ,MM.MRN_PREFIX + CAST(MM.MRN_NO AS VARCHAR(10)) AS MRNNo ,DN_Amount ,ACC_NAME,DM.Remarks,DM.Created_by FROM DebitNote_Master Dm INNER JOIN MATERIAL_RECEIVED_AGAINST_PO_MASTER MM ON DM.MRNId = MM.Receipt_ID INNER JOIN dbo.ACCOUNT_MASTER AM ON am.ACC_ID=dm.DN_CustId UNION ALL SELECT    DebitNote_Id ,DebitNote_Code + CAST(DebitNote_No AS VARCHAR(10)) AS DebitNote_No ,dbo.fn_format(DebitNote_Date) AS DebitNote_Date ,MRNId ,MM.MRN_PREFIX + CAST(MM.MRN_NO AS VARCHAR(10)) AS MRNNo ,DN_Amount ,ACC_NAME ,DM.Remarks ,DM.Created_by FROM      DebitNote_Master Dm INNER JOIN dbo.MATERIAL_RECIEVED_WITHOUT_PO_MASTER MM ON DM.MRNId = MM.MRN_NO INNER JOIN dbo.ACCOUNT_MASTER AM ON am.ACC_ID = dm.DN_CustId) tb  WHERE (tb.DebitNote_No+tb.DebitNote_Date+MRNNo+tb.Remarks+tb.Created_by+ACC_NAME + CAST(DN_Amount as varchar(50))) LIKE '%" & condition & "%'")
             dgvList.Width = 100
             dgvList.Columns(0).Visible = False 'Reverse_ID
             dgvList.Columns(0).Width = 100
@@ -158,6 +162,7 @@ Public Class frm_DebitNote
             MsgBox("Please fill the Remarks", vbExclamation, gblMessageHeading)
             txtRemarks.Focus()
             validate_data = False
+            Exit Function
         End If
 
         If cmbMRNNo.SelectedIndex <= 0 Then
@@ -209,6 +214,9 @@ Public Class frm_DebitNote
                 prpty.Division_ID = v_the_current_division_id
                 prpty.Dn_Amount = lblDebit.Text
                 prpty.DN_CustId = cmbsupplier.SelectedValue
+                prpty.INV_No = txt_INVNo.Text
+                prpty.INV_Date = txt_INVDate.Text
+
                 clsObj.insert_DebitNote_MASTER(prpty, cmd)
 
                 Dim iRowCount As Int32
@@ -394,16 +402,28 @@ Public Class frm_DebitNote
     End Sub
 
     Private Sub cmbMRNNo_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmbMRNNo.SelectedIndexChanged
+
         Try
             set_new_initilize()
             Dim ds As DataSet
+            Dim ds1 As DataSet
             Dim MRNNo As Int32
             MRNNo = Convert.ToInt32(cmbMRNNo.SelectedValue)
-            ds = clsObj.fill_Data_set("Get_MRN_Details_DebitNote", "@V_Receipt_ID", MRNNo)
-            If ds.Tables.Count > 0 Then
+            ds = clsObj.fill_Data_set("Get_MRN_Details_DebitNote", "@V_MRN_NO", MRNNo)
+            If ds.Tables(0).Rows.Count > 0 Then
                 dtable_Item_List = ds.Tables(0).Copy
                 FLXGRD_MaterialItem.DataSource = dtable_Item_List
                 SetGridSettingValues()
+            End If
+
+            Dim Query As String = " SELECT Invoice_No ,CONVERT(VARCHAR (20),Invoice_date,106)AS Invoice_date FROM dbo.MATERIAL_RECEIVED_AGAINST_PO_MASTER WHERE MRN_NO=" & MRNNo & " AND Division_ID =   " & v_the_current_division_id & _
+           "UNION ALL SELECT Invoice_No ,CONVERT(VARCHAR (20),Invoice_date,106)AS Invoice_date FROM dbo.MATERIAL_RECIEVED_WITHOUT_PO_MASTER WHERE MRN_NO=" & MRNNo
+
+
+            ds1 = clsObj.FillDataSet(Query)
+            If ds1.Tables(0).Rows.Count > 0 Then
+                txt_INVNo.Text = ds1.Tables(0).Rows(0)(0)
+                txt_INVDate.Text = ds1.Tables(0).Rows(0)(1)
             End If
             TbRMRN.SelectTab(1)
         Catch ex As Exception
@@ -412,29 +432,32 @@ Public Class frm_DebitNote
         lblAmount.Text = 0
         lblVatAmount.Text = 0
         lblDebit.Text = 0
+
     End Sub
 
     Private Sub frm_DebitNote_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         set_new_initilize()
         BindSupplierCombo()
-        BindMRNCombo()
+        'BindMRNCombo()
         Grid_styles()
         FillGrid()
 
     End Sub
 
     Private Sub BindMRNCombo()
+
         Dim Query As String
         Dim Dt As DataTable
         Dim Dtrow As DataRow
-        Query = " SELECT Receipt_ID,Receipt_Code+CAST(Receipt_No AS VARCHAR(20))AS Receipt_No FROM dbo.MATERIAL_RECEIVED_AGAINST_PO_MASTER WHERE PO_ID IN (SELECT PO_ID FROM dbo.PO_MASTER WHERE PO_SUPP_ID=" & cmbsupplier.SelectedValue & ") AND Division_ID =   " & v_the_current_division_id
+        Query = " SELECT MRN_NO AS MRN_ID,MRN_PREFIX+CAST(MRN_NO AS VARCHAR(20))AS MRN_NO FROM dbo.MATERIAL_RECEIVED_AGAINST_PO_MASTER WHERE PO_ID IN (SELECT PO_ID FROM dbo.PO_MASTER WHERE PO_SUPP_ID=" & cmbsupplier.SelectedValue & ") AND Division_ID =   " & v_the_current_division_id & _
+            "UNION ALL SELECT MRN_NO AS MRN_ID , MRN_PREFIX + CAST(MRN_NO AS VARCHAR(20)) AS MRN_NO FROM dbo.MATERIAL_RECIEVED_WITHOUT_PO_MASTER WHERE Vendor_ID=" & cmbsupplier.SelectedValue & " ORDER BY MRN_id"
         Dt = clsObj.Fill_DataSet(Query).Tables(0)
         Dtrow = Dt.NewRow
-        Dtrow("Receipt_ID") = -1
-        Dtrow("Receipt_No") = "Select MRN No"
+        Dtrow("MRN_ID") = -1
+        Dtrow("MRN_NO") = "Select MRN No"
         Dt.Rows.InsertAt(Dtrow, 0)
-        cmbMRNNo.DisplayMember = "Receipt_No"
-        cmbMRNNo.ValueMember = "Receipt_ID"
+        cmbMRNNo.DisplayMember = "MRN_NO"
+        cmbMRNNo.ValueMember = "MRN_ID"
         cmbMRNNo.DataSource = Dt
         cmbMRNNo.SelectedIndex = 0
 
@@ -450,6 +473,7 @@ Public Class frm_DebitNote
     End Sub
 
     Private Sub cmbsupplier_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbsupplier.SelectedIndexChanged
+
         BindMRNCombo()
         lblAmount.Text = 0
         lblVatAmount.Text = 0
@@ -492,4 +516,6 @@ Public Class frm_DebitNote
     Private Sub Label2_Click(sender As Object, e As EventArgs) Handles Label2.Click
 
     End Sub
+
+
 End Class
