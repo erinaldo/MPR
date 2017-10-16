@@ -2,7 +2,7 @@ Imports MMSPlus.Sale_Invoice
 Imports System.Data.SqlClient
 Imports System.Data
 Imports C1.Win.C1FlexGrid
-
+Imports System.Text.RegularExpressions
 Public Class frm_openSale_Invoice
 
     Implements IForm
@@ -11,9 +11,10 @@ Public Class frm_openSale_Invoice
     Dim prpty As cls_Sale_Invoice_prop
     Dim flag As String
     Dim Si_ID As Int16
-
+    Dim NEWCUST As Int16 = 0
     Dim dtable_Item_List As DataTable
-
+    Dim gstnoRegex As New Regex("^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$")
+    Dim mobileRegex As New Regex("^\d{10}$")
     Dim _rights As Form_Rights
     Public Sub New(ByVal rights As Form_Rights)
         _rights = rights
@@ -55,19 +56,24 @@ Public Class frm_openSale_Invoice
         Try
 
             obj.FormatGrid(flxItems)
-            'obj.FormatGrid(flxList)
-
-
-
             table_style()
-            ' clsObj.ComboBind(cmbSupplier, "Select ACC_ID,ACC_NAME from ACCOUNT_MASTER WHERE AG_ID=" & AccountGroups.Customers & " Order by ACC_NAME", "ACC_NAME", "ACC_ID", True)
+
+            CustomerBind()
+            cmbSupplier.Visible = True
+            txtcustomer_name.Visible = False
+            CityBind()
             new_initilization()
             fill_grid()
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, gblMessageHeading_Error)
         End Try
     End Sub
-
+    Public Sub CustomerBind()
+        clsObj.ComboBind(cmbSupplier, "Select ACC_ID,ACC_NAME from ACCOUNT_MASTER WHERE AG_ID=" & AccountGroups.Customers & " Order by ACC_NAME", "ACC_NAME", "ACC_ID", True)
+    End Sub
+    Public Sub CityBind()
+        clsObj.ComboBind(cmbCity, "Select CITY_ID,CITY_NAME from CITY_MASTER Order by CITY_NAME", "CITY_NAME", "CITY_ID", True)
+    End Sub
     Public Sub CloseClick(ByVal sender As Object, ByVal e As System.EventArgs) Implements IForm.CloseClick
 
     End Sub
@@ -130,12 +136,27 @@ Public Class frm_openSale_Invoice
                 prpty.DC_GST_NO = Convert.ToDecimal(ds.Tables(0).Rows(0)(1).ToString()) + 1
                 prpty.SI_DATE = Now
 
-                'prpty.CUST_ID = cmbSupplier.SelectedValue
+                If NEWCUST = 0 Then
+                    prpty.CUST_ID = cmbSupplier.SelectedValue
+                Else
+                    Dim dscust As DataSet = clsObj.GetDCDetail_remote("Select isnull(max(ACC_ID),0) + 1 from dbo.ACCOUNT_MASTER")
+                    prpty.CUST_ID = Convert.ToInt32(dscust.Tables(0).Rows(0)(0))
+
+                    clsObj.Insert_New_Customer_Remote(prpty.CUST_ID, txtcustomer_name.Text, txtAddress.Text, txt_txtphoneNo.Text, txtGstNo.Text, Convert.ToInt32(cmbCity.SelectedValue))
+                    clsObj.Insert_New_Customer(prpty.CUST_ID, txtcustomer_name.Text, txtAddress.Text, txt_txtphoneNo.Text, txtGstNo.Text, Convert.ToInt32(cmbCity.SelectedValue))
+
+                End If
 
                 prpty.INVOICE_STATUS = Convert.ToInt32(GlobalModule.InvoiceStatus.Clear)
                 prpty.REMARKS = ""
                 prpty.PAYMENTS_REMARKS = ""
-                prpty.SALE_TYPE = "Credit"
+
+                If rbtn_Cash.Checked Then
+                    prpty.SALE_TYPE = "Cash"
+                Else
+                    prpty.SALE_TYPE = "Credit"
+                End If
+
                 prpty.GROSS_AMOUNT = Convert.ToDouble(lblItemValue.Text)
                 prpty.VAT_AMOUNT = Convert.ToDouble(lblVatAmount.Text)
                 prpty.NET_AMOUNT = Convert.ToDouble(lblNetAmount.Text)
@@ -148,16 +169,15 @@ Public Class frm_openSale_Invoice
                 prpty.MODIFIED_BY = ""
                 prpty.MODIFIED_DATE = NULL_DATE
                 prpty.DIVISION_ID = v_the_current_division_id
-
-                prpty.VEHICLE_NO = txtvechicle_no.Text 'Convert.ToInt32(cmbOutlet.SelectedValue)
+                prpty.TRANSPORT = txtTransport.Text
+                prpty.VEHICLE_NO = txtvechicle_no.Text
                 prpty.SHIPP_ADD_ID = 0
                 prpty.INV_TYPE = cmbinvtype.SelectedItem
-                prpty.LR_NO = txt_txtphoneNo.Text
+                prpty.LR_NO = txtLRNO.Text
                 prpty.dtable_Item_List = dtable_Item_List
-                clsObj.Insert_SALE_INVOICE_MASTER(prpty)
+                'clsObj.Insert_SALE_INVOICE_MASTER(prpty)
 
             End If
-
 
             If flag = "save" Then
                 If MsgBox("Invoice information has been Saved." & vbCrLf & "Do You Want to Print Preview.", MsgBoxStyle.Question + MsgBoxStyle.YesNo, gblMessageHeading) = MsgBoxResult.Yes Then
@@ -167,10 +187,10 @@ Public Class frm_openSale_Invoice
                 MsgBox("You Can't edit this.")
             End If
             fill_grid()
+
             new_initilization()
         Catch ex As Exception
             obj.MyCon_RollBackTransaction(cmd)
-
             MsgBox(gblMessageHeading_Error & vbCrLf & gblMessage_ContactInfo & vbCrLf & ex.Message, MsgBoxStyle.Critical, gblMessageHeading)
         End Try
     End Sub
@@ -197,17 +217,24 @@ Public Class frm_openSale_Invoice
 
         lbl_TransferDate.Text = Now.ToString("dd-MMM-yyyy")
         txt_txtphoneNo.Text = ""
-        'cmbSupplier.SelectedIndex = 0
+        cmbSupplier.SelectedIndex = 0
         txtAddress.Text = ""
         txtvechicle_no.Text = ""
+        txtGstNo.Text = ""
+        txtTransport.Text = ""
+        txtLRNO.Text = ""
+        txtcustomer_name.Text = ""
         cmbinvtype.SelectedIndex = 0
+        cmbCity.SelectedIndex = 0
+        NEWCUST = 0
+        btnAddNew.Visible = True
         dtable_Item_List.Rows.Clear()
         'dtable_Item_List.Rows.Add()
         TabControl1.SelectTab(1)
         lblItemValue.Text = 0
         lblVatAmount.Text = 0
         lblNetAmount.Text = 0
-
+        lblTotalDisc.Text = 0
         '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         ''''''''''''''''''''''''''TO GET Inv NO'''''''''''''''''''''''''''''
         '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -240,10 +267,32 @@ Public Class frm_openSale_Invoice
     End Sub
     Private Function Validation() As Boolean
 
-        'If cmbSupplier.SelectedIndex = 0 Then
-        '    MsgBox("Select Customer to Invoice.", MsgBoxStyle.Information, gblMessageHeading)
-        '    Return False
-        'End If
+        If cmbSupplier.SelectedIndex = 0 And NEWCUST = 0 Then
+            MsgBox("Select Customer to Invoice.", MsgBoxStyle.Information, gblMessageHeading)
+            Return False
+        ElseIf txtcustomer_name.Text.Length <= 0 And NEWCUST = 1 Then
+            MsgBox("Enter New Customer to Invoice.", MsgBoxStyle.Information, gblMessageHeading)
+            Return False
+        End If
+
+        If Not String.IsNullOrEmpty(txt_txtphoneNo.Text.Trim) Then
+            If Not mobileRegex.IsMatch(txt_txtphoneNo.Text) Then
+                MsgBox("Phone number is not valid. Try again after entering valid number.", MsgBoxStyle.Information, "Invalid Phone Format!!!")
+                Return False
+            End If
+        End If
+
+        If Not String.IsNullOrEmpty(txtGstNo.Text.Trim) Then
+            If Not gstnoRegex.IsMatch(txtGstNo.Text) Then
+                MsgBox("GST No. is not valid. Try again after entering valid GST no.", MsgBoxStyle.Information, "Invalid GST Format!!!")
+                Return False
+            End If
+        End If
+
+        If cmbCity.SelectedIndex = 0 Then
+            MsgBox("Select City Name.", MsgBoxStyle.Information, gblMessageHeading)
+            Return False
+        End If
 
         If cmbinvtype.SelectedIndex = 0 Then
             MsgBox("Select Invoice Type.", MsgBoxStyle.Information, gblMessageHeading)
@@ -284,16 +333,19 @@ again:
             dtable_Item_List.Columns.Add("Item_Name", GetType(System.String))
             dtable_Item_List.Columns.Add("UM_Name", GetType(System.String))
             dtable_Item_List.Columns.Add("Batch_no", GetType(System.String))
-            dtable_Item_List.Columns.Add("Expiry_date", GetType(System.String))
             dtable_Item_List.Columns.Add("Batch_Qty", GetType(System.Double))
+            dtable_Item_List.Columns.Add("transfer_Qty", GetType(System.Decimal))
+            dtable_Item_List.Columns.Add("Expiry_date", GetType(System.String))
             dtable_Item_List.Columns.Add("Stock_Detail_Id", GetType(System.Int32))
             dtable_Item_List.Columns.Add("Item_Rate", GetType(System.Decimal))
+            dtable_Item_List.Columns.Add("DType", GetType(System.String))
             dtable_Item_List.Columns.Add("DISC", GetType(System.Decimal))
+            dtable_Item_List.Columns.Add("Amount", GetType(System.Decimal))
             dtable_Item_List.Columns.Add("GST", GetType(System.Decimal))
             dtable_Item_List.Columns.Add("GST_Amount", GetType(System.Decimal))
             dtable_Item_List.Columns.Add("HsnCodeId", GetType(System.Int32))
-            dtable_Item_List.Columns.Add("transfer_Qty", GetType(System.Decimal))
-            dtable_Item_List.Columns.Add("Actual_Rate", GetType(System.Decimal))
+            dtable_Item_List.Columns.Add("LandingAmt", GetType(System.Decimal))
+
             dtable_Item_List.Rows.Add()
             flxItems.DataSource = dtable_Item_List
             format_grid()
@@ -310,52 +362,58 @@ again:
         flxItems.Cols("Item_Id").Visible = False
         flxItems.Cols("Stock_Detail_Id").Visible = True
 
-        flxItems.Cols("Item_Code").Caption = "Item Code"
-        flxItems.Cols("Item_Name").Caption = "Item Name"
+        flxItems.Cols("Item_Code").Caption = "Code"
+        flxItems.Cols("Item_Name").Caption = "Description"
         flxItems.Cols("UM_Name").Caption = "UOM"
         flxItems.Cols("Batch_no").Caption = "Batch No"
         flxItems.Cols("Expiry_date").Caption = "Expiry Date"
         flxItems.Cols("batch_qty").Caption = "Batch Qty"
         flxItems.Cols("transfer_Qty").Caption = "Transfer Qty"
-        flxItems.Cols("Item_Rate").Caption = "Item Rate"
-        flxItems.Cols("DISC").Caption = "DISC% "
+        flxItems.Cols("Item_Rate").Caption = "Rate"
+        flxItems.Cols("DType").Caption = "DType"
+        flxItems.Cols("DISC").Caption = "DISC"
         flxItems.Cols("GST").Caption = "GST% "
-        flxItems.Cols("GST_Amount").Caption = "GST Amount"
+        flxItems.Cols("GST_Amount").Caption = "GST Amt"
 
-        flxItems.Cols("Actual_Rate").Caption = "Actual Rate"
+        flxItems.Cols("Amount").Caption = "Amount"
         flxItems.Cols("HsnCodeId").Visible = False
-        flxItems.Cols("Actual_Rate").Visible = True
-
+        flxItems.Cols("Amount").AllowEditing = False
+        flxItems.Cols("DType").AllowEditing = True
+        flxItems.Cols("DType").ComboList = "P|A"
 
         flxItems.Cols("Item_Code").AllowEditing = False
         flxItems.Cols("Item_Name").AllowEditing = False
         flxItems.Cols("UM_Name").AllowEditing = False
         flxItems.Cols("Batch_no").AllowEditing = False
         flxItems.Cols("Expiry_date").AllowEditing = False
+        flxItems.Cols("Expiry_date").Visible = False
         flxItems.Cols("batch_qty").AllowEditing = False
         flxItems.Cols("Stock_Detail_Id").AllowEditing = False
         flxItems.Cols("transfer_Qty").AllowEditing = True
-        flxItems.Cols("Item_Rate").AllowEditing = False
-        flxItems.Cols("Item_Rate").AllowEditing = False
+        flxItems.Cols("Item_Rate").AllowEditing = True
+
+        flxItems.Cols("DType").AllowEditing = True
         flxItems.Cols("DISC").AllowEditing = True
         flxItems.Cols("GST").AllowEditing = False
+        flxItems.Cols("GST_Amount").AllowEditing = False
+        flxItems.Cols("LandingAmt").AllowEditing = False
 
 
-        flxItems.Cols("GST_Amount").Width = 50
         flxItems.Cols("Item_Id").Width = 40
-        flxItems.Cols("Item_Code").Width = 70
+        flxItems.Cols("Item_Code").Width = 60
         flxItems.Cols("Item_Name").Width = 230
-        flxItems.Cols("UM_Name").Width = 40
+        flxItems.Cols("UM_Name").Width = 35
         flxItems.Cols("Batch_No").Width = 70
-        flxItems.Cols("Expiry_date").Width = 80
-        flxItems.Cols("Batch_Qty").Width = 60
+        flxItems.Cols("Amount").Width = 60
+        flxItems.Cols("Batch_Qty").Width = 55
         flxItems.Cols("Stock_Detail_Id").Width = 60
-        flxItems.Cols("transfer_Qty").Width = 80
-        flxItems.Cols("Item_Rate").Width = 80
-        flxItems.Cols("DISC").Width = 50
-        flxItems.Cols("GST").Width = 50
-        flxItems.Cols("GST_Amount").Width = 70
-
+        flxItems.Cols("transfer_Qty").Width = 70
+        flxItems.Cols("Item_Rate").Width = 50
+        flxItems.Cols("DType").Width = 40
+        flxItems.Cols("DISC").Width = 45
+        flxItems.Cols("GST").Width = 40
+        flxItems.Cols("GST_Amount").Width = 50
+        flxItems.Cols("LandingAmt").Width = 70
         flxItems.Cols("Stock_Detail_Id").Visible = False
 
     End Sub
@@ -378,15 +436,38 @@ again:
             totalOn = flxItems.Cols("transfer_Qty").SafeIndex
             flxItems.Subtotal(AggregateEnum.Sum, 0, 3, totalOn)
 
+            Dim cs1 As C1.Win.C1FlexGrid.CellStyle
+            cs1 = Me.flxItems.Styles.Add("Item_Rate")
+            'cs1.ForeColor = Color.White
+            cs1.BackColor = Color.Orange
+            cs1.Border.Style = BorderStyleEnum.Raised
+
+            Dim cs2 As C1.Win.C1FlexGrid.CellStyle
+            cs2 = Me.flxItems.Styles.Add("DISC")
+            'cs2.ForeColor = Color.White
+            cs2.BackColor = Color.Gold
+            cs2.Border.Style = BorderStyleEnum.Raised
+
+            Dim cs3 As C1.Win.C1FlexGrid.CellStyle
+            cs3 = Me.flxItems.Styles.Add("DType")
+            'cs3.ForeColor = Color.White
+            cs3.BackColor = Color.Gold
+            cs3.Border.Style = BorderStyleEnum.Raised
+
             Dim cs As C1.Win.C1FlexGrid.CellStyle
             cs = Me.flxItems.Styles.Add("transfer_Qty")
-            cs.ForeColor = Color.White
-            cs.BackColor = Color.Green
+            'cs.ForeColor = Color.White
+            cs.BackColor = Color.LimeGreen
             cs.Border.Style = BorderStyleEnum.Raised
 
             Dim i As Integer
             For i = 1 To flxItems.Rows.Count - 1
-                If Not flxItems.Rows(i).IsNode Then flxItems.SetCellStyle(i, flxItems.Cols("transfer_Qty").SafeIndex, cs)
+                If Not flxItems.Rows(i).IsNode Then
+                    flxItems.SetCellStyle(i, flxItems.Cols("Item_Rate").SafeIndex, cs1)
+                    flxItems.SetCellStyle(i, flxItems.Cols("DISC").SafeIndex, cs2)
+                    flxItems.SetCellStyle(i, flxItems.Cols("DType").SafeIndex, cs3)
+                    flxItems.SetCellStyle(i, flxItems.Cols("transfer_Qty").SafeIndex, cs)
+                End If
             Next
         End If
     End Sub
@@ -413,10 +494,6 @@ again:
                     '                   " INNER JOIN UNIT_MASTER ON ITEM_MASTER.UM_ID = UNIT_MASTER.UM_ID " & _
                     '                   " INNER JOIN ITEM_CATEGORY ON ITEM_MASTER.ITEM_CATEGORY_ID = ITEM_CATEGORY.ITEM_CAT_ID " & _
                     '                    "INNER JOIN ITEM_DETAIL ON ITEM_MASTER.ITEM_ID = ITEM_DETAIL.ITEM_ID "
-
-
-
-
 
                     frm_Show_search.qry = "SELECT IM.ITEM_ID,IM.ITEM_CODE," & _
                                        " IM.ITEM_NAME,UM.UM_Name,CM.ITEM_CAT_NAME," & _
@@ -511,14 +588,17 @@ restart:
                     'dr("Item_Rate") = ds.Tables(0).Rows(0)("Item_Rate")
 
                     ds2 = obj.Fill_DataSet("SELECT VAT_MASTER.VAT_PERCENTAGE FROM ITEM_DETAIL INNER JOIN VAT_MASTER ON ITEM_DETAIL.PURCHASE_VAT_ID = VAT_MASTER.VAT_ID WHERE (ITEM_DETAIL.ITEM_ID = " & Convert.ToInt32(frm_Show_search.search_result) & " )")
-                    dr("Item_Rate") = itemRate
-                    dr("Actual_Rate") = itemRate
+                    dr("Item_Rate") = itemRate.ToString("#0.00")
+                    dr("Amount") = 0.0
+                    dr("DISC") = 0.0
+                    dr("LandingAmt") = 0.0
+                    dr("DType") = "P"
                     dr("GST") = ds2.Tables(0).Rows(0)("VAT_PERCENTAGE")
                     dr("GSt_Amount") = "0"
 
                     dr("Batch_Qty") = ds.Tables(0).Rows(i)("Balance_Qty")
                     dr("Stock_Detail_Id") = ds.Tables(0).Rows(i)("STOCK_DETAIL_ID")
-                    dr("transfer_Qty") = ds.Tables(0).Rows(i)("transfer_Qty")
+                    dr("transfer_Qty") = 0
                     dtable_Item_List.Rows.Add(dr)
                 Next
                 'Dim strSort As String = flxItems.Cols(1).Name + ", " + flxItems.Cols(2).Name + ", " + flxItems.Cols(3).Name
@@ -553,16 +633,39 @@ restart:
     End Function
 
     Private Sub flxItems_AfterEdit(ByVal sender As System.Object, ByVal e As C1.Win.C1FlexGrid.RowColEventArgs) Handles flxItems.AfterEdit
-        If flxItems.Rows(e.Row).IsNode Then Exit Sub
+        If flxItems.Rows(e.Row).IsNode Then
+            Exit Sub
+        End If
+
         If Convert.ToDecimal(flxItems.Rows(e.Row)("transfer_Qty")) > Convert.ToDecimal(flxItems.Rows(e.Row)("Batch_Qty")) Then
             flxItems.Rows(e.Row)("transfer_Qty") = 0.0
             generate_tree()
         Else
-            flxItems.Rows(e.Row)("GST_Amount") = Math.Round(flxItems.Rows(e.Row)("transfer_Qty") * (flxItems.Rows(e.Row)("item_rate") * flxItems.Rows(e.Row)("GST") / 100), 2)
+            Dim discamt As Decimal = 0.0
+
+            flxItems.Rows(e.Row)("Amount") = Math.Round(flxItems.Rows(e.Row)("transfer_Qty") * (flxItems.Rows(e.Row)("item_rate")), 2)
+
+            Dim i As Integer
+            Dim dTY As String = flxItems.Rows(e.Row)("DType")
+
+            For i = 1 To flxItems.Rows.Count - 1
+                flxItems.Rows(i).Item("DType") = dTY
+            Next
+
+            If (flxItems.Rows(e.Row)("DType")) = "P" Then
+                discamt = Math.Round((flxItems.Rows(e.Row)("Amount") * flxItems.Rows(e.Row)("DISC") / 100), 2)
+            Else
+                discamt = Math.Round((flxItems.Rows(e.Row)("DISC")), 2)
+            End If
+
+            flxItems.Rows(e.Row)("GST_Amount") = Math.Round((flxItems.Rows(e.Row)("Amount") - discamt) * (flxItems.Rows(e.Row)("GST") / 100), 2)
+            flxItems.Rows(e.Row)("LandingAmt") = Math.Round((flxItems.Rows(e.Row)("Amount") - discamt) + (flxItems.Rows(e.Row)("GST_Amount")), 2)
+
             generate_tree()
+
         End If
 
-        CalculateAmount()
+            CalculateAmount()
     End Sub
 
     Private Sub txtSearch_KeyUp(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles txtSearch.KeyUp
@@ -573,49 +676,12 @@ restart:
         MsgBox("You Can't Edit this Invoice." & vbCrLf & "Please click in print to view/print this Invoice/ DC.", MsgBoxStyle.Information)
     End Sub
 
-    Private Sub cmbSupplier_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
-
-        Dim dt As DataTable
-        Dim ds As DataSet
-        Dim i As Integer
-        Dim strSql As String
-
-        'If cmbSupplier.SelectedValue <> -1 Then
-        '    strSql = "SELECT ACCOUNT_MASTER.ADDRESS_PRIM + ' - {'  + ISNULL(CITY_MASTER.CITY_NAME,'') + '}'"
-        '    strSql = strSql & " FROM ACCOUNT_MASTER LEFT OUTER JOIN"
-        '    strSql = strSql & " CITY_MASTER ON ACCOUNT_MASTER.CITY_ID = CITY_MASTER.CITY_ID"
-        '    strSql = strSql & " WHERE ACCOUNT_MASTER.ACC_ID = " & cmbSupplier.SelectedValue
-        '    lblAddress.Text = obj.Fill_DataSet(strSql).Tables(0).Rows(0)(0)
-        'End If
-
-        'If Not flxItemList.DataSource Is Nothing Then
-
-        '    dt = flxItemList.DataSource
-
-        '    For i = 0 To dt.Rows.Count - 1
-        '        strSql = "DECLARE @rate NUMERIC (18,2);"
-        '        strSql = strSql & " SELECT @rate=SUPPLIER_RATE_LIST_DETAIL.ITEM_RATE FROM "
-        '        strSql = strSql & " SUPPLIER_RATE_LIST INNER JOIN SUPPLIER_RATE_LIST_DETAIL ON SUPPLIER_RATE_LIST.SRL_ID = SUPPLIER_RATE_LIST_DETAIL.SRL_ID "
-        '        strSql = strSql & " WHERE SUPPLIER_RATE_LIST_DETAIL.ITEM_ID = " & dt.Rows(i)("ITEM_ID").ToString() & "  AND (SUPPLIER_RATE_LIST.SUPP_ID = " & cmbSupplier.SelectedValue & ") AND (SUPPLIER_RATE_LIST.ACTIVE = 1);"
-        '        strSql = strSql & " SELECT ISNULL(@rate,0);"
-        '        strSql = strSql & " SELECT ITEM_DETAIL.PURCHASE_VAT_ID, VAT_MASTER.VAT_PERCENTAGE, VAT_MASTER.VAT_NAME FROM ITEM_DETAIL INNER JOIN VAT_MASTER ON ITEM_DETAIL.PURCHASE_VAT_ID = VAT_MASTER.VAT_ID "
-        '        strSql = strSql & " WHERE (ITEM_DETAIL.ITEM_ID = " & dt.Rows(i)("ITEM_ID").ToString & " )"
-        '        ds = clsObj.Fill_DataSet(strSql)
-        '        dt.Rows(i)("ITEM_RATE") = ds.Tables(0).Rows(0)(0)
-        '        dt.Rows(i)("VAT_NAME") = ds.Tables(1).Rows(0)("VAT_NAME")
-        '        dt.Rows(i)("VAT_PER") = ds.Tables(1).Rows(0)("VAT_PERCENTAGE")
-        '        dt.Rows(i)("Vat_Id") = ds.Tables(1).Rows(0)("PURCHASE_VAT_ID")
-        '        dt.Rows(i)("Item_Value") = (dt.Rows(i)("PO_Qty") * dt.Rows(i)("Item_Rate")) + ((dt.Rows(i)("PO_Qty") * dt.Rows(i)("Item_Rate") * dt.Rows(i)("Vat_Per")) / 100)
-        '    Next
-        'End If
-    End Sub
-
+   
     Private Function CalculateAmount() As String
         Try
 
             Dim i As Integer
             Dim Str As String
-
 
             Dim total_item_value As Double
             Dim total_vat_amount As Double
@@ -626,43 +692,38 @@ restart:
             total_vat_amount = 0
             tot_amt = 0
 
-
+            Dim discamt As Decimal = 0.0
+            Dim totdiscamt As Decimal = 0.0
 
             For i = 1 To flxItems.Rows.Count - 1
                 'If flxItems.Rows(i).IsNode Then
                 total_item_value = total_item_value + (flxItems.Rows(i).Item("transfer_Qty") * flxItems.Rows(i).Item("item_rate"))
-                total_vat_amount = total_vat_amount + ((flxItems.Rows(i)("item_rate") * flxItems.Rows(i)("transfer_Qty")) * flxItems.Rows(i)("GST") / 100)
-                'End If 
+
+                If (flxItems.Rows(i).Item("DType")) = "P" Then
+                    discamt = Math.Round((flxItems.Rows(i).Item("Amount") * flxItems.Rows(i).Item("DISC") / 100), 2)
+                    totdiscamt = totdiscamt + ((flxItems.Rows(i).Item("transfer_Qty") * flxItems.Rows(i).Item("item_rate")) * flxItems.Rows(i)("DISC") / 100)
+                    total_vat_amount = total_vat_amount + (((flxItems.Rows(i).Item("transfer_Qty") * flxItems.Rows(i).Item("item_rate")) - ((flxItems.Rows(i).Item("transfer_Qty") * flxItems.Rows(i).Item("item_rate")) * flxItems.Rows(i)("DISC") / 100)) * flxItems.Rows(i)("GST") / 100)
+                Else
+                    discamt = Math.Round((flxItems.Rows(i).Item("DISC")), 2)
+                    totdiscamt = totdiscamt + flxItems.Rows(i)("DISC")
+                    total_vat_amount = total_vat_amount + (((flxItems.Rows(i).Item("transfer_Qty") * flxItems.Rows(i).Item("item_rate")) - discamt) * flxItems.Rows(i)("GST") / 100)
+                End If
+
+                flxItems.Rows(i).Item("GST_Amount") = Math.Round((flxItems.Rows(i).Item("Amount") - discamt) * (flxItems.Rows(i).Item("GST") / 100), 2)
+                flxItems.Rows(i).Item("LandingAmt") = Math.Round((flxItems.Rows(i).Item("Amount") - discamt) + (flxItems.Rows(i).Item("GST_Amount")), 2)
+
             Next
+
 
 
             RemoveHandler flxItems.AfterDataRefresh, AddressOf flxItems_AfterDataRefresh
 
-            'For i = 1 To flxItems.Rows.Count - 1
-            '    With flxItems.Rows(i)
-            '        If Not .IsNode Then
-            '            .Item("Item_Value") = (.Item("transfer_Qty") * .Item("Item_Rate")) '+ ((.Item("PO_Qty") * .Item("Item_Rate") * .Item("Vat_Per")) / 100)
-            '            total_item_value = total_item_value + (.Item("transfer_Qty") * .Item("Item_Rate"))
-            '            'exice_per = IIf((.Item("Exice_Per")) Is DBNull.Value, 0, .Item("Exice_Per"))
-            '            'exice_per = exice_per / 100
-            '            'total_exice_amount = total_exice_amount + (.Item("Item_Value") * exice_per)
-
-            '            'If chk_VatCal.Checked = True Then
-            '            '    total_vat_amount = total_vat_amount + ((((.Item("PO_Qty") * .Item("Item_Rate")) + (.Item("Item_Value") * exice_per) - ((.Item("item_value") / tot_amt) * Convert.ToDouble(txtDiscountAmount.Text))) * .Item("Vat_Per")) / 100)
-            '            'Else
-            '            '    total_vat_amount = total_vat_amount + ((((.Item("PO_Qty") * .Item("Item_Rate")) - ((.Item("item_value") / tot_amt) * Convert.ToDouble(txtDiscountAmount.Text))) * .Item("Vat_Per")) / 100)
-            '            'End If
-            '            total_vat_amount = total_vat_amount + ((((.Item("transfer_Qty") * .Item("Item_Rate")) - ((.Item("item_value") / tot_amt))) * .Item("GST")) / 100)
-
-            '        End If
-            '    End With
-            'Next
-
             AddHandler flxItems.AfterDataRefresh, AddressOf flxItems_AfterDataRefresh
 
+            lblTotalDisc.Text = totdiscamt.ToString("#0.00")
             lblItemValue.Text = total_item_value.ToString("#0.00")
             lblVatAmount.Text = total_vat_amount.ToString("#0.00")
-            lblNetAmount.Text = (total_item_value + total_vat_amount + total_exice_amount).ToString("#0.00")
+            lblNetAmount.Text = (total_item_value - totdiscamt + total_vat_amount + total_exice_amount).ToString("#0.00")
             Str = total_item_value.ToString("#0.00") + "," + total_vat_amount.ToString("#0.00") + "," + lblNetAmount.Text + "," + total_exice_amount.ToString()
             Return Str
         Catch ex As Exception
@@ -711,5 +772,36 @@ restart:
         End If
         fill_grid()
 
+    End Sub
+
+    Private Sub btnAddNew_Click(sender As Object, e As EventArgs) Handles btnAddNew.Click
+
+        NEWCUST = 1
+        cmbSupplier.Visible = False
+        txtcustomer_name.Visible = True
+        txtcustomer_name.Text = ""
+        txtAddress.Text = ""
+        txt_txtphoneNo.Text = ""
+        txtGstNo.Text = ""
+        btnAddNew.Visible = False
+        CityBind()
+        cmbinvtype.SelectedIndex = 0
+        txtcustomer_name.Focus()
+    End Sub
+
+    Private Sub cmbSupplier_SelectedIndexChanged_1(sender As Object, e As EventArgs) Handles cmbSupplier.SelectedIndexChanged
+
+        Dim strSql As String
+        If cmbSupplier.SelectedValue <> -1 Then
+            strSql = "SELECT ACCOUNT_MASTER.ADDRESS_PRIM + ' - {'  + ISNULL(CITY_MASTER.CITY_NAME,'') + '}', PHONE_PRIM, VAT_NO,ACCOUNT_MASTER.CITY_ID"
+            strSql = strSql & " FROM ACCOUNT_MASTER LEFT OUTER JOIN"
+            strSql = strSql & " CITY_MASTER ON ACCOUNT_MASTER.CITY_ID = CITY_MASTER.CITY_ID"
+            strSql = strSql & " WHERE ACCOUNT_MASTER.ACC_ID = " & cmbSupplier.SelectedValue
+            txtAddress.Text = obj.Fill_DataSet(strSql).Tables(0).Rows(0)(0)
+            txt_txtphoneNo.Text = obj.Fill_DataSet(strSql).Tables(0).Rows(0)(1)
+            txtGstNo.Text = obj.Fill_DataSet(strSql).Tables(0).Rows(0)(2)
+            cmbCity.SelectedValue = obj.Fill_DataSet(strSql).Tables(0).Rows(0)(3)
+            txtvechicle_no.Focus()
+        End If
     End Sub
 End Class

@@ -30,6 +30,7 @@ Namespace Sale_Invoice
         Dim _VEHICLE_NO As String
         Dim _SHIPP_ADD_ID As Integer
         Dim _INV_TYPE As String
+        Dim _TRANSPORT As String
         Dim _LR_NO As String
         Dim _MODE As Integer
         Dim _dtable_Item_List As DataTable
@@ -243,6 +244,14 @@ Namespace Sale_Invoice
                 _LR_NO = value
             End Set
         End Property
+        Public Property TRANSPORT() As String
+            Get
+                TRANSPORT = _TRANSPORT
+            End Get
+            Set(ByVal value As String)
+                _TRANSPORT = value
+            End Set
+        End Property
         Public Property MODE() As Integer
             Get
                 MODE = _MODE
@@ -306,6 +315,7 @@ Namespace Sale_Invoice
                 cmd.Parameters.AddWithValue("@v_MODIFIED_DATE", clsobj.MODIFIED_DATE)
                 cmd.Parameters.AddWithValue("@v_DIVISION_ID", clsobj.DIVISION_ID)
                 cmd.Parameters.AddWithValue("@V_VEHICLE_NO", clsobj.VEHICLE_NO)
+                cmd.Parameters.AddWithValue("@V_TRANSPORT", clsobj.TRANSPORT)
                 cmd.Parameters.AddWithValue("@v_SHIPP_ADD_ID", clsobj.SHIPP_ADD_ID)
                 cmd.Parameters.AddWithValue("@v_INV_TYPE", clsobj.INV_TYPE)
                 cmd.Parameters.AddWithValue("@v_LR_NO", clsobj.LR_NO)
@@ -353,7 +363,7 @@ again:
 
                             items_row(0)("TRANSFER_QTY") = (items_row(0)("TRANSFER_QTY") + items_DataRow("TRANSFER_QTY"))
                             items_row(0)("GST_Amount") = (items_row(0)("GST_Amount") + items_DataRow("GST_Amount"))
-
+                            items_row(0)("DISC") = (items_row(0)("DISC") + items_DataRow("DISC"))
 
                         Else
                             Dim OrderDataRow As DataRow = Dtitemsnew.NewRow()
@@ -363,6 +373,8 @@ again:
                             OrderDataRow("GST") = items_DataRow("GST")
                             OrderDataRow("GST_Amount") = items_DataRow("GST_Amount")
                             OrderDataRow("HsnCodeId") = items_DataRow("HsnCodeId")
+                            OrderDataRow("DType") = items_DataRow("DType")
+                            OrderDataRow("DISC") = items_DataRow("DISC")
                             Dtitemsnew.Rows.Add(OrderDataRow)
                         End If
                         Dtitemsnew.AcceptChanges()
@@ -382,7 +394,7 @@ again:
                         cmd.Parameters.AddWithValue("@v_ITEM_QTY", Dtitemsnew.Rows(i)("TRANSFER_QTY"))
                         cmd.Parameters.AddWithValue("@v_PKT", 0)
                         cmd.Parameters.AddWithValue("@v_ITEM_RATE", Dtitemsnew.Rows(i)("ITEM_RATE"))
-                        cmd.Parameters.AddWithValue("@v_ITEM_AMOUNT", ((Dtitemsnew.Rows(i)("ITEM_RATE")) * (Dtitemsnew.Rows(i)("TRANSFER_QTY"))))
+                        cmd.Parameters.AddWithValue("@v_ITEM_AMOUNT", Dtitemsnew.Rows(i)("Amount"))
                         cmd.Parameters.AddWithValue("@v_VAT_PER", Dtitemsnew.Rows(i)("GST"))
                         cmd.Parameters.AddWithValue("@v_VAT_AMOUNT", Dtitemsnew.Rows(i)("GST_Amount"))
                         cmd.Parameters.AddWithValue("@v_CREATED_BY", clsobj.CREATED_BY)
@@ -391,19 +403,14 @@ again:
                         cmd.Parameters.AddWithValue("@v_MODIFIED_DATE", clsobj.MODIFIED_DATE)
                         cmd.Parameters.AddWithValue("@v_DIVISION_ID", clsobj.DIVISION_ID)
                         cmd.Parameters.AddWithValue("@v_TARRIF_ID", Dtitemsnew.Rows(i)("HsnCodeId"))
+                        cmd.Parameters.AddWithValue("@v_DISCOUNT_TYPE", Dtitemsnew.Rows(i)("DType"))
+                        cmd.Parameters.AddWithValue("@v_DISCOUNT_VALUE", Dtitemsnew.Rows(i)("DISC"))
                         cmd.Parameters.AddWithValue("@V_MODE", 1)
                         cmd.ExecuteNonQuery()
                     Next
 
 
-
-
-
                     For i As Integer = 0 To dt.Rows.Count - 1
-
-
-
-
 
                         cmd.Parameters.Clear()
                         cmd.CommandType = CommandType.StoredProcedure
@@ -502,6 +509,74 @@ again:
                 da.Dispose()
             End Try
         End Function
+
+        Public Sub Insert_New_Customer_Remote(CUS_ID As Integer, Customer_Name As String, Address As String, Phone As String, GSTNO As String, City_ID As Integer)
+
+
+            Dim con_global As New SqlConnection(gblDNS_Online)
+            Dim trans_global As SqlTransaction
+
+
+            If con_global.State <> ConnectionState.Open Then con_global.Open()
+                trans_global = con_global.BeginTransaction
+            Try
+                cmd = New SqlCommand
+                cmd.Connection = con_global
+                cmd.Transaction = trans_global
+                cmd.CommandType = CommandType.StoredProcedure
+                cmd.CommandText = "proc_AccountMasterInsert"
+                cmd.Parameters.AddWithValue("@ACC_ID", CUS_ID)
+                cmd.Parameters.AddWithValue("@ACC_NAME", Customer_Name)
+                cmd.Parameters.AddWithValue("@AG_ID", 1)
+                cmd.Parameters.AddWithValue("@ADDRESS_PRIM", Address)
+                cmd.Parameters.AddWithValue("@PHONE_PRIM", Phone)
+                cmd.Parameters.AddWithValue("@CITY_ID", City_ID)
+                cmd.Parameters.AddWithValue("@VAT_NO", GSTNO)
+                cmd.ExecuteNonQuery()
+                cmd.Dispose()
+
+                trans_global.Commit()
+                trans_global.Dispose()
+
+            Catch ex As Exception
+                trans_global.Rollback()
+                con_global.Close()
+                MsgBox(ex.Message)
+            End Try
+        End Sub
+
+        Public Sub Insert_New_Customer(CUS_ID As Integer, Customer_Name As String, Address As String, Phone As String, GSTNO As String, City_ID As Integer)
+
+            Dim trans As SqlTransaction
+
+            If con.State = ConnectionState.Closed Then con.Open()
+                trans = con.BeginTransaction
+
+            Try
+                cmd = New SqlCommand
+                cmd.Connection = con
+                cmd.CommandType = CommandType.StoredProcedure
+                cmd.Transaction = trans
+                cmd.CommandText = "proc_AccountMasterInsert"
+                cmd.Parameters.AddWithValue("@ACC_ID", CUS_ID)
+                cmd.Parameters.AddWithValue("@ACC_NAME", Customer_Name)
+                cmd.Parameters.AddWithValue("@AG_ID", 1)
+                cmd.Parameters.AddWithValue("@ADDRESS_PRIM", Address)
+                cmd.Parameters.AddWithValue("@PHONE_PRIM", Phone)
+                cmd.Parameters.AddWithValue("@CITY_ID", City_ID)
+                cmd.Parameters.AddWithValue("@VAT_NO", GSTNO)
+                cmd.ExecuteNonQuery()
+                cmd.Dispose()
+
+                trans.Commit()
+                trans.Dispose()
+
+            Catch ex As Exception
+                trans.Rollback()
+                con.Close()
+                MsgBox(ex.Message)
+            End Try
+        End Sub
 
     End Class
 

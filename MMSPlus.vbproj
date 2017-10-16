@@ -1860,6 +1860,7 @@
     <Content Include="Scripts\Updates\0001_09_oct_2017.sql">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Scripts\Updates\0002_Invoice_14_oct_2017.sql" />
     <None Include="app.config" />
     <None Include="ClassDiagram1.cd" />
     <None Include="Images and Icons\Report.ico" />
