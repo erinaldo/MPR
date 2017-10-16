@@ -22,7 +22,7 @@ Public Class frm_DebitNote
 
     Dim DN_Code As String
     Dim DN_No As Integer
-
+    Dim DN_Id As Integer
     Dim clsObj As New DebitNote.cls_DebitNote_Master
     Dim prpty As New DebitNote.cls_DebitNote_Prop
 
@@ -198,7 +198,7 @@ Public Class frm_DebitNote
         txtRemarks.Focus()
         Try
             If flag = "save" And validate_data() Then
-                Dim DN_Id As Integer
+
                 GetDNCode()
                 DN_Id = Convert.ToInt32(obj.getMaxValue("DebitNote_ID", "DebitNote_MASTER"))
                 prpty.DebitNote_ID = Convert.ToInt32(DN_Id)
@@ -247,7 +247,7 @@ Public Class frm_DebitNote
 
                 If flag = "save" Then
                     If MsgBox(vbCrLf & "Do You Want to Print Preview.", MsgBoxStyle.Question + MsgBoxStyle.YesNo, gblMessageHeading) = MsgBoxResult.Yes Then
-                        obj.RptShow(enmReportName.RptMRNWithoutPOPrint, "DebitNote_ID", CStr(prpty.DebitNote_ID), CStr(enmDataType.D_int))
+                        obj.RptShow(enmReportName.RptDebitNotePrint, "DN_ID", CStr(prpty.DebitNote_ID), CStr(enmDataType.D_int))
                     End If
                 Else
                 End If
@@ -275,7 +275,20 @@ Public Class frm_DebitNote
     End Function
 
     Public Sub ViewClick(ByVal sender As Object, ByVal e As System.EventArgs) Implements IForm.ViewClick
+        Try
+            If TbRMRN.SelectedIndex = 0 Then
+                If dgvList.SelectedRows.Count > 0 Then
 
+                    obj.RptShow(enmReportName.RptDebitNotePrint, "DN_ID", CStr(dgvList("DebitNote_Id", dgvList.CurrentCell.RowIndex).Value()), CStr(enmDataType.D_int))
+                End If
+            Else
+                If flag <> "save" Then
+                    obj.RptShow(enmReportName.RptDebitNotePrint, "DN_ID", CStr(DN_Id), CStr(enmDataType.D_int))
+                End If
+            End If
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
     End Sub
 
     Private Sub Grid_styles()
