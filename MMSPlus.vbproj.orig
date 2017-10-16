@@ -1,0 +1,1997 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{FF9B4EEA-0EF3-4610-B9AB-2CA86861D5AF}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <StartupObject>MMSPlus.My.MyApplication</StartupObject>
+    <RootNamespace>MMSPlus</RootNamespace>
+    <AssemblyName>MMSPlus</AssemblyName>
+    <MyType>WindowsForms</MyType>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <ApplicationIcon>MMSPLUS.ico</ApplicationIcon>
+    <ManifestCertificateThumbprint>E853D14F55CE1F0BA728EA1CC180E1A99FD926CD</ManifestCertificateThumbprint>
+    <ManifestKeyFile>afbsl_mms_TemporaryKey.pfx</ManifestKeyFile>
+    <GenerateManifests>false</GenerateManifests>
+    <SignManifests>false</SignManifests>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <SignAssembly>false</SignAssembly>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <TargetZone>LocalIntranet</TargetZone>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <PublishUrl>http://localhost/afbsl_mms/</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile>MMSPlus.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022,42353,42354,42355</NoWarn>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DocumentationFile>MMSPlus.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022,42353,42354,42355</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="adodb, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\..\SYNC\POSPlus_Retail\bin\dlls\adodb.dll</HintPath>
+    </Reference>
+    <Reference Include="AxInterop.CrystalActiveXReportViewerLib105">
+      <HintPath>..\..\SYNC\POSPlus_Retail\bin\dlls\AxInterop.CrystalActiveXReportViewerLib105.dll</HintPath>
+    </Reference>
+    <Reference Include="C1.Common, Version=1.0.20031.116, Culture=neutral, PublicKeyToken=e272bb32d11b1948">
+      <HintPath>..\..\SYNC\POSPlus_Retail\bin\dlls\C1.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="C1.Data, Version=1.0.20022.0, Culture=neutral, PublicKeyToken=900b028620cd3a1b">
+      <HintPath>..\..\SYNC\POSPlus_Retail\bin\dlls\C1.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="C1.Data.Design, Version=1.0.20024.0, Culture=neutral, PublicKeyToken=bf19f4b831d5eff2">
+      <HintPath>..\..\SYNC\POSPlus_Retail\bin\dlls\C1.Data.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="C1.Data.Express, Version=1.0.20022.0, Culture=neutral, PublicKeyToken=253763f1c3e4ceec">
+      <HintPath>..\..\SYNC\POSPlus_Retail\bin\dlls\C1.Data.Express.dll</HintPath>
+    </Reference>
+    <Reference Include="C1.Win.C1FlexGrid, Version=2.5.20052.212, Culture=neutral, PublicKeyToken=c9c7ad9c0a5706c9">
+      <HintPath>..\..\SYNC\POSPlus_Retail\bin\dlls\C1.Win.C1FlexGrid.dll</HintPath>
+    </Reference>
+    <Reference Include="C1.Win.C1FlexGrid.Classic, Version=2.5.20052.212, Culture=neutral, PublicKeyToken=c9c7ad9c0a5706c9">
+      <HintPath>..\..\SYNC\POSPlus_Retail\bin\dlls\C1.Win.C1FlexGrid.Classic.dll</HintPath>
+    </Reference>
+    <Reference Include="C1.Win.C1Report, Version=2.5.20052.176, Culture=neutral, PublicKeyToken=c9c7ad9c0a5706c9">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\SYNC\POSPlus_Retail\bin\dlls\C1.Win.C1Report.dll</HintPath>
+    </Reference>
+    <Reference Include="C1.Win.C1TrueDBGrid, Version=1.3.20052.50415, Culture=neutral, PublicKeyToken=75ae3fb0e2b1e0da">
+      <HintPath>..\..\SYNC\POSPlus_Retail\bin\dlls\C1.Win.C1TrueDBGrid.dll</HintPath>
+    </Reference>
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Shared, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Windows.Forms, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="MTGCCombobox, Version=1.0.0.0, Culture=neutral">
+      <HintPath>DLL\MTGCCombobox.dll</HintPath>
+    </Reference>
+    <Reference Include="System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+      <HintPath>C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data">
+      <HintPath>C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Deployment">
+      <HintPath>C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Design">
+      <HintPath>C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <HintPath>C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Drawing.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Messaging">
+      <HintPath>C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Messaging.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Transactions">
+      <HintPath>C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Transactions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Services, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\WINDOWS\assembly\GAC_MSIL\System.Web.Services\2.0.0.0__b03f5f7f11d50a3a\System.Web.Services.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms">
+      <HintPath>C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Windows.Forms.dll</HintPath>
+    </Reference>
+    <Reference Include="System.XML" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Drawing" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Windows.Forms" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="afbl_mmsDataSet.Designer.vb">
+      <DependentUpon>afbl_mmsDataSet.xsd</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="ApplicationEvents.vb" />
+    <Compile Include="ClassesRecipe\Cls_Recipe.vb" />
+    <Compile Include="ClassesRecipe\Cls_Recipe_Master.vb" />
+    <Compile Include="ClassesRecipe\cls_SemiFinished_Recipe_Master.vb" />
+    <Compile Include="ClassesRecipe\Cls_Semi_Finished_Item_Master.vb" />
+    <Compile Include="Classes\cls_Debit_note.vb" />
+    <Compile Include="Classes\cls_Division_Settings.vb" />
+    <Compile Include="Classes\cls_Invoice_Settlement.vb" />
+    <Compile Include="Classes\cls_Material_Received_Without_PO.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\cls_Material_rec_against_PO.vb" />
+    <Compile Include="Classes\cls_ReverseMaterial_Issue_To_Cost_Center.vb" />
+    <Compile Include="Classes\cls_ReverseMaterial_Received_Against_PO_Master.vb" />
+    <Compile Include="Classes\cls_ReverseMaterial_Recieved_Without_Po_Master.vb" />
+    <Compile Include="Classes\cls_Reverse_wastage_master.vb" />
+    <Compile Include="Classes\cls_Material_Return.vb" />
+    <Compile Include="Classes\cls_Stock_Transfer.vb" />
+    <Compile Include="Classes\cls_Stock_Transfer_CC_To_CC.vb" />
+    <Compile Include="Classes\cls_adjustment_master.vb" />
+    <Compile Include="Classes\cls_Closing_master.vb" />
+    <Compile Include="Classes\cls_wastage_master_cc.vb" />
+    <Compile Include="Classes\cls_Sale_Invoice.vb" />
+    <Compile Include="Classes\cls_Credit_note.vb" />
+    <Compile Include="Classes\MyReportDocument.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Classes\SyncronizeData.vb" />
+    <Compile Include="CostCenterForms\frm_Accept_Stock.Designer.vb">
+      <DependentUpon>frm_Accept_Stock.vb</DependentUpon>
+    </Compile>
+    <Compile Include="CostCenterForms\frm_Accept_Stock.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CostCenterForms\frm_Freeze_ClosingStock.Designer.vb">
+      <DependentUpon>frm_Freeze_ClosingStock.vb</DependentUpon>
+    </Compile>
+    <Compile Include="CostCenterForms\frm_Freeze_ClosingStock.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CostCenterForms\frm_Approve_MRS.Designer.vb">
+      <DependentUpon>frm_Approve_MRS.vb</DependentUpon>
+    </Compile>
+    <Compile Include="CostCenterForms\frm_Approve_MRS.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CostCenterForms\frm_material_return.Designer.vb">
+      <DependentUpon>frm_material_return.vb</DependentUpon>
+    </Compile>
+    <Compile Include="CostCenterForms\frm_material_return.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CostCenterForms\frm_ReportInput.Designer.vb">
+      <DependentUpon>frm_ReportInput.vb</DependentUpon>
+    </Compile>
+    <Compile Include="CostCenterForms\frm_ReportInput.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CostCenterForms\frm_Stock_Transfer_CC_To_CC.Designer.vb">
+      <DependentUpon>frm_Stock_Transfer_CC_To_CC.vb</DependentUpon>
+    </Compile>
+    <Compile Include="CostCenterForms\frm_Stock_Transfer_CC_To_CC.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CostCenterForms\frm_Closing_Stock_CC.Designer.vb">
+      <DependentUpon>frm_Closing_Stock_CC.vb</DependentUpon>
+    </Compile>
+    <Compile Include="CostCenterForms\frm_Closing_Stock_CC.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CostCenterForms\frm_Wastage Master_cc.designer.vb">
+      <DependentUpon>frm_Wastage Master_cc.vb</DependentUpon>
+    </Compile>
+    <Compile Include="CostCenterForms\frm_Wastage Master_cc.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\frm_OpenSale_Invoice.Designer.vb">
+      <DependentUpon>frm_OpenSale_Invoice.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frm_OpenSale_Invoice.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\frm_CreditNote.Designer.vb">
+      <DependentUpon>frm_CreditNote.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frm_CreditNote.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+<<<<<<< HEAD
+    <Compile Include="Forms\frm_Gate_Pass.Designer.vb">
+      <DependentUpon>frm_Gate_Pass.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frm_Gate_Pass.vb">
+=======
+    <Compile Include="Forms\frm_Invoice_Settlement.Designer.vb">
+      <DependentUpon>frm_Invoice_Settlement.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frm_Invoice_Settlement.vb">
+>>>>>>> 538ca16c96e3d8a2ffc1cb7218c6d492199c0b95
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\frm_RateList_Mapping.Designer.vb">
+      <DependentUpon>frm_RateList_Mapping.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frm_RateList_Mapping.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frm_Customer_Rate_List_Master.Designer.vb">
+      <DependentUpon>frm_Customer_Rate_List_Master.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frm_Customer_Rate_List_Master.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\frm_Sale_Invoice.Designer.vb">
+      <DependentUpon>frm_Sale_Invoice.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frm_Sale_Invoice.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\frm_Accept_Stock_transfer.Designer.vb">
+      <DependentUpon>frm_Accept_Stock_transfer.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frm_Accept_Stock_transfer.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\frm_add_PO_Items.Designer.vb">
+      <DependentUpon>frm_add_PO_Items.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frm_add_PO_Items.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frm_Batch_Entry_Qty.Designer.vb">
+      <DependentUpon>frm_Batch_Entry_Qty.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frm_Batch_Entry_Qty.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frm_ChangePassword.Designer.vb">
+      <DependentUpon>frm_ChangePassword.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frm_ChangePassword.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frm_DebitNote.Designer.vb">
+      <DependentUpon>frm_DebitNote.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frm_DebitNote.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\frm_DivisionSettings.Designer.vb">
+      <DependentUpon>frm_DivisionSettings.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frm_DivisionSettings.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frm_ItemStockable_CC_List.Designer.vb">
+      <DependentUpon>frm_ItemStockable_CC_List.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frm_ItemStockable_CC_List.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frm_Item_Ledger.Designer.vb">
+      <DependentUpon>frm_Item_Ledger.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frm_Item_Ledger.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\frm_Item_rate_list.Designer.vb">
+      <DependentUpon>frm_Item_rate_list.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frm_Item_rate_list.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\frm_Material_Issue_To_CostCentre_Item_Wise.Designer.vb">
+      <DependentUpon>frm_Material_Issue_To_CostCentre_Item_Wise.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frm_Material_Issue_To_CostCentre_Item_Wise.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\frm_material_rec_against_PO.Designer.vb">
+      <DependentUpon>frm_material_rec_against_PO.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frm_material_rec_against_PO.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\frm_MRNWithPOSUPWISEe.Designer.vb">
+      <DependentUpon>frm_MRNWithPOSUPWISEe.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frm_MRNWithPOSUPWISEe.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\frm_ReverseMaterial_Issue_To_Cost_Center_Master.Designer.vb">
+      <DependentUpon>frm_ReverseMaterial_Issue_To_Cost_Center_Master.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frm_ReverseMaterial_Issue_To_Cost_Center_Master.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\frm_ReverseMaterial_Received_Against_PO_Master.designer.vb">
+      <DependentUpon>frm_ReverseMaterial_Received_Against_PO_Master.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frm_ReverseMaterial_Received_Against_PO_Master.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\frm_ReverseMaterial_Received_Without_PO_Master.Designer.vb">
+      <DependentUpon>frm_ReverseMaterial_Received_Without_PO_Master.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frm_ReverseMaterial_Received_Without_PO_Master.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\frm_Reverse_Wastage_Master.designer.vb">
+      <DependentUpon>frm_Reverse_Wastage_Master.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frm_Reverse_Wastage_Master.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\frm_StockAdjustment.Designer.vb">
+      <DependentUpon>frm_StockAdjustment.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frm_StockAdjustment.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\frm_Stock_Transfer.Designer.vb">
+      <DependentUpon>frm_Stock_Transfer.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frm_Stock_Transfer.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\frm_Synchronization.Designer.vb">
+      <DependentUpon>frm_Synchronization.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frm_Synchronization.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frm_transferData.Designer.vb">
+      <DependentUpon>frm_transferData.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frm_transferData.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frm_transferData_btwn_dates.Designer.vb">
+      <DependentUpon>frm_transferData_btwn_dates.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frm_transferData_btwn_dates.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MDI Warehouse.Designer.vb">
+      <DependentUpon>MDI Warehouse.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\MDI Warehouse.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SplashScreen.Designer.vb">
+      <DependentUpon>SplashScreen.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\SplashScreen.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="RecipeForms\frm_define_recipe.Designer.vb">
+      <DependentUpon>frm_define_recipe.vb</DependentUpon>
+    </Compile>
+    <Compile Include="RecipeForms\frm_define_recipe.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RecipeForms\frm_Define_SemiFinished_Recipe.Designer.vb">
+      <DependentUpon>frm_Define_SemiFinished_Recipe.vb</DependentUpon>
+    </Compile>
+    <Compile Include="RecipeForms\frm_Define_SemiFinished_Recipe.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RecipeForms\frm_MenuItemRecipe.Designer.vb">
+      <DependentUpon>frm_MenuItemRecipe.vb</DependentUpon>
+    </Compile>
+    <Compile Include="RecipeForms\frm_MenuItemRecipe.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RecipeForms\frm_Recipe_Master.Designer.vb">
+      <DependentUpon>frm_Recipe_Master.vb</DependentUpon>
+    </Compile>
+    <Compile Include="RecipeForms\frm_Recipe_Master.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RecipeForms\frm_Semi_Finished_Recipe_Master.Designer.vb">
+      <DependentUpon>frm_Semi_Finished_Recipe_Master.vb</DependentUpon>
+    </Compile>
+    <Compile Include="RecipeForms\frm_Semi_Finished_Recipe_Master.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ReportsForms\frmStockValue.Designer.vb">
+      <DependentUpon>frmStockValue.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ReportsForms\frmStockValue.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ReportsForms\Frm_IndentPrint.Designer.vb">
+      <DependentUpon>Frm_IndentPrint.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ReportsForms\Frm_IndentPrint.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ReportsForms\Frm_IndentPrintRpt.Designer.vb">
+      <DependentUpon>Frm_IndentPrintRpt.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ReportsForms\Frm_IndentPrintRpt.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ReportsForms\frm_IssueDetail.Designer.vb">
+      <DependentUpon>frm_IssueDetail.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ReportsForms\frm_IssueDetail.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ReportsForms\frm_LedgerSummary.Designer.vb">
+      <DependentUpon>frm_LedgerSummary.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ReportsForms\frm_LedgerSummary.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ReportsForms\frm_MRNDetails.Designer.vb">
+      <DependentUpon>frm_MRNDetails.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ReportsForms\frm_MRNDetails.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ReportsForms\frm_Report.Designer.vb">
+      <DependentUpon>frm_Report.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ReportsForms\frm_Report.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReportsForms\Frm_rpt_Open_Purchase_Order.designer.vb">
+      <DependentUpon>Frm_rpt_Open_Purchase_Order.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ReportsForms\Frm_rpt_Open_Purchase_Order.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Classes\clsUserMaster.vb" />
+    <Compile Include="Classes\cls_cost_center_master.vb" />
+    <Compile Include="Classes\cls_indent_master.vb" />
+    <Compile Include="Classes\cls_item_detail.vb" />
+    <Compile Include="Classes\cls_item_master.vb" />
+    <Compile Include="Classes\cls_Material_Issue_To_Cost_Center.vb" />
+    <Compile Include="Classes\cls_mrs_main_store_master.vb" />
+    <Compile Include="Classes\cls_Open_Po_Master.vb" />
+    <Compile Include="Classes\cls_Purchase_Order.vb" />
+    <Compile Include="Classes\cls_Supplier.vb" />
+    <Compile Include="Classes\cls_wastage_master.vb" />
+    <Compile Include="Classes\CommonClass.vb" />
+    <Compile Include="Classes\Connection Module.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\GlobalModule.vb" />
+    <Compile Include="Classes\IForm.vb" />
+    <Compile Include="CostCenterForms\frm_Material_Received.Designer.vb">
+      <DependentUpon>frm_Material_Received.vb</DependentUpon>
+    </Compile>
+    <Compile Include="CostCenterForms\frm_Material_Received.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CostCenterForms\frm_MRS_MainStore.Designer.vb">
+      <DependentUpon>frm_MRS_MainStore.vb</DependentUpon>
+    </Compile>
+    <Compile Include="CostCenterForms\frm_MRS_MainStore.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\frm_Approve_Indent.Designer.vb">
+      <DependentUpon>frm_Approve_Indent.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frm_Approve_Indent.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\frm_Approve_OPEN_PO.designer.vb">
+      <DependentUpon>frm_Approve_OPEN_PO.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frm_Approve_OPEN_PO.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\frm_Approve_PO.Designer.vb">
+      <DependentUpon>frm_Approve_PO.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frm_Approve_PO.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\frm_Cost_Center.Designer.vb">
+      <DependentUpon>frm_Cost_Center.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frm_Cost_Center.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\frm_create_connection_file.designer.vb">
+      <DependentUpon>frm_create_connection_file.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frm_create_connection_file.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frm_Indent_Items.Designer.vb">
+      <DependentUpon>frm_Indent_Items.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frm_Indent_Items.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frm_Indent_Master.Designer.vb">
+      <DependentUpon>frm_Indent_Master.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frm_Indent_Master.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\frm_Item_Master.Designer.vb">
+      <DependentUpon>frm_Item_Master.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frm_Item_Master.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\frm_Material_Issue_To_Cost_Center_Master.Designer.vb">
+      <DependentUpon>frm_Material_Issue_To_Cost_Center_Master.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frm_Material_Issue_To_Cost_Center_Master.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\frm_Material_Received_Without_PO_Master.Designer.vb">
+      <DependentUpon>frm_Material_Received_Without_PO_Master.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frm_Material_Received_Without_PO_Master.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\frm_MRN_Items.Designer.vb">
+      <DependentUpon>frm_MRN_Items.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frm_MRN_Items.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frm_Open_PO_Master.Designer.vb">
+      <DependentUpon>frm_Open_PO_Master.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frm_Open_PO_Master.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\frm_Purchase_Order.Designer.vb">
+      <DependentUpon>frm_Purchase_Order.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frm_Purchase_Order.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\frm_Show_search.Designer.vb">
+      <DependentUpon>frm_Show_search.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frm_Show_search.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frm_Supplier_Rate_List_Master.Designer.vb">
+      <DependentUpon>frm_Supplier_Rate_List_Master.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frm_Supplier_Rate_List_Master.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\frm_user_group_master.Designer.vb">
+      <DependentUpon>frm_user_group_master.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frm_user_group_master.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\frm_user_master.Designer.vb">
+      <DependentUpon>frm_user_master.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frm_user_master.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\frm_user_rights.Designer.vb">
+      <DependentUpon>frm_user_rights.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frm_user_rights.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\frm_Wastage Master.designer.vb">
+      <DependentUpon>frm_Wastage Master.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frm_Wastage Master.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\LoginForm.Designer.vb">
+      <DependentUpon>LoginForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\LoginForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CostCenterForms\MDICostCenter.Designer.vb">
+      <DependentUpon>MDICostCenter.vb</DependentUpon>
+    </Compile>
+    <Compile Include="CostCenterForms\MDICostCenter.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MDIMain.Designer.vb">
+      <DependentUpon>MDIMain.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\MDIMain.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Reports\Copy of cryMrsDetail.vb">
+      <DependentUpon>cryMrsDetailMStore.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\Copy of cryMrsItem.vb">
+      <DependentUpon>cryMrsItemMStore.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\CryCustomerrateList.vb">
+      <DependentUpon>CryCustomerrateList.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reports\cryAdjustmentPrint.vb">
+      <DependentUpon>cryAdjustmentPrint.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\cryAllPurchaserates.vb">
+      <DependentUpon>cryAllPurchaserates.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\cryClosingStockPrint.vb">
+      <DependentUpon>cryClosingStockPrint.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\cryConsumption_CategoryHeadWise_cc.vb">
+      <DependentUpon>cryConsumption_CategoryHeadWise_cc.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\cryConsumption_ItemWise_cc.vb">
+      <DependentUpon>cryConsumption_ItemWise_cc.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\cryIKT_ItemWise_cc.vb">
+      <DependentUpon>cryIKT_ItemWise_cc.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\cryIKT_List.vb">
+      <DependentUpon>cryIKT_List.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\cryIndentDetail1.vb">
+      <DependentUpon>cryIndentDetail.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\cryIndentDetailPrint.vb">
+      <DependentUpon>cryIndentDetailPrint.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\cryIssueDetail.vb">
+      <DependentUpon>cryIssueDetail.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\cryItemWiseIndentS.vb">
+      <DependentUpon>cryItemWiseIndentS.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\CryItemWiseMICostCenter.vb">
+      <DependentUpon>CryItemWiseMICostCenter.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\cryItemWiseMRN%28against_po%29.vb">
+      <DependentUpon>cryItemWiseMRN%28against_po%29.rpt</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\cryItemWiseMRN%28without_po%29.vb">
+      <DependentUpon>cryItemWiseMRN%28without_po%29.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\CryItemWiseMRN%28Without_po_Supplier_wise%29.vb">
+      <DependentUpon>CryItemWiseMRN%28Without_po_Supplier_wise%29.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\cryItemWiseMRNDetail%28against_po%29.vb">
+      <DependentUpon>cryItemWiseMRNDetail%28against_po%29.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\cryItemwiseMrs.vb">
+      <DependentUpon>cryItemwiseMrs.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\cryItemwiseMrsMStore1.vb">
+      <DependentUpon>cryItemwiseMrsMStore.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\CryItemwiseMrsMStoreCategoryHeadWise.vb">
+      <DependentUpon>CryItemwiseMrsMStoreCategoryHeadWise.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\cryLastpurchaserater.vb">
+      <DependentUpon>cryLastpurchaserater.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\cryLedgerSummary.vb">
+      <DependentUpon>cryLedgerSummary.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\cryListofIndent.vb">
+      <DependentUpon>cryListofIndent.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\cryListofMRN%28against_po%29.vb">
+      <DependentUpon>cryListofMRN%28against_po%29.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\cryListofMRN%28without_po_ItemWise%29.vb">
+      <DependentUpon>cryListofMRN%28without_po_ItemWise%29.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\cryListofMRN%28with_po_ItemWise%29.vb">
+      <DependentUpon>cryListofMRN%28with_po_ItemWise%29.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\cryListofMRNDetail%28against_po%29.vb">
+      <DependentUpon>cryListofMRNDetail%28against_po%29.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\cryListofMRNDetail%28without_po%29.vb">
+      <DependentUpon>cryListofMRNDetail%28without_po%29.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\cryListofMRN_Without_PO.vb">
+      <DependentUpon>cryListofMRN_Without_PO.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\cryListofMRN_without_po_supplier_wise.vb">
+      <DependentUpon>cryListofMRN_without_po_supplier_wise.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\cryListofMRN_with_po_supplier_wise.vb">
+      <DependentUpon>cryListofMRN_with_po_supplier_wise.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\cryListofReverseMaterial%28without_po%29.vb">
+      <DependentUpon>cryListofReverseMaterial%28without_po%29.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\cryMaterialIssueCostCenterPrint.vb">
+      <DependentUpon>cryMaterialIssueCostCenterPrint.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\cryMaterialIssuetoCostCenter Itemwise HEAD WISE DETAILED.vb">
+      <DependentUpon>cryMaterialIssuetoCostCenter Itemwise HEAD WISE DETAILED.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\cryMaterialIssuetoCostCenter Itemwise HEAD WISE.vb">
+      <DependentUpon>cryMaterialIssuetoCostCenter Itemwise HEAD WISE.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\cryMaterialIssuetoCostCenterItemwise.vb">
+      <DependentUpon>cryMaterialIssuetoCostCenterItemwise.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\cryMaterialRecAgainstPOPrint.vb">
+      <DependentUpon>cryMaterialRecAgainstPOPrint.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\cryMaterialRecAgainstPOPrintREVISED.vb">
+      <DependentUpon>cryMaterialRecAgainstPOPrintREVISED.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\cryMRNDetail.vb">
+      <DependentUpon>cryMRNDetail.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\cryMRNlist.vb">
+      <DependentUpon>cryMRNlist.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\CryMRNNewWithOutPO.vb">
+      <DependentUpon>CryMRNNewWithOutPO.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\cryMRNWithOutPOPrint.vb">
+      <DependentUpon>cryMRNWithOutPOPrint.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\cryMRNWithOutPOPrint_NonAFBL.vb">
+      <DependentUpon>cryMRNWithOutPOPrint_NonAFBL.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\cryMrsDetail.vb">
+      <DependentUpon>cryMrsDetail.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\cryMrsItem.vb">
+      <DependentUpon>cryMrsItem.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\cryMRSMainstorePrint.vb">
+      <DependentUpon>cryMRSMainstorePrint.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\cryOpenPurchaseOrderPrint.vb">
+      <DependentUpon>cryOpenPurchaseOrderPrint.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\cryPurchaseOrderPrint.vb">
+      <DependentUpon>cryPurchaseOrderPrint.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\cryPurchaserpt.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>cryPurchaserpt.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\CryReverseMaterialReceivedAgainstPOMaster.vb">
+      <DependentUpon>CryReverseMaterialReceivedAgainstPOMaster.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\cryRevMaterialDetail%28without_po%29.vb">
+      <DependentUpon>cryRevMaterialDetail%28without_po%29.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\cryRevMICostCenterPrint.vb">
+      <DependentUpon>cryRevMICostCenterPrint.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\cryRevWastagePrint.vb">
+      <DependentUpon>cryRevWastagePrint.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\crySaleInvoiceList.vb">
+      <DependentUpon>crySaleInvoiceList.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\cryStockAcceptCCPrint.vb">
+      <DependentUpon>cryStockAcceptCCPrint.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\cryStockTransferCCPrint.vb">
+      <DependentUpon>cryStockTransferCCPrint.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\cryStockValue.vb">
+      <DependentUpon>cryStockValue.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\cryStockValueCategoryWise.vb">
+      <DependentUpon>cryStockValueCategoryWise.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\cryStockValueold.vb">
+      <DependentUpon>cryStockValueold.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\cryStockValue_BatchWise.vb">
+      <DependentUpon>cryStockValue_BatchWise.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\cryStockValue_CostCenter.vb">
+      <DependentUpon>cryStockValue_CostCenter.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\CrySupplierRateList.vb">
+      <DependentUpon>CrySupplierRateList.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\crySupplierWiseMRN%28without_po%29.vb">
+      <DependentUpon>crySupplierWiseMRN%28without_po%29.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\cryWastageItemDetail.vb">
+      <DependentUpon>cryWastageItemDetail.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\cryWastageItemwise.vb">
+      <DependentUpon>cryWastageItemwise.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\CryWastageItemwiseCategoryHeadWise.vb">
+      <DependentUpon>CryWastageItemwiseCategoryHeadWise.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\cryWastageitemwise_cc.vb">
+      <DependentUpon>cryWastageitemwise_cc.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\cryWastagePrint.vb">
+      <DependentUpon>cryWastagePrint.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\cryWastagePrint_cc.vb">
+      <DependentUpon>cryWastagePrint_cc.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\cry_DC_Sale_Invoice.vb">
+      <DependentUpon>cry_DC_Sale_Invoice.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\cry_Sale_Invoice.vb">
+      <DependentUpon>cry_Sale_Invoice.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\cry_Sale_Invoice_Summary1.vb">
+      <DependentUpon>cry_Sale_Invoice_Summary.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\CyItemWiseIndentsCategoryHeadWise.vb">
+      <DependentUpon>CyItemWiseIndentsCategoryHeadWise.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\Item Ledger Average Rate Cost Center.vb">
+      <DependentUpon>Item Ledger Average Rate Cost Center.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\Item Ledger Average Rate.vb">
+      <DependentUpon>Item Ledger Average Rate.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\Item Ledger.vb">
+      <DependentUpon>Item Ledger.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\Item_Ledger_cc.vb">
+      <DependentUpon>Item_Ledger_cc.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\KcryMaterialRecAgainstPOPrint.vb">
+      <DependentUpon>KcryMaterialRecAgainstPOPrint.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\KcryMaterialRecAgainstPOPrintREVISED.vb">
+      <DependentUpon>KcryMaterialRecAgainstPOPrintREVISED.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\kcryPurchaseOrderPrint.vb">
+      <DependentUpon>kcryPurchaseOrderPrint.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\NonMovingItems.vb">
+      <DependentUpon>NonMovingItems.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\tcryMaterialRecAgainstPOPrint.vb">
+      <DependentUpon>tcryMaterialRecAgainstPOPrint.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\tcryMaterialRecAgainstPOPrintREVISED.vb">
+      <DependentUpon>tcryMaterialRecAgainstPOPrintREVISED.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CostCenterForms\frm_Accept_Stock.resx">
+      <DependentUpon>frm_Accept_Stock.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CostCenterForms\frm_Freeze_ClosingStock.resx">
+      <DependentUpon>frm_Freeze_ClosingStock.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CostCenterForms\frm_Approve_MRS.resx">
+      <DependentUpon>frm_Approve_MRS.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CostCenterForms\frm_material_return.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frm_material_return.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CostCenterForms\frm_ReportInput.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frm_ReportInput.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CostCenterForms\frm_Stock_Transfer_CC_To_CC.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frm_Stock_Transfer_CC_To_CC.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CostCenterForms\frm_Closing_Stock_CC.resx">
+      <DependentUpon>frm_Closing_Stock_CC.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CostCenterForms\frm_Wastage Master_cc.resx">
+      <DependentUpon>frm_Wastage Master_cc.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frm_OpenSale_Invoice.resx">
+      <DependentUpon>frm_OpenSale_Invoice.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frm_CreditNote.resx">
+      <DependentUpon>frm_CreditNote.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+<<<<<<< HEAD
+    <EmbeddedResource Include="Forms\frm_Gate_Pass.resx">
+      <DependentUpon>frm_Gate_Pass.vb</DependentUpon>
+=======
+    <EmbeddedResource Include="Forms\frm_Invoice_Settlement.resx">
+      <DependentUpon>frm_Invoice_Settlement.vb</DependentUpon>
+>>>>>>> 538ca16c96e3d8a2ffc1cb7218c6d492199c0b95
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frm_RateList_Mapping.resx">
+      <DependentUpon>frm_RateList_Mapping.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frm_Customer_Rate_List_Master.resx">
+      <DependentUpon>frm_Customer_Rate_List_Master.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frm_Sale_Invoice.resx">
+      <DependentUpon>frm_Sale_Invoice.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frm_Accept_Stock_transfer.resx">
+      <DependentUpon>frm_Accept_Stock_transfer.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frm_add_PO_Items.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frm_add_PO_Items.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frm_Batch_Entry_Qty.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frm_Batch_Entry_Qty.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frm_ChangePassword.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frm_ChangePassword.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frm_DebitNote.resx">
+      <DependentUpon>frm_DebitNote.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frm_DivisionSettings.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frm_DivisionSettings.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frm_ItemStockable_CC_List.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frm_ItemStockable_CC_List.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frm_Item_Ledger.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frm_Item_Ledger.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frm_Item_rate_list.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frm_Item_rate_list.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frm_Material_Issue_To_CostCentre_Item_Wise.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frm_Material_Issue_To_CostCentre_Item_Wise.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frm_material_rec_against_PO.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frm_material_rec_against_PO.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frm_MRNWithPOSUPWISEe.resx">
+      <DependentUpon>frm_MRNWithPOSUPWISEe.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frm_ReverseMaterial_Issue_To_Cost_Center_Master.resx">
+      <DependentUpon>frm_ReverseMaterial_Issue_To_Cost_Center_Master.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frm_ReverseMaterial_Received_Against_PO_Master.resx">
+      <DependentUpon>frm_ReverseMaterial_Received_Against_PO_Master.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frm_ReverseMaterial_Received_Without_PO_Master.resx">
+      <DependentUpon>frm_ReverseMaterial_Received_Without_PO_Master.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frm_Reverse_Wastage_Master.resx">
+      <DependentUpon>frm_Reverse_Wastage_Master.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frm_StockAdjustment.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frm_StockAdjustment.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frm_Stock_Transfer.resx">
+      <DependentUpon>frm_Stock_Transfer.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frm_Synchronization.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frm_Synchronization.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frm_transferData.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frm_transferData.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frm_transferData_btwn_dates.resx">
+      <DependentUpon>frm_transferData_btwn_dates.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\MDI Warehouse.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>MDI Warehouse.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SplashScreen.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>SplashScreen.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RecipeForms\frm_define_recipe.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frm_define_recipe.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RecipeForms\frm_Define_SemiFinished_Recipe.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frm_Define_SemiFinished_Recipe.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RecipeForms\frm_MenuItemRecipe.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frm_MenuItemRecipe.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RecipeForms\frm_Recipe_Master.resx">
+      <DependentUpon>frm_Recipe_Master.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RecipeForms\frm_Semi_Finished_Recipe_Master.resx">
+      <DependentUpon>frm_Semi_Finished_Recipe_Master.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportsForms\frmStockValue.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmStockValue.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportsForms\Frm_IndentPrint.resx">
+      <DependentUpon>Frm_IndentPrint.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportsForms\Frm_IndentPrintRpt.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>Frm_IndentPrintRpt.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportsForms\frm_IssueDetail.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frm_IssueDetail.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportsForms\frm_LedgerSummary.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frm_LedgerSummary.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportsForms\frm_MRNDetails.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frm_MRNDetails.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportsForms\frm_Report.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frm_Report.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportsForms\Frm_rpt_Open_Purchase_Order.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>Frm_rpt_Open_Purchase_Order.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CostCenterForms\frm_Material_Received.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frm_Material_Received.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CostCenterForms\frm_MRS_MainStore.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frm_MRS_MainStore.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frm_Approve_Indent.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frm_Approve_Indent.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frm_Approve_OPEN_PO.resx">
+      <DependentUpon>frm_Approve_OPEN_PO.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frm_Approve_PO.resx">
+      <DependentUpon>frm_Approve_PO.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frm_Cost_Center.resx">
+      <DependentUpon>frm_Cost_Center.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frm_create_connection_file.resx">
+      <DependentUpon>frm_create_connection_file.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frm_Indent_Items.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frm_Indent_Items.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frm_Indent_Master.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frm_Indent_Master.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frm_Item_Master.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frm_Item_Master.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frm_Material_Issue_To_Cost_Center_Master.resx">
+      <DependentUpon>frm_Material_Issue_To_Cost_Center_Master.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frm_Material_Received_Without_PO_Master.resx">
+      <DependentUpon>frm_Material_Received_Without_PO_Master.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frm_MRN_Items.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frm_MRN_Items.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frm_Open_PO_Master.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frm_Open_PO_Master.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frm_Purchase_Order.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frm_Purchase_Order.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frm_Show_search.resx">
+      <DependentUpon>frm_Show_search.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frm_Supplier_Rate_List_Master.resx">
+      <DependentUpon>frm_Supplier_Rate_List_Master.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frm_user_group_master.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frm_user_group_master.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frm_user_master.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frm_user_master.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frm_user_rights.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frm_user_rights.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frm_Wastage Master.resx">
+      <DependentUpon>frm_Wastage Master.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\LoginForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>LoginForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CostCenterForms\MDICostCenter.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>MDICostCenter.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\MDIMain.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>MDIMain.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\licenses.licx" />
+    <EmbeddedResource Include="Reports\CryCustomerrateList.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CryCustomerrateList.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\cryAdjustmentPrint.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cryAdjustmentPrint.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\cryAllPurchaserates.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cryAllPurchaserates.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\cryClosingStockPrint.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cryClosingStockPrint.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\cryConsumption_CategoryHeadWise_cc.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cryConsumption_CategoryHeadWise_cc.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\cryConsumption_ItemWise_cc.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cryConsumption_ItemWise_cc.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\cryIKT_ItemWise_cc.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cryIKT_ItemWise_cc.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\cryIKT_List.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cryIKT_List.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\cryIndentDetail.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cryIndentDetail1.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\cryIndentDetailPrint.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cryIndentDetailPrint.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\cryIssueDetail.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cryIssueDetail.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\cryItemWiseIndentS.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cryItemWiseIndentS.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\CryItemWiseMICostCenter.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CryItemWiseMICostCenter.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\cryItemWiseMRN%28against_po%29.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cryItemWiseMRN%28against_po%29.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\cryItemWiseMRN%28without_po%29.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cryItemWiseMRN%28without_po%29.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\CryItemWiseMRN%28Without_po_Supplier_wise%29.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CryItemWiseMRN%28Without_po_Supplier_wise%29.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\cryItemWiseMRNDetail%28against_po%29.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cryItemWiseMRNDetail%28against_po%29.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\cryItemwiseMrs.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cryItemwiseMrs.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\cryItemwiseMrsMStore.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cryItemwiseMrsMStore1.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\CryItemwiseMrsMStoreCategoryHeadWise.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CryItemwiseMrsMStoreCategoryHeadWise.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\cryLastpurchaserater.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cryLastpurchaserater.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\cryLedgerSummary.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cryLedgerSummary.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\cryListofIndent.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cryListofIndent.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\cryListofMRN%28against_po%29.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cryListofMRN%28against_po%29.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\cryListofMRN%28without_po_ItemWise%29.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cryListofMRN%28without_po_ItemWise%29.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\cryListofMRN%28with_po_ItemWise%29.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cryListofMRN%28with_po_ItemWise%29.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\cryListofMRNDetail%28against_po%29.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cryListofMRNDetail%28against_po%29.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\cryListofMRNDetail%28without_po%29.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cryListofMRNDetail%28without_po%29.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\cryListofMRN_Without_PO.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cryListofMRN_Without_PO.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\cryListofMRN_without_po_supplier_wise.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cryListofMRN_without_po_supplier_wise.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\cryListofMRN_with_po_supplier_wise.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cryListofMRN_with_po_supplier_wise.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\cryListofReverseMaterial%28without_po%29.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cryListofReverseMaterial%28without_po%29.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\cryMaterialIssueCostCenterPrint.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cryMaterialIssueCostCenterPrint.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\cryMaterialIssuetoCostCenter Itemwise HEAD WISE DETAILED.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cryMaterialIssuetoCostCenter Itemwise HEAD WISE DETAILED.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\cryMaterialIssuetoCostCenter Itemwise HEAD WISE.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cryMaterialIssuetoCostCenter Itemwise HEAD WISE.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\cryMaterialIssuetoCostCenterItemwise.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cryMaterialIssuetoCostCenterItemwise.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\cryMaterialRecAgainstPOPrint.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cryMaterialRecAgainstPOPrint.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\cryMaterialRecAgainstPOPrintREVISED.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cryMaterialRecAgainstPOPrintREVISED.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\cryMRNDetail.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cryMRNDetail.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\cryMRNlist.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cryMRNlist.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\CryMRNNewWithOutPO.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CryMRNNewWithOutPO.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\cryMRNWithOutPOPrint.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cryMRNWithOutPOPrint.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\cryMRNWithOutPOPrint_NonAFBL.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cryMRNWithOutPOPrint_NonAFBL.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\cryMrsDetail.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cryMrsDetail.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\cryMrsDetailMStore.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Copy of cryMrsDetail.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\cryMrsItem.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cryMrsItem.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\cryMrsItemMStore.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Copy of cryMrsItem.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\cryMRSMainstorePrint.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cryMRSMainstorePrint.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\cryOpenPurchaseOrderPrint.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cryOpenPurchaseOrderPrint.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\cryPurchaseOrderPrint.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cryPurchaseOrderPrint.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\cryPurchaserpt.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cryPurchaserpt.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\CryReverseMaterialReceivedAgainstPOMaster.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CryReverseMaterialReceivedAgainstPOMaster.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\cryRevMaterialDetail%28without_po%29.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cryRevMaterialDetail%28without_po%29.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\cryRevMICostCenterPrint.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cryRevMICostCenterPrint.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\cryRevWastagePrint.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cryRevWastagePrint.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\crySaleInvoiceList.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crySaleInvoiceList.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\cryStockAcceptCCPrint.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cryStockAcceptCCPrint.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\cryStockTransferCCPrint.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cryStockTransferCCPrint.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\cryStockValue.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cryStockValue.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\cryStockValueCategoryWise.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cryStockValueCategoryWise.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\cryStockValueold.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cryStockValueold.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\cryStockValue_BatchWise.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cryStockValue_BatchWise.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\cryStockValue_CostCenter.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cryStockValue_CostCenter.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\CrySupplierRateList.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CrySupplierRateList.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\crySupplierWiseMRN%28without_po%29.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crySupplierWiseMRN%28without_po%29.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\cryWastageItemDetail.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cryWastageItemDetail.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\cryWastageItemwise.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cryWastageItemwise.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\CryWastageItemwiseCategoryHeadWise.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CryWastageItemwiseCategoryHeadWise.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\cryWastageitemwise_cc.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cryWastageitemwise_cc.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\cryWastagePrint.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cryWastagePrint.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\cryWastagePrint_cc.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cryWastagePrint_cc.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\cry_DC_Sale_Invoice.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cry_DC_Sale_Invoice.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\cry_Sale_Invoice.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cry_Sale_Invoice.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\cry_Sale_Invoice_Summary.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cry_Sale_Invoice_Summary1.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\CyItemWiseIndentsCategoryHeadWise.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CyItemWiseIndentsCategoryHeadWise.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Item Ledger Average Rate Cost Center.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Item Ledger Average Rate Cost Center.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Item Ledger Average Rate.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Item Ledger Average Rate.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Item Ledger.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Item Ledger.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Item_Ledger_cc.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Item_Ledger_cc.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\KcryMaterialRecAgainstPOPrint.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>KcryMaterialRecAgainstPOPrint.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\KcryMaterialRecAgainstPOPrintREVISED.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>KcryMaterialRecAgainstPOPrintREVISED.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\kcryPurchaseOrderPrint.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>kcryPurchaseOrderPrint.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\NonMovingItems.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>NonMovingItems.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\tcryMaterialRecAgainstPOPrint.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>tcryMaterialRecAgainstPOPrint.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\tcryMaterialRecAgainstPOPrintREVISED.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>tcryMaterialRecAgainstPOPrintREVISED.vb</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="afbl_mmsDataSet.xsc">
+      <DependentUpon>afbl_mmsDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="afbl_mmsDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>afbl_mmsDataSet.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="afbl_mmsDataSet.xss">
+      <DependentUpon>afbl_mmsDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\Updates\0001_09_oct_2017.sql">
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="app.config" />
+    <None Include="ClassDiagram1.cd" />
+    <None Include="Images and Icons\Report.ico" />
+    <Content Include="bin\Debug\connection.xml" />
+    <Content Include="DLL\MTGCCombobox.dll" />
+    <None Include="Images and Icons\Approve PO.jpg" />
+    <None Include="Images and Icons\Cancel PO.jpg" />
+    <None Include="Images and Icons\Approve Indent.jpg" />
+    <None Include="Images and Icons\Cancel Indent.jpg" />
+    <None Include="Images and Icons\Approve Open PO.jpg" />
+    <None Include="Images and Icons\Cancel Open PO.jpg" />
+    <Content Include="Images and Icons\crystal-reports.gif" />
+    <None Include="Images and Icons\f_b.jpg" />
+    <Content Include="Images and Icons\f_b.gif" />
+    <Content Include="Images and Icons\f_b2.jpg" />
+    <None Include="Images and Icons\login.jpg" />
+    <Content Include="Images and Icons\M_M.jpg" />
+    <Content Include="Images and Icons\report.jpg" />
+    <Content Include="Images and Icons\report1-sym.jpg" />
+    <BaseApplicationManifest Include="My Project\app.manifest" />
+    <None Include="Resources\Indent.gif" />
+    <None Include="Resources\Rev-Wastage.gif" />
+    <None Include="Resources\Rev-Wastage1.gif" />
+    <None Include="Resources\Wastage.gif" />
+    <None Include="Resources\Purchase-Order.gif" />
+    <None Include="Resources\Open-Purchase-Order.gif" />
+    <None Include="Resources\Supplier-Rate-List.gif" />
+    <None Include="Images and Icons\Reverse Wastage.gif" />
+    <None Include="Images and Icons\Stock In.gif" />
+    <None Include="Images and Icons\Stock Out.gif" />
+    <None Include="Images and Icons\Splash.jpg" />
+    <None Include="Resources\home.png" />
+    <None Include="Resources\configuration.png" />
+    <None Include="Resources\Purchase.png" />
+    <None Include="Resources\recipe.png" />
+    <Content Include="MMSPLUS.ico" />
+    <Content Include="Resources\23-48.png" />
+    <Content Include="Resources\4-128.png" />
+    <Content Include="Resources\Abort_stop_cancel_terminate.png" />
+    <Content Include="Resources\Accounts_account_user_profile.png" />
+    <Content Include="Resources\Backup_data_database.png" />
+    <Content Include="Resources\Barcode_tag_white_webstore.png" />
+    <Content Include="Resources\box_download.png" />
+    <Content Include="Resources\Charts_chart_graph_statistics.png" />
+    <Content Include="Resources\Chef_Food-2-48.png" />
+    <Content Include="Resources\Client_list_text.png" />
+    <Content Include="Resources\Close_delete_remove_exit_cross.png" />
+    <Content Include="Resources\Credit_cards_card.png" />
+    <Content Include="Resources\Credit_card_payment.png" />
+    <Content Include="Resources\Database_storage_data_repository.png" />
+    <Content Include="Resources\Data_transmission_database.png" />
+    <Content Include="Resources\Exit_delete_close_remove_door.png" />
+    <Content Include="Resources\Financier_tycoon_stockbroker.png" />
+    <Content Include="Resources\Flow_block_grid.png" />
+    <Content Include="Resources\Folder_sharing_open.png" />
+    <Content Include="Resources\Full_recycle_bin.png" />
+    <Content Include="Resources\go-home.png" />
+    <Content Include="Resources\Goods_warehouse_products_shipping.png" />
+    <Content Include="Resources\How_to_add_archive_files.png" />
+    <Content Include="Resources\Internet_web_vector_symbol.png" />
+    <Content Include="Resources\Inventory_box_shipment_product.png" />
+    <Content Include="Resources\Items_recent_list_to_do_formatting.png" />
+    <Content Include="Resources\item_List-48.png" />
+    <Content Include="Resources\Loading_throbber_time_loader.png" />
+    <Content Include="Resources\login.png" />
+    <Content Include="Resources\logout.png" />
+    <Content Include="Resources\Logout_user_login_account.png" />
+    <Content Include="Resources\Market_report.png" />
+    <Content Include="Resources\mms+.png" />
+    <Content Include="Resources\MMS-Login-background.jpg" />
+    <Content Include="Resources\MMS-Login-New_03.png" />
+    <Content Include="Resources\MMS-Login-New_05.png" />
+    <Content Include="Resources\MMS-Login-New_10.png" />
+    <Content Include="Resources\MMS-Login-New_14.png" />
+    <Content Include="Resources\MMS-Login-New_17.png" />
+    <Content Include="Resources\Objects_object_rotate_flip.png" />
+    <Content Include="Resources\Open_file_document.png" />
+    <Content Include="Resources\packing-storage.png" />
+    <Content Include="Resources\Pad_note_paper_game_document.png" />
+    <Content Include="Resources\Page_preview.png" />
+    <Content Include="Resources\Paste_clipboard_edit_document.png" />
+    <Content Include="Resources\PC-Web_synchronization.png" />
+    <Content Include="Resources\Printer_print_3d_vector_symbol.png" />
+    <Content Include="Resources\Psichologist_doctor_psychologist.png" />
+    <Content Include="Resources\receive.png" />
+    <Content Include="Resources\Refresh_list.png" />
+    <Content Include="Resources\Reports.png" />
+    <Content Include="Resources\Save_all_download.png" />
+    <Content Include="Resources\Setup_page_document_settings.png" />
+    <Content Include="Resources\SignOff.png" />
+    <Content Include="Resources\smserver.png" />
+    <Content Include="Resources\Table_excel_row_document_teach.png" />
+    <Content Include="Resources\transfer.png" />
+    <Content Include="Resources\Turn_off.png" />
+    <Content Include="Resources\Turn_off_on_power.png" />
+    <Content Include="Resources\Unloading_web_vector_uploading.png" />
+    <Content Include="Resources\User Card.png" />
+    <Content Include="Resources\User_logout_man.png" />
+    <Content Include="Resources\warehouse.png" />
+    <Content Include="Resources\whicon.png" />
+    <Content Include="Resources\Zoom_search_find_magnifying_glass.png" />
+    <Content Include="Sample.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{967B4E0D-AD0C-4609-AB67-0FA40C0206D8}" />
+    <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

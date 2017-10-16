@@ -28,6 +28,8 @@ Namespace CreditNote
         Dim _CN_Amount As Double
         Dim _CN_CustId As Int32
         Dim _Stock_Detail_Id As Double
+        Dim _INV_No As String
+        Dim _INV_Date As DateTime
 
         Public Property CreditNote_ID() As Integer
             Get
@@ -198,6 +200,24 @@ Namespace CreditNote
             End Set
         End Property
 
+        Public Property INV_No() As String
+            Get
+                INV_No = _INV_No
+            End Get
+            Set(ByVal value As String)
+                _INV_No = value
+            End Set
+        End Property
+
+
+        Public Property INV_Date() As DateTime
+            Get
+                INV_Date = _INV_Date
+            End Get
+            Set(ByVal value As DateTime)
+                _INV_Date = value
+            End Set
+        End Property
         '  Property CreditNote_ID As Integer
 
     End Class
@@ -223,6 +243,8 @@ Namespace CreditNote
             cmd.Parameters.AddWithValue("@V_Division_ID", clsObj.Division_ID)
             cmd.Parameters.AddWithValue("@v_CN_Amount", clsObj.Cn_Amount)
             cmd.Parameters.AddWithValue("@v_CN_CustId", clsObj.CN_CustId)
+            cmd.Parameters.AddWithValue("@v_INV_No", clsObj.INV_No)
+            cmd.Parameters.AddWithValue("@v_INV_Date", clsObj.INV_Date)
             cmd.Parameters.AddWithValue("@V_PROC_TYPE", 1)
 
             cmd.ExecuteNonQuery()
@@ -274,6 +296,8 @@ Namespace CreditNote
             cmd.Parameters.AddWithValue("@V_Division_ID", clsObj.Division_ID)
             cmd.Parameters.AddWithValue("@v_CN_Amount", clsObj.Cn_Amount)
             cmd.Parameters.AddWithValue("@v_CN_CustId", clsObj.CN_CustId)
+            cmd.Parameters.AddWithValue("@v_INV_No", clsObj.INV_No)
+            cmd.Parameters.AddWithValue("@v_INV_Date", clsObj.INV_Date)
             cmd.Parameters.AddWithValue("@V_PROC_TYPE", 2)
 
             cmd.ExecuteNonQuery()
@@ -301,6 +325,8 @@ Namespace CreditNote
             cmd.Parameters.AddWithValue("@V_Division_ID", clsObj.Division_ID)
             cmd.Parameters.AddWithValue("@v_CN_Amount", clsObj.Cn_Amount)
             cmd.Parameters.AddWithValue("@v_CN_CustId", clsObj.CN_CustId)
+            cmd.Parameters.AddWithValue("@v_INV_No", clsObj.INV_No)
+            cmd.Parameters.AddWithValue("@v_INV_Date", clsObj.INV_Date)
             cmd.Parameters.AddWithValue("@V_PROC_TYPE", 3)
 
             cmd.ExecuteNonQuery()
