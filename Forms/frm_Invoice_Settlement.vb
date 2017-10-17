@@ -15,11 +15,21 @@ Public Class frm_Invoice_Settlement
         InitializeControls()
     End Sub
 
+    Dim _paymentStatus As PaymentStatus
+
     Private Sub InitializeControls()
         clsObj.ComboBind(cmbCustomer, "Select ACC_ID,ACC_NAME from ACCOUNT_MASTER WHERE AG_ID=" &
                  AccountGroups.Customers & " Order by ACC_NAME", "ACC_NAME", "ACC_ID", True)
-        clsObj.ComboBind(cmbPaymentType, "Select [PaymentTypeId], [PaymentTypeName] from [PaymentTypeMaster] WHERE [IsActive_bit] = 1",
+        clsObj.ComboBind(cmbCustomerApprovePayment, "Select ACC_ID,ACC_NAME from ACCOUNT_MASTER WHERE AG_ID=" &
+                 AccountGroups.Customers & " Order by ACC_NAME", "ACC_NAME", "ACC_ID", True)
+        clsObj.ComboBind(cmbCustomerSettleInvoice, "Select ACC_ID,ACC_NAME from ACCOUNT_MASTER WHERE AG_ID=" &
+                 AccountGroups.Customers & " Order by ACC_NAME", "ACC_NAME", "ACC_ID", True)
+
+        clsObj.ComboBind(cmbPaymentType, "Select [PaymentTypeId], [PaymentTypeName] + CASE WHEN IsApprovalRequired=1" &
+                         " THEN ' - Approval Required' ELSE ' - Approval Not Required' END AS PaymentTypeName from [PaymentTypeMaster] WHERE [IsActive_bit] = 1",
                           "PaymentTypeName", "PaymentTypeId", True)
+        clsObj.ComboBind(cmbBank, "select BankID, BankName + ' - ' + BankAccountNo as BankAccountNo FROM dbo.BankMaster where IsActive = 1",
+                          "BankAccountNo", "BankID", True)
         GetPMCode()
     End Sub
 
@@ -34,13 +44,19 @@ Public Class frm_Invoice_Settlement
         dtpReferenceDate.Value = DateTime.Now
         dtpBankDate.Value = DateTime.Now
         txtAmount.Text = ""
-        lblUndistributedAmount.Text = "0.00"
         txtRemarks.Text = ""
     End Sub
 
     Private Sub cmbPaymentType_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbPaymentType.SelectedIndexChanged
-        clsObj.ComboBind(cmbBank, "select BankID, BankAccountNo FROM dbo.BankMaster where PaymentTypeID = " & cmbPaymentType.SelectedValue,
-                          "BankAccountNo", "BankID", True)
+        If cmbPaymentType.SelectedIndex > 0 Then
+            If cmbPaymentType.Text.Contains("Approval Required") Then
+                chkBoxDistributeAmount.Enabled = False
+                _paymentStatus = PaymentStatus.InProcess
+            Else
+                chkBoxDistributeAmount.Enabled = True
+                _paymentStatus = PaymentStatus.Approved
+            End If
+        End If
     End Sub
 
     Dim PM_Code As String
@@ -103,7 +119,7 @@ Public Class frm_Invoice_Settlement
             End If
 
             prpty = New cls_Invoice_Settlement_prop
-            prpty.PaymentTransactionCode = PM_No
+            prpty.PaymentTransactionCode = PM_Code & PM_No
             prpty.PaymentTypeId = cmbPaymentType.SelectedValue
             prpty.AccountId = cmbCustomer.SelectedValue
             prpty.PaymentDate = dtpPaymentDate.Value
@@ -113,23 +129,35 @@ Public Class frm_Invoice_Settlement
             prpty.Remarks = txtRemarks.Text
             prpty.TotalAmountReceived = txtAmount.Text
             prpty.BalanceTotalAmount = txtAmount.Text
-            prpty.StatusId = 0
-            prpty.ReceiveChequeBounceAmount = 0
+            prpty.StatusId = _paymentStatus
+            prpty.CancellationCharges = 0
             prpty.BankDate = dtpBankDate.Value
             prpty.PdcPaymentTransactionId = 0
             prpty.CreatedBy = v_the_current_logged_in_user_name
             prpty.DivisionId = v_the_current_division_id
 
             clsObj.insert_Invoice_Settlement(prpty)
-
             MsgBox("Invoice Settlement has been Saved.", MsgBoxStyle.Information + MsgBoxStyle.OkOnly, gblMessageHeading)
-            InitializeControls()
+
+            If chkBoxDistributeAmount.Checked And chkBoxDistributeAmount.Enabled Then
+                cmbCustomerSettleInvoice.SelectedValue = cmbCustomer.SelectedValue
+                btnDistributeAmount_Click(Nothing, Nothing)
+                btnSettleInvoice_Click(Nothing, Nothing)
+            End If
+            ClearControls()
         Catch ex As Exception
             MsgBox(gblMessageHeading_Error & vbCrLf & gblMessage_ContactInfo & vbCrLf & ex.Message, MsgBoxStyle.Critical, gblMessageHeading)
         End Try
     End Sub
 
     Private Function Validation() As Boolean
+
+        GetPMCode()
+        If PM_No = 0 Then
+            ''messages already displayed in getPMCode method
+            Return False
+            Exit Function
+        End If
 
         If cmbCustomer.SelectedIndex <= 0 Then
             MsgBox("Select Customer to enter payment.", vbExclamation, gblMessageHeading)
@@ -165,6 +193,14 @@ Public Class frm_Invoice_Settlement
             Return False
             Exit Function
         End If
+
+        Dim amount As Decimal
+        If Not Decimal.TryParse(txtAmount.Text, amount) Then
+            MsgBox("Amount is not valid.", vbExclamation, gblMessageHeading)
+            txtAmount.Focus()
+            Return False
+            Exit Function
+        End If
         Return True
     End Function
 
@@ -172,4 +208,282 @@ Public Class frm_Invoice_Settlement
 
     End Sub
 
+    Private Sub tabTakePayment_Click(sender As Object, e As EventArgs) Handles tabTakePayment.Click
+
+    End Sub
+
+    Private Sub tabApprovePayment_Click(sender As Object, e As EventArgs) Handles tabApprovePayment.Click
+
+    End Sub
+
+    Private Sub cmbPendingPayment_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbPendingPayment.SelectedIndexChanged
+        Dim query As String = " SELECT PaymentTransactionNo, PaymentDate, ChequeDraftno, ChequeDraftDate, Remarks," &
+            " TotalAmountReceived, pt.CreatedBy, PaymentTypeName , BankName + ' - ' + BankAccountNo AS  BankName, BankDate " &
+            " FROM dbo.PaymentTransaction pt INNER JOIN dbo.PaymentTypeMaster ptm ON ptm.PaymentTypeId = pt.PaymentTypeId" &
+            " INNER JOIN dbo.BankMaster bm ON bm.BankID = pt.BankId WHERE PaymentTransactionId =  " & cmbPendingPayment.SelectedValue
+
+        Dim ds As DataSet = clsObj.FillDataSet(query)
+        If ds.Tables(0).Rows.Count > 0 Then
+            Dim dr As DataRow = ds.Tables(0).Rows(0)
+            lblPaymentDate.Text = dr("PaymentDate")
+            lblPaymentType.Text = dr("PaymentTypeName")
+            lblAmount.Text = dr("TotalAmountReceived")
+            lblBankName.Text = dr("BankName")
+            lblBankDate.Text = dr("BankDate")
+            lblReferenceDate.Text = dr("ChequeDraftDate")
+            lblReferenceNo.Text = dr("ChequeDraftno")
+            lblRemarks.Text = dr("Remarks")
+            lblReceivedBy.Text = dr("CreatedBy")
+        Else
+            ClearInfoLabels()
+        End If
+    End Sub
+
+    Private Sub cmbCustomerApprovePayment_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbCustomerApprovePayment.SelectedIndexChanged
+        Dim query As String = "SELECT PaymentTransactionID, PaymentTransactionNo + ' - ' + CONVERT(VARCHAR(20), PaymentDate, 107) as PaymentTransactionNo" &
+            " FROM dbo.PaymentTransaction where StatusId = 1 AND AccountId = " & cmbCustomerApprovePayment.SelectedValue
+        clsObj.ComboBind(cmbPendingPayment, query, "PaymentTransactionNo", "PaymentTransactionID", True)
+    End Sub
+
+    Private Sub btnApproved_Click(sender As Object, e As EventArgs) Handles btnApproved.Click
+        UpdatePaymentStatus(PaymentStatus.Approved)
+    End Sub
+
+    Private Sub btnBounce_Click(sender As Object, e As EventArgs) Handles btnBounce.Click
+        UpdatePaymentStatus(PaymentStatus.Bounced)
+    End Sub
+
+    Private Sub UpdatePaymentStatus(_paymentApprovalStatus As PaymentStatus)
+
+        If ApprovalValidation() = False Then
+            Exit Sub
+        End If
+
+        prpty = New cls_Invoice_Settlement_prop
+        prpty.PaymentTransactionId = cmbPendingPayment.SelectedValue
+        prpty.StatusId = _paymentApprovalStatus
+        prpty.CancellationCharges = txtCancellationCharges.Text
+
+        clsObj.Update_Payment_Status(prpty)
+
+        MsgBox("Payment status has been updated.", MsgBoxStyle.Information + MsgBoxStyle.OkOnly, gblMessageHeading)
+
+        If chkBoxDistributeAmountApprove.Checked And chkBoxDistributeAmountApprove.Enabled Then
+            cmbCustomerSettleInvoice.SelectedValue = cmbCustomerApprovePayment.SelectedValue
+            btnDistributeAmount_Click(Nothing, Nothing)
+            btnSettleInvoice_Click(Nothing, Nothing)
+        End If
+
+        ClearApprovalControls()
+
+    End Sub
+
+    Private Sub ClearApprovalControls()
+        cmbCustomerApprovePayment.SelectedIndex = 0
+        txtCancellationCharges.Text = ""
+        ClearInfoLabels()
+    End Sub
+
+    Private Sub ClearInfoLabels()
+        lblPaymentDate.Text = ""
+        lblPaymentType.Text = ""
+        lblAmount.Text = ""
+        lblReferenceDate.Text = ""
+        lblReferenceNo.Text = ""
+        lblRemarks.Text = ""
+        lblBankName.Text = ""
+        lblBankDate.Text = ""
+        lblReceivedBy.Text = ""
+    End Sub
+
+    Private Function ApprovalValidation() As Boolean
+
+        If cmbCustomerApprovePayment.SelectedIndex <= 0 Then
+            MsgBox("Select customer to approve/disapprove payment.", vbExclamation, gblMessageHeading)
+            cmbCustomerApprovePayment.Focus()
+            Return False
+            Exit Function
+        End If
+
+        If cmbPendingPayment.SelectedIndex <= 0 Then
+            MsgBox("Select pending payment to approve/disapprove payment.", vbExclamation, gblMessageHeading)
+            cmbPendingPayment.Focus()
+            Return False
+            Exit Function
+        End If
+
+        If String.IsNullOrEmpty(txtCancellationCharges.Text) Then
+            txtCancellationCharges.Text = "0"
+        End If
+
+        Dim amount As Decimal
+        If Not Decimal.TryParse(txtCancellationCharges.Text, amount) Then
+            MsgBox("Amount is not valid.", vbExclamation, gblMessageHeading)
+            txtCancellationCharges.Focus()
+            Return False
+            Exit Function
+        End If
+        Return True
+    End Function
+
+    Private Sub tabDistributePayment_Click(sender As Object, e As EventArgs) Handles tabDistributePayment.Click
+
+    End Sub
+
+    Private Sub cmbCustomerSettleInvoice_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbCustomerSettleInvoice.SelectedIndexChanged
+        FillGrid()
+        SetUndistributedAmount()
+    End Sub
+
+    Dim UndistributedAmount As Decimal
+    Private Sub SetUndistributedAmount()
+        Dim query As String = "SELECT isnull(SUM(UndistributedAmount), 0) FROM dbo.PaymentTransaction WHERE StatusId =2 AND AccountId=" & cmbCustomerSettleInvoice.SelectedValue
+        UndistributedAmount = clsObj.ExecuteScalar(query)
+        lblUndistributedAmount.Text = UndistributedAmount.ToString("0.00")
+    End Sub
+
+    Private Sub FillGrid()
+        Dim query As String = " SELECT SI_ID, SI_CODE ,SI_NO, SI_DATE, NET_AMOUNT, " &
+            "ISNULL((SELECT SUM(AmountSettled) FROM dbo.CustomerSettlementDetail WHERE InvoiceId = SI_ID),0) AS ReceivedAmount " &
+            " FROM dbo.SALE_INVOICE_MASTER WHERE SALE_TYPE='Credit' AND CUST_ID = " & cmbCustomerSettleInvoice.SelectedValue
+        Dim dt As DataTable = clsObj.Fill_DataSet(query).Tables(0)
+        dgvInvoiceToSettle.RowCount = 0
+
+        Dim index As Int16 = 0
+        For Each dr As DataRow In dt.Rows
+            If (dr("NET_AMOUNT") - dr("ReceivedAmount")) = 0 Then
+                Continue For
+            End If
+            dgvInvoiceToSettle.RowCount += 1
+            dgvInvoiceToSettle.Rows(index).Cells("InvoiceId").Value = dr("SI_ID")
+            dgvInvoiceToSettle.Rows(index).Cells("InvoiceNo").Value = dr("SI_CODE") & dr("SI_No")
+            dgvInvoiceToSettle.Rows(index).Cells("InvoiceDate").Value = dr("SI_DATE")
+            dgvInvoiceToSettle.Rows(index).Cells("InvoiceAmount").Value = dr("NET_AMOUNT")
+            dgvInvoiceToSettle.Rows(index).Cells("ReceivedAmount").Value = dr("ReceivedAmount")
+            dgvInvoiceToSettle.Rows(index).Cells("CreditedAmount").Value = 0
+            dgvInvoiceToSettle.Rows(index).Cells("PendingAmount").Value = dr("NET_AMOUNT") - dr("ReceivedAmount")
+            dgvInvoiceToSettle.Rows(index).Cells("AmountToReceive").Value = 0
+            index = index + 1
+        Next
+    End Sub
+
+    Private Sub btnDistributeAmount_Click(sender As Object, e As EventArgs) Handles btnDistributeAmount.Click
+        dgvInvoiceToSettle.Sort(InvoiceDate, System.ComponentModel.ListSortDirection.Ascending)
+        SetUndistributedAmount()
+        For Each row As DataGridViewRow In dgvInvoiceToSettle.Rows
+            row.Cells("AmountToReceive").Value = 0
+            Dim pendingAmount As Decimal = row.Cells("PendingAmount").Value
+            If pendingAmount <= UndistributedAmount Then
+                row.Cells("AmountToReceive").Value = pendingAmount
+                UndistributedAmount = UndistributedAmount - pendingAmount
+            ElseIf UndistributedAmount > 0 Then
+                row.Cells("AmountToReceive").Value = UndistributedAmount
+                UndistributedAmount = 0
+            End If
+        Next
+        lblUndistributedAmount.Text = UndistributedAmount.ToString("0.00")
+    End Sub
+
+    Private Sub btnSettleInvoice_Click(sender As Object, e As EventArgs) Handles btnSettleInvoice.Click
+        Dim query As String = "SELECT PaymentTransactionId, UndistributedAmount, PaymentTransactionNo FROM dbo.PaymentTransaction" &
+            " WHERE StatusId =2 AND UndistributedAmount > 0 AND AccountId=" & cmbCustomerSettleInvoice.SelectedValue &
+            " ORDER BY PaymentTransactionId ASC"
+        Dim undistributedAmountTable As DataTable = clsObj.Fill_DataSet(query).Tables(0)
+
+        Dim prop As New cls_Invoice_Settlement_prop
+        For Each row As DataGridViewRow In dgvInvoiceToSettle.Rows
+
+            Dim amountToSettle As Decimal = row.Cells("AmountToReceive").Value
+            If amountToSettle = 0 Then
+                Continue For
+            End If
+
+            Dim index As Int32 = 0
+            While amountToSettle > 0 And index < undistributedAmountTable.Rows.Count
+
+                Dim amountAvailable As Decimal = undistributedAmountTable.Rows(index)("UndistributedAmount")
+                Dim AmountSettled As Decimal = 0
+
+                If amountAvailable = 0 Then
+                    index += 1
+                    Continue While
+                End If
+
+                If amountToSettle <= amountAvailable Then
+                    AmountSettled = amountToSettle
+                    amountToSettle = 0
+                Else
+                    AmountSettled = amountAvailable
+                    amountToSettle -= amountAvailable
+                End If
+
+                undistributedAmountTable.Rows(index)("UndistributedAmount") = amountAvailable - AmountSettled
+
+                prop.PaymentTransactionId = undistributedAmountTable.Rows(index)("PaymentTransactionId")
+                prop.PaymentId = 0
+                prop.InvoiceId = row.Cells("InvoiceId").Value
+                prop.Remarks = String.Format("Rs. {0} settled for invoice {1} against payment {2}",
+                                             AmountSettled, row.Cells("InvoiceNo").Value, undistributedAmountTable.Rows(index)("PaymentTransactionNo"))
+                prop.AmountSettled = AmountSettled
+                prop.CreatedBy = v_the_current_logged_in_user_name
+                prop.DivisionId = v_the_current_division_id
+                clsObj.Update_Undistributed_Amount(prop)
+
+                index += 1
+            End While
+        Next
+        MsgBox("Invoice settled successfully against payment(s).", vbExclamation, gblMessageHeading)
+        cmbCustomerSettleInvoice.SelectedIndex = 0
+    End Sub
+
+    Private Sub btnClear_Click(sender As Object, e As EventArgs) Handles btnClear.Click
+        For Each row As DataGridViewRow In dgvInvoiceToSettle.Rows
+            row.Cells("AmountToReceive").Value = 0
+        Next
+        SetUndistributedAmount()
+    End Sub
+
+    Private Sub dgvInvoiceToSettle_CellEndEdit(sender As Object, e As DataGridViewCellEventArgs) Handles dgvInvoiceToSettle.CellEndEdit
+
+    End Sub
+
+    Private Sub dgvInvoiceToSettle_CellValidating(sender As Object, e As DataGridViewCellValidatingEventArgs) Handles dgvInvoiceToSettle.CellValidating
+        If e.RowIndex >= 0 Then
+            If dgvInvoiceToSettle.Columns(e.ColumnIndex).Name = "AmountToReceive" Then
+                Dim result As Decimal = 0
+                Dim resultBool As Boolean = False
+                resultBool = Decimal.TryParse(e.FormattedValue, result)
+
+                If Not resultBool Then
+                    e.Cancel = True
+                    MsgBox("Please enter valid value.", vbExclamation, gblMessageHeading)
+                    Exit Sub
+                End If
+
+                If result > dgvInvoiceToSettle.Rows(e.RowIndex).Cells("PendingAmount").Value Then
+                    e.Cancel = True
+                    MsgBox("Amount To Receive cannot be greater than pending amount.", vbExclamation, gblMessageHeading)
+                    Exit Sub
+                End If
+
+                Dim lastValue As Decimal = dgvInvoiceToSettle.Rows(e.RowIndex).Cells("AmountToReceive").Value
+                If result > (UndistributedAmount + lastValue) Then
+                    e.Cancel = True
+                    MsgBox("Amount To Receive cannot be greater than available undistributed amount.", vbExclamation, gblMessageHeading)
+                    Exit Sub
+                End If
+
+                UndistributedAmount = UndistributedAmount - result + lastValue
+                lblUndistributedAmount.Text = UndistributedAmount.ToString("0.00")
+            End If
+        End If
+    End Sub
+
+    Private Function GetInvoiceSettledAmount() As Decimal
+        Dim InvoiceSettledAmount As Decimal = 0
+        For Each row As DataGridViewRow In dgvInvoiceToSettle.Rows
+            InvoiceSettledAmount = InvoiceSettledAmount + row.Cells("AmountToReceive").Value
+        Next
+        Return InvoiceSettledAmount
+    End Function
 End Class
