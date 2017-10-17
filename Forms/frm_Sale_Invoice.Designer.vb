@@ -20,10 +20,11 @@ Partial Class frm_Sale_Invoice
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frm_Sale_Invoice))
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.List = New System.Windows.Forms.TabPage()
+        Me.BtnCancelInv = New System.Windows.Forms.Button()
         Me.BtnInvoice = New System.Windows.Forms.Button()
         Me.BtnDc = New System.Windows.Forms.Button()
         Me.GBMRSDetail = New System.Windows.Forms.GroupBox()
@@ -58,7 +59,6 @@ Partial Class frm_Sale_Invoice
         Me.lblMRSCode = New System.Windows.Forms.Label()
         Me.lblFormHeading = New System.Windows.Forms.Label()
         Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
-        Me.BtnCancelInv = New System.Windows.Forms.Button()
         Me.TabControl1.SuspendLayout()
         Me.List.SuspendLayout()
         Me.GBMRSDetail.SuspendLayout()
@@ -99,6 +99,16 @@ Partial Class frm_Sale_Invoice
         Me.List.Size = New System.Drawing.Size(902, 600)
         Me.List.TabIndex = 0
         '
+        'BtnCancelInv
+        '
+        Me.BtnCancelInv.BackColor = System.Drawing.Color.LightSalmon
+        Me.BtnCancelInv.Location = New System.Drawing.Point(455, 538)
+        Me.BtnCancelInv.Name = "BtnCancelInv"
+        Me.BtnCancelInv.Size = New System.Drawing.Size(141, 30)
+        Me.BtnCancelInv.TabIndex = 9
+        Me.BtnCancelInv.Text = "Cancel Invoice"
+        Me.BtnCancelInv.UseVisualStyleBackColor = False
+        '
         'BtnInvoice
         '
         Me.BtnInvoice.Location = New System.Drawing.Point(615, 538)
@@ -134,12 +144,12 @@ Partial Class frm_Sale_Invoice
         Me.flxList.Location = New System.Drawing.Point(3, 16)
         Me.flxList.Name = "flxList"
         Me.flxList.RowHeadersVisible = False
-        DataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black
-        Me.flxList.RowsDefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black
+        Me.flxList.RowsDefaultCellStyle = DataGridViewCellStyle1
         Me.flxList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.flxList.Size = New System.Drawing.Size(858, 422)
         Me.flxList.TabIndex = 3
@@ -213,7 +223,7 @@ Partial Class frm_Sale_Invoice
         Me.lnkCalculatePOAmt.AutoSize = True
         Me.lnkCalculatePOAmt.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lnkCalculatePOAmt.LinkColor = System.Drawing.Color.DarkOrange
-        Me.lnkCalculatePOAmt.Location = New System.Drawing.Point(742, 343)
+        Me.lnkCalculatePOAmt.Location = New System.Drawing.Point(747, 369)
         Me.lnkCalculatePOAmt.Name = "lnkCalculatePOAmt"
         Me.lnkCalculatePOAmt.Size = New System.Drawing.Size(110, 15)
         Me.lnkCalculatePOAmt.TabIndex = 9
@@ -224,7 +234,7 @@ Partial Class frm_Sale_Invoice
         '
         Me.lblNetAmount.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblNetAmount.ForeColor = System.Drawing.Color.Orange
-        Me.lblNetAmount.Location = New System.Drawing.Point(721, 372)
+        Me.lblNetAmount.Location = New System.Drawing.Point(721, 397)
         Me.lblNetAmount.Name = "lblNetAmount"
         Me.lblNetAmount.Size = New System.Drawing.Size(118, 20)
         Me.lblNetAmount.TabIndex = 3
@@ -235,7 +245,7 @@ Partial Class frm_Sale_Invoice
         '
         Me.Label5.AutoSize = True
         Me.Label5.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label5.Location = New System.Drawing.Point(609, 376)
+        Me.Label5.Location = New System.Drawing.Point(609, 401)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(76, 15)
         Me.Label5.TabIndex = 4
@@ -245,7 +255,7 @@ Partial Class frm_Sale_Invoice
         '
         Me.lblVatAmount.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblVatAmount.ForeColor = System.Drawing.Color.Orange
-        Me.lblVatAmount.Location = New System.Drawing.Point(446, 371)
+        Me.lblVatAmount.Location = New System.Drawing.Point(446, 396)
         Me.lblVatAmount.Name = "lblVatAmount"
         Me.lblVatAmount.Size = New System.Drawing.Size(118, 20)
         Me.lblVatAmount.TabIndex = 5
@@ -256,7 +266,7 @@ Partial Class frm_Sale_Invoice
         '
         Me.lblItemValue.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblItemValue.ForeColor = System.Drawing.Color.Orange
-        Me.lblItemValue.Location = New System.Drawing.Point(142, 372)
+        Me.lblItemValue.Location = New System.Drawing.Point(142, 397)
         Me.lblItemValue.Name = "lblItemValue"
         Me.lblItemValue.Size = New System.Drawing.Size(118, 20)
         Me.lblItemValue.TabIndex = 6
@@ -267,7 +277,7 @@ Partial Class frm_Sale_Invoice
         '
         Me.Label6.AutoSize = True
         Me.Label6.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label6.Location = New System.Drawing.Point(328, 376)
+        Me.Label6.Location = New System.Drawing.Point(328, 401)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(84, 15)
         Me.Label6.TabIndex = 7
@@ -277,7 +287,7 @@ Partial Class frm_Sale_Invoice
         '
         Me.Label7.AutoSize = True
         Me.Label7.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label7.Location = New System.Drawing.Point(23, 377)
+        Me.Label7.Location = New System.Drawing.Point(23, 402)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(99, 15)
         Me.Label7.TabIndex = 8
@@ -295,7 +305,7 @@ Partial Class frm_Sale_Invoice
         Me.flxItems.Name = "flxItems"
         Me.flxItems.Rows.Count = 2
         Me.flxItems.Rows.DefaultSize = 18
-        Me.flxItems.Size = New System.Drawing.Size(890, 310)
+        Me.flxItems.Size = New System.Drawing.Size(890, 345)
         Me.flxItems.Styles = New C1.Win.C1FlexGrid.CellStyleCollection(resources.GetString("flxItems.Styles"))
         Me.flxItems.TabIndex = 2
         '
@@ -491,16 +501,6 @@ Partial Class frm_Sale_Invoice
         Me.ImageList1.TransparentColor = System.Drawing.Color.Transparent
         Me.ImageList1.Images.SetKeyName(0, "Zoom_search_find_magnifying_glass.png")
         Me.ImageList1.Images.SetKeyName(1, "Inventory_box_shipment_product.png")
-        '
-        'BtnCancelInv
-        '
-        Me.BtnCancelInv.BackColor = System.Drawing.Color.LightSalmon
-        Me.BtnCancelInv.Location = New System.Drawing.Point(455, 538)
-        Me.BtnCancelInv.Name = "BtnCancelInv"
-        Me.BtnCancelInv.Size = New System.Drawing.Size(141, 30)
-        Me.BtnCancelInv.TabIndex = 9
-        Me.BtnCancelInv.Text = "Cancel Invoice"
-        Me.BtnCancelInv.UseVisualStyleBackColor = False
         '
         'frm_Sale_Invoice
         '

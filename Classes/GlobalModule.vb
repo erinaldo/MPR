@@ -119,14 +119,14 @@ Module GlobalModule
         RptLastpurchaserate = 62
         RptAllPurchaseRate = 63
         RptNonMovingItemList = 64
-
         'Invoice 
         RptInvoicePrint = 65
         RptDCInvoicePrint = 66
         RptSalesummary = 67
         RptSalesummaryList = 68
         RptCustomerRateList = 69
-
+        RptDebitNotePrint = 70
+        RptCreditNotePrint = 71
     End Enum
     Public Enum IndentStatus As Integer
         Fresh = 1
@@ -259,15 +259,11 @@ Module GlobalModule
         Dim icnt As Integer
 
         sTmp = StrReverse(sSTR)
-
         sResult = ""
-
         For icnt = 1 To Len(sTmp)
             sResult = sResult & Chr(Asc(Mid(sTmp, icnt, 1)) - Asc("g"))
         Next
-
         Decrypt = sResult
-
     End Function
 
     Public Sub main()

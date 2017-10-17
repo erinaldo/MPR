@@ -31,6 +31,8 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.BtnActualMRN = New System.Windows.Forms.Button()
         Me.dgvList = New System.Windows.Forms.DataGridView()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
+        Me.lblexciseamt = New System.Windows.Forms.Label()
+        Me.Label11 = New System.Windows.Forms.Label()
         Me.Panel19 = New System.Windows.Forms.Panel()
         Me.lnkCalculateAmount = New System.Windows.Forms.LinkLabel()
         Me.Label9 = New System.Windows.Forms.Label()
@@ -186,8 +188,6 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.Label46 = New System.Windows.Forms.Label()
         Me.Label47 = New System.Windows.Forms.Label()
         Me.Label48 = New System.Windows.Forms.Label()
-        Me.lblexciseamt = New System.Windows.Forms.Label()
-        Me.Label11 = New System.Windows.Forms.Label()
         Me.TbPO.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.GroupBox5.SuspendLayout()
@@ -283,21 +283,23 @@ Partial Class frm_Material_Received_Without_PO_Master
         '
         'BtnRevisedMRN
         '
-        Me.BtnRevisedMRN.Location = New System.Drawing.Point(759, 479)
+        Me.BtnRevisedMRN.Location = New System.Drawing.Point(620, 479)
         Me.BtnRevisedMRN.Name = "BtnRevisedMRN"
         Me.BtnRevisedMRN.Size = New System.Drawing.Size(128, 30)
         Me.BtnRevisedMRN.TabIndex = 2
         Me.BtnRevisedMRN.Text = "Revised MRN"
         Me.BtnRevisedMRN.UseVisualStyleBackColor = True
+        Me.BtnRevisedMRN.Visible = False
         '
         'BtnActualMRN
         '
-        Me.BtnActualMRN.Location = New System.Drawing.Point(625, 479)
+        Me.BtnActualMRN.Location = New System.Drawing.Point(759, 479)
         Me.BtnActualMRN.Name = "BtnActualMRN"
         Me.BtnActualMRN.Size = New System.Drawing.Size(128, 30)
         Me.BtnActualMRN.TabIndex = 1
         Me.BtnActualMRN.Text = "Actual MRN"
         Me.BtnActualMRN.UseVisualStyleBackColor = True
+        Me.BtnActualMRN.Visible = False
         '
         'dgvList
         '
@@ -357,6 +359,30 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
         Me.TabPage2.Size = New System.Drawing.Size(902, 600)
         Me.TabPage2.TabIndex = 1
+        '
+        'lblexciseamt
+        '
+        Me.lblexciseamt.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblexciseamt.ForeColor = System.Drawing.Color.Orange
+        Me.lblexciseamt.Location = New System.Drawing.Point(778, 437)
+        Me.lblexciseamt.Name = "lblexciseamt"
+        Me.lblexciseamt.Size = New System.Drawing.Size(118, 20)
+        Me.lblexciseamt.TabIndex = 51
+        Me.lblexciseamt.Text = "0.00"
+        Me.lblexciseamt.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.lblexciseamt.Visible = False
+        '
+        'Label11
+        '
+        Me.Label11.AutoSize = True
+        Me.Label11.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label11.ForeColor = System.Drawing.Color.White
+        Me.Label11.Location = New System.Drawing.Point(646, 441)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(83, 15)
+        Me.Label11.TabIndex = 52
+        Me.Label11.Text = "Exice Amount:"
+        Me.Label11.Visible = False
         '
         'Panel19
         '
@@ -1995,30 +2021,6 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.Label48.Size = New System.Drawing.Size(92, 13)
         Me.Label48.TabIndex = 0
         Me.Label48.Text = "Delivery Rate :"
-        '
-        'lblexciseamt
-        '
-        Me.lblexciseamt.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblexciseamt.ForeColor = System.Drawing.Color.Orange
-        Me.lblexciseamt.Location = New System.Drawing.Point(778, 437)
-        Me.lblexciseamt.Name = "lblexciseamt"
-        Me.lblexciseamt.Size = New System.Drawing.Size(118, 20)
-        Me.lblexciseamt.TabIndex = 51
-        Me.lblexciseamt.Text = "0.00"
-        Me.lblexciseamt.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.lblexciseamt.Visible = False
-        '
-        'Label11
-        '
-        Me.Label11.AutoSize = True
-        Me.Label11.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label11.ForeColor = System.Drawing.Color.White
-        Me.Label11.Location = New System.Drawing.Point(646, 441)
-        Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(83, 15)
-        Me.Label11.TabIndex = 52
-        Me.Label11.Text = "Exice Amount:"
-        Me.Label11.Visible = False
         '
         'frm_Material_Received_Without_PO_Master
         '
