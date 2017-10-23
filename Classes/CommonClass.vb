@@ -1385,6 +1385,13 @@ Public MustInherit Class Connection
             ElseIf RptNo = enmReportName.RptCustomerRateList Then
                 filepath = ReportFilePath & "CryCustomerrateList.rpt"
 
+            ElseIf RptNo = enmReportName.RptDebitNotePrint Then
+                filepath = ReportFilePath & "Cry_Debit_Note.rpt"
+
+            ElseIf RptNo = enmReportName.RptCreditNotePrint Then
+                filepath = ReportFilePath & "Cry_Credit_Note.rpt"
+
+
 
             End If
             Dim callType As Integer = 0
@@ -1459,6 +1466,18 @@ Public MustInherit Class Connection
                         PInteger = CInt(value(ArrIndex))
                         rep.SetParameterValue("SRL_ID", CInt(value(ArrIndex)))
 
+
+                    ElseIf RptNo = enmReportName.RptDebitNotePrint Then
+                        PInteger = CInt(value(ArrIndex))
+                        rep.SetParameterValue("DN_ID", CInt(value(ArrIndex)))
+
+                    ElseIf RptNo = enmReportName.RptCreditNotePrint Then
+                        PInteger = CInt(value(ArrIndex))
+                        rep.SetParameterValue("CN_ID", CInt(value(ArrIndex)))
+
+
+
+
                     ElseIf RptNo = enmReportName.RptInvoicePrint Then
                         PInteger = CInt(value(ArrIndex))
                         rep.SetParameterValue("SI_ID", CInt(value(ArrIndex)))
@@ -1467,6 +1486,9 @@ Public MustInherit Class Connection
                         PInteger = CInt(value(ArrIndex))
                         rep.SetParameterValue("SI_ID", CInt(value(ArrIndex)))
                     End If
+
+
+
                     'ElseIf CInt(ValueType(ArrIndex)) = enmDataType.D_int Then
                     '   PInteger = CInt(value(ArrIndex))
                     '  rep.SetParameterValue("PO_ID", CInt(value(ArrIndex)))

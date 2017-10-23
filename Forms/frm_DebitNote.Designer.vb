@@ -153,6 +153,7 @@ Partial Class frm_DebitNote
         Me.dgvList.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.White
         Me.dgvList.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.DarkOrange
         Me.dgvList.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black
+        Me.dgvList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvList.Size = New System.Drawing.Size(861, 452)
         Me.dgvList.TabIndex = 1
         '

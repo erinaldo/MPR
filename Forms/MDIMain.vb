@@ -47,6 +47,7 @@ Public Class MDIMain
         End If
 
         prpty_form_rights = cls_obj.Get_Form_Rights(menuItem.Name)
+        prpty_form_rights = cls_obj.Get_Form_Rights(menuItem.Name)
 
         If prpty_form_rights.allow_view = "Y" Then
             '''' "or" condition for that time when user login first time and company is not created yet
@@ -584,6 +585,7 @@ Public Class MDIMain
             RightsMsg()
         End If
     End Sub
+
     'Private Sub TabControl2_DrawItem(ByVal sender As Object, ByVal e As System.Windows.Forms.DrawItemEventArgs) Handles TabControl2.DrawItem
     '    Dim g As Graphics = e.Graphics
     '    Dim tp As TabPage = TabControl2.TabPages(e.Index)
@@ -624,4 +626,5 @@ Public Class MDIMain
         TabControl2.SendToBack()
         toolbar.Visible = False
     End Sub
+
 End Class

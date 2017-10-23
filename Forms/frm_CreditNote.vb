@@ -15,6 +15,7 @@ Public Class frm_CreditNote
     Dim Pre As String
     Dim CN_Code As String
     Dim CN_No As Integer
+    Dim CN_Id As Integer
     Dim clsObj As New CreditNote.cls_Credit_note_Master
     Dim prpty As New CreditNote.cls_Credit_note_Prop
     Dim _rights As Form_Rights
@@ -185,7 +186,7 @@ Public Class frm_CreditNote
         txtRemarks.Focus()
         Try
             If flag = "save" And validate_data() Then
-                Dim CN_Id As Integer
+
                 GetCNCode()
                 CN_Id = Convert.ToInt32(obj.getMaxValue("CreditNote_ID", "CreditNote_MASTER"))
                 prpty.CreditNote_ID = Convert.ToInt32(CN_Id)
@@ -233,7 +234,7 @@ Public Class frm_CreditNote
 
                 If flag = "save" Then
                     If MsgBox(vbCrLf & "Do You Want to Print Preview.", MsgBoxStyle.Question + MsgBoxStyle.YesNo, gblMessageHeading) = MsgBoxResult.Yes Then
-                        obj.RptShow(enmReportName.RptMRNWithoutPOPrint, "CreditNote_ID", CStr(prpty.CreditNote_ID), CStr(enmDataType.D_int))
+                        obj.RptShow(enmReportName.RptCreditNotePrint, "CN_ID", CStr(prpty.CreditNote_ID), CStr(enmDataType.D_int))
                     End If
                 Else
                 End If
@@ -260,7 +261,20 @@ Public Class frm_CreditNote
     'End Function
 
     Public Sub ViewClick(ByVal sender As Object, ByVal e As System.EventArgs) Implements IForm.ViewClick
+        Try
+            If TbRMRN.SelectedIndex = 0 Then
+                If dgvList.SelectedRows.Count > 0 Then
 
+                    obj.RptShow(enmReportName.RptCreditNotePrint, "CN_ID", CStr(dgvList("CreditNote_Id", dgvList.CurrentCell.RowIndex).Value()), CStr(enmDataType.D_int))
+                End If
+            Else
+                If flag <> "save" Then
+                    obj.RptShow(enmReportName.RptCreditNotePrint, "CN_ID", CStr(CN_Id), CStr(enmDataType.D_int))
+                End If
+            End If
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
     End Sub
 
     Private Sub Grid_styles()

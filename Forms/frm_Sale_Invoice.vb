@@ -184,7 +184,7 @@ Public Class frm_Sale_Invoice
         Try
             If TabControl1.SelectedIndex = 0 Then
                 If flxList.SelectedRows.Count > 0 Then
-                    'obj.RptShow(enmReportName.RptInvoicePrint, "Si_ID", CStr(flxList.SelectedRows(0).Cells("Si_id").Value), CStr(enmDataType.D_int))
+
                     obj.RptShow(enmReportName.RptInvoicePrint, "Si_ID", CStr(flxList("Si_ID", flxList.CurrentCell.RowIndex).Value()), CStr(enmDataType.D_int))
                 End If
             Else
@@ -530,6 +530,8 @@ again:
         End If
     End Sub
     Private Sub flxItems_KeyDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles flxItems.KeyDown
+
+        
         Try
             If cmbSupplier.SelectedIndex > 0 Then
 
@@ -611,8 +613,6 @@ restart:
         Catch ex As Exception
 
         End Try
-
-
     End Sub
 
     Public Sub get_row(ByVal item_id As Integer, ByVal Wastage_id As Integer, ByVal itemRate As Decimal)
