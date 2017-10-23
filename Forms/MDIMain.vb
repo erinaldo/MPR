@@ -46,6 +46,7 @@ Public Class MDIMain
             menuItem = CType(sender, ToolStripMenuItem)
         End If
 
+        prpty_form_rights = cls_obj.Get_Form_Rights(menuItem.Name)
 
         If prpty_form_rights.allow_view = "Y" Then
             '''' "or" condition for that time when user login first time and company is not created yet

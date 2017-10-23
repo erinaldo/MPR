@@ -1844,7 +1844,9 @@
     <None Include="app.config" />
     <None Include="ClassDiagram1.cd" />
     <None Include="Images and Icons\Report.ico" />
-    <Content Include="bin\Debug\connection.xml" />
+    <Content Include="bin\Debug\connection.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="DLL\MTGCCombobox.dll" />
     <None Include="Images and Icons\Approve PO.jpg" />
     <None Include="Images and Icons\Cancel PO.jpg" />
