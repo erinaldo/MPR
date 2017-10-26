@@ -169,12 +169,12 @@ Namespace GatePass
 
         Public Sub Insert_GatePass_MASTER(ByVal clsobj As cls_GatePass_prop)
             Try
-                Dim tran As SqlTransaction
+                ' Dim tran As SqlTransaction
                 If con.State = ConnectionState.Closed Then con.Open()
-                tran = con.BeginTransaction()
+                ' tran = con.BeginTransaction()
                 cmd = New SqlCommand
                 cmd.Connection = con
-                cmd.Transaction = tran
+                ' cmd.Transaction = tran
                 cmd.CommandType = CommandType.StoredProcedure
                 cmd.CommandText = "PROC_GATEPASS_MASTER"
                 cmd.Parameters.AddWithValue("@GatePassId", clsobj.GatePassId)
@@ -197,13 +197,13 @@ Namespace GatePass
                 cmd = New SqlCommand
                 cmd.Parameters.Clear()
                 cmd.Connection = con
-                cmd.Transaction = tran
+                ' cmd.Transaction = tran
                 cmd.CommandText = "update GATEPASS_SERIES set current_used=current_used + 1 where div_id=" & clsobj.DIVISION_ID
                 cmd.ExecuteNonQuery()
 
                 cmd.Dispose()
 
-                tran.Commit()
+                '  tran.Commit()
             Catch ex As Exception
                 MsgBox(ex.Message)
             End Try
