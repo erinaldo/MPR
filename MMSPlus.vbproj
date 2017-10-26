@@ -175,7 +175,6 @@
     <Compile Include="Classes\cls_ReverseMaterial_Recieved_Without_Po_Master.vb" />
     <Compile Include="Classes\cls_Reverse_wastage_master.vb" />
     <Compile Include="Classes\cls_Material_Return.vb" />
-    <Compile Include="Classes\cls_GatePass.vb" />
     <Compile Include="Classes\cls_Stock_Transfer.vb" />
     <Compile Include="Classes\cls_Stock_Transfer_CC_To_CC.vb" />
     <Compile Include="Classes\cls_adjustment_master.vb" />
