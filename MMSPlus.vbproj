@@ -1184,6 +1184,12 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
+    <Compile Include="Reports\PaymentDetailCrReport.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PaymentDetailCrReport.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Reports\tcryMaterialRecAgainstPOPrint.vb">
       <DependentUpon>tcryMaterialRecAgainstPOPrint.rpt</DependentUpon>
       <SubType>Component</SubType>
@@ -1844,6 +1850,10 @@
     <EmbeddedResource Include="Reports\NonMovingItems.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>NonMovingItems.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\PaymentDetailCrReport.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>PaymentDetailCrReport.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\tcryMaterialRecAgainstPOPrint.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
