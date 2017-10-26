@@ -25,7 +25,7 @@ Public Class frm_Invoice_Settlement
         clsObj.ComboBind(cmbCustomerSettleInvoice, "Select ACC_ID,ACC_NAME from ACCOUNT_MASTER WHERE AG_ID=" &
                  AccountGroups.Customers & " Order by ACC_NAME", "ACC_NAME", "ACC_ID", True)
 
-        clsObj.ComboBind(cmbPaymentType, "Select [PaymentTypeId], [PaymentTypeName] + CASE WHEN IsApprovalRequired=1" &
+        clsObj.ComboBind(cmbPaymentType, "Select [PaymentTypeId], [PaymentTypeName] + CASE WHEN IsApprovalRequired_bit=1" &
                          " THEN ' - Approval Required' ELSE ' - Approval Not Required' END AS PaymentTypeName from [PaymentTypeMaster] WHERE [IsActive_bit] = 1",
                           "PaymentTypeName", "PaymentTypeId", True)
         clsObj.ComboBind(cmbBank, "select BankID, BankName + ' - ' + BankAccountNo as BankAccountNo FROM dbo.BankMaster where IsActive = 1",

@@ -1,7 +1,7 @@
 ALTER TABLE DebitNote_Master
   ADD  DN_Amount NUMERIC(18,2) NULL,
     DN_CustId NUMERIC(18,0) NULL,
-   INV_No varchar(100)  NULL,
+    INV_No varchar(100)  NULL,
     INV_Date DATETIME  NULL;
 
 
