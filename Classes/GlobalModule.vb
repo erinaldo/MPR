@@ -127,6 +127,7 @@ Module GlobalModule
         RptCustomerRateList = 69
         RptDebitNotePrint = 70
         RptCreditNotePrint = 71
+        RptGatePassPrint = 72
     End Enum
     Public Enum IndentStatus As Integer
         Fresh = 1

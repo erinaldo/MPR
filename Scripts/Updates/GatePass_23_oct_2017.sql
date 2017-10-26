@@ -138,12 +138,11 @@ CREATE PROCEDURE [dbo].[PROC_GATEPASS_MASTER]
       @SI_ID NUMERIC(18, 0) ,
       @Acc_id NUMERIC(18, 0) ,
       @VehicalNo VARCHAR(50) ,
-      @EntryDate INT ,
+      @EntryDate DATETIME ,
       @InTime VARCHAR(50) ,
       @OutTime VARCHAR(50) ,
       @Remarks VARCHAR(500) ,
-      @CreatedBy varchar(50) ,
-      @v_Proc_Type INT 	          
+      @CreatedBy varchar(50)     
     )
 AS
     BEGIN            

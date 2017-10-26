@@ -124,7 +124,7 @@ Public Class frm_GatePass
 
                 prpty.GatePassNo = lbl_GPNo.Text
                 prpty.GatePassDate = Now
-                prpty.BillNo = cmbBillNo.SelectedText
+                prpty.BillNo = cmbBillNo.Text
                 prpty.BillDate = Convert.ToDateTime(lblBillDate.Text)
                 prpty.SI_ID = cmbBillNo.SelectedValue
                 prpty.Acc_id = Convert.ToInt32(lblAccId.Text)
@@ -143,7 +143,7 @@ Public Class frm_GatePass
 
             If flag = "save" Then
                 If MsgBox("GatePass information has been Saved." & vbCrLf & "Do You Want to Print Preview.", MsgBoxStyle.Question + MsgBoxStyle.YesNo, gblMessageHeading) = MsgBoxResult.Yes Then
-                    obj.RptShow(enmReportName.RptInvoicePrint, "GatePassId", CStr(prpty.GatePassId), CStr(enmDataType.D_int))
+                    obj.RptShow(enmReportName.RptGatePassPrint, "GatePassId", CStr(prpty.GatePassId), CStr(enmDataType.D_int))
                 End If
             Else
                 MsgBox("You Can't edit this.")
@@ -162,11 +162,11 @@ Public Class frm_GatePass
             If TabControl1.SelectedIndex = 0 Then
                 If grdGatePass.SelectedRows.Count > 0 Then
 
-                    obj.RptShow(enmReportName.RptInvoicePrint, "GatePassId", CStr(grdGatePass("GatePassId", grdGatePass.CurrentCell.RowIndex).Value()), CStr(enmDataType.D_int))
+                    obj.RptShow(enmReportName.RptGatePassPrint, "GatePassId", CStr(grdGatePass("GatePassId", grdGatePass.CurrentCell.RowIndex).Value()), CStr(enmDataType.D_int))
                 End If
             Else
                 If flag <> "save" Then
-                    obj.RptShow(enmReportName.RptInvoicePrint, "GatePassId", CStr(GatePassId), CStr(enmDataType.D_int))
+                    obj.RptShow(enmReportName.RptGatePassPrint, "GatePassId", CStr(GatePassId), CStr(enmDataType.D_int))
                 End If
             End If
         Catch ex As Exception
