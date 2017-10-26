@@ -175,7 +175,7 @@ Public Class frm_openSale_Invoice
                 prpty.INV_TYPE = cmbinvtype.SelectedItem
                 prpty.LR_NO = txtLRNO.Text
                 prpty.dtable_Item_List = dtable_Item_List
-                'clsObj.Insert_SALE_INVOICE_MASTER(prpty)
+                clsObj.Insert_SALE_INVOICE_MASTER(prpty)
 
             End If
 

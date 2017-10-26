@@ -62,6 +62,7 @@ Partial Class MDIMain
         Me.frm_Sale_Invoice = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_credit_note = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_Invoice_Settlement = New System.Windows.Forms.ToolStripMenuItem()
+        Me.frm_GatePass = New System.Windows.Forms.ToolStripMenuItem()
         Me.Recipe = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_menu_item_recipe = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_Recipe_Master = New System.Windows.Forms.ToolStripMenuItem()
@@ -514,7 +515,7 @@ Partial Class MDIMain
         '
         Me.frmsaleinvoice.AutoSize = False
         Me.frmsaleinvoice.BackColor = System.Drawing.Color.FromArgb(CType(CType(66, Byte), Integer), CType(CType(66, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.frmsaleinvoice.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.frm_Customer_Rate_List_Master, Me.frm_OpenInvoice, Me.frm_Sale_Invoice, Me.frm_credit_note, Me.frm_Invoice_Settlement})
+        Me.frmsaleinvoice.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.frm_Customer_Rate_List_Master, Me.frm_OpenInvoice, Me.frm_Sale_Invoice, Me.frm_credit_note, Me.frm_Invoice_Settlement, Me.frm_GatePass})
         Me.frmsaleinvoice.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Bold)
         Me.frmsaleinvoice.ForeColor = System.Drawing.Color.White
         Me.frmsaleinvoice.Image = Global.MMSPlus.My.Resources.Resources.Financier_tycoon_stockbroker
@@ -565,6 +566,12 @@ Partial Class MDIMain
         Me.frm_Invoice_Settlement.Name = "frm_Invoice_Settlement"
         Me.frm_Invoice_Settlement.Size = New System.Drawing.Size(181, 22)
         Me.frm_Invoice_Settlement.Text = "Invoice Settlement"
+        '
+        'frm_GatePass
+        '
+        Me.frm_GatePass.Name = "frm_GatePass"
+        Me.frm_GatePass.Size = New System.Drawing.Size(181, 22)
+        Me.frm_GatePass.Text = "Gate Pass"
         '
         'Recipe
         '
@@ -1441,4 +1448,5 @@ Partial Class MDIMain
     Friend WithEvents frm_open_invoice As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents frm_Invoice_Settlement As ToolStripMenuItem
     Friend WithEvents frm_OpenInvoice As ToolStripMenuItem
+    Friend WithEvents frm_GatePass As ToolStripMenuItem
 End Class
