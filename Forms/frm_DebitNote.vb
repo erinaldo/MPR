@@ -17,6 +17,7 @@ Public Class frm_DebitNote
     ' Dim RMRSID As Int16
     Dim FLXGRD_PO_Items_Rowindex As Int16
     '  Dim intColumnIndex As Integer
+
     Dim rights As Form_Rights
     Dim Pre As String
 
