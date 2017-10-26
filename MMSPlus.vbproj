@@ -164,6 +164,7 @@
     <Compile Include="ClassesRecipe\Cls_Semi_Finished_Item_Master.vb" />
     <Compile Include="Classes\cls_Debit_note.vb" />
     <Compile Include="Classes\cls_Division_Settings.vb" />
+    <Compile Include="Classes\cls_GatePass.vb" />
     <Compile Include="Classes\cls_Invoice_Settlement.vb" />
     <Compile Include="Classes\cls_Material_Received_Without_PO.vb">
       <SubType>Code</SubType>

@@ -31,7 +31,48 @@ Public Class frm_Invoice_Settlement
         clsObj.ComboBind(cmbBank, "select BankID, BankName + ' - ' + BankAccountNo as BankAccountNo FROM dbo.BankMaster where IsActive = 1",
                           "BankAccountNo", "BankID", True)
         GetPMCode()
+        fill_ListPaymentgrid()
+
     End Sub
+
+
+
+
+    Private Sub fill_ListPaymentgrid(Optional ByVal condition As String = "")
+        Try
+
+            Dim strsql As String
+
+            strsql = "SELECT * FROM (SELECT  pt.PaymentTransactionId ,PaymentTransactionNo AS PaymentCode ,CONVERT(VARCHAR(20), PaymentDate, 106) AS PaymentDate, " & _
+            " ACC_NAME AS Customer ,ChequeDraftNo AS ChequeNo,CONVERT(VARCHAR(20), ChequeDraftDate, 106) AS ChequeDate ,BankName AS Bank, " & _
+            " TotalAmountReceived AS Amount,CASE WHEN StatusId =1 THEN 'InProcess'  WHEN StatusId =2 THEN 'Approved' WHEN StatusId =3 THEN 'Cancelled'  WHEN StatusId =4 THEN 'Bounced' END AS Status,ptm.PaymentTypeName AS PaymentType" & _
+            " FROM    dbo.PaymentTransaction PT JOIN dbo.ACCOUNT_MASTER AM ON pt.AccountId = AM.ACC_ID JOIN dbo.PaymentTypeMaster PTM ON PTM.PaymentTypeId = PT.PaymentTypeId " & _
+            " JOIN dbo.BankMaster BK ON BK.BankID = PT.BankId)tb WHERE   PaymentCode + PaymentDate + Customer + ChequeNo " & _
+            "+ ChequeDate + Bank +CAST(Amount AS VARCHAR(50))+ PaymentType+Status LIKE '%" & condition & "%'  order by 1"
+
+            Dim dt As DataTable = clsObj.Fill_DataSet(strsql).Tables(0)
+
+            flxList.DataSource = dt
+
+            flxList.Columns(0).Visible = False
+            flxList.Columns(1).Width = 120
+            flxList.Columns(2).Width = 70
+            flxList.Columns(3).Width = 230
+            flxList.Columns(4).Width = 70
+            flxList.Columns(5).Width = 70
+            flxList.Columns(6).Width = 70
+            flxList.Columns(7).Width = 70
+            flxList.Columns(8).Width = 60
+            flxList.Columns(9).Width = 115
+
+        Catch ex As Exception
+            MsgBox(gblMessageHeading_Error & vbCrLf & gblMessage_ContactInfo & vbCrLf & ex.Message, MsgBoxStyle.Critical, gblMessageHeading)
+        End Try
+
+    End Sub
+
+
+
 
     Private Sub ClearControls()
         cmbCustomer.SelectedIndex = 0
@@ -145,6 +186,7 @@ Public Class frm_Invoice_Settlement
                 btnSettleInvoice_Click(Nothing, Nothing)
             End If
             ClearControls()
+            fill_ListPaymentgrid()
         Catch ex As Exception
             MsgBox(gblMessageHeading_Error & vbCrLf & gblMessage_ContactInfo & vbCrLf & ex.Message, MsgBoxStyle.Critical, gblMessageHeading)
         End Try
@@ -420,7 +462,7 @@ Public Class frm_Invoice_Settlement
                 undistributedAmountTable.Rows(index)("UndistributedAmount") = amountAvailable - AmountSettled
 
                 prop.PaymentTransactionId = undistributedAmountTable.Rows(index)("PaymentTransactionId")
-                prop.PaymentId = 0
+                prop.PaymentId = undistributedAmountTable.Rows(index)("PaymentTransactionId")
                 prop.InvoiceId = row.Cells("InvoiceId").Value
                 prop.Remarks = String.Format("Rs. {0} settled for invoice {1} against payment {2}",
                                              AmountSettled, row.Cells("InvoiceNo").Value, undistributedAmountTable.Rows(index)("PaymentTransactionNo"))
@@ -486,4 +528,30 @@ Public Class frm_Invoice_Settlement
         Next
         Return InvoiceSettledAmount
     End Function
+
+    Private Sub txtSearch_KeyUp(sender As Object, e As KeyEventArgs) Handles txtSearch.KeyUp
+        fill_ListPaymentgrid(txtSearch.Text)
+    End Sub
+
+   
+
+    Private Sub cmbCustomer_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbCustomer.SelectedIndexChanged
+        Dim query As String = "DECLARE @AmountInHand DECIMAL(18,2) DECLARE @UndistributedAmount DECIMAL(18,2) SELECT @AmountInHand= isnull( sum(AmountInHand),0) FROM dbo.CustomerLedgerMaster WHERE AccountId=" & cmbCustomer.SelectedValue & _
+       " SELECT  @UndistributedAmount=isnull(SUM(UndistributedAmount), 0) FROM dbo.PaymentTransaction WHERE StatusId =2 AND AccountId=" & cmbCustomer.SelectedValue & _
+       "SELECT @AmountInHand AS AmountInHand,@UndistributedAmount AS UndistributedAmount"
+
+        Dim dt As DataTable = clsObj.Fill_DataSet(query).Tables(0)
+
+        If (dt.Rows(0)(0) < 0) Then
+            lblPendingAmount.Text = -(dt.Rows(0)(0))
+            lblAdvanceAmount.Text = "0.00"
+        Else
+            lblPendingAmount.Text = "0.00"
+            lblAdvanceAmount.Text = dt.Rows(0)(0)
+        End If
+        lblUnDistributeAmount.Text = dt.Rows(0)(1)
+
+
+    End Sub
+
 End Class
