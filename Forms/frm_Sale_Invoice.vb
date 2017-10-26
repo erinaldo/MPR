@@ -52,6 +52,7 @@ Public Class frm_Sale_Invoice
 
     End Sub
 
+
     Private Sub frm_Sale_Invoice_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Try
 

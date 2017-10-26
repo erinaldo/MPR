@@ -164,6 +164,7 @@
     <Compile Include="ClassesRecipe\Cls_Semi_Finished_Item_Master.vb" />
     <Compile Include="Classes\cls_Debit_note.vb" />
     <Compile Include="Classes\cls_Division_Settings.vb" />
+    <Compile Include="Classes\cls_GatePass.vb" />
     <Compile Include="Classes\cls_Invoice_Settlement.vb" />
     <Compile Include="Classes\cls_Material_Received_Without_PO.vb">
       <SubType>Code</SubType>
@@ -231,6 +232,12 @@
       <DependentUpon>frm_Wastage Master_cc.vb</DependentUpon>
     </Compile>
     <Compile Include="CostCenterForms\frm_Wastage Master_cc.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\frm_GatePass.Designer.vb">
+      <DependentUpon>frm_GatePass.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frm_GatePass.vb">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Forms\frm_OpenSale_Invoice.Designer.vb">
