@@ -174,6 +174,7 @@
     <Compile Include="Classes\cls_ReverseMaterial_Recieved_Without_Po_Master.vb" />
     <Compile Include="Classes\cls_Reverse_wastage_master.vb" />
     <Compile Include="Classes\cls_Material_Return.vb" />
+    <Compile Include="Classes\cls_GatePass.vb" />
     <Compile Include="Classes\cls_Stock_Transfer.vb" />
     <Compile Include="Classes\cls_Stock_Transfer_CC_To_CC.vb" />
     <Compile Include="Classes\cls_adjustment_master.vb" />
@@ -231,6 +232,12 @@
       <DependentUpon>frm_Wastage Master_cc.vb</DependentUpon>
     </Compile>
     <Compile Include="CostCenterForms\frm_Wastage Master_cc.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\frm_GatePass.Designer.vb">
+      <DependentUpon>frm_GatePass.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frm_GatePass.vb">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Forms\frm_OpenSale_Invoice.Designer.vb">
@@ -672,6 +679,12 @@
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\CryGatePass.vb">
+      <DependentUpon>CryGatePass.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Reports\Cry_Credit_Note.vb">
       <DependentUpon>Cry_Credit_Note.rpt</DependentUpon>
@@ -1217,6 +1230,9 @@
       <DependentUpon>frm_Wastage Master_cc.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frm_GatePass.resx">
+      <DependentUpon>frm_GatePass.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\frm_OpenSale_Invoice.resx">
       <DependentUpon>frm_OpenSale_Invoice.vb</DependentUpon>
       <SubType>Designer</SubType>
@@ -1485,6 +1501,10 @@
       <DependentUpon>MDIMain.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\licenses.licx" />
+    <EmbeddedResource Include="Reports\CryGatePass.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CryGatePass.vb</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reports\Cry_Credit_Note.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>Cry_Credit_Note.vb</LastGenOutput>
@@ -1863,6 +1883,7 @@
     <Content Include="Scripts\Updates\0002_Invoice_14_oct_2017.sql" />
     <Content Include="Scripts\Updates\20171016.sql" />
     <Content Include="Scripts\Updates\DivisionSettings_23_oct_2017.sql" />
+    <Content Include="Scripts\Updates\GatePass_23_oct_2017.sql" />
     <None Include="app.config" />
     <None Include="ClassDiagram1.cd" />
     <None Include="Images and Icons\Report.ico" />
