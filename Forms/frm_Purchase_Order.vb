@@ -284,6 +284,8 @@ Public Class frm_Purchase_Order
         dtable_Item_List.Columns.Add("Req_Qty", GetType(System.Double))
         dtable_Item_List.Columns.Add("PO_Qty", GetType(System.Double))
         dtable_Item_List.Columns.Add("Item_Rate", GetType(System.Double))
+        dtable_Item_List.Columns.Add("DType", GetType(System.String))
+        dtable_Item_List.Columns.Add("DISC", GetType(System.Decimal))
         dtable_Item_List.Columns.Add("Vat_Id", GetType(System.Int32))
         dtable_Item_List.Columns.Add("Vat_Name", GetType(System.String))
         dtable_Item_List.Columns.Add("Exice_Per", GetType(System.Double))
@@ -315,35 +317,42 @@ Public Class frm_Purchase_Order
         flxItemList.Cols("Req_Qty").Caption = "Req.Qty"
         flxItemList.Cols("PO_Qty").Caption = "PO Qty"
         flxItemList.Cols("Item_Rate").Caption = "Item Rate"
+        flxItemList.Cols("DType").Caption = "DType"
+        flxItemList.Cols("DISC").Caption = "Disc"
+
         flxItemList.Cols("Vat_Name").Caption = "Gst Name"
         flxItemList.Cols("Vat_Per").Caption = "GST%"
         flxItemList.Cols("Item_Value").Caption = "Item Value"
-
-
-
 
         flxItemList.Cols("Item_Code").AllowEditing = False
         flxItemList.Cols("Item_Name").AllowEditing = False
         flxItemList.Cols("UM_Name").AllowEditing = False
         flxItemList.Cols("Req_Qty").AllowEditing = False
         flxItemList.Cols("PO_Qty").AllowEditing = True
-        flxItemList.Cols("Item_Rate").AllowEditing = False
+        flxItemList.Cols("Item_Rate").AllowEditing = True
+        flxItemList.Cols("DType").AllowEditing = True
+        flxItemList.Cols("DType").ComboList = "P|A"
+        flxItemList.Cols("DISC").AllowEditing = True
+
         flxItemList.Cols("Vat_Name").AllowEditing = False
         flxItemList.Cols("Vat_Per").AllowEditing = False
         flxItemList.Cols("Item_Value").AllowEditing = False
 
 
-
-        flxItemList.Cols("Item_Code").Width = 80
-        flxItemList.Cols("Item_Name").Width = 340
-        flxItemList.Cols("UM_Name").Width = 50
-        flxItemList.Cols("Req_Qty").Width = 70
-        flxItemList.Cols("PO_Qty").Width = 70
-        flxItemList.Cols("Exice_Per").Width = 70
+        flxItemList.Cols("Item_Code").Width = 90
+        flxItemList.Cols("Item_Name").Width = 320
+        flxItemList.Cols("UM_Name").Width = 40
+        flxItemList.Cols("Req_Qty").Width = 60
+        flxItemList.Cols("PO_Qty").Width = 60
+        flxItemList.Cols("Exice_Per").Width = 30
         flxItemList.Cols("Item_Rate").Width = 70
-        flxItemList.Cols("Vat_Name").Width = 80
-        flxItemList.Cols("Vat_Per").Width = 30
-        flxItemList.Cols("Item_Value").Width = 95
+
+        flxItemList.Cols("DType").Width = 45
+        flxItemList.Cols("DISC").Width = 45
+
+        flxItemList.Cols("Vat_Name").Width = 60
+        flxItemList.Cols("Vat_Per").Width = 20
+        flxItemList.Cols("Item_Value").Width = 80
 
         flxItemList.Cols("Exice_Per").Visible = False
         flxItemList.Cols("Vat_Id").Visible = False
@@ -407,13 +416,36 @@ Public Class frm_Purchase_Order
         Dim cs As C1.Win.C1FlexGrid.CellStyle
 
         cs = Me.flxItemList.Styles.Add("PO_QTY")
-        cs.ForeColor = Color.White
-        cs.BackColor = Color.Green
+        'cs.ForeColor = Color.White
+        cs.BackColor = Color.LimeGreen
         cs.Border.Style = BorderStyleEnum.Raised
+
+        Dim cs1 As C1.Win.C1FlexGrid.CellStyle
+        cs1 = Me.flxItemList.Styles.Add("item_rate")
+        'cs1.ForeColor = Color.White
+        cs1.BackColor = Color.Orange
+        cs1.Border.Style = BorderStyleEnum.Raised
+
+        Dim cs2 As C1.Win.C1FlexGrid.CellStyle
+        cs2 = Me.flxItemList.Styles.Add("DISC")
+        'cs2.ForeColor = Color.White
+        cs2.BackColor = Color.Gold
+        cs2.Border.Style = BorderStyleEnum.Raised
+
+        Dim cs3 As C1.Win.C1FlexGrid.CellStyle
+        cs3 = Me.flxItemList.Styles.Add("DType")
+        'cs3.ForeColor = Color.White
+        cs3.BackColor = Color.Gold
+        cs3.Border.Style = BorderStyleEnum.Raised
 
         Dim i As Integer
         For i = 1 To flxItemList.Rows.Count - 1
-            If Not flxItemList.Rows(i).IsNode Then flxItemList.SetCellStyle(i, 5, cs)
+            If Not flxItemList.Rows(i).IsNode Then
+                flxItemList.SetCellStyle(i, 5, cs)
+                flxItemList.SetCellStyle(i, flxItemList.Cols("item_rate").SafeIndex, cs1)
+                flxItemList.SetCellStyle(i, flxItemList.Cols("DISC").SafeIndex, cs2)
+                flxItemList.SetCellStyle(i, flxItemList.Cols("DType").SafeIndex, cs3)
+            End If
         Next
 
         CalculateAmount()
@@ -469,30 +501,41 @@ Public Class frm_Purchase_Order
                 End If
             Next
 
-            Dim exice_per As Double
+            Dim exice_per As Double = 0.0
+            Dim discamt As Decimal = 0.0
+            Dim totdiscamt As Decimal = 0.0
 
             RemoveHandler flxItemList.AfterDataRefresh, AddressOf flxItemList_AfterDataRefresh
+
             For i = 1 To flxItemList.Rows.Count - 1
                 With flxItemList.Rows(i)
                     If Not .IsNode Then
-                        .Item("Item_Value") = Math.Round((.Item("PO_Qty") * .Item("Item_Rate")), 2) '+ ((.Item("PO_Qty") * .Item("Item_Rate") * .Item("Vat_Per")) / 100)
-                        total_item_value = total_item_value + (.Item("PO_Qty") * .Item("Item_Rate"))
+
+                        If (.Item("DType")) = "P" Then
+                            discamt = Math.Round(((.Item("PO_Qty") * .Item("Item_Rate")) * .Item("DISC") / 100), 2)
+                        Else
+                            discamt = Math.Round(.Item("DISC"), 2)
+                        End If
+
+                        .Item("Item_Value") = Math.Round((.Item("PO_Qty") * .Item("Item_Rate")), 2) - discamt
+                        total_item_value = total_item_value + (.Item("Item_Value"))
+
+                        totdiscamt = totdiscamt + discamt
+
                         exice_per = IIf((.Item("Exice_Per")) Is DBNull.Value, 0, .Item("Exice_Per"))
                         exice_per = exice_per / 100
                         total_exice_amount = total_exice_amount + (.Item("Item_Value") * exice_per)
-                        If chk_VatCal.Checked = True Then
-                            total_vat_amount = total_vat_amount + ((((.Item("PO_Qty") * .Item("Item_Rate")) + (.Item("Item_Value") * exice_per) - ((.Item("item_value") / tot_amt) * Convert.ToDouble(txtDiscountAmount.Text))) * .Item("Vat_Per")) / 100)
-                        Else
-                            total_vat_amount = total_vat_amount + ((((.Item("PO_Qty") * .Item("Item_Rate")) - ((.Item("item_value") / tot_amt) * Convert.ToDouble(txtDiscountAmount.Text))) * .Item("Vat_Per")) / 100)
-                        End If
+                        total_vat_amount = total_vat_amount + ((((.Item("PO_Qty") * .Item("Item_Rate")) - discamt) * .Item("Vat_Per")) / 100)
                     End If
                 End With
             Next
+
             AddHandler flxItemList.AfterDataRefresh, AddressOf flxItemList_AfterDataRefresh
 
+            txtDiscountAmount.Text = totdiscamt.ToString("#0.00")
             lblItemValue.Text = total_item_value.ToString("#0.00")
             lblVatAmount.Text = total_vat_amount.ToString("#0.00")
-            lblNetAmount.Text = (total_item_value + total_vat_amount + total_exice_amount + txtOtherCharges.Text - txtDiscountAmount.Text).ToString("#0.00")
+            lblNetAmount.Text = (total_item_value + total_vat_amount + total_exice_amount + txtOtherCharges.Text).ToString("#0.00") '- txtDiscountAmount.Text).ToString("#0.00")
             'Return lblItemValue.Text + "," + lblVatAmount.Text + "," + lblNetAmount.Text + "," + lblNetAmount.Text + "," + ExiceGross
             Str = total_item_value.ToString("#0.00") + "," + total_vat_amount.ToString("#0.00") + "," + lblNetAmount.Text + "," + total_exice_amount.ToString()
             Return Str
@@ -844,6 +887,8 @@ restart:
             dr("Vat_Name") = ds.Tables(1).Rows(0)("VAT_NAME")
             dr("Req_Qty") = 0.0
             dr("Po_Qty") = 0.0
+            dr("DType") = "P"
+            dr("Disc") = 0.0
             'dr("Exice_Per") = 0
             dr("Vat_per") = ds.Tables(1).Rows(0)("VAT_PERCENTAGE")
             dr("Item_value") = (dr("PO_Qty") * dr("Item_Rate")) + ((dr("PO_Qty") * dr("Item_Rate") * dr("Vat_Per")) / 100)

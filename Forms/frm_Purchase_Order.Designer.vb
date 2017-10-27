@@ -491,6 +491,7 @@ Partial Class frm_Purchase_Order
         Me.txtDiscountAmount.ForeColor = System.Drawing.Color.White
         Me.txtDiscountAmount.Location = New System.Drawing.Point(760, 475)
         Me.txtDiscountAmount.Name = "txtDiscountAmount"
+        Me.txtDiscountAmount.ReadOnly = True
         Me.txtDiscountAmount.Size = New System.Drawing.Size(118, 18)
         Me.txtDiscountAmount.TabIndex = 5
         Me.txtDiscountAmount.Text = "0.00"

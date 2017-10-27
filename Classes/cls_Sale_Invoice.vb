@@ -363,7 +363,10 @@ again:
 
                             items_row(0)("TRANSFER_QTY") = (items_row(0)("TRANSFER_QTY") + items_DataRow("TRANSFER_QTY"))
                             items_row(0)("GST_Amount") = (items_row(0)("GST_Amount") + items_DataRow("GST_Amount"))
-                            items_row(0)("DISC") = (items_row(0)("DISC") + items_DataRow("DISC"))
+
+                            If items_DataRow("DType").ToString() = "A" Then
+                                items_row(0)("DISC") = (items_row(0)("DISC") + items_DataRow("DISC"))
+                            End If
 
                         Else
                             Dim OrderDataRow As DataRow = Dtitemsnew.NewRow()
@@ -377,6 +380,7 @@ again:
                             OrderDataRow("DISC") = items_DataRow("DISC")
                             Dtitemsnew.Rows.Add(OrderDataRow)
                         End If
+
                         Dtitemsnew.AcceptChanges()
                     Next
 

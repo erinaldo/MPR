@@ -525,8 +525,8 @@ Namespace Purchase_Order
                 dt.Columns.Add("vat_per")
                 dt.Columns.Add("excise_per")
                 dt.Columns.Add("item_rate")
-
-
+                dt.Columns.Add("DType")
+                dt.Columns.Add("DISC")
 
 
                 For i = 0 To tempdt.Rows.Count - 1
@@ -537,6 +537,13 @@ Namespace Purchase_Order
                     dr("vat_per") = IIf(IsDBNull(clsPropObj.PO_Items.Compute("Max(vat_per)", "item_id=" & tempdt.Rows(i)(0))), 0, clsPropObj.PO_Items.Compute("Max(vat_per)", "item_id=" & tempdt.Rows(i)(0)))
                     dr("excise_per") = IIf(IsDBNull(clsPropObj.PO_Items.Compute("Max(exice_per)", "item_id=" & tempdt.Rows(i)(0))), 0, clsPropObj.PO_Items.Compute("Max(exice_per)", "item_id=" & tempdt.Rows(i)(0)))
                     dr("item_rate") = clsPropObj.PO_Items.Compute("Max(item_rate)", "item_id=" & tempdt.Rows(i)(0))
+                    dr("DType") = clsPropObj.PO_Items.Compute("Max(DType)", "item_id=" & tempdt.Rows(i)(0))
+
+                    If clsPropObj.PO_Items.Compute("Max(DType)", "item_id=" & tempdt.Rows(i)(0)).ToString() = "A" Then
+                        dr("DISC") = clsPropObj.PO_Items.Compute("sum(DISC)", "item_id=" & tempdt.Rows(i)(0))
+                    Else
+                        dr("DISC") = clsPropObj.PO_Items.Compute("Max(DISC)", "item_id=" & tempdt.Rows(i)(0))
+                    End If
 
                     dt.Rows.Add(dr)
 
@@ -557,6 +564,10 @@ Namespace Purchase_Order
                     cmd.Parameters.AddWithValue("@v_VAT_PER", dt.Rows(i)("Vat_Per"))
                     cmd.Parameters.AddWithValue("@v_EXICE_PER", dt.Rows(i)("excise_per"))
                     cmd.Parameters.AddWithValue("@V_ITEM_RATE", dt.Rows(i)("Item_Rate"))
+
+                    cmd.Parameters.AddWithValue("@v_DTYPE", dt.Rows(i)("DType").ToString())
+                    cmd.Parameters.AddWithValue("@v_DISC_VALUE", dt.Rows(i)("DISC"))
+
                     cmd.Parameters.AddWithValue("@V_CREATED_BY", clsPropObj.CREATED_BY)
                     cmd.Parameters.AddWithValue("@V_CREATION_DATE", clsPropObj.CREATION_DATE)
                     cmd.Parameters.AddWithValue("@V_MODIFIED_BY", clsPropObj.MODIFIED_BY)
