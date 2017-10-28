@@ -1394,7 +1394,11 @@ Public MustInherit Class Connection
             ElseIf RptNo = enmReportName.RptGatePassPrint Then
                 filepath = ReportFilePath & "CryGatePass.rpt"
 
+            ElseIf RptNo = enmReportName.RptPaymentPrint Then
+                filepath = ReportFilePath & "PaymentDetailCrReport.rpt"
+
             End If
+
             Dim callType As Integer = 0
 
             rep.Load(filepath)
@@ -1479,6 +1483,10 @@ Public MustInherit Class Connection
                     ElseIf RptNo = enmReportName.RptGatePassPrint Then
                         PInteger = CInt(value(ArrIndex))
                         rep.SetParameterValue("GatePassId", CInt(value(ArrIndex)))
+
+                    ElseIf RptNo = enmReportName.RptPaymentPrint Then
+                        PInteger = CInt(value(ArrIndex))
+                        rep.SetParameterValue("PaymentId", CInt(value(ArrIndex)))
 
 
                     ElseIf RptNo = enmReportName.RptInvoicePrint Then

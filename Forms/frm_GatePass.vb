@@ -10,7 +10,7 @@ Public Class frm_GatePass
     Dim prpty As cls_GatePass_prop
     Dim flag As String
     Dim GatePassId As Int16
-    Dim NEWCUST As Int16 = 0
+
     Dim dtable_Item_List As DataTable
     Dim gstnoRegex As New Regex("^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$")
     Dim mobileRegex As New Regex("^\d{10}$")

@@ -58,7 +58,7 @@ Public Class MDIMain
                         tbp.Text = "Item Master"
                         tbp.Controls.Add(New frm_Item_Master(prpty_form_rights))
                     Case UCase("frm_Invoice_Settlement")
-                        tbp.Text = "Invoice Settlement"
+                        tbp.Text = "A/c Receivable"
                         tbp.Controls.Add(New frm_Invoice_Settlement(prpty_form_rights))
                     Case UCase("frm_Cost_Center")
                         tbp.Text = "Cost Center Master"

@@ -2,10 +2,11 @@
 
 Public Class frm_Invoice_Settlement
     Implements IForm
-
+    Dim obj As New CommonClass
     Dim clsObj As New cls_Invoice_Settlement
     Dim _rights As Form_Rights
-
+    Dim PaymentId As Int16
+    Dim flag As String
     Public Sub New(ByVal rights As Form_Rights)
         _rights = rights
         InitializeComponent()
@@ -34,9 +35,6 @@ Public Class frm_Invoice_Settlement
         fill_ListPaymentgrid()
 
     End Sub
-
-
-
 
     Private Sub fill_ListPaymentgrid(Optional ByVal condition As String = "")
         Try
@@ -70,9 +68,6 @@ Public Class frm_Invoice_Settlement
         End Try
 
     End Sub
-
-
-
 
     Private Sub ClearControls()
         cmbCustomer.SelectedIndex = 0
@@ -247,7 +242,20 @@ Public Class frm_Invoice_Settlement
     End Function
 
     Public Sub ViewClick(ByVal sender As Object, ByVal e As System.EventArgs) Implements IForm.ViewClick
+        Try
+            If TabControl1.SelectedIndex = 0 Then
+                If flxList.SelectedRows.Count > 0 Then
 
+                    obj.RptShow(enmReportName.RptPaymentPrint, "PaymentId", CStr(flxList("PaymentId", flxList.CurrentCell.RowIndex).Value()), CStr(enmDataType.D_int))
+                End If
+            Else
+                If flag <> "save" Then
+                    obj.RptShow(enmReportName.RptPaymentPrint, "PaymentId", CStr(PaymentId), CStr(enmDataType.D_int))
+                End If
+            End If
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
     End Sub
 
     Private Sub tabTakePayment_Click(sender As Object, e As EventArgs) Handles tabTakePayment.Click
