@@ -470,7 +470,6 @@ Public Class frm_Invoice_Settlement
                 prop.CreatedBy = v_the_current_logged_in_user_name
                 prop.DivisionId = v_the_current_division_id
                 clsObj.Update_Undistributed_Amount(prop)
-
                 index += 1
             End While
         Next
