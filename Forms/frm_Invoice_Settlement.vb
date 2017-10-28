@@ -41,7 +41,7 @@ Public Class frm_Invoice_Settlement
 
             Dim strsql As String
 
-            strsql = "SELECT * FROM (SELECT  pt.PaymentTransactionId ,PaymentTransactionNo AS PaymentCode ,CONVERT(VARCHAR(20), PaymentDate, 106) AS PaymentDate, " & _
+            strsql = "SELECT * FROM (SELECT  pt.PaymentTransactionId as PaymentID ,PaymentTransactionNo AS PaymentCode ,CONVERT(VARCHAR(20), PaymentDate, 106) AS PaymentDate, " & _
             " ACC_NAME AS Customer ,ChequeDraftNo AS ChequeNo,CONVERT(VARCHAR(20), ChequeDraftDate, 106) AS ChequeDate ,BankName AS Bank, " & _
             " TotalAmountReceived AS Amount,CASE WHEN StatusId =1 THEN 'InProcess'  WHEN StatusId =2 THEN 'Approved' WHEN StatusId =3 THEN 'Cancelled'  WHEN StatusId =4 THEN 'Bounced' END AS Status,ptm.PaymentTypeName AS PaymentType" & _
             " FROM    dbo.PaymentTransaction PT JOIN dbo.ACCOUNT_MASTER AM ON pt.AccountId = AM.ACC_ID JOIN dbo.PaymentTypeMaster PTM ON PTM.PaymentTypeId = PT.PaymentTypeId " & _
@@ -394,14 +394,14 @@ Public Class frm_Invoice_Settlement
 
     Private Sub FillGrid()
         Dim query As String = " SELECT SI_ID, SI_CODE ,SI_NO, SI_DATE, NET_AMOUNT, " &
-            "ISNULL((SELECT SUM(AmountSettled) FROM dbo.CustomerSettlementDetail WHERE InvoiceId = SI_ID),0) AS ReceivedAmount " &
-            " FROM dbo.SALE_INVOICE_MASTER WHERE SALE_TYPE='Credit' AND CUST_ID = " & cmbCustomerSettleInvoice.SelectedValue
+            "ISNULL((SELECT SUM(AmountSettled) FROM dbo.CustomerSettlementDetail WHERE InvoiceId = SI_ID),0) AS ReceivedAmount ,iSNULL(cn_amount,0) AS CnAmount" &
+            " FROM dbo.SALE_INVOICE_MASTER  LEFT JOIN dbo.CreditNote_Master ON INVId = SI_ID WHERE SALE_TYPE='Credit' AND INVOICE_STATUS <> 4 AND CUST_ID = " & cmbCustomerSettleInvoice.SelectedValue
         Dim dt As DataTable = clsObj.Fill_DataSet(query).Tables(0)
         dgvInvoiceToSettle.RowCount = 0
 
         Dim index As Int16 = 0
         For Each dr As DataRow In dt.Rows
-            If (dr("NET_AMOUNT") - dr("ReceivedAmount")) = 0 Then
+            If (dr("NET_AMOUNT") - dr("ReceivedAmount") - dr("CnAmount")) = 0 Then
                 Continue For
             End If
             dgvInvoiceToSettle.RowCount += 1
@@ -410,8 +410,8 @@ Public Class frm_Invoice_Settlement
             dgvInvoiceToSettle.Rows(index).Cells("InvoiceDate").Value = dr("SI_DATE")
             dgvInvoiceToSettle.Rows(index).Cells("InvoiceAmount").Value = dr("NET_AMOUNT")
             dgvInvoiceToSettle.Rows(index).Cells("ReceivedAmount").Value = dr("ReceivedAmount")
-            dgvInvoiceToSettle.Rows(index).Cells("CreditedAmount").Value = 0
-            dgvInvoiceToSettle.Rows(index).Cells("PendingAmount").Value = dr("NET_AMOUNT") - dr("ReceivedAmount")
+            dgvInvoiceToSettle.Rows(index).Cells("CreditedAmount").Value = dr("CnAmount")
+            dgvInvoiceToSettle.Rows(index).Cells("PendingAmount").Value = dr("NET_AMOUNT") - dr("ReceivedAmount") - dr("CnAmount")
             dgvInvoiceToSettle.Rows(index).Cells("AmountToReceive").Value = 0
             index = index + 1
         Next
