@@ -306,5 +306,358 @@ AS
 
     END
 
------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------Supplier Payment------------------------------------------------------------------------------------------
+
+CREATE TABLE [dbo].[SupplierPaymentTransaction](
+	[PaymentTransactionId] [numeric](18, 0) NOT NULL,
+	[PaymentTransactionNo] [varchar](100) NOT NULL,
+	[PaymentTypeId] [numeric](18, 0) NOT NULL,
+	[AccountId] [numeric](18, 0) NULL,
+	[PaymentDate] [datetime] NULL,
+	[ChequeDraftNo] [varchar](50) NULL,
+	[ChequeDraftDate] [datetime] NULL,
+	[BankId] [numeric](18, 0) NULL,
+	[BankDate] [datetime] NULL,
+	[Remarks] [varchar](200) NULL,
+	[TotalAmountReceived] [numeric](18, 2) NULL,
+	[UndistributedAmount] [numeric](18, 2) NULL,
+	[CancellationCharges] [numeric](18, 2) NULL,
+	[CreatedBy] [varchar](50) NULL,
+	[CreatedDate] [datetime] NULL,
+	[ModifiedBy] [varchar](50) NULL,
+	[ModifiedDate] [datetime] NULL,
+	DivisionId BIGINT NULL,
+	[StatusId] [int] NULL
+) ON [PRIMARY]
+
+--------------------------------------------------------
+
+CREATE TABLE [dbo].[SupplierPM_Series](
+	[DIV_ID] [numeric](18, 0) NULL,
+	[PREFIX] [varchar](50) NULL,
+	[START_NO] [numeric](18, 0) NULL,
+	[END_NO] [numeric](18, 0) NULL,
+	[CURRENT_USED] [numeric](18, 0) NULL,
+	[IS_FINISHED] [char](1) NULL
+) ON [PRIMARY]
+---------------------------------------------------------
+
+CREATE TABLE [dbo].[SupplierLedgerMaster](
+	[LedgerId] [numeric](18, 0) NOT NULL,
+	[AccountId] [numeric](18, 0) NULL,
+	AmountInHand [numeric](18, 2) NULL,
+	DivisionId BIGINT NULL
+ CONSTRAINT [PK_SupplierLedgerMaster] PRIMARY KEY CLUSTERED 
+(
+	[LedgerId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+-------------------------------------------------------------
+
+
+CREATE TABLE SupplierSettlementDetail
+    (
+      PaymentTransactionId NUMERIC NOT NULL ,
+      InvoicePaymentId NUMERIC NOT NULL ,
+      MrnNo NUMERIC NOT NULL ,
+      AmountSettled NUMERIC(18, 2) NOT NULL ,
+      Remarks VARCHAR(200) ,
+      CreatedBy VARCHAR(50) ,
+      CreatedDate DATETIME ,
+      DivisionId NUMERIC NOT NULL,
+	  paymentId NUMERIC NOT NULL
+    )
+ON  [PRIMARY]
+
+---------------------------------------------------------------------------------
+
+CREATE PROCEDURE [dbo].[GET_SuppPaymentModule_No]
+(
+	@DIV_ID NUMERIC(18,0)
+)
+AS
+BEGIN
+	DECLARE @COUNT NUMERIC(18,0)
+
+
+		SELECT @COUNT = COUNT(CURRENT_USED) FROM SupplierPM_Series WHERE 
+		DIV_ID = @DIV_ID and IS_FINISHED = 'N'
+	
+	IF @COUNT = 0 
+		BEGIN
+			SELECT '-1','-1'
+		END
+	ELSE
+		BEGIN
+		
+		SELECT @COUNT = COUNT(CURRENT_USED) FROM SupplierPM_Series WHERE IS_FINISHED = 'N'
+		AND
+		DIV_ID = @DIV_ID AND CURRENT_USED >= START_NO - 1 
+		AND CURRENT_USED < END_NO
+	
+		if @count = 0 
+			begin
+				select '-2','-2'
+			end 
+		else
+			begin
+				SELECT  PREFIX,CURRENT_USED FROM SupplierPM_Series WHERE 
+					DIV_ID = @DIV_ID AND IS_FINISHED ='N'
+			END
+		end 
+END
+
+---------------------------------------------------------------------------------------------------
+
+CREATE PROCEDURE Proc_SupplierLedger_Insert
+    (
+      @AccountId NUMERIC(18, 0) ,
+      @CashIn NUMERIC(18, 2) ,
+      @CashOut NUMERIC(18, 2) ,
+      @Remarks VARCHAR(500) ,
+      @DivisionId NUMERIC(18, 0) ,
+      @TransactionId INT ,
+      @TransactionTypeId INT ,
+      --@TransactionDate DATETIME ,
+      @CreatedBy VARCHAR(100)
+    )
+AS
+    BEGIN
+    
+        DECLARE @LedgerId NUMERIC(18, 0) 
+        
+    ---------if customer ledger not exists then make entry
+        IF EXISTS ( SELECT  AccountId
+                    FROM    dbo.SupplierLedgerMaster
+                    WHERE   AccountId = @AccountId )
+            SELECT  @LedgerId = LedgerId
+            FROM    dbo.SupplierLedgerMaster
+            WHERE   AccountId = @AccountId
+        ELSE
+            BEGIN
+                SELECT  @LedgerId = ISNULL(MAX(LedgerId), 0) + 1
+                FROM    dbo.SupplierLedgerMaster	
+                INSERT  INTO dbo.SupplierLedgerMaster
+                        ( LedgerId ,
+                          AccountId ,
+                          AmountInHand ,
+                          DivisionId
+			            )
+                VALUES  ( @LedgerId , -- LedgerId - numeric
+                          @AccountId , -- AccountId - numeric
+                          0 , -- AmountInHand - numeric
+                          @DivisionId -- DivisionId - bigint
+			            )
+            END 
+            
+       -------update amount in ledger
+        UPDATE  dbo.SupplierLedgerMaster
+        SET     AmountInHand = AmountInHand - @CashOut + @CashIn
+        WHERE   AccountId = @AccountId
+       
+       -------entry in ledger detail
+        DECLARE @LedgerDetailId AS NUMERIC
+        SELECT  @LedgerDetailId = ISNULL(MAX(LedgerDetailId), 0) + 1
+        FROM    SupplierLedgerDetail
+       
+        INSERT  INTO dbo.SupplierLedgerDetail
+                ( LedgerDetailId ,
+                  LedgerId ,
+                  CashIn ,
+                  CashOut ,
+                  Remarks ,
+                  TransactionId ,
+                  TransactionTypeId ,
+                  TransactionDate ,
+                  CreatedBy
+                )
+        VALUES  ( @LedgerDetailId , -- LedgerDetailId - numeric
+                  @LedgerId , -- LedgerId - numeric
+                  @CashIn , -- CashIn - numeric
+                  @CashOut , -- CashOut - numeric
+                  @Remarks , -- Remarks - varchar(500)
+                  @TransactionId , -- TransactionId - int
+                  @TransactionTypeId , -- TransactionTypeId - int
+                  GETDATE() , -- TransactionDate - datetime
+                  @CreatedBy  -- CreatedBy - varchar(100)
+                )
+    END 
+
+-------------------------------------------------------------------------------------------------------------
+
+CREATE PROCEDURE [dbo].[ProcSupplierPaymentTransaction_Insert]
+    (
+      @PaymentTransactionId NUMERIC = NULL ,
+      @PaymentTransactionNo VARCHAR(100) = NULL ,
+      @PaymentTypeId NUMERIC = NULL ,
+      @AccountId NUMERIC = NULL ,
+      @PaymentDate DATETIME = NULL ,
+      @ChequeDraftNo VARCHAR(50) = NULL ,
+      @ChequeDraftDate DATETIME = NULL ,
+      @BankId NUMERIC = 0 ,
+      @BankDate DATETIME = NULL ,
+      @Remarks VARCHAR(200) = NULL ,
+      @TotalamountReceived NUMERIC(18, 2) = 0 ,
+      @UndistributedAmount NUMERIC(18, 2) = 0 ,
+      @CreatedBy VARCHAR(50) = NULL ,
+      @DivisionId NUMERIC = 0 ,
+      @StatusId NUMERIC = NULL ,
+      @ProcedureStatus INT OUTPUT       
+    )
+AS
+    BEGIN      
+        
+        DECLARE @LedgerId NUMERIC     
+        SELECT  @PaymentTransactionId = ISNULL(MAX(PaymentTransactionId), 0)
+                + 1
+        FROM    dbo.SupplierPaymentTransaction          
+                 
+                  
+        INSERT  INTO PaymentTransaction
+                ( PaymentTransactionId ,
+                  PaymentTransactionNo ,
+                  PaymentTypeId ,
+                  AccountId ,
+                  PaymentDate ,
+                  ChequeDraftNo ,
+                  ChequeDraftDate ,
+                  BankId ,
+                  Remarks ,
+                  TotalAmountReceived ,
+                  UndistributedAmount ,
+                  CreatedBy ,
+                  CreatedDate ,
+                  DivisionId ,
+                  StatusId ,
+                  BankDate      
+                )
+        VALUES  ( @PaymentTransactionId ,
+                  @PaymentTransactionNo ,
+                  @PaymentTypeId ,
+                  @AccountId ,
+                  @PaymentDate ,
+                  @ChequeDraftNo ,
+                  @ChequeDraftDate ,
+                  @BankId ,
+                  @Remarks ,
+                  @TotalamountReceived ,
+                  @UndistributedAmount ,
+                  @CreatedBy ,
+                  GETDATE() ,
+                  @DivisionId ,
+                  @StatusId ,
+                  @BankDate      
+                )      
+                  
+        SET @ProcedureStatus = @PaymentTransactionId       
+        
+        ---increment series
+        UPDATE  SupplierPM_Series
+        SET     CURRENT_USED = CURRENT_USED + 1
+        WHERE   DIV_ID = @DivisionId
+                AND IS_FINISHED = 'N'
+        
+        ---update customer ledger        
+		---if payment status approved   than make entry in customer ledger      
+        SET @Remarks = 'Payment transfer against -' + @PaymentTransactionNo
+        IF @StatusId = 2
+            EXECUTE Proc_SupplierLedger_Insert @AccountId,
+                @TotalamountReceived, 0, @Remarks, @DivisionId,
+                @PaymentTransactionId, 18, @CreatedBy
+    END 
+
+
+---------------------------------------------------------------------------------------------------------
+
+CREATE PROC Proc_SupplierUpdatePaymentStauts
+    (
+      @PaymentTransactionId [numeric](18, 0) ,
+      @CancellationCharges [numeric](18, 2) ,
+      @StatusId NUMERIC    
+    )
+AS
+    BEGIN  
+        UPDATE  SupplierPaymentTransaction
+        SET     StatusId = @StatusId ,
+                CancellationCharges = @CancellationCharges
+        WHERE   PaymentTransactionId = @PaymentTransactionId  
+        
+        ----declare parameters        
+        DECLARE @AccountId NUMERIC
+        DECLARE @TotalamountReceived NUMERIC(18, 2) = 0 
+        DECLARE @PaymentTransactionNo VARCHAR(100) 
+        DECLARE @CreatedBy VARCHAR(50) = NULL 
+        DECLARE @DivisionId NUMERIC = 0 
+        
+        ----set parametrs
+        SELECT  @AccountId = AccountId ,
+                @TotalamountReceived = TotalAmountReceived ,
+                @PaymentTransactionNo = PaymentTransactionNo ,
+                @CreatedBy = CreatedBy ,
+                @DivisionId = DivisionId
+        FROM    dbo.SupplierPaymentTransaction
+        WHERE   PaymentTransactionId = @PaymentTransactionId
+        
+        ---update customer ledger
+		---if payment status approved   than make entry in customer ledger
+        DECLARE @Remarks VARCHAR(200) = 'Payment transfer against '
+            + @PaymentTransactionNo
+        IF @StatusId = 2
+            EXECUTE Proc_SupplierLedger_Insert @AccountId,
+                @TotalamountReceived, 0, @Remarks, @DivisionId,
+                @PaymentTransactionId, 18, @CreatedBy
+        
+        ---if payment status bounced with cancellation charges than make entry in customer ledger      
+        SET @Remarks = 'Payment Cancelation Charges against '
+            + @PaymentTransactionNo
+        IF @StatusId = 4
+            AND @CancellationCharges > 0
+            EXECUTE Proc_SupplierLedger_Insert @AccountId, 0,
+                @CancellationCharges, @Remarks, @DivisionId,
+                @PaymentTransactionId, 18, @CreatedBy
+                
+    END
+
+------------------------------------------------------------------------------------------------------------
+
+CREATE PROCEDURE Proc_SupplierSettlementDetail_Insert
+    (
+      @PaymentTransactionId NUMERIC(18, 0) ,
+      @PaymentId NUMERIC(18, 0) ,
+      @MrnNo NUMERIC(18, 0) ,
+      @AmountSettled NUMERIC(18, 2) ,
+      @Remarks VARCHAR(200) ,
+      @CreatedBy VARCHAR(50) ,      
+      @DivisionId NUMERIC(18, 0)
+    )
+AS
+    BEGIN
+        
+        INSERT  INTO SupplierSettlementDetail
+                ( PaymentTransactionId ,
+                  PaymentId ,
+                  [MrnNo] ,
+                  [AmountSettled] ,
+                  [Remarks] ,
+                  [CreatedBy] ,
+                  [CreatedDate] ,
+                  [DivisionId]
+                )
+        VALUES  ( @PaymentTransactionId ,
+                  @PaymentId ,
+                  @MrnNo ,
+                  @AmountSettled ,
+                  @Remarks ,
+                  @CreatedBy ,
+                  GETDATE() ,
+                  @DivisionId
+                )
+                
+-----------deduct settled amount from payment transaction table                
+        UPDATE  dbo.SupplierPaymentTransaction
+        SET     UndistributedAmount = UndistributedAmount - @AmountSettled
+        WHERE   PaymentTransactionId = @PaymentTransactionId
+    END
+
+------------------------------------------------------------------------------------------------------------------
 

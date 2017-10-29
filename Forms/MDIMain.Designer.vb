@@ -61,16 +61,22 @@ Partial Class MDIMain
         Me.IssueToProcessToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.frmsaleinvoice = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_Customer_Rate_List_Master = New System.Windows.Forms.ToolStripMenuItem()
-        Me.frm_OpenInvoice = New System.Windows.Forms.ToolStripMenuItem()
+        Me.frm_OpenSale_Invoice = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_Sale_Invoice = New System.Windows.Forms.ToolStripMenuItem()
-        Me.frm_credit_note = New System.Windows.Forms.ToolStripMenuItem()
+        Me.frm_CreditNote = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_GatePass = New System.Windows.Forms.ToolStripMenuItem()
         Me.UserManagmentToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_user_master = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_Invoice_Settlement = New System.Windows.Forms.ToolStripMenuItem()
-        Me.AcPayableToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.frm_Supplier_Invoice_Settlement = New System.Windows.Forms.ToolStripMenuItem()
         Me.DeboterLedgerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CreditorLedgerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ExpancesageToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.GSTRegitorToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.GSTR1ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.GSTR2ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.GSTR3ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.GSTSummaryToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.Recipe = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_menu_item_recipe = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_Recipe_Master = New System.Windows.Forms.ToolStripMenuItem()
@@ -142,12 +148,6 @@ Partial Class MDIMain
         Me.picLogo = New System.Windows.Forms.PictureBox()
         Me.TabControl2 = New System.Windows.Forms.TabControl()
         Me.frm_open_invoice = New System.Windows.Forms.ToolStripMenuItem()
-        Me.GSTRegitorToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.GSTR1ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.GSTR2ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.GSTR3ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.GSTSummaryToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ExpancesageToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.toolbar.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
@@ -555,7 +555,7 @@ Partial Class MDIMain
         '
         Me.frmsaleinvoice.AutoSize = False
         Me.frmsaleinvoice.BackColor = System.Drawing.Color.FromArgb(CType(CType(66, Byte), Integer), CType(CType(66, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.frmsaleinvoice.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.frm_Customer_Rate_List_Master, Me.frm_OpenInvoice, Me.frm_Sale_Invoice, Me.frm_credit_note, Me.frm_GatePass})
+        Me.frmsaleinvoice.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.frm_Customer_Rate_List_Master, Me.frm_OpenSale_Invoice, Me.frm_Sale_Invoice, Me.frm_CreditNote, Me.frm_GatePass})
         Me.frmsaleinvoice.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Bold)
         Me.frmsaleinvoice.ForeColor = System.Drawing.Color.White
         Me.frmsaleinvoice.Image = Global.MMSPlus.My.Resources.Resources.Financier_tycoon_stockbroker
@@ -574,14 +574,14 @@ Partial Class MDIMain
         Me.frm_Customer_Rate_List_Master.Size = New System.Drawing.Size(181, 22)
         Me.frm_Customer_Rate_List_Master.Text = "Customer Rate List"
         '
-        'frm_OpenInvoice
+        'frm_OpenSale_Invoice
         '
-        Me.frm_OpenInvoice.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.frm_OpenInvoice.ForeColor = System.Drawing.Color.White
-        Me.frm_OpenInvoice.Image = Global.MMSPlus.My.Resources.Resources.Pad_note_paper_game_document
-        Me.frm_OpenInvoice.Name = "frm_OpenInvoice"
-        Me.frm_OpenInvoice.Size = New System.Drawing.Size(181, 22)
-        Me.frm_OpenInvoice.Text = "Open Invoice"
+        Me.frm_OpenSale_Invoice.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.frm_OpenSale_Invoice.ForeColor = System.Drawing.Color.White
+        Me.frm_OpenSale_Invoice.Image = Global.MMSPlus.My.Resources.Resources.Pad_note_paper_game_document
+        Me.frm_OpenSale_Invoice.Name = "frm_OpenSale_Invoice"
+        Me.frm_OpenSale_Invoice.Size = New System.Drawing.Size(181, 22)
+        Me.frm_OpenSale_Invoice.Text = "Open Invoice"
         '
         'frm_Sale_Invoice
         '
@@ -592,14 +592,14 @@ Partial Class MDIMain
         Me.frm_Sale_Invoice.Size = New System.Drawing.Size(181, 22)
         Me.frm_Sale_Invoice.Text = "Sale Invoice"
         '
-        'frm_credit_note
+        'frm_CreditNote
         '
-        Me.frm_credit_note.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.frm_credit_note.ForeColor = System.Drawing.Color.White
-        Me.frm_credit_note.Image = Global.MMSPlus.My.Resources.Resources.Indent
-        Me.frm_credit_note.Name = "frm_credit_note"
-        Me.frm_credit_note.Size = New System.Drawing.Size(181, 22)
-        Me.frm_credit_note.Text = "Credit Note"
+        Me.frm_CreditNote.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.frm_CreditNote.ForeColor = System.Drawing.Color.White
+        Me.frm_CreditNote.Image = Global.MMSPlus.My.Resources.Resources.Indent
+        Me.frm_CreditNote.Name = "frm_CreditNote"
+        Me.frm_CreditNote.Size = New System.Drawing.Size(181, 22)
+        Me.frm_CreditNote.Text = "Credit Note"
         '
         'frm_GatePass
         '
@@ -613,7 +613,7 @@ Partial Class MDIMain
         'UserManagmentToolStripMenuItem
         '
         Me.UserManagmentToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(77, Byte), Integer), CType(CType(77, Byte), Integer), CType(CType(77, Byte), Integer))
-        Me.UserManagmentToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.frm_user_master, Me.frm_Invoice_Settlement, Me.AcPayableToolStripMenuItem, Me.DeboterLedgerToolStripMenuItem, Me.CreditorLedgerToolStripMenuItem, Me.ExpancesageToolStripMenuItem, Me.GSTRegitorToolStripMenuItem})
+        Me.UserManagmentToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.frm_user_master, Me.frm_Invoice_Settlement, Me.frm_Supplier_Invoice_Settlement, Me.DeboterLedgerToolStripMenuItem, Me.CreditorLedgerToolStripMenuItem, Me.ExpancesageToolStripMenuItem, Me.GSTRegitorToolStripMenuItem})
         Me.UserManagmentToolStripMenuItem.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.UserManagmentToolStripMenuItem.ForeColor = System.Drawing.Color.White
         Me.UserManagmentToolStripMenuItem.Image = Global.MMSPlus.My.Resources.Resources.Client_list_text
@@ -643,14 +643,14 @@ Partial Class MDIMain
         Me.frm_Invoice_Settlement.Size = New System.Drawing.Size(170, 22)
         Me.frm_Invoice_Settlement.Text = "A/c Receivable"
         '
-        'AcPayableToolStripMenuItem
+        'frm_Supplier_Invoice_Settlement
         '
-        Me.AcPayableToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.AcPayableToolStripMenuItem.ForeColor = System.Drawing.Color.White
-        Me.AcPayableToolStripMenuItem.Image = Global.MMSPlus.My.Resources.Resources.Refresh_list
-        Me.AcPayableToolStripMenuItem.Name = "AcPayableToolStripMenuItem"
-        Me.AcPayableToolStripMenuItem.Size = New System.Drawing.Size(170, 22)
-        Me.AcPayableToolStripMenuItem.Text = "A/c Payable"
+        Me.frm_Supplier_Invoice_Settlement.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.frm_Supplier_Invoice_Settlement.ForeColor = System.Drawing.Color.White
+        Me.frm_Supplier_Invoice_Settlement.Image = Global.MMSPlus.My.Resources.Resources.Refresh_list
+        Me.frm_Supplier_Invoice_Settlement.Name = "frm_Supplier_Invoice_Settlement"
+        Me.frm_Supplier_Invoice_Settlement.Size = New System.Drawing.Size(170, 22)
+        Me.frm_Supplier_Invoice_Settlement.Text = "A/c Payable"
         '
         'DeboterLedgerToolStripMenuItem
         '
@@ -669,6 +669,61 @@ Partial Class MDIMain
         Me.CreditorLedgerToolStripMenuItem.Name = "CreditorLedgerToolStripMenuItem"
         Me.CreditorLedgerToolStripMenuItem.Size = New System.Drawing.Size(170, 22)
         Me.CreditorLedgerToolStripMenuItem.Text = "Creditors Ledger"
+        '
+        'ExpancesageToolStripMenuItem
+        '
+        Me.ExpancesageToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.ExpancesageToolStripMenuItem.ForeColor = System.Drawing.Color.White
+        Me.ExpancesageToolStripMenuItem.Image = Global.MMSPlus.My.Resources.Resources.Inventory_box_shipment_product
+        Me.ExpancesageToolStripMenuItem.Name = "ExpancesageToolStripMenuItem"
+        Me.ExpancesageToolStripMenuItem.Size = New System.Drawing.Size(170, 22)
+        Me.ExpancesageToolStripMenuItem.Text = "Expenses"
+        '
+        'GSTRegitorToolStripMenuItem
+        '
+        Me.GSTRegitorToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.GSTRegitorToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.GSTR1ToolStripMenuItem, Me.GSTR2ToolStripMenuItem, Me.GSTR3ToolStripMenuItem, Me.GSTSummaryToolStripMenuItem})
+        Me.GSTRegitorToolStripMenuItem.ForeColor = System.Drawing.Color.White
+        Me.GSTRegitorToolStripMenuItem.Image = Global.MMSPlus.My.Resources.Resources.Items_recent_list_to_do_formatting1
+        Me.GSTRegitorToolStripMenuItem.Name = "GSTRegitorToolStripMenuItem"
+        Me.GSTRegitorToolStripMenuItem.Size = New System.Drawing.Size(170, 22)
+        Me.GSTRegitorToolStripMenuItem.Text = "GST Register"
+        '
+        'GSTR1ToolStripMenuItem
+        '
+        Me.GSTR1ToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.GSTR1ToolStripMenuItem.ForeColor = System.Drawing.Color.White
+        Me.GSTR1ToolStripMenuItem.Image = CType(resources.GetObject("GSTR1ToolStripMenuItem.Image"), System.Drawing.Image)
+        Me.GSTR1ToolStripMenuItem.Name = "GSTR1ToolStripMenuItem"
+        Me.GSTR1ToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.GSTR1ToolStripMenuItem.Text = "GSTR 1"
+        '
+        'GSTR2ToolStripMenuItem
+        '
+        Me.GSTR2ToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.GSTR2ToolStripMenuItem.ForeColor = System.Drawing.Color.White
+        Me.GSTR2ToolStripMenuItem.Image = CType(resources.GetObject("GSTR2ToolStripMenuItem.Image"), System.Drawing.Image)
+        Me.GSTR2ToolStripMenuItem.Name = "GSTR2ToolStripMenuItem"
+        Me.GSTR2ToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.GSTR2ToolStripMenuItem.Text = "GSTR 2"
+        '
+        'GSTR3ToolStripMenuItem
+        '
+        Me.GSTR3ToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.GSTR3ToolStripMenuItem.ForeColor = System.Drawing.Color.White
+        Me.GSTR3ToolStripMenuItem.Image = CType(resources.GetObject("GSTR3ToolStripMenuItem.Image"), System.Drawing.Image)
+        Me.GSTR3ToolStripMenuItem.Name = "GSTR3ToolStripMenuItem"
+        Me.GSTR3ToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.GSTR3ToolStripMenuItem.Text = "GSTR 3"
+        '
+        'GSTSummaryToolStripMenuItem
+        '
+        Me.GSTSummaryToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.GSTSummaryToolStripMenuItem.ForeColor = System.Drawing.Color.White
+        Me.GSTSummaryToolStripMenuItem.Image = CType(resources.GetObject("GSTSummaryToolStripMenuItem.Image"), System.Drawing.Image)
+        Me.GSTSummaryToolStripMenuItem.Name = "GSTSummaryToolStripMenuItem"
+        Me.GSTSummaryToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.GSTSummaryToolStripMenuItem.Text = "GST Summary"
         '
         'Recipe
         '
@@ -1369,61 +1424,6 @@ Partial Class MDIMain
         Me.frm_open_invoice.Size = New System.Drawing.Size(181, 22)
         Me.frm_open_invoice.Text = "Opne Invoice"
         '
-        'GSTRegitorToolStripMenuItem
-        '
-        Me.GSTRegitorToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.GSTRegitorToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.GSTR1ToolStripMenuItem, Me.GSTR2ToolStripMenuItem, Me.GSTR3ToolStripMenuItem, Me.GSTSummaryToolStripMenuItem})
-        Me.GSTRegitorToolStripMenuItem.ForeColor = System.Drawing.Color.White
-        Me.GSTRegitorToolStripMenuItem.Image = Global.MMSPlus.My.Resources.Resources.Items_recent_list_to_do_formatting1
-        Me.GSTRegitorToolStripMenuItem.Name = "GSTRegitorToolStripMenuItem"
-        Me.GSTRegitorToolStripMenuItem.Size = New System.Drawing.Size(170, 22)
-        Me.GSTRegitorToolStripMenuItem.Text = "GST Register"
-        '
-        'GSTR1ToolStripMenuItem
-        '
-        Me.GSTR1ToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.GSTR1ToolStripMenuItem.ForeColor = System.Drawing.Color.White
-        Me.GSTR1ToolStripMenuItem.Image = CType(resources.GetObject("GSTR1ToolStripMenuItem.Image"), System.Drawing.Image)
-        Me.GSTR1ToolStripMenuItem.Name = "GSTR1ToolStripMenuItem"
-        Me.GSTR1ToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
-        Me.GSTR1ToolStripMenuItem.Text = "GSTR 1"
-        '
-        'GSTR2ToolStripMenuItem
-        '
-        Me.GSTR2ToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.GSTR2ToolStripMenuItem.ForeColor = System.Drawing.Color.White
-        Me.GSTR2ToolStripMenuItem.Image = CType(resources.GetObject("GSTR2ToolStripMenuItem.Image"), System.Drawing.Image)
-        Me.GSTR2ToolStripMenuItem.Name = "GSTR2ToolStripMenuItem"
-        Me.GSTR2ToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
-        Me.GSTR2ToolStripMenuItem.Text = "GSTR 2"
-        '
-        'GSTR3ToolStripMenuItem
-        '
-        Me.GSTR3ToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.GSTR3ToolStripMenuItem.ForeColor = System.Drawing.Color.White
-        Me.GSTR3ToolStripMenuItem.Image = CType(resources.GetObject("GSTR3ToolStripMenuItem.Image"), System.Drawing.Image)
-        Me.GSTR3ToolStripMenuItem.Name = "GSTR3ToolStripMenuItem"
-        Me.GSTR3ToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
-        Me.GSTR3ToolStripMenuItem.Text = "GSTR 3"
-        '
-        'GSTSummaryToolStripMenuItem
-        '
-        Me.GSTSummaryToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.GSTSummaryToolStripMenuItem.ForeColor = System.Drawing.Color.White
-        Me.GSTSummaryToolStripMenuItem.Image = CType(resources.GetObject("GSTSummaryToolStripMenuItem.Image"), System.Drawing.Image)
-        Me.GSTSummaryToolStripMenuItem.Name = "GSTSummaryToolStripMenuItem"
-        Me.GSTSummaryToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
-        Me.GSTSummaryToolStripMenuItem.Text = "GST Summary"
-        '
-        'ExpancesageToolStripMenuItem
-        '
-        Me.ExpancesageToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.ExpancesageToolStripMenuItem.ForeColor = System.Drawing.Color.White
-        Me.ExpancesageToolStripMenuItem.Image = Global.MMSPlus.My.Resources.Resources.Inventory_box_shipment_product
-        Me.ExpancesageToolStripMenuItem.Name = "ExpancesageToolStripMenuItem"
-        Me.ExpancesageToolStripMenuItem.Size = New System.Drawing.Size(170, 22)
-        Me.ExpancesageToolStripMenuItem.Text = "Expenses"
-        '
         'MDIMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1560,17 +1560,17 @@ Partial Class MDIMain
     Friend WithEvents frmSaleInvoiceDetail As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents frmsaleinvoice As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents frm_Sale_Invoice As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents frm_credit_note As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents frm_CreditNote As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents frm_Customer_Rate_List_Master As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents frm_open_invoice As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents frm_OpenInvoice As ToolStripMenuItem
+    Friend WithEvents frm_OpenSale_Invoice As ToolStripMenuItem
     Friend WithEvents frm_GatePass As ToolStripMenuItem
     Friend WithEvents frm_DebitNote As ToolStripMenuItem
     Friend WithEvents BatchMasterToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents IssueToProcessToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents frm_user_rights As ToolStripMenuItem
     Friend WithEvents frm_Invoice_Settlement As ToolStripMenuItem
-    Friend WithEvents AcPayableToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents frm_Supplier_Invoice_Settlement As ToolStripMenuItem
     Friend WithEvents DeboterLedgerToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents CreditorLedgerToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents GSTRegitorToolStripMenuItem As ToolStripMenuItem
