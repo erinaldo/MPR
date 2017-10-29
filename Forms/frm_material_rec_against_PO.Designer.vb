@@ -84,6 +84,7 @@ Partial Class frm_material_rec_against_PO
         Me.Label4 = New System.Windows.Forms.Label()
         Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
         Me.C1FlexGrid1 = New C1.Win.C1FlexGrid.C1FlexGrid()
+        Me.lblMRNType = New System.Windows.Forms.Label()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
@@ -267,6 +268,7 @@ Partial Class frm_material_rec_against_PO
         'TabPage2
         '
         Me.TabPage2.BackColor = System.Drawing.Color.DimGray
+        Me.TabPage2.Controls.Add(Me.lblMRNType)
         Me.TabPage2.Controls.Add(Me.lblexciseamt)
         Me.TabPage2.Controls.Add(Me.Label14)
         Me.TabPage2.Controls.Add(Me.Panel19)
@@ -428,6 +430,7 @@ Partial Class frm_material_rec_against_PO
         Me.txtdiscount.ForeColor = System.Drawing.Color.White
         Me.txtdiscount.Location = New System.Drawing.Point(777, 528)
         Me.txtdiscount.Name = "txtdiscount"
+        Me.txtdiscount.ReadOnly = True
         Me.txtdiscount.Size = New System.Drawing.Size(118, 18)
         Me.txtdiscount.TabIndex = 66
         Me.txtdiscount.Text = "0.00"
@@ -846,6 +849,18 @@ Partial Class frm_material_rec_against_PO
         Me.C1FlexGrid1.Styles = New C1.Win.C1FlexGrid.CellStyleCollection(resources.GetString("C1FlexGrid1.Styles"))
         Me.C1FlexGrid1.TabIndex = 0
         '
+        'lblMRNType
+        '
+        Me.lblMRNType.BackColor = System.Drawing.Color.Transparent
+        Me.lblMRNType.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblMRNType.ForeColor = System.Drawing.Color.DimGray
+        Me.lblMRNType.Location = New System.Drawing.Point(21, 532)
+        Me.lblMRNType.Name = "lblMRNType"
+        Me.lblMRNType.Size = New System.Drawing.Size(64, 20)
+        Me.lblMRNType.TabIndex = 78
+        Me.lblMRNType.Text = "0.00"
+        Me.lblMRNType.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
         'frm_material_rec_against_PO
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -936,4 +951,5 @@ Partial Class frm_material_rec_against_PO
     Friend WithEvents ImageList1 As ImageList
     Friend WithEvents lblexciseamt As System.Windows.Forms.Label
     Friend WithEvents Label14 As System.Windows.Forms.Label
+    Friend WithEvents lblMRNType As Label
 End Class

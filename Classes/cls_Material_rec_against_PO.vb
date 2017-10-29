@@ -33,6 +33,10 @@ Namespace material_rec_against_PO
         Dim _freight As Double
         Dim _Other_charges As Double
         Dim _Discount_amt As Double
+        Dim _GROSS_AMOUNT As Double
+        Dim _GST_AMOUNT As Double
+        Dim _NET_AMOUNT As Double
+        Dim _MRN_TYPE As Int32
         Dim _VAT_ON_EXICE As Int32
         Dim _IsPrinted As Int32
 
@@ -69,7 +73,6 @@ Namespace material_rec_against_PO
                 _Receipt_Code = value
             End Set
         End Property
-
         Public Property Receipt_No() As Double
             Get
                 Receipt_No = _Receipt_No
@@ -78,7 +81,6 @@ Namespace material_rec_against_PO
                 _Receipt_No = value
             End Set
         End Property
-
         Public Property Receipt_Date() As DateTime
             Get
                 Receipt_Date = _Receipt_Date
@@ -87,7 +89,6 @@ Namespace material_rec_against_PO
                 _Receipt_Date = value
             End Set
         End Property
-
         Public Property Purchase_Type() As Int32
             Get
                 Purchase_Type = _Purchase_Type
@@ -96,7 +97,6 @@ Namespace material_rec_against_PO
                 _Purchase_Type = value
             End Set
         End Property
-
         Public Property Indent_ID() As Int32
             Get
                 Indent_ID = _Indent_ID
@@ -105,7 +105,6 @@ Namespace material_rec_against_PO
                 _Indent_ID = value
             End Set
         End Property
-
         Public Property Vendor_ID() As Int32
             Get
                 Vendor_ID = _Vendor_ID
@@ -114,7 +113,6 @@ Namespace material_rec_against_PO
                 _Vendor_ID = value
             End Set
         End Property
-
         Public Property Remarks() As String
             Get
                 Remarks = _Remarks
@@ -123,7 +121,6 @@ Namespace material_rec_against_PO
                 _Remarks = value
             End Set
         End Property
-
         Public Property Po_ID() As Int32
             Get
                 Po_ID = _Po_ID
@@ -132,7 +129,6 @@ Namespace material_rec_against_PO
                 _Po_ID = value
             End Set
         End Property
-
         Public Property MRN_PREFIX() As String
             Get
                 MRN_PREFIX = _MRN_PREFIX
@@ -141,7 +137,6 @@ Namespace material_rec_against_PO
                 _MRN_PREFIX = value
             End Set
         End Property
-
         Public Property MRN_NO() As Double
             Get
                 MRN_NO = _MRN_NO
@@ -150,7 +145,6 @@ Namespace material_rec_against_PO
                 _MRN_NO = value
             End Set
         End Property
-
         Public Property Created_By() As String
             Get
                 Created_By = _Created_By
@@ -159,7 +153,6 @@ Namespace material_rec_against_PO
                 _Created_By = value
             End Set
         End Property
-
         Public Property Creation_Date() As DateTime
             Get
                 Creation_Date = _Creation_Date
@@ -168,7 +161,6 @@ Namespace material_rec_against_PO
                 _Creation_Date = value
             End Set
         End Property
-
         Public Property Modified_By() As String
             Get
                 Modified_By = _Modified_By
@@ -177,7 +169,6 @@ Namespace material_rec_against_PO
                 _Modified_By = value
             End Set
         End Property
-
         Public Property Modification_Date() As DateTime
             Get
                 Modification_Date = _Modification_Date
@@ -186,7 +177,6 @@ Namespace material_rec_against_PO
                 _Modification_Date = value
             End Set
         End Property
-
         Public Property Division_ID() As Int32
             Get
                 Division_ID = _Division_ID
@@ -195,7 +185,6 @@ Namespace material_rec_against_PO
                 _Division_ID = value
             End Set
         End Property
-
         Public Property mrn_status() As Int32
             Get
                 mrn_status = _mrn_status
@@ -204,7 +193,6 @@ Namespace material_rec_against_PO
                 _mrn_status = value
             End Set
         End Property
-
         Public Property Item_ID() As Double
             Get
                 Item_ID = _Item_ID
@@ -213,7 +201,6 @@ Namespace material_rec_against_PO
                 _Item_ID = value
             End Set
         End Property
-
         Public Property Item_Qty() As Double
             Get
                 Item_Qty = _Item_Qty
@@ -222,7 +209,6 @@ Namespace material_rec_against_PO
                 _Item_Qty = value
             End Set
         End Property
-
         Public Property Item_Rate() As Double
             Get
                 Item_Rate = _Item_Rate
@@ -231,7 +217,6 @@ Namespace material_rec_against_PO
                 _Item_Rate = value
             End Set
         End Property
-
         Public Property Item_vat() As Double
             Get
                 Item_vat = _Item_Vat
@@ -240,7 +225,6 @@ Namespace material_rec_against_PO
                 _Item_Vat = value
             End Set
         End Property
-
         Public Property Item_exice() As Double
             Get
                 Item_exice = _Item_Exice
@@ -249,7 +233,6 @@ Namespace material_rec_against_PO
                 _Item_Exice = value
             End Set
         End Property
-
         Public Property MRNCompanies_ID() As Int32
             Get
                 MRNCompanies_ID = _MRNCompanies_ID
@@ -258,7 +241,6 @@ Namespace material_rec_against_PO
                 _MRNCompanies_ID = value
             End Set
         End Property
-
         Public Property freight() As Double
             Get
                 freight = _freight
@@ -267,7 +249,6 @@ Namespace material_rec_against_PO
                 _freight = value
             End Set
         End Property
-
         Public Property Other_Charges() As Double
             Get
                 Other_Charges = _Other_charges
@@ -276,7 +257,6 @@ Namespace material_rec_against_PO
                 _Other_charges = value
             End Set
         End Property
-
         Public Property Discount_amt() As Double
             Get
                 Discount_amt = _Discount_amt
@@ -285,7 +265,38 @@ Namespace material_rec_against_PO
                 _Discount_amt = value
             End Set
         End Property
-
+        Public Property GROSS_AMOUNT() As Double
+            Get
+                GROSS_AMOUNT = _GROSS_AMOUNT
+            End Get
+            Set(ByVal value As Double)
+                _GROSS_AMOUNT = value
+            End Set
+        End Property
+        Public Property GST_AMOUNT() As Double
+            Get
+                GST_AMOUNT = _GST_AMOUNT
+            End Get
+            Set(ByVal value As Double)
+                _GST_AMOUNT = value
+            End Set
+        End Property
+        Public Property NET_AMOUNT() As Double
+            Get
+                NET_AMOUNT = _NET_AMOUNT
+            End Get
+            Set(ByVal value As Double)
+                _NET_AMOUNT = value
+            End Set
+        End Property
+        Public Property MRN_TYPE() As Int32
+            Get
+                MRN_TYPE = _MRN_TYPE
+            End Get
+            Set(ByVal value As Int32)
+                _MRN_TYPE = value
+            End Set
+        End Property
         Public Property VAT_ON_EXICE() As Int32
             Get
                 VAT_ON_EXICE = _VAT_ON_EXICE
@@ -294,7 +305,6 @@ Namespace material_rec_against_PO
                 _VAT_ON_EXICE = value
             End Set
         End Property
-
         Public Property IsPrinted() As Int32
             Get
                 IsPrinted = _IsPrinted
@@ -352,6 +362,10 @@ Namespace material_rec_against_PO
             cmd.Parameters.AddWithValue("@v_Discount_amt", clsObj.Discount_amt)
             cmd.Parameters.AddWithValue("@V_VAT_ON_EXICE", clsObj.VAT_ON_EXICE)
             cmd.Parameters.AddWithValue("@V_PROC_TYPE", 1)
+            cmd.Parameters.AddWithValue("@v_GROSS_AMOUNT", clsObj.GROSS_AMOUNT)
+            cmd.Parameters.AddWithValue("@v_GST_AMOUNT", clsObj.GST_AMOUNT)
+            cmd.Parameters.AddWithValue("@v_NET_AMOUNT", clsObj.NET_AMOUNT)
+            cmd.Parameters.AddWithValue("@V_MRN_TYPE", clsObj.MRN_TYPE)
 
             cmd.ExecuteNonQuery()
 
@@ -387,6 +401,8 @@ Namespace material_rec_against_PO
                     cmd.Parameters.AddWithValue("@v_Item_Exice_per", FlexGrid.Rows(iRow)("EXICE_Per"))
                     cmd.Parameters.AddWithValue("@V_Trans_Type", Transaction_Type.MaterialRecievedAgainstPO)
                     cmd.Parameters.AddWithValue("@V_PROC_TYPE", 1)
+                    cmd.Parameters.AddWithValue("@v_DType", FlexGrid.Rows(iRow)("DType"))
+                    cmd.Parameters.AddWithValue("@v_DiscountValue", FlexGrid.Rows(iRow)("DISC"))
 
                     cmd.ExecuteNonQuery()
                     cmd.Parameters.Clear()
@@ -427,6 +443,8 @@ Namespace material_rec_against_PO
                     cmd.Parameters.AddWithValue("@v_Bal_Item_Vat", FlexGrid_NonStockableItems.Rows(iRow_NonSTK)("Vat_Per"))   ''''  new added
                     cmd.Parameters.AddWithValue("@v_Bal_Item_Exice", FlexGrid_NonStockableItems.Rows(iRow_NonSTK)("EXICE_Per"))   ''''  new added
                     cmd.Parameters.AddWithValue("@v_DIV_ID", clsObj.Division_ID)   ''''  new added
+                    cmd.Parameters.AddWithValue("@v_DType", FlexGrid_NonStockableItems.Rows(iRow_NonSTK)("DType"))   ''''  new added
+                    cmd.Parameters.AddWithValue("@v_DiscountValue", FlexGrid_NonStockableItems.Rows(iRow_NonSTK)("DISC"))   ''''  new added
                     cmd.ExecuteNonQuery()
                     cmd.Parameters.Clear()
                 End If
