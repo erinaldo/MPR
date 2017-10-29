@@ -7,7 +7,6 @@ Public Class frm_DebitNote
 
     Implements IForm
     Dim obj As New CommonClass
-
     Dim flag As String
     '  Dim group_id As Integer
     Dim dtable_Item_List As DataTable

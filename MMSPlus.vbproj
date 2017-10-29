@@ -1887,12 +1887,14 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Scripts\0001_22_oct_2017.sql" />
     <Content Include="Scripts\Updates\0001_09_oct_2017.sql">
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Scripts\Updates\0002_Invoice_14_oct_2017.sql" />
     <Content Include="Scripts\Updates\20171016.sql" />
+    <Content Include="Scripts\Updates\0001_28_oct_2017.sql">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Scripts\Updates\DivisionSettings_23_oct_2017.sql" />
     <Content Include="Scripts\Updates\GatePass_23_oct_2017.sql" />
     <Content Include="Scripts\Updates\MRN_PO_281017.sql" />

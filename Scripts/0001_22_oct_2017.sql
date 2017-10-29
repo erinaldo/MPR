@@ -1,2 +1,0 @@
-ALTER TABLE MenuMaster
-  ADD  MRP_Num NUMERIC(18,2) NULL ;

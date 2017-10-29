@@ -263,10 +263,10 @@ Partial Class frm_CreditNote
         Me.lnkCalculateDebitAmt.LinkColor = System.Drawing.Color.DarkOrange
         Me.lnkCalculateDebitAmt.Location = New System.Drawing.Point(18, 390)
         Me.lnkCalculateDebitAmt.Name = "lnkCalculateDebitAmt"
-        Me.lnkCalculateDebitAmt.Size = New System.Drawing.Size(174, 15)
+        Me.lnkCalculateDebitAmt.Size = New System.Drawing.Size(179, 15)
         Me.lnkCalculateDebitAmt.TabIndex = 9
         Me.lnkCalculateDebitAmt.TabStop = True
-        Me.lnkCalculateDebitAmt.Text = "Calculate Debit Note Amount :"
+        Me.lnkCalculateDebitAmt.Text = "Calculate Credit Note Amount :"
         '
         'FLXGRD_MaterialItem
         '
