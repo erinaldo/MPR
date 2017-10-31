@@ -604,5 +604,303 @@ AS
   ------------------------------------------------------------------------------------------------------
 
 
+ ALTER PROCEDURE [dbo].[PROC_MATERIAL_RECIEVED_WITHOUT_PO_MASTER]
+    (
+      @v_Received_ID NUMERIC(18, 0),
+      @v_Received_Code VARCHAR(20),
+      @v_Received_No NUMERIC(18, 0),
+      @v_Received_Date DATETIME,
+      @v_Purchase_Type INT,
+      @v_Vendor_ID INT,
+      @v_Remarks VARCHAR(100),
+      @v_Po_ID NUMERIC(18, 0),
+      @v_MRN_PREFIX VARCHAR(50),
+      @v_MRN_NO NUMERIC(18, 0),
+      @v_Created_By VARCHAR(100),
+      @v_Creation_Date DATETIME,
+      @v_Modified_By VARCHAR(100),
+      @v_Modification_Date DATETIME,
+      @v_Invoice_No NVARCHAR(50),
+      @v_Invoice_Date DATETIME,
+      @v_Division_ID INT,
+      @v_mrn_status INT,
+      @v_freight NUMERIC(18, 2) = NULL,
+      @v_freight_type CHAR = '',
+      @v_Proc_Type INT,
+      @v_Other_charges NUMERIC(18, 2) = NULL,
+      @v_Discount_amt NUMERIC(18, 2) = NULL,
+	  @v_GROSS_AMOUNT NUMERIC(18, 2),
+      @v_GST_AMOUNT NUMERIC(18, 2),
+      @v_NET_AMOUNT NUMERIC(18, 2),
+      @V_MRN_TYPE INT,
+      @V_VAT_ON_EXICE INT,
+      @v_MRNCompanies_ID INT        
+    )
+ AS 
+    BEGIN            
+            
+        IF @V_PROC_TYPE = 1 
+            BEGIN            
+                INSERT  INTO MATERIAL_RECIEVED_WITHOUT_PO_MASTER
+                        (
+                          Received_ID,
+                          Received_Code,
+                          Received_No,
+                          Received_Date,
+                          Purchase_Type,
+                          Vendor_ID,
+                          Remarks,
+                          Po_ID,
+                          MRN_PREFIX,
+                          MRN_NO,
+                          Created_By,
+                          Creation_Date,
+                          Modified_By,
+                          Modification_Date,
+                          Invoice_No,
+                          Invoice_Date,
+                          Division_ID,
+                          mrn_status,
+                          freight,
+                          Other_charges,
+                          Discount_amt,
+                          freight_type,
+                          MRNCompanies_ID,
+						  GROSS_AMOUNT,
+						  GST_AMOUNT ,
+						  NET_AMOUNT ,
+						  MRN_TYPE,
+                          VAT_ON_EXICE,
+                          IsPrinted        
+                        )
+                VALUES  (
+                          @V_Received_ID,
+                          @V_Received_Code,
+                          @V_Received_No,
+                          @V_Received_Date,
+                          @V_Purchase_Type,
+                          @V_Vendor_ID,
+                          @V_Remarks,
+                          @V_Po_ID,
+                          @V_MRN_PREFIX,
+                          @V_MRN_NO,
+                          @V_Created_By,
+                          @V_Creation_Date,
+                          @V_Modified_By,
+                          @V_Modification_Date,
+                          @v_Invoice_No,
+                          @v_Invoice_Date,
+                          @V_Division_ID,
+                          @V_mrn_status,
+                          @v_freight,
+                          @v_Other_charges,
+                          @v_Discount_amt,
+                          @v_freight_type,
+                          @v_MRNCompanies_ID,
+						  @v_GROSS_AMOUNT,
+						  @v_GST_AMOUNT ,
+						  @v_NET_AMOUNT ,
+						  @v_MRN_TYPE,
+                          @V_VAT_ON_EXICE,
+                          0        
+                        )             
+                                  
+                UPDATE  MRN_SERIES
+                SET     CURRENT_USED = CURRENT_USED + 1
+                WHERE   DIV_ID = @v_Division_ID               
+                
+            END 
+    END 
+
+	----------------------------------------------------------------------------------------
+
+	        
+ALTER PROCEDURE [dbo].[PROC_MATERIAL_RECEIVED_WITHOUT_PO_DETAIL]
+    (
+      @v_Received_ID NUMERIC(18, 0),
+      @v_Item_ID NUMERIC(18, 0),
+      @v_Item_Qty NUMERIC(18, 4),
+      @v_Item_Rate NUMERIC(18, 4),
+      @v_Created_By VARCHAR(100),
+      @v_Creation_Date DATETIME,
+      @v_Modified_By VARCHAR(100),
+      @v_Modification_Date DATETIME,
+      @v_Division_Id INT,
+      @v_Item_vat NUMERIC(18, 4),
+      @v_Item_exice NUMERIC(18, 4),
+      @v_Batch_no VARCHAR(50),
+      @v_Expiry_Date DATETIME,
+      @V_Trans_Type NUMERIC(18, 0),
+      @v_Proc_Type INT  ,
+	  @v_DType CHAR(1),
+      @v_DiscountValue NUMERIC(18, 2)        
+    )
+AS 
+    BEGIN        
+        
+        IF @V_PROC_TYPE = 1 
+            BEGIN        
+                       
+                       
+                DECLARE @STOCK_DETAIL_ID NUMERIC(18, 0)    
+                            
+                            
+                --it will insert entry in stock detail table and     
+                --return stock_detail_id.            
+                EXEC INSERT_STOCK_DETAIL @v_Item_ID, @v_Batch_no,
+                    @v_Expiry_Date, @v_Item_Qty, @v_Received_ID, @V_Trans_Type,
+                    @STOCK_DETAIL_ID OUTPUT    
+                 
+                 
+                 
+                INSERT  INTO MATERIAL_RECEIVED_WITHOUT_PO_DETAIL
+                        (
+                          Received_ID,
+                          Item_ID,
+                          Item_Qty,
+                          Item_Rate,
+                          Created_By,
+                          Creation_Date,
+                          Modified_By,
+                          Modification_Date,
+                          Division_Id,
+                          Item_vat,
+                          Item_exice,
+                          BAtch_No,
+                          Expiry_Date,
+                          Bal_Item_Qty,
+                          Bal_Item_Rate,
+                          Bal_Item_Vat,
+                          Bal_Item_Exice,
+                          Stock_Detail_Id,
+						  DType,
+						  DiscountValue              
+                        )
+                VALUES  (
+                          @V_Received_ID,
+                          @V_Item_ID,
+                          @V_Item_Qty,
+                          @V_Item_Rate,
+                          @V_Created_By,
+                          @V_Creation_Date,
+                          @V_Modified_By,
+                          @V_Modification_Date,
+                          @V_Division_Id,
+                          @V_Item_vat,
+                          @V_Item_exice,
+                          @v_Batch_no,
+                          @v_Expiry_Date,
+                          @V_Item_Qty,
+                          @V_Item_Rate,
+                          @V_Item_vat,
+                          @V_Item_exice,
+                          @STOCK_DETAIL_ID,
+						  @v_DType,
+						  @v_DiscountValue       
+                        )                 
+                   
+                
+                --Inserting Transaction Log   
+                INSERT  INTO dbo.TransactionLog_Master
+                        (
+                          Item_id,
+                          Issue_Qty,
+                          Receive_Qty,
+                          Transaction_Date,
+                          TransactionType_Id,
+                          Transaction_Id,
+                          Division_Id
+	                  )
+                VALUES  (
+                          @V_Item_ID,
+                          0,
+                          @V_Item_Qty,
+                          @V_Creation_Date,
+                          2,
+                          @V_Received_ID,
+                          @V_Division_Id
+	                  )
+                    
+                --it will insert entry in transaction log with stock_detail_id    
+                EXEC INSERT_TRANSACTION_LOG @v_Received_ID, @v_Item_ID,
+                    @V_Trans_Type, @STOCK_DETAIL_ID, @v_Item_Qty,
+                    @v_Creation_Date, 0         
+            
+                  
+         
+                                
+                                
+            END        
+        
+             
+        
+    END        
+        
+  --------------------------------------------------------------------------------------------------------------
+
+  --sp_helptext PROC_INSERT_NON_STOCKABLE_ITEMS    
+    
+-- =============================================      
+-- Author:  <Author,,Name>      
+-- Create date: <Create Date,,>      
+-- Description: <Description,,>      
+-- =============================================      
+ALTER PROCEDURE [dbo].[PROC_INSERT_NON_STOCKABLE_ITEMS]       
+ -- Add the parameters for the stored procedure here      
+    @V_Received_ID INT ,
+    @V_CostCenter_Id INT ,
+    @V_Item_ID INT ,
+    @V_Item_Qty NUMERIC(18, 4) ,
+    @v_Item_vat NUMERIC(18, 4) ,
+    @v_Item_Exice NUMERIC(18, 4) ,
+    @v_batch_no VARCHAR(50) ,
+    @v_batch_date DATETIME ,
+    @v_Item_Rate NUMERIC(18, 4) ,
+    @v_DType CHAR(1) ,
+    @v_DiscountValue NUMERIC(18, 2)
+AS
+    BEGIN      
+        INSERT  INTO dbo.NON_STOCKABLE_ITEMS_MAT_REC_WO_PO
+                ( Received_ID ,
+                  Item_ID ,
+                  CostCenter_ID ,
+                  Item_Qty ,
+                  Item_vat ,
+                  Item_Exice ,
+                  batch_no ,
+                  batch_date ,
+                  Item_Rate ,
+                  Bal_Item_Qty ,
+                  Bal_Item_Rate ,
+                  Bal_Item_Vat ,
+                  Bal_Item_Exice ,
+                  DType ,
+                  DiscountValue   
+                )
+        VALUES  ( /* Received_ID - int */
+                  @V_Received_ID ,      
+  /* Item_ID - int */
+                  @V_Item_ID ,      
+  /* CostCenter_ID - int */
+                  @V_CostCenter_Id ,      
+  /* Item_Qty - numeric(18, 4) */
+                  @V_Item_Qty ,
+                  @v_Item_vat ,
+                  @v_Item_Exice ,
+                  @v_batch_no ,
+                  @v_batch_date ,
+                  @v_Item_Rate ,
+                  @V_Item_Qty ,
+                  @v_Item_Rate ,
+                  @v_Item_vat ,
+                  @v_Item_Exice ,
+                  @v_DType ,
+                  @v_DiscountValue    
+                )       
+    END 
+---------------------------------------------------------------------------------------
+
+
+        
 
 

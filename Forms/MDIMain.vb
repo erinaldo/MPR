@@ -155,7 +155,7 @@ Public Class MDIMain
 
 
                     Case UCase("frm_Material_Received_Without_PO_Master")
-                        tbp.Text = "Material Received Without PO Master"
+                        tbp.Text = "MRN Without P.O."
                         tbp.Controls.Add(New frm_Material_Received_Without_PO_Master(prpty_form_rights))
                     Case UCase("frm_LedgerSummary")
                         tbp.Text = "Item Ledger Summary"
@@ -178,7 +178,7 @@ Public Class MDIMain
                         gblSelectedReportName = enmReportName.RptIndentPrintDetail
                         tbp.Controls.Add(New frm_LedgerSummary(enmReportName.RptIndentPrintDetail, prpty_form_rights))
                     Case UCase("frm_material_rec_against_PO")
-                        tbp.Text = "Material Received Against PO"
+                        tbp.Text = "MRN Against P.O."
                         tbp.Controls.Add(New frm_material_rec_against_PO(prpty_form_rights))
 
                     Case UCase("frmStockValue")

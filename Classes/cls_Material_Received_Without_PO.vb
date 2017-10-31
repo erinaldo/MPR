@@ -28,6 +28,8 @@ Namespace material_recieved_without_po_master
         Dim _Item_Qty As Double
         Dim _Item_Rate As Double
         Dim _Item_Vat As Double
+        Dim _DType As String
+        Dim _DISC As Double
         Dim _Item_Exice As Double
         Dim _Batch_no As String
         Dim _Expiry_Date As Date
@@ -40,6 +42,10 @@ Namespace material_recieved_without_po_master
         Dim _Discount_amt As Double
         Dim _VAT_ON_EXICE As Int32
         Dim _Isprinted As Int32
+        Dim _MRNType As Int32
+        Dim _GROSS_AMOUNT As Double
+        Dim _GST_AMOUNT As Double
+        Dim _NET_AMOUNT As Double
 
         Public Property Received_ID() As Integer
             Get
@@ -276,6 +282,22 @@ Namespace material_recieved_without_po_master
                 _Item_Rate = value
             End Set
         End Property
+        Public Property DType() As String
+            Get
+                DType = _DType
+            End Get
+            Set(ByVal value As String)
+                _DType = value
+            End Set
+        End Property
+        Public Property DISC() As Double
+            Get
+                DISC = _DISC
+            End Get
+            Set(ByVal value As Double)
+                _DISC = value
+            End Set
+        End Property
 
         Public Property Item_vat() As Double
             Get
@@ -338,6 +360,40 @@ Namespace material_recieved_without_po_master
             End Set
         End Property
 
+        Public Property MRNType() As Int32
+            Get
+                MRNType = _MRNType
+            End Get
+            Set(ByVal value As Int32)
+                _MRNType = value
+            End Set
+        End Property
+        Public Property GROSS_AMOUNT() As Double
+            Get
+                GROSS_AMOUNT = _GROSS_AMOUNT
+            End Get
+            Set(ByVal value As Double)
+                _GROSS_AMOUNT = value
+            End Set
+        End Property
+        Public Property GST_AMOUNT() As Double
+            Get
+                GST_AMOUNT = _GST_AMOUNT
+            End Get
+            Set(ByVal value As Double)
+                _GST_AMOUNT = value
+            End Set
+        End Property
+        Public Property NET_AMOUNT() As Double
+            Get
+                NET_AMOUNT = _NET_AMOUNT
+            End Get
+            Set(ByVal value As Double)
+                _NET_AMOUNT = value
+            End Set
+        End Property
+
+
     End Class
 
     Public Class cls_material_recieved_without_po_master
@@ -374,6 +430,10 @@ Namespace material_recieved_without_po_master
             cmd.Parameters.AddWithValue("@v_Discount_amt", clsObj.Discount_amt)
             cmd.Parameters.AddWithValue("@V_VAT_ON_EXICE", clsObj.VAT_ON_EXICE)
             cmd.Parameters.AddWithValue("@V_PROC_TYPE", 1)
+            cmd.Parameters.AddWithValue("@v_GROSS_AMOUNT", clsObj.GROSS_AMOUNT)
+            cmd.Parameters.AddWithValue("@v_GST_AMOUNT", clsObj.GST_AMOUNT)
+            cmd.Parameters.AddWithValue("@v_NET_AMOUNT", clsObj.NET_AMOUNT)
+            cmd.Parameters.AddWithValue("@V_MRN_TYPE", clsObj.MRNType)
 
             cmd.ExecuteNonQuery()
             cmd.Dispose()
@@ -401,6 +461,8 @@ Namespace material_recieved_without_po_master
             cmd.Parameters.AddWithValue("@V_Expiry_Date", clsObj.Expiry_Date)
             cmd.Parameters.AddWithValue("@V_Trans_Type", Transaction_Type.MaterialReceivedWithoutPO)
             cmd.Parameters.AddWithValue("@V_PROC_TYPE", 1)
+            cmd.Parameters.AddWithValue("@v_DType", clsObj.DType)
+            cmd.Parameters.AddWithValue("@v_DiscountValue", clsObj.DISC)
             cmd.ExecuteNonQuery()
             cmd.Dispose()
 
@@ -507,6 +569,8 @@ Namespace material_recieved_without_po_master
             cmd.Parameters.AddWithValue("@v_batch_no", clsObj.Batch_No)
             cmd.Parameters.AddWithValue("@v_batch_date", clsObj.Expiry_Date)
             cmd.Parameters.AddWithValue("@v_Item_Rate", clsObj.Item_Rate)
+            cmd.Parameters.AddWithValue("@v_DType", clsObj.DType)
+            cmd.Parameters.AddWithValue("@v_DiscountValue", clsObj.DISC)
             cmd.ExecuteNonQuery()
             cmd.Dispose()
         End Sub

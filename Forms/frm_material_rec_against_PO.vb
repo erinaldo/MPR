@@ -75,6 +75,9 @@ Public Class frm_material_rec_against_PO
                 MsgBox("Invoice No. cannot be same for the single supplier.")
                 Exit Sub
             End If
+        Else
+            MsgBox("Please Enter Invoice No. first.")
+            Exit Sub
         End If
 
         If Open_Po_Qty = False Then
