@@ -20,8 +20,8 @@ Partial Class frm_Invoice_Settlement
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle15 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle16 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frm_Invoice_Settlement))
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.List = New System.Windows.Forms.TabPage()
@@ -169,12 +169,12 @@ Partial Class frm_Invoice_Settlement
         Me.flxList.Location = New System.Drawing.Point(3, 16)
         Me.flxList.Name = "flxList"
         Me.flxList.RowHeadersVisible = False
-        DataGridViewCellStyle15.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle15.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle15.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle15.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
-        DataGridViewCellStyle15.SelectionForeColor = System.Drawing.Color.Black
-        Me.flxList.RowsDefaultCellStyle = DataGridViewCellStyle15
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black
+        Me.flxList.RowsDefaultCellStyle = DataGridViewCellStyle1
         Me.flxList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.flxList.Size = New System.Drawing.Size(871, 474)
         Me.flxList.TabIndex = 3
@@ -953,8 +953,8 @@ Partial Class frm_Invoice_Settlement
         Me.dgvInvoiceToSettle.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter
         Me.dgvInvoiceToSettle.Location = New System.Drawing.Point(33, 121)
         Me.dgvInvoiceToSettle.Name = "dgvInvoiceToSettle"
-        DataGridViewCellStyle16.ForeColor = System.Drawing.Color.Black
-        Me.dgvInvoiceToSettle.RowsDefaultCellStyle = DataGridViewCellStyle16
+        DataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black
+        Me.dgvInvoiceToSettle.RowsDefaultCellStyle = DataGridViewCellStyle2
         Me.dgvInvoiceToSettle.Size = New System.Drawing.Size(819, 363)
         Me.dgvInvoiceToSettle.TabIndex = 4
         '

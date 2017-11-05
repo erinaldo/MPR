@@ -212,6 +212,7 @@ Module GlobalModule
         Sale_Invoice = 16
         CreditNote = 17
         Invoice_Settlement = 18
+        Supplier_Invoice_Settlement = 19
     End Enum
 
     ''********************************************************************''

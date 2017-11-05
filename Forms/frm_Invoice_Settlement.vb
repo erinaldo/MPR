@@ -171,7 +171,6 @@ Public Class frm_Invoice_Settlement
             prpty.PdcPaymentTransactionId = 0
             prpty.CreatedBy = v_the_current_logged_in_user_name
             prpty.DivisionId = v_the_current_division_id
-
             clsObj.insert_Invoice_Settlement(prpty)
             MsgBox("Invoice Settlement has been Saved.", MsgBoxStyle.Information + MsgBoxStyle.OkOnly, gblMessageHeading)
 
@@ -393,7 +392,7 @@ Public Class frm_Invoice_Settlement
     End Sub
 
     Private Sub FillGrid()
-        Dim query As String = " SELECT SI_ID, SI_CODE ,SI_NO, SI_DATE, NET_AMOUNT, " &
+        Dim query As String = " SELECT SI_ID, SI_CODE ,SI_NO,  SI_DATE, NET_AMOUNT, " &
             "ISNULL((SELECT SUM(AmountSettled) FROM dbo.CustomerSettlementDetail WHERE InvoiceId = SI_ID),0) AS ReceivedAmount ,iSNULL(cn_amount,0) AS CnAmount" &
             " FROM dbo.SALE_INVOICE_MASTER  LEFT JOIN dbo.CreditNote_Master ON INVId = SI_ID WHERE SALE_TYPE='Credit' AND INVOICE_STATUS <> 4 AND CUST_ID = " & cmbCustomerSettleInvoice.SelectedValue
         Dim dt As DataTable = clsObj.Fill_DataSet(query).Tables(0)

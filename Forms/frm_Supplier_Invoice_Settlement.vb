@@ -269,7 +269,7 @@ Public Class frm_Supplier_Invoice_Settlement
     Private Sub cmbPendingPayment_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbPendingPayment.SelectedIndexChanged
         Dim query As String = " SELECT PaymentTransactionNo, PaymentDate, ChequeDraftno, ChequeDraftDate, Remarks," &
             " TotalAmountReceived, pt.CreatedBy, PaymentTypeName , BankName + ' - ' + BankAccountNo AS  BankName, BankDate " &
-            " FROM dbo.PaymentTransaction pt INNER JOIN dbo.PaymentTypeMaster ptm ON ptm.PaymentTypeId = pt.PaymentTypeId" &
+            " FROM dbo.SupplierPaymentTransaction pt INNER JOIN dbo.PaymentTypeMaster ptm ON ptm.PaymentTypeId = pt.PaymentTypeId" &
             " INNER JOIN dbo.BankMaster bm ON bm.BankID = pt.BankId WHERE PaymentTransactionId =  " & cmbPendingPayment.SelectedValue
 
         Dim ds As DataSet = clsObj.FillDataSet(query)
@@ -291,7 +291,7 @@ Public Class frm_Supplier_Invoice_Settlement
 
     Private Sub cmbCustomerApprovePayment_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbCustomerApprovePayment.SelectedIndexChanged
         Dim query As String = "SELECT PaymentTransactionID, PaymentTransactionNo + ' - ' + CONVERT(VARCHAR(20), PaymentDate, 107) as PaymentTransactionNo" &
-            " FROM dbo.PaymentTransaction where StatusId = 1 AND AccountId = " & cmbCustomerApprovePayment.SelectedValue
+            " FROM dbo.SupplierPaymentTransaction where StatusId = 1 AND AccountId = " & cmbCustomerApprovePayment.SelectedValue
         clsObj.ComboBind(cmbPendingPayment, query, "PaymentTransactionNo", "PaymentTransactionID", True)
     End Sub
 
@@ -387,38 +387,44 @@ Public Class frm_Supplier_Invoice_Settlement
 
     Dim UndistributedAmount As Decimal
     Private Sub SetUndistributedAmount()
-        Dim query As String = "SELECT isnull(SUM(UndistributedAmount), 0) FROM dbo.PaymentTransaction WHERE StatusId =2 AND AccountId=" & cmbCustomerSettleInvoice.SelectedValue
+        Dim query As String = "SELECT isnull(SUM(UndistributedAmount), 0) FROM dbo.SupplierPaymentTransaction WHERE StatusId =2 AND AccountId=" & cmbCustomerSettleInvoice.SelectedValue
         UndistributedAmount = clsObj.ExecuteScalar(query)
         lblUndistributedAmount.Text = UndistributedAmount.ToString("0.00")
     End Sub
 
     Private Sub FillGrid()
-        Dim query As String = " SELECT SI_ID, SI_CODE ,SI_NO, SI_DATE, NET_AMOUNT, " &
-            "ISNULL((SELECT SUM(AmountSettled) FROM dbo.CustomerSettlementDetail WHERE InvoiceId = SI_ID),0) AS ReceivedAmount ,iSNULL(cn_amount,0) AS CnAmount" &
-            " FROM dbo.SALE_INVOICE_MASTER  LEFT JOIN dbo.CreditNote_Master ON INVId = SI_ID WHERE SALE_TYPE='Credit' AND INVOICE_STATUS <> 4 AND CUST_ID = " & cmbCustomerSettleInvoice.SelectedValue
+        Dim query As String = " SELECT MRN_NO AS MRN_ID ,MRN_PREFIX , MRN_NO , dbo.MATERIAL_RECEIVED_AGAINST_PO_MASTER.Creation_Date AS date , " &
+            " MATERIAL_RECEIVED_AGAINST_PO_MASTER.NET_AMOUNT ,ISNULL(( SELECT SUM(AmountSettled) FROM   dbo.SupplierSettlementDetail  WHERE  MrnNo = Mrn_No ), 0) AS ReceivedAmount ," &
+            " ISNULL(dn_amount, 0) AS DnAmount,Invoice_No FROM   dbo.MATERIAL_RECEIVED_AGAINST_PO_MASTER  JOIN dbo.PO_MASTER ON dbo.PO_MASTER.PO_ID = dbo.MATERIAL_RECEIVED_AGAINST_PO_MASTER.PO_ID " &
+            "  LEFT JOIN dbo.DebitNote_Master ON MRNId = MRN_NO WHERE  PO_SUPP_ID =" & cmbCustomerSettleInvoice.SelectedValue &
+            " union  SELECT MRN_NO ,MRN_PREFIX ,MRN_NO ,  dbo.MATERIAL_RECIEVED_WITHOUT_PO_MASTER.Creation_Date AS date ,  MATERIAL_RECIEVED_WITHOUT_PO_MASTER.NET_AMOUNT ," &
+            " ISNULL(( SELECT SUM(AmountSettled)  FROM   dbo.SupplierSettlementDetail   WHERE  MrnNo = Mrn_No   ), 0) AS ReceivedAmount ,   ISNULL(dn_amount, 0) AS DnAmount, Invoice_No " &
+            " FROM   dbo.MATERIAL_RECIEVED_WITHOUT_PO_MASTER  LEFT JOIN dbo.DebitNote_Master ON MRNId = MRN_NO WHERE  Vendor_ID =" & cmbCustomerSettleInvoice.SelectedValue
+
         Dim dt As DataTable = clsObj.Fill_DataSet(query).Tables(0)
         dgvInvoiceToSettle.RowCount = 0
 
         Dim index As Int16 = 0
         For Each dr As DataRow In dt.Rows
-            If (dr("NET_AMOUNT") - dr("ReceivedAmount") - dr("CnAmount")) = 0 Then
+            If (dr("NET_AMOUNT") - dr("ReceivedAmount") - dr("DnAmount")) = 0 Then
                 Continue For
             End If
             dgvInvoiceToSettle.RowCount += 1
-            dgvInvoiceToSettle.Rows(index).Cells("InvoiceId").Value = dr("SI_ID")
-            dgvInvoiceToSettle.Rows(index).Cells("InvoiceNo").Value = dr("SI_CODE") & dr("SI_No")
-            dgvInvoiceToSettle.Rows(index).Cells("InvoiceDate").Value = dr("SI_DATE")
+            dgvInvoiceToSettle.Rows(index).Cells("MrnId").Value = dr("MRN_ID")
+            dgvInvoiceToSettle.Rows(index).Cells("MrnNo").Value = dr("MRN_PREFIX") & dr("MRN_NO")
+            dgvInvoiceToSettle.Rows(index).Cells("InvoiceNo").Value = dr("Invoice_No")
+            dgvInvoiceToSettle.Rows(index).Cells("MRNDate").Value = dr("date")
             dgvInvoiceToSettle.Rows(index).Cells("InvoiceAmount").Value = dr("NET_AMOUNT")
             dgvInvoiceToSettle.Rows(index).Cells("ReceivedAmount").Value = dr("ReceivedAmount")
-            dgvInvoiceToSettle.Rows(index).Cells("CreditedAmount").Value = dr("CnAmount")
-            dgvInvoiceToSettle.Rows(index).Cells("PendingAmount").Value = dr("NET_AMOUNT") - dr("ReceivedAmount") - dr("CnAmount")
+            dgvInvoiceToSettle.Rows(index).Cells("DebitedAmount").Value = dr("DnAmount")
+            dgvInvoiceToSettle.Rows(index).Cells("PendingAmount").Value = dr("NET_AMOUNT") - dr("ReceivedAmount") - dr("DnAmount")
             dgvInvoiceToSettle.Rows(index).Cells("AmountToReceive").Value = 0
             index = index + 1
         Next
     End Sub
 
     Private Sub btnDistributeAmount_Click(sender As Object, e As EventArgs) Handles btnDistributeAmount.Click
-        dgvInvoiceToSettle.Sort(InvoiceDate, System.ComponentModel.ListSortDirection.Ascending)
+        dgvInvoiceToSettle.Sort(MRNDate, System.ComponentModel.ListSortDirection.Ascending)
         SetUndistributedAmount()
         For Each row As DataGridViewRow In dgvInvoiceToSettle.Rows
             row.Cells("AmountToReceive").Value = 0
@@ -435,7 +441,7 @@ Public Class frm_Supplier_Invoice_Settlement
     End Sub
 
     Private Sub btnSettleInvoice_Click(sender As Object, e As EventArgs) Handles btnSettleInvoice.Click
-        Dim query As String = "SELECT PaymentTransactionId, UndistributedAmount, PaymentTransactionNo FROM dbo.PaymentTransaction" &
+        Dim query As String = "SELECT PaymentTransactionId, UndistributedAmount, PaymentTransactionNo FROM dbo.SupplierPaymentTransaction" &
             " WHERE StatusId =2 AND UndistributedAmount > 0 AND AccountId=" & cmbCustomerSettleInvoice.SelectedValue &
             " ORDER BY PaymentTransactionId ASC"
         Dim undistributedAmountTable As DataTable = clsObj.Fill_DataSet(query).Tables(0)
@@ -472,7 +478,7 @@ Public Class frm_Supplier_Invoice_Settlement
                 prop.PaymentTransactionId = undistributedAmountTable.Rows(index)("PaymentTransactionId")
                 prop.PaymentId = undistributedAmountTable.Rows(index)("PaymentTransactionId")
 
-                prop.MrnNo = row.Cells("mrnNo").Value
+                prop.MrnNo = row.Cells("mrnId").Value
 
 
                 prop.Remarks = String.Format("Rs. {0} settled for invoice {1} against payment {2}",
@@ -553,11 +559,14 @@ Public Class frm_Supplier_Invoice_Settlement
         Dim dt As DataTable = clsObj.Fill_DataSet(query).Tables(0)
 
         If (dt.Rows(0)(0) < 0) Then
-            lblPendingAmount.Text = -(dt.Rows(0)(0))
-            lblAdvanceAmount.Text = "0.00"
-        Else
+
             lblPendingAmount.Text = "0.00"
-            lblAdvanceAmount.Text = dt.Rows(0)(0)
+            lblAdvanceAmount.Text = -dt.Rows(0)(0)
+
+
+        Else
+            lblPendingAmount.Text = (dt.Rows(0)(0))
+            lblAdvanceAmount.Text = "0.00"
         End If
         lblUnDistributeAmount.Text = dt.Rows(0)(1)
 

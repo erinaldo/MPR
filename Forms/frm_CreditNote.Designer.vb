@@ -183,9 +183,9 @@ Partial Class frm_CreditNote
         Me.GroupBox2.Controls.Add(Me.lnkCalculateDebitAmt)
         Me.GroupBox2.Controls.Add(Me.FLXGRD_MaterialItem)
         Me.GroupBox2.ForeColor = System.Drawing.Color.White
-        Me.GroupBox2.Location = New System.Drawing.Point(6, 164)
+        Me.GroupBox2.Location = New System.Drawing.Point(6, 190)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(890, 427)
+        Me.GroupBox2.Size = New System.Drawing.Size(890, 401)
         Me.GroupBox2.TabIndex = 1
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Items List"
@@ -302,7 +302,7 @@ Partial Class frm_CreditNote
         Me.GroupBox1.ForeColor = System.Drawing.Color.White
         Me.GroupBox1.Location = New System.Drawing.Point(6, 6)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(890, 152)
+        Me.GroupBox1.Size = New System.Drawing.Size(890, 178)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Credit Note Detail"
@@ -311,7 +311,7 @@ Partial Class frm_CreditNote
         '
         Me.lblInvNo.AutoSize = True
         Me.lblInvNo.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblInvNo.Location = New System.Drawing.Point(597, 58)
+        Me.lblInvNo.Location = New System.Drawing.Point(597, 97)
         Me.lblInvNo.Name = "lblInvNo"
         Me.lblInvNo.Size = New System.Drawing.Size(38, 13)
         Me.lblInvNo.TabIndex = 36
@@ -321,7 +321,7 @@ Partial Class frm_CreditNote
         '
         Me.Label9.AutoSize = True
         Me.Label9.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label9.Location = New System.Drawing.Point(512, 56)
+        Me.Label9.Location = New System.Drawing.Point(512, 95)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(53, 15)
         Me.Label9.TabIndex = 35
@@ -331,7 +331,7 @@ Partial Class frm_CreditNote
         '
         Me.lblInvdate.AutoSize = True
         Me.lblInvdate.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblInvdate.Location = New System.Drawing.Point(417, 56)
+        Me.lblInvdate.Location = New System.Drawing.Point(417, 95)
         Me.lblInvdate.Name = "lblInvdate"
         Me.lblInvdate.Size = New System.Drawing.Size(38, 13)
         Me.lblInvdate.TabIndex = 34
@@ -341,7 +341,7 @@ Partial Class frm_CreditNote
         '
         Me.Label7.AutoSize = True
         Me.Label7.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label7.Location = New System.Drawing.Point(341, 54)
+        Me.Label7.Location = New System.Drawing.Point(341, 93)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(61, 15)
         Me.Label7.TabIndex = 33
@@ -352,16 +352,16 @@ Partial Class frm_CreditNote
         Me.lblAddress.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.lblAddress.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.lblAddress.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblAddress.Location = New System.Drawing.Point(483, 91)
+        Me.lblAddress.Location = New System.Drawing.Point(154, 62)
         Me.lblAddress.Name = "lblAddress"
-        Me.lblAddress.Size = New System.Drawing.Size(285, 49)
+        Me.lblAddress.Size = New System.Drawing.Size(587, 22)
         Me.lblAddress.TabIndex = 32
         '
         'lblCap2
         '
         Me.lblCap2.AutoSize = True
         Me.lblCap2.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblCap2.Location = New System.Drawing.Point(407, 91)
+        Me.lblCap2.Location = New System.Drawing.Point(37, 65)
         Me.lblCap2.Name = "lblCap2"
         Me.lblCap2.Size = New System.Drawing.Size(59, 15)
         Me.lblCap2.TabIndex = 31
@@ -374,16 +374,16 @@ Partial Class frm_CreditNote
         Me.cmbCustomer.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmbCustomer.ForeColor = System.Drawing.Color.White
         Me.cmbCustomer.FormattingEnabled = True
-        Me.cmbCustomer.Location = New System.Drawing.Point(145, 18)
+        Me.cmbCustomer.Location = New System.Drawing.Point(154, 35)
         Me.cmbCustomer.Name = "cmbCustomer"
-        Me.cmbCustomer.Size = New System.Drawing.Size(181, 23)
+        Me.cmbCustomer.Size = New System.Drawing.Size(587, 23)
         Me.cmbCustomer.TabIndex = 30
         '
         'Label2
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(28, 21)
+        Me.Label2.Location = New System.Drawing.Point(37, 38)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(105, 15)
         Me.Label2.TabIndex = 29
@@ -393,7 +393,7 @@ Partial Class frm_CreditNote
         '
         Me.lbl_CNDate.AutoSize = True
         Me.lbl_CNDate.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lbl_CNDate.Location = New System.Drawing.Point(597, 21)
+        Me.lbl_CNDate.Location = New System.Drawing.Point(417, 10)
         Me.lbl_CNDate.Name = "lbl_CNDate"
         Me.lbl_CNDate.Size = New System.Drawing.Size(86, 13)
         Me.lbl_CNDate.TabIndex = 26
@@ -403,7 +403,7 @@ Partial Class frm_CreditNote
         '
         Me.lblCN_Code.AutoSize = True
         Me.lblCN_Code.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblCN_Code.Location = New System.Drawing.Point(404, 19)
+        Me.lblCN_Code.Location = New System.Drawing.Point(151, 12)
         Me.lblCN_Code.Name = "lblCN_Code"
         Me.lblCN_Code.Size = New System.Drawing.Size(88, 13)
         Me.lblCN_Code.TabIndex = 16
@@ -413,7 +413,7 @@ Partial Class frm_CreditNote
         '
         Me.lblReverseCode.AutoSize = True
         Me.lblReverseCode.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblReverseCode.Location = New System.Drawing.Point(339, 18)
+        Me.lblReverseCode.Location = New System.Drawing.Point(37, 16)
         Me.lblReverseCode.Name = "lblReverseCode"
         Me.lblReverseCode.Size = New System.Drawing.Size(50, 15)
         Me.lblReverseCode.TabIndex = 15
@@ -425,19 +425,19 @@ Partial Class frm_CreditNote
         Me.txtRemarks.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtRemarks.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtRemarks.ForeColor = System.Drawing.Color.White
-        Me.txtRemarks.Location = New System.Drawing.Point(145, 88)
+        Me.txtRemarks.Location = New System.Drawing.Point(154, 119)
         Me.txtRemarks.MaxLength = 500
         Me.txtRemarks.Multiline = True
         Me.txtRemarks.Name = "txtRemarks"
         Me.txtRemarks.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtRemarks.Size = New System.Drawing.Size(256, 50)
+        Me.txtRemarks.Size = New System.Drawing.Size(587, 50)
         Me.txtRemarks.TabIndex = 14
         '
         'lbl_Remarks
         '
         Me.lbl_Remarks.AutoSize = True
         Me.lbl_Remarks.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lbl_Remarks.Location = New System.Drawing.Point(28, 91)
+        Me.lbl_Remarks.Location = New System.Drawing.Point(37, 122)
         Me.lbl_Remarks.Name = "lbl_Remarks"
         Me.lbl_Remarks.Size = New System.Drawing.Size(64, 15)
         Me.lbl_Remarks.TabIndex = 13
@@ -447,7 +447,7 @@ Partial Class frm_CreditNote
         '
         Me.lblReceivedDate.AutoSize = True
         Me.lblReceivedDate.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblReceivedDate.Location = New System.Drawing.Point(512, 19)
+        Me.lblReceivedDate.Location = New System.Drawing.Point(330, 10)
         Me.lblReceivedDate.Name = "lblReceivedDate"
         Me.lblReceivedDate.Size = New System.Drawing.Size(60, 15)
         Me.lblReceivedDate.TabIndex = 11
@@ -471,7 +471,7 @@ Partial Class frm_CreditNote
         Me.cmbINVNo.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmbINVNo.ForeColor = System.Drawing.Color.White
         Me.cmbINVNo.FormattingEnabled = True
-        Me.cmbINVNo.Location = New System.Drawing.Point(145, 51)
+        Me.cmbINVNo.Location = New System.Drawing.Point(154, 90)
         Me.cmbINVNo.Name = "cmbINVNo"
         Me.cmbINVNo.Size = New System.Drawing.Size(181, 23)
         Me.cmbINVNo.TabIndex = 1
@@ -480,7 +480,7 @@ Partial Class frm_CreditNote
         '
         Me.lblSelectMRNNO.AutoSize = True
         Me.lblSelectMRNNO.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblSelectMRNNO.Location = New System.Drawing.Point(28, 54)
+        Me.lblSelectMRNNO.Location = New System.Drawing.Point(37, 93)
         Me.lblSelectMRNNO.Name = "lblSelectMRNNO"
         Me.lblSelectMRNNO.Size = New System.Drawing.Size(88, 15)
         Me.lblSelectMRNNO.TabIndex = 0
