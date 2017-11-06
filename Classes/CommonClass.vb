@@ -1447,7 +1447,7 @@ Public MustInherit Class Connection
                         rep.SetParameterValue("Received_ID", CInt(value(ArrIndex)))
                     ElseIf RptNo = enmReportName.RptMRNActualWithoutPOPrint Then
                         PInteger = CInt(value(ArrIndex))
-                        rep.SetParameterValue("Received_ID", CInt(value(ArrIndex)))
+                        rep.SetParameterValue("rec_id", CInt(value(ArrIndex)))
                     ElseIf RptNo = enmReportName.RptReverseMaterialWithOutPO Then
                         PInteger = CInt(value(ArrIndex))
                         rep.SetParameterValue("Reverse_ID", CInt(value(ArrIndex)))
