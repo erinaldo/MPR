@@ -129,6 +129,7 @@ Module GlobalModule
         RptCreditNotePrint = 71
         RptGatePassPrint = 72
         RptPaymentPrint = 73
+        RptSuppPaymentPrint = 74
     End Enum
     Public Enum IndentStatus As Integer
         Fresh = 1
@@ -212,6 +213,7 @@ Module GlobalModule
         Sale_Invoice = 16
         CreditNote = 17
         Invoice_Settlement = 18
+        Supplier_Invoice_Settlement = 19
     End Enum
 
     ''********************************************************************''

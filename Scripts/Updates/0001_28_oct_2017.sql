@@ -485,7 +485,7 @@ AS
 
 -------------------------------------------------------------------------------------------------------------
 
-CREATE PROCEDURE [dbo].[ProcSupplierPaymentTransaction_Insert]
+CREATE	 PROCEDURE [dbo].[ProcSupplierPaymentTransaction_Insert]
     (
       @PaymentTransactionId NUMERIC = NULL ,
       @PaymentTransactionNo VARCHAR(100) = NULL ,
@@ -506,14 +506,11 @@ CREATE PROCEDURE [dbo].[ProcSupplierPaymentTransaction_Insert]
     )
 AS
     BEGIN      
-        
         DECLARE @LedgerId NUMERIC     
         SELECT  @PaymentTransactionId = ISNULL(MAX(PaymentTransactionId), 0)
                 + 1
         FROM    dbo.SupplierPaymentTransaction          
-                 
-                  
-        INSERT  INTO PaymentTransaction
+        INSERT  INTO SupplierPaymentTransaction
                 ( PaymentTransactionId ,
                   PaymentTransactionNo ,
                   PaymentTypeId ,
@@ -548,22 +545,19 @@ AS
                   @StatusId ,
                   @BankDate      
                 )      
-                  
         SET @ProcedureStatus = @PaymentTransactionId       
-        
         ---increment series
         UPDATE  SupplierPM_Series
         SET     CURRENT_USED = CURRENT_USED + 1
         WHERE   DIV_ID = @DivisionId
                 AND IS_FINISHED = 'N'
-        
-        ---update customer ledger        
+        ---update supplier ledger        
 		---if payment status approved   than make entry in customer ledger      
-        SET @Remarks = 'Payment transfer against -' + @PaymentTransactionNo
+        SET @Remarks = 'Payment release against -' + @PaymentTransactionNo
         IF @StatusId = 2
             EXECUTE Proc_SupplierLedger_Insert @AccountId,
-                @TotalamountReceived, 0, @Remarks, @DivisionId,
-                @PaymentTransactionId, 18, @CreatedBy
+                0,@TotalamountReceived,  @Remarks, @DivisionId,
+                @PaymentTransactionId, 19, @CreatedBy
     END 
 
 
@@ -604,7 +598,7 @@ AS
             + @PaymentTransactionNo
         IF @StatusId = 2
             EXECUTE Proc_SupplierLedger_Insert @AccountId,
-                @TotalamountReceived, 0, @Remarks, @DivisionId,
+                 0,@TotalamountReceived, @Remarks, @DivisionId,
                 @PaymentTransactionId, 18, @CreatedBy
         
         ---if payment status bounced with cancellation charges than make entry in customer ledger      
@@ -612,8 +606,8 @@ AS
             + @PaymentTransactionNo
         IF @StatusId = 4
             AND @CancellationCharges > 0
-            EXECUTE Proc_SupplierLedger_Insert @AccountId, 0,
-                @CancellationCharges, @Remarks, @DivisionId,
+            EXECUTE Proc_SupplierLedger_Insert @AccountId, 
+                @CancellationCharges,0, @Remarks, @DivisionId,
                 @PaymentTransactionId, 18, @CreatedBy
                 
     END
@@ -641,7 +635,8 @@ AS
                   [Remarks] ,
                   [CreatedBy] ,
                   [CreatedDate] ,
-                  [DivisionId]
+                  [DivisionId],
+				  InvoicePaymentId
                 )
         VALUES  ( @PaymentTransactionId ,
                   @PaymentId ,
@@ -651,6 +646,7 @@ AS
                   @CreatedBy ,
                   GETDATE() ,
                   @DivisionId
+				   @PaymentId 
                 )
                 
 -----------deduct settled amount from payment transaction table                

@@ -1396,6 +1396,10 @@ Public MustInherit Class Connection
 
             ElseIf RptNo = enmReportName.RptPaymentPrint Then
                 filepath = ReportFilePath & "PaymentDetailCrReport.rpt"
+          
+
+            ElseIf RptNo = enmReportName.RptSuppPaymentPrint Then
+                filepath = ReportFilePath & "SuppPaymentDetailCrReport.rpt"
 
             End If
 
@@ -1485,6 +1489,10 @@ Public MustInherit Class Connection
                         rep.SetParameterValue("GatePassId", CInt(value(ArrIndex)))
 
                     ElseIf RptNo = enmReportName.RptPaymentPrint Then
+                        PInteger = CInt(value(ArrIndex))
+                        rep.SetParameterValue("PaymentId", CInt(value(ArrIndex)))
+
+                    ElseIf RptNo = enmReportName.RptSuppPaymentPrint Then
                         PInteger = CInt(value(ArrIndex))
                         rep.SetParameterValue("PaymentId", CInt(value(ArrIndex)))
 

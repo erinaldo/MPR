@@ -20,8 +20,8 @@ Partial Class frm_Supplier_Invoice_Settlement
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frm_Supplier_Invoice_Settlement))
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.List = New System.Windows.Forms.TabPage()
@@ -35,19 +35,19 @@ Partial Class frm_Supplier_Invoice_Settlement
         Me.tabTakePayment = New System.Windows.Forms.TabPage()
         Me.GBDCMASTER = New System.Windows.Forms.GroupBox()
         Me.lblUnDistributeAmount = New System.Windows.Forms.Label()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.dtpPaymentDate = New System.Windows.Forms.DateTimePicker()
         Me.Label25 = New System.Windows.Forms.Label()
-        Me.Label5 = New System.Windows.Forms.Label()
-        Me.chkBoxDistributeAmount = New System.Windows.Forms.CheckBox()
-        Me.dtpBankDate = New System.Windows.Forms.DateTimePicker()
-        Me.Label11 = New System.Windows.Forms.Label()
-        Me.txtRemarks = New System.Windows.Forms.TextBox()
-        Me.Label10 = New System.Windows.Forms.Label()
-        Me.dtpReferenceDate = New System.Windows.Forms.DateTimePicker()
         Me.Label9 = New System.Windows.Forms.Label()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.dtpBankDate = New System.Windows.Forms.DateTimePicker()
+        Me.chkBoxDistributeAmount = New System.Windows.Forms.CheckBox()
+        Me.dtpReferenceDate = New System.Windows.Forms.DateTimePicker()
+        Me.txtRemarks = New System.Windows.Forms.TextBox()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.Label10 = New System.Windows.Forms.Label()
         Me.cmbBank = New System.Windows.Forms.ComboBox()
         Me.Label8 = New System.Windows.Forms.Label()
-        Me.dtpPaymentDate = New System.Windows.Forms.DateTimePicker()
-        Me.Label12 = New System.Windows.Forms.Label()
         Me.cmbPaymentType = New System.Windows.Forms.ComboBox()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.txtAmount = New System.Windows.Forms.TextBox()
@@ -94,12 +94,13 @@ Partial Class frm_Supplier_Invoice_Settlement
         Me.btnClear = New System.Windows.Forms.Button()
         Me.btnSettleInvoice = New System.Windows.Forms.Button()
         Me.dgvInvoiceToSettle = New System.Windows.Forms.DataGridView()
-        Me.InvoiceId = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.MrnId = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.MrnNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.InvoiceNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.InvoiceDate = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.MRNDate = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.InvoiceAmount = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ReceivedAmount = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.CreditedAmount = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DebitedAmount = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.PendingAmount = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.AmountToReceive = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
@@ -169,12 +170,12 @@ Partial Class frm_Supplier_Invoice_Settlement
         Me.flxList.Location = New System.Drawing.Point(3, 16)
         Me.flxList.Name = "flxList"
         Me.flxList.RowHeadersVisible = False
-        DataGridViewCellStyle8.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle8.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle8.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
-        DataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.Black
-        Me.flxList.RowsDefaultCellStyle = DataGridViewCellStyle8
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black
+        Me.flxList.RowsDefaultCellStyle = DataGridViewCellStyle1
         Me.flxList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.flxList.Size = New System.Drawing.Size(871, 474)
         Me.flxList.TabIndex = 3
@@ -185,7 +186,7 @@ Partial Class frm_Supplier_Invoice_Settlement
         Me.GroupBox2.Controls.Add(Me.Label1)
         Me.GroupBox2.Location = New System.Drawing.Point(19, 9)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(864, 76)
+        Me.GroupBox2.Size = New System.Drawing.Size(874, 76)
         Me.GroupBox2.TabIndex = 7
         Me.GroupBox2.TabStop = False
         '
@@ -291,6 +292,27 @@ Partial Class frm_Supplier_Invoice_Settlement
         Me.lblUnDistributeAmount.TabIndex = 61
         Me.lblUnDistributeAmount.Text = "0.00"
         '
+        'Label12
+        '
+        Me.Label12.AutoSize = True
+        Me.Label12.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label12.Location = New System.Drawing.Point(494, 85)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(90, 15)
+        Me.Label12.TabIndex = 48
+        Me.Label12.Text = "Payment Date :"
+        '
+        'dtpPaymentDate
+        '
+        Me.dtpPaymentDate.CalendarForeColor = System.Drawing.Color.White
+        Me.dtpPaymentDate.CalendarMonthBackground = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.dtpPaymentDate.CustomFormat = "dd-MMM-yyyy"
+        Me.dtpPaymentDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.dtpPaymentDate.Location = New System.Drawing.Point(594, 79)
+        Me.dtpPaymentDate.Name = "dtpPaymentDate"
+        Me.dtpPaymentDate.Size = New System.Drawing.Size(196, 20)
+        Me.dtpPaymentDate.TabIndex = 2
+        '
         'Label25
         '
         Me.Label25.AutoSize = True
@@ -301,6 +323,16 @@ Partial Class frm_Supplier_Invoice_Settlement
         Me.Label25.TabIndex = 60
         Me.Label25.Text = "UnDistribute Amount :"
         '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label9.Location = New System.Drawing.Point(492, 115)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(99, 30)
+        Me.Label9.TabIndex = 53
+        Me.Label9.Text = "Cheque or " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Reference Date :"
+        '
         'Label5
         '
         Me.Label5.AutoSize = True
@@ -310,17 +342,6 @@ Partial Class frm_Supplier_Invoice_Settlement
         Me.Label5.Size = New System.Drawing.Size(343, 15)
         Me.Label5.TabIndex = 59
         Me.Label5.Text = "(keep checkbox unchecked if want to settle invoices manually)"
-        '
-        'chkBoxDistributeAmount
-        '
-        Me.chkBoxDistributeAmount.AutoSize = True
-        Me.chkBoxDistributeAmount.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chkBoxDistributeAmount.Location = New System.Drawing.Point(9, 271)
-        Me.chkBoxDistributeAmount.Name = "chkBoxDistributeAmount"
-        Me.chkBoxDistributeAmount.Size = New System.Drawing.Size(524, 22)
-        Me.chkBoxDistributeAmount.TabIndex = 9
-        Me.chkBoxDistributeAmount.Text = "Distribute Received && Advanced Amount among unsettled Invoices"
-        Me.chkBoxDistributeAmount.UseVisualStyleBackColor = True
         '
         'dtpBankDate
         '
@@ -333,15 +354,27 @@ Partial Class frm_Supplier_Invoice_Settlement
         Me.dtpBankDate.Size = New System.Drawing.Size(197, 20)
         Me.dtpBankDate.TabIndex = 6
         '
-        'Label11
+        'chkBoxDistributeAmount
         '
-        Me.Label11.AutoSize = True
-        Me.Label11.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label11.Location = New System.Drawing.Point(494, 170)
-        Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(70, 15)
-        Me.Label11.TabIndex = 58
-        Me.Label11.Text = "Bank Date :"
+        Me.chkBoxDistributeAmount.AutoSize = True
+        Me.chkBoxDistributeAmount.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.chkBoxDistributeAmount.Location = New System.Drawing.Point(9, 271)
+        Me.chkBoxDistributeAmount.Name = "chkBoxDistributeAmount"
+        Me.chkBoxDistributeAmount.Size = New System.Drawing.Size(524, 22)
+        Me.chkBoxDistributeAmount.TabIndex = 9
+        Me.chkBoxDistributeAmount.Text = "Distribute Received && Advanced Amount among unsettled Invoices"
+        Me.chkBoxDistributeAmount.UseVisualStyleBackColor = True
+        '
+        'dtpReferenceDate
+        '
+        Me.dtpReferenceDate.CalendarForeColor = System.Drawing.Color.White
+        Me.dtpReferenceDate.CalendarMonthBackground = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.dtpReferenceDate.CustomFormat = "dd-MMM-yyyy"
+        Me.dtpReferenceDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.dtpReferenceDate.Location = New System.Drawing.Point(594, 124)
+        Me.dtpReferenceDate.Name = "dtpReferenceDate"
+        Me.dtpReferenceDate.Size = New System.Drawing.Size(196, 20)
+        Me.dtpReferenceDate.TabIndex = 4
         '
         'txtRemarks
         '
@@ -356,6 +389,16 @@ Partial Class frm_Supplier_Invoice_Settlement
         Me.txtRemarks.Size = New System.Drawing.Size(403, 49)
         Me.txtRemarks.TabIndex = 8
         '
+        'Label11
+        '
+        Me.Label11.AutoSize = True
+        Me.Label11.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label11.Location = New System.Drawing.Point(494, 170)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(70, 15)
+        Me.Label11.TabIndex = 58
+        Me.Label11.Text = "Bank Date :"
+        '
         'Label10
         '
         Me.Label10.AutoSize = True
@@ -365,27 +408,6 @@ Partial Class frm_Supplier_Invoice_Settlement
         Me.Label10.Size = New System.Drawing.Size(63, 15)
         Me.Label10.TabIndex = 55
         Me.Label10.Text = "Remarks :"
-        '
-        'dtpReferenceDate
-        '
-        Me.dtpReferenceDate.CalendarForeColor = System.Drawing.Color.White
-        Me.dtpReferenceDate.CalendarMonthBackground = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.dtpReferenceDate.CustomFormat = "dd-MMM-yyyy"
-        Me.dtpReferenceDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpReferenceDate.Location = New System.Drawing.Point(594, 124)
-        Me.dtpReferenceDate.Name = "dtpReferenceDate"
-        Me.dtpReferenceDate.Size = New System.Drawing.Size(196, 20)
-        Me.dtpReferenceDate.TabIndex = 4
-        '
-        'Label9
-        '
-        Me.Label9.AutoSize = True
-        Me.Label9.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label9.Location = New System.Drawing.Point(492, 115)
-        Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(99, 30)
-        Me.Label9.TabIndex = 53
-        Me.Label9.Text = "Cheque or " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Reference Date :"
         '
         'cmbBank
         '
@@ -409,27 +431,6 @@ Partial Class frm_Supplier_Invoice_Settlement
         Me.Label8.Size = New System.Drawing.Size(78, 15)
         Me.Label8.TabIndex = 51
         Me.Label8.Text = "Bank Name :"
-        '
-        'dtpPaymentDate
-        '
-        Me.dtpPaymentDate.CalendarForeColor = System.Drawing.Color.White
-        Me.dtpPaymentDate.CalendarMonthBackground = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.dtpPaymentDate.CustomFormat = "dd-MMM-yyyy"
-        Me.dtpPaymentDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpPaymentDate.Location = New System.Drawing.Point(594, 79)
-        Me.dtpPaymentDate.Name = "dtpPaymentDate"
-        Me.dtpPaymentDate.Size = New System.Drawing.Size(196, 20)
-        Me.dtpPaymentDate.TabIndex = 2
-        '
-        'Label12
-        '
-        Me.Label12.AutoSize = True
-        Me.Label12.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label12.Location = New System.Drawing.Point(494, 85)
-        Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(90, 15)
-        Me.Label12.TabIndex = 48
-        Me.Label12.Text = "Payment Date :"
         '
         'cmbPaymentType
         '
@@ -949,21 +950,28 @@ Partial Class frm_Supplier_Invoice_Settlement
         Me.dgvInvoiceToSettle.AllowUserToAddRows = False
         Me.dgvInvoiceToSettle.AllowUserToDeleteRows = False
         Me.dgvInvoiceToSettle.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvInvoiceToSettle.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.InvoiceId, Me.InvoiceNo, Me.InvoiceDate, Me.InvoiceAmount, Me.ReceivedAmount, Me.CreditedAmount, Me.PendingAmount, Me.AmountToReceive})
+        Me.dgvInvoiceToSettle.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.MrnId, Me.MrnNo, Me.InvoiceNo, Me.MRNDate, Me.InvoiceAmount, Me.ReceivedAmount, Me.DebitedAmount, Me.PendingAmount, Me.AmountToReceive})
         Me.dgvInvoiceToSettle.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter
         Me.dgvInvoiceToSettle.Location = New System.Drawing.Point(33, 121)
         Me.dgvInvoiceToSettle.Name = "dgvInvoiceToSettle"
-        DataGridViewCellStyle7.ForeColor = System.Drawing.Color.Black
-        Me.dgvInvoiceToSettle.RowsDefaultCellStyle = DataGridViewCellStyle7
+        DataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black
+        Me.dgvInvoiceToSettle.RowsDefaultCellStyle = DataGridViewCellStyle2
         Me.dgvInvoiceToSettle.Size = New System.Drawing.Size(819, 363)
         Me.dgvInvoiceToSettle.TabIndex = 4
         '
-        'InvoiceId
+        'MrnId
         '
-        Me.InvoiceId.HeaderText = "InvoiceId"
-        Me.InvoiceId.Name = "InvoiceId"
-        Me.InvoiceId.ReadOnly = True
-        Me.InvoiceId.Visible = False
+        Me.MrnId.HeaderText = "MrnId"
+        Me.MrnId.Name = "MrnId"
+        Me.MrnId.ReadOnly = True
+        Me.MrnId.Visible = False
+        '
+        'MrnNo
+        '
+        Me.MrnNo.HeaderText = "MrnNo"
+        Me.MrnNo.Name = "MrnNo"
+        Me.MrnNo.ReadOnly = True
+        Me.MrnNo.Width = 120
         '
         'InvoiceNo
         '
@@ -972,11 +980,11 @@ Partial Class frm_Supplier_Invoice_Settlement
         Me.InvoiceNo.Name = "InvoiceNo"
         Me.InvoiceNo.ReadOnly = True
         '
-        'InvoiceDate
+        'MRNDate
         '
-        Me.InvoiceDate.HeaderText = "Invoice Date"
-        Me.InvoiceDate.Name = "InvoiceDate"
-        Me.InvoiceDate.ReadOnly = True
+        Me.MRNDate.HeaderText = "Mrn Date"
+        Me.MRNDate.Name = "MRNDate"
+        Me.MRNDate.ReadOnly = True
         '
         'InvoiceAmount
         '
@@ -989,18 +997,21 @@ Partial Class frm_Supplier_Invoice_Settlement
         Me.ReceivedAmount.HeaderText = "Received Amount"
         Me.ReceivedAmount.Name = "ReceivedAmount"
         Me.ReceivedAmount.ReadOnly = True
+        Me.ReceivedAmount.Width = 80
         '
-        'CreditedAmount
+        'DebitedAmount
         '
-        Me.CreditedAmount.HeaderText = "Credited Amount"
-        Me.CreditedAmount.Name = "CreditedAmount"
-        Me.CreditedAmount.ReadOnly = True
+        Me.DebitedAmount.HeaderText = "Debited Amount"
+        Me.DebitedAmount.Name = "DebitedAmount"
+        Me.DebitedAmount.ReadOnly = True
+        Me.DebitedAmount.Width = 80
         '
         'PendingAmount
         '
         Me.PendingAmount.HeaderText = "Pending Amount"
         Me.PendingAmount.Name = "PendingAmount"
         Me.PendingAmount.ReadOnly = True
+        Me.PendingAmount.Width = 80
         '
         'AmountToReceive
         '
@@ -1200,15 +1211,16 @@ Partial Class frm_Supplier_Invoice_Settlement
     Friend WithEvents dgvInvoiceToSettle As DataGridView
     Friend WithEvents btnSettleInvoice As Button
     Friend WithEvents btnClear As Button
-    Friend WithEvents InvoiceId As DataGridViewTextBoxColumn
-    Friend WithEvents InvoiceNo As DataGridViewTextBoxColumn
-    Friend WithEvents InvoiceDate As DataGridViewTextBoxColumn
-    Friend WithEvents InvoiceAmount As DataGridViewTextBoxColumn
-    Friend WithEvents ReceivedAmount As DataGridViewTextBoxColumn
-    Friend WithEvents CreditedAmount As DataGridViewTextBoxColumn
-    Friend WithEvents PendingAmount As DataGridViewTextBoxColumn
-    Friend WithEvents AmountToReceive As DataGridViewTextBoxColumn
     Friend WithEvents ImageList1 As System.Windows.Forms.ImageList
     Friend WithEvents lblUnDistributeAmount As System.Windows.Forms.Label
     Friend WithEvents Label25 As System.Windows.Forms.Label
+    Friend WithEvents MrnId As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents MrnNo As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents InvoiceNo As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents MRNDate As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents InvoiceAmount As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents ReceivedAmount As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DebitedAmount As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents PendingAmount As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents AmountToReceive As System.Windows.Forms.DataGridViewTextBoxColumn
 End Class
