@@ -687,6 +687,12 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
+    <Compile Include="Reports\SuppPaymentDetailCrReport.vb">
+      <DependentUpon>SuppPaymentDetailCrReport.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Reports\CryGatePass.vb">
       <DependentUpon>CryGatePass.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -1517,6 +1523,10 @@
       <DependentUpon>MDIMain.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\licenses.licx" />
+    <EmbeddedResource Include="Reports\SuppPaymentDetailCrReport.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>SuppPaymentDetailCrReport.vb</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reports\CryGatePass.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>CryGatePass.vb</LastGenOutput>
@@ -1897,6 +1907,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bin\Debug\connection.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Scripts\Updates\0001_09_oct_2017.sql">
       <SubType>Designer</SubType>
     </Content>
@@ -1912,9 +1925,6 @@
     <None Include="app.config" />
     <None Include="ClassDiagram1.cd" />
     <None Include="Images and Icons\Report.ico" />
-    <Content Include="bin\Debug\connection.xml">
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="DLL\MTGCCombobox.dll" />
     <None Include="Images and Icons\Approve PO.jpg" />
     <None Include="Images and Icons\Cancel PO.jpg" />

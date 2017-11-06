@@ -246,11 +246,11 @@ Public Class frm_Supplier_Invoice_Settlement
             If TabControl1.SelectedIndex = 0 Then
                 If flxList.SelectedRows.Count > 0 Then
 
-                    obj.RptShow(enmReportName.RptPaymentPrint, "PaymentId", CStr(flxList("PaymentId", flxList.CurrentCell.RowIndex).Value()), CStr(enmDataType.D_int))
+                    obj.RptShow(enmReportName.RptSuppPaymentPrint, "PaymentId", CStr(flxList("PaymentId", flxList.CurrentCell.RowIndex).Value()), CStr(enmDataType.D_int))
                 End If
             Else
                 If flag <> "save" Then
-                    obj.RptShow(enmReportName.RptPaymentPrint, "PaymentId", CStr(PaymentId), CStr(enmDataType.D_int))
+                    obj.RptShow(enmReportName.RptSuppPaymentPrint, "PaymentId", CStr(PaymentId), CStr(enmDataType.D_int))
                 End If
             End If
         Catch ex As Exception
@@ -393,6 +393,7 @@ Public Class frm_Supplier_Invoice_Settlement
     End Sub
 
     Private Sub FillGrid()
+
         Dim query As String = " SELECT MRN_NO AS MRN_ID ,MRN_PREFIX , MRN_NO , dbo.MATERIAL_RECEIVED_AGAINST_PO_MASTER.Creation_Date AS date , " &
             " MATERIAL_RECEIVED_AGAINST_PO_MASTER.NET_AMOUNT ,ISNULL(( SELECT SUM(AmountSettled) FROM   dbo.SupplierSettlementDetail  WHERE  MrnNo = Mrn_No ), 0) AS ReceivedAmount ," &
             " ISNULL(dn_amount, 0) AS DnAmount,Invoice_No FROM   dbo.MATERIAL_RECEIVED_AGAINST_PO_MASTER  JOIN dbo.PO_MASTER ON dbo.PO_MASTER.PO_ID = dbo.MATERIAL_RECEIVED_AGAINST_PO_MASTER.PO_ID " &
