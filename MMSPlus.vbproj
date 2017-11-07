@@ -462,6 +462,12 @@
     <Compile Include="ReportsForms\frmStockValue.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="ReportsForms\frm_DebtorsOS.Designer.vb">
+      <DependentUpon>frm_DebtorsOS.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ReportsForms\frm_DebtorsOS.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="ReportsForms\Frm_IndentPrint.Designer.vb">
       <DependentUpon>Frm_IndentPrint.vb</DependentUpon>
     </Compile>
@@ -686,6 +692,12 @@
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\cry_CreditorOutstanding.vb">
+      <DependentUpon>cry_CreditorOutstanding.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Reports\SuppPaymentDetailCrReport.vb">
       <DependentUpon>SuppPaymentDetailCrReport.rpt</DependentUpon>
@@ -1131,8 +1143,8 @@
       <DependentUpon>Cry_Debit_Note.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Reports\cry_Sale_Ledger.vb">
-      <DependentUpon>cry_Sale_Ledger.rpt</DependentUpon>
+    <Compile Include="Reports\cry_DebtorOutstanding.vb">
+      <DependentUpon>cry_DebtorOutstanding.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
@@ -1404,6 +1416,9 @@
       <SubType>Designer</SubType>
       <DependentUpon>frmStockValue.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ReportsForms\frm_DebtorsOS.resx">
+      <DependentUpon>frm_DebtorsOS.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ReportsForms\Frm_IndentPrint.resx">
       <DependentUpon>Frm_IndentPrint.vb</DependentUpon>
       <SubType>Designer</SubType>
@@ -1529,6 +1544,10 @@
       <DependentUpon>MDIMain.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\licenses.licx" />
+    <EmbeddedResource Include="Reports\cry_CreditorOutstanding.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cry_CreditorOutstanding.vb</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reports\SuppPaymentDetailCrReport.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>SuppPaymentDetailCrReport.vb</LastGenOutput>
@@ -1833,9 +1852,9 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>Cry_Debit_Note.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Reports\cry_Sale_Ledger.rpt">
+    <EmbeddedResource Include="Reports\cry_DebtorOutstanding.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>cry_Sale_Ledger.vb</LastGenOutput>
+      <LastGenOutput>cry_DebtorOutstanding.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\cry_Sale_Invoice.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

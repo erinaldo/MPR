@@ -148,6 +148,8 @@ Partial Class MDIMain
         Me.picLogo = New System.Windows.Forms.PictureBox()
         Me.TabControl2 = New System.Windows.Forms.TabControl()
         Me.frm_open_invoice = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripDebtorsOS = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripCreditorsOS = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.toolbar.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
@@ -613,7 +615,7 @@ Partial Class MDIMain
         'UserManagmentToolStripMenuItem
         '
         Me.UserManagmentToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(77, Byte), Integer), CType(CType(77, Byte), Integer), CType(CType(77, Byte), Integer))
-        Me.UserManagmentToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.frm_user_master, Me.frm_Invoice_Settlement, Me.frm_Supplier_Invoice_Settlement, Me.DeboterLedgerToolStripMenuItem, Me.CreditorLedgerToolStripMenuItem, Me.ExpancesageToolStripMenuItem, Me.GSTRegitorToolStripMenuItem})
+        Me.UserManagmentToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.frm_user_master, Me.frm_Invoice_Settlement, Me.frm_Supplier_Invoice_Settlement, Me.ToolStripDebtorsOS, Me.DeboterLedgerToolStripMenuItem, Me.ToolStripCreditorsOS, Me.CreditorLedgerToolStripMenuItem, Me.ExpancesageToolStripMenuItem, Me.GSTRegitorToolStripMenuItem})
         Me.UserManagmentToolStripMenuItem.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.UserManagmentToolStripMenuItem.ForeColor = System.Drawing.Color.White
         Me.UserManagmentToolStripMenuItem.Image = Global.MMSPlus.My.Resources.Resources.Client_list_text
@@ -1424,6 +1426,24 @@ Partial Class MDIMain
         Me.frm_open_invoice.Size = New System.Drawing.Size(181, 22)
         Me.frm_open_invoice.Text = "Opne Invoice"
         '
+        'ToolStripDebtorsOS
+        '
+        Me.ToolStripDebtorsOS.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.ToolStripDebtorsOS.ForeColor = System.Drawing.Color.White
+        Me.ToolStripDebtorsOS.Image = Global.MMSPlus.My.Resources.Resources.Reports
+        Me.ToolStripDebtorsOS.Name = "ToolStripDebtorsOS"
+        Me.ToolStripDebtorsOS.Size = New System.Drawing.Size(170, 22)
+        Me.ToolStripDebtorsOS.Text = "Debtors O/S"
+        '
+        'ToolStripCreditorsOS
+        '
+        Me.ToolStripCreditorsOS.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.ToolStripCreditorsOS.ForeColor = System.Drawing.Color.White
+        Me.ToolStripCreditorsOS.Image = Global.MMSPlus.My.Resources.Resources.Reports
+        Me.ToolStripCreditorsOS.Name = "ToolStripCreditorsOS"
+        Me.ToolStripCreditorsOS.Size = New System.Drawing.Size(170, 22)
+        Me.ToolStripCreditorsOS.Text = "Creditors O/S"
+        '
         'MDIMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1579,4 +1599,6 @@ Partial Class MDIMain
     Friend WithEvents GSTR3ToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents GSTSummaryToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ExpancesageToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ToolStripDebtorsOS As ToolStripMenuItem
+    Friend WithEvents ToolStripCreditorsOS As ToolStripMenuItem
 End Class

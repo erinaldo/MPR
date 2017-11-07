@@ -18,7 +18,7 @@ Imports System
 Imports System.ComponentModel
 
 
-Public Class cry_Sale_Ledger
+Public Class cry_DebtorOutstanding
     Inherits ReportClass
     
     Public Sub New()
@@ -27,7 +27,7 @@ Public Class cry_Sale_Ledger
     
     Public Overrides Property ResourceName() As String
         Get
-            Return "cry_Sale_Ledger.rpt"
+            Return "cry_DebtorOutstanding.rpt"
         End Get
         Set
             'Do nothing
@@ -45,7 +45,7 @@ Public Class cry_Sale_Ledger
     
     Public Overrides Property FullResourceName() As String
         Get
-            Return "MMSPlus.cry_Sale_Ledger.rpt"
+            Return "MMSPlus.cry_DebtorOutstanding.rpt"
         End Get
         Set
             'Do nothing
@@ -126,7 +126,7 @@ Public Class cry_Sale_Ledger
 End Class
 
 <System.Drawing.ToolboxBitmapAttribute(GetType(CrystalDecisions.[Shared].ExportOptions), "report.bmp")>  _
-Public Class Cachedcry_Sale_Ledger
+Public Class Cachedcry_DebtorOutstanding
     Inherits Component
     Implements ICachedReport
     
@@ -168,7 +168,7 @@ Public Class Cachedcry_Sale_Ledger
     End Property
     
     Public Overridable Function CreateReport() As CrystalDecisions.CrystalReports.Engine.ReportDocument Implements CrystalDecisions.ReportSource.ICachedReport.CreateReport
-        Dim rpt As cry_Sale_Ledger = New cry_Sale_Ledger()
+        Dim rpt As cry_DebtorOutstanding = New cry_DebtorOutstanding()
         rpt.Site = Me.Site
         Return rpt
     End Function
