@@ -39,16 +39,28 @@ Namespace material_rec_against_PO
         Dim _MRN_TYPE As Int32
         Dim _VAT_ON_EXICE As Int32
         Dim _IsPrinted As Int32
+        Dim _CUST_ID As Int32
 
 
-        Public Property Receipt_ID() As Integer
+        Public Property Receipt_ID() As Int32
             Get
                 Receipt_ID = _Receipt_ID
             End Get
-            Set(ByVal value As Integer)
+            Set(ByVal value As Int32)
                 _Receipt_ID = value
             End Set
         End Property
+
+
+        Public Property CUST_ID() As Integer
+            Get
+                CUST_ID = _CUST_ID
+            End Get
+            Set(ByVal value As Integer)
+                _CUST_ID = value
+            End Set
+        End Property
+
         Public Property Invoice_No() As String
             Get
                 Invoice_No = _Invoice_No
@@ -366,12 +378,13 @@ Namespace material_rec_against_PO
             cmd.Parameters.AddWithValue("@v_GST_AMOUNT", clsObj.GST_AMOUNT)
             cmd.Parameters.AddWithValue("@v_NET_AMOUNT", clsObj.NET_AMOUNT)
             cmd.Parameters.AddWithValue("@V_MRN_TYPE", clsObj.MRN_TYPE)
+            cmd.Parameters.AddWithValue("@V_CUST_ID", clsObj.CUST_ID)
 
             cmd.ExecuteNonQuery()
-
-
-
             cmd.Parameters.Clear()
+
+
+
 
             Dim iRowCount As Int32
             Dim iRow As Int32

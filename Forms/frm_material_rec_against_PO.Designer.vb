@@ -36,6 +36,7 @@ Partial Class frm_material_rec_against_PO
         Me.BtnRevisedMRN = New System.Windows.Forms.Button()
         Me.dgvList = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
+        Me.lblMRNType = New System.Windows.Forms.Label()
         Me.lblexciseamt = New System.Windows.Forms.Label()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.Panel19 = New System.Windows.Forms.Panel()
@@ -84,7 +85,7 @@ Partial Class frm_material_rec_against_PO
         Me.Label4 = New System.Windows.Forms.Label()
         Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
         Me.C1FlexGrid1 = New C1.Win.C1FlexGrid.C1FlexGrid()
-        Me.lblMRNType = New System.Windows.Forms.Label()
+        Me.lblcustid = New System.Windows.Forms.Label()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
@@ -309,6 +310,18 @@ Partial Class frm_material_rec_against_PO
         Me.TabPage2.Size = New System.Drawing.Size(902, 600)
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "  "
+        '
+        'lblMRNType
+        '
+        Me.lblMRNType.BackColor = System.Drawing.Color.Transparent
+        Me.lblMRNType.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblMRNType.ForeColor = System.Drawing.Color.DimGray
+        Me.lblMRNType.Location = New System.Drawing.Point(21, 532)
+        Me.lblMRNType.Name = "lblMRNType"
+        Me.lblMRNType.Size = New System.Drawing.Size(64, 20)
+        Me.lblMRNType.TabIndex = 78
+        Me.lblMRNType.Text = "0.00"
+        Me.lblMRNType.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'lblexciseamt
         '
@@ -674,6 +687,7 @@ Partial Class frm_material_rec_against_PO
         'GroupBox1
         '
         Me.GroupBox1.BackColor = System.Drawing.Color.Transparent
+        Me.GroupBox1.Controls.Add(Me.lblcustid)
         Me.GroupBox1.Controls.Add(Me.chk_VatCal)
         Me.GroupBox1.Controls.Add(Me.lblSupplier)
         Me.GroupBox1.Controls.Add(Me.lblSupplierAddress)
@@ -849,17 +863,14 @@ Partial Class frm_material_rec_against_PO
         Me.C1FlexGrid1.Styles = New C1.Win.C1FlexGrid.CellStyleCollection(resources.GetString("C1FlexGrid1.Styles"))
         Me.C1FlexGrid1.TabIndex = 0
         '
-        'lblMRNType
+        'lblcustid
         '
-        Me.lblMRNType.BackColor = System.Drawing.Color.Transparent
-        Me.lblMRNType.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblMRNType.ForeColor = System.Drawing.Color.DimGray
-        Me.lblMRNType.Location = New System.Drawing.Point(21, 532)
-        Me.lblMRNType.Name = "lblMRNType"
-        Me.lblMRNType.Size = New System.Drawing.Size(64, 20)
-        Me.lblMRNType.TabIndex = 78
-        Me.lblMRNType.Text = "0.00"
-        Me.lblMRNType.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.lblcustid.AutoSize = True
+        Me.lblcustid.Location = New System.Drawing.Point(647, 37)
+        Me.lblcustid.Name = "lblcustid"
+        Me.lblcustid.Size = New System.Drawing.Size(29, 13)
+        Me.lblcustid.TabIndex = 29
+        Me.lblcustid.Text = "sync"
         '
         'frm_material_rec_against_PO
         '
@@ -952,4 +963,5 @@ Partial Class frm_material_rec_against_PO
     Friend WithEvents lblexciseamt As System.Windows.Forms.Label
     Friend WithEvents Label14 As System.Windows.Forms.Label
     Friend WithEvents lblMRNType As Label
+    Friend WithEvents lblcustid As System.Windows.Forms.Label
 End Class
