@@ -699,6 +699,12 @@
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Reports\cry_DebtorOutstanding.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>cry_DebtorOutstanding.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Reports\SuppPaymentDetailCrReport.vb">
       <DependentUpon>SuppPaymentDetailCrReport.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -1541,6 +1547,10 @@
     <EmbeddedResource Include="Reports\cry_CreditorOutstanding.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>cry_CreditorOutstanding.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\cry_DebtorOutstanding.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cry_DebtorOutstanding.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\SuppPaymentDetailCrReport.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
