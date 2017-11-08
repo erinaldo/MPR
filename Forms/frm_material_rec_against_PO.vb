@@ -53,8 +53,14 @@ Public Class frm_material_rec_against_PO
         cmbPurchaseOrders.SelectedValue = 0
         dtpReceiveDate.Text = Now.ToString("dd-MMM-yyyy")
         flag = "save"
-
-
+        txt_Invoice_No.Text = ""
+        lblexciseamt.Text = "0.00"
+        lblgrossamt.Text = "0.00"
+        lblvatamt.Text = "0.00"
+        txt_Amount.Text = "0.00"
+        txtotherchrgs.Text = "0.00"
+        txtdiscount.Text = "0.00"
+        lblnetamt.Text = "0.00"
     End Sub
 
     Public Sub RefreshClick(ByVal sender As Object, ByVal e As System.EventArgs) Implements IForm.RefreshClick
@@ -179,6 +185,7 @@ Public Class frm_material_rec_against_PO
                 prop.GST_AMOUNT = Convert.ToDouble(lblvatamt.Text)
                 prop.NET_AMOUNT = Convert.ToDouble(lblnetamt.Text)
                 prop.MRN_TYPE = Convert.ToInt32(lblMRNType.Text)
+                prop.CUST_ID = Convert.ToInt32(lblcustid.Text)
                 If chk_VatCal.Checked = True Then
                     prop.VAT_ON_EXICE = 1
                 Else
@@ -564,11 +571,12 @@ Public Class frm_material_rec_against_PO
         lblPODate.Text = ""
         lblMRNType.Text = ""
 
+
         lblSupplier.Text = Convert.ToString(obj.ExecuteScalar("select ACC_NAME from ACCOUNT_MASTER  WHERE Acc_ID = (select po_supp_id from po_master where po_id = " + po_id + ")"))
         lblSupplierAddress.Text = Convert.ToString(obj.ExecuteScalar("select ADDRESS_PRIM from ACCOUNT_MASTER  WHERE Acc_ID = (select po_supp_id from po_master where po_id = " + po_id + ")"))
         lblPODate.Text = Convert.ToString(obj.ExecuteScalar("select dbo.fn_format(po_date) as po_date from po_master where po_id = " + po_id))
         lblMRNType.Text = Convert.ToString(obj.ExecuteScalar("select PO_TYPE from po_master where po_id = " + po_id))
-
+        lblcustid.Text = Convert.ToString(obj.ExecuteScalar("select po_supp_id from po_master where po_id = " + po_id))
     End Sub
 
     Private Sub Grid_Formatting()

@@ -354,6 +354,25 @@ CREATE TABLE [dbo].[SupplierLedgerMaster](
 ) ON [PRIMARY]
 -------------------------------------------------------------
 
+CREATE TABLE [dbo].[SupplierLedgerDetail](
+	[LedgerDetailId] [numeric](18, 0) NOT NULL,
+	[LedgerId] [numeric](18, 0) NOT NULL,
+	[CashIn] [numeric](18, 2) NULL,
+	[CashOut] [numeric](18, 2) NULL,
+	[Remarks] [varchar](500) NULL,
+	[TransactionId] [int] NULL,
+	[TransactionTypeId] [int] NULL,
+	[TransactionDate] [datetime] NULL,
+	[CreatedBy] [varchar](100) NULL,
+ CONSTRAINT [PK_SupplierLedgerDetail] PRIMARY KEY CLUSTERED 
+(
+	[LedgerDetailId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+-------------------------------------------------------------
 
 CREATE TABLE SupplierSettlementDetail
     (

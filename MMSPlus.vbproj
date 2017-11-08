@@ -711,12 +711,6 @@
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Reports\CryMRNNewWithOutPO.vb">
-      <DependentUpon>CryMRNNewWithOutPO.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <Compile Include="Reports\Cry_Credit_Note.vb">
       <DependentUpon>Cry_Credit_Note.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -963,6 +957,12 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
+    <Compile Include="Reports\CryMRNNewWithOutPO.vb">
+      <DependentUpon>CryMRNNewWithOutPO.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
     <Compile Include="Reports\cryMRNWithOutPOPrint.vb">
       <DependentUpon>cryMRNWithOutPOPrint.rpt</DependentUpon>
       <SubType>Component</SubType>
@@ -1142,12 +1142,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Cry_Debit_Note.rpt</DependentUpon>
       <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Reports\cry_DebtorOutstanding.vb">
-      <DependentUpon>cry_DebtorOutstanding.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Reports\cry_Sale_Invoice.vb">
       <DependentUpon>cry_Sale_Invoice.rpt</DependentUpon>
@@ -1556,10 +1550,6 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>CryGatePass.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Reports\CryMRNNewWithOutPO.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CryMRNNewWithOutPO.vb</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Include="Reports\Cry_Credit_Note.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>Cry_Credit_Note.vb</LastGenOutput>
@@ -1724,6 +1714,10 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>cryMRNlist.vb</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Reports\CryMRNNewWithOutPO.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CryMRNNewWithOutPO.vb</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reports\cryMRNWithOutPOPrint.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>cryMRNWithOutPOPrint.vb</LastGenOutput>
@@ -1852,10 +1846,6 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>Cry_Debit_Note.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Reports\cry_DebtorOutstanding.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>cry_DebtorOutstanding.vb</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Include="Reports\cry_Sale_Invoice.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>cry_Sale_Invoice.vb</LastGenOutput>
@@ -1942,6 +1932,7 @@
     <Content Include="Scripts\Updates\0001_09_oct_2017.sql">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Scripts\Updates\0001_11_Nov_2017.sql" />
     <Content Include="Scripts\Updates\0002_Invoice_14_oct_2017.sql" />
     <Content Include="Scripts\Updates\20171016.sql" />
     <Content Include="Scripts\Updates\0001_28_oct_2017.sql">
