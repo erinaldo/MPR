@@ -164,6 +164,7 @@
     <Compile Include="ClassesRecipe\Cls_Semi_Finished_Item_Master.vb" />
     <Compile Include="Classes\cls_Debit_note.vb" />
     <Compile Include="Classes\cls_Division_Settings.vb" />
+    <Compile Include="Classes\cls_GatePass.vb" />
     <Compile Include="Classes\cls_Invoice_Settlement.vb" />
     <Compile Include="Classes\cls_Material_Received_Without_PO.vb">
       <SubType>Code</SubType>
@@ -181,6 +182,7 @@
     <Compile Include="Classes\cls_wastage_master_cc.vb" />
     <Compile Include="Classes\cls_Sale_Invoice.vb" />
     <Compile Include="Classes\cls_Credit_note.vb" />
+    <Compile Include="Classes\cls_Supplier_Invoice_Settlement.vb" />
     <Compile Include="Classes\MyReportDocument.vb">
       <SubType>Component</SubType>
     </Compile>
@@ -233,6 +235,18 @@
     <Compile Include="CostCenterForms\frm_Wastage Master_cc.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Forms\frm_Supplier_Invoice_Settlement.Designer.vb">
+      <DependentUpon>frm_Supplier_Invoice_Settlement.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frm_Supplier_Invoice_Settlement.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\frm_GatePass.Designer.vb">
+      <DependentUpon>frm_GatePass.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frm_GatePass.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Forms\frm_OpenSale_Invoice.Designer.vb">
       <DependentUpon>frm_OpenSale_Invoice.vb</DependentUpon>
     </Compile>
@@ -245,17 +259,10 @@
     <Compile Include="Forms\frm_CreditNote.vb">
       <SubType>UserControl</SubType>
     </Compile>
-<<<<<<< HEAD
-    <Compile Include="Forms\frm_Gate_Pass.Designer.vb">
-      <DependentUpon>frm_Gate_Pass.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\frm_Gate_Pass.vb">
-=======
     <Compile Include="Forms\frm_Invoice_Settlement.Designer.vb">
       <DependentUpon>frm_Invoice_Settlement.vb</DependentUpon>
     </Compile>
     <Compile Include="Forms\frm_Invoice_Settlement.vb">
->>>>>>> 538ca16c96e3d8a2ffc1cb7218c6d492199c0b95
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Forms\frm_RateList_Mapping.Designer.vb">
@@ -453,6 +460,12 @@
       <DependentUpon>frmStockValue.vb</DependentUpon>
     </Compile>
     <Compile Include="ReportsForms\frmStockValue.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ReportsForms\frm_DebtorsOS.Designer.vb">
+      <DependentUpon>frm_DebtorsOS.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ReportsForms\frm_DebtorsOS.vb">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="ReportsForms\Frm_IndentPrint.Designer.vb">
@@ -679,6 +692,30 @@
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\cry_CreditorOutstanding.vb">
+      <DependentUpon>cry_CreditorOutstanding.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reports\SuppPaymentDetailCrReport.vb">
+      <DependentUpon>SuppPaymentDetailCrReport.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reports\CryGatePass.vb">
+      <DependentUpon>CryGatePass.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reports\Cry_Credit_Note.vb">
+      <DependentUpon>Cry_Credit_Note.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Reports\CryCustomerrateList.vb">
       <DependentUpon>CryCustomerrateList.rpt</DependentUpon>
@@ -1100,6 +1137,21 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
+    <Compile Include="Reports\Cry_Debit_Note.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Cry_Debit_Note.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+<<<<<<< HEAD
+=======
+    <Compile Include="Reports\cry_DebtorOutstanding.vb">
+      <DependentUpon>cry_DebtorOutstanding.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+>>>>>>> d73419f4acb2d293ead292a19b0e39a62da11c50
     <Compile Include="Reports\cry_Sale_Invoice.vb">
       <DependentUpon>cry_Sale_Invoice.rpt</DependentUpon>
       <SubType>Component</SubType>
@@ -1166,6 +1218,12 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
+    <Compile Include="Reports\PaymentDetailCrReport.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PaymentDetailCrReport.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Reports\tcryMaterialRecAgainstPOPrint.vb">
       <DependentUpon>tcryMaterialRecAgainstPOPrint.rpt</DependentUpon>
       <SubType>Component</SubType>
@@ -1212,6 +1270,12 @@
       <DependentUpon>frm_Wastage Master_cc.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frm_Supplier_Invoice_Settlement.resx">
+      <DependentUpon>frm_Supplier_Invoice_Settlement.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frm_GatePass.resx">
+      <DependentUpon>frm_GatePass.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\frm_OpenSale_Invoice.resx">
       <DependentUpon>frm_OpenSale_Invoice.vb</DependentUpon>
       <SubType>Designer</SubType>
@@ -1220,13 +1284,8 @@
       <DependentUpon>frm_CreditNote.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-<<<<<<< HEAD
-    <EmbeddedResource Include="Forms\frm_Gate_Pass.resx">
-      <DependentUpon>frm_Gate_Pass.vb</DependentUpon>
-=======
     <EmbeddedResource Include="Forms\frm_Invoice_Settlement.resx">
       <DependentUpon>frm_Invoice_Settlement.vb</DependentUpon>
->>>>>>> 538ca16c96e3d8a2ffc1cb7218c6d492199c0b95
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frm_RateList_Mapping.resx">
       <DependentUpon>frm_RateList_Mapping.vb</DependentUpon>
@@ -1360,6 +1419,9 @@
       <SubType>Designer</SubType>
       <DependentUpon>frmStockValue.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ReportsForms\frm_DebtorsOS.resx">
+      <DependentUpon>frm_DebtorsOS.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ReportsForms\Frm_IndentPrint.resx">
       <DependentUpon>Frm_IndentPrint.vb</DependentUpon>
       <SubType>Designer</SubType>
@@ -1485,6 +1547,22 @@
       <DependentUpon>MDIMain.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\licenses.licx" />
+    <EmbeddedResource Include="Reports\cry_CreditorOutstanding.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cry_CreditorOutstanding.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\SuppPaymentDetailCrReport.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>SuppPaymentDetailCrReport.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\CryGatePass.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CryGatePass.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Cry_Credit_Note.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Cry_Credit_Note.vb</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reports\CryCustomerrateList.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>CryCustomerrateList.vb</LastGenOutput>
@@ -1773,6 +1851,17 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>cry_DC_Sale_Invoice.vb</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Cry_Debit_Note.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Cry_Debit_Note.vb</LastGenOutput>
+    </EmbeddedResource>
+<<<<<<< HEAD
+=======
+    <EmbeddedResource Include="Reports\cry_DebtorOutstanding.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cry_DebtorOutstanding.vb</LastGenOutput>
+    </EmbeddedResource>
+>>>>>>> d73419f4acb2d293ead292a19b0e39a62da11c50
     <EmbeddedResource Include="Reports\cry_Sale_Invoice.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>cry_Sale_Invoice.vb</LastGenOutput>
@@ -1817,6 +1906,10 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>NonMovingItems.vb</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Reports\PaymentDetailCrReport.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>PaymentDetailCrReport.vb</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reports\tcryMaterialRecAgainstPOPrint.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>tcryMaterialRecAgainstPOPrint.vb</LastGenOutput>
@@ -1849,13 +1942,25 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bin\Debug\connection.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Scripts\Updates\0001_09_oct_2017.sql">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Scripts\Updates\0001_11_Nov_2017.sql" />
+    <Content Include="Scripts\Updates\0002_Invoice_14_oct_2017.sql" />
+    <Content Include="Scripts\Updates\20171016.sql" />
+    <Content Include="Scripts\Updates\0001_28_oct_2017.sql">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Scripts\Updates\DivisionSettings_23_oct_2017.sql" />
+    <Content Include="Scripts\Updates\GatePass_23_oct_2017.sql" />
+    <Content Include="Scripts\Updates\MRN_PO_281017.sql" />
+    <Content Include="Scripts\Updates\PODetail_271017.sql" />
     <None Include="app.config" />
     <None Include="ClassDiagram1.cd" />
     <None Include="Images and Icons\Report.ico" />
-    <Content Include="bin\Debug\connection.xml" />
     <Content Include="DLL\MTGCCombobox.dll" />
     <None Include="Images and Icons\Approve PO.jpg" />
     <None Include="Images and Icons\Cancel PO.jpg" />
