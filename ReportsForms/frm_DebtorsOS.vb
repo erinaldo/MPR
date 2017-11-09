@@ -28,10 +28,10 @@ Public Class frm_DebtorsOS
             'End If
             rep.Load(filepath)
 
-            If cmbSupplier.SelectedValue = 0 Then
-                rep.SetParameterValue("AccId", DBNull.Value)
-            Else
-                rep.SetParameterValue("AccId", cmbSupplier.SelectedValue)
+        If cmbSupplier.SelectedValue < 0 Then
+            rep.SetParameterValue("AccId", "null")
+        Else
+            rep.SetParameterValue("AccId", cmbSupplier.SelectedValue)
             End If
 
             rep.SetParameterValue("Date", txtDateSearch.Value.Date)

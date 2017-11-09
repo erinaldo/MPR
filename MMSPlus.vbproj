@@ -705,6 +705,12 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
+    <Compile Include="Reports\CryCustomerrateList1.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CryCustomerrateList.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Reports\cry_CreditorOutstanding.vb">
       <DependentUpon>cry_CreditorOutstanding.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -735,8 +741,8 @@
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Reports\CryCustomerrateList.vb">
-      <DependentUpon>CryCustomerrateList.rpt</DependentUpon>
+    <Compile Include="Reports\CryDebtorsLedger.vb">
+      <DependentUpon>CryDebtorsLedger.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
@@ -1562,6 +1568,10 @@
       <DependentUpon>MDIMain.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\licenses.licx" />
+    <EmbeddedResource Include="Reports\CryCustomerrateList.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CryCustomerrateList1.vb</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reports\cry_CreditorOutstanding.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>cry_CreditorOutstanding.vb</LastGenOutput>
@@ -1582,9 +1592,9 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>Cry_Credit_Note.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Reports\CryCustomerrateList.rpt">
+    <EmbeddedResource Include="Reports\CryDebtorsLedger.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CryCustomerrateList.vb</LastGenOutput>
+      <LastGenOutput>CryDebtorsLedger.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\cryAdjustmentPrint.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
