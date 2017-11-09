@@ -22,7 +22,7 @@ Public Class frm_DebtorsLedger
     Public Sub ReportOS()
         Dim filepath As String = ""
         Dim rep As New ReportDocument()
-        filepath = ReportFilePath & "cry_DebtorOutstanding.rpt"
+        filepath = ReportFilePath & "CryDebtorsLedger.rpt"
 
         rep.Load(filepath)
 
@@ -107,7 +107,7 @@ Public Class frm_DebtorsLedger
 
     Private Sub btnShow_Click(sender As Object, e As EventArgs) Handles btnShow.Click
         Try
-            If cmbSupplier.SelectedIndex < 0 Then
+            If cmbSupplier.SelectedIndex <= 0 Then
                 MsgBox("Please select Customer.", MsgBoxStyle.Information, gblMessageHeading)
                 Exit Sub
             End If
