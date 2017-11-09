@@ -360,9 +360,9 @@ Partial Class frm_Supplier_Invoice_Settlement
         Me.chkBoxDistributeAmount.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.chkBoxDistributeAmount.Location = New System.Drawing.Point(9, 271)
         Me.chkBoxDistributeAmount.Name = "chkBoxDistributeAmount"
-        Me.chkBoxDistributeAmount.Size = New System.Drawing.Size(524, 22)
+        Me.chkBoxDistributeAmount.Size = New System.Drawing.Size(525, 22)
         Me.chkBoxDistributeAmount.TabIndex = 9
-        Me.chkBoxDistributeAmount.Text = "Distribute Received && Advanced Amount among unsettled Invoices"
+        Me.chkBoxDistributeAmount.Text = "Distribute Released && Advanced Amount among unsettled Invoices"
         Me.chkBoxDistributeAmount.UseVisualStyleBackColor = True
         '
         'dtpReferenceDate
@@ -797,9 +797,9 @@ Partial Class frm_Supplier_Invoice_Settlement
         Me.chkBoxDistributeAmountApprove.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.chkBoxDistributeAmountApprove.Location = New System.Drawing.Point(9, 293)
         Me.chkBoxDistributeAmountApprove.Name = "chkBoxDistributeAmountApprove"
-        Me.chkBoxDistributeAmountApprove.Size = New System.Drawing.Size(524, 22)
+        Me.chkBoxDistributeAmountApprove.Size = New System.Drawing.Size(525, 22)
         Me.chkBoxDistributeAmountApprove.TabIndex = 9
-        Me.chkBoxDistributeAmountApprove.Text = "Distribute Received && Advanced Amount among unsettled Invoices"
+        Me.chkBoxDistributeAmountApprove.Text = "Distribute Released && Advanced Amount among unsettled Invoices"
         Me.chkBoxDistributeAmountApprove.UseVisualStyleBackColor = True
         '
         'Label7

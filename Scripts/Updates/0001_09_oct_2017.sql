@@ -87,8 +87,7 @@ ON  [PRIMARY]
 
 CREATE TABLE CustomerSettlementDetail
     (
-      PaymentTransactionId NUMERIC NOT NULL ,
-      InvoicePaymentId NUMERIC NOT NULL ,
+      PaymentTransactionId NUMERIC NOT NULL ,   
       InvoiceId NUMERIC NOT NULL ,
       AmountSettled NUMERIC(18, 2) NOT NULL ,
       Remarks VARCHAR(200) ,
