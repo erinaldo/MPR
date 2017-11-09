@@ -27,8 +27,8 @@ Public Class frm_CreditorsOS
         'End If
         rep.Load(filepath)
 
-        If cmbSupplier.SelectedValue = 0 Then
-            rep.SetParameterValue("AccId", DBNull.Value)
+        If cmbSupplier.SelectedValue < 0 Then
+            rep.SetParameterValue("AccId", "null")
         Else
             rep.SetParameterValue("AccId", cmbSupplier.SelectedValue)
         End If
