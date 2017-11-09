@@ -456,6 +456,12 @@
     <Compile Include="RecipeForms\frm_Semi_Finished_Recipe_Master.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="ReportsForms\frm_CreditorsOS.Designer.vb">
+      <DependentUpon>frm_CreditorsOS.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ReportsForms\frm_CreditorsOS.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="ReportsForms\frmStockValue.Designer.vb">
       <DependentUpon>frmStockValue.vb</DependentUpon>
     </Compile>
@@ -1411,6 +1417,9 @@
     <EmbeddedResource Include="RecipeForms\frm_Semi_Finished_Recipe_Master.resx">
       <DependentUpon>frm_Semi_Finished_Recipe_Master.vb</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportsForms\frm_CreditorsOS.resx">
+      <DependentUpon>frm_CreditorsOS.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ReportsForms\frmStockValue.resx">
       <SubType>Designer</SubType>
