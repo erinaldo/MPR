@@ -1971,6 +1971,7 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Scripts\Updates\0001_11_Nov_2017.sql" />
+    <Content Include="Scripts\Updates\0001_12_Nov_2017.sql" />
     <Content Include="Scripts\Updates\0002_Invoice_14_oct_2017.sql" />
     <Content Include="Scripts\Updates\20171016.sql" />
     <Content Include="Scripts\Updates\0001_28_oct_2017.sql">
