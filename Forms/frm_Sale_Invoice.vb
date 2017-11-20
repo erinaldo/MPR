@@ -11,6 +11,7 @@ Public Class frm_Sale_Invoice
     Dim prpty As cls_Sale_Invoice_prop
     Dim flag As String
     Dim Si_ID As Int16
+    Dim Si_No As Int16
     Dim gstnoRegex As New Regex("^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$")
     Dim mobileRegex As New Regex("^\d{10}$")
     Dim dtable_Item_List As DataTable
@@ -95,82 +96,98 @@ Public Class frm_Sale_Invoice
                 Exit Sub
             End If
 
+
+            If _rights.allow_trans = "N" Then
+                RightsMsg()
+                Exit Sub
+            End If
+
+            prpty = New cls_Sale_Invoice_prop
+
+            Dim ds1 As DataSet = obj.FillDataSet("Select isnull(max(SI_ID),0) + 1 from dbo.SALE_INVOICE_MASTER")
             If flag = "save" Then
-                If _rights.allow_trans = "N" Then
-                    RightsMsg()
-                    Exit Sub
-                End If
-
-                prpty = New cls_Sale_Invoice_prop
-
-                Dim ds1 As DataSet = obj.FillDataSet("Select isnull(max(SI_ID),0) + 1 from dbo.SALE_INVOICE_MASTER")
                 Si_ID = Convert.ToInt32(ds1.Tables(0).Rows(0)(0))
-                prpty.SI_ID = Si_ID
+            End If
 
-                Dim ds As New DataSet()
-                ds = obj.fill_Data_set("GET_INV_NO", "@DIV_ID", v_the_current_division_id)
-                If ds.Tables(0).Rows.Count = 0 Then
+            prpty.SI_ID = Si_ID
+
+
+
+            Dim ds As New DataSet()
+            ds = obj.fill_Data_set("GET_INV_NO", "@DIV_ID", v_the_current_division_id)
+            If ds.Tables(0).Rows.Count = 0 Then
+                MsgBox("Invoice series does not exists", MsgBoxStyle.Information, gblMessageHeading)
+                ds.Dispose()
+                Exit Sub
+            Else
+                If ds.Tables(0).Rows(0)(0).ToString() = "-1" Then
                     MsgBox("Invoice series does not exists", MsgBoxStyle.Information, gblMessageHeading)
                     ds.Dispose()
                     Exit Sub
+                ElseIf ds.Tables(0).Rows(0)(0).ToString() = "-2" Then
+                    MsgBox("Invoice series has been completed", MsgBoxStyle.Information, gblMessageHeading)
+                    ds.Dispose()
+                    Exit Sub
                 Else
-                    If ds.Tables(0).Rows(0)(0).ToString() = "-1" Then
-                        MsgBox("Invoice series does not exists", MsgBoxStyle.Information, gblMessageHeading)
-                        ds.Dispose()
-                        Exit Sub
-                    ElseIf ds.Tables(0).Rows(0)(0).ToString() = "-2" Then
-                        MsgBox("Invoice series has been completed", MsgBoxStyle.Information, gblMessageHeading)
-                        ds.Dispose()
-                        Exit Sub
-                    Else
-                        prpty.SI_CODE = ds.Tables(0).Rows(0)(0).ToString()
-                        prpty.SI_NO = Convert.ToDecimal(ds.Tables(0).Rows(0)(1).ToString()) + 1
-                        ds.Dispose()
-                    End If
+                    prpty.SI_CODE = ds.Tables(0).Rows(0)(0).ToString()
+                    prpty.SI_NO = Convert.ToDecimal(ds.Tables(0).Rows(0)(1).ToString()) + 1
+                    ds.Dispose()
                 End If
+            End If
+            prpty.DC_GST_NO = Convert.ToDecimal(ds.Tables(0).Rows(0)(1).ToString()) + 1
+            prpty.SI_DATE = Now
 
-                prpty.DC_GST_NO = Convert.ToDecimal(ds.Tables(0).Rows(0)(1).ToString()) + 1
-                prpty.SI_DATE = Now
-                prpty.CUST_ID = cmbSupplier.SelectedValue
-                prpty.INVOICE_STATUS = Convert.ToInt32(GlobalModule.InvoiceStatus.Clear)
-                prpty.REMARKS = ""
-                prpty.PAYMENTS_REMARKS = ""
 
-                If rbtn_Cash.Checked Then
-                    prpty.SALE_TYPE = "Cash"
-                Else
-                    prpty.SALE_TYPE = "Credit"
-                End If
-
-                prpty.GROSS_AMOUNT = Convert.ToDouble(lblItemValue.Text)
-                prpty.VAT_AMOUNT = Convert.ToDouble(lblVatAmount.Text)
-                prpty.NET_AMOUNT = Convert.ToDouble(lblNetAmount.Text)
-                prpty.IS_SAMPLE = 0
-                prpty.DELIVERY_NOTE_NO = 0
-                prpty.VAT_CST_PER = 0
-                prpty.SAMPLE_ADDRESS = lblAddress.Text
-                prpty.CREATED_BY = v_the_current_logged_in_user_name
-                prpty.CREATION_DATE = Now
-                prpty.MODIFIED_BY = ""
-                prpty.MODIFIED_DATE = NULL_DATE
-                prpty.DIVISION_ID = v_the_current_division_id
-                prpty.TRANSPORT = txtTransport.Text
-                prpty.VEHICLE_NO = txtvechicle_no.Text 'Convert.ToInt32(cmbOutlet.SelectedValue)
-                prpty.SHIPP_ADD_ID = 0
-                prpty.INV_TYPE = cmbinvtype.SelectedItem
-                prpty.LR_NO = txt_LRNO.Text
-                prpty.dtable_Item_List = dtable_Item_List
-                clsObj.Insert_SALE_INVOICE_MASTER(prpty)
-
+            If (flag = "Update") Then
+                prpty.SI_ID = Si_ID
+                prpty.SI_NO = Si_No
             End If
 
 
+            prpty.CUST_ID = cmbSupplier.SelectedValue
+            prpty.INVOICE_STATUS = Convert.ToInt32(GlobalModule.InvoiceStatus.Clear)
+            prpty.REMARKS = ""
+            prpty.PAYMENTS_REMARKS = ""
+
+            If rbtn_Cash.Checked Then
+                prpty.SALE_TYPE = "Cash"
+            Else
+                prpty.SALE_TYPE = "Credit"
+            End If
+
+
+
+            
+            prpty.GROSS_AMOUNT = Convert.ToDouble(lblItemValue.Text)
+            prpty.VAT_AMOUNT = Convert.ToDouble(lblVatAmount.Text)
+            prpty.NET_AMOUNT = Convert.ToDouble(lblNetAmount.Text)
+            prpty.IS_SAMPLE = 0
+            prpty.DELIVERY_NOTE_NO = 0
+            prpty.VAT_CST_PER = 0
+            prpty.SAMPLE_ADDRESS = lblAddress.Text
+            prpty.CREATED_BY = v_the_current_logged_in_user_name
+            prpty.CREATION_DATE = Now
+            prpty.MODIFIED_BY = ""
+            prpty.MODIFIED_DATE = NULL_DATE
+            prpty.DIVISION_ID = v_the_current_division_id
+            prpty.TRANSPORT = txtTransport.Text
+            prpty.VEHICLE_NO = txtvechicle_no.Text 'Convert.ToInt32(cmbOutlet.SelectedValue)
+            prpty.SHIPP_ADD_ID = 0
+            prpty.INV_TYPE = cmbinvtype.SelectedItem
+            prpty.LR_NO = txt_LRNO.Text
+            prpty.dtable_Item_List = dtable_Item_List
+
             If flag = "save" Then
+
+                clsObj.Insert_SALE_INVOICE_MASTER(prpty)
                 If MsgBox("Invoice information has been Saved." & vbCrLf & "Do You Want to Print Preview.", MsgBoxStyle.Question + MsgBoxStyle.YesNo, gblMessageHeading) = MsgBoxResult.Yes Then
                     obj.RptShow(enmReportName.RptInvoicePrint, "Si_ID", CStr(prpty.SI_ID), CStr(enmDataType.D_int))
                 End If
             Else
-                MsgBox("You Can't edit this.")
+                clsObj.Update_SALE_INVOICE_MASTER(prpty)
+                If MsgBox("Invoice information has been Updated." & vbCrLf & "Do You Want to Print Preview.", MsgBoxStyle.Question + MsgBoxStyle.YesNo, gblMessageHeading) = MsgBoxResult.Yes Then
+                    obj.RptShow(enmReportName.RptInvoicePrint, "Si_ID", CStr(prpty.SI_ID), CStr(enmDataType.D_int))
+                End If
             End If
             fill_grid()
             new_initilization()
@@ -346,7 +363,6 @@ again:
         End Try
     End Sub
 
-
     'Private Sub format_grid()
 
     '    flxItems.Cols(0).Width = 10
@@ -396,6 +412,7 @@ again:
     '    flxItems.Cols("Stock_Detail_Id").Visible = False
 
     'End Sub
+
     Private Sub format_grid()
 
         flxItems.Cols(0).Width = 10
@@ -537,7 +554,7 @@ again:
             If cmbSupplier.SelectedIndex > 0 Then
 
                 Dim iRowindex As Int32
-                If flag = "save" Then
+                If flag = "save" Or flag = "update" Then
                     If e.KeyCode = Keys.Space Then
                         iRowindex = flxItems.Row
 
@@ -603,9 +620,11 @@ restart:
                                     GoTo restart
                                 End If
                             Next
-                            '        dt.AcceptChanges()
+                            'dt.AcceptChanges()
                         End If
                     End If
+                    CalculateAmount()
+                    generate_tree()
                 End If
 
             Else
@@ -754,7 +773,57 @@ restart:
     End Sub
 
     Private Sub flxList_DoubleClick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles flxList.DoubleClick
-        MsgBox("You Can't Edit this Invoice." & vbCrLf & "Please click in print to view/print this Invoice/ DC.", MsgBoxStyle.Information)
+
+        'MsgBox("You Can't Edit this Invoice." & vbCrLf & "Please click in print to view/print this Invoice/ DC.", MsgBoxStyle.Information)
+        new_initilization()
+
+        flag = "update"
+        Si_ID = Convert.ToInt32(flxList("Si_ID", flxList.CurrentCell.RowIndex).Value())
+        fill_InvoiceDetail(Si_ID)
+
+
+
+    End Sub
+
+    Private Sub fill_InvoiceDetail(ByVal strSIID As Integer)
+        Dim dt As DataTable
+
+        dt = clsObj.fill_Data_set("GET_INV_DETAIL", "@V_SI_ID", strSIID.ToString()).Tables(0)
+        If dt.Rows.Count > 0 Then
+            Dim dr As DataRow = dt.Rows(0)
+            Si_No = dr("INVNO")
+            lbl_INVNo.Text = dr("SI_NO")
+            lbl_TransferDate.Text = Convert.ToDateTime(dr("InvDate"))
+
+            If dr("SALE_TYPE").ToString().Trim() = "Credit" Then
+                rdbtn_credit.Checked = True
+            Else
+                rbtn_Cash.Checked = True
+            End If
+
+            cmbSupplier.SelectedValue = dr("CUST_ID")
+            txtvechicle_no.Text = dr("VEHICLE_NO")
+            txtTransport.Text = dr("TRANSPORT")
+            txt_LRNO.Text = dr("LR_NO")
+            cmbinvtype.Text = dr("INV_TYPE")
+
+            dtable_Item_List = clsObj.fill_Data_set("GET_INV_ITEM_DETAILS", "@V_SI_ID", strSIID).Tables(0)
+
+
+
+            flxItems.DataSource = dtable_Item_List
+
+            format_grid()
+            'table_style()
+            generate_tree()
+            CalculateAmount()
+
+        End If
+
+
+
+
+
     End Sub
 
     Private Sub cmbSupplier_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmbSupplier.SelectedIndexChanged
