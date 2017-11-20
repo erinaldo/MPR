@@ -39,7 +39,8 @@ Public Class MDIMain
         End If
     End Sub
 
-    Private Sub Menu_Item_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles frm_Item_Master.Click, frm_Cost_Center.Click, frm_user_master.Click, frm_user_rights.Click, frm_Approve_Indent.Click, frm_Cancel_Indent.Click, frm_Purchase_Order.Click, frm_Supplier_Rate_List_Master.Click, frm_Open_PO_Master.Click, frm_Material_Issue_To_Cost_Center_Master.Click, frm_LedgerSummary.Click, frm_MRNDetails.Click, frm_IssueDetail.Click, frm_Approve_PO.Click, frm_Cancel_PO.Click, frm_Approve_Open_PO.Click, frm_Cancel_Open_PO.Click, frm_Indent_Master.Click, frm_Wastage_Master.Click, frm_Material_Received_Without_PO_Master.Click, frm_material_rec_against_PO.Click, frm_Reverse_Wastage_Master.Click, frm_ReverseMaterial_Issue_To_Cost_Center_Master.Click, frm_ReverseMaterial_Received_Without_PO_Master.Click, frm_LedgerSummary.Click, frm_DebitNote.Click, frm_ReverseMaterial_Received_Against_PO_Master.Click, frm_ReverseMaterial.Click, ItemWiseMaterialIssueToCostCenterToolStripMenuItem.Click, CostofIssueReport.Click, ItemWiseMaterialIssueToCostCenterCatHeadWiseToolStripMenuItem.Click, frm_Item_Ledger.Click, frm_StockAdjustment.Click, frm_Item_rate_list.Click, Purchase_rpt.Click, frm_Semi_Finished_Recipe_Master.Click, frm_Recipe_Master.Click, frm_menu_item_recipe.Click, frm_define_recipe.Click, frm_Define_SemiFinished_Recipe.Click, LastPurchaseratelist.Click, frm_ListIndents.Click, ItemWiseIndentbetweenDatesCategoryHeadWiseToolStripMenuItem.Click, frm_ListIndentDetail.Click, frm_ItemWiseIndent.Click, ItemWiseMRSBetweenDatesCategoryHeadWiseToolStripMenuItem.Click, frm_MRSListMStore.Click, frm_MRSDetailMStore.Click, frm_ItemWiseMRSMStore.Click, ItemWiseWastagebetweenDatesCategoryHeadWiseToolStripMenuItem.Click, frm_WastageItemWise.Click, frm_WastageItemDetail.Click, frm_mrnItemWiseSupplier.Click, frm_ListMRNDetail.Click, frm_ListMRN_supplierwise.Click, frm_ListMRN.Click, frm_ItemWiseMRN.Click, StockValueCategoryWise.Click, frmStockValueBatchWise.Click, frmStockValue.Click, frm_MRNWithPOSUPWISEe.Click, frm_mrnPOItemWiseSupplier.Click, cmd_ListMRNwithPO.Click, cmd_ItemWiseMRNwithPO.Click, cmd_DetailMRNwithPO.Click, AllPurchaseRate.Click, NonMovingItemList.Click, frm_Sale_Invoice.Click, frmsaleInvoicesummary.Click, frmSaleInvoiceDetail.Click, frm_CreditNote.Click, frm_Customer_Rate_List_Master.Click, frm_open_invoice.Click, frm_Invoice_Settlement.Click, frm_OpenSale_Invoice.Click, frm_GatePass.Click, frm_Supplier_Invoice_Settlement.Click, frm_DebtorsOS.Click, frm_CreditorsOS.Click, frm_DebtorsLedger.Click
+    Private Sub Menu_Item_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles frm_Item_Master.Click, frm_Cost_Center.Click, frm_user_master.Click, frm_user_rights.Click, frm_Approve_Indent.Click, frm_Cancel_Indent.Click, frm_Purchase_Order.Click, frm_Supplier_Rate_List_Master.Click, frm_Open_PO_Master.Click, frm_Material_Issue_To_Cost_Center_Master.Click, frm_LedgerSummary.Click, frm_MRNDetails.Click, frm_IssueDetail.Click, frm_Approve_PO.Click, frm_Cancel_PO.Click, frm_Approve_Open_PO.Click, frm_Cancel_Open_PO.Click, frm_Indent_Master.Click, frm_Wastage_Master.Click, frm_Material_Received_Without_PO_Master.Click, frm_material_rec_against_PO.Click, frm_Reverse_Wastage_Master.Click, frm_ReverseMaterial_Issue_To_Cost_Center_Master.Click, frm_ReverseMaterial_Received_Without_PO_Master.Click, frm_LedgerSummary.Click, frm_DebitNote.Click, frm_ReverseMaterial_Received_Against_PO_Master.Click, frm_ReverseMaterial.Click, ItemWiseMaterialIssueToCostCenterToolStripMenuItem.Click, CostofIssueReport.Click, ItemWiseMaterialIssueToCostCenterCatHeadWiseToolStripMenuItem.Click, frm_Item_Ledger.Click, frm_StockAdjustment.Click, frm_Item_rate_list.Click, Purchase_rpt.Click, frm_Semi_Finished_Recipe_Master.Click, frm_Recipe_Master.Click, frm_menu_item_recipe.Click, frm_define_recipe.Click, frm_Define_SemiFinished_Recipe.Click, LastPurchaseratelist.Click, frm_ListIndents.Click, ItemWiseIndentbetweenDatesCategoryHeadWiseToolStripMenuItem.Click, frm_ListIndentDetail.Click, frm_ItemWiseIndent.Click, ItemWiseMRSBetweenDatesCategoryHeadWiseToolStripMenuItem.Click, frm_MRSListMStore.Click, frm_MRSDetailMStore.Click, frm_ItemWiseMRSMStore.Click, ItemWiseWastagebetweenDatesCategoryHeadWiseToolStripMenuItem.Click, frm_WastageItemWise.Click, frm_WastageItemDetail.Click, frm_mrnItemWiseSupplier.Click, frm_ListMRNDetail.Click, frm_ListMRN_supplierwise.Click, frm_ListMRN.Click, frm_ItemWiseMRN.Click, StockValueCategoryWise.Click, frmStockValueBatchWise.Click, frmStockValue.Click, frm_MRNWithPOSUPWISEe.Click, frm_mrnPOItemWiseSupplier.Click, cmd_ListMRNwithPO.Click, cmd_ItemWiseMRNwithPO.Click, cmd_DetailMRNwithPO.Click, AllPurchaseRate.Click, NonMovingItemList.Click, frm_Sale_Invoice.Click, frmsaleInvoicesummary.Click, frmSaleInvoiceDetail.Click, frm_CreditNote.Click, frm_Customer_Rate_List_Master.Click, frm_open_invoice.Click, frm_Invoice_Settlement.Click, frm_OpenSale_Invoice.Click, frm_GatePass.Click, frm_Supplier_Invoice_Settlement.Click, frm_DebtorsOS.Click, frm_CreditorsOS.Click, frm_DebtorsLedger.Click, frm_CreditorsLedger.Click
+
         Dim menuItem As New ToolStripMenuItem
 
         If TypeOf sender Is ToolStripMenuItem Then
@@ -167,6 +168,10 @@ Public Class MDIMain
                         tbp.Text = "Debtors Ledger"
                         tbp.Controls.Add(New frm_DebtorsLedger(prpty_form_rights))
 
+                    Case UCase("frm_CreditorsLedger")
+                        tbp.Text = "Creditors Ledger"
+                        tbp.Controls.Add(New frm_CreditorsLedger(prpty_form_rights))
+
 
                     Case UCase("frm_Material_Received_Without_PO_Master")
                         tbp.Text = "MRN Without P.O."
@@ -257,7 +262,7 @@ Public Class MDIMain
                     Case UCase("ItemWiseWastagebetweenDatesCategoryHeadWiseToolStripMenuItem")
                         tbp.Text = "Item Wise Wastage Detail Category Head Wise."
                         tbp.Controls.Add(New frm_ReportInput(enmReportName.RptItemwiseWastageCategoryHeadWisePrint, prpty_form_rights))
-                        ''''''''Wastage Detail Reports''''''''''''''''''''''''''''''''''''''''''
+                    ''''''''Wastage Detail Reports''''''''''''''''''''''''''''''''''''''''''
                     Case UCase("StockValueCategoryWise")
                         tbp.Text = "Stock Value Category Wise"
                         gblSelectedReportName = enmReportName.RptStockValueCategoryWise
@@ -274,7 +279,7 @@ Public Class MDIMain
                     Case UCase("frm_ReverseMaterial_Received_Against_PO_Master")
                         tbp.Text = " Reverse Material Receive Against PO"
                         tbp.Controls.Add(New frm_ReverseMaterial_Received_Against_PO_Master(prpty_form_rights))
-                        ''''''''Indent
+                    ''''''''Indent
 
                     Case UCase("frm_ItemWiseIndent")
                         tbp.Text = " Item Wise Indent Detail"
@@ -283,16 +288,16 @@ Public Class MDIMain
                     Case UCase("frm_ListIndents")
                         tbp.Text = " List Of Indents"
                         tbp.Controls.Add(New frm_ReportInput(enmReportName.RptListofIndent, prpty_form_rights))
-                        '''''''''''''MRN WithOut PO '''''''''''
+                    '''''''''''''MRN WithOut PO '''''''''''
                     Case UCase("frm_ListMRN_supplierwise")
                         tbp.Text = "List of MRN without PO (Supplier Wise)"
                         tbp.Controls.Add(New frm_ReportInput(enmReportName.RptListofMRNWithOutPO_WithoutSupplier, prpty_form_rights))
                     Case UCase("frm_mrnItemWiseSupplier")
                         tbp.Text = "List of MRN without PO(Item Wise)"
                         tbp.Controls.Add(New frm_ReportInput(enmReportName.RptListofMRNWithOutPO_ItemWiseSuppliers, prpty_form_rights))
-                        ''''''''''''''''''''''''''''''''
-                        'Done by Aman
-                        ''''''''''''''''''''''''''''''''
+                    ''''''''''''''''''''''''''''''''
+                    'Done by Aman
+                    ''''''''''''''''''''''''''''''''
                     Case UCase("frm_mrnPOItemWiseSupplier")
                         tbp.Text = "List of MRN with PO(Item Wise)"
                         'tbp.Controls.Add(New frm_ReportInput(enmReportName.RptListofMRNWithPO_ItemWiseSuppliers, prpty_form_rights))
@@ -307,7 +312,7 @@ Public Class MDIMain
                     Case UCase("frm_ListMRNDetail")
                         tbp.Text = "List Of MRN Detail(Without PO)"
                         tbp.Controls.Add(New frm_ReportInput(enmReportName.RptListofMRNDetailWithOutPO, prpty_form_rights))
-                        ''''''''''''''MRN With PO'''''''''''''''
+                    ''''''''''''''MRN With PO'''''''''''''''
                     Case UCase("cmd_ListMRNwithPO")
                         tbp.Text = "List MRN(With Purchase Order)"
                         tbp.Controls.Add(New frm_ReportInput(enmReportName.RptListMRNWithPO, prpty_form_rights))
@@ -324,15 +329,15 @@ Public Class MDIMain
                     Case UCase("frm_ReverseMaterial")
                         tbp.Text = "List Of Reverse Material WithOut PO"
                         tbp.Controls.Add(New frm_ReportInput(enmReportName.RptReverseMaterialWithOutPO, prpty_form_rights))
-                        ''''''''''''''MRN With PO'''''''''''''''
+                    ''''''''''''''MRN With PO'''''''''''''''
 
-                        ''''''''''''''Sale Invoice'''''''''''''''
+                    ''''''''''''''Sale Invoice'''''''''''''''
 
                     Case UCase("frm_ReverseMaterial")
                         tbp.Text = "List Of Reverse Material WithOut PO"
                         tbp.Controls.Add(New frm_ReportInput(enmReportName.RptReverseMaterialWithOutPO, prpty_form_rights))
 
-                        ''''''''''''''Sale Invoice'''''''''''''''
+                    ''''''''''''''Sale Invoice'''''''''''''''
 
 
                     Case UCase("frm_DebitNote")
@@ -342,13 +347,13 @@ Public Class MDIMain
                     Case UCase("ItemWiseMaterialIssueToCostCenterToolStripMenuItem")
                         tbp.Text = "Item Wise Material Issue To Cost Center"
                         tbp.Controls.Add(New frm_Material_Issue_To_CostCentre_Item_Wise(1, prpty_form_rights))
-                        'tbp.Controls.Add(New frm_ReportInput(enmReportName.RptMatIssueItemWiseToCostCenterPrint))
+                    'tbp.Controls.Add(New frm_ReportInput(enmReportName.RptMatIssueItemWiseToCostCenterPrint))
                     Case UCase("MaterialIssuedCategoryHeadWiseToolStripMenuItem")
                         tbp.Text = " Material Issue To Cost Center Item Wise and Category Head Wise"
                         tbp.Controls.Add(New frm_Material_Issue_To_CostCentre_Item_Wise(2, prpty_form_rights))
-                        'Case UCase("ItemWiseIndentbetweenDatesCategoryHeadWiseToolStripMenuItem")
-                        '    tbp.Text = "Item Wise Indent Detail Category Head Wise."
-                        '    tbp.Controls.Add(New frm_ReportInput(enmReportName.RptIndentDetailCategoryHeadWisePrint))
+                    'Case UCase("ItemWiseIndentbetweenDatesCategoryHeadWiseToolStripMenuItem")
+                    '    tbp.Text = "Item Wise Indent Detail Category Head Wise."
+                    '    tbp.Controls.Add(New frm_ReportInput(enmReportName.RptIndentDetailCategoryHeadWisePrint))
                     Case UCase("ItemWiseMaterialIssueToCostCenterCatHeadWiseToolStripMenuItem")
                         tbp.Text = " Material Issue To Cost Center Item Wise and Category Head Wise"
                         tbp.Controls.Add(New frm_Material_Issue_To_CostCentre_Item_Wise(2, prpty_form_rights))
@@ -365,8 +370,8 @@ Public Class MDIMain
                         tbp.Text = "List of MRN with PO (Supplier Wise)"
                         tbp.Controls.Add(New frm_ReportInput(enmReportName.RptListofMRNWithpo_SupplierWise, prpty_form_rights))
 
-                        '    '################################################################
-                        '    'Recipe Forms added By Yogesh Chandra Upreti
+                    '    '################################################################
+                    '    'Recipe Forms added By Yogesh Chandra Upreti
 
                     Case UCase("frm_Recipe_Master")
                         tbp.Text = "Recipe Master"
@@ -375,7 +380,7 @@ Public Class MDIMain
                     Case UCase("frm_Semi_Finished_Recipe_Master")
                         tbp.Text = "Semi Finished Recipe Master"
                         tbp.Controls.Add(New frm_Semi_Finished_Recipe_Master(prpty_form_rights))
-                        ''################################################################
+                    ''################################################################
 
                     Case UCase("frm_menu_item_recipe")
                         tbp.Text = "Menu Item Recipe"

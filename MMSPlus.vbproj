@@ -456,6 +456,12 @@
     <Compile Include="RecipeForms\frm_Semi_Finished_Recipe_Master.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="ReportsForms\frm_CreditorsLedger.Designer.vb">
+      <DependentUpon>frm_CreditorsLedger.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ReportsForms\frm_CreditorsLedger.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="ReportsForms\frm_DebtorsLedger.Designer.vb">
       <DependentUpon>frm_DebtorsLedger.vb</DependentUpon>
     </Compile>
@@ -1435,6 +1441,9 @@
     <EmbeddedResource Include="RecipeForms\frm_Semi_Finished_Recipe_Master.resx">
       <DependentUpon>frm_Semi_Finished_Recipe_Master.vb</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportsForms\frm_CreditorsLedger.resx">
+      <DependentUpon>frm_CreditorsLedger.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ReportsForms\frm_DebtorsLedger.resx">
       <DependentUpon>frm_DebtorsLedger.vb</DependentUpon>
