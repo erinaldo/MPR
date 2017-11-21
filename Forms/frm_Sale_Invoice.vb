@@ -57,6 +57,8 @@ Public Class frm_Sale_Invoice
     Private Sub frm_Sale_Invoice_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Try
 
+
+
             obj.FormatGrid(flxItems)
             'obj.FormatGrid(flxList)
 
@@ -138,7 +140,7 @@ Public Class frm_Sale_Invoice
             prpty.SI_DATE = Now
 
 
-            If (flag = "Update") Then
+            If (flag = "update") Then
                 prpty.SI_ID = Si_ID
                 prpty.SI_NO = Si_No
             End If
@@ -157,7 +159,7 @@ Public Class frm_Sale_Invoice
 
 
 
-            
+
             prpty.GROSS_AMOUNT = Convert.ToDouble(lblItemValue.Text)
             prpty.VAT_AMOUNT = Convert.ToDouble(lblVatAmount.Text)
             prpty.NET_AMOUNT = Convert.ToDouble(lblNetAmount.Text)
@@ -549,7 +551,7 @@ again:
     End Sub
     Private Sub flxItems_KeyDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles flxItems.KeyDown
 
-        
+
         Try
             If cmbSupplier.SelectedIndex > 0 Then
 
@@ -774,12 +776,19 @@ restart:
 
     Private Sub flxList_DoubleClick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles flxList.DoubleClick
 
-        'MsgBox("You Can't Edit this Invoice." & vbCrLf & "Please click in print to view/print this Invoice/ DC.", MsgBoxStyle.Information)
-        new_initilization()
+        Dim strSql As String
+        Dim count As Int32
+        strSql = " SELECT COUNT(*) FROM dbo.CustomerSettlementDetail WHERE InvoiceId= " & flxList("Si_ID", flxList.CurrentCell.RowIndex).Value()
+        count = obj.Fill_DataSet(strSql).Tables(0).Rows(0)(0)
+        If count > 0 Then
+            MsgBox("You Can't Edit this Invoice." & vbCrLf & "Please click in print to view/print this Invoice/ DC.", MsgBoxStyle.Information)
+        Else
+            new_initilization()
+            flag = "update"
+            Si_ID = Convert.ToInt32(flxList("Si_ID", flxList.CurrentCell.RowIndex).Value())
+            fill_InvoiceDetail(Si_ID)
+        End If
 
-        flag = "update"
-        Si_ID = Convert.ToInt32(flxList("Si_ID", flxList.CurrentCell.RowIndex).Value())
-        fill_InvoiceDetail(Si_ID)
 
 
 
@@ -829,6 +838,8 @@ restart:
     Private Sub cmbSupplier_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmbSupplier.SelectedIndexChanged
 
         Dim strSql As String
+        Dim NewstrSql As String
+        Dim dsdata As DataSet
 
         If cmbSupplier.SelectedValue <> -1 Then
             strSql = "SELECT ACCOUNT_MASTER.ADDRESS_PRIM + ' - {'  + ISNULL(CITY_MASTER.CITY_NAME,'') + '}', PHONE_PRIM, VAT_NO"
@@ -838,6 +849,26 @@ restart:
             lblAddress.Text = obj.Fill_DataSet(strSql).Tables(0).Rows(0)(0)
             txt_txtphoneNo.Text = obj.Fill_DataSet(strSql).Tables(0).Rows(0)(1)
             txtGstNo.Text = obj.Fill_DataSet(strSql).Tables(0).Rows(0)(2)
+
+
+            NewstrSql = "SELECT STATE_ID,isInUT_bit FROM dbo.STATE_MASTER WHERE STATE_ID IN(SELECT STATE_ID FROM dbo.CITY_MASTER WHERE CITY_ID IN(SELECT CITY_ID FROM dbo.DIVISION_SETTINGS))"
+            NewstrSql = NewstrSql & " SELECT STATE_ID,isInUT_bit FROM dbo.STATE_MASTER WHERE STATE_ID IN(SELECT STATE_ID FROM dbo.CITY_MASTER WHERE CITY_ID IN(SELECT CITY_ID FROM dbo.ACCOUNT_MASTER WHERE ACC_ID=1))"
+            dsdata = clsObj.Fill_DataSet(NewstrSql)
+
+
+            'SCGST
+            'IGST
+            'UGST
+            If dsdata.Tables(0).Rows(0)(0) <> dsdata.Tables(1).Rows(0)(0) Then
+                cmbinvtype.Text = "IGST"
+            Else
+                If dsdata.Tables(0).Rows(0)(1) = True Then
+                    cmbinvtype.Text = "UGST"
+                Else
+                    cmbinvtype.Text = "SCGST"
+                End If
+            End If
+
         End If
 
         'If Not flxItemList.DataSource Is Nothing Then
@@ -1007,7 +1038,13 @@ restart:
             MessageBox.Show("this Invoice is already canceled")
             Return
         End If
-        If ((DateTime.Now - Invdate).TotalDays <= 7) Then
+
+        Dim strSql As String
+        Dim count As Int32
+        strSql = " SELECT COUNT(*) FROM dbo.CustomerSettlementDetail WHERE InvoiceId= " & flxList("Si_ID", flxList.CurrentCell.RowIndex).Value()
+        count = obj.Fill_DataSet(strSql).Tables(0).Rows(0)(0)
+
+        If (count > 0) Then
 
             clsObj.Cancel_SALE_INVOICE_MASTER(invId, Convert.ToInt32(GlobalModule.InvoiceStatus.Cancel), GlobalModule.v_the_current_logged_in_user_name)
             MessageBox.Show("Selected Invoice cancel successfully.")

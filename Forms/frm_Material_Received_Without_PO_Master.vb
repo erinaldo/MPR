@@ -958,71 +958,73 @@ restart:
     End Sub
 
     Private Sub dgvList_DoubleClick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles dgvList.DoubleClick
-        'Dim receive_Id As Integer
-        Dim dtMRN As New DataTable
-        Dim dtMRNDetail As New DataTable
-        Dim dtMRNDetail_NonStockableItems As New DataTable
-        Dim ds As New DataSet
 
-        'receive_Id = Convert.ToInt32(dgvList.SelectedRows.Item(0).Cells(0).Value)
-        receive_Id = Convert.ToInt32(dgvList.CurrentRow.Cells(0).Value)
-        flag = "update"
-        ds = obj.fill_Data_set("Get_MRN_WithOutPO_Detail", "@V_Receive_ID", receive_Id)
+        MsgBox("You can't Edit this MRN." & vbCrLf & "To view this MRN Click on ""Print""")
+        ''Dim receive_Id As Integer
+        'Dim dtMRN As New DataTable
+        'Dim dtMRNDetail As New DataTable
+        'Dim dtMRNDetail_NonStockableItems As New DataTable
+        'Dim ds As New DataSet
 
-        If ds.Tables.Count > 0 Then
+        ''receive_Id = Convert.ToInt32(dgvList.SelectedRows.Item(0).Cells(0).Value)
+        'receive_Id = Convert.ToInt32(dgvList.CurrentRow.Cells(0).Value)
+        'flag = "update"
+        'ds = obj.fill_Data_set("Get_MRN_WithOutPO_Detail", "@V_Receive_ID", receive_Id)
 
-            dtMRN = ds.Tables(0)
+        'If ds.Tables.Count > 0 Then
 
-            cmbPurchaseType.SelectedValue = dtMRN.Rows(0)("Purchase_Type")
-            cmb_MRNAgainst.SelectedValue = dtMRN.Rows(0)("MRNCompanies_ID")
-            If dtMRN.Rows(0)("Purchase_Type") = 2 Then
-                cmbVendor.SelectedValue = dtMRN.Rows(0)("Vendor_Id")
-            End If
-            lbl_PODate.Text = dtMRN.Rows(0)("Received_Date")
-            txtMrnRemarks.Text = dtMRN.Rows(0)("Remarks")
-            If dtMRN.Rows(0)("MRN_Status") = MRNStatus.cancel Then
-                lblMrnStatus.Text = "Cancel"
-            ElseIf dtMRN.Rows(0)("MRN_Status") = MRNStatus.clear Then
-                lblMrnStatus.Text = "Clear"
-            ElseIf dtMRN.Rows(0)("MRN_Status") = MRNStatus.normal Then
-                lblMrnStatus.Text = "Normal"
-            End If
-            txt_Amount.Text = Convert.ToString(dtMRN.Rows(0)("freight"))
-            txtotherchrgs.Text = Convert.ToString(dtMRN.Rows(0)("Other_charges"))
-            txtdiscount.Text = Convert.ToString(dtMRN.Rows(0)("Discount_amt"))
+        '    dtMRN = ds.Tables(0)
+
+        '    cmbPurchaseType.SelectedValue = dtMRN.Rows(0)("Purchase_Type")
+        '    cmb_MRNAgainst.SelectedValue = dtMRN.Rows(0)("MRNCompanies_ID")
+        '    If dtMRN.Rows(0)("Purchase_Type") = 2 Then
+        '        cmbVendor.SelectedValue = dtMRN.Rows(0)("Vendor_Id")
+        '    End If
+        '    lbl_PODate.Text = dtMRN.Rows(0)("Received_Date")
+        '    txtMrnRemarks.Text = dtMRN.Rows(0)("Remarks")
+        '    If dtMRN.Rows(0)("MRN_Status") = MRNStatus.cancel Then
+        '        lblMrnStatus.Text = "Cancel"
+        '    ElseIf dtMRN.Rows(0)("MRN_Status") = MRNStatus.clear Then
+        '        lblMrnStatus.Text = "Clear"
+        '    ElseIf dtMRN.Rows(0)("MRN_Status") = MRNStatus.normal Then
+        '        lblMrnStatus.Text = "Normal"
+        '    End If
+        '    txt_Amount.Text = Convert.ToString(dtMRN.Rows(0)("freight"))
+        '    txtotherchrgs.Text = Convert.ToString(dtMRN.Rows(0)("Other_charges"))
+        '    txtdiscount.Text = Convert.ToString(dtMRN.Rows(0)("Discount_amt"))
 
 
-            ' Grid_styles()
-            'dtable_Item_List = ds.Tables(1).Copy
+        '    ' Grid_styles()
+        '    'dtable_Item_List = ds.Tables(1).Copy
 
-            dtable_Item_List = ds.Tables(1).Copy
-            FLXGRD_MaterialItem.DataSource = dtable_Item_List
+        '    dtable_Item_List = ds.Tables(1).Copy
+        '    FLXGRD_MaterialItem.DataSource = dtable_Item_List
 
-            dtMRNDetail_NonStockableItems = ds.Tables(2).Copy
-            FLXGRD_MatItem_NonStockable.DataSource = dtMRNDetail_NonStockableItems
-            SetGridSettingValues()
-            'FLXGRD_MaterialItem.DataSource = ds.Tables(1)
-            'Dim iRowCount As Int32
-            'Dim iRow As Int32
-            'iRowCount = dtMRNDetail.Rows.Count
-            'For iRow = 0 To iRowCount - 1
-            '    If dtMRNDetail.Rows.Count > 0 Then
-            '        Dim rowindex As Integer = dgvList.Rows.Add()
-            '        dgvList.Rows(rowindex).Cells("Sup_Id").Value = Convert.ToInt32(dtMRNDetail.Rows(iRow)("SUPP_ID"))
-            '        dgvList.Rows(rowindex).Cells("Item_Id").Value = Convert.ToString(dtMRNDetail.Rows(iRow)("Item_Id"))
-            '        dgvList.Rows(rowindex).Cells("Item_Code").Value = Convert.ToString(dtMRNDetail.Rows(iRow)("Item_Code"))
-            '        dgvList.Rows(rowindex).Cells("Item_Name").Value = Convert.ToString(dtMRNDetail.Rows(iRow)("Item_Name"))
-            '        dgvList.Rows(rowindex).Cells("UOM").Value = Convert.ToString(dtMRNDetail.Rows(iRow)("UM_Name"))
-            '        dgvList.Rows(rowindex).Cells("Rate").Value = Convert.ToDouble(dtMRNDetail.Rows(iRow)("ITEM_RATE"))
-            '        dgvList.Rows(rowindex).Cells("Del_Qty").Value = Convert.ToDouble(dtMRNDetail.Rows(iRow)("DEL_QTY"))
-            '        dgvList.Rows(rowindex).Cells("Del_Days").Value = Convert.ToString(dtMRNDetail.Rows(iRow)("DEL_DAYS"))
-            '    End If
-            'Next iRow
-            Calculate_Amount()
-            TbPO.SelectTab(1)
+        '    dtMRNDetail_NonStockableItems = ds.Tables(2).Copy
+        '    FLXGRD_MatItem_NonStockable.DataSource = dtMRNDetail_NonStockableItems
+        '    SetGridSettingValues()
+        '    'FLXGRD_MaterialItem.DataSource = ds.Tables(1)
+        '    'Dim iRowCount As Int32
+        '    'Dim iRow As Int32
+        '    'iRowCount = dtMRNDetail.Rows.Count
+        '    'For iRow = 0 To iRowCount - 1
+        '    '    If dtMRNDetail.Rows.Count > 0 Then
+        '    '        Dim rowindex As Integer = dgvList.Rows.Add()
+        '    '        dgvList.Rows(rowindex).Cells("Sup_Id").Value = Convert.ToInt32(dtMRNDetail.Rows(iRow)("SUPP_ID"))
+        '    '        dgvList.Rows(rowindex).Cells("Item_Id").Value = Convert.ToString(dtMRNDetail.Rows(iRow)("Item_Id"))
+        '    '        dgvList.Rows(rowindex).Cells("Item_Code").Value = Convert.ToString(dtMRNDetail.Rows(iRow)("Item_Code"))
+        '    '        dgvList.Rows(rowindex).Cells("Item_Name").Value = Convert.ToString(dtMRNDetail.Rows(iRow)("Item_Name"))
+        '    '        dgvList.Rows(rowindex).Cells("UOM").Value = Convert.ToString(dtMRNDetail.Rows(iRow)("UM_Name"))
+        '    '        dgvList.Rows(rowindex).Cells("Rate").Value = Convert.ToDouble(dtMRNDetail.Rows(iRow)("ITEM_RATE"))
+        '    '        dgvList.Rows(rowindex).Cells("Del_Qty").Value = Convert.ToDouble(dtMRNDetail.Rows(iRow)("DEL_QTY"))
+        '    '        dgvList.Rows(rowindex).Cells("Del_Days").Value = Convert.ToString(dtMRNDetail.Rows(iRow)("DEL_DAYS"))
+        '    '    End If
+        '    'Next iRow
+        '    Calculate_Amount()
+        '    TbPO.SelectTab(1)
 
-            ds.Dispose()
-        End If
+        '    ds.Dispose()
+        'End If
     End Sub
 
    

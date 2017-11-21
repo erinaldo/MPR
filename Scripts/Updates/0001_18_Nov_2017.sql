@@ -1,0 +1,2 @@
+﻿ALTER TABLE dbo.StateMaster ADD  IsInUT_Bit BIT NULL DEFAULT 0
+ALTER TABLE dbo.State_Master ADD  IsInUT_Bit BIT NULL DEFAULT 0
