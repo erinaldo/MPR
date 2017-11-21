@@ -456,6 +456,12 @@
     <Compile Include="RecipeForms\frm_Semi_Finished_Recipe_Master.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="ReportsForms\frm_CreditorsLedger.Designer.vb">
+      <DependentUpon>frm_CreditorsLedger.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ReportsForms\frm_CreditorsLedger.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="ReportsForms\frm_DebtorsLedger.Designer.vb">
       <DependentUpon>frm_DebtorsLedger.vb</DependentUpon>
     </Compile>
@@ -704,6 +710,12 @@
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\CryCreditorsLedger.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CryCreditorsLedger.rpt</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\CryCustomerrateList1.vb">
       <AutoGen>True</AutoGen>
@@ -1430,6 +1442,9 @@
       <DependentUpon>frm_Semi_Finished_Recipe_Master.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="ReportsForms\frm_CreditorsLedger.resx">
+      <DependentUpon>frm_CreditorsLedger.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ReportsForms\frm_DebtorsLedger.resx">
       <DependentUpon>frm_DebtorsLedger.vb</DependentUpon>
     </EmbeddedResource>
@@ -1568,6 +1583,10 @@
       <DependentUpon>MDIMain.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\licenses.licx" />
+    <EmbeddedResource Include="Reports\CryCreditorsLedger.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CryCreditorsLedger.vb</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reports\CryCustomerrateList.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>CryCustomerrateList1.vb</LastGenOutput>
@@ -1977,6 +1996,8 @@
     <Content Include="Scripts\Updates\0001_28_oct_2017.sql">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Scripts\Updates\CreditorsLedger.sql" />
+    <Content Include="Scripts\Updates\DebtorsLedger.sql" />
     <Content Include="Scripts\Updates\DivisionSettings_23_oct_2017.sql" />
     <Content Include="Scripts\Updates\GatePass_23_oct_2017.sql" />
     <Content Include="Scripts\Updates\MRN_PO_281017.sql" />
