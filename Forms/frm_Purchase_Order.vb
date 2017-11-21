@@ -640,6 +640,28 @@ Public Class frm_Purchase_Order
             strSql = strSql & " CITY_MASTER ON ACCOUNT_MASTER.CITY_ID = CITY_MASTER.CITY_ID"
             strSql = strSql & " WHERE ACCOUNT_MASTER.ACC_ID = " & cmbSupplier.SelectedValue
             lblAddress.Text = clsObj.Fill_DataSet(strSql).Tables(0).Rows(0)(0)
+
+            Dim NewstrSql As String
+            Dim dsdata As DataSet
+            NewstrSql = "SELECT STATE_ID,isInUT_bit FROM dbo.STATE_MASTER WHERE STATE_ID IN(SELECT STATE_ID FROM dbo.CITY_MASTER WHERE CITY_ID IN(SELECT CITY_ID FROM dbo.DIVISION_SETTINGS))"
+            NewstrSql = NewstrSql & " SELECT STATE_ID,isInUT_bit FROM dbo.STATE_MASTER WHERE STATE_ID IN(SELECT STATE_ID FROM dbo.CITY_MASTER WHERE CITY_ID IN(SELECT CITY_ID FROM dbo.ACCOUNT_MASTER WHERE ACC_ID=" & cmbSupplier.SelectedValue & "))"
+            dsdata = clsObj.Fill_DataSet(NewstrSql)
+
+
+            'SCGST
+            'IGST
+            'UGST
+            If dsdata.Tables(0).Rows(0)(0) <> dsdata.Tables(1).Rows(0)(0) Then
+                cmbPOType.Text = "IGST"
+            Else
+                If dsdata.Tables(0).Rows(0)(1) = True Then
+                    cmbPOType.Text = "UGST"
+                Else
+                    cmbPOType.Text = "SCGST"
+                End If
+            End If
+
+
         End If
         If Not flxItemList.DataSource Is Nothing Then
 

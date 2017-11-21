@@ -48,6 +48,8 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.Label10 = New System.Windows.Forms.Label()
         Me.Panel17 = New System.Windows.Forms.Panel()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.cmbMRNType = New System.Windows.Forms.ComboBox()
+        Me.Label49 = New System.Windows.Forms.Label()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.txt_Invoice_No = New System.Windows.Forms.TextBox()
         Me.dt_Invoice_Date = New System.Windows.Forms.DateTimePicker()
@@ -61,6 +63,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.Label2 = New System.Windows.Forms.Label()
         Me.cmbPurchaseType = New System.Windows.Forms.ComboBox()
         Me.Label1 = New System.Windows.Forms.Label()
+        Me.chk_VatCal = New System.Windows.Forms.CheckBox()
         Me.txtotherchrgs = New System.Windows.Forms.TextBox()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.txtdiscount = New System.Windows.Forms.TextBox()
@@ -187,9 +190,6 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.Label46 = New System.Windows.Forms.Label()
         Me.Label47 = New System.Windows.Forms.Label()
         Me.Label48 = New System.Windows.Forms.Label()
-        Me.chk_VatCal = New System.Windows.Forms.CheckBox()
-        Me.cmbMRNType = New System.Windows.Forms.ComboBox()
-        Me.Label49 = New System.Windows.Forms.Label()
         Me.TbPO.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.GroupBox5.SuspendLayout()
@@ -559,6 +559,29 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         '
+        'cmbMRNType
+        '
+        Me.cmbMRNType.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.cmbMRNType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbMRNType.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmbMRNType.ForeColor = System.Drawing.Color.White
+        Me.cmbMRNType.FormattingEnabled = True
+        Me.cmbMRNType.Location = New System.Drawing.Point(544, 15)
+        Me.cmbMRNType.Name = "cmbMRNType"
+        Me.cmbMRNType.Size = New System.Drawing.Size(120, 23)
+        Me.cmbMRNType.TabIndex = 33
+        '
+        'Label49
+        '
+        Me.Label49.AutoSize = True
+        Me.Label49.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label49.ForeColor = System.Drawing.Color.White
+        Me.Label49.Location = New System.Drawing.Point(476, 19)
+        Me.Label49.Name = "Label49"
+        Me.Label49.Size = New System.Drawing.Size(68, 15)
+        Me.Label49.TabIndex = 34
+        Me.Label49.Text = "MRN Type :"
+        '
         'Label7
         '
         Me.Label7.AutoSize = True
@@ -702,6 +725,19 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.Label1.Size = New System.Drawing.Size(94, 15)
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "Purchase Type :"
+        '
+        'chk_VatCal
+        '
+        Me.chk_VatCal.AutoSize = True
+        Me.chk_VatCal.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.chk_VatCal.ForeColor = System.Drawing.Color.White
+        Me.chk_VatCal.Location = New System.Drawing.Point(734, 79)
+        Me.chk_VatCal.Name = "chk_VatCal"
+        Me.chk_VatCal.Size = New System.Drawing.Size(153, 19)
+        Me.chk_VatCal.TabIndex = 32
+        Me.chk_VatCal.Text = "Calculate Vat on Excise"
+        Me.chk_VatCal.UseVisualStyleBackColor = True
+        Me.chk_VatCal.Visible = False
         '
         'txtotherchrgs
         '
@@ -2013,42 +2049,6 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.Label48.Size = New System.Drawing.Size(92, 13)
         Me.Label48.TabIndex = 0
         Me.Label48.Text = "Delivery Rate :"
-        '
-        'chk_VatCal
-        '
-        Me.chk_VatCal.AutoSize = True
-        Me.chk_VatCal.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chk_VatCal.ForeColor = System.Drawing.Color.White
-        Me.chk_VatCal.Location = New System.Drawing.Point(734, 79)
-        Me.chk_VatCal.Name = "chk_VatCal"
-        Me.chk_VatCal.Size = New System.Drawing.Size(153, 19)
-        Me.chk_VatCal.TabIndex = 32
-        Me.chk_VatCal.Text = "Calculate Vat on Excise"
-        Me.chk_VatCal.UseVisualStyleBackColor = True
-        Me.chk_VatCal.Visible = False
-        '
-        'cmbMRNType
-        '
-        Me.cmbMRNType.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.cmbMRNType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cmbMRNType.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmbMRNType.ForeColor = System.Drawing.Color.White
-        Me.cmbMRNType.FormattingEnabled = True
-        Me.cmbMRNType.Location = New System.Drawing.Point(544, 15)
-        Me.cmbMRNType.Name = "cmbMRNType"
-        Me.cmbMRNType.Size = New System.Drawing.Size(120, 23)
-        Me.cmbMRNType.TabIndex = 33
-        '
-        'Label49
-        '
-        Me.Label49.AutoSize = True
-        Me.Label49.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label49.ForeColor = System.Drawing.Color.White
-        Me.Label49.Location = New System.Drawing.Point(476, 19)
-        Me.Label49.Name = "Label49"
-        Me.Label49.Size = New System.Drawing.Size(68, 15)
-        Me.Label49.TabIndex = 34
-        Me.Label49.Text = "MRN Type :"
         '
         'frm_Material_Received_Without_PO_Master
         '

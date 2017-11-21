@@ -802,6 +802,56 @@ restart:
             txtGstNo.Text = obj.Fill_DataSet(strSql).Tables(0).Rows(0)(2)
             cmbCity.SelectedValue = obj.Fill_DataSet(strSql).Tables(0).Rows(0)(3)
             txtvechicle_no.Focus()
+
+
+            Dim NewstrSql As String
+            Dim dsdata As DataSet
+
+            NewstrSql = "SELECT STATE_ID,isInUT_bit FROM dbo.STATE_MASTER WHERE STATE_ID IN(SELECT STATE_ID FROM dbo.CITY_MASTER WHERE CITY_ID IN(SELECT CITY_ID FROM dbo.DIVISION_SETTINGS))"
+            NewstrSql = NewstrSql & " SELECT STATE_ID,isInUT_bit FROM dbo.STATE_MASTER WHERE STATE_ID IN(SELECT STATE_ID FROM dbo.CITY_MASTER WHERE CITY_ID IN(SELECT CITY_ID FROM dbo.ACCOUNT_MASTER WHERE ACC_ID=" & cmbSupplier.SelectedValue & "))"
+            dsdata = clsObj.Fill_DataSet(NewstrSql)
+
+
+            'SCGST
+            'IGST
+            'UGST
+            If dsdata.Tables(0).Rows(0)(0) <> dsdata.Tables(1).Rows(0)(0) Then
+                cmbinvtype.Text = "IGST"
+            Else
+                If dsdata.Tables(0).Rows(0)(1) = True Then
+                    cmbinvtype.Text = "UGST"
+                Else
+                    cmbinvtype.Text = "SCGST"
+                End If
+            End If
         End If
+    End Sub
+
+    Private Sub cmbCity_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbCity.SelectedIndexChanged
+
+        If (cmbCity.SelectedValue <> -1) Then
+            Dim NewstrSql As String
+            Dim dsdata As DataSet
+
+            NewstrSql = "SELECT STATE_ID,isInUT_bit FROM dbo.STATE_MASTER WHERE STATE_ID IN(SELECT STATE_ID FROM dbo.CITY_MASTER WHERE CITY_ID IN(SELECT CITY_ID FROM dbo.DIVISION_SETTINGS))"
+            NewstrSql = NewstrSql & " SELECT STATE_ID,isInUT_bit FROM dbo.STATE_MASTER WHERE STATE_ID IN(SELECT STATE_ID FROM dbo.CITY_MASTER WHERE CITY_ID =" & cmbCity.SelectedValue & ")"
+            dsdata = clsObj.Fill_DataSet(NewstrSql)
+
+
+            'SCGST
+            'IGST
+            'UGST
+            If dsdata.Tables(0).Rows(0)(0) <> dsdata.Tables(1).Rows(0)(0) Then
+                cmbinvtype.Text = "IGST"
+            Else
+                If dsdata.Tables(0).Rows(0)(1) = True Then
+                    cmbinvtype.Text = "UGST"
+                Else
+                    cmbinvtype.Text = "SCGST"
+                End If
+            End If
+        End If
+
+      
     End Sub
 End Class
