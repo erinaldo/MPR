@@ -199,4 +199,20 @@ Public Class LoginForm
         Catch ex As Exception
         End Try
     End Sub
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs)
+        Dim clsRequest As System.Net.FtpWebRequest =
+                   DirectCast(System.Net.WebRequest.Create("ftp://syncsolz.com/1.txt"), System.Net.FtpWebRequest)
+        clsRequest.Credentials = New System.Net.NetworkCredential("syncsolz@junifilms.com", "$ync$olz@123")
+        clsRequest.Method = System.Net.WebRequestMethods.Ftp.UploadFile
+
+        'read in file...
+        Dim bFile() As Byte = System.IO.File.ReadAllBytes("e:\1.txt")
+
+        ' upload file...
+        Dim clsStream As System.IO.Stream = clsRequest.GetRequestStream()
+        clsStream.Write(bFile, 0, bFile.Length)
+        clsStream.Close()
+        clsStream.Dispose()
+    End Sub
 End Class

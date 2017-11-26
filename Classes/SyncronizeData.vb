@@ -114,7 +114,7 @@ Module SyncronizeData
         GlobalTables.Tables.Add(Table.Copy())
 
         ''22) 
-        Query = " Select pk_StateId_num as STATE_ID ,STATECODE_vch as STATE_CODE,StateName_vch as STATE_NAME,'' as STATE_DESC,fk_CreatedBy_num as CREATED_BY,CreatedDate_dt as CREATION_DATE,fk_ModifiedBy_num as MODIFIED_BY,ModifiedDate_dt MODIFIED_DATE, " & outlet_id & " as DIVISION_ID from StateMaster"
+        Query = " Select pk_StateId_num as STATE_ID ,STATECODE_vch as STATE_CODE,StateName_vch as STATE_NAME,'' as STATE_DESC,fk_CreatedBy_num as CREATED_BY,CreatedDate_dt as CREATION_DATE,fk_ModifiedBy_num as MODIFIED_BY,ModifiedDate_dt MODIFIED_DATE,IsUT_Bit " & outlet_id & " as DIVISION_ID from StateMaster"
         Table = Get_Remote_DataSet(Query).Tables(0)
         Table.TableName = "STATE_MASTER"
         GlobalTables.Tables.Add(Table.Copy())
