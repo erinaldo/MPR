@@ -89,7 +89,7 @@ Public Class cls_Invoice_Settlement
             con.Open()
         End If
         cmd.CommandType = CommandType.StoredProcedure
-        cmd.CommandText = "Proc_CustomerSettlementDetail_Insert"
+        cmd.CommandText = "Proc_SettlementDetail_Insert"
         cmd.Parameters.AddWithValue("@PaymentTransactionId", clsObj.PaymentTransactionId)
         cmd.Parameters.AddWithValue("@PaymentId", clsObj.PaymentId)
         cmd.Parameters.AddWithValue("@InvoiceId", clsObj.InvoiceId)

@@ -19,18 +19,18 @@ Public Class frm_Invoice_Settlement
     Dim _paymentStatus As PaymentStatus
 
     Private Sub InitializeControls()
-        clsObj.ComboBind(cmbCustomer, "Select ACC_ID,ACC_NAME from ACCOUNT_MASTER WHERE AG_ID=" &
-                 AccountGroups.Customers & " Order by ACC_NAME", "ACC_NAME", "ACC_ID", True)
-        clsObj.ComboBind(cmbCustomerApprovePayment, "Select ACC_ID,ACC_NAME from ACCOUNT_MASTER WHERE AG_ID=" &
-                 AccountGroups.Customers & " Order by ACC_NAME", "ACC_NAME", "ACC_ID", True)
-        clsObj.ComboBind(cmbCustomerSettleInvoice, "Select ACC_ID,ACC_NAME from ACCOUNT_MASTER WHERE AG_ID=" &
-                 AccountGroups.Customers & " Order by ACC_NAME", "ACC_NAME", "ACC_ID", True)
+        clsObj.ComboBind(cmbCustomer, "Select ACC_ID,ACC_NAME from ACCOUNT_MASTER WHERE AG_ID in (" &
+                 AccountGroups.Sundry_Debtors & ") Order by ACC_NAME", "ACC_NAME", "ACC_ID", True)
+        clsObj.ComboBind(cmbCustomerApprovePayment, "Select ACC_ID,ACC_NAME from ACCOUNT_MASTER WHERE AG_ID in (" &
+                 AccountGroups.Sundry_Debtors & ") Order by ACC_NAME", "ACC_NAME", "ACC_ID", True)
+        clsObj.ComboBind(cmbCustomerSettleInvoice, "Select ACC_ID,ACC_NAME from ACCOUNT_MASTER WHERE AG_ID In (" &
+                 AccountGroups.Sundry_Debtors & ") Order by ACC_NAME", "ACC_NAME", "ACC_ID", True)
 
         clsObj.ComboBind(cmbPaymentType, "Select [PaymentTypeId], [PaymentTypeName] + CASE WHEN IsApprovalRequired_bit=1" &
                          " THEN ' - Approval Required' ELSE ' - Approval Not Required' END AS PaymentTypeName from [PaymentTypeMaster] WHERE [IsActive_bit] = 1",
                           "PaymentTypeName", "PaymentTypeId", True)
-        clsObj.ComboBind(cmbBank, "select BankID, BankName + ' - ' + BankAccountNo as BankAccountNo FROM dbo.BankMaster where IsActive = 1",
-                          "BankAccountNo", "BankID", True)
+        clsObj.ComboBind(cmbBank, "SELECT ACC_ID,ACC_NAME FROM dbo.ACCOUNT_MASTER WHERE AG_ID=" & AccountGroups.Bank_Accounts,
+                          "ACC_NAME", "ACC_ID", True)
         GetPMCode()
         fill_ListPaymentgrid()
 
@@ -42,10 +42,10 @@ Public Class frm_Invoice_Settlement
             Dim strsql As String
 
             strsql = "SELECT * FROM (SELECT  pt.PaymentTransactionId as PaymentID ,PaymentTransactionNo AS PaymentCode ,CONVERT(VARCHAR(20), PaymentDate, 106) AS PaymentDate, " & _
-            " ACC_NAME AS Customer ,ChequeDraftNo AS ChequeNo,CONVERT(VARCHAR(20), ChequeDraftDate, 106) AS ChequeDate ,BankName AS Bank, " & _
+            " AM.ACC_NAME AS Customer ,ChequeDraftNo AS ChequeNo,CONVERT(VARCHAR(20), ChequeDraftDate, 106) AS ChequeDate ,BK.ACC_NAME AS Bank, " & _
             " TotalAmountReceived AS Amount,CASE WHEN StatusId =1 THEN 'InProcess'  WHEN StatusId =2 THEN 'Approved' WHEN StatusId =3 THEN 'Cancelled'  WHEN StatusId =4 THEN 'Bounced' END AS Status,ptm.PaymentTypeName AS PaymentType" & _
             " FROM    dbo.PaymentTransaction PT JOIN dbo.ACCOUNT_MASTER AM ON pt.AccountId = AM.ACC_ID JOIN dbo.PaymentTypeMaster PTM ON PTM.PaymentTypeId = PT.PaymentTypeId " & _
-            " JOIN dbo.BankMaster BK ON BK.BankID = PT.BankId)tb WHERE   PaymentCode + PaymentDate + Customer + ChequeNo " & _
+            " JOIN dbo.ACCOUNT_MASTER BK ON BK.ACC_ID= PT.BankId)tb WHERE   PaymentCode + PaymentDate + Customer + ChequeNo " & _
             "+ ChequeDate + Bank +CAST(Amount AS VARCHAR(50))+ PaymentType+Status LIKE '%" & condition & "%'  order by 1"
 
             Dim dt As DataTable = clsObj.Fill_DataSet(strsql).Tables(0)
@@ -267,9 +267,9 @@ Public Class frm_Invoice_Settlement
 
     Private Sub cmbPendingPayment_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbPendingPayment.SelectedIndexChanged
         Dim query As String = " SELECT PaymentTransactionNo, PaymentDate, ChequeDraftno, ChequeDraftDate, Remarks," &
-            " TotalAmountReceived, pt.CreatedBy, PaymentTypeName , BankName + ' - ' + BankAccountNo AS  BankName, BankDate " &
+            " TotalAmountReceived, pt.CreatedBy, PaymentTypeName , bm.ACC_NAME AS  BankName, BankDate " &
             " FROM dbo.PaymentTransaction pt INNER JOIN dbo.PaymentTypeMaster ptm ON ptm.PaymentTypeId = pt.PaymentTypeId" &
-            " INNER JOIN dbo.BankMaster bm ON bm.BankID = pt.BankId WHERE PaymentTransactionId =  " & cmbPendingPayment.SelectedValue
+            " INNER JOIN dbo.ACCOUNT_MASTER bm ON bm.ACC_ID  = pt.BankId WHERE PaymentTransactionId =  " & cmbPendingPayment.SelectedValue
 
         Dim ds As DataSet = clsObj.FillDataSet(query)
         If ds.Tables(0).Rows.Count > 0 Then
@@ -393,7 +393,7 @@ Public Class frm_Invoice_Settlement
 
     Private Sub FillGrid()
         Dim query As String = " SELECT SI_ID, SI_CODE ,SI_NO,  SI_DATE, NET_AMOUNT, " &
-            "ISNULL((SELECT SUM(AmountSettled) FROM dbo.CustomerSettlementDetail WHERE InvoiceId = SI_ID),0) AS ReceivedAmount ,iSNULL(cn_amount,0) AS CnAmount" &
+            "ISNULL((SELECT SUM(AmountSettled) FROM dbo.SettlementDetail WHERE InvoiceId = SI_ID),0) AS ReceivedAmount ,iSNULL(cn_amount,0) AS CnAmount" &
             " FROM dbo.SALE_INVOICE_MASTER  LEFT JOIN dbo.CreditNote_Master ON INVId = SI_ID WHERE SALE_TYPE='Credit' AND INVOICE_STATUS <> 4 AND CUST_ID = " & cmbCustomerSettleInvoice.SelectedValue
         Dim dt As DataTable = clsObj.Fill_DataSet(query).Tables(0)
         dgvInvoiceToSettle.RowCount = 0
@@ -539,10 +539,10 @@ Public Class frm_Invoice_Settlement
         fill_ListPaymentgrid(txtSearch.Text)
     End Sub
 
-   
+
 
     Private Sub cmbCustomer_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbCustomer.SelectedIndexChanged
-        Dim query As String = "DECLARE @AmountInHand DECIMAL(18,2) DECLARE @UndistributedAmount DECIMAL(18,2) SELECT @AmountInHand= isnull( sum(AmountInHand),0) FROM dbo.CustomerLedgerMaster WHERE AccountId=" & cmbCustomer.SelectedValue & _
+        Dim query As String = "DECLARE @AmountInHand DECIMAL(18,2) DECLARE @UndistributedAmount DECIMAL(18,2) SELECT @AmountInHand= isnull( sum(AmountInHand),0) FROM dbo.LedgerMaster WHERE AccountId=" & cmbCustomer.SelectedValue & _
        " SELECT  @UndistributedAmount=isnull(SUM(UndistributedAmount), 0) FROM dbo.PaymentTransaction WHERE StatusId =2 AND AccountId=" & cmbCustomer.SelectedValue & _
        "SELECT @AmountInHand AS AmountInHand,@UndistributedAmount AS UndistributedAmount"
 

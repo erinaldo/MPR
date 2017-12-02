@@ -181,20 +181,36 @@ Module GlobalModule
         clear = 3
     End Enum
     Public Enum AccountGroups As Integer
-        Customers = 1
-        Supplier = 2
-        SHARED_CAPITAL = 3
-        BANK_ACCOUNT = 4
-        UNSECURED_LOAN = 5
-        CASH_IN_HAND = 6
-        EXPENCES_DIRECT = 7
-        EXPENCE_INDIRECT = 8
-        SECURED_LOAN = 9
-        DIRECT_INCOME = 10
-        INDIRECT_INCOME = 11
-        FIXED_ASSETS = 12
-        CURRENT_LIABILITIES = 13
-        DUTIES_AND_TAXES = 14
+        Sundry_Debtors = 1
+        Sundry_Creditors = 2
+        Bank_Accounts = 3
+        Bank_O_D_Account = 4
+        Capital_Account = 5
+        Cash_in_hand = 6
+        Current_Assets = 7
+        Current_Liabilities = 8
+        Duties_and_Taxes = 9
+        Expenses_Direct_Mfg = 10
+        Expenses_Indirect_Admn = 11
+        Fixed_Assets = 12
+        Income_Direct_Opr = 13
+        Income_Indirect = 14
+        Investments = 15
+        Loans_and_Advances_Asset = 16
+        Loans_Liability = 17
+        Pre_Operative_Expenses = 18
+        Profit_and_Loss = 19
+        Provisions_Expenses_Payable = 20
+        Purchase = 21
+        Reserves_and_Surplus = 22
+        Revenue_Accounts = 23
+        Sale = 24
+        Secured_Loans = 25
+        Securities_and_Deposits_Asset = 26
+        Stock_in_hand = 27
+        Suspense_Account = 28
+        Unsecured_Loans = 29
+
     End Enum
 
     Public Enum Transaction_Type As Integer

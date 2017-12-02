@@ -20,11 +20,11 @@ Public Class frm_Supplier_Invoice_Settlement
 
     Private Sub InitializeControls()
         clsObj.ComboBind(cmbCustomer, "Select ACC_ID,ACC_NAME from ACCOUNT_MASTER WHERE AG_ID=" &
-                 AccountGroups.Supplier & " Order by ACC_NAME", "ACC_NAME", "ACC_ID", True)
+                 AccountGroups.Sundry_Creditors & " Order by ACC_NAME", "ACC_NAME", "ACC_ID", True)
         clsObj.ComboBind(cmbCustomerApprovePayment, "Select ACC_ID,ACC_NAME from ACCOUNT_MASTER WHERE AG_ID=" &
-                 AccountGroups.Supplier & " Order by ACC_NAME", "ACC_NAME", "ACC_ID", True)
+                 AccountGroups.Sundry_Creditors & " Order by ACC_NAME", "ACC_NAME", "ACC_ID", True)
         clsObj.ComboBind(cmbCustomerSettleInvoice, "Select ACC_ID,ACC_NAME from ACCOUNT_MASTER WHERE AG_ID=" &
-                 AccountGroups.Supplier & " Order by ACC_NAME", "ACC_NAME", "ACC_ID", True)
+                 AccountGroups.Sundry_Creditors & " Order by ACC_NAME", "ACC_NAME", "ACC_ID", True)
 
         clsObj.ComboBind(cmbPaymentType, "Select [PaymentTypeId], [PaymentTypeName] + CASE WHEN IsApprovalRequired_bit=1" &
                          " THEN ' - Approval Required' ELSE ' - Approval Not Required' END AS PaymentTypeName from [PaymentTypeMaster] WHERE [IsActive_bit] = 1",

@@ -69,7 +69,7 @@ Public Class frm_openSale_Invoice
         End Try
     End Sub
     Public Sub CustomerBind()
-        clsObj.ComboBind(cmbSupplier, "Select ACC_ID,ACC_NAME from ACCOUNT_MASTER WHERE AG_ID=" & AccountGroups.Customers & " Order by ACC_NAME", "ACC_NAME", "ACC_ID", True)
+        clsObj.ComboBind(cmbSupplier, "Select ACC_ID,ACC_NAME from ACCOUNT_MASTER WHERE AG_ID=" & AccountGroups.Sundry_Debtors & " Order by ACC_NAME", "ACC_NAME", "ACC_ID", True)
     End Sub
     Public Sub CityBind()
         clsObj.ComboBind(cmbCity, "Select CITY_ID,CITY_NAME from CITY_MASTER Order by CITY_NAME", "CITY_NAME", "CITY_ID", True)
