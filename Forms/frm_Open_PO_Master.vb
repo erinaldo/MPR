@@ -41,7 +41,7 @@ Public Class frm_Open_PO_Master
             obj.FormatGrid(grdOpenPoMaster)
             grdOpenPoMaster.SelectionMode = DataGridViewSelectionMode.RowHeaderSelect
             clsObj.ComboBind(cmbPOType, "Select PO_TYPE_ID,PO_TYPE_NAME from PO_TYPE_MASTER", "PO_TYPE_NAME", "PO_TYPE_ID", True)
-            clsObj.ComboBind(cmbSupplier, "select 0 as ACC_ID,'--Select--' as ACC_NAME union Select ACC_ID,ACC_NAME from ACCOUNT_MASTER WHERE AG_ID=" & AccountGroups.Supplier, "ACC_NAME", "ACC_ID")
+            clsObj.ComboBind(cmbSupplier, "select 0 as ACC_ID,'--Select--' as ACC_NAME union Select ACC_ID,ACC_NAME from ACCOUNT_MASTER WHERE AG_ID=" & AccountGroups.Sundry_Creditors, "ACC_NAME", "ACC_ID")
             clsObj.ComboBind(cmbQualityRate, "Select QR_ID,QR_CODE from QUALITY_RATING_MASTER", "QR_CODE", "QR_ID", True)
             clsObj.ComboBind(cmbDeliveryRate, "Select DR_ID,DR_CODE from DELIVERY_RATING_MASTER", "DR_CODE", "DR_ID", True)
             new_initialization()

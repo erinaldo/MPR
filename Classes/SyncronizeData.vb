@@ -37,13 +37,13 @@ Module SyncronizeData
         Table.TableName = "ACCOUNT_MASTER"
         GlobalTables.Tables.Add(Table.Copy())
 
-        ''6) COST_CENTER_MASTER
+        ''5) COST_CENTER_MASTER
         Query = "Select * from COST_CENTER_MASTER where Division_Id = " & outlet_id
         Table = Get_Remote_DataSet(Query).Tables(0)
         Table.TableName = "COST_CENTER_MASTER"
         GlobalTables.Tables.Add(Table.Copy())
 
-        '7) COUNTRY_MASTER
+        '6) COUNTRY_MASTER
         Query = "Select * from COUNTRY_MASTER"
         Table = Get_Remote_DataSet(Query).Tables(0)
         Table.TableName = "COUNTRY_MASTER"
@@ -51,21 +51,21 @@ Module SyncronizeData
 
 
 
-        ''8) DELIVERY_RATING_MASTER
+        ''7) DELIVERY_RATING_MASTER
         Query = "Select * from DELIVERY_RATING_MASTER"
         Table = Get_Remote_DataSet(Query).Tables(0)
         Table.TableName = "DELIVERY_RATING_MASTER"
         GlobalTables.Tables.Add(Table.Copy())
 
 
-        ''9) EXCISE_MASTER
+        ''8) EXCISE_MASTER
         Query = "Select * from EXCISE_MASTER"
         Table = Get_Remote_DataSet(Query).Tables(0)
         Table.TableName = "EXCISE_MASTER"
         GlobalTables.Tables.Add(Table.Copy())
 
 
-        ''11) ITEM_CATEGORY
+        ''9) ITEM_CATEGORY
         Query = "Select * from ITEM_CATEGORY"
         Table = Get_Remote_DataSet(Query).Tables(0)
         Table.TableName = "ITEM_CATEGORY"
@@ -149,39 +149,84 @@ Module SyncronizeData
         Table.TableName = "Hsncode_master"
         GlobalTables.Tables.Add(Table.Copy())
 
+
+        ''26)
+        Query = "select * from Label_Master"
+        Table = Get_Remote_DataSet(Query).Tables(0)
+        Table.TableName = "Label_Master"
+        GlobalTables.Tables.Add(Table.Copy())
+
+        ''27)
+        Query = "select * from Label_Items"
+        Table = Get_Remote_DataSet(Query).Tables(0)
+        Table.TableName = "Label_Items"
+        GlobalTables.Tables.Add(Table.Copy())
+
+        ''27)
+        Query = "select * from LabelItem_Mapping"
+        Table = Get_Remote_DataSet(Query).Tables(0)
+        Table.TableName = "LabelItem_Mapping"
+        GlobalTables.Tables.Add(Table.Copy())
+
+        ''28)
+        Query = "select * from Company_Master"
+        Table = Get_Remote_DataSet(Query).Tables(0)
+        Table.TableName = "Company_Master"
+        GlobalTables.Tables.Add(Table.Copy())
+
+
         If NEW_OUTLET Then
 
-            '5) CN_SERIES
+            '1) CN_SERIES
             Query = "Select * from CN_SERIES where DIV_ID = " & outlet_id
             Table = Get_Remote_DataSet(Query).Tables(0)
             Table.TableName = "CN_SERIES"
             GlobalTables.Tables.Add(Table.Copy())
 
-            '14) MRN_SERIES
+            '2) MRN_SERIES
             Query = "Select * from MRN_SERIES where DIV_ID = " & outlet_id
             Table = Get_Remote_DataSet(Query).Tables(0)
             Table.TableName = "MRN_SERIES"
             GlobalTables.Tables.Add(Table.Copy())
 
 
-            '10) INVOICE_SERIES
+            '3) INVOICE_SERIES
             Query = "Select * from INVOICE_SERIES where DIV_ID = " & outlet_id
             Table = Get_Remote_DataSet(Query).Tables(0)
             Table.TableName = "INVOICE_SERIES"
             GlobalTables.Tables.Add(Table.Copy())
 
 
-            '9) DN_SERIES
+            '4) DN_SERIES
             Query = "Select * from DN_SERIES where DIV_ID = " & outlet_id
             Table = Get_Remote_DataSet(Query).Tables(0)
             Table.TableName = "DN_SERIES"
             GlobalTables.Tables.Add(Table.Copy())
 
-            '8) DC_SERIES
+            '5) DC_SERIES
             Query = "Select * from DC_SERIES where DIV_ID = " & outlet_id
             Table = Get_Remote_DataSet(Query).Tables(0)
             Table.TableName = "DC_SERIES"
             GlobalTables.Tables.Add(Table.Copy())
+
+            '6)PM_Series
+            Query = "Select * from PM_Series where DIV_ID = " & outlet_id
+            Table = Get_Remote_DataSet(Query).Tables(0)
+            Table.TableName = "PM_Series"
+            GlobalTables.Tables.Add(Table.Copy())
+
+            '7)SupplierPM_Series
+            Query = "Select * from SupplierPM_Series where DIV_ID = " & outlet_id
+            Table = Get_Remote_DataSet(Query).Tables(0)
+            Table.TableName = "SupplierPM_Series"
+            GlobalTables.Tables.Add(Table.Copy())
+
+            '8) INVOICE_SERIES
+            Query = "Select * from PO_SERIES where DIV_ID = " & outlet_id
+            Table = Get_Remote_DataSet(Query).Tables(0)
+            Table.TableName = "PO_SERIES"
+            GlobalTables.Tables.Add(Table.Copy())
+
         End If
         Bulk_Copy(GlobalTables, lblStatus, pbardatatransfer)
 
@@ -385,6 +430,28 @@ Module SyncronizeData
             cmd.Transaction = tran
             cmd.Connection = con
             cmd.ExecuteNonQuery()
+
+
+            cmd = New SqlCommand("delete from Label_Master")
+            cmd.Transaction = tran
+            cmd.Connection = con
+            cmd.ExecuteNonQuery()
+
+            cmd = New SqlCommand("delete from Label_Items")
+            cmd.Transaction = tran
+            cmd.Connection = con
+            cmd.ExecuteNonQuery()
+
+            cmd = New SqlCommand("delete from LabelItem_Mapping")
+            cmd.Transaction = tran
+            cmd.Connection = con
+            cmd.ExecuteNonQuery()
+
+            cmd = New SqlCommand("delete from Company_Master")
+            cmd.Transaction = tran
+            cmd.Connection = con
+            cmd.ExecuteNonQuery()
+
 
             Dim BulkCopy As New SqlBulkCopy(con, SqlBulkCopyOptions.Default, tran)
 

@@ -15,7 +15,7 @@ Public Class frm_CreditorsOS
         InitializeComponent()
     End Sub
     Public Sub CustomerBind()
-        clsObj.ComboBind(cmbSupplier, "Select ACC_ID,ACC_NAME from ACCOUNT_MASTER WHERE AG_ID=" & AccountGroups.Supplier & " Order by ACC_NAME", "ACC_NAME", "ACC_ID", True)
+        clsObj.ComboBind(cmbSupplier, "Select ACC_ID,ACC_NAME from ACCOUNT_MASTER WHERE AG_ID=" & AccountGroups.Sundry_Creditors & " Order by ACC_NAME", "ACC_NAME", "ACC_ID", True)
     End Sub
     Public Sub ReportOS()
         Dim filepath As String = ""

@@ -57,15 +57,9 @@ Public Class frm_Sale_Invoice
     Private Sub frm_Sale_Invoice_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Try
 
-
-
             obj.FormatGrid(flxItems)
-            'obj.FormatGrid(flxList)
-
-
-
             table_style()
-            clsObj.ComboBind(cmbSupplier, "Select ACC_ID,ACC_NAME from ACCOUNT_MASTER WHERE AG_ID=" & AccountGroups.Customers & " Order by ACC_NAME", "ACC_NAME", "ACC_ID", True)
+            clsObj.ComboBind(cmbSupplier, "Select ACC_ID,ACC_NAME from ACCOUNT_MASTER WHERE AG_ID=" & AccountGroups.Sundry_Debtors & " Order by ACC_NAME", "ACC_NAME", "ACC_ID", True)
             new_initilization()
             fill_grid()
         Catch ex As Exception
