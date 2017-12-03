@@ -1997,6 +1997,7 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Scripts\Updates\0001_02_Dec_2017_AccountPayment.sql" />
+    <Content Include="Scripts\Updates\0001_03_Dec_2017_AccountPayment.sql" />
     <Content Include="Scripts\Updates\CreditorsLedger.sql" />
     <Content Include="Scripts\Updates\DebtorsLedger.sql" />
     <Content Include="Scripts\Updates\DivisionSettings_23_oct_2017.sql" />

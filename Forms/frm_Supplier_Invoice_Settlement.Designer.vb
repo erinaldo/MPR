@@ -20,8 +20,8 @@ Partial Class frm_Supplier_Invoice_Settlement
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frm_Supplier_Invoice_Settlement))
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.List = New System.Windows.Forms.TabPage()
@@ -170,12 +170,12 @@ Partial Class frm_Supplier_Invoice_Settlement
         Me.flxList.Location = New System.Drawing.Point(3, 16)
         Me.flxList.Name = "flxList"
         Me.flxList.RowHeadersVisible = False
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black
-        Me.flxList.RowsDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle3.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black
+        Me.flxList.RowsDefaultCellStyle = DataGridViewCellStyle3
         Me.flxList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.flxList.Size = New System.Drawing.Size(871, 474)
         Me.flxList.TabIndex = 3
@@ -517,9 +517,9 @@ Partial Class frm_Supplier_Invoice_Settlement
         Me.lblCap1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblCap1.Location = New System.Drawing.Point(10, 27)
         Me.lblCap1.Name = "lblCap1"
-        Me.lblCap1.Size = New System.Drawing.Size(59, 15)
+        Me.lblCap1.Size = New System.Drawing.Size(56, 15)
         Me.lblCap1.TabIndex = 10
-        Me.lblCap1.Text = "Supplier :"
+        Me.lblCap1.Text = "Account :"
         '
         'lblAdvanceAmount
         '
@@ -661,6 +661,7 @@ Partial Class frm_Supplier_Invoice_Settlement
         '
         Me.txtCancellationCharges.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.txtCancellationCharges.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.txtCancellationCharges.Enabled = False
         Me.txtCancellationCharges.Font = New System.Drawing.Font("Arial Narrow", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtCancellationCharges.ForeColor = System.Drawing.Color.White
         Me.txtCancellationCharges.Location = New System.Drawing.Point(501, 258)
@@ -900,9 +901,9 @@ Partial Class frm_Supplier_Invoice_Settlement
         Me.Label20.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label20.Location = New System.Drawing.Point(6, 27)
         Me.Label20.Name = "Label20"
-        Me.Label20.Size = New System.Drawing.Size(59, 15)
+        Me.Label20.Size = New System.Drawing.Size(56, 15)
         Me.Label20.TabIndex = 10
-        Me.Label20.Text = "Supplier :"
+        Me.Label20.Text = "Account :"
         '
         'tabDistributePayment
         '
@@ -954,8 +955,8 @@ Partial Class frm_Supplier_Invoice_Settlement
         Me.dgvInvoiceToSettle.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter
         Me.dgvInvoiceToSettle.Location = New System.Drawing.Point(33, 121)
         Me.dgvInvoiceToSettle.Name = "dgvInvoiceToSettle"
-        DataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black
-        Me.dgvInvoiceToSettle.RowsDefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle4.ForeColor = System.Drawing.Color.Black
+        Me.dgvInvoiceToSettle.RowsDefaultCellStyle = DataGridViewCellStyle4
         Me.dgvInvoiceToSettle.Size = New System.Drawing.Size(819, 363)
         Me.dgvInvoiceToSettle.TabIndex = 4
         '
@@ -1083,9 +1084,9 @@ Partial Class frm_Supplier_Invoice_Settlement
         Me.Label44.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label44.Location = New System.Drawing.Point(6, 27)
         Me.Label44.Name = "Label44"
-        Me.Label44.Size = New System.Drawing.Size(59, 15)
+        Me.Label44.Size = New System.Drawing.Size(56, 15)
         Me.Label44.TabIndex = 10
-        Me.Label44.Text = "Supplier :"
+        Me.Label44.Text = "Account :"
         '
         'lblFormHeading
         '

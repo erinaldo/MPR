@@ -18,6 +18,7 @@ Public Class frm_Invoice_Settlement
 
     Dim _paymentStatus As PaymentStatus
 
+
     Private Sub InitializeControls()
         clsObj.ComboBind(cmbCustomer, "Select ACC_ID,ACC_NAME from ACCOUNT_MASTER WHERE AG_ID in (" &
                  AccountGroups.Sundry_Debtors & ") Order by ACC_NAME", "ACC_NAME", "ACC_ID", True)
@@ -45,8 +46,8 @@ Public Class frm_Invoice_Settlement
             " AM.ACC_NAME AS Customer ,ChequeDraftNo AS ChequeNo,CONVERT(VARCHAR(20), ChequeDraftDate, 106) AS ChequeDate ,BK.ACC_NAME AS Bank, " & _
             " TotalAmountReceived AS Amount,CASE WHEN StatusId =1 THEN 'InProcess'  WHEN StatusId =2 THEN 'Approved' WHEN StatusId =3 THEN 'Cancelled'  WHEN StatusId =4 THEN 'Bounced' END AS Status,ptm.PaymentTypeName AS PaymentType" & _
             " FROM    dbo.PaymentTransaction PT JOIN dbo.ACCOUNT_MASTER AM ON pt.AccountId = AM.ACC_ID JOIN dbo.PaymentTypeMaster PTM ON PTM.PaymentTypeId = PT.PaymentTypeId " & _
-            " JOIN dbo.ACCOUNT_MASTER BK ON BK.ACC_ID= PT.BankId)tb WHERE   PaymentCode + PaymentDate + Customer + ChequeNo " & _
-            "+ ChequeDate + Bank +CAST(Amount AS VARCHAR(50))+ PaymentType+Status LIKE '%" & condition & "%'  order by 1"
+            " JOIN dbo.ACCOUNT_MASTER BK ON BK.ACC_ID= PT.BankId and PM_Type=" & PaymentType.Receipt & ")tb WHERE   PaymentCode + PaymentDate + Customer + ChequeNo " & _
+            "+ ChequeDate + Bank +CAST(Amount AS VARCHAR(50))+ PaymentType+Status LIKE '%" & condition & "%' order by 1"
 
             Dim dt As DataTable = clsObj.Fill_DataSet(strsql).Tables(0)
 
@@ -99,10 +100,11 @@ Public Class frm_Invoice_Settlement
     Dim PM_No As Integer
 
     Private Sub GetPMCode()
+
         PM_Code = ""
         PM_No = 0
         Dim ds As New DataSet()
-        ds = clsObj.fill_Data_set("GET_PaymentModule_No", "@DIV_ID", v_the_current_division_id)
+        ds = clsObj.fill_Data_set_val("GET_PaymentModule_No", "@DIV_ID", "@PM_TYPE", v_the_current_division_id, PaymentType.Receipt)
         If ds.Tables(0).Rows.Count = 0 Then
             MsgBox("Payment Module series does not exists", MsgBoxStyle.Information, gblMessageHeading)
             ds.Dispose()
@@ -171,6 +173,7 @@ Public Class frm_Invoice_Settlement
             prpty.PdcPaymentTransactionId = 0
             prpty.CreatedBy = v_the_current_logged_in_user_name
             prpty.DivisionId = v_the_current_division_id
+            prpty.PM_Type = PaymentType.Receipt
             clsObj.insert_Invoice_Settlement(prpty)
             MsgBox("Invoice Settlement has been Saved.", MsgBoxStyle.Information + MsgBoxStyle.OkOnly, gblMessageHeading)
 
@@ -196,7 +199,7 @@ Public Class frm_Invoice_Settlement
         End If
 
         If cmbCustomer.SelectedIndex <= 0 Then
-            MsgBox("Select Customer to enter payment.", vbExclamation, gblMessageHeading)
+            MsgBox("Select Account to enter payment.", vbExclamation, gblMessageHeading)
             cmbCustomer.Focus()
             Return False
             Exit Function
@@ -348,7 +351,7 @@ Public Class frm_Invoice_Settlement
     Private Function ApprovalValidation() As Boolean
 
         If cmbCustomerApprovePayment.SelectedIndex <= 0 Then
-            MsgBox("Select customer to approve/disapprove payment.", vbExclamation, gblMessageHeading)
+            MsgBox("Select Account to approve/disapprove payment.", vbExclamation, gblMessageHeading)
             cmbCustomerApprovePayment.Focus()
             Return False
             Exit Function
@@ -393,7 +396,7 @@ Public Class frm_Invoice_Settlement
 
     Private Sub FillGrid()
         Dim query As String = " SELECT SI_ID, SI_CODE ,SI_NO,  SI_DATE, NET_AMOUNT, " &
-            "ISNULL((SELECT SUM(AmountSettled) FROM dbo.SettlementDetail WHERE InvoiceId = SI_ID),0) AS ReceivedAmount ,iSNULL(cn_amount,0) AS CnAmount" &
+            "ISNULL((SELECT SUM(AmountSettled) FROM dbo.SettlementDetail JOIN dbo.PaymentTransaction  ON dbo.PaymentTransaction.PaymentTransactionId = dbo.SettlementDetail.PaymentTransactionId WHERE InvoiceId = SI_ID AND AccountId=" & cmbCustomerSettleInvoice.SelectedValue & "),0) AS ReceivedAmount ,iSNULL(cn_amount,0) AS CnAmount" &
             " FROM dbo.SALE_INVOICE_MASTER  LEFT JOIN dbo.CreditNote_Master ON INVId = SI_ID WHERE SALE_TYPE='Credit' AND INVOICE_STATUS <> 4 AND CUST_ID = " & cmbCustomerSettleInvoice.SelectedValue
         Dim dt As DataTable = clsObj.Fill_DataSet(query).Tables(0)
         dgvInvoiceToSettle.RowCount = 0

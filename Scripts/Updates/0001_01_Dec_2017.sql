@@ -235,3 +235,54 @@ SET ANSI_PADDING OFF
 GO
 
 ---------------------------------------------------------------------------------------------------------------------
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Label_Master](
+	[Pk_LabelId_Num] [numeric](18, 0) NOT NULL,
+	[LabelName_Vch] [nvarchar](250) NULL,
+	[LabelDescription_Vch] [nvarchar](500) NULL,
+	[CreatedBy_Num] [numeric](18, 0) NULL,
+	[CreatedDate_Dt] [datetime] NULL,
+	[ModifiedBy_Num] [numeric](18, 0) NULL,
+	[ModifiedDate_Dt] [datetime] NULL,
+ CONSTRAINT [PK_Tag_Master] PRIMARY KEY CLUSTERED 
+(
+	[Pk_LabelId_Num] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+-----------------------------------------------------------------------------------------------------------
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Label_Items](
+	[Pk_LabelDetailId_Num] [numeric](18, 0) NOT NULL,
+	[fk_LabelId_num] [numeric](18, 0) NULL,
+	[LabelItemName_vch] [nvarchar](250) NULL,
+	[CreatedBy_Num] [numeric](18, 0) NULL,
+	[CreatedDate_Dt] [datetime] NULL,
+	[ModifiedBy_Num] [numeric](18, 0) NULL,
+	[ModifiedDate_Dt] [datetime] NULL,
+ CONSTRAINT [PK_Tag_Details] PRIMARY KEY CLUSTERED 
+(
+	[Pk_LabelDetailId_Num] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+--------------------------------------------------------------------------------------------------------------
+
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[LabelItem_Mapping](
+	[Fk_LabelDetailId] [numeric](18, 0) NULL,
+	[Fk_ItemId_Num] [numeric](18, 0) NULL
+) ON [PRIMARY]
+
+GO

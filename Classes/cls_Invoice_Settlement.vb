@@ -16,6 +16,7 @@
     Public PdcPaymentTransactionId As Int32
     Public CreatedBy As String
     Public DivisionId As Int32
+    Public PM_Type As Int32
     ''''''''''''''''''''''''''''''''''''''
     Public PaymentId As Int32
     Public InvoiceId As Int32
@@ -28,6 +29,15 @@ Public Enum PaymentStatus
     Cancelled = 3
     Bounced = 4
 End Enum
+
+
+Public Enum PaymentType
+    Receipt = 1
+    Payment = 2
+    Journal = 3
+    Contra = 4
+End Enum
+
 
 Public Class cls_Invoice_Settlement
     Inherits CommonClass
@@ -57,6 +67,8 @@ Public Class cls_Invoice_Settlement
         cmd.Parameters.AddWithValue("@CreatedBy", clsObj.CreatedBy)
         cmd.Parameters.AddWithValue("@DivisionId", clsObj.DivisionId)
         cmd.Parameters.AddWithValue("@StatusId", clsObj.StatusId)
+        cmd.Parameters.AddWithValue("@PM_TYPE", clsObj.PM_Type)
+
         cmd.Parameters.AddWithValue("@ProcedureStatus", 0)
 
         cmd.ExecuteNonQuery()

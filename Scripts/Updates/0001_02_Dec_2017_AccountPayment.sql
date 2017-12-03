@@ -840,10 +840,12 @@ AS
                   GETDATE() ,
                   @DivisionId
                 )
------------deduct settled amount from payment transaction table                
+-----------deduct settled amount from payment transaction table 
+               
         UPDATE  dbo.PaymentTransaction
         SET     UndistributedAmount = UndistributedAmount - @AmountSettled
         WHERE   PaymentTransactionId = @PaymentTransactionId
     END
 
 ------------------------------------------------------------------------------------------------------------------------------
+
