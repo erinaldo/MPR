@@ -34,6 +34,8 @@ Partial Class frm_Sale_Invoice
         Me.Label1 = New System.Windows.Forms.Label()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.GBItemInfo = New System.Windows.Forms.GroupBox()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.lblTotalDisc = New System.Windows.Forms.Label()
         Me.lnkCalculatePOAmt = New System.Windows.Forms.LinkLabel()
         Me.lblNetAmount = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
@@ -43,6 +45,15 @@ Partial Class frm_Sale_Invoice
         Me.Label7 = New System.Windows.Forms.Label()
         Me.flxItems = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.GBDCMASTER = New System.Windows.Forms.GroupBox()
+        Me.txtGstNo = New System.Windows.Forms.TextBox()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.txt_txtphoneNo = New System.Windows.Forms.TextBox()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.txtTransport = New System.Windows.Forms.TextBox()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.rbtn_Cash = New System.Windows.Forms.RadioButton()
+        Me.rdbtn_credit = New System.Windows.Forms.RadioButton()
         Me.cmbinvtype = New System.Windows.Forms.ComboBox()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.txtvechicle_no = New System.Windows.Forms.TextBox()
@@ -59,17 +70,6 @@ Partial Class frm_Sale_Invoice
         Me.lblMRSCode = New System.Windows.Forms.Label()
         Me.lblFormHeading = New System.Windows.Forms.Label()
         Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
-        Me.Label8 = New System.Windows.Forms.Label()
-        Me.rbtn_Cash = New System.Windows.Forms.RadioButton()
-        Me.rdbtn_credit = New System.Windows.Forms.RadioButton()
-        Me.txtTransport = New System.Windows.Forms.TextBox()
-        Me.Label11 = New System.Windows.Forms.Label()
-        Me.txtGstNo = New System.Windows.Forms.TextBox()
-        Me.Label9 = New System.Windows.Forms.Label()
-        Me.txt_txtphoneNo = New System.Windows.Forms.TextBox()
-        Me.Label10 = New System.Windows.Forms.Label()
-        Me.Label12 = New System.Windows.Forms.Label()
-        Me.lblTotalDisc = New System.Windows.Forms.Label()
         Me.TabControl1.SuspendLayout()
         Me.List.SuspendLayout()
         Me.GBMRSDetail.SuspendLayout()
@@ -231,6 +231,27 @@ Partial Class frm_Sale_Invoice
         Me.GBItemInfo.TabStop = False
         Me.GBItemInfo.Text = "List of Items"
         '
+        'Label12
+        '
+        Me.Label12.AutoSize = True
+        Me.Label12.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label12.Location = New System.Drawing.Point(259, 400)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(91, 15)
+        Me.Label12.TabIndex = 10
+        Me.Label12.Text = "Total Discount :"
+        '
+        'lblTotalDisc
+        '
+        Me.lblTotalDisc.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblTotalDisc.ForeColor = System.Drawing.Color.Orange
+        Me.lblTotalDisc.Location = New System.Drawing.Point(346, 397)
+        Me.lblTotalDisc.Name = "lblTotalDisc"
+        Me.lblTotalDisc.Size = New System.Drawing.Size(94, 20)
+        Me.lblTotalDisc.TabIndex = 11
+        Me.lblTotalDisc.Text = "0.00"
+        Me.lblTotalDisc.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
         'lnkCalculatePOAmt
         '
         Me.lnkCalculatePOAmt.AutoSize = True
@@ -354,6 +375,106 @@ Partial Class frm_Sale_Invoice
         Me.GBDCMASTER.Size = New System.Drawing.Size(896, 152)
         Me.GBDCMASTER.TabIndex = 0
         Me.GBDCMASTER.TabStop = False
+        '
+        'txtGstNo
+        '
+        Me.txtGstNo.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.txtGstNo.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.txtGstNo.Font = New System.Drawing.Font("Arial Narrow", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtGstNo.ForeColor = System.Drawing.Color.White
+        Me.txtGstNo.Location = New System.Drawing.Point(513, 98)
+        Me.txtGstNo.MaxLength = 0
+        Me.txtGstNo.Name = "txtGstNo"
+        Me.txtGstNo.ReadOnly = True
+        Me.txtGstNo.Size = New System.Drawing.Size(170, 19)
+        Me.txtGstNo.TabIndex = 58
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label9.Location = New System.Drawing.Point(437, 101)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(58, 15)
+        Me.Label9.TabIndex = 0
+        Me.Label9.Text = "GST NO :"
+        '
+        'txt_txtphoneNo
+        '
+        Me.txt_txtphoneNo.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.txt_txtphoneNo.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.txt_txtphoneNo.Font = New System.Drawing.Font("Arial Narrow", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txt_txtphoneNo.ForeColor = System.Drawing.Color.White
+        Me.txt_txtphoneNo.Location = New System.Drawing.Point(513, 73)
+        Me.txt_txtphoneNo.MaxLength = 0
+        Me.txt_txtphoneNo.Name = "txt_txtphoneNo"
+        Me.txt_txtphoneNo.ReadOnly = True
+        Me.txt_txtphoneNo.Size = New System.Drawing.Size(170, 19)
+        Me.txt_txtphoneNo.TabIndex = 57
+        '
+        'Label10
+        '
+        Me.Label10.AutoSize = True
+        Me.Label10.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label10.Location = New System.Drawing.Point(437, 76)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(70, 15)
+        Me.Label10.TabIndex = 0
+        Me.Label10.Text = "Phone NO :"
+        '
+        'txtTransport
+        '
+        Me.txtTransport.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.txtTransport.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.txtTransport.Font = New System.Drawing.Font("Arial Narrow", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtTransport.ForeColor = System.Drawing.Color.White
+        Me.txtTransport.Location = New System.Drawing.Point(296, 123)
+        Me.txtTransport.MaxLength = 0
+        Me.txtTransport.Name = "txtTransport"
+        Me.txtTransport.Size = New System.Drawing.Size(135, 19)
+        Me.txtTransport.TabIndex = 5
+        '
+        'Label11
+        '
+        Me.Label11.AutoSize = True
+        Me.Label11.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label11.Location = New System.Drawing.Point(221, 124)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(66, 15)
+        Me.Label11.TabIndex = 56
+        Me.Label11.Text = "Transport :"
+        '
+        'Label8
+        '
+        Me.Label8.AutoSize = True
+        Me.Label8.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label8.Location = New System.Drawing.Point(431, 20)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(94, 15)
+        Me.Label8.TabIndex = 0
+        Me.Label8.Text = "Payment Mode :"
+        '
+        'rbtn_Cash
+        '
+        Me.rbtn_Cash.AutoSize = True
+        Me.rbtn_Cash.Location = New System.Drawing.Point(533, 20)
+        Me.rbtn_Cash.Name = "rbtn_Cash"
+        Me.rbtn_Cash.Size = New System.Drawing.Size(54, 17)
+        Me.rbtn_Cash.TabIndex = 1
+        Me.rbtn_Cash.Text = "CASH"
+        Me.rbtn_Cash.UseVisualStyleBackColor = True
+        '
+        'rdbtn_credit
+        '
+        Me.rdbtn_credit.AutoSize = True
+        Me.rdbtn_credit.Checked = True
+        Me.rdbtn_credit.Location = New System.Drawing.Point(622, 19)
+        Me.rdbtn_credit.Name = "rdbtn_credit"
+        Me.rdbtn_credit.Size = New System.Drawing.Size(65, 17)
+        Me.rdbtn_credit.TabIndex = 2
+        Me.rdbtn_credit.TabStop = True
+        Me.rdbtn_credit.Text = "CREDIT"
+        Me.rdbtn_credit.UseVisualStyleBackColor = True
         '
         'cmbinvtype
         '
@@ -523,127 +644,6 @@ Partial Class frm_Sale_Invoice
         Me.ImageList1.TransparentColor = System.Drawing.Color.Transparent
         Me.ImageList1.Images.SetKeyName(0, "Zoom_search_find_magnifying_glass.png")
         Me.ImageList1.Images.SetKeyName(1, "Inventory_box_shipment_product.png")
-        '
-        'Label8
-        '
-        Me.Label8.AutoSize = True
-        Me.Label8.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label8.Location = New System.Drawing.Point(431, 20)
-        Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(94, 15)
-        Me.Label8.TabIndex = 0
-        Me.Label8.Text = "Payment Mode :"
-        '
-        'rbtn_Cash
-        '
-        Me.rbtn_Cash.AutoSize = True
-        Me.rbtn_Cash.Checked = True
-        Me.rbtn_Cash.Location = New System.Drawing.Point(533, 20)
-        Me.rbtn_Cash.Name = "rbtn_Cash"
-        Me.rbtn_Cash.Size = New System.Drawing.Size(54, 17)
-        Me.rbtn_Cash.TabIndex = 1
-        Me.rbtn_Cash.TabStop = True
-        Me.rbtn_Cash.Text = "CASH"
-        Me.rbtn_Cash.UseVisualStyleBackColor = True
-        '
-        'rdbtn_credit
-        '
-        Me.rdbtn_credit.AutoSize = True
-        Me.rdbtn_credit.Location = New System.Drawing.Point(622, 19)
-        Me.rdbtn_credit.Name = "rdbtn_credit"
-        Me.rdbtn_credit.Size = New System.Drawing.Size(65, 17)
-        Me.rdbtn_credit.TabIndex = 2
-        Me.rdbtn_credit.Text = "CREDIT"
-        Me.rdbtn_credit.UseVisualStyleBackColor = True
-        '
-        'txtTransport
-        '
-        Me.txtTransport.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.txtTransport.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.txtTransport.Font = New System.Drawing.Font("Arial Narrow", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtTransport.ForeColor = System.Drawing.Color.White
-        Me.txtTransport.Location = New System.Drawing.Point(296, 123)
-        Me.txtTransport.MaxLength = 0
-        Me.txtTransport.Name = "txtTransport"
-        Me.txtTransport.Size = New System.Drawing.Size(135, 19)
-        Me.txtTransport.TabIndex = 5
-        '
-        'Label11
-        '
-        Me.Label11.AutoSize = True
-        Me.Label11.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label11.Location = New System.Drawing.Point(221, 124)
-        Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(66, 15)
-        Me.Label11.TabIndex = 56
-        Me.Label11.Text = "Transport :"
-        '
-        'txtGstNo
-        '
-        Me.txtGstNo.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.txtGstNo.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.txtGstNo.Font = New System.Drawing.Font("Arial Narrow", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtGstNo.ForeColor = System.Drawing.Color.White
-        Me.txtGstNo.Location = New System.Drawing.Point(513, 98)
-        Me.txtGstNo.MaxLength = 0
-        Me.txtGstNo.Name = "txtGstNo"
-        Me.txtGstNo.ReadOnly = True
-        Me.txtGstNo.Size = New System.Drawing.Size(170, 19)
-        Me.txtGstNo.TabIndex = 58
-        '
-        'Label9
-        '
-        Me.Label9.AutoSize = True
-        Me.Label9.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label9.Location = New System.Drawing.Point(437, 101)
-        Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(58, 15)
-        Me.Label9.TabIndex = 0
-        Me.Label9.Text = "GST NO :"
-        '
-        'txt_txtphoneNo
-        '
-        Me.txt_txtphoneNo.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.txt_txtphoneNo.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.txt_txtphoneNo.Font = New System.Drawing.Font("Arial Narrow", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txt_txtphoneNo.ForeColor = System.Drawing.Color.White
-        Me.txt_txtphoneNo.Location = New System.Drawing.Point(513, 73)
-        Me.txt_txtphoneNo.MaxLength = 0
-        Me.txt_txtphoneNo.Name = "txt_txtphoneNo"
-        Me.txt_txtphoneNo.ReadOnly = True
-        Me.txt_txtphoneNo.Size = New System.Drawing.Size(170, 19)
-        Me.txt_txtphoneNo.TabIndex = 57
-        '
-        'Label10
-        '
-        Me.Label10.AutoSize = True
-        Me.Label10.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label10.Location = New System.Drawing.Point(437, 76)
-        Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(70, 15)
-        Me.Label10.TabIndex = 0
-        Me.Label10.Text = "Phone NO :"
-        '
-        'Label12
-        '
-        Me.Label12.AutoSize = True
-        Me.Label12.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label12.Location = New System.Drawing.Point(259, 400)
-        Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(91, 15)
-        Me.Label12.TabIndex = 10
-        Me.Label12.Text = "Total Discount :"
-        '
-        'lblTotalDisc
-        '
-        Me.lblTotalDisc.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblTotalDisc.ForeColor = System.Drawing.Color.Orange
-        Me.lblTotalDisc.Location = New System.Drawing.Point(346, 397)
-        Me.lblTotalDisc.Name = "lblTotalDisc"
-        Me.lblTotalDisc.Size = New System.Drawing.Size(94, 20)
-        Me.lblTotalDisc.TabIndex = 11
-        Me.lblTotalDisc.Text = "0.00"
-        Me.lblTotalDisc.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'frm_Sale_Invoice
         '
