@@ -114,7 +114,7 @@ Module SyncronizeData
         GlobalTables.Tables.Add(Table.Copy())
 
         ''22) 
-        Query = "select*from STATE_MASTER"
+        Query = "Select * from STATE_MASTER"
         Table = Get_Remote_DataSet(Query).Tables(0)
         Table.TableName = "STATE_MASTER"
         GlobalTables.Tables.Add(Table.Copy())
