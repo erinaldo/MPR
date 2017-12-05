@@ -30,6 +30,7 @@ Public Class frm_Invoice_Settlement
         clsObj.ComboBind(cmbPaymentType, "Select [PaymentTypeId], [PaymentTypeName] + CASE WHEN IsApprovalRequired_bit=1" &
                          " THEN ' - Approval Required' ELSE ' - Approval Not Required' END AS PaymentTypeName from [PaymentTypeMaster] WHERE [IsActive_bit] = 1",
                           "PaymentTypeName", "PaymentTypeId", True)
+
         clsObj.ComboBind(cmbBank, "SELECT ACC_ID,ACC_NAME FROM dbo.ACCOUNT_MASTER WHERE AG_ID=" & AccountGroups.Bank_Accounts,
                           "ACC_NAME", "ACC_ID", True)
         GetPMCode()
@@ -43,10 +44,10 @@ Public Class frm_Invoice_Settlement
             Dim strsql As String
 
             strsql = "SELECT * FROM (SELECT  pt.PaymentTransactionId as PaymentID ,PaymentTransactionNo AS PaymentCode ,CONVERT(VARCHAR(20), PaymentDate, 106) AS PaymentDate, " & _
-            " AM.ACC_NAME AS Customer ,ChequeDraftNo AS ChequeNo,CONVERT(VARCHAR(20), ChequeDraftDate, 106) AS ChequeDate ,BK.ACC_NAME AS Bank, " & _
+            " AM.ACC_NAME AS Account ,ChequeDraftNo AS ChequeNo,CONVERT(VARCHAR(20), ChequeDraftDate, 106) AS ChequeDate ,BK.ACC_NAME AS Bank, " & _
             " TotalAmountReceived AS Amount,CASE WHEN StatusId =1 THEN 'InProcess'  WHEN StatusId =2 THEN 'Approved' WHEN StatusId =3 THEN 'Cancelled'  WHEN StatusId =4 THEN 'Bounced' END AS Status,ptm.PaymentTypeName AS PaymentType" & _
             " FROM    dbo.PaymentTransaction PT JOIN dbo.ACCOUNT_MASTER AM ON pt.AccountId = AM.ACC_ID JOIN dbo.PaymentTypeMaster PTM ON PTM.PaymentTypeId = PT.PaymentTypeId " & _
-            " JOIN dbo.ACCOUNT_MASTER BK ON BK.ACC_ID= PT.BankId and PM_Type=" & PaymentType.Receipt & ")tb WHERE   PaymentCode + PaymentDate + Customer + ChequeNo " & _
+            " JOIN dbo.ACCOUNT_MASTER BK ON BK.ACC_ID= PT.BankId and PM_Type=" & PaymentType.Receipt & ")tb WHERE   PaymentCode + PaymentDate + Account + ChequeNo " & _
             "+ ChequeDate + Bank +CAST(Amount AS VARCHAR(50))+ PaymentType+Status LIKE '%" & condition & "%' order by 1"
 
             Dim dt As DataTable = clsObj.Fill_DataSet(strsql).Tables(0)
@@ -315,6 +316,7 @@ Public Class frm_Invoice_Settlement
         prpty.PaymentTransactionId = cmbPendingPayment.SelectedValue
         prpty.StatusId = _paymentApprovalStatus
         prpty.CancellationCharges = txtCancellationCharges.Text
+        prpty.PM_Type = PaymentType.Receipt
 
         clsObj.Update_Payment_Status(prpty)
 
@@ -559,8 +561,7 @@ Public Class frm_Invoice_Settlement
             lblAdvanceAmount.Text = dt.Rows(0)(0)
         End If
         lblUnDistributeAmount.Text = dt.Rows(0)(1)
-
-
     End Sub
 
+   
 End Class

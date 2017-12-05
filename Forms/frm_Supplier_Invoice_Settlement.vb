@@ -3,7 +3,7 @@
 Public Class frm_Supplier_Invoice_Settlement
     Implements IForm
     Dim obj As New CommonClass
-    Dim clsObj As New cls_Supplier_Invoice_Settlement
+    Dim clsObj As New cls_Invoice_Settlement
     Dim _rights As Form_Rights
     Dim PaymentId As Int16
     Dim flag As String
@@ -21,16 +21,19 @@ Public Class frm_Supplier_Invoice_Settlement
     Private Sub InitializeControls()
         clsObj.ComboBind(cmbCustomer, "Select ACC_ID,ACC_NAME from ACCOUNT_MASTER WHERE AG_ID=" &
                  AccountGroups.Sundry_Creditors & " Order by ACC_NAME", "ACC_NAME", "ACC_ID", True)
+
         clsObj.ComboBind(cmbCustomerApprovePayment, "Select ACC_ID,ACC_NAME from ACCOUNT_MASTER WHERE AG_ID=" &
                  AccountGroups.Sundry_Creditors & " Order by ACC_NAME", "ACC_NAME", "ACC_ID", True)
+
         clsObj.ComboBind(cmbCustomerSettleInvoice, "Select ACC_ID,ACC_NAME from ACCOUNT_MASTER WHERE AG_ID=" &
                  AccountGroups.Sundry_Creditors & " Order by ACC_NAME", "ACC_NAME", "ACC_ID", True)
 
         clsObj.ComboBind(cmbPaymentType, "Select [PaymentTypeId], [PaymentTypeName] + CASE WHEN IsApprovalRequired_bit=1" &
                          " THEN ' - Approval Required' ELSE ' - Approval Not Required' END AS PaymentTypeName from [PaymentTypeMaster] WHERE [IsActive_bit] = 1",
                           "PaymentTypeName", "PaymentTypeId", True)
-        clsObj.ComboBind(cmbBank, "select BankID, BankName + ' - ' + BankAccountNo as BankAccountNo FROM dbo.BankMaster where IsActive = 1",
-                          "BankAccountNo", "BankID", True)
+
+        clsObj.ComboBind(cmbBank, "SELECT ACC_ID,ACC_NAME FROM dbo.ACCOUNT_MASTER WHERE AG_ID=" & AccountGroups.Bank_Accounts,
+                          "ACC_NAME", "ACC_ID", True)
         GetPMCode()
         fill_ListPaymentgrid()
 
@@ -42,13 +45,14 @@ Public Class frm_Supplier_Invoice_Settlement
             Dim strsql As String
 
             strsql = "SELECT * FROM (SELECT  pt.PaymentTransactionId as PaymentID ,PaymentTransactionNo AS PaymentCode ,CONVERT(VARCHAR(20), PaymentDate, 106) AS PaymentDate, " & _
-            " ACC_NAME AS Supplier ,ChequeDraftNo AS ChequeNo,CONVERT(VARCHAR(20), ChequeDraftDate, 106) AS ChequeDate ,BankName AS Bank, " & _
+            " AM.ACC_NAME AS Account ,ChequeDraftNo AS ChequeNo,CONVERT(VARCHAR(20), ChequeDraftDate, 106) AS ChequeDate ,BK.ACC_NAME AS Bank, " & _
             " TotalAmountReceived AS Amount,CASE WHEN StatusId =1 THEN 'InProcess'  WHEN StatusId =2 THEN 'Approved' WHEN StatusId =3 THEN 'Cancelled'  WHEN StatusId =4 THEN 'Bounced' END AS Status,ptm.PaymentTypeName AS PaymentType" & _
-            " FROM    dbo.SupplierPaymentTransaction PT JOIN dbo.ACCOUNT_MASTER AM ON pt.AccountId = AM.ACC_ID JOIN dbo.PaymentTypeMaster PTM ON PTM.PaymentTypeId = PT.PaymentTypeId " & _
-            " JOIN dbo.BankMaster BK ON BK.BankID = PT.BankId)tb WHERE   PaymentCode + PaymentDate + Supplier + ChequeNo " & _
-            "+ ChequeDate + Bank +CAST(Amount AS VARCHAR(50))+ PaymentType+Status LIKE '%" & condition & "%'  order by 1"
+            " FROM    dbo.PaymentTransaction PT JOIN dbo.ACCOUNT_MASTER AM ON pt.AccountId = AM.ACC_ID JOIN dbo.PaymentTypeMaster PTM ON PTM.PaymentTypeId = PT.PaymentTypeId " & _
+            " JOIN dbo.ACCOUNT_MASTER BK ON BK.ACC_ID= PT.BankId and PM_Type=" & PaymentType.Payment & ")tb WHERE   PaymentCode + PaymentDate + Account + ChequeNo " & _
+            "+ ChequeDate + Bank +CAST(Amount AS VARCHAR(50))+ PaymentType+Status LIKE '%" & condition & "%' order by 1"
 
             Dim dt As DataTable = clsObj.Fill_DataSet(strsql).Tables(0)
+
 
             flxList.DataSource = dt
 
@@ -102,7 +106,7 @@ Public Class frm_Supplier_Invoice_Settlement
         PM_Code = ""
         PM_No = 0
         Dim ds As New DataSet()
-        ds = clsObj.fill_Data_set("GET_SuppPaymentModule_No", "@DIV_ID", v_the_current_division_id)
+        ds = clsObj.fill_Data_set_val("GET_PaymentModule_No", "@DIV_ID", "@PM_TYPE", v_the_current_division_id, PaymentType.Payment)
         If ds.Tables(0).Rows.Count = 0 Then
             MsgBox("Payment Module series does not exists", MsgBoxStyle.Information, gblMessageHeading)
             ds.Dispose()
@@ -142,7 +146,7 @@ Public Class frm_Supplier_Invoice_Settlement
 
     End Sub
 
-    Dim prpty As cls_Supplier_Invoice_Settlement_prop
+    Dim prpty As cls_Invoice_Settlement_prop
     Public Sub SaveClick(ByVal sender As Object, ByVal e As System.EventArgs) Implements IForm.SaveClick
         Try
             If Validation() = False Then
@@ -154,7 +158,7 @@ Public Class frm_Supplier_Invoice_Settlement
                 Exit Sub
             End If
 
-            prpty = New cls_Supplier_Invoice_Settlement_prop
+            prpty = New cls_Invoice_Settlement_prop
             prpty.PaymentTransactionCode = PM_Code & PM_No
             prpty.PaymentTypeId = cmbPaymentType.SelectedValue
             prpty.AccountId = cmbCustomer.SelectedValue
@@ -170,6 +174,7 @@ Public Class frm_Supplier_Invoice_Settlement
             prpty.BankDate = dtpBankDate.Value
             prpty.PdcPaymentTransactionId = 0
             prpty.CreatedBy = v_the_current_logged_in_user_name
+            prpty.PM_Type = PaymentType.Payment
             prpty.DivisionId = v_the_current_division_id
 
             clsObj.insert_Invoice_Settlement(prpty)
@@ -197,7 +202,7 @@ Public Class frm_Supplier_Invoice_Settlement
         End If
 
         If cmbCustomer.SelectedIndex <= 0 Then
-            MsgBox("Select Customer to enter payment.", vbExclamation, gblMessageHeading)
+            MsgBox("Select Account to enter payment.", vbExclamation, gblMessageHeading)
             cmbCustomer.Focus()
             Return False
             Exit Function
@@ -268,9 +273,9 @@ Public Class frm_Supplier_Invoice_Settlement
 
     Private Sub cmbPendingPayment_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbPendingPayment.SelectedIndexChanged
         Dim query As String = " SELECT PaymentTransactionNo, PaymentDate, ChequeDraftno, ChequeDraftDate, Remarks," &
-            " TotalAmountReceived, pt.CreatedBy, PaymentTypeName , BankName + ' - ' + BankAccountNo AS  BankName, BankDate " &
-            " FROM dbo.SupplierPaymentTransaction pt INNER JOIN dbo.PaymentTypeMaster ptm ON ptm.PaymentTypeId = pt.PaymentTypeId" &
-            " INNER JOIN dbo.BankMaster bm ON bm.BankID = pt.BankId WHERE PaymentTransactionId =  " & cmbPendingPayment.SelectedValue
+            " TotalAmountReceived, pt.CreatedBy, PaymentTypeName , bm.ACC_NAME AS  BankName, BankDate " &
+            " FROM dbo.PaymentTransaction pt INNER JOIN dbo.PaymentTypeMaster ptm ON ptm.PaymentTypeId = pt.PaymentTypeId" &
+            " INNER JOIN dbo.ACCOUNT_MASTER bm ON bm.ACC_ID = pt.BankId WHERE PaymentTransactionId =  " & cmbPendingPayment.SelectedValue
 
         Dim ds As DataSet = clsObj.FillDataSet(query)
         If ds.Tables(0).Rows.Count > 0 Then
@@ -291,7 +296,7 @@ Public Class frm_Supplier_Invoice_Settlement
 
     Private Sub cmbCustomerApprovePayment_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbCustomerApprovePayment.SelectedIndexChanged
         Dim query As String = "SELECT PaymentTransactionID, PaymentTransactionNo + ' - ' + CONVERT(VARCHAR(20), PaymentDate, 107) as PaymentTransactionNo" &
-            " FROM dbo.SupplierPaymentTransaction where StatusId = 1 AND AccountId = " & cmbCustomerApprovePayment.SelectedValue
+            " FROM dbo.PaymentTransaction where StatusId = 1 AND AccountId = " & cmbCustomerApprovePayment.SelectedValue
         clsObj.ComboBind(cmbPendingPayment, query, "PaymentTransactionNo", "PaymentTransactionID", True)
     End Sub
 
@@ -309,11 +314,11 @@ Public Class frm_Supplier_Invoice_Settlement
             Exit Sub
         End If
 
-        prpty = New cls_Supplier_Invoice_Settlement_prop
+        prpty = New cls_Invoice_Settlement_prop
         prpty.PaymentTransactionId = cmbPendingPayment.SelectedValue
         prpty.StatusId = _paymentApprovalStatus
         prpty.CancellationCharges = txtCancellationCharges.Text
-
+        prpty.PM_Type = PaymentType.Payment
         clsObj.Update_Payment_Status(prpty)
 
         MsgBox("Payment status has been updated.", MsgBoxStyle.Information + MsgBoxStyle.OkOnly, gblMessageHeading)
@@ -349,7 +354,7 @@ Public Class frm_Supplier_Invoice_Settlement
     Private Function ApprovalValidation() As Boolean
 
         If cmbCustomerApprovePayment.SelectedIndex <= 0 Then
-            MsgBox("Select Supplier to approve/disapprove payment.", vbExclamation, gblMessageHeading)
+            MsgBox("Select Account to approve/disapprove payment.", vbExclamation, gblMessageHeading)
             cmbCustomerApprovePayment.Focus()
             Return False
             Exit Function
@@ -387,7 +392,7 @@ Public Class frm_Supplier_Invoice_Settlement
 
     Dim UndistributedAmount As Decimal
     Private Sub SetUndistributedAmount()
-        Dim query As String = "SELECT isnull(SUM(UndistributedAmount), 0) FROM dbo.SupplierPaymentTransaction WHERE StatusId =2 AND AccountId=" & cmbCustomerSettleInvoice.SelectedValue
+        Dim query As String = "SELECT isnull(SUM(UndistributedAmount), 0) FROM dbo.PaymentTransaction WHERE StatusId =2 AND AccountId=" & cmbCustomerSettleInvoice.SelectedValue
         UndistributedAmount = clsObj.ExecuteScalar(query)
         lblUndistributedAmount.Text = UndistributedAmount.ToString("0.00")
     End Sub
@@ -395,11 +400,11 @@ Public Class frm_Supplier_Invoice_Settlement
     Private Sub FillGrid()
 
         Dim query As String = " SELECT MRN_NO AS MRN_ID ,MRN_PREFIX , MRN_NO , dbo.MATERIAL_RECEIVED_AGAINST_PO_MASTER.Creation_Date AS date , " &
-            " MATERIAL_RECEIVED_AGAINST_PO_MASTER.NET_AMOUNT ,ISNULL(( SELECT SUM(AmountSettled) FROM   dbo.SupplierSettlementDetail  WHERE  MrnNo = Mrn_No ), 0) AS ReceivedAmount ," &
+            " MATERIAL_RECEIVED_AGAINST_PO_MASTER.NET_AMOUNT ,ISNULL(( SELECT SUM(AmountSettled) FROM   dbo.SettlementDetail  JOIN dbo.PaymentTransaction  ON dbo.PaymentTransaction.PaymentTransactionId = dbo.SettlementDetail.PaymentTransactionId WHERE  InvoiceId = Mrn_No AND AccountId=" & cmbCustomerSettleInvoice.SelectedValue & " ), 0) AS ReceivedAmount ," &
             " ISNULL(dn_amount, 0) AS DnAmount,Invoice_No FROM   dbo.MATERIAL_RECEIVED_AGAINST_PO_MASTER  JOIN dbo.PO_MASTER ON dbo.PO_MASTER.PO_ID = dbo.MATERIAL_RECEIVED_AGAINST_PO_MASTER.PO_ID " &
             "  LEFT JOIN dbo.DebitNote_Master ON MRNId = MRN_NO WHERE  PO_SUPP_ID =" & cmbCustomerSettleInvoice.SelectedValue &
             " union  SELECT MRN_NO ,MRN_PREFIX ,MRN_NO ,  dbo.MATERIAL_RECIEVED_WITHOUT_PO_MASTER.Creation_Date AS date ,  MATERIAL_RECIEVED_WITHOUT_PO_MASTER.NET_AMOUNT ," &
-            " ISNULL(( SELECT SUM(AmountSettled)  FROM   dbo.SupplierSettlementDetail   WHERE  MrnNo = Mrn_No   ), 0) AS ReceivedAmount ,   ISNULL(dn_amount, 0) AS DnAmount, Invoice_No " &
+            " ISNULL(( SELECT SUM(AmountSettled)  FROM   dbo.SettlementDetail  JOIN dbo.PaymentTransaction  ON dbo.PaymentTransaction.PaymentTransactionId = dbo.SettlementDetail.PaymentTransactionId  WHERE  InvoiceId = Mrn_No AND AccountId=" & cmbCustomerSettleInvoice.SelectedValue & "), 0) AS ReceivedAmount ,ISNULL(dn_amount, 0) AS DnAmount, Invoice_No " &
             " FROM   dbo.MATERIAL_RECIEVED_WITHOUT_PO_MASTER  LEFT JOIN dbo.DebitNote_Master ON MRNId = MRN_NO WHERE  Vendor_ID =" & cmbCustomerSettleInvoice.SelectedValue
 
         Dim dt As DataTable = clsObj.Fill_DataSet(query).Tables(0)
@@ -442,12 +447,12 @@ Public Class frm_Supplier_Invoice_Settlement
     End Sub
 
     Private Sub btnSettleInvoice_Click(sender As Object, e As EventArgs) Handles btnSettleInvoice.Click
-        Dim query As String = "SELECT PaymentTransactionId, UndistributedAmount, PaymentTransactionNo FROM dbo.SupplierPaymentTransaction" &
+        Dim query As String = "SELECT PaymentTransactionId, UndistributedAmount, PaymentTransactionNo FROM dbo.PaymentTransaction" &
             " WHERE StatusId =2 AND UndistributedAmount > 0 AND AccountId=" & cmbCustomerSettleInvoice.SelectedValue &
             " ORDER BY PaymentTransactionId ASC"
         Dim undistributedAmountTable As DataTable = clsObj.Fill_DataSet(query).Tables(0)
 
-        Dim prop As New cls_Supplier_Invoice_Settlement_prop
+        Dim prop As New cls_Invoice_Settlement_prop
         For Each row As DataGridViewRow In dgvInvoiceToSettle.Rows
 
             Dim amountToSettle As Decimal = row.Cells("AmountToReceive").Value
@@ -479,7 +484,7 @@ Public Class frm_Supplier_Invoice_Settlement
                 prop.PaymentTransactionId = undistributedAmountTable.Rows(index)("PaymentTransactionId")
                 prop.PaymentId = undistributedAmountTable.Rows(index)("PaymentTransactionId")
 
-                prop.MrnNo = row.Cells("mrnId").Value
+                prop.InvoiceId = row.Cells("mrnId").Value
 
 
                 prop.Remarks = String.Format("Rs. {0} settled for invoice {1} against payment {2}",
@@ -553,8 +558,8 @@ Public Class frm_Supplier_Invoice_Settlement
 
 
     Private Sub cmbCustomer_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbCustomer.SelectedIndexChanged
-        Dim query As String = "DECLARE @AmountInHand DECIMAL(18,2) DECLARE @UndistributedAmount DECIMAL(18,2) SELECT @AmountInHand= isnull( sum(AmountInHand),0) FROM dbo.SupplierLedgerMaster WHERE AccountId=" & cmbCustomer.SelectedValue & _
-       " SELECT  @UndistributedAmount=isnull(SUM(UndistributedAmount), 0) FROM dbo.SupplierPaymentTransaction WHERE StatusId =2 AND AccountId=" & cmbCustomer.SelectedValue & _
+        Dim query As String = "DECLARE @AmountInHand DECIMAL(18,2) DECLARE @UndistributedAmount DECIMAL(18,2) SELECT @AmountInHand= isnull( sum(AmountInHand),0) FROM dbo.LedgerMaster WHERE AccountId=" & cmbCustomer.SelectedValue & _
+       " SELECT  @UndistributedAmount=isnull(SUM(UndistributedAmount), 0) FROM dbo.PaymentTransaction WHERE StatusId =2 AND AccountId=" & cmbCustomer.SelectedValue & _
        "SELECT @AmountInHand AS AmountInHand,@UndistributedAmount AS UndistributedAmount"
 
         Dim dt As DataTable = clsObj.Fill_DataSet(query).Tables(0)

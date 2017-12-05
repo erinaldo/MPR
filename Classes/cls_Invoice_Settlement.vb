@@ -88,6 +88,8 @@ Public Class cls_Invoice_Settlement
         cmd.Parameters.AddWithValue("@PaymentTransactionId", clsObj.PaymentTransactionId)
         cmd.Parameters.AddWithValue("@CancellationCharges", clsObj.CancellationCharges)
         cmd.Parameters.AddWithValue("@StatusId", clsObj.StatusId)
+        cmd.Parameters.AddWithValue("@PM_TYPE", clsObj.PM_Type)
+        'prpty.PM_Type = PaymentType.Receipt
 
         cmd.ExecuteNonQuery()
         cmd.Dispose()
