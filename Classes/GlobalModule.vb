@@ -231,6 +231,8 @@ Module GlobalModule
         CreditNote = 17
         Invoice_Settlement = 18
         Supplier_Invoice_Settlement = 19
+        Opening_Balance = 20
+
     End Enum
 
     ''********************************************************************''

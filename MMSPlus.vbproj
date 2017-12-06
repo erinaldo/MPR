@@ -170,6 +170,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Classes\cls_Material_rec_against_PO.vb" />
+    <Compile Include="Classes\cls_opening_balance.vb" />
     <Compile Include="Classes\cls_ReverseMaterial_Issue_To_Cost_Center.vb" />
     <Compile Include="Classes\cls_ReverseMaterial_Received_Against_PO_Master.vb" />
     <Compile Include="Classes\cls_ReverseMaterial_Recieved_Without_Po_Master.vb" />
@@ -233,6 +234,12 @@
       <DependentUpon>frm_Wastage Master_cc.vb</DependentUpon>
     </Compile>
     <Compile Include="CostCenterForms\frm_Wastage Master_cc.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\frm_OpeningBalance.Designer.vb">
+      <DependentUpon>frm_OpeningBalance.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frm_OpeningBalance.vb">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Forms\frm_Supplier_Invoice_Settlement.Designer.vb">
@@ -1297,6 +1304,9 @@
       <DependentUpon>frm_Wastage Master_cc.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frm_OpeningBalance.resx">
+      <DependentUpon>frm_OpeningBalance.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\frm_Supplier_Invoice_Settlement.resx">
       <DependentUpon>frm_Supplier_Invoice_Settlement.vb</DependentUpon>
     </EmbeddedResource>
@@ -1998,6 +2008,7 @@
     </Content>
     <Content Include="Scripts\Updates\0001_02_Dec_2017_AccountPayment.sql" />
     <Content Include="Scripts\Updates\0001_03_Dec_2017_AccountPayment.sql" />
+    <Content Include="Scripts\Updates\0001_06_Dec_2017OpeningBalance.sql" />
     <Content Include="Scripts\Updates\CreditorsLedger.sql" />
     <Content Include="Scripts\Updates\DebtorsLedger.sql" />
     <Content Include="Scripts\Updates\DivisionSettings_23_oct_2017.sql" />

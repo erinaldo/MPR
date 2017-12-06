@@ -21,20 +21,6 @@ Partial Class MDIMain
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(MDIMain))
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
-        Me.toolbar = New System.Windows.Forms.ToolStrip()
-        Me.ToolStripSeparator11 = New System.Windows.Forms.ToolStripSeparator()
-        Me.btDelete = New System.Windows.Forms.ToolStripButton()
-        Me.ToolStripSeparator17 = New System.Windows.Forms.ToolStripSeparator()
-        Me.ToolStripSeparator6 = New System.Windows.Forms.ToolStripSeparator()
-        Me.ToolStripSeparator18 = New System.Windows.Forms.ToolStripSeparator()
-        Me.ToolStripSeparator19 = New System.Windows.Forms.ToolStripSeparator()
-        Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
-        Me.TabControl2 = New System.Windows.Forms.TabControl()
-        Me.btnViewRpt = New System.Windows.Forms.ToolStripButton()
-        Me.btClose = New System.Windows.Forms.ToolStripButton()
-        Me.btRefresh = New System.Windows.Forms.ToolStripButton()
-        Me.btSave = New System.Windows.Forms.ToolStripButton()
-        Me.btNew = New System.Windows.Forms.ToolStripButton()
         Me.logo = New System.Windows.Forms.ToolStripMenuItem()
         Me.Home = New System.Windows.Forms.ToolStripMenuItem()
         Me.MasterSetupToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -148,8 +134,23 @@ Partial Class MDIMain
         Me.TerminateToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.LogOffToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.toolbar = New System.Windows.Forms.ToolStrip()
+        Me.btnViewRpt = New System.Windows.Forms.ToolStripButton()
+        Me.ToolStripSeparator11 = New System.Windows.Forms.ToolStripSeparator()
+        Me.btClose = New System.Windows.Forms.ToolStripButton()
+        Me.btDelete = New System.Windows.Forms.ToolStripButton()
+        Me.ToolStripSeparator17 = New System.Windows.Forms.ToolStripSeparator()
+        Me.btRefresh = New System.Windows.Forms.ToolStripButton()
+        Me.ToolStripSeparator6 = New System.Windows.Forms.ToolStripSeparator()
+        Me.btSave = New System.Windows.Forms.ToolStripButton()
+        Me.ToolStripSeparator18 = New System.Windows.Forms.ToolStripSeparator()
+        Me.btNew = New System.Windows.Forms.ToolStripButton()
+        Me.ToolStripSeparator19 = New System.Windows.Forms.ToolStripSeparator()
+        Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.picLogo = New System.Windows.Forms.PictureBox()
+        Me.TabControl2 = New System.Windows.Forms.TabControl()
         Me.frm_open_invoice = New System.Windows.Forms.ToolStripMenuItem()
+        Me.frm_OpeningBalance = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.toolbar.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
@@ -171,160 +172,6 @@ Partial Class MDIMain
         Me.MenuStrip1.Size = New System.Drawing.Size(105, 686)
         Me.MenuStrip1.TabIndex = 0
         Me.MenuStrip1.Text = "MenuStrip1"
-        '
-        'toolbar
-        '
-        Me.toolbar.BackColor = System.Drawing.SystemColors.ControlDark
-        Me.toolbar.CanOverflow = False
-        Me.toolbar.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.toolbar.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
-        Me.toolbar.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btnViewRpt, Me.ToolStripSeparator11, Me.btClose, Me.btDelete, Me.ToolStripSeparator17, Me.btRefresh, Me.ToolStripSeparator6, Me.btSave, Me.ToolStripSeparator18, Me.btNew, Me.ToolStripSeparator19})
-        Me.toolbar.Location = New System.Drawing.Point(105, 650)
-        Me.toolbar.Name = "toolbar"
-        Me.toolbar.RenderMode = System.Windows.Forms.ToolStripRenderMode.System
-        Me.toolbar.Size = New System.Drawing.Size(917, 36)
-        Me.toolbar.TabIndex = 2
-        Me.toolbar.Text = "ggggg"
-        Me.toolbar.Visible = False
-        '
-        'ToolStripSeparator11
-        '
-        Me.ToolStripSeparator11.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
-        Me.ToolStripSeparator11.Name = "ToolStripSeparator11"
-        Me.ToolStripSeparator11.Size = New System.Drawing.Size(6, 36)
-        '
-        'btDelete
-        '
-        Me.btDelete.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
-        Me.btDelete.AutoSize = False
-        Me.btDelete.BackColor = System.Drawing.Color.FromArgb(CType(CType(33, Byte), Integer), CType(CType(33, Byte), Integer), CType(CType(33, Byte), Integer))
-        Me.btDelete.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btDelete.ForeColor = System.Drawing.Color.White
-        Me.btDelete.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.btDelete.Name = "btDelete"
-        Me.btDelete.Size = New System.Drawing.Size(150, 33)
-        Me.btDelete.Text = "Erase"
-        Me.btDelete.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
-        Me.btDelete.ToolTipText = "Delete Ctrl+D"
-        Me.btDelete.Visible = False
-        '
-        'ToolStripSeparator17
-        '
-        Me.ToolStripSeparator17.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
-        Me.ToolStripSeparator17.Name = "ToolStripSeparator17"
-        Me.ToolStripSeparator17.Size = New System.Drawing.Size(6, 36)
-        '
-        'ToolStripSeparator6
-        '
-        Me.ToolStripSeparator6.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
-        Me.ToolStripSeparator6.Name = "ToolStripSeparator6"
-        Me.ToolStripSeparator6.Size = New System.Drawing.Size(6, 36)
-        '
-        'ToolStripSeparator18
-        '
-        Me.ToolStripSeparator18.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
-        Me.ToolStripSeparator18.Name = "ToolStripSeparator18"
-        Me.ToolStripSeparator18.Size = New System.Drawing.Size(6, 36)
-        '
-        'ToolStripSeparator19
-        '
-        Me.ToolStripSeparator19.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
-        Me.ToolStripSeparator19.BackColor = System.Drawing.SystemColors.ControlDark
-        Me.ToolStripSeparator19.Name = "ToolStripSeparator19"
-        Me.ToolStripSeparator19.Size = New System.Drawing.Size(6, 36)
-        '
-        'TableLayoutPanel1
-        '
-        Me.TableLayoutPanel1.BackColor = System.Drawing.Color.DimGray
-        Me.TableLayoutPanel1.ColumnCount = 1
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel1.Controls.Add(Me.picLogo, 0, 0)
-        Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 0)
-        Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
-        Me.TableLayoutPanel1.RowCount = 1
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(1022, 686)
-        Me.TableLayoutPanel1.TabIndex = 5
-        '
-        'TabControl2
-        '
-        Me.TabControl2.Appearance = System.Windows.Forms.TabAppearance.FlatButtons
-        Me.TabControl2.Location = New System.Drawing.Point(105, 0)
-        Me.TabControl2.Name = "TabControl2"
-        Me.TabControl2.SelectedIndex = 0
-        Me.TabControl2.Size = New System.Drawing.Size(917, 657)
-        Me.TabControl2.TabIndex = 7
-        '
-        'btnViewRpt
-        '
-        Me.btnViewRpt.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
-        Me.btnViewRpt.AutoSize = False
-        Me.btnViewRpt.BackColor = System.Drawing.Color.FromArgb(CType(CType(33, Byte), Integer), CType(CType(33, Byte), Integer), CType(CType(33, Byte), Integer))
-        Me.btnViewRpt.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnViewRpt.ForeColor = System.Drawing.Color.White
-        Me.btnViewRpt.Image = Global.MMSPlus.My.Resources.Resources.Printer_print_3d_vector_symbol
-        Me.btnViewRpt.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.btnViewRpt.Name = "btnViewRpt"
-        Me.btnViewRpt.Size = New System.Drawing.Size(150, 33)
-        Me.btnViewRpt.Text = "Print"
-        Me.btnViewRpt.ToolTipText = "View Report Ctrl+W"
-        '
-        'btClose
-        '
-        Me.btClose.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
-        Me.btClose.AutoSize = False
-        Me.btClose.BackColor = System.Drawing.Color.FromArgb(CType(CType(33, Byte), Integer), CType(CType(33, Byte), Integer), CType(CType(33, Byte), Integer))
-        Me.btClose.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btClose.ForeColor = System.Drawing.Color.White
-        Me.btClose.Image = Global.MMSPlus.My.Resources.Resources.Close_delete_remove_exit_cross
-        Me.btClose.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.btClose.Name = "btClose"
-        Me.btClose.Size = New System.Drawing.Size(150, 33)
-        Me.btClose.Text = "Close"
-        Me.btClose.ToolTipText = "Close Ctrl+O"
-        '
-        'btRefresh
-        '
-        Me.btRefresh.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
-        Me.btRefresh.AutoSize = False
-        Me.btRefresh.BackColor = System.Drawing.Color.FromArgb(CType(CType(33, Byte), Integer), CType(CType(33, Byte), Integer), CType(CType(33, Byte), Integer))
-        Me.btRefresh.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btRefresh.ForeColor = System.Drawing.Color.White
-        Me.btRefresh.Image = Global.MMSPlus.My.Resources.Resources.PC_Web_synchronization
-        Me.btRefresh.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.btRefresh.Name = "btRefresh"
-        Me.btRefresh.Size = New System.Drawing.Size(150, 33)
-        Me.btRefresh.Text = "Refresh"
-        Me.btRefresh.ToolTipText = "Refresh F5"
-        '
-        'btSave
-        '
-        Me.btSave.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
-        Me.btSave.AutoSize = False
-        Me.btSave.BackColor = System.Drawing.Color.FromArgb(CType(CType(33, Byte), Integer), CType(CType(33, Byte), Integer), CType(CType(33, Byte), Integer))
-        Me.btSave.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btSave.ForeColor = System.Drawing.Color.White
-        Me.btSave.Image = Global.MMSPlus.My.Resources.Resources.Save_all_download
-        Me.btSave.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.btSave.Name = "btSave"
-        Me.btSave.Size = New System.Drawing.Size(150, 33)
-        Me.btSave.Text = "Save"
-        Me.btSave.ToolTipText = "Save Ctrl+S"
-        '
-        'btNew
-        '
-        Me.btNew.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
-        Me.btNew.AutoSize = False
-        Me.btNew.BackColor = System.Drawing.Color.FromArgb(CType(CType(33, Byte), Integer), CType(CType(33, Byte), Integer), CType(CType(33, Byte), Integer))
-        Me.btNew.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btNew.ForeColor = System.Drawing.Color.White
-        Me.btNew.Image = Global.MMSPlus.My.Resources.Resources.Table_excel_row_document_teach
-        Me.btNew.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.btNew.Name = "btNew"
-        Me.btNew.Size = New System.Drawing.Size(150, 33)
-        Me.btNew.Text = "New"
-        Me.btNew.ToolTipText = "New Ctrl+N"
         '
         'logo
         '
@@ -769,7 +616,7 @@ Partial Class MDIMain
         'UserManagmentToolStripMenuItem
         '
         Me.UserManagmentToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(77, Byte), Integer), CType(CType(77, Byte), Integer), CType(CType(77, Byte), Integer))
-        Me.UserManagmentToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.frm_user_master, Me.frm_Invoice_Settlement, Me.frm_Supplier_Invoice_Settlement, Me.frm_DebtorsOS, Me.frm_DebtorsLedger, Me.frm_CreditorsOS, Me.frm_CreditorsLedger, Me.ExpancesageToolStripMenuItem, Me.GSTRegitorToolStripMenuItem})
+        Me.UserManagmentToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.frm_user_master, Me.frm_OpeningBalance, Me.frm_Invoice_Settlement, Me.frm_Supplier_Invoice_Settlement, Me.frm_DebtorsOS, Me.frm_DebtorsLedger, Me.frm_CreditorsOS, Me.frm_CreditorsLedger, Me.ExpancesageToolStripMenuItem, Me.GSTRegitorToolStripMenuItem})
         Me.UserManagmentToolStripMenuItem.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.UserManagmentToolStripMenuItem.ForeColor = System.Drawing.Color.White
         Me.UserManagmentToolStripMenuItem.Image = Global.MMSPlus.My.Resources.Resources.Client_list_text
@@ -1422,6 +1269,151 @@ Partial Class MDIMain
         Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(113, 22)
         Me.ExitToolStripMenuItem.Text = "Exit"
         '
+        'toolbar
+        '
+        Me.toolbar.BackColor = System.Drawing.SystemColors.ControlDark
+        Me.toolbar.CanOverflow = False
+        Me.toolbar.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.toolbar.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
+        Me.toolbar.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btnViewRpt, Me.ToolStripSeparator11, Me.btClose, Me.btDelete, Me.ToolStripSeparator17, Me.btRefresh, Me.ToolStripSeparator6, Me.btSave, Me.ToolStripSeparator18, Me.btNew, Me.ToolStripSeparator19})
+        Me.toolbar.Location = New System.Drawing.Point(105, 650)
+        Me.toolbar.Name = "toolbar"
+        Me.toolbar.RenderMode = System.Windows.Forms.ToolStripRenderMode.System
+        Me.toolbar.Size = New System.Drawing.Size(917, 36)
+        Me.toolbar.TabIndex = 2
+        Me.toolbar.Text = "ggggg"
+        Me.toolbar.Visible = False
+        '
+        'btnViewRpt
+        '
+        Me.btnViewRpt.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
+        Me.btnViewRpt.AutoSize = False
+        Me.btnViewRpt.BackColor = System.Drawing.Color.FromArgb(CType(CType(33, Byte), Integer), CType(CType(33, Byte), Integer), CType(CType(33, Byte), Integer))
+        Me.btnViewRpt.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnViewRpt.ForeColor = System.Drawing.Color.White
+        Me.btnViewRpt.Image = Global.MMSPlus.My.Resources.Resources.Printer_print_3d_vector_symbol
+        Me.btnViewRpt.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.btnViewRpt.Name = "btnViewRpt"
+        Me.btnViewRpt.Size = New System.Drawing.Size(150, 33)
+        Me.btnViewRpt.Text = "Print"
+        Me.btnViewRpt.ToolTipText = "View Report Ctrl+W"
+        '
+        'ToolStripSeparator11
+        '
+        Me.ToolStripSeparator11.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
+        Me.ToolStripSeparator11.Name = "ToolStripSeparator11"
+        Me.ToolStripSeparator11.Size = New System.Drawing.Size(6, 36)
+        '
+        'btClose
+        '
+        Me.btClose.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
+        Me.btClose.AutoSize = False
+        Me.btClose.BackColor = System.Drawing.Color.FromArgb(CType(CType(33, Byte), Integer), CType(CType(33, Byte), Integer), CType(CType(33, Byte), Integer))
+        Me.btClose.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btClose.ForeColor = System.Drawing.Color.White
+        Me.btClose.Image = Global.MMSPlus.My.Resources.Resources.Close_delete_remove_exit_cross
+        Me.btClose.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.btClose.Name = "btClose"
+        Me.btClose.Size = New System.Drawing.Size(150, 33)
+        Me.btClose.Text = "Close"
+        Me.btClose.ToolTipText = "Close Ctrl+O"
+        '
+        'btDelete
+        '
+        Me.btDelete.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
+        Me.btDelete.AutoSize = False
+        Me.btDelete.BackColor = System.Drawing.Color.FromArgb(CType(CType(33, Byte), Integer), CType(CType(33, Byte), Integer), CType(CType(33, Byte), Integer))
+        Me.btDelete.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btDelete.ForeColor = System.Drawing.Color.White
+        Me.btDelete.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.btDelete.Name = "btDelete"
+        Me.btDelete.Size = New System.Drawing.Size(150, 33)
+        Me.btDelete.Text = "Erase"
+        Me.btDelete.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
+        Me.btDelete.ToolTipText = "Delete Ctrl+D"
+        Me.btDelete.Visible = False
+        '
+        'ToolStripSeparator17
+        '
+        Me.ToolStripSeparator17.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
+        Me.ToolStripSeparator17.Name = "ToolStripSeparator17"
+        Me.ToolStripSeparator17.Size = New System.Drawing.Size(6, 36)
+        '
+        'btRefresh
+        '
+        Me.btRefresh.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
+        Me.btRefresh.AutoSize = False
+        Me.btRefresh.BackColor = System.Drawing.Color.FromArgb(CType(CType(33, Byte), Integer), CType(CType(33, Byte), Integer), CType(CType(33, Byte), Integer))
+        Me.btRefresh.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btRefresh.ForeColor = System.Drawing.Color.White
+        Me.btRefresh.Image = Global.MMSPlus.My.Resources.Resources.PC_Web_synchronization
+        Me.btRefresh.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.btRefresh.Name = "btRefresh"
+        Me.btRefresh.Size = New System.Drawing.Size(150, 33)
+        Me.btRefresh.Text = "Refresh"
+        Me.btRefresh.ToolTipText = "Refresh F5"
+        '
+        'ToolStripSeparator6
+        '
+        Me.ToolStripSeparator6.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
+        Me.ToolStripSeparator6.Name = "ToolStripSeparator6"
+        Me.ToolStripSeparator6.Size = New System.Drawing.Size(6, 36)
+        '
+        'btSave
+        '
+        Me.btSave.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
+        Me.btSave.AutoSize = False
+        Me.btSave.BackColor = System.Drawing.Color.FromArgb(CType(CType(33, Byte), Integer), CType(CType(33, Byte), Integer), CType(CType(33, Byte), Integer))
+        Me.btSave.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btSave.ForeColor = System.Drawing.Color.White
+        Me.btSave.Image = Global.MMSPlus.My.Resources.Resources.Save_all_download
+        Me.btSave.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.btSave.Name = "btSave"
+        Me.btSave.Size = New System.Drawing.Size(150, 33)
+        Me.btSave.Text = "Save"
+        Me.btSave.ToolTipText = "Save Ctrl+S"
+        '
+        'ToolStripSeparator18
+        '
+        Me.ToolStripSeparator18.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
+        Me.ToolStripSeparator18.Name = "ToolStripSeparator18"
+        Me.ToolStripSeparator18.Size = New System.Drawing.Size(6, 36)
+        '
+        'btNew
+        '
+        Me.btNew.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
+        Me.btNew.AutoSize = False
+        Me.btNew.BackColor = System.Drawing.Color.FromArgb(CType(CType(33, Byte), Integer), CType(CType(33, Byte), Integer), CType(CType(33, Byte), Integer))
+        Me.btNew.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btNew.ForeColor = System.Drawing.Color.White
+        Me.btNew.Image = Global.MMSPlus.My.Resources.Resources.Table_excel_row_document_teach
+        Me.btNew.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.btNew.Name = "btNew"
+        Me.btNew.Size = New System.Drawing.Size(150, 33)
+        Me.btNew.Text = "New"
+        Me.btNew.ToolTipText = "New Ctrl+N"
+        '
+        'ToolStripSeparator19
+        '
+        Me.ToolStripSeparator19.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
+        Me.ToolStripSeparator19.BackColor = System.Drawing.SystemColors.ControlDark
+        Me.ToolStripSeparator19.Name = "ToolStripSeparator19"
+        Me.ToolStripSeparator19.Size = New System.Drawing.Size(6, 36)
+        '
+        'TableLayoutPanel1
+        '
+        Me.TableLayoutPanel1.BackColor = System.Drawing.Color.DimGray
+        Me.TableLayoutPanel1.ColumnCount = 1
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel1.Controls.Add(Me.picLogo, 0, 0)
+        Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 0)
+        Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
+        Me.TableLayoutPanel1.RowCount = 1
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(1022, 686)
+        Me.TableLayoutPanel1.TabIndex = 5
+        '
         'picLogo
         '
         Me.picLogo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
@@ -1435,6 +1427,15 @@ Partial Class MDIMain
         Me.picLogo.TabIndex = 4
         Me.picLogo.TabStop = False
         '
+        'TabControl2
+        '
+        Me.TabControl2.Appearance = System.Windows.Forms.TabAppearance.FlatButtons
+        Me.TabControl2.Location = New System.Drawing.Point(105, 0)
+        Me.TabControl2.Name = "TabControl2"
+        Me.TabControl2.SelectedIndex = 0
+        Me.TabControl2.Size = New System.Drawing.Size(917, 657)
+        Me.TabControl2.TabIndex = 7
+        '
         'frm_open_invoice
         '
         Me.frm_open_invoice.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
@@ -1443,6 +1444,15 @@ Partial Class MDIMain
         Me.frm_open_invoice.Name = "frm_open_invoice"
         Me.frm_open_invoice.Size = New System.Drawing.Size(181, 22)
         Me.frm_open_invoice.Text = "Opne Invoice"
+        '
+        'frm_OpeningBalance
+        '
+        Me.frm_OpeningBalance.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.frm_OpeningBalance.ForeColor = System.Drawing.Color.White
+        Me.frm_OpeningBalance.Image = Global.MMSPlus.My.Resources.Resources.Refresh_list
+        Me.frm_OpeningBalance.Name = "frm_OpeningBalance"
+        Me.frm_OpeningBalance.Size = New System.Drawing.Size(170, 22)
+        Me.frm_OpeningBalance.Text = "Opening Balance"
         '
         'MDIMain
         '
@@ -1601,4 +1611,5 @@ Partial Class MDIMain
     Friend WithEvents ExpancesageToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents frm_DebtorsOS As ToolStripMenuItem
     Friend WithEvents frm_CreditorsOS As ToolStripMenuItem
+    Friend WithEvents frm_OpeningBalance As System.Windows.Forms.ToolStripMenuItem
 End Class
