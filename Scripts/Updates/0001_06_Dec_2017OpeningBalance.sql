@@ -1,4 +1,19 @@
-﻿ALTER PROC Proc_AddOpeningBalance
+﻿SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[OpeningBalance](
+	[OpeningBalanceId] [numeric](18, 0) NULL,
+	[FkAccountId] [numeric](18, 0) NULL,
+	[OpeningAmount] [numeric](18, 2) NULL,
+	[OpeningDate] [datetime] NULL
+) ON [PRIMARY]
+
+GO
+--------------------------------------------------------------------------
+CREATE PROC Proc_AddOpeningBalance
     (
       @AccountId NUMERIC(18, 0) ,
       @Amount NUMERIC(18, 2) ,
