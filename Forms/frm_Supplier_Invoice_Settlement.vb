@@ -405,7 +405,10 @@ Public Class frm_Supplier_Invoice_Settlement
             "  LEFT JOIN dbo.DebitNote_Master ON MRNId = MRN_NO WHERE  PO_SUPP_ID =" & cmbCustomerSettleInvoice.SelectedValue &
             " union  SELECT MRN_NO ,MRN_PREFIX ,MRN_NO ,  dbo.MATERIAL_RECIEVED_WITHOUT_PO_MASTER.Creation_Date AS date ,  MATERIAL_RECIEVED_WITHOUT_PO_MASTER.NET_AMOUNT ," &
             " ISNULL(( SELECT SUM(AmountSettled)  FROM   dbo.SettlementDetail  JOIN dbo.PaymentTransaction  ON dbo.PaymentTransaction.PaymentTransactionId = dbo.SettlementDetail.PaymentTransactionId  WHERE  InvoiceId = Mrn_No AND AccountId=" & cmbCustomerSettleInvoice.SelectedValue & "), 0) AS ReceivedAmount ,ISNULL(dn_amount, 0) AS DnAmount, Invoice_No " &
-            " FROM   dbo.MATERIAL_RECIEVED_WITHOUT_PO_MASTER  LEFT JOIN dbo.DebitNote_Master ON MRNId = MRN_NO WHERE  Vendor_ID =" & cmbCustomerSettleInvoice.SelectedValue
+            " FROM   dbo.MATERIAL_RECIEVED_WITHOUT_PO_MASTER  LEFT JOIN dbo.DebitNote_Master ON MRNId = MRN_NO WHERE  Vendor_ID =" & cmbCustomerSettleInvoice.SelectedValue &
+             " UNION SELECT OpeningBalanceId,'Opening Balance',OpeningBalanceId,OpeningDate,OpeningAmount, ISNULL(( SELECT SUM(AmountSettled)FROM   dbo.SettlementDetail JOIN dbo.PaymentTransaction " &
+            " ON dbo.PaymentTransaction.PaymentTransactionId = dbo.SettlementDetail.PaymentTransactionId  WHERE  InvoiceId = OpeningBalanceId  AND AccountId = " & cmbCustomerSettleInvoice.SelectedValue &
+            " ), 0) AS ReceivedAmount ,0,'Opening Balance'+CAST(OpeningBalanceId as varchar(20)) FROM dbo.OpeningBalance WHERE FkAccountId=" & cmbCustomerSettleInvoice.SelectedValue
 
         Dim dt As DataTable = clsObj.Fill_DataSet(query).Tables(0)
         dgvInvoiceToSettle.RowCount = 0
@@ -421,6 +424,7 @@ Public Class frm_Supplier_Invoice_Settlement
             dgvInvoiceToSettle.Rows(index).Cells("InvoiceNo").Value = dr("Invoice_No")
             dgvInvoiceToSettle.Rows(index).Cells("MRNDate").Value = dr("date")
             dgvInvoiceToSettle.Rows(index).Cells("InvoiceAmount").Value = dr("NET_AMOUNT")
+
             dgvInvoiceToSettle.Rows(index).Cells("ReceivedAmount").Value = dr("ReceivedAmount")
             dgvInvoiceToSettle.Rows(index).Cells("DebitedAmount").Value = dr("DnAmount")
             dgvInvoiceToSettle.Rows(index).Cells("PendingAmount").Value = dr("NET_AMOUNT") - dr("ReceivedAmount") - dr("DnAmount")

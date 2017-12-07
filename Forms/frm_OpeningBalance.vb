@@ -26,7 +26,7 @@ Public Class frm_OpeningBalance
     Private Sub FillGrid(Optional ByVal condition As String = "")
         Dim strsql As String
         Try
-            strsql = "SELECT * FROM (SELECT  AG_NAME AS [GROUP Name] ,ACC_NAME AS Account," & _
+            strsql = "SELECT  ROW_NUMBER()OVER(ORDER BY Account)AS [Sr. No],* FROM (SELECT  AG_NAME AS [GROUP Name] ,ACC_NAME AS Account," & _
             " OPENINGAmount AS [Opening Balance],CONVERT(VARCHAR(20), OpeningDate, 106) AS [Opening Date]" & _
             "FROM    openingbalance JOIN dbo.ACCOUNT_MASTER ON openingbalance.fkAccountId = dbo.ACCOUNT_MASTER.ACC_ID" & _
             " JOIN dbo.ACCOUNT_GROUPS ON dbo.ACCOUNT_GROUPS.AG_ID = dbo.ACCOUNT_MASTER.AG_ID )tb WHERE [GROUP Name]+[Account]+CAST([Opening Balance] AS VARCHAR(30))+[Opening Date] LIKE '%" & condition & "%'  order by 1"
@@ -38,8 +38,8 @@ Public Class frm_OpeningBalance
             grdOpeningBalance.Columns(1).Width = 150
             grdOpeningBalance.Columns(2).Width = 150
             grdOpeningBalance.Columns(3).Width = 150
-        
-            FillGrid()
+            grdOpeningBalance.Columns(4).Width = 150
+
         Catch ex As Exception
             MsgBox(gblMessageHeading_Error & vbCrLf & gblMessage_ContactInfo & vbCrLf & ex.Message, MsgBoxStyle.Critical, gblMessageHeading)
         End Try
@@ -103,6 +103,7 @@ Public Class frm_OpeningBalance
 
             clsObj.Add_Account_OpeningBalance(prpty)
             ClearControl()
+            FillGrid()
             MsgBox("Account Opening Balance  has been Saved.", MsgBoxStyle.Information + MsgBoxStyle.OkOnly, gblMessageHeading)
         End If
     End Sub

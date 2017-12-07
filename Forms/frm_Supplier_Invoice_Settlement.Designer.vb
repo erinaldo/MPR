@@ -20,8 +20,8 @@ Partial Class frm_Supplier_Invoice_Settlement
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frm_Supplier_Invoice_Settlement))
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.List = New System.Windows.Forms.TabPage()
@@ -94,6 +94,14 @@ Partial Class frm_Supplier_Invoice_Settlement
         Me.btnClear = New System.Windows.Forms.Button()
         Me.btnSettleInvoice = New System.Windows.Forms.Button()
         Me.dgvInvoiceToSettle = New System.Windows.Forms.DataGridView()
+        Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.lblUndistributedAmount = New System.Windows.Forms.Label()
+        Me.Label24 = New System.Windows.Forms.Label()
+        Me.btnDistributeAmount = New System.Windows.Forms.Button()
+        Me.cmbCustomerSettleInvoice = New System.Windows.Forms.ComboBox()
+        Me.Label44 = New System.Windows.Forms.Label()
+        Me.lblFormHeading = New System.Windows.Forms.Label()
+        Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
         Me.MrnId = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.MrnNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.InvoiceNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -103,14 +111,6 @@ Partial Class frm_Supplier_Invoice_Settlement
         Me.DebitedAmount = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.PendingAmount = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.AmountToReceive = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.GroupBox3 = New System.Windows.Forms.GroupBox()
-        Me.lblUndistributedAmount = New System.Windows.Forms.Label()
-        Me.Label24 = New System.Windows.Forms.Label()
-        Me.btnDistributeAmount = New System.Windows.Forms.Button()
-        Me.cmbCustomerSettleInvoice = New System.Windows.Forms.ComboBox()
-        Me.Label44 = New System.Windows.Forms.Label()
-        Me.lblFormHeading = New System.Windows.Forms.Label()
-        Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
         Me.TabControl1.SuspendLayout()
         Me.List.SuspendLayout()
         Me.GBMRSDetail.SuspendLayout()
@@ -170,12 +170,12 @@ Partial Class frm_Supplier_Invoice_Settlement
         Me.flxList.Location = New System.Drawing.Point(3, 16)
         Me.flxList.Name = "flxList"
         Me.flxList.RowHeadersVisible = False
-        DataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black
-        Me.flxList.RowsDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black
+        Me.flxList.RowsDefaultCellStyle = DataGridViewCellStyle1
         Me.flxList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.flxList.Size = New System.Drawing.Size(871, 474)
         Me.flxList.TabIndex = 3
@@ -955,69 +955,10 @@ Partial Class frm_Supplier_Invoice_Settlement
         Me.dgvInvoiceToSettle.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter
         Me.dgvInvoiceToSettle.Location = New System.Drawing.Point(33, 121)
         Me.dgvInvoiceToSettle.Name = "dgvInvoiceToSettle"
-        DataGridViewCellStyle4.ForeColor = System.Drawing.Color.Black
-        Me.dgvInvoiceToSettle.RowsDefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black
+        Me.dgvInvoiceToSettle.RowsDefaultCellStyle = DataGridViewCellStyle2
         Me.dgvInvoiceToSettle.Size = New System.Drawing.Size(819, 363)
         Me.dgvInvoiceToSettle.TabIndex = 4
-        '
-        'MrnId
-        '
-        Me.MrnId.HeaderText = "MrnId"
-        Me.MrnId.Name = "MrnId"
-        Me.MrnId.ReadOnly = True
-        Me.MrnId.Visible = False
-        '
-        'MrnNo
-        '
-        Me.MrnNo.HeaderText = "MrnNo"
-        Me.MrnNo.Name = "MrnNo"
-        Me.MrnNo.ReadOnly = True
-        Me.MrnNo.Width = 120
-        '
-        'InvoiceNo
-        '
-        Me.InvoiceNo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.InvoiceNo.HeaderText = "Invoice No"
-        Me.InvoiceNo.Name = "InvoiceNo"
-        Me.InvoiceNo.ReadOnly = True
-        '
-        'MRNDate
-        '
-        Me.MRNDate.HeaderText = "Mrn Date"
-        Me.MRNDate.Name = "MRNDate"
-        Me.MRNDate.ReadOnly = True
-        '
-        'InvoiceAmount
-        '
-        Me.InvoiceAmount.HeaderText = "Invoice Amount"
-        Me.InvoiceAmount.Name = "InvoiceAmount"
-        Me.InvoiceAmount.ReadOnly = True
-        '
-        'ReceivedAmount
-        '
-        Me.ReceivedAmount.HeaderText = "Received Amount"
-        Me.ReceivedAmount.Name = "ReceivedAmount"
-        Me.ReceivedAmount.ReadOnly = True
-        Me.ReceivedAmount.Width = 80
-        '
-        'DebitedAmount
-        '
-        Me.DebitedAmount.HeaderText = "Debited Amount"
-        Me.DebitedAmount.Name = "DebitedAmount"
-        Me.DebitedAmount.ReadOnly = True
-        Me.DebitedAmount.Width = 80
-        '
-        'PendingAmount
-        '
-        Me.PendingAmount.HeaderText = "Pending Amount"
-        Me.PendingAmount.Name = "PendingAmount"
-        Me.PendingAmount.ReadOnly = True
-        Me.PendingAmount.Width = 80
-        '
-        'AmountToReceive
-        '
-        Me.AmountToReceive.HeaderText = "Amount To Receive"
-        Me.AmountToReceive.Name = "AmountToReceive"
         '
         'GroupBox3
         '
@@ -1105,6 +1046,65 @@ Partial Class frm_Supplier_Invoice_Settlement
         Me.ImageList1.TransparentColor = System.Drawing.Color.Transparent
         Me.ImageList1.Images.SetKeyName(0, "Zoom_search_find_magnifying_glass.png")
         Me.ImageList1.Images.SetKeyName(1, "Inventory_box_shipment_product.png")
+        '
+        'MrnId
+        '
+        Me.MrnId.HeaderText = "MrnId"
+        Me.MrnId.Name = "MrnId"
+        Me.MrnId.ReadOnly = True
+        Me.MrnId.Visible = False
+        '
+        'MrnNo
+        '
+        Me.MrnNo.HeaderText = "MrnNo"
+        Me.MrnNo.Name = "MrnNo"
+        Me.MrnNo.ReadOnly = True
+        Me.MrnNo.Width = 120
+        '
+        'InvoiceNo
+        '
+        Me.InvoiceNo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.InvoiceNo.HeaderText = "Invoice No"
+        Me.InvoiceNo.Name = "InvoiceNo"
+        Me.InvoiceNo.ReadOnly = True
+        '
+        'MRNDate
+        '
+        Me.MRNDate.HeaderText = "Mrn Date"
+        Me.MRNDate.Name = "MRNDate"
+        Me.MRNDate.ReadOnly = True
+        '
+        'InvoiceAmount
+        '
+        Me.InvoiceAmount.HeaderText = "Invoice Amount"
+        Me.InvoiceAmount.Name = "InvoiceAmount"
+        Me.InvoiceAmount.ReadOnly = True
+        '
+        'ReceivedAmount
+        '
+        Me.ReceivedAmount.HeaderText = "Released Amount"
+        Me.ReceivedAmount.Name = "ReceivedAmount"
+        Me.ReceivedAmount.ReadOnly = True
+        Me.ReceivedAmount.Width = 80
+        '
+        'DebitedAmount
+        '
+        Me.DebitedAmount.HeaderText = "Debited Amount"
+        Me.DebitedAmount.Name = "DebitedAmount"
+        Me.DebitedAmount.ReadOnly = True
+        Me.DebitedAmount.Width = 80
+        '
+        'PendingAmount
+        '
+        Me.PendingAmount.HeaderText = "Pending Amount"
+        Me.PendingAmount.Name = "PendingAmount"
+        Me.PendingAmount.ReadOnly = True
+        Me.PendingAmount.Width = 80
+        '
+        'AmountToReceive
+        '
+        Me.AmountToReceive.HeaderText = "Amount To Release"
+        Me.AmountToReceive.Name = "AmountToReceive"
         '
         'frm_Supplier_Invoice_Settlement
         '

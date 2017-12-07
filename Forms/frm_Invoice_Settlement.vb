@@ -1,5 +1,8 @@
 ﻿Imports System.Data.SqlClient
 
+
+
+
 Public Class frm_Invoice_Settlement
     Implements IForm
     Dim obj As New CommonClass
@@ -399,7 +402,11 @@ Public Class frm_Invoice_Settlement
     Private Sub FillGrid()
         Dim query As String = " SELECT SI_ID, SI_CODE ,SI_NO,  SI_DATE, NET_AMOUNT, " &
             "ISNULL((SELECT SUM(AmountSettled) FROM dbo.SettlementDetail JOIN dbo.PaymentTransaction  ON dbo.PaymentTransaction.PaymentTransactionId = dbo.SettlementDetail.PaymentTransactionId WHERE InvoiceId = SI_ID AND AccountId=" & cmbCustomerSettleInvoice.SelectedValue & "),0) AS ReceivedAmount ,iSNULL(cn_amount,0) AS CnAmount" &
-            " FROM dbo.SALE_INVOICE_MASTER  LEFT JOIN dbo.CreditNote_Master ON INVId = SI_ID WHERE SALE_TYPE='Credit' AND INVOICE_STATUS <> 4 AND CUST_ID = " & cmbCustomerSettleInvoice.SelectedValue
+            " FROM dbo.SALE_INVOICE_MASTER  LEFT JOIN dbo.CreditNote_Master ON INVId = SI_ID WHERE SALE_TYPE='Credit' AND INVOICE_STATUS <> 4 AND CUST_ID = " & cmbCustomerSettleInvoice.SelectedValue &
+            " UNION SELECT OpeningBalanceId,'Opening Balance',OpeningBalanceId,OpeningDate,OpeningAmount, ISNULL(( SELECT SUM(AmountSettled)FROM   dbo.SettlementDetail JOIN dbo.PaymentTransaction " &
+            " ON dbo.PaymentTransaction.PaymentTransactionId = dbo.SettlementDetail.PaymentTransactionId  WHERE  InvoiceId = OpeningBalanceId  AND AccountId = " & cmbCustomerSettleInvoice.SelectedValue &
+            " ), 0) AS ReceivedAmount ,0 FROM dbo.OpeningBalance WHERE FkAccountId=" & cmbCustomerSettleInvoice.SelectedValue
+
         Dim dt As DataTable = clsObj.Fill_DataSet(query).Tables(0)
         dgvInvoiceToSettle.RowCount = 0
 
@@ -424,6 +431,7 @@ Public Class frm_Invoice_Settlement
     Private Sub btnDistributeAmount_Click(sender As Object, e As EventArgs) Handles btnDistributeAmount.Click
         dgvInvoiceToSettle.Sort(InvoiceDate, System.ComponentModel.ListSortDirection.Ascending)
         SetUndistributedAmount()
+
         For Each row As DataGridViewRow In dgvInvoiceToSettle.Rows
             row.Cells("AmountToReceive").Value = 0
             Dim pendingAmount As Decimal = row.Cells("PendingAmount").Value
@@ -563,5 +571,5 @@ Public Class frm_Invoice_Settlement
         lblUnDistributeAmount.Text = dt.Rows(0)(1)
     End Sub
 
-   
+
 End Class
