@@ -4,7 +4,7 @@
       @Amount NUMERIC(18, 2) ,
       @DivisionId NUMERIC(18, 0) ,
       @CreatedBy NVARCHAR(50) ,
-      @Openingdate DATETIME ,
+      @Openingdate DATETIME  ,
       @Type BIGINT
     )
 AS
@@ -17,34 +17,39 @@ AS
         DECLARE @OPENINGBALANCEID NUMERIC(18, 0)
      
 
-        SET @OPENINGBALANCEID = ( SELECT    ISNULL(MAX(OPENINGBALANCEID), 0)
+        SET @OPENINGBALANCEID = ( SELECT    ISNULL(COUNT(OPENINGBALANCEID), 0)
                                             + 1 AS Id
                                   FROM      OPENINGBALANCE
                                 )
 
-
-        INSERT  INTO OPENINGBALANCE
-        VALUES  ( @OPENINGBALANCEID, @AccountId, @Amount, @Openingdate )
+        INSERT   OPENINGBALANCE
+        VALUES  ( -@OPENINGBALANCEID, @AccountId, @Amount, @Openingdate )
           
-
-
-
-
         DECLARE @Remarks VARCHAR(200) 
         SET @Remarks = 'Account Opening Balance Against Opening Balance Id='
-            + @OPENINGBALANCEID
+            + CAST(@OPENINGBALANCEID AS VARCHAR(100))
+
+
+	
+
+
+
         IF @TYPE = 1
             BEGIN
-                EXECUTE Proc_Ledger_Insert @AccountId, 0, @Amount, @Remarks,
-                    @DivisionId, @AccountId, 20, @CreatedBy
+               EXECUTE Proc_Ledger_Insert @AccountId, 0,
+                            @Amount, @Remarks, @DivisionId,
+                            @OPENINGBALANCEID, 20, @CreatedBy
             END
 
         IF @TYPE = 2
             BEGIN
-                EXECUTE Proc_Ledger_Insert @AccountId, @Amount, 0, @Remarks,
-                    @DivisionId, @AccountId, 20, @CreatedBy
-            END
+                  EXECUTE Proc_Ledger_Insert @AccountId,
+                            @Amount, 0, @Remarks, @DivisionId,
+                            @OPENINGBALANCEID, 20, @CreatedBy
+           END
 
 
     END 
-	---------------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+

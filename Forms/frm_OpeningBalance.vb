@@ -39,7 +39,7 @@ Public Class frm_OpeningBalance
             grdOpeningBalance.Columns(2).Width = 150
             grdOpeningBalance.Columns(3).Width = 150
         
-
+            FillGrid()
         Catch ex As Exception
             MsgBox(gblMessageHeading_Error & vbCrLf & gblMessage_ContactInfo & vbCrLf & ex.Message, MsgBoxStyle.Critical, gblMessageHeading)
         End Try
@@ -65,7 +65,7 @@ Public Class frm_OpeningBalance
     End Sub
 
     Public Sub RefreshClick(ByVal sender As Object, ByVal e As System.EventArgs) Implements IForm.RefreshClick
-
+        FillGrid()
     End Sub
 
     Public Sub SaveClick(ByVal sender As Object, ByVal e As System.EventArgs) Implements IForm.SaveClick
