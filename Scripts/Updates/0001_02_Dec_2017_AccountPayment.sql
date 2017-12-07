@@ -238,7 +238,8 @@ ALTER PROCEDURE [dbo].[PROC_OUTSIDE_SALE_MASTER_SALE_NEW]
       @V_MODE INT
     )
 AS
-    BEGIN                          
+    BEGIN          
+	 Set @v_NET_AMOUNT= CEILING(@v_NET_AMOUNT)                  
         IF @V_MODE = 1
             BEGIN    
                 INSERT  INTO SALE_INVOICE_MASTER
