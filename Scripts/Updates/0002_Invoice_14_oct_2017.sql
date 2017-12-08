@@ -125,7 +125,7 @@ AS
 AS
     BEGIN                          
 
-
+	 Set @v_NET_AMOUNT= CEILING(@v_NET_AMOUNT)  
 
         IF @V_MODE = 1
             BEGIN    
