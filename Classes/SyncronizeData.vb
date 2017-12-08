@@ -215,13 +215,8 @@ Module SyncronizeData
             Table.TableName = "PM_Series"
             GlobalTables.Tables.Add(Table.Copy())
 
-            '7)SupplierPM_Series
-            Query = "Select * from SupplierPM_Series where DIV_ID = " & outlet_id
-            Table = Get_Remote_DataSet(Query).Tables(0)
-            Table.TableName = "SupplierPM_Series"
-            GlobalTables.Tables.Add(Table.Copy())
 
-            '8) INVOICE_SERIES
+            '7) INVOICE_SERIES
             Query = "Select * from PO_SERIES where DIV_ID = " & outlet_id
             Table = Get_Remote_DataSet(Query).Tables(0)
             Table.TableName = "PO_SERIES"

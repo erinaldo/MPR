@@ -157,7 +157,7 @@ Public Class frm_DivisionSettings
         ddl_outlets.Enabled = True
         Dim ds_new As DataSet
         Dim Query As String
-        Query = "SELECT * FROM divisionmaster,CityMaster WHERE CityMaster.pk_CityId_num= divisionmaster.fk_CityId_num and pk_divisionid_num = " & outlet_id.ToString()
+        Query = "SELECT * FROM divisionmaster,CityMaster WHERE CityMaster.pk_CityId_num= divisionmaster.fk_CityId_num AND pk_divisionid_num= " & outlet_id.ToString()
         ds_new = Get_Remote_DataSet(Query)
         Dim dr As DataRow
         If (ds_new.Tables.Count > 0) Then
@@ -167,10 +167,12 @@ Public Class frm_DivisionSettings
                 lbl_OutletAddress.Text = dr("Address_vch").ToString()
                 lbl_OutletTinNo.Text = dr("TinNo_vch").ToString()
                 lbl_PhoneNo.Text = dr("Phone1_vch").ToString()
+                lbl_PhoneNo_2.Text = dr("Phone2_vch").ToString()
                 lbl_ZipCode.Text = "" 'dr("Zip_Code").ToString()
                 lbl_mailAddress.Text = dr("Address_vch").ToString()
                 lbl_City.Text = dr("CityName_vch").ToString()
                 lbl_cityID.Text = dr("fk_CityId_num").ToString()
+
                 lbl_DivPrefix.Text = dr("Division_prefix").ToString()
                 lbl_IndentPrefix.Text = dr("INDENT_PREFIX").ToString()
                 lbl_WastagePrefix.Text = dr("WASTAGE_PREFIX").ToString()
@@ -181,6 +183,21 @@ Public Class frm_DivisionSettings
                 lbl_MRSPrefix.Text = dr("MRSMainStorePREFIX").ToString()
                 lbl_RevMRNPrefix.Text = dr("RMRN_PREFIX").ToString()
                 lbl_RevPOMRNPrefix.Text = dr("RPMRN_PREFIX").ToString()
+
+
+                lbl_Adjustment_prefix.Text = dr("ADJUSTMENT_PREFIX").ToString()
+                lbl_Transfer_prefix.Text = dr("TRANSFER_PREFIX").ToString()
+                lbl_Closing_prefix.Text = dr("CLOSING_PREFIX").ToString()
+                lbl_wastage_prefix_CC.Text = dr("WASTAGE_PREFIX_CC").ToString()
+                lbl_Revwastage_prefix_CC.Text = dr("REV_WASTAGE_PREFIX_CC").ToString()
+                lbl_Bank_name.Text = dr("BANK_NAME").ToString()
+                lbl_account_no.Text = dr("ACCOUNT_NO").ToString()
+                lbl_Branch_Address.Text = dr("BRANCH_ADDRESS").ToString()
+                lbl_Ifsc_Code.Text = dr("IFSC_CODE").ToString()
+                lbl_auth_signatory.Text = dr("AUTH_SIGNATORY").ToString()
+                lbl_Company_Id.Text = dr("fk_CompanyId_num").ToString()
+
+
             Else
                 Clear_All()
             End If
@@ -194,7 +211,7 @@ Public Class frm_DivisionSettings
             clsobj_prop.DIVISION_ADDRESS = lbl_OutletAddress.Text
             clsobj_prop.TIN_NO = lbl_OutletTinNo.Text
             clsobj_prop.PHONE1 = lbl_PhoneNo.Text
-            clsobj_prop.PHONE2 = lbl_PhoneNo.Text
+            clsobj_prop.PHONE2 = lbl_PhoneNo_2.Text
             clsobj_prop.ZIP_CODE = lbl_ZipCode.Text
             clsobj_prop.MAIL_ADD = lbl_mailAddress.Text
             clsobj_prop.CITY_ID = Convert.ToInt32(lbl_cityID.Text)
@@ -208,6 +225,17 @@ Public Class frm_DivisionSettings
             clsobj_prop.MRSMainStorePREFIX = lbl_MRSPrefix.Text
             clsobj_prop.RMRN_PREFIX = lbl_RevMRNPrefix.Text
             clsobj_prop.RPMRN_PREFIX = lbl_RevPOMRNPrefix.Text
+            clsobj_prop.ADJUSTMENT_PREFIX = lbl_Adjustment_prefix.Text
+            clsobj_prop.TRANSFER_PREFIX = lbl_Transfer_prefix.Text
+            clsobj_prop.CLOSING_PREFIX = lbl_Closing_prefix.Text
+            clsobj_prop.WASTAGE_PREFIX_CC = lbl_wastage_prefix_CC.Text
+            clsobj_prop.REV_WASTAGE_PREFIX_CC = lbl_Revwastage_prefix_CC.Text
+            clsobj_prop.BANK_NAME = lbl_Bank_name.Text
+            clsobj_prop.ACCOUNT_NO = lbl_account_no.Text
+            clsobj_prop.BRANCH_ADDRESS = lbl_Branch_Address.Text
+            clsobj_prop.IFSC_CODE = lbl_Ifsc_Code.Text
+            clsobj_prop.AUTH_SIGNATORY = lbl_auth_signatory.Text
+            clsobj_prop.fk_CompanyId_num = Convert.ToInt32(lbl_Company_Id.Text)
             clsobj_prop.TYPE = 1
 
             lbl_msg.Text = clsDivision_Obj.INSERT_DIVISION_SETTINGS(clsobj_prop)

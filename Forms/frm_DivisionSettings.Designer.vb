@@ -64,6 +64,33 @@ Partial Class frm_DivisionSettings
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.lbl_Caption = New System.Windows.Forms.Label()
+        Me.Label19 = New System.Windows.Forms.Label()
+        Me.lbl_PhoneNo_2 = New System.Windows.Forms.Label()
+        Me.lbl_Closing_prefix = New System.Windows.Forms.Label()
+        Me.lbl_Transfer_prefix = New System.Windows.Forms.Label()
+        Me.lbl_Adjustment_prefix = New System.Windows.Forms.Label()
+        Me.Label23 = New System.Windows.Forms.Label()
+        Me.Label24 = New System.Windows.Forms.Label()
+        Me.Label25 = New System.Windows.Forms.Label()
+        Me.lbl_Bank_name = New System.Windows.Forms.Label()
+        Me.lbl_Revwastage_prefix_CC = New System.Windows.Forms.Label()
+        Me.lbl_wastage_prefix_CC = New System.Windows.Forms.Label()
+        Me.Label26 = New System.Windows.Forms.Label()
+        Me.Label27 = New System.Windows.Forms.Label()
+        Me.Label28 = New System.Windows.Forms.Label()
+        Me.Label29 = New System.Windows.Forms.Label()
+        Me.lbl_Ifsc_Code = New System.Windows.Forms.Label()
+        Me.lbl_Branch_Address = New System.Windows.Forms.Label()
+        Me.lbl_account_no = New System.Windows.Forms.Label()
+        Me.Label30 = New System.Windows.Forms.Label()
+        Me.Label31 = New System.Windows.Forms.Label()
+        Me.Label32 = New System.Windows.Forms.Label()
+        Me.Label33 = New System.Windows.Forms.Label()
+        Me.lbl_Company_Id = New System.Windows.Forms.Label()
+        Me.lbl_auth_signatory = New System.Windows.Forms.Label()
+        Me.Label22 = New System.Windows.Forms.Label()
+        Me.Label34 = New System.Windows.Forms.Label()
+        Me.Label35 = New System.Windows.Forms.Label()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.SuspendLayout()
@@ -117,6 +144,33 @@ Partial Class frm_DivisionSettings
         '
         'GroupBox2
         '
+        Me.GroupBox2.Controls.Add(Me.lbl_Company_Id)
+        Me.GroupBox2.Controls.Add(Me.lbl_auth_signatory)
+        Me.GroupBox2.Controls.Add(Me.Label22)
+        Me.GroupBox2.Controls.Add(Me.Label34)
+        Me.GroupBox2.Controls.Add(Me.Label35)
+        Me.GroupBox2.Controls.Add(Me.lbl_Ifsc_Code)
+        Me.GroupBox2.Controls.Add(Me.lbl_Branch_Address)
+        Me.GroupBox2.Controls.Add(Me.lbl_account_no)
+        Me.GroupBox2.Controls.Add(Me.Label30)
+        Me.GroupBox2.Controls.Add(Me.Label31)
+        Me.GroupBox2.Controls.Add(Me.Label32)
+        Me.GroupBox2.Controls.Add(Me.Label33)
+        Me.GroupBox2.Controls.Add(Me.lbl_Bank_name)
+        Me.GroupBox2.Controls.Add(Me.lbl_Revwastage_prefix_CC)
+        Me.GroupBox2.Controls.Add(Me.lbl_wastage_prefix_CC)
+        Me.GroupBox2.Controls.Add(Me.Label26)
+        Me.GroupBox2.Controls.Add(Me.Label27)
+        Me.GroupBox2.Controls.Add(Me.Label28)
+        Me.GroupBox2.Controls.Add(Me.Label29)
+        Me.GroupBox2.Controls.Add(Me.lbl_Closing_prefix)
+        Me.GroupBox2.Controls.Add(Me.lbl_Transfer_prefix)
+        Me.GroupBox2.Controls.Add(Me.lbl_Adjustment_prefix)
+        Me.GroupBox2.Controls.Add(Me.Label23)
+        Me.GroupBox2.Controls.Add(Me.Label24)
+        Me.GroupBox2.Controls.Add(Me.Label25)
+        Me.GroupBox2.Controls.Add(Me.lbl_PhoneNo_2)
+        Me.GroupBox2.Controls.Add(Me.Label19)
         Me.GroupBox2.Controls.Add(Me.lbl_msg)
         Me.GroupBox2.Controls.Add(Me.btn_Cancel)
         Me.GroupBox2.Controls.Add(Me.lbl_cityID)
@@ -159,7 +213,7 @@ Partial Class frm_DivisionSettings
         Me.GroupBox2.ForeColor = System.Drawing.Color.White
         Me.GroupBox2.Location = New System.Drawing.Point(14, 101)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(866, 382)
+        Me.GroupBox2.Size = New System.Drawing.Size(866, 537)
         Me.GroupBox2.TabIndex = 3
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Division Details"
@@ -167,14 +221,14 @@ Partial Class frm_DivisionSettings
         'lbl_msg
         '
         Me.lbl_msg.ForeColor = System.Drawing.Color.Brown
-        Me.lbl_msg.Location = New System.Drawing.Point(286, 333)
+        Me.lbl_msg.Location = New System.Drawing.Point(286, 339)
         Me.lbl_msg.Name = "lbl_msg"
         Me.lbl_msg.Size = New System.Drawing.Size(293, 23)
         Me.lbl_msg.TabIndex = 35
         '
         'btn_Cancel
         '
-        Me.btn_Cancel.Location = New System.Drawing.Point(729, 332)
+        Me.btn_Cancel.Location = New System.Drawing.Point(729, 505)
         Me.btn_Cancel.Name = "btn_Cancel"
         Me.btn_Cancel.Size = New System.Drawing.Size(87, 27)
         Me.btn_Cancel.TabIndex = 5
@@ -192,7 +246,7 @@ Partial Class frm_DivisionSettings
         '
         'btn_Save
         '
-        Me.btn_Save.Location = New System.Drawing.Point(608, 332)
+        Me.btn_Save.Location = New System.Drawing.Point(608, 505)
         Me.btn_Save.Name = "btn_Save"
         Me.btn_Save.Size = New System.Drawing.Size(87, 27)
         Me.btn_Save.TabIndex = 4
@@ -397,7 +451,7 @@ Partial Class frm_DivisionSettings
         'Label17
         '
         Me.Label17.AutoSize = True
-        Me.Label17.Location = New System.Drawing.Point(313, 283)
+        Me.Label17.Location = New System.Drawing.Point(289, 284)
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(91, 15)
         Me.Label17.TabIndex = 15
@@ -424,7 +478,7 @@ Partial Class frm_DivisionSettings
         'Label14
         '
         Me.Label14.AutoSize = True
-        Me.Label14.Location = New System.Drawing.Point(313, 234)
+        Me.Label14.Location = New System.Drawing.Point(289, 234)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(61, 15)
         Me.Label14.TabIndex = 12
@@ -451,7 +505,7 @@ Partial Class frm_DivisionSettings
         'Label11
         '
         Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(313, 183)
+        Me.Label11.Location = New System.Drawing.Point(289, 184)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(89, 15)
         Me.Label11.TabIndex = 9
@@ -479,7 +533,7 @@ Partial Class frm_DivisionSettings
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(313, 140)
+        Me.Label8.Location = New System.Drawing.Point(289, 141)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(27, 15)
         Me.Label8.TabIndex = 6
@@ -506,7 +560,7 @@ Partial Class frm_DivisionSettings
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(313, 106)
+        Me.Label5.Location = New System.Drawing.Point(289, 106)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(65, 15)
         Me.Label5.TabIndex = 3
@@ -551,12 +605,278 @@ Partial Class frm_DivisionSettings
         Me.lbl_Caption.Text = "Division Details"
         Me.lbl_Caption.Visible = False
         '
+        'Label19
+        '
+        Me.Label19.AutoSize = True
+        Me.Label19.Location = New System.Drawing.Point(597, 106)
+        Me.Label19.Name = "Label19"
+        Me.Label19.Size = New System.Drawing.Size(75, 15)
+        Me.Label19.TabIndex = 36
+        Me.Label19.Text = "Phone No 2."
+        '
+        'lbl_PhoneNo_2
+        '
+        Me.lbl_PhoneNo_2.AutoSize = True
+        Me.lbl_PhoneNo_2.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_PhoneNo_2.ForeColor = System.Drawing.Color.Orange
+        Me.lbl_PhoneNo_2.Location = New System.Drawing.Point(762, 106)
+        Me.lbl_PhoneNo_2.Name = "lbl_PhoneNo_2"
+        Me.lbl_PhoneNo_2.Size = New System.Drawing.Size(53, 16)
+        Me.lbl_PhoneNo_2.TabIndex = 37
+        Me.lbl_PhoneNo_2.Text = "Label19"
+        '
+        'lbl_Closing_prefix
+        '
+        Me.lbl_Closing_prefix.AutoSize = True
+        Me.lbl_Closing_prefix.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_Closing_prefix.ForeColor = System.Drawing.Color.Orange
+        Me.lbl_Closing_prefix.Location = New System.Drawing.Point(764, 327)
+        Me.lbl_Closing_prefix.Name = "lbl_Closing_prefix"
+        Me.lbl_Closing_prefix.Size = New System.Drawing.Size(53, 16)
+        Me.lbl_Closing_prefix.TabIndex = 43
+        Me.lbl_Closing_prefix.Text = "Label19"
+        '
+        'lbl_Transfer_prefix
+        '
+        Me.lbl_Transfer_prefix.AutoSize = True
+        Me.lbl_Transfer_prefix.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_Transfer_prefix.ForeColor = System.Drawing.Color.Orange
+        Me.lbl_Transfer_prefix.Location = New System.Drawing.Point(455, 327)
+        Me.lbl_Transfer_prefix.Name = "lbl_Transfer_prefix"
+        Me.lbl_Transfer_prefix.Size = New System.Drawing.Size(53, 16)
+        Me.lbl_Transfer_prefix.TabIndex = 42
+        Me.lbl_Transfer_prefix.Text = "Label19"
+        '
+        'lbl_Adjustment_prefix
+        '
+        Me.lbl_Adjustment_prefix.AutoSize = True
+        Me.lbl_Adjustment_prefix.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_Adjustment_prefix.ForeColor = System.Drawing.Color.Orange
+        Me.lbl_Adjustment_prefix.Location = New System.Drawing.Point(149, 327)
+        Me.lbl_Adjustment_prefix.Name = "lbl_Adjustment_prefix"
+        Me.lbl_Adjustment_prefix.Size = New System.Drawing.Size(53, 16)
+        Me.lbl_Adjustment_prefix.TabIndex = 41
+        Me.lbl_Adjustment_prefix.Text = "Label19"
+        '
+        'Label23
+        '
+        Me.Label23.AutoSize = True
+        Me.Label23.Location = New System.Drawing.Point(605, 327)
+        Me.Label23.Name = "Label23"
+        Me.Label23.Size = New System.Drawing.Size(94, 15)
+        Me.Label23.TabIndex = 40
+        Me.Label23.Text = "CLOSING Prefix"
+        '
+        'Label24
+        '
+        Me.Label24.AutoSize = True
+        Me.Label24.Location = New System.Drawing.Point(289, 327)
+        Me.Label24.Name = "Label24"
+        Me.Label24.Size = New System.Drawing.Size(104, 15)
+        Me.Label24.TabIndex = 39
+        Me.Label24.Text = "TRANSFER Prefix"
+        '
+        'Label25
+        '
+        Me.Label25.AutoSize = True
+        Me.Label25.Location = New System.Drawing.Point(21, 327)
+        Me.Label25.Name = "Label25"
+        Me.Label25.Size = New System.Drawing.Size(119, 15)
+        Me.Label25.TabIndex = 38
+        Me.Label25.Text = "ADJUSTMENT Prefix"
+        '
+        'lbl_Bank_name
+        '
+        Me.lbl_Bank_name.AutoSize = True
+        Me.lbl_Bank_name.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_Bank_name.ForeColor = System.Drawing.Color.Orange
+        Me.lbl_Bank_name.Location = New System.Drawing.Point(763, 364)
+        Me.lbl_Bank_name.Name = "lbl_Bank_name"
+        Me.lbl_Bank_name.Size = New System.Drawing.Size(53, 16)
+        Me.lbl_Bank_name.TabIndex = 50
+        Me.lbl_Bank_name.Text = "Label19"
+        '
+        'lbl_Revwastage_prefix_CC
+        '
+        Me.lbl_Revwastage_prefix_CC.AutoSize = True
+        Me.lbl_Revwastage_prefix_CC.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_Revwastage_prefix_CC.ForeColor = System.Drawing.Color.Orange
+        Me.lbl_Revwastage_prefix_CC.Location = New System.Drawing.Point(454, 364)
+        Me.lbl_Revwastage_prefix_CC.Name = "lbl_Revwastage_prefix_CC"
+        Me.lbl_Revwastage_prefix_CC.Size = New System.Drawing.Size(53, 16)
+        Me.lbl_Revwastage_prefix_CC.TabIndex = 49
+        Me.lbl_Revwastage_prefix_CC.Text = "Label19"
+        '
+        'lbl_wastage_prefix_CC
+        '
+        Me.lbl_wastage_prefix_CC.AutoSize = True
+        Me.lbl_wastage_prefix_CC.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_wastage_prefix_CC.ForeColor = System.Drawing.Color.Orange
+        Me.lbl_wastage_prefix_CC.Location = New System.Drawing.Point(148, 364)
+        Me.lbl_wastage_prefix_CC.Name = "lbl_wastage_prefix_CC"
+        Me.lbl_wastage_prefix_CC.Size = New System.Drawing.Size(53, 16)
+        Me.lbl_wastage_prefix_CC.TabIndex = 48
+        Me.lbl_wastage_prefix_CC.Text = "Label19"
+        '
+        'Label26
+        '
+        Me.Label26.AutoSize = True
+        Me.Label26.Location = New System.Drawing.Point(604, 364)
+        Me.Label26.Name = "Label26"
+        Me.Label26.Size = New System.Drawing.Size(75, 15)
+        Me.Label26.TabIndex = 47
+        Me.Label26.Text = "BANK NAME"
+        '
+        'Label27
+        '
+        Me.Label27.AutoSize = True
+        Me.Label27.Location = New System.Drawing.Point(289, 362)
+        Me.Label27.Name = "Label27"
+        Me.Label27.Size = New System.Drawing.Size(144, 15)
+        Me.Label27.TabIndex = 46
+        Me.Label27.Text = "REV WASTAGE Prefix CC"
+        '
+        'Label28
+        '
+        Me.Label28.AutoSize = True
+        Me.Label28.Location = New System.Drawing.Point(20, 364)
+        Me.Label28.Name = "Label28"
+        Me.Label28.Size = New System.Drawing.Size(117, 15)
+        Me.Label28.TabIndex = 45
+        Me.Label28.Text = "WASTAGE Prefix CC"
+        '
+        'Label29
+        '
+        Me.Label29.ForeColor = System.Drawing.Color.Brown
+        Me.Label29.Location = New System.Drawing.Point(285, 370)
+        Me.Label29.Name = "Label29"
+        Me.Label29.Size = New System.Drawing.Size(293, 23)
+        Me.Label29.TabIndex = 44
+        '
+        'lbl_Ifsc_Code
+        '
+        Me.lbl_Ifsc_Code.AutoSize = True
+        Me.lbl_Ifsc_Code.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_Ifsc_Code.ForeColor = System.Drawing.Color.Orange
+        Me.lbl_Ifsc_Code.Location = New System.Drawing.Point(765, 402)
+        Me.lbl_Ifsc_Code.Name = "lbl_Ifsc_Code"
+        Me.lbl_Ifsc_Code.Size = New System.Drawing.Size(53, 16)
+        Me.lbl_Ifsc_Code.TabIndex = 57
+        Me.lbl_Ifsc_Code.Text = "Label19"
+        '
+        'lbl_Branch_Address
+        '
+        Me.lbl_Branch_Address.AutoSize = True
+        Me.lbl_Branch_Address.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_Branch_Address.ForeColor = System.Drawing.Color.Orange
+        Me.lbl_Branch_Address.Location = New System.Drawing.Point(456, 402)
+        Me.lbl_Branch_Address.Name = "lbl_Branch_Address"
+        Me.lbl_Branch_Address.Size = New System.Drawing.Size(53, 16)
+        Me.lbl_Branch_Address.TabIndex = 56
+        Me.lbl_Branch_Address.Text = "Label19"
+        '
+        'lbl_account_no
+        '
+        Me.lbl_account_no.AutoSize = True
+        Me.lbl_account_no.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_account_no.ForeColor = System.Drawing.Color.Orange
+        Me.lbl_account_no.Location = New System.Drawing.Point(150, 402)
+        Me.lbl_account_no.Name = "lbl_account_no"
+        Me.lbl_account_no.Size = New System.Drawing.Size(53, 16)
+        Me.lbl_account_no.TabIndex = 55
+        Me.lbl_account_no.Text = "Label19"
+        '
+        'Label30
+        '
+        Me.Label30.AutoSize = True
+        Me.Label30.Location = New System.Drawing.Point(606, 402)
+        Me.Label30.Name = "Label30"
+        Me.Label30.Size = New System.Drawing.Size(72, 15)
+        Me.Label30.TabIndex = 54
+        Me.Label30.Text = "IFSC CODE"
+        '
+        'Label31
+        '
+        Me.Label31.AutoSize = True
+        Me.Label31.Location = New System.Drawing.Point(291, 400)
+        Me.Label31.Name = "Label31"
+        Me.Label31.Size = New System.Drawing.Size(118, 15)
+        Me.Label31.TabIndex = 53
+        Me.Label31.Text = "BRANCH ADDRESS"
+        '
+        'Label32
+        '
+        Me.Label32.AutoSize = True
+        Me.Label32.Location = New System.Drawing.Point(22, 402)
+        Me.Label32.Name = "Label32"
+        Me.Label32.Size = New System.Drawing.Size(90, 15)
+        Me.Label32.TabIndex = 52
+        Me.Label32.Text = "ACCOUNT NO."
+        '
+        'Label33
+        '
+        Me.Label33.ForeColor = System.Drawing.Color.Brown
+        Me.Label33.Location = New System.Drawing.Point(287, 408)
+        Me.Label33.Name = "Label33"
+        Me.Label33.Size = New System.Drawing.Size(293, 23)
+        Me.Label33.TabIndex = 51
+        '
+        'lbl_Company_Id
+        '
+        Me.lbl_Company_Id.AutoSize = True
+        Me.lbl_Company_Id.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_Company_Id.ForeColor = System.Drawing.Color.Orange
+        Me.lbl_Company_Id.Location = New System.Drawing.Point(452, 441)
+        Me.lbl_Company_Id.Name = "lbl_Company_Id"
+        Me.lbl_Company_Id.Size = New System.Drawing.Size(53, 16)
+        Me.lbl_Company_Id.TabIndex = 62
+        Me.lbl_Company_Id.Text = "Label19"
+        Me.lbl_Company_Id.Visible = False
+        '
+        'lbl_auth_signatory
+        '
+        Me.lbl_auth_signatory.AutoSize = True
+        Me.lbl_auth_signatory.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_auth_signatory.ForeColor = System.Drawing.Color.Orange
+        Me.lbl_auth_signatory.Location = New System.Drawing.Point(146, 441)
+        Me.lbl_auth_signatory.Name = "lbl_auth_signatory"
+        Me.lbl_auth_signatory.Size = New System.Drawing.Size(53, 16)
+        Me.lbl_auth_signatory.TabIndex = 61
+        Me.lbl_auth_signatory.Text = "Label19"
+        '
+        'Label22
+        '
+        Me.Label22.AutoSize = True
+        Me.Label22.Location = New System.Drawing.Point(287, 439)
+        Me.Label22.Name = "Label22"
+        Me.Label22.Size = New System.Drawing.Size(97, 15)
+        Me.Label22.TabIndex = 60
+        Me.Label22.Text = "Company Name"
+        Me.Label22.Visible = False
+        '
+        'Label34
+        '
+        Me.Label34.AutoSize = True
+        Me.Label34.Location = New System.Drawing.Point(18, 441)
+        Me.Label34.Name = "Label34"
+        Me.Label34.Size = New System.Drawing.Size(109, 15)
+        Me.Label34.TabIndex = 59
+        Me.Label34.Text = "AUTH SIGNATORY"
+        '
+        'Label35
+        '
+        Me.Label35.ForeColor = System.Drawing.Color.Brown
+        Me.Label35.Location = New System.Drawing.Point(283, 447)
+        Me.Label35.Name = "Label35"
+        Me.Label35.Size = New System.Drawing.Size(293, 23)
+        Me.Label35.TabIndex = 58
+        '
         'frm_DivisionSettings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.DimGray
-        Me.ClientSize = New System.Drawing.Size(892, 497)
+        Me.ClientSize = New System.Drawing.Size(899, 650)
         Me.ControlBox = False
         Me.Controls.Add(Me.lbl_Caption)
         Me.Controls.Add(Me.GroupBox2)
@@ -619,4 +939,31 @@ Partial Class frm_DivisionSettings
     Friend WithEvents lbl_msg As System.Windows.Forms.Label
     Friend WithEvents lblOutletId As System.Windows.Forms.Label
     Friend WithEvents lbl_Caption As System.Windows.Forms.Label
+    Friend WithEvents lbl_Closing_prefix As System.Windows.Forms.Label
+    Friend WithEvents lbl_Transfer_prefix As System.Windows.Forms.Label
+    Friend WithEvents lbl_Adjustment_prefix As System.Windows.Forms.Label
+    Friend WithEvents Label23 As System.Windows.Forms.Label
+    Friend WithEvents Label24 As System.Windows.Forms.Label
+    Friend WithEvents Label25 As System.Windows.Forms.Label
+    Friend WithEvents lbl_PhoneNo_2 As System.Windows.Forms.Label
+    Friend WithEvents Label19 As System.Windows.Forms.Label
+    Friend WithEvents lbl_Company_Id As System.Windows.Forms.Label
+    Friend WithEvents lbl_auth_signatory As System.Windows.Forms.Label
+    Friend WithEvents Label22 As System.Windows.Forms.Label
+    Friend WithEvents Label34 As System.Windows.Forms.Label
+    Friend WithEvents Label35 As System.Windows.Forms.Label
+    Friend WithEvents lbl_Ifsc_Code As System.Windows.Forms.Label
+    Friend WithEvents lbl_Branch_Address As System.Windows.Forms.Label
+    Friend WithEvents lbl_account_no As System.Windows.Forms.Label
+    Friend WithEvents Label30 As System.Windows.Forms.Label
+    Friend WithEvents Label31 As System.Windows.Forms.Label
+    Friend WithEvents Label32 As System.Windows.Forms.Label
+    Friend WithEvents Label33 As System.Windows.Forms.Label
+    Friend WithEvents lbl_Bank_name As System.Windows.Forms.Label
+    Friend WithEvents lbl_Revwastage_prefix_CC As System.Windows.Forms.Label
+    Friend WithEvents lbl_wastage_prefix_CC As System.Windows.Forms.Label
+    Friend WithEvents Label26 As System.Windows.Forms.Label
+    Friend WithEvents Label27 As System.Windows.Forms.Label
+    Friend WithEvents Label28 As System.Windows.Forms.Label
+    Friend WithEvents Label29 As System.Windows.Forms.Label
 End Class

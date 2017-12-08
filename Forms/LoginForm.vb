@@ -39,7 +39,7 @@ Public Class LoginForm
                 If result > 0 Then
 
                     v_the_current_division_id = Convert.ToInt32(obj.ExecuteScalar("select DIV_ID from DIVISION_SETTINGS"))
-                    v_the_current_selected_division = " AFBSL MMS-- " & Convert.ToString(obj.ExecuteScalar("select DIVISION_NAME from DIVISION_SETTINGS"))
+                    v_the_current_selected_division = "MMS+ -- " & Convert.ToString(obj.ExecuteScalar("select DIVISION_NAME from DIVISION_SETTINGS"))
                     v_the_current_logged_in_user_name = UsernameTextBox.Text
                     v_the_current_logged_in_user_id = Convert.ToInt32(obj.ExecuteScalar("select user_id from USER_MASTER where user_name = '" & UsernameTextBox.Text & "' and password = '" & PasswordTextBox.Text & "'")) ' and comp_id = " & v_the_current_division_id))
                     v_the_current_logged_in_user_role = Convert.ToString(obj.ExecuteScalar("select user_role from USER_MASTER where user_name = '" & UsernameTextBox.Text & "' and password = '" & PasswordTextBox.Text & "'")) ' and comp_id = " & v_the_current_division_id))

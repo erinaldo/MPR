@@ -1996,6 +1996,7 @@
     <Content Include="bin\Debug\connection.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Scripts\Updates\00001_08_Dec_2017.sql" />
     <Content Include="Scripts\Updates\0001_09_oct_2017.sql">
       <SubType>Designer</SubType>
     </Content>

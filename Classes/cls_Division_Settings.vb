@@ -24,7 +24,23 @@ Namespace Division_Settings
         Dim _MRSMainStorePREFIX As String
         Dim _RMRN_PREFIX As String
         Dim _RPMRN_PREFIX As String
+
+
+        Dim _ADJUSTMENT_PREFIX As String
+        Dim _TRANSFER_PREFIX As String
+        Dim _CLOSING_PREFIX As String
+        Dim _WASTAGE_PREFIX_CC As String
+        Dim _REV_WASTAGE_PREFIX_CC As String
+        Dim _BANK_NAME As String
+        Dim _ACCOUNT_NO As String
+        Dim _BRANCH_ADDRESS As String
+        Dim _IFSC_CODE As String
+        Dim _AUTH_SIGNATORY As String
+        Dim _fk_CompanyId_num As Int32
+
         Dim _TYPE As Int32
+
+
 
 
         Public Property DIV_ID() As Decimal
@@ -89,7 +105,6 @@ Namespace Division_Settings
                 _ZIP_CODE = value
             End Set
         End Property
-
 
         Public Property MAIL_ADD() As String
             Get
@@ -201,6 +216,107 @@ Namespace Division_Settings
             End Set
         End Property
 
+
+        Public Property ADJUSTMENT_PREFIX() As String
+            Get
+                ADJUSTMENT_PREFIX = _ADJUSTMENT_PREFIX
+            End Get
+            Set(ByVal value As String)
+                _ADJUSTMENT_PREFIX = value
+            End Set
+        End Property
+
+        Public Property TRANSFER_PREFIX() As String
+            Get
+                TRANSFER_PREFIX = _TRANSFER_PREFIX
+            End Get
+            Set(ByVal value As String)
+                _TRANSFER_PREFIX = value
+            End Set
+        End Property
+
+        Public Property CLOSING_PREFIX() As String
+            Get
+                CLOSING_PREFIX = _CLOSING_PREFIX
+            End Get
+            Set(ByVal value As String)
+                _CLOSING_PREFIX = value
+            End Set
+        End Property
+
+        Public Property WASTAGE_PREFIX_CC() As String
+            Get
+                WASTAGE_PREFIX_CC = _WASTAGE_PREFIX_CC
+            End Get
+            Set(ByVal value As String)
+                _WASTAGE_PREFIX_CC = value
+            End Set
+        End Property
+
+        Public Property REV_WASTAGE_PREFIX_CC() As String
+            Get
+                REV_WASTAGE_PREFIX_CC = _REV_WASTAGE_PREFIX_CC
+            End Get
+            Set(ByVal value As String)
+                _REV_WASTAGE_PREFIX_CC = value
+            End Set
+        End Property
+
+        Public Property BANK_NAME() As String
+            Get
+                BANK_NAME = _BANK_NAME
+            End Get
+            Set(ByVal value As String)
+                _BANK_NAME = value
+            End Set
+        End Property
+
+        Public Property ACCOUNT_NO() As String
+            Get
+                ACCOUNT_NO = _ACCOUNT_NO
+            End Get
+            Set(ByVal value As String)
+                _ACCOUNT_NO = value
+            End Set
+        End Property
+
+        Public Property BRANCH_ADDRESS() As String
+            Get
+                BRANCH_ADDRESS = _BRANCH_ADDRESS
+            End Get
+            Set(ByVal value As String)
+                _BRANCH_ADDRESS = value
+            End Set
+        End Property
+
+        Public Property IFSC_CODE() As String
+            Get
+                IFSC_CODE = _IFSC_CODE
+            End Get
+            Set(ByVal value As String)
+                _IFSC_CODE = value
+            End Set
+        End Property
+
+        Public Property AUTH_SIGNATORY() As String
+            Get
+                AUTH_SIGNATORY = _AUTH_SIGNATORY
+            End Get
+            Set(ByVal value As String)
+                _AUTH_SIGNATORY = value
+            End Set
+        End Property
+
+        Public Property fk_CompanyId_num() As Int32
+            Get
+                fk_CompanyId_num = _fk_CompanyId_num
+            End Get
+            Set(ByVal value As Int32)
+                _fk_CompanyId_num = value
+            End Set
+        End Property
+
+
         Public Property TYPE() As String
             Get
                 TYPE = _TYPE
@@ -243,6 +359,19 @@ Namespace Division_Settings
                 cmd.Parameters.AddWithValue("@MRSMainStorePREFIX", clsObj.MRSMainStorePREFIX)
                 cmd.Parameters.AddWithValue("@RMRN_PREFIX", clsObj.RMRN_PREFIX)
                 cmd.Parameters.AddWithValue("@RPMRN_PREFIX", clsObj.RPMRN_PREFIX)
+                cmd.Parameters.AddWithValue("@ADJUSTMENT_PREFIX", clsObj.ADJUSTMENT_PREFIX)
+                cmd.Parameters.AddWithValue("TRANSFER_PREFIX", clsObj.TRANSFER_PREFIX)
+                cmd.Parameters.AddWithValue("CLOSING_PREFIX", clsObj.CLOSING_PREFIX)
+                cmd.Parameters.AddWithValue("WASTAGE_PREFIX_CC", clsObj.WASTAGE_PREFIX_CC)
+                cmd.Parameters.AddWithValue("REV_WASTAGE_PREFIX_CC", clsObj.REV_WASTAGE_PREFIX_CC)
+                cmd.Parameters.AddWithValue("BANK_NAME", clsObj.BANK_NAME)
+                cmd.Parameters.AddWithValue("ACCOUNT_NO", clsObj.ACCOUNT_NO)
+                cmd.Parameters.AddWithValue("BRANCH_ADDRESS", clsObj.BRANCH_ADDRESS)
+                cmd.Parameters.AddWithValue("IFSC_CODE", clsObj.IFSC_CODE)
+                cmd.Parameters.AddWithValue("AUTH_SIGNATORY", clsObj.AUTH_SIGNATORY)
+                cmd.Parameters.AddWithValue("fk_CompanyId_num", clsObj.fk_CompanyId_num)
+
+
                 cmd.Parameters.AddWithValue("@TYPE", clsObj.TYPE)
 
                 cmd.ExecuteNonQuery()
