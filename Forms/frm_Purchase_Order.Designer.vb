@@ -648,7 +648,7 @@ Partial Class frm_Purchase_Order
         Me.chk_VatCal.Location = New System.Drawing.Point(604, 101)
         Me.chk_VatCal.Name = "chk_VatCal"
         Me.chk_VatCal.Size = New System.Drawing.Size(153, 19)
-        Me.chk_VatCal.TabIndex = 29
+        Me.chk_VatCal.TabIndex = 6
         Me.chk_VatCal.Text = "Calculate Vat on Excise"
         Me.chk_VatCal.UseVisualStyleBackColor = True
         Me.chk_VatCal.Visible = False
@@ -661,7 +661,7 @@ Partial Class frm_Purchase_Order
         Me.txtPOPrefix.Location = New System.Drawing.Point(649, 77)
         Me.txtPOPrefix.Name = "txtPOPrefix"
         Me.txtPOPrefix.Size = New System.Drawing.Size(100, 18)
-        Me.txtPOPrefix.TabIndex = 9
+        Me.txtPOPrefix.TabIndex = 20
         Me.txtPOPrefix.Visible = False
         '
         'txtPONO
@@ -682,7 +682,7 @@ Partial Class frm_Purchase_Order
         Me.CHK_OPEN_PO_QTY.Location = New System.Drawing.Point(458, 101)
         Me.CHK_OPEN_PO_QTY.Name = "CHK_OPEN_PO_QTY"
         Me.CHK_OPEN_PO_QTY.Size = New System.Drawing.Size(123, 19)
-        Me.CHK_OPEN_PO_QTY.TabIndex = 8
+        Me.CHK_OPEN_PO_QTY.TabIndex = 5
         Me.CHK_OPEN_PO_QTY.Text = "Open Quantity PO"
         Me.CHK_OPEN_PO_QTY.UseVisualStyleBackColor = True
         '
@@ -706,7 +706,7 @@ Partial Class frm_Purchase_Order
         Me.dtpEndDate.Location = New System.Drawing.Point(523, 74)
         Me.dtpEndDate.Name = "dtpEndDate"
         Me.dtpEndDate.Size = New System.Drawing.Size(111, 21)
-        Me.dtpEndDate.TabIndex = 7
+        Me.dtpEndDate.TabIndex = 2
         '
         'dtpStartDate
         '
@@ -717,7 +717,7 @@ Partial Class frm_Purchase_Order
         Me.dtpStartDate.Location = New System.Drawing.Point(523, 44)
         Me.dtpStartDate.Name = "dtpStartDate"
         Me.dtpStartDate.Size = New System.Drawing.Size(111, 21)
-        Me.dtpStartDate.TabIndex = 5
+        Me.dtpStartDate.TabIndex = 1
         '
         'dtpPODate
         '
@@ -725,10 +725,10 @@ Partial Class frm_Purchase_Order
         Me.dtpPODate.CalendarMonthBackground = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.dtpPODate.CustomFormat = "dd-MMM-yyyy"
         Me.dtpPODate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpPODate.Location = New System.Drawing.Point(318, 17)
+        Me.dtpPODate.Location = New System.Drawing.Point(318, 97)
         Me.dtpPODate.Name = "dtpPODate"
         Me.dtpPODate.Size = New System.Drawing.Size(120, 21)
-        Me.dtpPODate.TabIndex = 1
+        Me.dtpPODate.TabIndex = 4
         '
         'cmbSupplier
         '
@@ -737,10 +737,10 @@ Partial Class frm_Purchase_Order
         Me.cmbSupplier.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmbSupplier.ForeColor = System.Drawing.Color.White
         Me.cmbSupplier.FormattingEnabled = True
-        Me.cmbSupplier.Location = New System.Drawing.Point(71, 47)
+        Me.cmbSupplier.Location = New System.Drawing.Point(71, 21)
         Me.cmbSupplier.Name = "cmbSupplier"
         Me.cmbSupplier.Size = New System.Drawing.Size(367, 23)
-        Me.cmbSupplier.TabIndex = 4
+        Me.cmbSupplier.TabIndex = 0
         '
         'cmbPOType
         '
@@ -749,10 +749,10 @@ Partial Class frm_Purchase_Order
         Me.cmbPOType.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmbPOType.ForeColor = System.Drawing.Color.White
         Me.cmbPOType.FormattingEnabled = True
-        Me.cmbPOType.Location = New System.Drawing.Point(71, 16)
+        Me.cmbPOType.Location = New System.Drawing.Point(71, 96)
         Me.cmbPOType.Name = "cmbPOType"
         Me.cmbPOType.Size = New System.Drawing.Size(174, 23)
-        Me.cmbPOType.TabIndex = 0
+        Me.cmbPOType.TabIndex = 3
         '
         'lblCap8
         '
@@ -778,7 +778,7 @@ Partial Class frm_Purchase_Order
         '
         Me.lblCap4.AutoSize = True
         Me.lblCap4.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblCap4.Location = New System.Drawing.Point(251, 19)
+        Me.lblCap4.Location = New System.Drawing.Point(251, 99)
         Me.lblCap4.Name = "lblCap4"
         Me.lblCap4.Size = New System.Drawing.Size(59, 15)
         Me.lblCap4.TabIndex = 0
@@ -789,10 +789,10 @@ Partial Class frm_Purchase_Order
         Me.lblAddress.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.lblAddress.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.lblAddress.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblAddress.Location = New System.Drawing.Point(71, 77)
+        Me.lblAddress.Location = New System.Drawing.Point(71, 51)
         Me.lblAddress.Name = "lblAddress"
         Me.lblAddress.Size = New System.Drawing.Size(367, 42)
-        Me.lblAddress.TabIndex = 6
+        Me.lblAddress.TabIndex = 7
         '
         'lblStatus
         '
@@ -818,7 +818,7 @@ Partial Class frm_Purchase_Order
         '
         Me.lblCap.AutoSize = True
         Me.lblCap.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblCap.Location = New System.Drawing.Point(6, 20)
+        Me.lblCap.Location = New System.Drawing.Point(6, 100)
         Me.lblCap.Name = "lblCap"
         Me.lblCap.Size = New System.Drawing.Size(58, 15)
         Me.lblCap.TabIndex = 0
@@ -828,7 +828,7 @@ Partial Class frm_Purchase_Order
         '
         Me.lblCap2.AutoSize = True
         Me.lblCap2.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblCap2.Location = New System.Drawing.Point(6, 79)
+        Me.lblCap2.Location = New System.Drawing.Point(6, 53)
         Me.lblCap2.Name = "lblCap2"
         Me.lblCap2.Size = New System.Drawing.Size(59, 15)
         Me.lblCap2.TabIndex = 0
@@ -838,7 +838,7 @@ Partial Class frm_Purchase_Order
         '
         Me.lblCap1.AutoSize = True
         Me.lblCap1.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblCap1.Location = New System.Drawing.Point(6, 49)
+        Me.lblCap1.Location = New System.Drawing.Point(6, 23)
         Me.lblCap1.Name = "lblCap1"
         Me.lblCap1.Size = New System.Drawing.Size(59, 15)
         Me.lblCap1.TabIndex = 0

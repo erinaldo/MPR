@@ -2014,7 +2014,9 @@
     <Content Include="Scripts\Updates\DebtorsLedger.sql" />
     <Content Include="Scripts\Updates\DivisionSettings_23_oct_2017.sql" />
     <Content Include="Scripts\Updates\GatePass_23_oct_2017.sql" />
+    <Content Include="Scripts\Updates\MRN_APO_071217.sql" />
     <Content Include="Scripts\Updates\MRN_PO_281017.sql" />
+    <Content Include="Scripts\Updates\Payment_09122017.sql" />
     <Content Include="Scripts\Updates\PODetail_271017.sql" />
     <Content Include="Scripts\Updates\0001_18_Nov_2017.sql" />
     <Content Include="Scripts\Updates\0001_01_Dec_2017.sql" />

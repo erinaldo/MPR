@@ -178,7 +178,7 @@ Public Class frm_Supplier_Invoice_Settlement
             prpty.DivisionId = v_the_current_division_id
 
             clsObj.insert_Invoice_Settlement(prpty)
-            MsgBox("Invoice Settlement has been Saved.", MsgBoxStyle.Information + MsgBoxStyle.OkOnly, gblMessageHeading)
+            MsgBox("Payment released sucessfully!!", MsgBoxStyle.Information + MsgBoxStyle.OkOnly, gblMessageHeading)
 
             If chkBoxDistributeAmount.Checked And chkBoxDistributeAmount.Enabled Then
                 cmbCustomerSettleInvoice.SelectedValue = cmbCustomer.SelectedValue
