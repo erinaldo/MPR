@@ -235,6 +235,14 @@ Module GlobalModule
 
     End Enum
 
+    Public Enum PaymentType
+        Receipt = 1
+        Payment = 2
+        Journal = 3
+        Contra = 4
+        Expense = 5
+    End Enum
+
     ''********************************************************************''
     ''Property to get ReportFilePath
     ''********************************************************************''

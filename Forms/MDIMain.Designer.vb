@@ -67,6 +67,7 @@ Partial Class MDIMain
         Me.frm_GatePass = New System.Windows.Forms.ToolStripMenuItem()
         Me.UserManagmentToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_user_master = New System.Windows.Forms.ToolStripMenuItem()
+        Me.frm_OpeningBalance = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_Invoice_Settlement = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_Supplier_Invoice_Settlement = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_DebtorsOS = New System.Windows.Forms.ToolStripMenuItem()
@@ -79,6 +80,7 @@ Partial Class MDIMain
         Me.GSTR2ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.GSTR3ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.GSTSummaryToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.frm_Journal_Entry = New System.Windows.Forms.ToolStripMenuItem()
         Me.Recipe = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_menu_item_recipe = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_Recipe_Master = New System.Windows.Forms.ToolStripMenuItem()
@@ -150,7 +152,8 @@ Partial Class MDIMain
         Me.picLogo = New System.Windows.Forms.PictureBox()
         Me.TabControl2 = New System.Windows.Forms.TabControl()
         Me.frm_open_invoice = New System.Windows.Forms.ToolStripMenuItem()
-        Me.frm_OpeningBalance = New System.Windows.Forms.ToolStripMenuItem()
+        Me.frm_Contra_Entry = New System.Windows.Forms.ToolStripMenuItem()
+        Me.frm_Expense_Entry = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.toolbar.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
@@ -616,7 +619,7 @@ Partial Class MDIMain
         'UserManagmentToolStripMenuItem
         '
         Me.UserManagmentToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(77, Byte), Integer), CType(CType(77, Byte), Integer), CType(CType(77, Byte), Integer))
-        Me.UserManagmentToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.frm_user_master, Me.frm_OpeningBalance, Me.frm_Invoice_Settlement, Me.frm_Supplier_Invoice_Settlement, Me.frm_DebtorsOS, Me.frm_DebtorsLedger, Me.frm_CreditorsOS, Me.frm_CreditorsLedger, Me.ExpancesageToolStripMenuItem, Me.GSTRegitorToolStripMenuItem})
+        Me.UserManagmentToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.frm_user_master, Me.frm_OpeningBalance, Me.frm_Invoice_Settlement, Me.frm_Supplier_Invoice_Settlement, Me.frm_DebtorsOS, Me.frm_DebtorsLedger, Me.frm_CreditorsOS, Me.frm_CreditorsLedger, Me.ExpancesageToolStripMenuItem, Me.GSTRegitorToolStripMenuItem, Me.frm_Journal_Entry, Me.frm_Contra_Entry, Me.frm_Expense_Entry})
         Me.UserManagmentToolStripMenuItem.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.UserManagmentToolStripMenuItem.ForeColor = System.Drawing.Color.White
         Me.UserManagmentToolStripMenuItem.Image = Global.MMSPlus.My.Resources.Resources.Client_list_text
@@ -636,6 +639,15 @@ Partial Class MDIMain
         Me.frm_user_master.Size = New System.Drawing.Size(170, 22)
         Me.frm_user_master.Text = "User Master"
         Me.frm_user_master.Visible = False
+        '
+        'frm_OpeningBalance
+        '
+        Me.frm_OpeningBalance.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.frm_OpeningBalance.ForeColor = System.Drawing.Color.White
+        Me.frm_OpeningBalance.Image = Global.MMSPlus.My.Resources.Resources.Refresh_list
+        Me.frm_OpeningBalance.Name = "frm_OpeningBalance"
+        Me.frm_OpeningBalance.Size = New System.Drawing.Size(170, 22)
+        Me.frm_OpeningBalance.Text = "Opening Balance"
         '
         'frm_Invoice_Settlement
         '
@@ -745,6 +757,12 @@ Partial Class MDIMain
         Me.GSTSummaryToolStripMenuItem.Name = "GSTSummaryToolStripMenuItem"
         Me.GSTSummaryToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.GSTSummaryToolStripMenuItem.Text = "GST Summary"
+        '
+        'frm_Journal_Entry
+        '
+        Me.frm_Journal_Entry.Name = "frm_Journal_Entry"
+        Me.frm_Journal_Entry.Size = New System.Drawing.Size(170, 22)
+        Me.frm_Journal_Entry.Text = "Journal Entry"
         '
         'Recipe
         '
@@ -1445,14 +1463,17 @@ Partial Class MDIMain
         Me.frm_open_invoice.Size = New System.Drawing.Size(181, 22)
         Me.frm_open_invoice.Text = "Opne Invoice"
         '
-        'frm_OpeningBalance
+        'frm_Contra_Entry
         '
-        Me.frm_OpeningBalance.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.frm_OpeningBalance.ForeColor = System.Drawing.Color.White
-        Me.frm_OpeningBalance.Image = Global.MMSPlus.My.Resources.Resources.Refresh_list
-        Me.frm_OpeningBalance.Name = "frm_OpeningBalance"
-        Me.frm_OpeningBalance.Size = New System.Drawing.Size(170, 22)
-        Me.frm_OpeningBalance.Text = "Opening Balance"
+        Me.frm_Contra_Entry.Name = "frm_Contra_Entry"
+        Me.frm_Contra_Entry.Size = New System.Drawing.Size(170, 22)
+        Me.frm_Contra_Entry.Text = "Contra Entry"
+        '
+        'frm_Expense_Entry
+        '
+        Me.frm_Expense_Entry.Name = "frm_Expense_Entry"
+        Me.frm_Expense_Entry.Size = New System.Drawing.Size(170, 22)
+        Me.frm_Expense_Entry.Text = "Expense Entry"
         '
         'MDIMain
         '
@@ -1612,4 +1633,7 @@ Partial Class MDIMain
     Friend WithEvents frm_DebtorsOS As ToolStripMenuItem
     Friend WithEvents frm_CreditorsOS As ToolStripMenuItem
     Friend WithEvents frm_OpeningBalance As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents frm_Journal_Entry As ToolStripMenuItem
+    Friend WithEvents frm_Contra_Entry As ToolStripMenuItem
+    Friend WithEvents frm_Expense_Entry As ToolStripMenuItem
 End Class

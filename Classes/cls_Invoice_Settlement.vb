@@ -31,14 +31,6 @@ Public Enum PaymentStatus
 End Enum
 
 
-Public Enum PaymentType
-    Receipt = 1
-    Payment = 2
-    Journal = 3
-    Contra = 4
-End Enum
-
-
 Public Class cls_Invoice_Settlement
     Inherits CommonClass
 
