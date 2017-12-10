@@ -140,6 +140,7 @@ Public Class LoginForm
         'lbl.Visible = rdoCostCenter.Checked
         'cmbCostCenter.Visible = rdoCostCenter.Checked
         'cmbCostCenter.Enabled = rdoCostCenter.Checked
+        Dim year As New DateTime(DateTime.Now.Year, 4, 1)
 
         If v_division_type = division_type.Warehouse Then
             lbl.Visible = False

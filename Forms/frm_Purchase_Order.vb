@@ -657,7 +657,7 @@ Public Class frm_Purchase_Order
                 If dsdata.Tables(0).Rows(0)(1) = True Then
                     cmbPOType.Text = "UGST"
                 Else
-                    cmbPOType.Text = "SCGST"
+                    cmbPOType.Text = "SGST"
                 End If
             End If
 

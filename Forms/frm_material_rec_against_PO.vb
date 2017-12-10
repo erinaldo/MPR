@@ -54,6 +54,7 @@ Public Class frm_material_rec_against_PO
         dtpReceiveDate.Text = Now.ToString("dd-MMM-yyyy")
         flag = "save"
         txt_Invoice_No.Text = ""
+        lblcustid.Visible = False
         lblexciseamt.Text = "0.00"
         lblgrossamt.Text = "0.00"
         lblvatamt.Text = "0.00"
