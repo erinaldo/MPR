@@ -821,7 +821,7 @@ restart:
                 If dsdata.Tables(0).Rows(0)(1) = True Then
                     cmbinvtype.Text = "UGST"
                 Else
-                    cmbinvtype.Text = "SCGST"
+                    cmbinvtype.Text = "SGST"
                 End If
             End If
         End If
@@ -847,7 +847,7 @@ restart:
                 If dsdata.Tables(0).Rows(0)(1) = True Then
                     cmbinvtype.Text = "UGST"
                 Else
-                    cmbinvtype.Text = "SCGST"
+                    cmbinvtype.Text = "SGST"
                 End If
             End If
         End If

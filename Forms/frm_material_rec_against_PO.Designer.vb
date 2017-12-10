@@ -70,6 +70,7 @@ Partial Class frm_material_rec_against_PO
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.FLXGRD_PO_Items = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.lblcustid = New System.Windows.Forms.Label()
         Me.chk_VatCal = New System.Windows.Forms.CheckBox()
         Me.lblSupplier = New System.Windows.Forms.Label()
         Me.lblSupplierAddress = New System.Windows.Forms.Label()
@@ -85,7 +86,6 @@ Partial Class frm_material_rec_against_PO
         Me.Label4 = New System.Windows.Forms.Label()
         Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
         Me.C1FlexGrid1 = New C1.Win.C1FlexGrid.C1FlexGrid()
-        Me.lblcustid = New System.Windows.Forms.Label()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
@@ -707,6 +707,14 @@ Partial Class frm_material_rec_against_PO
         Me.GroupBox1.TabIndex = 1
         Me.GroupBox1.TabStop = False
         '
+        'lblcustid
+        '
+        Me.lblcustid.AutoSize = True
+        Me.lblcustid.Location = New System.Drawing.Point(647, 37)
+        Me.lblcustid.Name = "lblcustid"
+        Me.lblcustid.Size = New System.Drawing.Size(0, 13)
+        Me.lblcustid.TabIndex = 29
+        '
         'chk_VatCal
         '
         Me.chk_VatCal.AutoSize = True
@@ -862,15 +870,6 @@ Partial Class frm_material_rec_against_PO
         Me.C1FlexGrid1.Size = New System.Drawing.Size(0, 0)
         Me.C1FlexGrid1.Styles = New C1.Win.C1FlexGrid.CellStyleCollection(resources.GetString("C1FlexGrid1.Styles"))
         Me.C1FlexGrid1.TabIndex = 0
-        '
-        'lblcustid
-        '
-        Me.lblcustid.AutoSize = True
-        Me.lblcustid.Location = New System.Drawing.Point(647, 37)
-        Me.lblcustid.Name = "lblcustid"
-        Me.lblcustid.Size = New System.Drawing.Size(29, 13)
-        Me.lblcustid.TabIndex = 29
-        Me.lblcustid.Text = "sync"
         '
         'frm_material_rec_against_PO
         '

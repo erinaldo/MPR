@@ -195,7 +195,7 @@ Partial Class frm_CreditNote
         Me.lblCredit.AutoSize = True
         Me.lblCredit.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblCredit.ForeColor = System.Drawing.Color.Orange
-        Me.lblCredit.Location = New System.Drawing.Point(812, 390)
+        Me.lblCredit.Location = New System.Drawing.Point(812, 362)
         Me.lblCredit.Name = "lblCredit"
         Me.lblCredit.Size = New System.Drawing.Size(36, 17)
         Me.lblCredit.TabIndex = 14
@@ -206,7 +206,7 @@ Partial Class frm_CreditNote
         '
         Me.Label6.AutoSize = True
         Me.Label6.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label6.Location = New System.Drawing.Point(676, 392)
+        Me.Label6.Location = New System.Drawing.Point(676, 364)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(119, 15)
         Me.Label6.TabIndex = 15
@@ -217,7 +217,7 @@ Partial Class frm_CreditNote
         Me.lblVatAmount.AutoSize = True
         Me.lblVatAmount.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblVatAmount.ForeColor = System.Drawing.Color.Orange
-        Me.lblVatAmount.Location = New System.Drawing.Point(594, 390)
+        Me.lblVatAmount.Location = New System.Drawing.Point(594, 362)
         Me.lblVatAmount.Name = "lblVatAmount"
         Me.lblVatAmount.Size = New System.Drawing.Size(36, 17)
         Me.lblVatAmount.TabIndex = 12
@@ -228,7 +228,7 @@ Partial Class frm_CreditNote
         '
         Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(498, 392)
+        Me.Label4.Location = New System.Drawing.Point(498, 364)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(78, 15)
         Me.Label4.TabIndex = 13
@@ -238,7 +238,7 @@ Partial Class frm_CreditNote
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(312, 390)
+        Me.Label3.Location = New System.Drawing.Point(312, 362)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(99, 15)
         Me.Label3.TabIndex = 11
@@ -249,7 +249,7 @@ Partial Class frm_CreditNote
         Me.lblAmount.AutoSize = True
         Me.lblAmount.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblAmount.ForeColor = System.Drawing.Color.Orange
-        Me.lblAmount.Location = New System.Drawing.Point(417, 390)
+        Me.lblAmount.Location = New System.Drawing.Point(417, 362)
         Me.lblAmount.Name = "lblAmount"
         Me.lblAmount.Size = New System.Drawing.Size(36, 17)
         Me.lblAmount.TabIndex = 10
@@ -261,7 +261,7 @@ Partial Class frm_CreditNote
         Me.lnkCalculateDebitAmt.AutoSize = True
         Me.lnkCalculateDebitAmt.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lnkCalculateDebitAmt.LinkColor = System.Drawing.Color.DarkOrange
-        Me.lnkCalculateDebitAmt.Location = New System.Drawing.Point(18, 390)
+        Me.lnkCalculateDebitAmt.Location = New System.Drawing.Point(18, 362)
         Me.lnkCalculateDebitAmt.Name = "lnkCalculateDebitAmt"
         Me.lnkCalculateDebitAmt.Size = New System.Drawing.Size(179, 15)
         Me.lnkCalculateDebitAmt.TabIndex = 9
@@ -276,7 +276,7 @@ Partial Class frm_CreditNote
         Me.FLXGRD_MaterialItem.Name = "FLXGRD_MaterialItem"
         Me.FLXGRD_MaterialItem.Rows.Count = 1
         Me.FLXGRD_MaterialItem.Rows.DefaultSize = 17
-        Me.FLXGRD_MaterialItem.Size = New System.Drawing.Size(879, 355)
+        Me.FLXGRD_MaterialItem.Size = New System.Drawing.Size(879, 322)
         Me.FLXGRD_MaterialItem.Styles = New C1.Win.C1FlexGrid.CellStyleCollection(resources.GetString("FLXGRD_MaterialItem.Styles"))
         Me.FLXGRD_MaterialItem.TabIndex = 0
         '

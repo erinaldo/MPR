@@ -483,7 +483,7 @@ Partial Class frm_Sale_Invoice
         Me.cmbinvtype.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmbinvtype.ForeColor = System.Drawing.Color.White
         Me.cmbinvtype.FormattingEnabled = True
-        Me.cmbinvtype.Items.AddRange(New Object() {"---Select---", "SCGST", "IGST", "UGST"})
+        Me.cmbinvtype.Items.AddRange(New Object() {"---Select---", "SGST", "IGST", "UGST"})
         Me.cmbinvtype.Location = New System.Drawing.Point(757, 122)
         Me.cmbinvtype.Name = "cmbinvtype"
         Me.cmbinvtype.Size = New System.Drawing.Size(130, 23)
