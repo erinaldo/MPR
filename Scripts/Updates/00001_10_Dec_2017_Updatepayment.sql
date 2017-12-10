@@ -17,18 +17,15 @@
       @StatusId NUMERIC = NULL ,
       @PM_TYPE NUMERIC(18, 0) = NULL ,
       @ProcedureStatus INT OUTPUT 
+
     )
 AS
     BEGIN        
-
-  
-
         DECLARE @LedgerId NUMERIC  
+
         SELECT  @PaymentTransactionId = ISNULL(MAX(PaymentTransactionId), 0)
                 + 1
         FROM    dbo.PaymentTransaction            
-
-  
 
         INSERT  INTO PaymentTransaction
                 ( PaymentTransactionId ,
@@ -48,7 +45,6 @@ AS
                   StatusId ,
                   BankDate ,
                   PM_TYPE 
-
                 )
         VALUES  ( @PaymentTransactionId ,
                   @PaymentTransactionNo ,
@@ -67,12 +63,12 @@ AS
                   @StatusId ,
                   @BankDate ,
                   @PM_TYPE 
+
                 )   
 
         SET @ProcedureStatus = @PaymentTransactionId
 
         ---increment series
-
 
         UPDATE  PM_SERIES
         SET     CURRENT_USED = CURRENT_USED + 1
@@ -80,17 +76,11 @@ AS
                 AND IS_FINISHED = 'N'
                 AND PM_TYPE = @PM_TYPE  
 
-  
-
   ---update customer ledger 
+
   ---if payment status approved   than make entry in customer ledger
-
-
         IF @StatusId = 2
             BEGIN  
-
-  
-
                 IF @PM_TYPE = 1
                     BEGIN  
 
@@ -100,17 +90,14 @@ AS
                         EXECUTE Proc_Ledger_Insert @AccountId,
                             @TotalamountReceived, 0, @Remarks, @DivisionId,
                             @PaymentTransactionId, 18, @CreatedBy 
-							
 							 
-							 EXECUTE Proc_Ledger_Insert @BankId,
-                             0,@TotalamountReceived, @Remarks, @DivisionId,
+                        EXECUTE Proc_Ledger_Insert @BankId, 0,
+                            @TotalamountReceived, @Remarks, @DivisionId,
                             @PaymentTransactionId, 18, @CreatedBy 
 
                     END  
-
                 IF @PM_TYPE = 2
-                    BEGIN  
-
+                    BEGIN
                         SET @Remarks = 'Payment released against reference no.: '
                             + @ChequeDraftNo  
 
@@ -118,14 +105,62 @@ AS
                             @TotalamountReceived, @Remarks, @DivisionId,
                             @PaymentTransactionId, 19, @CreatedBy  
 
-							 EXECUTE Proc_Ledger_Insert @BankId, @TotalamountReceived,0,
-                             @Remarks, @DivisionId,
+                        EXECUTE Proc_Ledger_Insert @BankId,
+                            @TotalamountReceived, 0, @Remarks, @DivisionId,
                             @PaymentTransactionId, 19, @CreatedBy 
+
+                    END
+                    
+                IF @PM_TYPE = 3
+                    BEGIN
+                        SET @Remarks = 'Journal Entry for record no.: '
+                            + @PaymentTransactionNo  
+
+                        EXECUTE Proc_Ledger_Insert @AccountId, 0,
+                            @TotalamountReceived, @Remarks, @DivisionId,
+                            @PaymentTransactionId, 21, @CreatedBy  
+
+                        EXECUTE Proc_Ledger_Insert @BankId,
+                            @TotalamountReceived, 0, @Remarks, @DivisionId,
+                            @PaymentTransactionId, 21, @CreatedBy 
+
+                    END 
+                    
+                IF @PM_TYPE = 4
+                    BEGIN
+                        SET @Remarks = 'Contra Entry for record no.: '
+                            + @PaymentTransactionNo  
+
+                        EXECUTE Proc_Ledger_Insert @AccountId, 0,
+                            @TotalamountReceived, @Remarks, @DivisionId,
+                            @PaymentTransactionId, 22, @CreatedBy  
+
+                        EXECUTE Proc_Ledger_Insert @BankId,
+                            @TotalamountReceived, 0, @Remarks, @DivisionId,
+                            @PaymentTransactionId, 22, @CreatedBy 
+
+                    END 
+                    
+                IF @PM_TYPE = 5
+                    BEGIN
+                        SET @Remarks = 'Expense Entry for record no.: '
+                            + @PaymentTransactionNo  
+
+                        EXECUTE Proc_Ledger_Insert @AccountId, 0,
+                            @TotalamountReceived, @Remarks, @DivisionId,
+                            @PaymentTransactionId, 21, @CreatedBy  
+
+                        EXECUTE Proc_Ledger_Insert @BankId,
+                            @TotalamountReceived, 0, @Remarks, @DivisionId,
+                            @PaymentTransactionId, 21, @CreatedBy 
 
                     END 
 
             END  
+
     END
+
+
 
 -------------------------------------------------------------------------------------------------------------------------------------------
 ALTER PROC Proc_AddOpeningBalance
