@@ -772,7 +772,7 @@ restart:
 
         Dim strSql As String
         Dim count As Int32
-        strSql = " SELECT COUNT(*) FROM dbo.CustomerSettlementDetail WHERE InvoiceId= " & flxList("Si_ID", flxList.CurrentCell.RowIndex).Value()
+        strSql = " SELECT COUNT(*) FROM dbo.SettlementDetail WHERE InvoiceId= " & flxList("Si_ID", flxList.CurrentCell.RowIndex).Value()
         count = obj.Fill_DataSet(strSql).Tables(0).Rows(0)(0)
         If count > 0 Then
             MsgBox("You Can't Edit this Invoice." & vbCrLf & "Please click in print to view/print this Invoice/ DC.", MsgBoxStyle.Information)

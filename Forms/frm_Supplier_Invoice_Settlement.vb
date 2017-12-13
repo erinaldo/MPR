@@ -32,7 +32,7 @@ Public Class frm_Supplier_Invoice_Settlement
                          " THEN ' - Approval Required' ELSE ' - Approval Not Required' END AS PaymentTypeName from [PaymentTypeMaster] WHERE [IsActive_bit] = 1",
                           "PaymentTypeName", "PaymentTypeId", True)
 
-        clsObj.ComboBind(cmbBank, "SELECT ACC_ID,ACC_NAME FROM dbo.ACCOUNT_MASTER WHERE AG_ID=" & AccountGroups.Bank_Accounts,
+        clsObj.ComboBind(cmbBank, "SELECT ACC_ID,ACC_NAME FROM dbo.ACCOUNT_MASTER WHERE AG_ID IN(" & AccountGroups.Bank_Accounts & "," & AccountGroups.Cash_in_hand & ")",
                           "ACC_NAME", "ACC_ID", True)
         GetPMCode()
         fill_ListPaymentgrid()

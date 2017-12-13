@@ -113,8 +113,8 @@ AS
                     
                 IF @PM_TYPE = 3
                     BEGIN
-                        SET @Remarks = 'Journal Entry for record no.: '
-                            + @PaymentTransactionNo  
+                        SET @Remarks = 'Journal Entry against reference no.: '
+                             + @ChequeDraftNo   
 
                         EXECUTE Proc_Ledger_Insert @AccountId, 0,
                             @TotalamountReceived, @Remarks, @DivisionId,
@@ -128,8 +128,8 @@ AS
                     
                 IF @PM_TYPE = 4
                     BEGIN
-                        SET @Remarks = 'Contra Entry for record no.: '
-                            + @PaymentTransactionNo  
+                        SET @Remarks = 'Contra Entry against reference no.: '
+                            + @ChequeDraftNo   
 
                         EXECUTE Proc_Ledger_Insert @AccountId, 0,
                             @TotalamountReceived, @Remarks, @DivisionId,
@@ -143,8 +143,8 @@ AS
                     
                 IF @PM_TYPE = 5
                     BEGIN
-                        SET @Remarks = 'Expense Entry for record no.: '
-                            + @PaymentTransactionNo  
+                        SET @Remarks = 'Expense aagainst reference no.: '
+                            + @ChequeDraftNo  
 
                         EXECUTE Proc_Ledger_Insert @AccountId, 0,
                             @TotalamountReceived, @Remarks, @DivisionId,
@@ -159,8 +159,6 @@ AS
             END  
 
     END
-
-
 
 -------------------------------------------------------------------------------------------------------------------------------------------
 ALTER PROC Proc_AddOpeningBalance
@@ -229,3 +227,157 @@ AS
     END   
 -------------------------------------------------------------------------------------------------------------------------------------
 
+ALTER PROC [dbo].[Proc_UpdatePaymentStauts]
+    (
+      @PaymentTransactionId [numeric](18, 0) ,
+      @CancellationCharges [numeric](18, 2) ,
+      @StatusId NUMERIC ,
+      @PM_TYPE NUMERIC(18, 0)
+    )
+AS
+    BEGIN  
+
+        UPDATE  PaymentTransaction
+        SET     StatusId = @StatusId ,
+                CancellationCharges = @CancellationCharges
+        WHERE   PaymentTransactionId = @PaymentTransactionId  
+
+        ----declare parameters
+
+        DECLARE @AccountId NUMERIC
+        DECLARE @TotalamountReceived NUMERIC(18, 2) = 0 
+        DECLARE @PaymentTransactionNo VARCHAR(100) 
+        DECLARE @CreatedBy VARCHAR(50) = NULL 
+        DECLARE @DivisionId NUMERIC = 0 
+        DECLARE @BankId NUMERIC = 0
+        DECLARE @ChequeDraftNo VARCHAR(50) = NULL 
+
+        ----set parametrs
+        SELECT  @AccountId = AccountId ,
+                @TotalamountReceived = TotalAmountReceived ,
+                @PaymentTransactionNo = PaymentTransactionNo ,
+                @CreatedBy = CreatedBy ,
+                @DivisionId = DivisionId ,
+                @BankId = BankId ,
+                @ChequeDraftNo = ChequeDraftNo
+        FROM    dbo.PaymentTransaction
+        WHERE   PaymentTransactionId = @PaymentTransactionId
+
+        ---update customer ledger
+		---if payment status approved   than make entry in customer ledger
+
+        DECLARE @Remarks VARCHAR(200) 
+
+        IF @StatusId = 2
+            BEGIN
+
+                IF @PM_TYPE = 1
+                    BEGIN
+
+                        SET @Remarks = 'Payment received against reference no.: '
+                            + @ChequeDraftNo  
+
+                        EXECUTE Proc_Ledger_Insert @AccountId,
+                            @TotalamountReceived, 0, @Remarks, @DivisionId,
+                            @PaymentTransactionId, 18, @CreatedBy 
+							 
+                        EXECUTE Proc_Ledger_Insert @BankId, 0,
+                            @TotalamountReceived, @Remarks, @DivisionId,
+                            @PaymentTransactionId, 18, @CreatedBy 
+
+                    END
+
+
+
+                IF @PM_TYPE = 2
+                    BEGIN
+
+                        SET @Remarks = 'Payment released against reference no.: '
+                            + @ChequeDraftNo  
+
+                        EXECUTE Proc_Ledger_Insert @AccountId, 0,
+                            @TotalamountReceived, @Remarks, @DivisionId,
+                            @PaymentTransactionId, 19, @CreatedBy  
+
+                        EXECUTE Proc_Ledger_Insert @BankId,
+                            @TotalamountReceived, 0, @Remarks, @DivisionId,
+                            @PaymentTransactionId, 19, @CreatedBy 
+
+
+                    END
+					 IF @PM_TYPE = 3
+                    BEGIN
+                        SET @Remarks = 'Journal Entry against reference no.: '
+                            + @ChequeDraftNo  
+
+                        EXECUTE Proc_Ledger_Insert @AccountId, 0,
+                            @TotalamountReceived, @Remarks, @DivisionId,
+                            @PaymentTransactionId, 21, @CreatedBy  
+
+                        EXECUTE Proc_Ledger_Insert @BankId,
+                            @TotalamountReceived, 0, @Remarks, @DivisionId,
+                            @PaymentTransactionId, 21, @CreatedBy 
+
+                    END 
+                    
+                IF @PM_TYPE = 4
+                    BEGIN
+                        SET @Remarks = 'Contra Entry against reference no.: '
+                            + @ChequeDraftNo  
+
+                        EXECUTE Proc_Ledger_Insert @AccountId, 0,
+                            @TotalamountReceived, @Remarks, @DivisionId,
+                            @PaymentTransactionId, 22, @CreatedBy  
+
+                        EXECUTE Proc_Ledger_Insert @BankId,
+                            @TotalamountReceived, 0, @Remarks, @DivisionId,
+                            @PaymentTransactionId, 22, @CreatedBy 
+
+                    END 
+                    
+                IF @PM_TYPE = 5
+                    BEGIN
+                        SET @Remarks = 'Expense Entry against reference no.: '
+                            + @ChequeDraftNo  
+
+                        EXECUTE Proc_Ledger_Insert @AccountId, 0,
+                            @TotalamountReceived, @Remarks, @DivisionId,
+                            @PaymentTransactionId, 21, @CreatedBy  
+
+                        EXECUTE Proc_Ledger_Insert @BankId,
+                            @TotalamountReceived, 0, @Remarks, @DivisionId,
+                            @PaymentTransactionId, 21, @CreatedBy 
+
+                    END 
+            END
+
+
+
+
+        ---if payment status bounced with cancellation charges than make entry in customer ledger 
+        SET @Remarks = 'Payment Cancelation Charges against '
+            + @ChequeDraftNo
+
+        IF @StatusId = 4
+            AND @CancellationCharges > 0
+            BEGIN
+                IF @PM_TYPE = 1
+                    BEGIN
+                        EXECUTE Proc_Ledger_Insert @AccountId, 0,
+                            @CancellationCharges, @Remarks, @DivisionId,
+                            @PaymentTransactionId, 18, @CreatedBy
+                    END
+
+                IF @PM_TYPE = 2
+                    BEGIN
+
+                        EXECUTE Proc_Ledger_Insert @AccountId,
+                            @CancellationCharges, 0, @Remarks, @DivisionId,
+                            @PaymentTransactionId, 18, @CreatedBy
+                    END 
+
+            END
+
+    END
+
+------------------------------------------------------------------------------------------------------------------------------------------------

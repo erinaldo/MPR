@@ -74,13 +74,14 @@ Partial Class MDIMain
         Me.frm_DebtorsLedger = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_CreditorsOS = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_CreditorsLedger = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ExpancesageToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.GSTRegitorToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.GSTR1ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.GSTR2ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.GSTR3ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.GSTSummaryToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_Journal_Entry = New System.Windows.Forms.ToolStripMenuItem()
+        Me.frm_Contra_Entry = New System.Windows.Forms.ToolStripMenuItem()
+        Me.frm_Expense_Entry = New System.Windows.Forms.ToolStripMenuItem()
         Me.Recipe = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_menu_item_recipe = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_Recipe_Master = New System.Windows.Forms.ToolStripMenuItem()
@@ -152,8 +153,6 @@ Partial Class MDIMain
         Me.picLogo = New System.Windows.Forms.PictureBox()
         Me.TabControl2 = New System.Windows.Forms.TabControl()
         Me.frm_open_invoice = New System.Windows.Forms.ToolStripMenuItem()
-        Me.frm_Contra_Entry = New System.Windows.Forms.ToolStripMenuItem()
-        Me.frm_Expense_Entry = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.toolbar.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
@@ -619,7 +618,7 @@ Partial Class MDIMain
         'UserManagmentToolStripMenuItem
         '
         Me.UserManagmentToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(77, Byte), Integer), CType(CType(77, Byte), Integer), CType(CType(77, Byte), Integer))
-        Me.UserManagmentToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.frm_user_master, Me.frm_OpeningBalance, Me.frm_Invoice_Settlement, Me.frm_Supplier_Invoice_Settlement, Me.frm_DebtorsOS, Me.frm_DebtorsLedger, Me.frm_CreditorsOS, Me.frm_CreditorsLedger, Me.ExpancesageToolStripMenuItem, Me.GSTRegitorToolStripMenuItem, Me.frm_Journal_Entry, Me.frm_Contra_Entry, Me.frm_Expense_Entry})
+        Me.UserManagmentToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.frm_user_master, Me.frm_OpeningBalance, Me.frm_Supplier_Invoice_Settlement, Me.frm_Invoice_Settlement, Me.frm_Journal_Entry, Me.frm_Contra_Entry, Me.frm_Expense_Entry, Me.frm_DebtorsOS, Me.frm_DebtorsLedger, Me.frm_CreditorsOS, Me.frm_CreditorsLedger, Me.GSTRegitorToolStripMenuItem})
         Me.UserManagmentToolStripMenuItem.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.UserManagmentToolStripMenuItem.ForeColor = System.Drawing.Color.White
         Me.UserManagmentToolStripMenuItem.Image = Global.MMSPlus.My.Resources.Resources.Client_list_text
@@ -703,15 +702,6 @@ Partial Class MDIMain
         Me.frm_CreditorsLedger.Size = New System.Drawing.Size(170, 22)
         Me.frm_CreditorsLedger.Text = "Creditors Ledger"
         '
-        'ExpancesageToolStripMenuItem
-        '
-        Me.ExpancesageToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.ExpancesageToolStripMenuItem.ForeColor = System.Drawing.Color.White
-        Me.ExpancesageToolStripMenuItem.Image = Global.MMSPlus.My.Resources.Resources.Inventory_box_shipment_product
-        Me.ExpancesageToolStripMenuItem.Name = "ExpancesageToolStripMenuItem"
-        Me.ExpancesageToolStripMenuItem.Size = New System.Drawing.Size(170, 22)
-        Me.ExpancesageToolStripMenuItem.Text = "Expenses"
-        '
         'GSTRegitorToolStripMenuItem
         '
         Me.GSTRegitorToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
@@ -760,9 +750,30 @@ Partial Class MDIMain
         '
         'frm_Journal_Entry
         '
+        Me.frm_Journal_Entry.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.frm_Journal_Entry.ForeColor = System.Drawing.Color.White
+        Me.frm_Journal_Entry.Image = Global.MMSPlus.My.Resources.Resources.Refresh_list
         Me.frm_Journal_Entry.Name = "frm_Journal_Entry"
         Me.frm_Journal_Entry.Size = New System.Drawing.Size(170, 22)
         Me.frm_Journal_Entry.Text = "Journal Entry"
+        '
+        'frm_Contra_Entry
+        '
+        Me.frm_Contra_Entry.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.frm_Contra_Entry.ForeColor = System.Drawing.Color.White
+        Me.frm_Contra_Entry.Image = Global.MMSPlus.My.Resources.Resources.Refresh_list
+        Me.frm_Contra_Entry.Name = "frm_Contra_Entry"
+        Me.frm_Contra_Entry.Size = New System.Drawing.Size(170, 22)
+        Me.frm_Contra_Entry.Text = "Contra Entry"
+        '
+        'frm_Expense_Entry
+        '
+        Me.frm_Expense_Entry.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.frm_Expense_Entry.ForeColor = System.Drawing.Color.White
+        Me.frm_Expense_Entry.Image = Global.MMSPlus.My.Resources.Resources.Refresh_list
+        Me.frm_Expense_Entry.Name = "frm_Expense_Entry"
+        Me.frm_Expense_Entry.Size = New System.Drawing.Size(170, 22)
+        Me.frm_Expense_Entry.Text = "Expense Entry"
         '
         'Recipe
         '
@@ -1463,18 +1474,6 @@ Partial Class MDIMain
         Me.frm_open_invoice.Size = New System.Drawing.Size(181, 22)
         Me.frm_open_invoice.Text = "Opne Invoice"
         '
-        'frm_Contra_Entry
-        '
-        Me.frm_Contra_Entry.Name = "frm_Contra_Entry"
-        Me.frm_Contra_Entry.Size = New System.Drawing.Size(170, 22)
-        Me.frm_Contra_Entry.Text = "Contra Entry"
-        '
-        'frm_Expense_Entry
-        '
-        Me.frm_Expense_Entry.Name = "frm_Expense_Entry"
-        Me.frm_Expense_Entry.Size = New System.Drawing.Size(170, 22)
-        Me.frm_Expense_Entry.Text = "Expense Entry"
-        '
         'MDIMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1629,7 +1628,6 @@ Partial Class MDIMain
     Friend WithEvents GSTR2ToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents GSTR3ToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents GSTSummaryToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents ExpancesageToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents frm_DebtorsOS As ToolStripMenuItem
     Friend WithEvents frm_CreditorsOS As ToolStripMenuItem
     Friend WithEvents frm_OpeningBalance As System.Windows.Forms.ToolStripMenuItem
