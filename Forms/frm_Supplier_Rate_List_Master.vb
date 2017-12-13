@@ -544,6 +544,7 @@ Public Class frm_Supplier_Rate_List_Master
             TabControl1.SelectTab(1)
         End If
     End Sub
+
     Private Sub grdSupplier_DataError(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewDataErrorEventArgs) Handles grdSupplier.DataError
         e.ThrowException = False
     End Sub
@@ -608,7 +609,9 @@ Public Class frm_Supplier_Rate_List_Master
                     frm_Show_search.cols_width = "60,350,50"
 
                     frm_Show_search.ShowDialog()
+
                     get_row(frm_Show_search.search_result)
+
                     frm_Show_search.Close()
                 End If
             End If

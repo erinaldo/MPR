@@ -592,6 +592,7 @@ again:
                         frm_Show_search.ret_column = "Item_ID"
                         frm_Show_search.item_rate_column = "Rate"
                         frm_Show_search.ShowDialog()
+
                         If Not check_item_exist(frm_Show_search.search_result) Then
                             get_row(frm_Show_search.search_result, 0, frm_Show_search.item_rate)
                         End If
@@ -633,69 +634,70 @@ restart:
 
     Public Sub get_row(ByVal item_id As Integer, ByVal Wastage_id As Integer, ByVal itemRate As Decimal)
         Try
-            Dim ds As DataSet
-            Dim ds2 As DataSet
-            Dim sqlqry As String
-            sqlqry = "SELECT  " & _
-                                        " IM.ITEM_ID , " & _
-                                        " IM.ITEM_CODE , " & _
-                                        " IM.ITEM_NAME , " & _
-                                        " UM.UM_Name , " & _
-                                        " SD.Batch_no , " & _
-                                        " dbo.fn_Format(SD.Expiry_date) AS Expiry_Date, " & _
-                                        " dbo.Get_Average_Rate_as_on_date(IM.ITEM_ID,'" & Now.ToString("dd-MMM-yyyy") & "'," & v_the_current_division_id & ",0) as Item_Rate," & _
-                                        " SD.Balance_Qty, " & _
-                                        " 0.00  as transfer_qty, " & _
-                                        " SD.STOCK_DETAIL_ID  ,fk_HsnId_num" & _
-                                " FROM " & _
-                                        " ITEM_MASTER  IM " & _
-                                        " INNER JOIN ITEM_DETAIL ID ON IM.ITEM_ID = ID.ITEM_ID " & _
-                                        " INNER JOIN STOCK_DETAIL SD ON ID.ITEM_ID = SD.Item_id " & _
-                                        " INNER JOIN UNIT_MASTER UM ON IM.UM_ID = UM.UM_ID" & _
-                                " where " & _
-                                        " IM.ITEM_ID = " & item_id & " and SD.Balance_Qty > 0"
-            ds = clsObj.Fill_DataSet(sqlqry)
+            If item_id <> -1 Then
+                Dim ds As DataSet
+                Dim ds2 As DataSet
+                Dim sqlqry As String
+                sqlqry = "SELECT  " & _
+                                            " IM.ITEM_ID , " & _
+                                            " IM.ITEM_CODE , " & _
+                                            " IM.ITEM_NAME , " & _
+                                            " UM.UM_Name , " & _
+                                            " SD.Batch_no , " & _
+                                            " dbo.fn_Format(SD.Expiry_date) AS Expiry_Date, " & _
+                                            " dbo.Get_Average_Rate_as_on_date(IM.ITEM_ID,'" & Now.ToString("dd-MMM-yyyy") & "'," & v_the_current_division_id & ",0) as Item_Rate," & _
+                                            " SD.Balance_Qty, " & _
+                                            " 0.00  as transfer_qty, " & _
+                                            " SD.STOCK_DETAIL_ID  ,fk_HsnId_num" & _
+                                    " FROM " & _
+                                            " ITEM_MASTER  IM " & _
+                                            " INNER JOIN ITEM_DETAIL ID ON IM.ITEM_ID = ID.ITEM_ID " & _
+                                            " INNER JOIN STOCK_DETAIL SD ON ID.ITEM_ID = SD.Item_id " & _
+                                            " INNER JOIN UNIT_MASTER UM ON IM.UM_ID = UM.UM_ID" & _
+                                    " where " & _
+                                            " IM.ITEM_ID = " & item_id & " and SD.Balance_Qty > 0"
+                ds = clsObj.Fill_DataSet(sqlqry)
 
-            Dim i As Integer
-            Dim dr As DataRow
+                Dim i As Integer
+                Dim dr As DataRow
 
-            If ds.Tables(0).Rows.Count > 0 Then
-                'obj.RemoveBlankRow(dtable_Item_List, "item_id")
-                For i = 0 To ds.Tables(0).Rows.Count - 1
-                    dr = dtable_Item_List.NewRow
-                    dr("Item_Id") = item_id
-                    dr("Item_Code") = ds.Tables(0).Rows(i)("ITEM_CODE")
-                    dr("Item_Name") = ds.Tables(0).Rows(i)("ITEM_NAME")
-                    dr("UM_Name") = ds.Tables(0).Rows(i)("UM_Name")
-                    dr("Batch_No") = ds.Tables(0).Rows(i)("Batch_no")
-                    dr("Expiry_Date") = ds.Tables(0).Rows(i)("Expiry_Date")
-                    dr("HsnCodeId") = ds.Tables(0).Rows(i)("fk_HsnId_num")
-                    ' dr("Item_Rate") = ds.Tables(0).Rows(0)("Item_Rate")
+                If ds.Tables(0).Rows.Count > 0 Then
+                    'obj.RemoveBlankRow(dtable_Item_List, "item_id")
+                    For i = 0 To ds.Tables(0).Rows.Count - 1
+                        dr = dtable_Item_List.NewRow
+                        dr("Item_Id") = item_id
+                        dr("Item_Code") = ds.Tables(0).Rows(i)("ITEM_CODE")
+                        dr("Item_Name") = ds.Tables(0).Rows(i)("ITEM_NAME")
+                        dr("UM_Name") = ds.Tables(0).Rows(i)("UM_Name")
+                        dr("Batch_No") = ds.Tables(0).Rows(i)("Batch_no")
+                        dr("Expiry_Date") = ds.Tables(0).Rows(i)("Expiry_Date")
+                        dr("HsnCodeId") = ds.Tables(0).Rows(i)("fk_HsnId_num")
+                        ' dr("Item_Rate") = ds.Tables(0).Rows(0)("Item_Rate")
 
-                    ds2 = obj.Fill_DataSet("SELECT VAT_MASTER.VAT_PERCENTAGE FROM ITEM_DETAIL INNER JOIN VAT_MASTER ON ITEM_DETAIL.PURCHASE_VAT_ID = VAT_MASTER.VAT_ID WHERE (ITEM_DETAIL.ITEM_ID = " & Convert.ToInt32(frm_Show_search.search_result) & " )")
-                    dr("Item_Rate") = itemRate.ToString("#0.00")
-                    dr("Amount") = 0.0
-                    dr("DISC") = 0.0
-                    dr("LandingAmt") = 0.0
-                    dr("DType") = "P"
-                    dr("GST") = ds2.Tables(0).Rows(0)("VAT_PERCENTAGE")
-                    dr("GSt_Amount") = "0"
+                        ds2 = obj.Fill_DataSet("SELECT VAT_MASTER.VAT_PERCENTAGE FROM ITEM_DETAIL INNER JOIN VAT_MASTER ON ITEM_DETAIL.PURCHASE_VAT_ID = VAT_MASTER.VAT_ID WHERE (ITEM_DETAIL.ITEM_ID = " & Convert.ToInt32(frm_Show_search.search_result) & " )")
+                        dr("Item_Rate") = itemRate.ToString("#0.00")
+                        dr("Amount") = 0.0
+                        dr("DISC") = 0.0
+                        dr("LandingAmt") = 0.0
+                        dr("DType") = "P"
+                        dr("GST") = ds2.Tables(0).Rows(0)("VAT_PERCENTAGE")
+                        dr("GSt_Amount") = "0"
 
-                    dr("Batch_Qty") = ds.Tables(0).Rows(i)("Balance_Qty")
-                    dr("Stock_Detail_Id") = ds.Tables(0).Rows(i)("STOCK_DETAIL_ID")
-                    dr("transfer_Qty") = 0
-                    dtable_Item_List.Rows.Add(dr)
-                Next
-                'Dim strSort As String = flxItems.Cols(1).Name + ", " + flxItems.Cols(2).Name + ", " + flxItems.Cols(3).Name
-                'dtable_Item_List.DefaultView.Sort = strSort
+                        dr("Batch_Qty") = ds.Tables(0).Rows(i)("Balance_Qty")
+                        dr("Stock_Detail_Id") = ds.Tables(0).Rows(i)("STOCK_DETAIL_ID")
+                        dr("transfer_Qty") = 0
+                        dtable_Item_List.Rows.Add(dr)
+                    Next
+                    'Dim strSort As String = flxItems.Cols(1).Name + ", " + flxItems.Cols(2).Name + ", " + flxItems.Cols(3).Name
+                    'dtable_Item_List.DefaultView.Sort = strSort
 
-                'If dtable_Item_List.Rows.Count = 0 Then dtable_Item_List.Rows.Add(dtable_Item_List.NewRow)
+                    'If dtable_Item_List.Rows.Count = 0 Then dtable_Item_List.Rows.Add(dtable_Item_List.NewRow)
 
-                generate_tree()
-            Else
-                MsgBox("Stock is not avaialable for this Item.", MsgBoxStyle.Information)
+                    generate_tree()
+                Else
+                    MsgBox("Stock is not avaialable for this Item.", MsgBoxStyle.Information)
+                End If
             End If
-
         Catch ex As Exception
             MsgBox(gblMessageHeading_Error & vbCrLf & gblMessage_ContactInfo & vbCrLf & ex.Message, MsgBoxStyle.Critical, gblMessageHeading)
         End Try

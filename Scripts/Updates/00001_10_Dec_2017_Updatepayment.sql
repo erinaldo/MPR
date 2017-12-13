@@ -381,3 +381,52 @@ AS
     END
 
 ------------------------------------------------------------------------------------------------------------------------------------------------
+ALTER TABLE dbo.OpeningBalance 
+ADD TYPE NUMERIC NULL DEFAULT 0
+
+ALTER PROC Proc_AddOpeningBalance
+    (
+      @AccountId NUMERIC(18, 0) ,
+      @Amount NUMERIC(18, 2) ,
+      @DivisionId NUMERIC(18, 0) ,
+      @CreatedBy NVARCHAR(50) ,
+      @Openingdate DATETIME ,
+      @Type BIGINT 
+    )
+AS
+    BEGIN  
+        UPDATE  dbo.ACCOUNT_MASTER
+        SET     OPENING_BAL = @Amount
+        WHERE   ACC_ID = @AccountId  
+
+        DECLARE @OPENINGBALANCEID NUMERIC(18, 0) 
+
+        SET @OPENINGBALANCEID = -( SELECT   ISNULL(COUNT(OPENINGBALANCEID), 0)
+                                            + 1 AS Id
+                                   FROM     OPENINGBALANCE
+                                 ) 
+        INSERT  OPENINGBALANCE
+        VALUES  ( @OPENINGBALANCEID, @AccountId, @Amount, @Openingdate,@type )  
+
+        DECLARE @Remarks VARCHAR(200) 
+
+        SET @Remarks = 'Account Opening Balance as on Date: '
+            + CAST(CONVERT(VARCHAR(20), @Openingdate, 106) AS VARCHAR(30))  
+
+        IF @TYPE = 1
+            BEGIN  
+
+                EXECUTE Proc_Ledger_InsertOpening @AccountId, 0, @Amount,
+                    @Remarks, @DivisionId, @OPENINGBALANCEID, 20, @Openingdate,
+                    @CreatedBy 
+            END  
+
+        IF @TYPE = 2
+            BEGIN  
+                EXECUTE Proc_Ledger_InsertOpening @AccountId, @Amount, 0,
+                    @Remarks, @DivisionId, @OPENINGBALANCEID, 20, @Openingdate,
+                    @CreatedBy  
+            END  
+    END  
+
+-----------------------------------------------------------------------------------------------------------------------

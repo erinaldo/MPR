@@ -22,6 +22,9 @@ Public Class frm_Show_search
 
     Private Sub frm_Show_search_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Try
+
+           
+
             GroupBox1.Width = Me.Width - 20
             grdSearch.Width = Me.Width - 50
             grdSearch.ScrollBars = ScrollBars.Vertical
@@ -111,7 +114,9 @@ Public Class frm_Show_search
 
     Private Sub btnExit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExit.Click
         Try
-            SelectItemAndCloseForm()
+            'SelectItemAndCloseForm()
+            search_result = -1
+            Me.Close()
         Catch ex As Exception
 
         End Try
@@ -150,6 +155,7 @@ Public Class frm_Show_search
     Private Sub frm_Show_search_KeyDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles MyBase.KeyDown
         Try
             If e.KeyCode = Keys.Escape Then
+                search_result = -1
                 Me.Close()
             End If
         Catch ex As Exception
