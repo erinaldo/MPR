@@ -232,6 +232,7 @@ Module GlobalModule
         Invoice_Settlement = 18
         Supplier_Invoice_Settlement = 19
         Opening_Balance = 20
+        Depreciation = 25
 
     End Enum
 
