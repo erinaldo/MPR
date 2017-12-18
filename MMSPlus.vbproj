@@ -242,6 +242,18 @@
     <Compile Include="Forms\frm_Account_Payment.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Forms\frm_Depreciation_Cal.Designer.vb">
+      <DependentUpon>frm_Depreciation_Cal.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frm_Depreciation_Cal.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ReportsForms\frm_GSTR_1.Designer.vb">
+      <DependentUpon>frm_GSTR_1.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ReportsForms\frm_GSTR_1.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Forms\frm_OpeningBalance.Designer.vb">
       <DependentUpon>frm_OpeningBalance.vb</DependentUpon>
     </Compile>
@@ -1313,6 +1325,9 @@
     <EmbeddedResource Include="Forms\frm_Account_Payment.resx">
       <DependentUpon>frm_Account_Payment.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frm_Depreciation_Cal.resx">
+      <DependentUpon>frm_Depreciation_Cal.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\frm_OpeningBalance.resx">
       <DependentUpon>frm_OpeningBalance.vb</DependentUpon>
     </EmbeddedResource>
@@ -1476,6 +1491,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ReportsForms\frm_DebtorsOS.resx">
       <DependentUpon>frm_DebtorsOS.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportsForms\frm_GSTR_1.resx">
+      <DependentUpon>frm_GSTR_1.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ReportsForms\Frm_IndentPrint.resx">
       <DependentUpon>Frm_IndentPrint.vb</DependentUpon>
@@ -1991,6 +2009,9 @@
     <None Include="afbl_mmsDataSet.xss">
       <DependentUpon>afbl_mmsDataSet.xsd</DependentUpon>
     </None>
+    <None Include="ExcelTemplate\GSTR_1.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
@@ -2005,6 +2026,7 @@
     <Content Include="bin\Debug\connection.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Scripts\Updates\0005_depreciation_16_Dec_2017 .sql" />
     <Content Include="Scripts\Updates\00001_08_Dec_2017.sql" />
     <Content Include="Scripts\Updates\00001_10_Dec_2017_Updatepayment.sql" />
     <Content Include="Scripts\Updates\0001_09_oct_2017.sql">
@@ -2164,6 +2186,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
