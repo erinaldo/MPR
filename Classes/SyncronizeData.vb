@@ -20,7 +20,7 @@ Module SyncronizeData
         GlobalTables.Tables.Add(Table.Copy())
 
         ''2) Item_Master
-        Query = " Select ITEM_ID ,ITEM_CODE ,ITEM_NAME ,ITEM_DESC, UM_ID ,ISSUE_UM_ID,RECP_UM_ID,ITEM_CATEGORY_ID,CONV_FAC_ISSUE,CONV_FAC_RECP,RE_ORDER_LEVEL,RE_ORDER_QTY,TRANSFER_RATE,SALE_RATE,PURCHASE_RATE,VAT_ID,EXCISE_ID,CREATED_BY,CREATION_DATE,MODIFIED_BY,MODIFIED_DATE,0 as division_id, IS_STOCKABLE,fk_HsnID_num from ITEM_MASTER"
+        Query = " Select *from ITEM_MASTER"
         Table = Get_Remote_DataSet(Query).Tables(0)
         Table.TableName = "Item_Master"
         GlobalTables.Tables.Add(Table.Copy())
