@@ -2,10 +2,11 @@
 
 Public Class frm_Account_Payment
     Implements IForm
-
+    Dim obj As New CommonClass
     Public entryType As Int32 = PaymentType.Journal
     Public entryTypeName As String = PaymentType.Journal.ToString
-
+    Dim PaymentId As Int16
+    Dim flag As String
     Dim clsObj As New cls_Invoice_Settlement
     Dim _rights As Form_Rights
     Dim query As String
@@ -232,7 +233,19 @@ Public Class frm_Account_Payment
     End Sub
 
     Public Sub ViewClick(sender As Object, e As EventArgs) Implements IForm.ViewClick
-
+        Try
+            If TabControl1.SelectedIndex = 0 Then
+                If flxList.SelectedRows.Count > 0 Then
+                    obj.RptShow(enmReportName.RptAccPaymentPrint, "PaymentId", CStr(flxList("PaymentId", flxList.CurrentCell.RowIndex).Value()), CStr(enmDataType.D_int))
+                End If
+            Else
+                If flag <> "save" Then
+                    obj.RptShow(enmReportName.RptAccPaymentPrint, "PaymentId", CStr(PaymentId), CStr(enmDataType.D_int))
+                End If
+            End If
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
     End Sub
 
     Public Sub RefreshClick(sender As Object, e As EventArgs) Implements IForm.RefreshClick

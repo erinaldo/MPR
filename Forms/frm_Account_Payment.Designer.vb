@@ -181,7 +181,7 @@ Partial Class frm_Account_Payment
         Me.GBDCMASTER.Controls.Add(Me.Label3)
         Me.GBDCMASTER.Controls.Add(Me.cmbAccountToDebit)
         Me.GBDCMASTER.Controls.Add(Me.lblCap1)
-        Me.GBDCMASTER.Location = New System.Drawing.Point(42, 53)
+        Me.GBDCMASTER.Location = New System.Drawing.Point(44, 61)
         Me.GBDCMASTER.Name = "GBDCMASTER"
         Me.GBDCMASTER.Size = New System.Drawing.Size(810, 299)
         Me.GBDCMASTER.TabIndex = 6
@@ -234,7 +234,7 @@ Partial Class frm_Account_Payment
         '
         Me.Label11.AutoSize = True
         Me.Label11.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label11.Location = New System.Drawing.Point(494, 174)
+        Me.Label11.Location = New System.Drawing.Point(482, 174)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(70, 15)
         Me.Label11.TabIndex = 58
@@ -250,7 +250,7 @@ Partial Class frm_Account_Payment
         Me.txtRemarks.MaxLength = 0
         Me.txtRemarks.Multiline = True
         Me.txtRemarks.Name = "txtRemarks"
-        Me.txtRemarks.Size = New System.Drawing.Size(306, 43)
+        Me.txtRemarks.Size = New System.Drawing.Size(678, 65)
         Me.txtRemarks.TabIndex = 8
         '
         'Label10
@@ -278,7 +278,7 @@ Partial Class frm_Account_Payment
         '
         Me.Label9.AutoSize = True
         Me.Label9.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label9.Location = New System.Drawing.Point(492, 124)
+        Me.Label9.Location = New System.Drawing.Point(482, 124)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(99, 30)
         Me.Label9.TabIndex = 53
@@ -292,7 +292,7 @@ Partial Class frm_Account_Payment
         Me.cmbAccountToCredit.ForeColor = System.Drawing.Color.White
         Me.cmbAccountToCredit.FormattingEnabled = True
         Me.cmbAccountToCredit.Items.AddRange(New Object() {"---Select---", "Post Dated Cheque", "Temporary Receipt", "Credit Payment"})
-        Me.cmbAccountToCredit.Location = New System.Drawing.Point(109, 48)
+        Me.cmbAccountToCredit.Location = New System.Drawing.Point(109, 53)
         Me.cmbAccountToCredit.Name = "cmbAccountToCredit"
         Me.cmbAccountToCredit.Size = New System.Drawing.Size(678, 23)
         Me.cmbAccountToCredit.TabIndex = 5
@@ -303,7 +303,7 @@ Partial Class frm_Account_Payment
         Me.dtpPaymentDate.CalendarMonthBackground = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.dtpPaymentDate.CustomFormat = "dd-MMM-yyyy"
         Me.dtpPaymentDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpPaymentDate.Location = New System.Drawing.Point(594, 88)
+        Me.dtpPaymentDate.Location = New System.Drawing.Point(594, 96)
         Me.dtpPaymentDate.Name = "dtpPaymentDate"
         Me.dtpPaymentDate.Size = New System.Drawing.Size(193, 20)
         Me.dtpPaymentDate.TabIndex = 2
@@ -312,7 +312,7 @@ Partial Class frm_Account_Payment
         '
         Me.Label12.AutoSize = True
         Me.Label12.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label12.Location = New System.Drawing.Point(494, 94)
+        Me.Label12.Location = New System.Drawing.Point(482, 94)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(90, 15)
         Me.Label12.TabIndex = 48
@@ -326,7 +326,7 @@ Partial Class frm_Account_Payment
         Me.cmbPaymentType.ForeColor = System.Drawing.Color.White
         Me.cmbPaymentType.FormattingEnabled = True
         Me.cmbPaymentType.Items.AddRange(New Object() {"---Select---", "Post Dated Cheque", "Temporary Receipt", "Credit Payment"})
-        Me.cmbPaymentType.Location = New System.Drawing.Point(109, 92)
+        Me.cmbPaymentType.Location = New System.Drawing.Point(109, 96)
         Me.cmbPaymentType.Name = "cmbPaymentType"
         Me.cmbPaymentType.Size = New System.Drawing.Size(306, 23)
         Me.cmbPaymentType.TabIndex = 1
@@ -347,17 +347,17 @@ Partial Class frm_Account_Payment
         Me.txtAmount.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtAmount.Font = New System.Drawing.Font("Arial Narrow", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtAmount.ForeColor = System.Drawing.Color.White
-        Me.txtAmount.Location = New System.Drawing.Point(109, 171)
+        Me.txtAmount.Location = New System.Drawing.Point(109, 174)
         Me.txtAmount.MaxLength = 0
         Me.txtAmount.Name = "txtAmount"
-        Me.txtAmount.Size = New System.Drawing.Size(175, 19)
+        Me.txtAmount.Size = New System.Drawing.Size(306, 19)
         Me.txtAmount.TabIndex = 7
         '
         'Label2
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(10, 170)
+        Me.Label2.Location = New System.Drawing.Point(10, 174)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(55, 15)
         Me.Label2.TabIndex = 44
@@ -412,7 +412,7 @@ Partial Class frm_Account_Payment
         Me.lblFormHeading.AutoSize = True
         Me.lblFormHeading.Font = New System.Drawing.Font("Verdana", 15.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblFormHeading.ForeColor = System.Drawing.Color.White
-        Me.lblFormHeading.Location = New System.Drawing.Point(330, 13)
+        Me.lblFormHeading.Location = New System.Drawing.Point(340, 24)
         Me.lblFormHeading.Name = "lblFormHeading"
         Me.lblFormHeading.Size = New System.Drawing.Size(162, 25)
         Me.lblFormHeading.TabIndex = 5
