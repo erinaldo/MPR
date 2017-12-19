@@ -1396,10 +1396,13 @@ Public MustInherit Class Connection
 
             ElseIf RptNo = enmReportName.RptPaymentPrint Then
                 filepath = ReportFilePath & "PaymentDetailCrReport.rpt"
-          
+
 
             ElseIf RptNo = enmReportName.RptSuppPaymentPrint Then
                 filepath = ReportFilePath & "SuppPaymentDetailCrReport.rpt"
+
+            ElseIf RptNo = enmReportName.RptAccPaymentPrint Then
+                filepath = ReportFilePath & "PaymentVoucher.rpt"
 
             End If
 
@@ -1496,6 +1499,9 @@ Public MustInherit Class Connection
                         PInteger = CInt(value(ArrIndex))
                         rep.SetParameterValue("PaymentId", CInt(value(ArrIndex)))
 
+                    ElseIf RptNo = enmReportName.RptAccPaymentPrint Then
+                        PInteger = CInt(value(ArrIndex))
+                        rep.SetParameterValue("PaymentId", CInt(value(ArrIndex)))
 
                     ElseIf RptNo = enmReportName.RptInvoicePrint Then
                         PInteger = CInt(value(ArrIndex))
