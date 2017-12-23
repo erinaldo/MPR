@@ -132,7 +132,7 @@ Partial Class frm_Show_search
     Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
     Friend WithEvents grdSearch As System.Windows.Forms.DataGridView
     Friend WithEvents Label1 As System.Windows.Forms.Label
-    Friend WithEvents txtSearch As System.Windows.Forms.TextBox
     Friend WithEvents btnExit As System.Windows.Forms.Button
     Friend WithEvents Panel1 As System.Windows.Forms.Panel
+    Public WithEvents txtSearch As TextBox
 End Class
