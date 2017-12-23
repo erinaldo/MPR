@@ -183,7 +183,7 @@ Public Class frm_Item_Master
               & " ITEM_MASTER.ITEM_NAME,UNIT_MASTER.UM_Name,ITEM_CATEGORY.ITEM_CAT_NAME, Barcode_vch FROM ITEM_MASTER " _
               & " INNER JOIN  UNIT_MASTER ON ITEM_MASTER.UM_ID = UNIT_MASTER.UM_ID INNER JOIN ITEM_CATEGORY " _
               & " ON ITEM_MASTER.ITEM_CATEGORY_ID = ITEM_CATEGORY.ITEM_CAT_ID where (item_master.item_code + " _
-            & " item_master.item_name + ITEM_CATEGORY.item_cat_name + UNIT_MASTER.um_name + Barcode_Vch) " _
+            & " item_master.item_name + ITEM_CATEGORY.item_cat_name + UNIT_MASTER.um_name + isnull(Barcode_Vch,'')) " _
             & " like '%" & txtSearch.Text & "%'")
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "Error --> FillGrid")
@@ -365,6 +365,12 @@ Public Class frm_Item_Master
     Private Sub txtSearch_KeyDown(sender As Object, e As KeyEventArgs) Handles txtSearch.KeyDown
         If e.KeyCode = Keys.Enter Then
             EditItem()
+        End If
+    End Sub
+
+    Private Sub TabControl1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles TabControl1.SelectedIndexChanged
+        If TabControl1.SelectedIndex = 0 Then
+            txtSearch.Focus()
         End If
     End Sub
 

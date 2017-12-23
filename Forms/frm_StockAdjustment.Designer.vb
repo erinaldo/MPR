@@ -47,6 +47,8 @@ Partial Class frm_StockAdjustment
         Me.lblWastageRemarks = New System.Windows.Forms.Label()
         Me.lblWastageCode = New System.Windows.Forms.Label()
         Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.txtBarcodeSearch = New System.Windows.Forms.TextBox()
         CType(Me.DGVWastageMaster, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TBCWastageMaster.SuspendLayout()
         Me.List.SuspendLayout()
@@ -249,6 +251,8 @@ Partial Class frm_StockAdjustment
         '
         'GBWastageMasterInfo
         '
+        Me.GBWastageMasterInfo.Controls.Add(Me.txtBarcodeSearch)
+        Me.GBWastageMasterInfo.Controls.Add(Me.Label1)
         Me.GBWastageMasterInfo.Controls.Add(Me.lblFormHeading)
         Me.GBWastageMasterInfo.Controls.Add(Me.lblWastageDate)
         Me.GBWastageMasterInfo.Controls.Add(Me.txtAdjustmentRemarks)
@@ -281,7 +285,7 @@ Partial Class frm_StockAdjustment
         '
         Me.lblWastageDate.AutoSize = True
         Me.lblWastageDate.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblWastageDate.Location = New System.Drawing.Point(23, 51)
+        Me.lblWastageDate.Location = New System.Drawing.Point(287, 21)
         Me.lblWastageDate.Name = "lblWastageDate"
         Me.lblWastageDate.Size = New System.Drawing.Size(107, 15)
         Me.lblWastageDate.TabIndex = 6
@@ -293,7 +297,7 @@ Partial Class frm_StockAdjustment
         Me.txtAdjustmentRemarks.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtAdjustmentRemarks.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtAdjustmentRemarks.ForeColor = System.Drawing.Color.White
-        Me.txtAdjustmentRemarks.Location = New System.Drawing.Point(157, 80)
+        Me.txtAdjustmentRemarks.Location = New System.Drawing.Point(157, 47)
         Me.txtAdjustmentRemarks.MaxLength = 100
         Me.txtAdjustmentRemarks.Multiline = True
         Me.txtAdjustmentRemarks.Name = "txtAdjustmentRemarks"
@@ -306,7 +310,7 @@ Partial Class frm_StockAdjustment
         Me.lbladjustmentdate.AutoSize = True
         Me.lbladjustmentdate.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbladjustmentdate.ForeColor = System.Drawing.Color.Orange
-        Me.lbladjustmentdate.Location = New System.Drawing.Point(154, 50)
+        Me.lbladjustmentdate.Location = New System.Drawing.Point(418, 20)
         Me.lbladjustmentdate.Name = "lbladjustmentdate"
         Me.lbladjustmentdate.Size = New System.Drawing.Size(98, 15)
         Me.lbladjustmentdate.TabIndex = 3
@@ -327,7 +331,7 @@ Partial Class frm_StockAdjustment
         '
         Me.lblWastageRemarks.AutoSize = True
         Me.lblWastageRemarks.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblWastageRemarks.Location = New System.Drawing.Point(22, 77)
+        Me.lblWastageRemarks.Location = New System.Drawing.Point(22, 47)
         Me.lblWastageRemarks.Name = "lblWastageRemarks"
         Me.lblWastageRemarks.Size = New System.Drawing.Size(132, 15)
         Me.lblWastageRemarks.TabIndex = 1
@@ -349,6 +353,29 @@ Partial Class frm_StockAdjustment
         Me.ImageList1.TransparentColor = System.Drawing.Color.Transparent
         Me.ImageList1.Images.SetKeyName(0, "Zoom_search_find_magnifying_glass.png")
         Me.ImageList1.Images.SetKeyName(1, "Inventory_box_shipment_product.png")
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.Location = New System.Drawing.Point(22, 102)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(59, 15)
+        Me.Label1.TabIndex = 29
+        Me.Label1.Text = "Barcode :"
+        '
+        'txtBarcodeSearch
+        '
+        Me.txtBarcodeSearch.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.txtBarcodeSearch.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.txtBarcodeSearch.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtBarcodeSearch.ForeColor = System.Drawing.Color.White
+        Me.txtBarcodeSearch.Location = New System.Drawing.Point(157, 103)
+        Me.txtBarcodeSearch.MaxLength = 100
+        Me.txtBarcodeSearch.Name = "txtBarcodeSearch"
+        Me.txtBarcodeSearch.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
+        Me.txtBarcodeSearch.Size = New System.Drawing.Size(568, 19)
+        Me.txtBarcodeSearch.TabIndex = 30
         '
         'frm_StockAdjustment
         '
@@ -395,4 +422,6 @@ Partial Class frm_StockAdjustment
     Friend WithEvents Label13 As System.Windows.Forms.Label
     Friend WithEvents lbladjustmentdate As System.Windows.Forms.Label
     Friend WithEvents ImageList1 As ImageList
+    Friend WithEvents txtBarcodeSearch As TextBox
+    Friend WithEvents Label1 As Label
 End Class
