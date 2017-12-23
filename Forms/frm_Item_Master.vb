@@ -138,7 +138,7 @@ Public Class frm_Item_Master
     Private Sub FillGrid()
         Try
             Call Obj.GridBind(grdItemMaster, "SELECT ITEM_MASTER.ITEM_ID,ITEM_MASTER.ITEM_CODE," _
-                & " ITEM_MASTER.ITEM_NAME,UNIT_MASTER.UM_Name,ITEM_CATEGORY.ITEM_CAT_NAME FROM ITEM_MASTER " _
+                & " ITEM_MASTER.ITEM_NAME,UNIT_MASTER.UM_Name,ITEM_CATEGORY.ITEM_CAT_NAME, Barcode_Vch FROM ITEM_MASTER " _
                 & " INNER JOIN  UNIT_MASTER ON ITEM_MASTER.UM_ID = UNIT_MASTER.UM_ID INNER JOIN ITEM_CATEGORY " _
                 & " ON ITEM_MASTER.ITEM_CATEGORY_ID = ITEM_CATEGORY.ITEM_CAT_ID order by Item_Master.Item_Code")
             grdItemMaster.Columns(0).Visible = False 'Item Master id
@@ -147,12 +147,15 @@ Public Class frm_Item_Master
             grdItemMaster.Columns(1).HeaderText = "Item Code"
             grdItemMaster.Columns(1).Width = 100
             grdItemMaster.Columns(2).HeaderText = "Item Name"
-            grdItemMaster.Columns(2).Width = 400
+            grdItemMaster.Columns(2).Width = 300
             grdItemMaster.Columns(3).HeaderText = "Item Unit"
             grdItemMaster.Columns(3).Width = 100
 
             grdItemMaster.Columns(4).HeaderText = "Item Category Name"
             grdItemMaster.Columns(4).Width = 220
+            grdItemMaster.Columns(5).HeaderText = "Barcode"
+            grdItemMaster.Columns(5).Width = 100
+
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "Error --> FillGrid")
         End Try
@@ -177,10 +180,10 @@ Public Class frm_Item_Master
             'grdItemMaster.Columns(4).HeaderText = "Item Category Name"
             'grdItemMaster.Columns(4).Width = 207
             Call Obj.GridBind(grdItemMaster, "SELECT ITEM_MASTER.ITEM_ID,ITEM_MASTER.ITEM_CODE," _
-              & " ITEM_MASTER.ITEM_NAME,UNIT_MASTER.UM_Name,ITEM_CATEGORY.ITEM_CAT_NAME FROM ITEM_MASTER " _
+              & " ITEM_MASTER.ITEM_NAME,UNIT_MASTER.UM_Name,ITEM_CATEGORY.ITEM_CAT_NAME, Barcode_vch FROM ITEM_MASTER " _
               & " INNER JOIN  UNIT_MASTER ON ITEM_MASTER.UM_ID = UNIT_MASTER.UM_ID INNER JOIN ITEM_CATEGORY " _
               & " ON ITEM_MASTER.ITEM_CATEGORY_ID = ITEM_CATEGORY.ITEM_CAT_ID where (item_master.item_code + " _
-            & " item_master.item_name + ITEM_CATEGORY.item_cat_name + UNIT_MASTER.um_name ) " _
+            & " item_master.item_name + ITEM_CATEGORY.item_cat_name + UNIT_MASTER.um_name + Barcode_Vch) " _
             & " like '%" & txtSearch.Text & "%'")
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "Error --> FillGrid")
@@ -313,13 +316,15 @@ Public Class frm_Item_Master
     End Sub
 
     Private Sub grdItemMaster_DoubleClick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles grdItemMaster.DoubleClick
-        new_initialisation()
-        If grdItemMaster.CurrentCell.RowIndex <> -1 Then
-            ItemId = grdItemMaster.Rows(grdItemMaster.CurrentCell.RowIndex).Cells("ITEM_ID").Value
+        EditItem()
+    End Sub
+
+    Private Sub EditItem()
+        If grdItemMaster.SelectedRows.Count > 0 Then
+            new_initialisation()
+            ItemId = grdItemMaster.SelectedRows(0).Cells("ITEM_ID").Value
             Call geItemDetail(ItemId)
             TabControl1.SelectTab(1)
-        Else
-            ItemId = 0
         End If
     End Sub
 
@@ -354,6 +359,12 @@ Public Class frm_Item_Master
             br = New SolidBrush(Color.Black)
             g.DrawString(strTitle, TabControl1.Font, br, r, sf)
 
+        End If
+    End Sub
+
+    Private Sub txtSearch_KeyDown(sender As Object, e As KeyEventArgs) Handles txtSearch.KeyDown
+        If e.KeyCode = Keys.Enter Then
+            EditItem()
         End If
     End Sub
 

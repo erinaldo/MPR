@@ -336,7 +336,7 @@ Partial Class frm_Item_Master
         Me.Label9.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label9.Location = New System.Drawing.Point(20, 165)
         Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(94, 13)
+        Me.Label9.Size = New System.Drawing.Size(93, 13)
         Me.Label9.TabIndex = 11
         Me.Label9.Text = "Transfer Rate :"
         '
@@ -512,7 +512,7 @@ Partial Class frm_Item_Master
         Me.lblConvReciepe.ForeColor = System.Drawing.Color.Orange
         Me.lblConvReciepe.Location = New System.Drawing.Point(402, 184)
         Me.lblConvReciepe.Name = "lblConvReciepe"
-        Me.lblConvReciepe.Size = New System.Drawing.Size(127, 13)
+        Me.lblConvReciepe.Size = New System.Drawing.Size(126, 13)
         Me.lblConvReciepe.TabIndex = 40
         Me.lblConvReciepe.Text = "Conv Factor Recipe :"
         '
@@ -523,7 +523,7 @@ Partial Class frm_Item_Master
         Me.lblConvIssue.ForeColor = System.Drawing.Color.Orange
         Me.lblConvIssue.Location = New System.Drawing.Point(402, 158)
         Me.lblConvIssue.Name = "lblConvIssue"
-        Me.lblConvIssue.Size = New System.Drawing.Size(120, 13)
+        Me.lblConvIssue.Size = New System.Drawing.Size(119, 13)
         Me.lblConvIssue.TabIndex = 40
         Me.lblConvIssue.Text = "Conv Factor Issue :"
         '
@@ -655,7 +655,7 @@ Partial Class frm_Item_Master
         Me.Label17.Location = New System.Drawing.Point(258, 184)
         Me.Label17.Name = "Label17"
         Me.Label17.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Label17.Size = New System.Drawing.Size(138, 13)
+        Me.Label17.Size = New System.Drawing.Size(136, 13)
         Me.Label17.TabIndex = 6
         Me.Label17.Text = "Conv. Factor Reciepe :"
         '
@@ -677,7 +677,7 @@ Partial Class frm_Item_Master
         Me.Label16.Location = New System.Drawing.Point(258, 158)
         Me.Label16.Name = "Label16"
         Me.Label16.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Label16.Size = New System.Drawing.Size(124, 13)
+        Me.Label16.Size = New System.Drawing.Size(122, 13)
         Me.Label16.TabIndex = 6
         Me.Label16.Text = "Conv. Factor Issue :"
         '

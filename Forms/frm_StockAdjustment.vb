@@ -227,22 +227,22 @@ Public Class frm_StockAdjustment
             If flag = "save" Then
                 If e.KeyCode = Keys.Space Then
                     iRowindex = grdAdjustmentItem.Row
-                    frm_Show_search.qry = " SELECT " & _
-                                       " ITEM_MASTER.ITEM_ID,   " & _
-                                       " ITEM_MASTER.ITEM_CODE, " & _
-                                       " ITEM_MASTER.ITEM_NAME, " & _
-                                       " ITEM_MASTER.ITEM_DESC, " & _
-                                       " UNIT_MASTER.UM_Name,   " & _
-                                       " ITEM_CATEGORY.ITEM_CAT_NAME, " & _
-                                       " ITEM_MASTER.IS_STOCKABLE " & _
-                               " FROM " & _
-                                       " ITEM_MASTER " & _
-                                       " INNER JOIN UNIT_MASTER ON ITEM_MASTER.UM_ID = UNIT_MASTER.UM_ID " & _
-                                       " INNER JOIN ITEM_CATEGORY ON ITEM_MASTER.ITEM_CATEGORY_ID = ITEM_CATEGORY.ITEM_CAT_ID " & _
+                    frm_Show_search.qry = " SELECT " &
+                                       " ITEM_MASTER.ITEM_ID,   " &
+                                       " ITEM_MASTER.ITEM_CODE, " &
+                                       " ITEM_MASTER.ITEM_NAME, " &
+                                       " ITEM_MASTER.ITEM_DESC, " &
+                                       " UNIT_MASTER.UM_Name,   " &
+                                       " ITEM_CATEGORY.ITEM_CAT_NAME, " &
+                                       " ITEM_MASTER.IS_STOCKABLE, Barcode_vch " &
+                               " FROM " &
+                                       " ITEM_MASTER " &
+                                       " INNER JOIN UNIT_MASTER ON ITEM_MASTER.UM_ID = UNIT_MASTER.UM_ID " &
+                                       " INNER JOIN ITEM_CATEGORY ON ITEM_MASTER.ITEM_CATEGORY_ID = ITEM_CATEGORY.ITEM_CAT_ID " &
                                         "INNER JOIN ITEM_DETAIL ON ITEM_MASTER.ITEM_ID = ITEM_DETAIL.ITEM_ID "
 
-
-                    frm_Show_search.column_name = "Item_Name"
+                    frm_Show_search.txtSearch.Text = ""
+                    frm_Show_search.column_name = "Item_Name + Barcode_vch"
                     frm_Show_search.extra_condition = ""
                     frm_Show_search.ret_column = "Item_ID"
                     frm_Show_search.ShowDialog()

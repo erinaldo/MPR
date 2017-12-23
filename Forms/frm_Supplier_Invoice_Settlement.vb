@@ -392,7 +392,9 @@ Public Class frm_Supplier_Invoice_Settlement
 
     Dim UndistributedAmount As Decimal
     Private Sub SetUndistributedAmount()
-        Dim query As String = "SELECT isnull(SUM(UndistributedAmount), 0) FROM dbo.PaymentTransaction WHERE StatusId =2 AND AccountId=" & cmbCustomerSettleInvoice.SelectedValue
+        Dim query As String = "DECLARE @UndistributedAmount DECIMAL(18, 2) SELECT @UndistributedAmount= isnull(SUM(UndistributedAmount), 0) FROM dbo.PaymentTransaction WHERE StatusId =2 AND AccountId=" & cmbCustomerSettleInvoice.SelectedValue &
+            " SET @UndistributedAmount=ISNULL(@UndistributedAmount,0)+ISNULL((SELECT ISNULL(MAX(OpeningAmount),0)- ISNULL(sum(AmountSettled),0) FROM dbo.OpeningBalance left JOIN dbo.SettlementDetail" &
+       " ON OpeningBalanceId=PaymentTransactionId WHERE TYPE=1 AND FkAccountId=" & cmbCustomerSettleInvoice.SelectedValue & " ),0) SELECT @UndistributedAmount"
         UndistributedAmount = clsObj.ExecuteScalar(query)
         lblUndistributedAmount.Text = UndistributedAmount.ToString("0.00")
     End Sub
@@ -400,15 +402,17 @@ Public Class frm_Supplier_Invoice_Settlement
     Private Sub FillGrid()
 
         Dim query As String = " SELECT MRN_NO AS MRN_ID ,MRN_PREFIX , MRN_NO , dbo.MATERIAL_RECEIVED_AGAINST_PO_MASTER.Creation_Date AS date , " &
-            " MATERIAL_RECEIVED_AGAINST_PO_MASTER.NET_AMOUNT ,ISNULL(( SELECT SUM(AmountSettled) FROM   dbo.SettlementDetail  JOIN dbo.PaymentTransaction  ON dbo.PaymentTransaction.PaymentTransactionId = dbo.SettlementDetail.PaymentTransactionId WHERE  InvoiceId = Mrn_No AND AccountId=" & cmbCustomerSettleInvoice.SelectedValue & " ), 0) AS ReceivedAmount ," &
+            " MATERIAL_RECEIVED_AGAINST_PO_MASTER.NET_AMOUNT ,ISNULL(( SELECT SUM(AmountSettled) FROM   dbo.SettlementDetail  JOIN dbo.PaymentTransaction  ON dbo.PaymentTransaction.PaymentTransactionId = dbo.SettlementDetail.PaymentTransactionId WHERE  InvoiceId = Mrn_No AND AccountId=" & cmbCustomerSettleInvoice.SelectedValue & " ), 0)" &
+            " + ISNULL(( SELECT SUM(AmountSettled) FROM   dbo.SettlementDetail  JOIN dbo.OpeningBalance  ON dbo.OpeningBalance.OpeningBalanceId = dbo.SettlementDetail.PaymentTransactionId WHERE  InvoiceId = Mrn_No AND fkAccountId=" & cmbCustomerSettleInvoice.SelectedValue & " ), 0) AS ReceivedAmount ," &
             " ISNULL(dn_amount, 0) AS DnAmount,Invoice_No FROM   dbo.MATERIAL_RECEIVED_AGAINST_PO_MASTER  JOIN dbo.PO_MASTER ON dbo.PO_MASTER.PO_ID = dbo.MATERIAL_RECEIVED_AGAINST_PO_MASTER.PO_ID " &
             "  LEFT JOIN dbo.DebitNote_Master ON MRNId = MRN_NO WHERE  PO_SUPP_ID =" & cmbCustomerSettleInvoice.SelectedValue &
             " union  SELECT MRN_NO ,MRN_PREFIX ,MRN_NO ,  dbo.MATERIAL_RECIEVED_WITHOUT_PO_MASTER.Creation_Date AS date ,  MATERIAL_RECIEVED_WITHOUT_PO_MASTER.NET_AMOUNT ," &
-            " ISNULL(( SELECT SUM(AmountSettled)  FROM   dbo.SettlementDetail  JOIN dbo.PaymentTransaction  ON dbo.PaymentTransaction.PaymentTransactionId = dbo.SettlementDetail.PaymentTransactionId  WHERE  InvoiceId = Mrn_No AND AccountId=" & cmbCustomerSettleInvoice.SelectedValue & "), 0) AS ReceivedAmount ,ISNULL(dn_amount, 0) AS DnAmount, Invoice_No " &
+            " ISNULL(( SELECT SUM(AmountSettled)  FROM   dbo.SettlementDetail  JOIN dbo.PaymentTransaction  ON dbo.PaymentTransaction.PaymentTransactionId = dbo.SettlementDetail.PaymentTransactionId  WHERE  InvoiceId = Mrn_No AND AccountId=" & cmbCustomerSettleInvoice.SelectedValue & "), 0)" &
+            "  + ISNULL(( SELECT SUM(AmountSettled) FROM   dbo.SettlementDetail  JOIN dbo.OpeningBalance  ON dbo.OpeningBalance.OpeningBalanceId = dbo.SettlementDetail.PaymentTransactionId WHERE  InvoiceId = Mrn_No AND fkAccountId=" & cmbCustomerSettleInvoice.SelectedValue & " ), 0) AS ReceivedAmount ,ISNULL(dn_amount, 0) AS DnAmount, Invoice_No " &
             " FROM   dbo.MATERIAL_RECIEVED_WITHOUT_PO_MASTER  LEFT JOIN dbo.DebitNote_Master ON MRNId = MRN_NO WHERE  Vendor_ID =" & cmbCustomerSettleInvoice.SelectedValue &
              " UNION SELECT OpeningBalanceId,'Opening Balance',OpeningBalanceId,OpeningDate,OpeningAmount, ISNULL(( SELECT SUM(AmountSettled)FROM   dbo.SettlementDetail JOIN dbo.PaymentTransaction " &
             " ON dbo.PaymentTransaction.PaymentTransactionId = dbo.SettlementDetail.PaymentTransactionId  WHERE  InvoiceId = OpeningBalanceId  AND AccountId = " & cmbCustomerSettleInvoice.SelectedValue &
-            " ), 0) AS ReceivedAmount ,0,'Opening Balance'+CAST(OpeningBalanceId as varchar(20)) FROM dbo.OpeningBalance WHERE FkAccountId=" & cmbCustomerSettleInvoice.SelectedValue
+            " ), 0) AS ReceivedAmount ,0,'Opening Balance'+CAST(OpeningBalanceId as varchar(20)) FROM dbo.OpeningBalance WHERE TYPE=2 AND FkAccountId=" & cmbCustomerSettleInvoice.SelectedValue
 
         Dim dt As DataTable = clsObj.Fill_DataSet(query).Tables(0)
         dgvInvoiceToSettle.RowCount = 0
@@ -453,7 +457,9 @@ Public Class frm_Supplier_Invoice_Settlement
     Private Sub btnSettleInvoice_Click(sender As Object, e As EventArgs) Handles btnSettleInvoice.Click
         Dim query As String = "SELECT PaymentTransactionId, UndistributedAmount, PaymentTransactionNo FROM dbo.PaymentTransaction" &
             " WHERE StatusId =2 AND UndistributedAmount > 0 AND AccountId=" & cmbCustomerSettleInvoice.SelectedValue &
-            " ORDER BY PaymentTransactionId ASC"
+            " UNION ALL SELECT OpeningBalanceId,ISNULL(MAX(OpeningAmount), 0) - ISNULL(SUM(AmountSettled), 0) AS OpeningAmount, 'OPBL'  FROM dbo.OpeningBalance LEFT JOIN dbo.SettlementDetail ON OpeningBalanceId = PaymentTransactionId WHERE TYPE=1 AND FkAccountId= " & cmbCustomerSettleInvoice.SelectedValue &
+            " GROUP BY OpeningBalanceId ORDER BY PaymentTransactionId ASC"
+
         Dim undistributedAmountTable As DataTable = clsObj.Fill_DataSet(query).Tables(0)
 
         Dim prop As New cls_Invoice_Settlement_prop
@@ -564,6 +570,8 @@ Public Class frm_Supplier_Invoice_Settlement
     Private Sub cmbCustomer_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbCustomer.SelectedIndexChanged
         Dim query As String = "DECLARE @AmountInHand DECIMAL(18,2) DECLARE @UndistributedAmount DECIMAL(18,2) SELECT @AmountInHand= isnull( sum(AmountInHand),0) FROM dbo.LedgerMaster WHERE AccountId=" & cmbCustomer.SelectedValue & _
        " SELECT  @UndistributedAmount=isnull(SUM(UndistributedAmount), 0) FROM dbo.PaymentTransaction WHERE StatusId =2 AND AccountId=" & cmbCustomer.SelectedValue & _
+        " SET @UndistributedAmount=ISNULL(@UndistributedAmount,0)+ISNULL((SELECT ISNULL(MAX(OpeningAmount),0)- ISNULL(sum(AmountSettled),0) FROM dbo.OpeningBalance left JOIN dbo.SettlementDetail" &
+       " ON OpeningBalanceId=PaymentTransactionId WHERE TYPE=1 AND FkAccountId=" & cmbCustomer.SelectedValue & " ),0)" &
        "SELECT @AmountInHand AS AmountInHand,@UndistributedAmount AS UndistributedAmount"
 
         Dim dt As DataTable = clsObj.Fill_DataSet(query).Tables(0)
