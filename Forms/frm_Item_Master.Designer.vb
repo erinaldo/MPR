@@ -20,8 +20,8 @@ Partial Class frm_Item_Master
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frm_Item_Master))
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
@@ -129,27 +129,27 @@ Partial Class frm_Item_Master
         Me.grdItemMaster.AllowUserToDeleteRows = False
         Me.grdItemMaster.BackgroundColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.grdItemMaster.BorderStyle = System.Windows.Forms.BorderStyle.None
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.White
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.DarkGray
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.grdItemMaster.DefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle3.BackColor = System.Drawing.Color.White
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle3.ForeColor = System.Drawing.Color.DarkGray
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.grdItemMaster.DefaultCellStyle = DataGridViewCellStyle3
         Me.grdItemMaster.Dock = System.Windows.Forms.DockStyle.Fill
         Me.grdItemMaster.GridColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.grdItemMaster.Location = New System.Drawing.Point(3, 16)
         Me.grdItemMaster.Name = "grdItemMaster"
         Me.grdItemMaster.ReadOnly = True
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.grdItemMaster.RowHeadersDefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        DataGridViewCellStyle4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle4.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.grdItemMaster.RowHeadersDefaultCellStyle = DataGridViewCellStyle4
         Me.grdItemMaster.RowHeadersVisible = False
         Me.grdItemMaster.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.grdItemMaster.RowTemplate.DefaultCellStyle.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -336,7 +336,7 @@ Partial Class frm_Item_Master
         Me.Label9.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label9.Location = New System.Drawing.Point(20, 165)
         Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(94, 13)
+        Me.Label9.Size = New System.Drawing.Size(93, 13)
         Me.Label9.TabIndex = 11
         Me.Label9.Text = "Transfer Rate :"
         '
@@ -512,7 +512,7 @@ Partial Class frm_Item_Master
         Me.lblConvReciepe.ForeColor = System.Drawing.Color.Orange
         Me.lblConvReciepe.Location = New System.Drawing.Point(402, 184)
         Me.lblConvReciepe.Name = "lblConvReciepe"
-        Me.lblConvReciepe.Size = New System.Drawing.Size(127, 13)
+        Me.lblConvReciepe.Size = New System.Drawing.Size(126, 13)
         Me.lblConvReciepe.TabIndex = 40
         Me.lblConvReciepe.Text = "Conv Factor Recipe :"
         '
@@ -523,7 +523,7 @@ Partial Class frm_Item_Master
         Me.lblConvIssue.ForeColor = System.Drawing.Color.Orange
         Me.lblConvIssue.Location = New System.Drawing.Point(402, 158)
         Me.lblConvIssue.Name = "lblConvIssue"
-        Me.lblConvIssue.Size = New System.Drawing.Size(120, 13)
+        Me.lblConvIssue.Size = New System.Drawing.Size(119, 13)
         Me.lblConvIssue.TabIndex = 40
         Me.lblConvIssue.Text = "Conv Factor Issue :"
         '
@@ -655,7 +655,7 @@ Partial Class frm_Item_Master
         Me.Label17.Location = New System.Drawing.Point(258, 184)
         Me.Label17.Name = "Label17"
         Me.Label17.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Label17.Size = New System.Drawing.Size(138, 13)
+        Me.Label17.Size = New System.Drawing.Size(136, 13)
         Me.Label17.TabIndex = 6
         Me.Label17.Text = "Conv. Factor Reciepe :"
         '
@@ -677,7 +677,7 @@ Partial Class frm_Item_Master
         Me.Label16.Location = New System.Drawing.Point(258, 158)
         Me.Label16.Name = "Label16"
         Me.Label16.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Label16.Size = New System.Drawing.Size(124, 13)
+        Me.Label16.Size = New System.Drawing.Size(122, 13)
         Me.Label16.TabIndex = 6
         Me.Label16.Text = "Conv. Factor Issue :"
         '
