@@ -750,4 +750,4 @@ SET @v_INV_TYPE=(SELECT INV_TYPE FROM dbo.SALE_INVOICE_MASTER WHERE SI_ID=@v_INV
                 WHERE   CreditNote_ID = @V_CreditNote_ID
             END
     END
-
+--------------------------------------------------------------------------------------------------------------
