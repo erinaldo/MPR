@@ -157,9 +157,32 @@ Public Class frm_openSale_Invoice
 
             End If
 
+<<<<<<< HEAD
             prpty.INVOICE_STATUS = Convert.ToInt32(GlobalModule.InvoiceStatus.Clear)
             prpty.REMARKS = ""
             prpty.PAYMENTS_REMARKS = ""
+=======
+                prpty.GROSS_AMOUNT = Convert.ToDouble(lblItemValue.Text)
+                prpty.VAT_AMOUNT = Convert.ToDouble(lblVatAmount.Text)
+                prpty.NET_AMOUNT = Convert.ToDouble(lblNetAmount.Text)
+                prpty.IS_SAMPLE = 0
+                prpty.DELIVERY_NOTE_NO = 0
+                prpty.VAT_CST_PER = 0
+                prpty.SAMPLE_ADDRESS = txtAddress.Text
+                prpty.CREATED_BY = v_the_current_logged_in_user_name
+                prpty.CREATION_DATE = Now
+                prpty.MODIFIED_BY = ""
+                prpty.MODIFIED_DATE = NULL_DATE
+                prpty.DIVISION_ID = v_the_current_division_id
+                prpty.TRANSPORT = txtTransport.Text
+                prpty.VEHICLE_NO = txtvechicle_no.Text
+                prpty.SHIPP_ADD_ID = 0
+                prpty.INV_TYPE = cmbinvtype.SelectedItem
+                prpty.LR_NO = txtLRNO.Text
+                prpty.Flag = 1
+                prpty.dtable_Item_List = dtable_Item_List
+                clsObj.Insert_SALE_INVOICE_MASTER(prpty)
+>>>>>>> 35cbd3f19e55113ade759e0214952569ad8882e3
 
             If rbtn_Cash.Checked Then
                 prpty.SALE_TYPE = "Cash"
@@ -184,8 +207,12 @@ Public Class frm_openSale_Invoice
             prpty.SHIPP_ADD_ID = 0
             prpty.INV_TYPE = cmbinvtype.SelectedItem
             prpty.LR_NO = txtLRNO.Text
-            prpty.Flag = 1
             prpty.dtable_Item_List = dtable_Item_List
+
+
+
+
+
 
             If flag = "save" Then
                 clsObj.Insert_SALE_INVOICE_MASTER(prpty)
@@ -763,6 +790,11 @@ restart:
             CalculateAmount()
 
         End If
+
+
+
+
+
     End Sub
 
 

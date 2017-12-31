@@ -2036,6 +2036,7 @@
     <Content Include="bin\Debug\connection.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Scripts\Updates\00001_29_Dec_Add_Duty_And_Taxes.sql" />
     <Content Include="Scripts\Updates\0005_depreciation_16_Dec_2017 .sql" />
     <Content Include="Scripts\Updates\00001_08_Dec_2017.sql" />
     <Content Include="Scripts\Updates\00001_10_Dec_2017_Updatepayment.sql" />

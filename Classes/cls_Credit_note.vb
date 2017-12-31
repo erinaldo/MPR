@@ -30,6 +30,8 @@ Namespace CreditNote
         Dim _Stock_Detail_Id As Double
         Dim _INV_No As String
         Dim _INV_Date As DateTime
+        Dim _CN_ItemValue As Double
+        Dim _CN_ItemTax As Double
 
         Public Property CreditNote_ID() As Integer
             Get
@@ -66,8 +68,6 @@ Namespace CreditNote
                 _CreditNote_Date = value
             End Set
         End Property
-
-
 
         Public Property INV_ID() As Int32
             Get
@@ -131,6 +131,7 @@ Namespace CreditNote
                 _Division_ID = value
             End Set
         End Property
+
         Public Property Item_ID() As Double
             Get
                 Item_ID = _Item_ID
@@ -148,9 +149,6 @@ Namespace CreditNote
                 _Item_Qty = value
             End Set
         End Property
-
-
-
 
         Public Property Item_Rate() As Double
             Get
@@ -188,9 +186,6 @@ Namespace CreditNote
             End Set
         End Property
 
-
-
-
         Public Property Stock_Detail_ID() As Integer
             Get
                 Stock_Detail_ID = _Stock_Detail_Id
@@ -209,7 +204,6 @@ Namespace CreditNote
             End Set
         End Property
 
-
         Public Property INV_Date() As DateTime
             Get
                 INV_Date = _INV_Date
@@ -218,7 +212,24 @@ Namespace CreditNote
                 _INV_Date = value
             End Set
         End Property
-        '  Property CreditNote_ID As Integer
+
+        Public Property CN_ItemValue() As Double
+            Get
+                CN_ItemValue = _CN_ItemValue
+            End Get
+            Set(ByVal value As Double)
+                _CN_ItemValue = value
+            End Set
+        End Property
+
+        Public Property CN_ItemTax() As Double
+            Get
+                CN_ItemTax = _CN_ItemTax
+            End Get
+            Set(ByVal value As Double)
+                _CN_ItemTax = value
+            End Set
+        End Property
 
     End Class
 
@@ -245,6 +256,10 @@ Namespace CreditNote
             cmd.Parameters.AddWithValue("@v_CN_CustId", clsObj.CN_CustId)
             cmd.Parameters.AddWithValue("@v_INV_No", clsObj.INV_No)
             cmd.Parameters.AddWithValue("@v_INV_Date", clsObj.INV_Date)
+
+            cmd.Parameters.AddWithValue("@v_CN_ItemValue", clsObj.CN_ItemValue)
+            cmd.Parameters.AddWithValue("@v_CN_ItemTax", clsObj.CN_ItemTax)
+
             cmd.Parameters.AddWithValue("@V_PROC_TYPE", 1)
 
             cmd.ExecuteNonQuery()
@@ -267,9 +282,7 @@ Namespace CreditNote
             cmd.Parameters.AddWithValue("@V_Modified_By", clsObj.Modified_By)
             cmd.Parameters.AddWithValue("@V_Modification_Date", clsObj.Modification_Date)
             cmd.Parameters.AddWithValue("@V_Division_Id", clsObj.Division_ID)
-
             cmd.Parameters.AddWithValue("@v_Stock_Detail_Id", clsObj.Stock_Detail_ID)
-
             cmd.Parameters.AddWithValue("@V_Trans_Type", Transaction_Type.CreditNote)
             cmd.Parameters.AddWithValue("@V_PROC_TYPE", 1)
             cmd.ExecuteNonQuery()

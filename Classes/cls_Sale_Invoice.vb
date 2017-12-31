@@ -335,7 +335,7 @@ Namespace Sale_Invoice
 
 
 
-              
+
 
 
 
@@ -346,17 +346,17 @@ Namespace Sale_Invoice
 
                 Try
 
-                    Dim dt As DataTable = clsobj.dtable_Item_List.Copy
+
 
 
                     'For j As Integer = 0 To dt.Rows.Count
 again:
-                    For i As Integer = 0 To dt.Rows.Count - 1
-                        If IsNumeric(dt.Rows(i)("transfer_qty")) Then
+                    For i As Integer = 0 To clsobj.dtable_Item_List.Rows.Count - 1
+                        If IsNumeric(clsobj.dtable_Item_List.Rows(i)("transfer_qty")) Then
 
 
-                            If Convert.ToDouble(dt.Rows(i)("transfer_qty")) <= 0 Then
-                                dt.Rows.RemoveAt(i)
+                            If Convert.ToDouble(clsobj.dtable_Item_List.Rows(i)("transfer_qty")) <= 0 Then
+                                clsobj.dtable_Item_List.Rows.RemoveAt(i)
 
                                 GoTo again
                             End If
@@ -366,13 +366,13 @@ again:
 
 
 
-                    Dim Dtitemsnew As DataTable = dt.Copy
+                    Dim Dtitemsnew As DataTable = clsobj.dtable_Item_List.Copy
                     Dtitemsnew.Rows.Clear()
 
 
 
 
-                    For Each items_DataRow As DataRow In dt.Rows
+                    For Each items_DataRow As DataRow In clsobj.dtable_Item_List.Rows
 
 
 
@@ -398,7 +398,10 @@ again:
                             OrderDataRow("DType") = items_DataRow("DType")
                             OrderDataRow("DISC") = items_DataRow("DISC")
                             OrderDataRow("Amount") = items_DataRow("Amount")
-                            OrderDataRow("GPAID") = items_DataRow("GPAID")
+                            If (clsobj.Flag = 1) Then
+                                OrderDataRow("GPAID") = items_DataRow("GPAID")
+                            End If
+
                             Dtitemsnew.Rows.Add(OrderDataRow)
                         End If
 
@@ -406,7 +409,7 @@ again:
                     Next
 
 
-               
+
 
 
 
@@ -437,18 +440,21 @@ again:
                         cmd.Parameters.AddWithValue("@v_DISCOUNT_TYPE", Dtitemsnew.Rows(i)("DType"))
                         cmd.Parameters.AddWithValue("@v_DISCOUNT_VALUE", Dtitemsnew.Rows(i)("DISC"))
                         cmd.Parameters.AddWithValue("@V_MODE", 1)
-                        cmd.Parameters.AddWithValue("@v_GSTPAID", Dtitemsnew.Rows(i)("GPAID"))
+                        If (clsobj.Flag = 1) Then
+                            cmd.Parameters.AddWithValue("@v_GSTPAID", Dtitemsnew.Rows(i)("GPAID"))
+                        End If
+
                         cmd.ExecuteNonQuery()
                     Next
 
 
-                    For i As Integer = 0 To dt.Rows.Count - 1
+                    For i As Integer = 0 To clsobj.dtable_Item_List.Rows.Count - 1
 
                         cmd.Parameters.Clear()
                         cmd.CommandType = CommandType.StoredProcedure
                         cmd.CommandText = "UPDATE_STOCK_DETAIL_ISSUE"
-                        cmd.Parameters.AddWithValue("@STOCK_DETAIL_ID", dt.Rows(i)("Stock_Detail_Id"))
-                        cmd.Parameters.AddWithValue("@ISSUE_QTY", dt.Rows(i)("TRANSFER_QTY"))
+                        cmd.Parameters.AddWithValue("@STOCK_DETAIL_ID", clsobj.dtable_Item_List.Rows(i)("Stock_Detail_Id"))
+                        cmd.Parameters.AddWithValue("@ISSUE_QTY", clsobj.dtable_Item_List.Rows(i)("TRANSFER_QTY"))
                         cmd.ExecuteNonQuery()
 
 
@@ -456,9 +462,9 @@ again:
                         cmd.CommandType = CommandType.StoredProcedure
                         cmd.CommandText = "INSERT_SALE_INVOICE_STOCK_DETAIL"
                         cmd.Parameters.AddWithValue("@SI_ID", clsobj.SI_ID)
-                        cmd.Parameters.AddWithValue("@ITEM_ID", dt.Rows(i)("Item_id"))
-                        cmd.Parameters.AddWithValue("@STOCK_DETAIL_ID", dt.Rows(i)("Stock_Detail_Id"))
-                        cmd.Parameters.AddWithValue("@ITEM_QTY", dt.Rows(i)("TRANSFER_QTY"))
+                        cmd.Parameters.AddWithValue("@ITEM_ID", clsobj.dtable_Item_List.Rows(i)("Item_id"))
+                        cmd.Parameters.AddWithValue("@STOCK_DETAIL_ID", clsobj.dtable_Item_List.Rows(i)("Stock_Detail_Id"))
+                        cmd.Parameters.AddWithValue("@ITEM_QTY", clsobj.dtable_Item_List.Rows(i)("TRANSFER_QTY"))
                         cmd.Parameters.AddWithValue("@MODE", 1)
                         cmd.ExecuteNonQuery()
 
@@ -467,12 +473,12 @@ again:
                         cmd.CommandType = CommandType.StoredProcedure
                         cmd.CommandText = "INSERT_TRANSACTION_LOG"
                         cmd.Parameters.AddWithValue("@Transaction_ID", clsobj.SI_ID)
-                        cmd.Parameters.AddWithValue("@Item_ID", dt.Rows(i)("Item_id"))
+                        cmd.Parameters.AddWithValue("@Item_ID", clsobj.dtable_Item_List.Rows(i)("Item_id"))
                         cmd.Parameters.AddWithValue("@Transaction_Type", Transaction_Type.Sale_Invoice)
-                        cmd.Parameters.AddWithValue("@Quantity", dt.Rows(i)("TRANSFER_QTY"))
+                        cmd.Parameters.AddWithValue("@Quantity", clsobj.dtable_Item_List.Rows(i)("TRANSFER_QTY"))
                         cmd.Parameters.AddWithValue("@Transaction_Date", Now)
                         cmd.Parameters.AddWithValue("@Current_Stock", 0)
-                        cmd.Parameters.AddWithValue("@STOCK_DETAIL_ID", dt.Rows(i)("Stock_Detail_Id"))
+                        cmd.Parameters.AddWithValue("@STOCK_DETAIL_ID", clsobj.dtable_Item_List.Rows(i)("Stock_Detail_Id"))
                         cmd.ExecuteNonQuery()
                     Next
 
@@ -611,11 +617,15 @@ again:
         Public Sub Update_SALE_INVOICE_MASTER(ByVal clsobj As cls_Sale_Invoice_prop)
             Try
 
-                '----------------------------------------------------------------------------------------------------------------------
+
+                Dim tran As SqlTransaction
+                If con.State = ConnectionState.Closed Then con.Open()
+                tran = con.BeginTransaction()
 
                 cmd = New SqlCommand
                 cmd.Parameters.Clear()
                 cmd.Connection = con
+                cmd.Transaction = tran
                 cmd.CommandType = CommandType.StoredProcedure
                 cmd.CommandText = "ProcReverseInvoiceEntry"
                 cmd.Parameters.AddWithValue("@v_SI_ID", clsobj.SI_ID)
@@ -623,16 +633,15 @@ again:
                 cmd.ExecuteNonQuery()
                 cmd.Dispose()
 
-                '----------------------------------------------------------------------------------------------------------------------
 
-
-
-                Dim tran As SqlTransaction
-                If con.State = ConnectionState.Closed Then con.Open()
-                tran = con.BeginTransaction()
                 cmd = New SqlCommand
                 cmd.Connection = con
                 cmd.Transaction = tran
+
+
+
+
+
                 cmd.CommandType = CommandType.StoredProcedure
                 cmd.CommandText = "PROC_OUTSIDE_SALE_MASTER_SALE_NEW"
                 cmd.Parameters.AddWithValue("@v_SI_ID", clsobj.SI_ID)
@@ -668,17 +677,18 @@ again:
 
                 Try
 
-                   Dim dt As DataTable = clsobj.dtable_Item_List.Copy
+
+
 
 
 
 again:
-                    For i As Integer = 0 To dt.Rows.Count - 1
-                        If IsNumeric(dt.Rows(i)("transfer_qty")) Then
+                    For i As Integer = 0 To clsobj.dtable_Item_List.Rows.Count - 1
+                        If IsNumeric(clsobj.dtable_Item_List.Rows(i)("transfer_qty")) Then
 
 
-                            If Convert.ToDouble(dt.Rows(i)("transfer_qty")) <= 0 Then
-                                dt.Rows.RemoveAt(i)
+                            If Convert.ToDouble(clsobj.dtable_Item_List.Rows(i)("transfer_qty")) <= 0 Then
+                                clsobj.dtable_Item_List.Rows.RemoveAt(i)
 
                                 GoTo again
                             End If
@@ -686,13 +696,13 @@ again:
                     Next
 
 
-                    Dim Dtitemsnew As DataTable = dt.Copy
+                    Dim Dtitemsnew As DataTable = clsobj.dtable_Item_List.Copy
                     Dtitemsnew.Rows.Clear()
 
 
 
 
-                    For Each items_DataRow As DataRow In dt.Rows
+                    For Each items_DataRow As DataRow In clsobj.dtable_Item_List.Rows
 
 
 
@@ -754,13 +764,13 @@ again:
                     Next
 
 
-                    For i As Integer = 0 To dt.Rows.Count - 1
+                    For i As Integer = 0 To clsobj.dtable_Item_List.Rows.Count - 1
 
                         cmd.Parameters.Clear()
                         cmd.CommandType = CommandType.StoredProcedure
                         cmd.CommandText = "UPDATE_STOCK_DETAIL_ISSUE"
-                        cmd.Parameters.AddWithValue("@STOCK_DETAIL_ID", dt.Rows(i)("Stock_Detail_Id"))
-                        cmd.Parameters.AddWithValue("@ISSUE_QTY", dt.Rows(i)("TRANSFER_QTY"))
+                        cmd.Parameters.AddWithValue("@STOCK_DETAIL_ID", clsobj.dtable_Item_List.Rows(i)("Stock_Detail_Id"))
+                        cmd.Parameters.AddWithValue("@ISSUE_QTY", clsobj.dtable_Item_List.Rows(i)("TRANSFER_QTY"))
                         cmd.ExecuteNonQuery()
 
 
@@ -768,9 +778,9 @@ again:
                         cmd.CommandType = CommandType.StoredProcedure
                         cmd.CommandText = "INSERT_SALE_INVOICE_STOCK_DETAIL"
                         cmd.Parameters.AddWithValue("@SI_ID", clsobj.SI_ID)
-                        cmd.Parameters.AddWithValue("@ITEM_ID", dt.Rows(i)("Item_id"))
-                        cmd.Parameters.AddWithValue("@STOCK_DETAIL_ID", dt.Rows(i)("Stock_Detail_Id"))
-                        cmd.Parameters.AddWithValue("@ITEM_QTY", dt.Rows(i)("TRANSFER_QTY"))
+                        cmd.Parameters.AddWithValue("@ITEM_ID", clsobj.dtable_Item_List.Rows(i)("Item_id"))
+                        cmd.Parameters.AddWithValue("@STOCK_DETAIL_ID", clsobj.dtable_Item_List.Rows(i)("Stock_Detail_Id"))
+                        cmd.Parameters.AddWithValue("@ITEM_QTY", clsobj.dtable_Item_List.Rows(i)("TRANSFER_QTY"))
                         cmd.Parameters.AddWithValue("@MODE", 1)
                         cmd.ExecuteNonQuery()
 
