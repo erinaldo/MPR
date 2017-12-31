@@ -760,6 +760,9 @@ again:
                         cmd.Parameters.AddWithValue("@v_DISCOUNT_TYPE", Dtitemsnew.Rows(i)("DType"))
                         cmd.Parameters.AddWithValue("@v_DISCOUNT_VALUE", Dtitemsnew.Rows(i)("DISC"))
                         cmd.Parameters.AddWithValue("@V_MODE", 1)
+                        If (clsobj.Flag = 1) Then
+                            cmd.Parameters.AddWithValue("@v_GSTPAID", Dtitemsnew.Rows(i)("GPAID"))
+                        End If
                         cmd.ExecuteNonQuery()
                     Next
 
