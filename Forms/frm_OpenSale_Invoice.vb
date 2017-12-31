@@ -187,11 +187,6 @@ Public Class frm_openSale_Invoice
             prpty.Flag = 1
             prpty.dtable_Item_List = dtable_Item_List
 
-
-
-
-
-
             If flag = "save" Then
                 clsObj.Insert_SALE_INVOICE_MASTER(prpty)
                 If MsgBox("Invoice information has been Saved." & vbCrLf & "Do You Want to Print Preview.", MsgBoxStyle.Question + MsgBoxStyle.YesNo, gblMessageHeading) = MsgBoxResult.Yes Then

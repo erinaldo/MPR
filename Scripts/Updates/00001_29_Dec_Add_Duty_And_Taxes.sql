@@ -12,7 +12,7 @@
       @v_SALE_TYPE VARCHAR(10) ,
       @v_GROSS_AMOUNT DECIMAL(18, 2) ,
       @v_VAT_AMOUNT DECIMAL(18, 2) ,
-      @v_NET_AMOUNT DECIMAL(18, 2) ,
+      @v_NET_AMOUNT DECIMAL(18, 0) ,
       @V_IS_SAMPLE INT ,
       @V_DELIVERY_NOTE_NO VARCHAR(50) ,
       @V_VAT_CST_PER NUMERIC(18, 2) ,
@@ -27,23 +27,41 @@
       @v_SHIPP_ADD_ID INT = NULL ,
       @v_INV_TYPE CHAR(1) = NULL ,
       @v_LR_NO VARCHAR(100) = NULL ,
-      @V_MODE INT
+      @V_MODE INT ,
+      @V_Flag INT = 0
+
+
 
     )
 AS
     BEGIN       
+
       
+
        
-        SET @v_NET_AMOUNT = CEILING(@v_NET_AMOUNT)
+
+       
+
         DECLARE @InputID NUMERIC
+
         DECLARE @CInputID NUMERIC
+
         SET @CInputID = 10017
 
+
+
         DECLARE @RoundOff NUMERIC(18, 2)
+
         DECLARE @CGST_Amount NUMERIC(18, 2)
+
         SET @CGST_Amount = ( @v_VAT_AMOUNT / 2 )
 
+
+
         SET @RoundOff = @v_NET_AMOUNT - ( @v_GROSS_AMOUNT + @v_VAT_AMOUNT )
+
+
+
 
 
         SET @InputID = ( SELECT CASE WHEN @v_INV_TYPE = 'I' THEN 10021
@@ -52,8 +70,12 @@ AS
                                 END AS inputid
                        )
 
+
+
         IF @V_MODE = 1
             BEGIN 
+
+
 
                 INSERT  INTO SALE_INVOICE_MASTER
                         ( SI_ID ,
@@ -82,7 +104,10 @@ AS
                           TRANSPORT ,
                           SHIPP_ADD_ID ,
                           LR_NO ,
-                          INV_TYPE
+                          INV_TYPE ,
+                          Flag
+
+
 
                         )
                 VALUES  ( @V_SI_ID ,
@@ -111,62 +136,101 @@ AS
                           @V_TRANSPORT ,
                           @v_SHIPP_ADD_ID ,
                           @v_LR_NO ,
-                          @v_INV_TYPE 
+                          @v_INV_TYPE ,
+                          @V_Flag
 
                         ) 
 
+
+
                 DECLARE @Remarks VARCHAR(250)
+
+
 
                 SET @Remarks = 'Sale against invoice No- ' + @V_SI_CODE
                     + CAST(@V_SI_NO AS VARCHAR(50))
 
+
+
                 EXECUTE Proc_Ledger_Insert @V_CUST_ID, 0, @V_NET_AMOUNT,
                     @Remarks, @V_Division_ID, @V_SI_ID, 16, @V_Created_BY	
+
 					
+
                 EXECUTE Proc_Ledger_Insert 10071, @V_GROSS_AMOUNT, 0, @Remarks,
                     @V_Division_ID, @V_SI_ID, 16, @V_Created_BY
+
 					
+
 					
+
+
+
 
 
                
-			   SET @Remarks = 'GST against invoice No- ' + @V_SI_CODE
+
+                SET @Remarks = 'GST against invoice No- ' + @V_SI_CODE
                     + CAST(@V_SI_NO AS VARCHAR(50))
+
                 IF @v_INV_TYPE <> 'I'
                     BEGIN
+
                         EXECUTE Proc_Ledger_Insert @CInputID, @CGST_Amount, 0,
                             @Remarks, @V_Division_ID, @V_SI_ID, 16,
                             @V_Created_BY
 
+
+
                         EXECUTE Proc_Ledger_Insert @InputID, @CGST_Amount, 0,
                             @Remarks, @V_Division_ID, @V_SI_ID, 16,
                             @V_Created_BY
+
                     END
+
                 ELSE
                     BEGIN
+
                         EXECUTE Proc_Ledger_Insert @InputID, @v_VAT_AMOUNT, 0,
                             @Remarks, @V_Division_ID, @V_SI_ID, 16,
                             @V_Created_BY
+
                     END   
 
 
 
-					SET @Remarks = 'Round Off against invoice No- ' + @V_SI_CODE
+
+
+
+
+                SET @Remarks = 'Round Off against invoice No- ' + @V_SI_CODE
                     + CAST(@V_SI_NO AS VARCHAR(50))
+
                 EXECUTE Proc_Ledger_Insert 10054, @RoundOff, 0, @Remarks,
                     @V_Division_ID, @V_SI_ID, 16, @V_Created_BY
 
-					SET @Remarks = 'Stock out against invoice No- ' + @V_SI_CODE
+
+
+                SET @Remarks = 'Stock out against invoice No- ' + @V_SI_CODE
                     + CAST(@V_SI_NO AS VARCHAR(50))
+
                 EXECUTE Proc_Ledger_Insert 10073, 0, @V_NET_AMOUNT, @Remarks,
-                   @V_Division_ID, @V_SI_ID, 16, @V_Created_BY
+                    @V_Division_ID, @V_SI_ID, 16, @V_Created_BY
+
+
+
+
 
 
 
             END        
 
+
+
         IF @V_MODE = 2
             BEGIN  
+
+
 
                 UPDATE  SALE_INVOICE_MASTER
                 SET     CUST_ID = @V_CUST_ID ,
@@ -182,7 +246,10 @@ AS
                         VAT_CST_PER = @V_VAT_CST_PER ,
                         SAMPLE_ADDRESS = @V_SAMPLE_ADDRESS ,
 
+
+
                         --CREATED_BY = @V_CREATED_BY ,
+
                         --CREATION_DATE = @V_CREATION_DATE ,
                         MODIFIED_BY = @V_MODIFIED_BY ,
                         MODIFIED_DATE = @V_MODIFIED_DATE ,
@@ -194,61 +261,102 @@ AS
                         INV_TYPE = @v_INV_TYPE
                 WHERE   SI_ID = @V_SI_ID     
 
+
+
                 SET @Remarks = 'Sale against invoice No- ' + @V_SI_CODE
                     + CAST(@V_SI_NO AS VARCHAR(50))
 
 
 
-                  SET @Remarks = 'Sale against invoice No- ' + @V_SI_CODE
+
+
+
+
+                SET @Remarks = 'Sale against invoice No- ' + @V_SI_CODE
                     + CAST(@V_SI_NO AS VARCHAR(50))
+
+
 
                 EXECUTE Proc_Ledger_Insert @V_CUST_ID, 0, @V_NET_AMOUNT,
                     @Remarks, @V_Division_ID, @V_SI_ID, 16, @V_Created_BY	
+
 					
+
                 EXECUTE Proc_Ledger_Insert 10071, @V_GROSS_AMOUNT, 0, @Remarks,
                     @V_Division_ID, @V_SI_ID, 16, @V_Created_BY
+
 					
+
 					
+
+
+
 
 
                
-			   SET @Remarks = 'GST against invoice No- ' + @V_SI_CODE
+
+                SET @Remarks = 'GST against invoice No- ' + @V_SI_CODE
                     + CAST(@V_SI_NO AS VARCHAR(50))
+
                 IF @v_INV_TYPE <> 'I'
                     BEGIN
+
                         EXECUTE Proc_Ledger_Insert @CInputID, @CGST_Amount, 0,
                             @Remarks, @V_Division_ID, @V_SI_ID, 16,
                             @V_Created_BY
 
+
+
                         EXECUTE Proc_Ledger_Insert @InputID, @CGST_Amount, 0,
                             @Remarks, @V_Division_ID, @V_SI_ID, 16,
                             @V_Created_BY
+
                     END
+
                 ELSE
                     BEGIN
+
                         EXECUTE Proc_Ledger_Insert @InputID, @v_VAT_AMOUNT, 0,
                             @Remarks, @V_Division_ID, @V_SI_ID, 16,
                             @V_Created_BY
+
                     END   
 
 
 
-					SET @Remarks = 'Round Off against invoice No- ' + @V_SI_CODE
+
+
+
+
+                SET @Remarks = 'Round Off against invoice No- ' + @V_SI_CODE
                     + CAST(@V_SI_NO AS VARCHAR(50))
+
                 EXECUTE Proc_Ledger_Insert 10054, @RoundOff, 0, @Remarks,
                     @V_Division_ID, @V_SI_ID, 16, @V_Created_BY
 
-					SET @Remarks = 'Stock out against invoice No- ' + @V_SI_CODE
+
+
+                SET @Remarks = 'Stock out against invoice No- ' + @V_SI_CODE
                     + CAST(@V_SI_NO AS VARCHAR(50))
+
                 EXECUTE Proc_Ledger_Insert 10073, 0, @V_NET_AMOUNT, @Remarks,
                     @V_Division_ID, @V_SI_ID, 16, @V_Created_BY
+
+
+
 
 
             END                      
 
 
+
+
+
         IF @V_MODE = 3
             BEGIN                      
+
+
+
 
 
                 DECLARE UpdateStock CURSOR
@@ -259,20 +367,36 @@ AS
                     FROM    sale_invoice_detail
                     WHERE   si_id = @v_SI_ID                        
 
+
+
                 OPEN UpdateStock                        
+
+
 
                 DECLARE @DivisionId AS INT                        
 
+
+
                 DECLARE @ItemId AS INT                        
 
+
+
                 DECLARE @ItemQty AS NUMERIC(18, 4)                      
+
+
 
                 FETCH NEXT FROM UpdateStock INTO @ItemId, @ItemQty,
                     @DivisionId                        
 
 
+
+
+
                 WHILE @@FETCH_STATUS = 0
                     BEGIN                        
+
+
+
 
 
                         UPDATE  item_detail
@@ -281,22 +405,38 @@ AS
                                 AND div_id = @DivisionId                        
 
 
+
+
+
                         FETCH NEXT FROM UpdateStock INTO @ItemId, @ItemQty,
                             @DivisionId                        
 
 
+
+
+
                     END  
+
+
 
                 CLOSE UpdateStock 
 
+
+
                 DEALLOCATE UpdateStock 
+
+
 
                 DELETE  FROM sale_invoice_Detail
                 WHERE   si_id = @v_SI_ID 
 
+
+
                 DELETE  FROM sale_invoice_master
                 WHERE   si_id = @v_SI_ID 
+
             END  
+
     END
 
 ------------------------------------------------------------------------------------------------------------------------------------------------
