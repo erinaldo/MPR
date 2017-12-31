@@ -33,6 +33,7 @@ Namespace Sale_Invoice
         Dim _TRANSPORT As String
         Dim _LR_NO As String
         Dim _MODE As Integer
+        Dim _Flag As Integer
         Dim _dtable_Item_List As DataTable
         Dim _DataTable As DataTable
 
@@ -260,6 +261,14 @@ Namespace Sale_Invoice
                 _MODE = value
             End Set
         End Property
+        Public Property Flag() As Integer
+            Get
+                Flag = _Flag
+            End Get
+            Set(ByVal value As Integer)
+                _Flag = value
+            End Set
+        End Property
         Public Property dtable_Item_List() As DataTable
             Get
                 dtable_Item_List = _dtable_Item_List
@@ -320,6 +329,7 @@ Namespace Sale_Invoice
                 cmd.Parameters.AddWithValue("@v_INV_TYPE", clsobj.INV_TYPE)
                 cmd.Parameters.AddWithValue("@v_LR_NO", clsobj.LR_NO)
                 cmd.Parameters.AddWithValue("@V_MODE", 1)
+                cmd.Parameters.AddWithValue("@V_Flag", clsobj.Flag)
                 cmd.ExecuteNonQuery()
                 cmd.Dispose()
 
@@ -388,6 +398,7 @@ again:
                             OrderDataRow("DType") = items_DataRow("DType")
                             OrderDataRow("DISC") = items_DataRow("DISC")
                             OrderDataRow("Amount") = items_DataRow("Amount")
+                            OrderDataRow("GPAID") = items_DataRow("GPAID")
                             Dtitemsnew.Rows.Add(OrderDataRow)
                         End If
 
@@ -426,6 +437,7 @@ again:
                         cmd.Parameters.AddWithValue("@v_DISCOUNT_TYPE", Dtitemsnew.Rows(i)("DType"))
                         cmd.Parameters.AddWithValue("@v_DISCOUNT_VALUE", Dtitemsnew.Rows(i)("DISC"))
                         cmd.Parameters.AddWithValue("@V_MODE", 1)
+                        cmd.Parameters.AddWithValue("@v_GSTPAID", Dtitemsnew.Rows(i)("GPAID"))
                         cmd.ExecuteNonQuery()
                     Next
 

@@ -523,22 +523,22 @@ Partial Class frm_openSale_Invoice
         'rbtn_Cash
         '
         Me.rbtn_Cash.AutoSize = True
-        Me.rbtn_Cash.Checked = True
         Me.rbtn_Cash.Location = New System.Drawing.Point(541, 16)
         Me.rbtn_Cash.Name = "rbtn_Cash"
         Me.rbtn_Cash.Size = New System.Drawing.Size(54, 17)
         Me.rbtn_Cash.TabIndex = 4
-        Me.rbtn_Cash.TabStop = True
         Me.rbtn_Cash.Text = "CASH"
         Me.rbtn_Cash.UseVisualStyleBackColor = True
         '
         'rdbtn_credit
         '
         Me.rdbtn_credit.AutoSize = True
+        Me.rdbtn_credit.Checked = True
         Me.rdbtn_credit.Location = New System.Drawing.Point(626, 15)
         Me.rdbtn_credit.Name = "rdbtn_credit"
         Me.rdbtn_credit.Size = New System.Drawing.Size(65, 17)
         Me.rdbtn_credit.TabIndex = 5
+        Me.rdbtn_credit.TabStop = True
         Me.rdbtn_credit.Text = "CREDIT"
         Me.rdbtn_credit.UseVisualStyleBackColor = True
         '
