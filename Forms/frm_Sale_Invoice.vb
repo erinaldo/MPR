@@ -32,8 +32,8 @@ Public Class frm_Sale_Invoice
             "(SI_CODE+CAST(SI_NO AS VARCHAR)) AS InvNo,('DC/'+CAST(DC_GST_NO AS VARCHAR) ) AS [DC NO]," & _
             " dbo.fn_Format(dbo.SALE_INVOICE_MASTER.CREATION_DATE) AS [INV DATE]," & _
             " NET_AMOUNT AS Amount,ACC_NAME Customer,CASE WHEN INVOICE_STATUS =1 THEN 'Fresh'  WHEN INVOICE_STATUS =2 THEN 'Pending' WHEN INVOICE_STATUS =3 THEN 'Clear'  WHEN INVOICE_STATUS =4 THEN 'Cancel' END AS Status FROM dbo.SALE_INVOICE_MASTER " & _
-            "JOIN dbo.ACCOUNT_MASTER ON ACCOUNT_MASTER.ACC_ID=dbo.SALE_INVOICE_MASTER.CUST_ID)tb " & _
-            "WHERE (CAST(SI_ID AS varchar) +InvNo+[DC NO]+[INV DATE]+ CAST(tb.Amount AS VARCHAR)+tb.Customer+tb.Status) LIKE '%" & condition & "%'  order by 1"
+            "JOIN dbo.ACCOUNT_MASTER ON ACCOUNT_MASTER.ACC_ID=dbo.SALE_INVOICE_MASTER.CUST_ID WHERE FLAG=0)tb " & _
+            "WHERE  (CAST(SI_ID AS varchar) +InvNo+[DC NO]+[INV DATE]+ CAST(tb.Amount AS VARCHAR)+tb.Customer+tb.Status) LIKE '%" & condition & "%'  order by 1"
 
             Dim dt As DataTable = obj.Fill_DataSet(strsql).Tables(0)
 
@@ -268,12 +268,12 @@ Public Class frm_Sale_Invoice
             Return False
         End If
 
-        If Not String.IsNullOrEmpty(txt_txtphoneNo.Text.Trim) Then
-            If Not mobileRegex.IsMatch(txt_txtphoneNo.Text) Then
-                MsgBox("Phone number is not valid. Try again after entering valid number.", MsgBoxStyle.Information, "Invalid Phone Format!!!")
-                Return False
-            End If
-        End If
+        'If Not String.IsNullOrEmpty(txt_txtphoneNo.Text.Trim) Then
+        '    If Not mobileRegex.IsMatch(txt_txtphoneNo.Text) Then
+        '        MsgBox("Phone number is not valid. Try again after entering valid number.", MsgBoxStyle.Information, "Invalid Phone Format!!!")
+        '        Return False
+        '    End If
+        'End If
 
         If Not String.IsNullOrEmpty(txtGstNo.Text.Trim) Then
             If Not gstnoRegex.IsMatch(txtGstNo.Text) Then

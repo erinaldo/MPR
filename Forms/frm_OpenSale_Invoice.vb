@@ -11,6 +11,7 @@ Public Class frm_openSale_Invoice
     Dim prpty As cls_Sale_Invoice_prop
     Dim flag As String
     Dim Si_ID As Int16
+    Dim Si_No As Int16
     Dim NEWCUST As Int16 = 0
     Dim dtable_Item_List As DataTable
     Dim gstnoRegex As New Regex("^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$")
@@ -31,7 +32,7 @@ Public Class frm_openSale_Invoice
             "(SI_CODE+CAST(SI_NO AS VARCHAR)) AS InvNo,('DC/'+CAST(DC_GST_NO AS VARCHAR) ) AS [DC NO]," & _
             " dbo.fn_Format(dbo.SALE_INVOICE_MASTER.CREATION_DATE) AS [INV DATE]," & _
             " NET_AMOUNT AS Amount,ACC_NAME Customer,CASE WHEN INVOICE_STATUS =1 THEN 'Fresh'  WHEN INVOICE_STATUS =2 THEN 'Pending' WHEN INVOICE_STATUS =3 THEN 'Clear'  WHEN INVOICE_STATUS =4 THEN 'Cancel' END AS Status FROM dbo.SALE_INVOICE_MASTER " & _
-            "JOIN dbo.ACCOUNT_MASTER ON ACCOUNT_MASTER.ACC_ID=dbo.SALE_INVOICE_MASTER.CUST_ID)tb " & _
+            "JOIN dbo.ACCOUNT_MASTER ON ACCOUNT_MASTER.ACC_ID=dbo.SALE_INVOICE_MASTER.CUST_ID where FLAG=1)tb " & _
             "WHERE (CAST(SI_ID AS varchar) +InvNo+[DC NO]+[INV DATE]+ CAST(tb.Amount AS VARCHAR)+tb.Customer+tb.Status) LIKE '%" & condition & "%'  order by 1"
 
             Dim dt As DataTable = obj.Fill_DataSet(strsql).Tables(0)
@@ -80,6 +81,7 @@ Public Class frm_openSale_Invoice
 
     Public Sub DeleteClick(ByVal sender As Object, ByVal e As System.EventArgs) Implements IForm.DeleteClick
 
+
     End Sub
 
     Public Sub NewClick(ByVal sender As Object, ByVal e As System.EventArgs) Implements IForm.NewClick
@@ -99,92 +101,107 @@ Public Class frm_openSale_Invoice
                 Exit Sub
             End If
 
+
+            If _rights.allow_trans = "N" Then
+                RightsMsg()
+                Exit Sub
+            End If
+
+            prpty = New cls_Sale_Invoice_prop
+
+            Dim ds1 As DataSet = obj.FillDataSet("Select isnull(max(SI_ID),0) + 1 from dbo.SALE_INVOICE_MASTER")
             If flag = "save" Then
-                If _rights.allow_trans = "N" Then
-                    RightsMsg()
-                    Exit Sub
-                End If
-
-                prpty = New cls_Sale_Invoice_prop
-
-                Dim ds1 As DataSet = obj.FillDataSet("Select isnull(max(SI_ID),0) + 1 from dbo.SALE_INVOICE_MASTER")
                 Si_ID = Convert.ToInt32(ds1.Tables(0).Rows(0)(0))
-                prpty.SI_ID = Si_ID
+            End If
+            prpty.SI_ID = Si_ID
 
-                Dim ds As New DataSet()
-                ds = obj.fill_Data_set("GET_INV_NO", "@DIV_ID", v_the_current_division_id)
-                If ds.Tables(0).Rows.Count = 0 Then
+            Dim ds As New DataSet()
+            ds = obj.fill_Data_set("GET_INV_NO", "@DIV_ID", v_the_current_division_id)
+            If ds.Tables(0).Rows.Count = 0 Then
+                MsgBox("Invoice series does not exists", MsgBoxStyle.Information, gblMessageHeading)
+                ds.Dispose()
+                Exit Sub
+            Else
+                If ds.Tables(0).Rows(0)(0).ToString() = "-1" Then
                     MsgBox("Invoice series does not exists", MsgBoxStyle.Information, gblMessageHeading)
                     ds.Dispose()
                     Exit Sub
+                ElseIf ds.Tables(0).Rows(0)(0).ToString() = "-2" Then
+                    MsgBox("Invoice series has been completed", MsgBoxStyle.Information, gblMessageHeading)
+                    ds.Dispose()
+                    Exit Sub
                 Else
-                    If ds.Tables(0).Rows(0)(0).ToString() = "-1" Then
-                        MsgBox("Invoice series does not exists", MsgBoxStyle.Information, gblMessageHeading)
-                        ds.Dispose()
-                        Exit Sub
-                    ElseIf ds.Tables(0).Rows(0)(0).ToString() = "-2" Then
-                        MsgBox("Invoice series has been completed", MsgBoxStyle.Information, gblMessageHeading)
-                        ds.Dispose()
-                        Exit Sub
-                    Else
-                        prpty.SI_CODE = ds.Tables(0).Rows(0)(0).ToString()
-                        prpty.SI_NO = Convert.ToDecimal(ds.Tables(0).Rows(0)(1).ToString()) + 1
-                        ds.Dispose()
-                    End If
+                    prpty.SI_CODE = ds.Tables(0).Rows(0)(0).ToString()
+                    prpty.SI_NO = Convert.ToDecimal(ds.Tables(0).Rows(0)(1).ToString()) + 1
+                    ds.Dispose()
                 End If
+            End If
 
-                prpty.DC_GST_NO = Convert.ToDecimal(ds.Tables(0).Rows(0)(1).ToString()) + 1
-                prpty.SI_DATE = Now
+            prpty.DC_GST_NO = Convert.ToDecimal(ds.Tables(0).Rows(0)(1).ToString()) + 1
+            prpty.SI_DATE = Now
 
-                If NEWCUST = 0 Then
-                    prpty.CUST_ID = cmbSupplier.SelectedValue
-                Else
-                    Dim dscust As DataSet = clsObj.GetDCDetail_remote("Select isnull(max(ACC_ID),0) + 1 from dbo.ACCOUNT_MASTER")
-                    prpty.CUST_ID = Convert.ToInt32(dscust.Tables(0).Rows(0)(0))
+            If (flag = "update") Then
+                prpty.SI_ID = Si_ID
+                prpty.SI_NO = Si_No
+            End If
 
-                    clsObj.Insert_New_Customer_Remote(prpty.CUST_ID, txtcustomer_name.Text, txtAddress.Text, txt_txtphoneNo.Text, txtGstNo.Text, Convert.ToInt32(cmbCity.SelectedValue))
-                    clsObj.Insert_New_Customer(prpty.CUST_ID, txtcustomer_name.Text, txtAddress.Text, txt_txtphoneNo.Text, txtGstNo.Text, Convert.ToInt32(cmbCity.SelectedValue))
 
-                End If
+            If NEWCUST = 0 Then
+                prpty.CUST_ID = cmbSupplier.SelectedValue
+            Else
+                Dim dscust As DataSet = clsObj.GetDCDetail_remote("Select isnull(max(ACC_ID),0) + 1 from dbo.ACCOUNT_MASTER")
+                prpty.CUST_ID = Convert.ToInt32(dscust.Tables(0).Rows(0)(0))
 
-                prpty.INVOICE_STATUS = Convert.ToInt32(GlobalModule.InvoiceStatus.Clear)
-                prpty.REMARKS = ""
-                prpty.PAYMENTS_REMARKS = ""
-
-                If rbtn_Cash.Checked Then
-                    prpty.SALE_TYPE = "Cash"
-                Else
-                    prpty.SALE_TYPE = "Credit"
-                End If
-
-                prpty.GROSS_AMOUNT = Convert.ToDouble(lblItemValue.Text)
-                prpty.VAT_AMOUNT = Convert.ToDouble(lblVatAmount.Text)
-                prpty.NET_AMOUNT = Convert.ToDouble(lblNetAmount.Text)
-                prpty.IS_SAMPLE = 0
-                prpty.DELIVERY_NOTE_NO = 0
-                prpty.VAT_CST_PER = 0
-                prpty.SAMPLE_ADDRESS = txtAddress.Text
-                prpty.CREATED_BY = v_the_current_logged_in_user_name
-                prpty.CREATION_DATE = Now
-                prpty.MODIFIED_BY = ""
-                prpty.MODIFIED_DATE = NULL_DATE
-                prpty.DIVISION_ID = v_the_current_division_id
-                prpty.TRANSPORT = txtTransport.Text
-                prpty.VEHICLE_NO = txtvechicle_no.Text
-                prpty.SHIPP_ADD_ID = 0
-                prpty.INV_TYPE = cmbinvtype.SelectedItem
-                prpty.LR_NO = txtLRNO.Text
-                prpty.dtable_Item_List = dtable_Item_List
-                clsObj.Insert_SALE_INVOICE_MASTER(prpty)
+                clsObj.Insert_New_Customer_Remote(prpty.CUST_ID, txtcustomer_name.Text, txtAddress.Text, txt_txtphoneNo.Text, txtGstNo.Text, Convert.ToInt32(cmbCity.SelectedValue))
+                clsObj.Insert_New_Customer(prpty.CUST_ID, txtcustomer_name.Text, txtAddress.Text, txt_txtphoneNo.Text, txtGstNo.Text, Convert.ToInt32(cmbCity.SelectedValue))
 
             End If
 
+            prpty.INVOICE_STATUS = Convert.ToInt32(GlobalModule.InvoiceStatus.Clear)
+            prpty.REMARKS = ""
+            prpty.PAYMENTS_REMARKS = ""
+
+            If rbtn_Cash.Checked Then
+                prpty.SALE_TYPE = "Cash"
+            Else
+                prpty.SALE_TYPE = "Credit"
+            End If
+
+            prpty.GROSS_AMOUNT = Convert.ToDouble(lblItemValue.Text)
+            prpty.VAT_AMOUNT = Convert.ToDouble(lblVatAmount.Text)
+            prpty.NET_AMOUNT = Convert.ToDouble(lblNetAmount.Text)
+            prpty.IS_SAMPLE = 0
+            prpty.DELIVERY_NOTE_NO = 0
+            prpty.VAT_CST_PER = 0
+            prpty.SAMPLE_ADDRESS = txtAddress.Text
+            prpty.CREATED_BY = v_the_current_logged_in_user_name
+            prpty.CREATION_DATE = Now
+            prpty.MODIFIED_BY = ""
+            prpty.MODIFIED_DATE = NULL_DATE
+            prpty.DIVISION_ID = v_the_current_division_id
+            prpty.TRANSPORT = txtTransport.Text
+            prpty.VEHICLE_NO = txtvechicle_no.Text
+            prpty.SHIPP_ADD_ID = 0
+            prpty.INV_TYPE = cmbinvtype.SelectedItem
+            prpty.LR_NO = txtLRNO.Text
+            prpty.dtable_Item_List = dtable_Item_List
+
+
+
+
+
+
             If flag = "save" Then
+                clsObj.Insert_SALE_INVOICE_MASTER(prpty)
                 If MsgBox("Invoice information has been Saved." & vbCrLf & "Do You Want to Print Preview.", MsgBoxStyle.Question + MsgBoxStyle.YesNo, gblMessageHeading) = MsgBoxResult.Yes Then
                     obj.RptShow(enmReportName.RptInvoicePrint, "Si_ID", CStr(prpty.SI_ID), CStr(enmDataType.D_int))
                 End If
+
             Else
-                MsgBox("You Can't edit this.")
+                clsObj.Update_SALE_INVOICE_MASTER(prpty)
+                If MsgBox("Invoice information has been Updated." & vbCrLf & "Do You Want to Print Preview.", MsgBoxStyle.Question + MsgBoxStyle.YesNo, gblMessageHeading) = MsgBoxResult.Yes Then
+                    obj.RptShow(enmReportName.RptInvoicePrint, "Si_ID", CStr(prpty.SI_ID), CStr(enmDataType.D_int))
+                End If
             End If
             fill_grid()
 
@@ -275,12 +292,12 @@ Public Class frm_openSale_Invoice
             Return False
         End If
 
-        If Not String.IsNullOrEmpty(txt_txtphoneNo.Text.Trim) Then
-            If Not mobileRegex.IsMatch(txt_txtphoneNo.Text) Then
-                MsgBox("Phone number is not valid. Try again after entering valid number.", MsgBoxStyle.Information, "Invalid Phone Format!!!")
-                Return False
-            End If
-        End If
+        'If Not String.IsNullOrEmpty(txt_txtphoneNo.Text.Trim) Then
+        '    If Not mobileRegex.IsMatch(txt_txtphoneNo.Text) Then
+        '        MsgBox("Phone number is not valid. Try again after entering valid number.", MsgBoxStyle.Information, "Invalid Phone Format!!!")
+        '        Return False
+        '    End If
+        'End If
 
         If Not String.IsNullOrEmpty(txtGstNo.Text.Trim) Then
             If Not gstnoRegex.IsMatch(txtGstNo.Text) Then
@@ -678,7 +695,59 @@ restart:
     End Sub
 
     Private Sub flxList_DoubleClick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles flxList.DoubleClick
-        MsgBox("You Can't Edit this Invoice." & vbCrLf & "Please click in print to view/print this Invoice/ DC.", MsgBoxStyle.Information)
+        Dim strSql As String
+        Dim count As Int32
+        strSql = " SELECT COUNT(*) FROM dbo.SettlementDetail WHERE InvoiceId= " & flxList("Si_ID", flxList.CurrentCell.RowIndex).Value()
+        count = obj.Fill_DataSet(strSql).Tables(0).Rows(0)(0)
+        If count > 0 Then
+            MsgBox("You Can't Edit this Invoice." & vbCrLf & "Please click in print to view/print this Invoice/ DC.", MsgBoxStyle.Information)
+        Else
+            new_initilization()
+            flag = "update"
+            Si_ID = Convert.ToInt32(flxList("Si_ID", flxList.CurrentCell.RowIndex).Value())
+            fill_InvoiceDetail(Si_ID)
+        End If
+    End Sub
+
+    Private Sub fill_InvoiceDetail(ByVal strSIID As Integer)
+        Dim dt As DataTable
+
+        dt = clsObj.fill_Data_set("GET_INV_DETAIL", "@V_SI_ID", strSIID.ToString()).Tables(0)
+        If dt.Rows.Count > 0 Then
+            Dim dr As DataRow = dt.Rows(0)
+            Si_No = dr("INVNO")
+            lbl_INVNo.Text = dr("SI_NO")
+            lbl_TransferDate.Text = Convert.ToDateTime(dr("InvDate"))
+
+            If dr("SALE_TYPE").ToString().Trim() = "Credit" Then
+                rdbtn_credit.Checked = True
+            Else
+                rbtn_Cash.Checked = True
+            End If
+
+            cmbSupplier.SelectedValue = dr("CUST_ID")
+            txtvechicle_no.Text = dr("VEHICLE_NO")
+            txtTransport.Text = dr("TRANSPORT")
+            txtLRNO.Text = dr("LR_NO")
+            cmbinvtype.Text = dr("INV_TYPE")
+
+            dtable_Item_List = clsObj.fill_Data_set("GET_INV_ITEM_DETAILS", "@V_SI_ID", strSIID).Tables(0)
+
+
+
+            flxItems.DataSource = dtable_Item_List
+
+            format_grid()
+
+            generate_tree()
+            CalculateAmount()
+
+        End If
+
+
+
+
+
     End Sub
 
 

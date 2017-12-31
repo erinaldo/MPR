@@ -146,12 +146,12 @@ Public Class frm_CreditNote
         Dim blnIsExist As Boolean
         blnIsExist = False
 
-        If String.IsNullOrEmpty(txtRemarks.Text) Then
-            MsgBox("Please fill the Remarks", vbExclamation, gblMessageHeading)
-            txtRemarks.Focus()
-            validate_data = False
-            Exit Function
-        End If
+        'If String.IsNullOrEmpty(txtRemarks.Text) Then
+        '    MsgBox("Please fill the Remarks", vbExclamation, gblMessageHeading)
+        '    txtRemarks.Focus()
+        '    validate_data = False
+        '    Exit Function
+        'End If
 
         If cmbINVNo.SelectedIndex <= 0 Then
             MsgBox("Select INV to create Credit note.", vbExclamation, gblMessageHeading)
@@ -178,7 +178,8 @@ Public Class frm_CreditNote
     End Function
 
     Public Sub SaveClick(ByVal sender As Object, ByVal e As System.EventArgs) Implements IForm.SaveClick
-        CalculateAmount()
+
+
         Dim cmd As SqlCommand
 
         cmd = obj.MyCon_BeginTransaction
@@ -186,6 +187,8 @@ Public Class frm_CreditNote
         txtRemarks.Focus()
         Try
             If flag = "save" And validate_data() Then
+
+                CalculateAmount()
 
                 GetCNCode()
                 CN_Id = Convert.ToInt32(obj.getMaxValue("CreditNote_ID", "CreditNote_MASTER"))
@@ -204,6 +207,8 @@ Public Class frm_CreditNote
                 prpty.CN_CustId = cmbCustomer.SelectedValue
                 prpty.INV_No = lblInvNo.Text
                 prpty.INV_Date = lblInvdate.Text
+                prpty.CN_ItemValue = lblAmount.Text
+                prpty.CN_ItemTax = lblVatAmount.Text
                 clsObj.insert_CreditNote_MASTER(prpty, cmd)
 
                 Dim iRowCount As Int32
