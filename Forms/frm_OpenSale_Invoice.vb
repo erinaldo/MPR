@@ -504,7 +504,7 @@ again:
             'If cmbSupplier.SelectedIndex > 0 Then
 
             Dim iRowindex As Int32
-            If flag = "save" Then
+            If flag = "save" Or flag = "update" Then
                 If e.KeyCode = Keys.Space Then
                     iRowindex = flxItems.Row
 
@@ -562,6 +562,8 @@ restart:
                         '        dt.AcceptChanges()
                     End If
                 End If
+                generate_tree()
+                CalculateAmount()
             End If
 
             'Else
@@ -786,27 +788,32 @@ restart:
             Dim Gpaid As Decimal = 0.0
 
             For i = 1 To flxItems.Rows.Count - 1
-                'If flxItems.Rows(i).IsNode Then
+
+
                 total_item_value = total_item_value + (flxItems.Rows(i).Item("transfer_Qty") * flxItems.Rows(i).Item("item_rate"))
 
-                If (flxItems.Rows(i).Item("GPAID")) = "Y" Then
-                    Gpaid = ((flxItems.Rows(i).Item("Amount") - (flxItems.Rows(i).Item("Amount") * flxItems.Rows(i).Item("DISC") / 100))) - ((flxItems.Rows(i).Item("Amount") - (flxItems.Rows(i).Item("Amount") * flxItems.Rows(i).Item("DISC") / 100))) / (1 + (flxItems.Rows(i).Item("GST") / 100))
+                If (flxItems.Rows(i).Item("DType")) IsNot Nothing Then
+
+                    If (flxItems.Rows(i).Item("GPAID")) = "Y" Then
+                        Gpaid = ((flxItems.Rows(i).Item("Amount") - (flxItems.Rows(i).Item("Amount") * flxItems.Rows(i).Item("DISC") / 100))) - ((flxItems.Rows(i).Item("Amount") - (flxItems.Rows(i).Item("Amount") * flxItems.Rows(i).Item("DISC") / 100))) / (1 + (flxItems.Rows(i).Item("GST") / 100))
+                    End If
+
+
+                    If (flxItems.Rows(i).Item("DType")) = "P" Then
+                        discamt = (flxItems.Rows(i).Item("Amount") * flxItems.Rows(i).Item("DISC") / 100) + Gpaid
+                        totdiscamt = totdiscamt + ((flxItems.Rows(i).Item("transfer_Qty") * flxItems.Rows(i).Item("item_rate")) * flxItems.Rows(i)("DISC") / 100) + Gpaid
+                        total_vat_amount = total_vat_amount + (((flxItems.Rows(i).Item("transfer_Qty") * flxItems.Rows(i).Item("item_rate")) - ((flxItems.Rows(i).Item("transfer_Qty") * flxItems.Rows(i).Item("item_rate")) * flxItems.Rows(i)("DISC") / 100 + Gpaid)) * flxItems.Rows(i)("GST") / 100)
+                    Else
+                        discamt = (flxItems.Rows(i).Item("DISC")) + Gpaid
+                        totdiscamt = totdiscamt + flxItems.Rows(i)("DISC") + Gpaid
+                        total_vat_amount = total_vat_amount + (((flxItems.Rows(i).Item("transfer_Qty") * flxItems.Rows(i).Item("item_rate")) - discamt) * flxItems.Rows(i)("GST") / 100)
+                    End If
+
+                    flxItems.Rows(i).Item("GST_Amount") = Math.Round((flxItems.Rows(i).Item("Amount") - discamt) * (flxItems.Rows(i).Item("GST") / 100), 2)
+                    flxItems.Rows(i).Item("LandingAmt") = Math.Round((flxItems.Rows(i).Item("Amount") - discamt) + (flxItems.Rows(i).Item("GST_Amount")), 2)
+
                 End If
-
-
-                If (flxItems.Rows(i).Item("DType")) = "P" Then
-                    discamt = (flxItems.Rows(i).Item("Amount") * flxItems.Rows(i).Item("DISC") / 100) + Gpaid
-                    totdiscamt = totdiscamt + ((flxItems.Rows(i).Item("transfer_Qty") * flxItems.Rows(i).Item("item_rate")) * flxItems.Rows(i)("DISC") / 100) + Gpaid
-                    total_vat_amount = total_vat_amount + (((flxItems.Rows(i).Item("transfer_Qty") * flxItems.Rows(i).Item("item_rate")) - ((flxItems.Rows(i).Item("transfer_Qty") * flxItems.Rows(i).Item("item_rate")) * flxItems.Rows(i)("DISC") / 100 + Gpaid)) * flxItems.Rows(i)("GST") / 100)
-                Else
-                    discamt = (flxItems.Rows(i).Item("DISC")) + Gpaid
-                    totdiscamt = totdiscamt + flxItems.Rows(i)("DISC") + Gpaid
-                    total_vat_amount = total_vat_amount + (((flxItems.Rows(i).Item("transfer_Qty") * flxItems.Rows(i).Item("item_rate")) - discamt) * flxItems.Rows(i)("GST") / 100)
-                End If
-
-                flxItems.Rows(i).Item("GST_Amount") = Math.Round((flxItems.Rows(i).Item("Amount") - discamt) * (flxItems.Rows(i).Item("GST") / 100), 2)
-                flxItems.Rows(i).Item("LandingAmt") = Math.Round((flxItems.Rows(i).Item("Amount") - discamt) + (flxItems.Rows(i).Item("GST_Amount")), 2)
-
+                Gpaid = 0.0
             Next
 
 
