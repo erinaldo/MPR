@@ -371,7 +371,7 @@ AS
                           @V_MODIFIED_DATE ,  
                           @V_DIVISION_ID ,  
                           @v_TARRIF_ID ,  
-                          @v_DISCOUNT_TYPE,  
+                          rtrim(@v_DISCOUNT_TYPE),  
                           @v_DISCOUNT_VALUE,
                           @v_GSTPAID
                         )       

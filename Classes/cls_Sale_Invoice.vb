@@ -727,6 +727,9 @@ again:
                             OrderDataRow("HsnCodeId") = items_DataRow("HsnCodeId")
                             OrderDataRow("DType") = items_DataRow("DType")
                             OrderDataRow("DISC") = items_DataRow("DISC")
+                            If (clsobj.Flag = 1) Then
+                                OrderDataRow("GPAID") = items_DataRow("GPAID")
+                            End If
                             OrderDataRow("Amount") = items_DataRow("Amount")
                             Dtitemsnew.Rows.Add(OrderDataRow)
                         End If
