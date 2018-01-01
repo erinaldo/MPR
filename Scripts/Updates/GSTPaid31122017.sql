@@ -468,13 +468,7 @@ AS
 
 --GET_INV_ITEM_DETAILS 221
 
-
-
-
-
-
-
-CREATE PROCEDURE [dbo].[GET_INV_ITEM_DETAILS] ( @V_SI_ID NUMERIC(18, 0) )
+ALTER PROCEDURE [dbo].[GET_INV_ITEM_DETAILS] ( @V_SI_ID NUMERIC(18, 0) )
 AS
     BEGIN 
 
@@ -491,11 +485,12 @@ AS
                 ISNULL(DISCOUNT_TYPE, 'P') AS DType ,
                 ISNULL(DISCOUNT_VALUE, 0) AS DISC ,
                 ISNULL(ITEM_AMOUNT, 0) AS Amount ,
+				ISNULL(GSTPAID,'N') AS GPAID,
                 VAT_PER AS GST ,
                 VAT_AMOUNT AS GST_Amount ,
                 fk_HsnId_num AS HsnCodeId ,
-                0 AS LandingAmt ,
-                GSTPAID AS GPAID
+                0 AS LandingAmt 
+             
         FROM    dbo.SALE_INVOICE_DETAIL SID
                 JOIN dbo.ITEM_MASTER IM ON IM.ITEM_ID = SID.ITEM_ID
                 JOIN dbo.UNIT_MASTER UM ON UM.UM_ID = IM.UM_ID

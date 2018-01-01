@@ -339,7 +339,7 @@ Partial Class frm_openSale_Invoice
         Me.flxItems.ColumnInfo = "1,1,0,0,0,90,Columns:0{Width:26;AllowSorting:False;AllowDragging:False;AllowResiz" & _
     "ing:False;AllowMerging:True;AllowEditing:False;}" & Global.Microsoft.VisualBasic.ChrW(9)
         Me.flxItems.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.flxItems.Location = New System.Drawing.Point(2, 20)
+        Me.flxItems.Location = New System.Drawing.Point(4, 20)
         Me.flxItems.Name = "flxItems"
         Me.flxItems.Rows.Count = 2
         Me.flxItems.Rows.DefaultSize = 18
