@@ -298,7 +298,7 @@ Public Class frm_Item_Master
                 Flag = "save"
             End If
             ds.Dispose()
-            txtSearch.Text = ""
+            'txtSearch.Text = ""
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "Error --> ")
         End Try
