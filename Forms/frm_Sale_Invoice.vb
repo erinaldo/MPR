@@ -154,7 +154,7 @@ Public Class frm_Sale_Invoice
 
 
 
-            prpty.GROSS_AMOUNT = Convert.ToDouble(lblItemValue.Text)
+            prpty.GROSS_AMOUNT = Convert.ToDouble(lblItemValue.Text - lblTotalDisc.Text)
             prpty.VAT_AMOUNT = Convert.ToDouble(lblVatAmount.Text)
             prpty.NET_AMOUNT = Convert.ToDouble(lblNetAmount.Text)
             prpty.IS_SAMPLE = 0

@@ -160,16 +160,6 @@ AS
                 EXECUTE Proc_Ledger_Insert 10071, @V_GROSS_AMOUNT, 0, @Remarks,
                     @V_Division_ID, @V_SI_ID, 16, @V_Created_BY
 
-					
-
-					
-
-
-
-
-
-               
-
                 SET @Remarks = 'GST against invoice No- ' + @V_SI_CODE
                     + CAST(@V_SI_NO AS VARCHAR(50))
 
@@ -206,9 +196,21 @@ AS
                 SET @Remarks = 'Round Off against invoice No- ' + @V_SI_CODE
                     + CAST(@V_SI_NO AS VARCHAR(50))
 
-                EXECUTE Proc_Ledger_Insert 10054, @RoundOff, 0, @Remarks,
-                    @V_Division_ID, @V_SI_ID, 16, @V_Created_BY
+					
 
+                IF @RoundOff > 0
+                    BEGIN
+                        EXECUTE Proc_Ledger_Insert 10054, @RoundOff, 0,
+                            @Remarks, @V_Division_ID, @V_SI_ID, 16,
+                            @V_Created_BY
+                    END
+                ELSE
+                    BEGIN
+                        SET @RoundOff = -+@RoundOff
+                        EXECUTE Proc_Ledger_Insert 10054, 0, @RoundOff,
+                            @Remarks, @V_Division_ID, @V_SI_ID, 16,
+                            @V_Created_BY
+                    END 
 
 
                 SET @Remarks = 'Stock out against invoice No- ' + @V_SI_CODE
@@ -323,16 +325,22 @@ AS
                     END   
 
 
-
-
-
-
-
                 SET @Remarks = 'Round Off against invoice No- ' + @V_SI_CODE
                     + CAST(@V_SI_NO AS VARCHAR(50))
 
-                EXECUTE Proc_Ledger_Insert 10054, @RoundOff, 0, @Remarks,
-                    @V_Division_ID, @V_SI_ID, 16, @V_Created_BY
+                 IF @RoundOff > 0
+                    BEGIN
+                        EXECUTE Proc_Ledger_Insert 10054, @RoundOff, 0,
+                            @Remarks, @V_Division_ID, @V_SI_ID, 16,
+                            @V_Created_BY
+                    END
+                ELSE
+                    BEGIN
+                        SET @RoundOff = -+@RoundOff
+                        EXECUTE Proc_Ledger_Insert 10054, 0, @RoundOff,
+                            @Remarks, @V_Division_ID, @V_SI_ID, 16,
+                            @V_Created_BY
+                    END 
 
 
 
@@ -439,8 +447,8 @@ AS
 
     END
 
-------------------------------------------------------------------------------------------------------------------------------------------------
 
+------------------------------------------------------------------------------------------------------------------------------------------------
 ALTER PROC [dbo].[ProcReverseInvoiceEntry]
     (
       @V_SI_ID NUMERIC(18, 0) ,
@@ -524,11 +532,33 @@ AS
                                 AND TransactionTypeId = 16
 								AND AccountId=10054
                        )
+
+
         UPDATE  dbo.LedgerMaster
         SET     AmountInHand = AmountInHand - @CashOut + @CashIn
         WHERE   AccountId = 10054
 	   
 	   
+
+
+	  SET 	@CashOut=0
+
+	    SET @CashIn = ( SELECT ISNULL(SUM(CashOut), 0)
+                         FROM   dbo.LedgerDetail
+						 JOIN dbo.LedgerMaster ON dbo.LedgerMaster.LedgerId = dbo.LedgerDetail.LedgerId
+                         WHERE  TransactionId = @v_SI_ID
+                                AND TransactionTypeId = 16
+								AND AccountId=10054
+                       )
+
+
+        UPDATE  dbo.LedgerMaster
+        SET     AmountInHand = AmountInHand - @CashOut + @CashIn
+        WHERE   AccountId = 10054
+
+
+
+
         DECLARE @v_INV_TYPE VARCHAR(1)
         SET @v_INV_TYPE = ( SELECT  INV_TYPE
                             FROM    dbo.SALE_INVOICE_MASTER
@@ -540,6 +570,7 @@ AS
         DECLARE @InputID NUMERIC
         DECLARE @CGST_Amount NUMERIC(18, 2)
 		
+	
 
 
         SET @InputID = ( SELECT CASE WHEN @v_INV_TYPE = 'I' THEN 10021
@@ -594,7 +625,6 @@ AS
         WHERE   TransactionId = @v_SI_ID
                 AND TransactionTypeId = 16
     END
-
 -----------------------------------------------------------------------------------------------------------------------------------------------
 ALTER PROCEDURE PROC_CreditNote_MASTER
     (
