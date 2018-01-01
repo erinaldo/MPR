@@ -546,7 +546,7 @@ again:
             End Try
         End Function
 
-        Public Sub Insert_New_Customer_Remote(CUS_ID As Integer, Customer_Name As String, Address As String, Phone As String, GSTNO As String, City_ID As Integer)
+        Public Sub Insert_New_Customer_Remote(CUS_ID As Integer, Customer_Name As String, Address As String, ShipAddress As String, Phone As String, GSTNO As String, City_ID As Integer)
 
 
             Dim con_global As New SqlConnection(gblDNS_Online)
@@ -565,6 +565,7 @@ again:
                 cmd.Parameters.AddWithValue("@ACC_NAME", Customer_Name)
                 cmd.Parameters.AddWithValue("@AG_ID", 1)
                 cmd.Parameters.AddWithValue("@ADDRESS_PRIM", Address)
+                cmd.Parameters.AddWithValue("@ADDRESS_SEC", ShipAddress)
                 cmd.Parameters.AddWithValue("@PHONE_PRIM", Phone)
                 cmd.Parameters.AddWithValue("@CITY_ID", City_ID)
                 cmd.Parameters.AddWithValue("@VAT_NO", GSTNO)
@@ -581,7 +582,7 @@ again:
             End Try
         End Sub
 
-        Public Sub Insert_New_Customer(CUS_ID As Integer, Customer_Name As String, Address As String, Phone As String, GSTNO As String, City_ID As Integer)
+        Public Sub Insert_New_Customer(CUS_ID As Integer, Customer_Name As String, Address As String, ShipAddress As String, Phone As String, GSTNO As String, City_ID As Integer)
 
             Dim trans As SqlTransaction
 
@@ -598,6 +599,7 @@ again:
                 cmd.Parameters.AddWithValue("@ACC_NAME", Customer_Name)
                 cmd.Parameters.AddWithValue("@AG_ID", 1)
                 cmd.Parameters.AddWithValue("@ADDRESS_PRIM", Address)
+                cmd.Parameters.AddWithValue("@ADDRESS_SEC", ShipAddress)
                 cmd.Parameters.AddWithValue("@PHONE_PRIM", Phone)
                 cmd.Parameters.AddWithValue("@CITY_ID", City_ID)
                 cmd.Parameters.AddWithValue("@VAT_NO", GSTNO)

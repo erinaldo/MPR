@@ -152,8 +152,8 @@ Public Class frm_openSale_Invoice
                 Dim dscust As DataSet = clsObj.GetDCDetail_remote("Select isnull(max(ACC_ID),0) + 1 from dbo.ACCOUNT_MASTER")
                 prpty.CUST_ID = Convert.ToInt32(dscust.Tables(0).Rows(0)(0))
 
-                clsObj.Insert_New_Customer_Remote(prpty.CUST_ID, txtcustomer_name.Text, txtAddress.Text, txt_txtphoneNo.Text, txtGstNo.Text, Convert.ToInt32(cmbCity.SelectedValue))
-                clsObj.Insert_New_Customer(prpty.CUST_ID, txtcustomer_name.Text, txtAddress.Text, txt_txtphoneNo.Text, txtGstNo.Text, Convert.ToInt32(cmbCity.SelectedValue))
+                clsObj.Insert_New_Customer_Remote(prpty.CUST_ID, txtcustomer_name.Text, txtAddress.Text, txtShippingAddress.Text, txt_txtphoneNo.Text, txtGstNo.Text, Convert.ToInt32(cmbCity.SelectedValue))
+                clsObj.Insert_New_Customer(prpty.CUST_ID, txtcustomer_name.Text, txtAddress.Text, txtShippingAddress.Text, txt_txtphoneNo.Text, txtGstNo.Text, Convert.ToInt32(cmbCity.SelectedValue))
 
             End If
 
@@ -173,7 +173,7 @@ Public Class frm_openSale_Invoice
             prpty.IS_SAMPLE = 0
             prpty.DELIVERY_NOTE_NO = 0
             prpty.VAT_CST_PER = 0
-            prpty.SAMPLE_ADDRESS = txtAddress.Text
+            prpty.SAMPLE_ADDRESS = txtShippingAddress.Text
             prpty.CREATED_BY = v_the_current_logged_in_user_name
             prpty.CREATION_DATE = Now
             prpty.MODIFIED_BY = ""
@@ -895,7 +895,7 @@ restart:
 
         Dim strSql As String
         If cmbSupplier.SelectedValue <> -1 Then
-            strSql = "SELECT ACCOUNT_MASTER.ADDRESS_PRIM + ' - {'  + ISNULL(CITY_MASTER.CITY_NAME,'') + '}', PHONE_PRIM, VAT_NO,ACCOUNT_MASTER.CITY_ID"
+            strSql = "SELECT ACCOUNT_MASTER.ADDRESS_PRIM + ' - {'  + ISNULL(CITY_MASTER.CITY_NAME,'') + '}', PHONE_PRIM, VAT_NO,ACCOUNT_MASTER.CITY_ID,case when ISNULL(ADDRESS_SEC,'')='' then ADDRESS_PRIM + ' - {'  + ISNULL(CITY_MASTER.CITY_NAME,'') + '}' else ADDRESS_SEC end as Shipping"
             strSql = strSql & " FROM ACCOUNT_MASTER LEFT OUTER JOIN"
             strSql = strSql & " CITY_MASTER ON ACCOUNT_MASTER.CITY_ID = CITY_MASTER.CITY_ID"
             strSql = strSql & " WHERE ACCOUNT_MASTER.ACC_ID = " & cmbSupplier.SelectedValue
@@ -903,6 +903,7 @@ restart:
             txt_txtphoneNo.Text = obj.Fill_DataSet(strSql).Tables(0).Rows(0)(1)
             txtGstNo.Text = obj.Fill_DataSet(strSql).Tables(0).Rows(0)(2)
             cmbCity.SelectedValue = obj.Fill_DataSet(strSql).Tables(0).Rows(0)(3)
+            txtShippingAddress.Text = obj.Fill_DataSet(strSql).Tables(0).Rows(0)(4)
             txtvechicle_no.Focus()
 
 
