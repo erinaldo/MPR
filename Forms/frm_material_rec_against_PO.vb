@@ -1120,7 +1120,7 @@ Public Class frm_material_rec_against_PO
         lblvatamt.Text = tot_vat_amt.ToString("0.00")
         lblexciseamt.Text = tot_exice_amt.ToString("0.00")
 
-        Net_amt = (tot_gross_amt + tot_vat_amt + tot_exice_amt + Convert.ToDouble(IIf(IsNumeric(txt_Amount.Text), txt_Amount.Text, 0)) + Convert.ToDouble(IIf(IsNumeric(txtotherchrgs.Text), txtotherchrgs.Text, 0))) ' - Convert.ToDouble(IIf(IsNumeric(txtdiscount.Text), txtdiscount.Text, 0))
+        Net_amt = (tot_gross_amt + tot_vat_amt + tot_exice_amt + Convert.ToDouble(IIf(IsNumeric(txt_Amount.Text), txt_Amount.Text, 0)) + Convert.ToDouble(IIf(IsNumeric(txtotherchrgs.Text), txtotherchrgs.Text, 0))) '- Convert.ToDouble(IIf(IsNumeric(txtdiscount.Text), txtdiscount.Text, 0))
         lblnetamt.Text = Net_amt.ToString("0.00")
 
     End Sub

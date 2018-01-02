@@ -210,37 +210,6 @@ Namespace item_detail
                 cmd.Dispose()
 
 
-
-
-                ''################################
-                ''INSERT IN GLOBAL DATABASE
-                ''################################
-                'Dim conGBL As New SqlConnection(gblDNS_Online)
-                'cmd = New SqlClient.SqlCommand
-                'cmd.Connection = conGBL
-                'cmd.CommandType = CommandType.StoredProcedure
-                'cmd.CommandText = "PROC_ITEM_DETAIL"
-
-                'cmd.Parameters.AddWithValue("@V_ITEM_ID", clsObj.ITEM_ID)
-                'cmd.Parameters.AddWithValue("@V_DIV_ID", clsObj.DIV_ID)
-                'cmd.Parameters.AddWithValue("@V_RE_ORDER_LEVEL", clsObj.RE_ORDER_LEVEL)
-                'cmd.Parameters.AddWithValue("@V_RE_ORDER_QTY", clsObj.RE_ORDER_QTY)
-                'cmd.Parameters.AddWithValue("@V_PURCHASE_VAT_ID", clsObj.PURCHASE_VAT_ID)
-                'cmd.Parameters.AddWithValue("@V_SALE_VAT_ID", clsObj.SALE_VAT_ID)
-                'cmd.Parameters.AddWithValue("@V_OPENING_STOCK", clsObj.OPENING_STOCK)
-                'cmd.Parameters.AddWithValue("@V_CURRENT_STOCK", clsObj.CURRENT_STOCK)
-                'cmd.Parameters.AddWithValue("@V_IS_EXTERNAL", clsObj.IS_EXTERNAL)
-                'cmd.Parameters.AddWithValue("@V_TRANSFER_RATE", clsObj.TRANSFER_RATE)
-                'cmd.Parameters.AddWithValue("@V_AVERAGE_RATE", clsObj.AVERAGE_RATE)
-                'cmd.Parameters.AddWithValue("@V_IS_STOCKABLE", clsObj.IS_STOCKABLE)
-                'cmd.Parameters.AddWithValue("@V_PROC_TYPE", 1)
-                'If conGBL.State = ConnectionState.Closed Then conGBL.Open()
-                'cmd.ExecuteNonQuery()
-                'cmd.Dispose()
-
-
-                '**** Comment by Ajinder 
-                '****if connection close here it will give connection error while selecting new item from grid after updation
                 trans.Commit()
                 con.Close()
                 '*******************************************************
@@ -354,9 +323,7 @@ Namespace item_detail
             cmd.Connection = con
             cmd.CommandType = CommandType.StoredProcedure
             cmd.CommandText = "GET_ITEM_DETAIL"
-
             cmd.Parameters.AddWithValue("@ITEM_ID", clsObj.ITEM_ID)
-
             cmd.ExecuteNonQuery()
             cmd.Dispose()
             con.Close()

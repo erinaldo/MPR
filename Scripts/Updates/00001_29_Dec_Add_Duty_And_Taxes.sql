@@ -272,13 +272,6 @@ AS
 
 
 
-
-
-                SET @Remarks = 'Sale against invoice No- ' + @V_SI_CODE
-                    + CAST(@V_SI_NO AS VARCHAR(50))
-
-
-
                 EXECUTE Proc_Ledger_Insert @V_CUST_ID, 0, @V_NET_AMOUNT,
                     @Remarks, @V_Division_ID, @V_SI_ID, 16, @V_Created_BY	
 
@@ -288,12 +281,6 @@ AS
                     @V_Division_ID, @V_SI_ID, 16, @V_Created_BY
 
 					
-
-					
-
-
-
-
 
                
 

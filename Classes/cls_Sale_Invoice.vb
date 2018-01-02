@@ -804,13 +804,8 @@ again:
                         'cmd.ExecuteNonQuery()
                     Next
 
-
-
-
                     cmd.Dispose()
-
                     tran.Commit()
-
                     'trans_global.Commit()
 
 

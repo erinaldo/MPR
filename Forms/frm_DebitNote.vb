@@ -216,7 +216,8 @@ Public Class frm_DebitNote
                 prpty.DN_CustId = cmbsupplier.SelectedValue
                 prpty.INV_No = txt_INVNo.Text
                 prpty.INV_Date = txt_INVDate.Text
-
+                prpty.DN_ItemValue = lblAmount.Text
+                prpty.DN_ItemTax = lblVatAmount.Text
                 clsObj.insert_DebitNote_MASTER(prpty, cmd)
 
                 Dim iRowCount As Int32
