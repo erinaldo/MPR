@@ -152,15 +152,13 @@ Public Class frm_Sale_Invoice
             End If
 
 
-
-
             prpty.GROSS_AMOUNT = Convert.ToDouble(lblItemValue.Text - lblTotalDisc.Text)
             prpty.VAT_AMOUNT = Convert.ToDouble(lblVatAmount.Text)
             prpty.NET_AMOUNT = Convert.ToDouble(lblNetAmount.Text)
             prpty.IS_SAMPLE = 0
             prpty.DELIVERY_NOTE_NO = 0
             prpty.VAT_CST_PER = 0
-            prpty.SAMPLE_ADDRESS = lblAddress.Text
+            prpty.SAMPLE_ADDRESS = txtShippingAddress.Text
             prpty.CREATED_BY = v_the_current_logged_in_user_name
             prpty.CREATION_DATE = Now
             prpty.MODIFIED_BY = ""
@@ -838,13 +836,15 @@ restart:
         Dim dsdata As DataSet
 
         If cmbSupplier.SelectedValue <> -1 Then
-            strSql = "SELECT ACCOUNT_MASTER.ADDRESS_PRIM + ' - {'  + ISNULL(CITY_MASTER.CITY_NAME,'') + '}', PHONE_PRIM, VAT_NO"
+            strSql = "SELECT ACCOUNT_MASTER.ADDRESS_PRIM + ' - {'  + ISNULL(CITY_MASTER.CITY_NAME,'') + '}', PHONE_PRIM, VAT_NO,ACCOUNT_MASTER.CITY_ID,case when ISNULL(ADDRESS_SEC,'')='' then ADDRESS_PRIM + ' - {'  + ISNULL(CITY_MASTER.CITY_NAME,'') + '}' else ADDRESS_SEC end as Shipping"
             strSql = strSql & " FROM ACCOUNT_MASTER LEFT OUTER JOIN"
             strSql = strSql & " CITY_MASTER ON ACCOUNT_MASTER.CITY_ID = CITY_MASTER.CITY_ID"
             strSql = strSql & " WHERE ACCOUNT_MASTER.ACC_ID = " & cmbSupplier.SelectedValue
             lblAddress.Text = obj.Fill_DataSet(strSql).Tables(0).Rows(0)(0)
             txt_txtphoneNo.Text = obj.Fill_DataSet(strSql).Tables(0).Rows(0)(1)
             txtGstNo.Text = obj.Fill_DataSet(strSql).Tables(0).Rows(0)(2)
+            'cmbCity.SelectedValue = obj.Fill_DataSet(strSql).Tables(0).Rows(0)(3)
+            txtShippingAddress.Text = obj.Fill_DataSet(strSql).Tables(0).Rows(0)(4)
 
 
             NewstrSql = "SELECT STATE_ID,isUT_bit FROM dbo.STATE_MASTER WHERE STATE_ID IN(SELECT STATE_ID FROM dbo.CITY_MASTER WHERE CITY_ID IN(SELECT CITY_ID FROM dbo.DIVISION_SETTINGS))"
