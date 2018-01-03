@@ -170,8 +170,8 @@ Namespace Adjustment_master
                 ' 
                 ' 1. Insert in adjustment_Master Table with transaction.
                 ' 2. Insert in adjustment_Detail Table with Transaction.
-                ' 3. Update in STOCK_DETAIL Table with  Transaction
-                ' 4. Insert in Transaction_Log Table with  Transaction
+                ' 3. Update in STOCK_DETAIL Table with  Transaction.
+                ' 4. Insert in Transaction_Log Table with  Transaction.
                 ' </summary>
                 '   
                 cmd = New SqlCommand()
@@ -220,6 +220,27 @@ Namespace Adjustment_master
                     End If
 
                 Next iRow
+
+
+                cmd.CommandType = CommandType.StoredProcedure
+                cmd.CommandText = "PROC_ADJUSTMENT_DETAIL"
+                cmd.Parameters.AddWithValue("@V_adjustment_ID", clsObj.adjustment_ID)
+                cmd.Parameters.AddWithValue("@V_Item_ID", dt.Rows(0)("Item_id"))
+                cmd.Parameters.AddWithValue("@V_Stock_Detail_Id", dt.Rows(0)("Stock_Detail_Id"))
+                cmd.Parameters.AddWithValue("@V_Item_Qty", dt.Rows(0)("adjustment_Qty"))
+                ''NEW fIELD
+                cmd.Parameters.AddWithValue("@v_Item_Rate", dt.Rows(0)("Item_Rate"))
+                '' NEW FIELD
+                cmd.Parameters.AddWithValue("@v_Balance_Qty", dt.Rows(0)("adjustment_Qty"))
+                cmd.Parameters.AddWithValue("@V_Created_By", clsObj.Created_BY)
+                cmd.Parameters.AddWithValue("@V_Creation_Date", Now)
+                cmd.Parameters.AddWithValue("@V_Modified_By", v_the_current_logged_in_user_name)
+                cmd.Parameters.AddWithValue("@V_Modified_Date", NULL_DATE)
+                cmd.Parameters.AddWithValue("@V_Division_ID", clsObj.Division_ID)
+                cmd.Parameters.AddWithValue("@V_PROC_TYPE", 2)
+                cmd.ExecuteNonQuery()
+
+
                 Dim iRowSD As Int32
                 dt = clsObj.adjustmentItem
                 For iRowSD = 0 To dt.Rows.Count - 1
