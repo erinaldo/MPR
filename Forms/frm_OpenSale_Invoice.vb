@@ -620,7 +620,7 @@ restart:
                         dr("HsnCodeId") = ds.Tables(0).Rows(i)("fk_HsnId_num")
                         'dr("Item_Rate") = ds.Tables(0).Rows(0)("Item_Rate")
 
-                        ds2 = obj.Fill_DataSet("SELECT VAT_MASTER.VAT_PERCENTAGE FROM ITEM_DETAIL INNER JOIN VAT_MASTER ON ITEM_DETAIL.PURCHASE_VAT_ID = VAT_MASTER.VAT_ID WHERE (ITEM_DETAIL.ITEM_ID = " & Convert.ToInt32(frm_Show_search.search_result) & " )")
+                        ds2 = obj.Fill_DataSet("SELECT VAT_MASTER.VAT_PERCENTAGE FROM ITEM_DETAIL INNER JOIN VAT_MASTER ON ITEM_DETAIL.PURCHASE_VAT_ID = VAT_MASTER.VAT_ID WHERE (ITEM_DETAIL.ITEM_ID = " & Convert.ToInt32(item_id) & " )")
                         dr("Item_Rate") = itemRate.ToString("#0.00")
                         dr("Amount") = 0.0
                         dr("DISC") = 0.0
@@ -964,7 +964,7 @@ restart:
 
                 Dim qry As String = "SELECT  item_id FROM    ITEM_MASTER WHERE   Barcode_vch = '" + txtBarcodeSearch.Text + "'"
                 Dim id As Int32 = clsObj.ExecuteScalar(qry)
-               
+
                 If id > 0 Then
                     Dim newqry As String = "SELECT ISNULL(MRP_Num,0) FROM ITEM_MASTER where item_id=" + id.ToString()
                     Dim itemRate As Decimal = clsObj.ExecuteScalar(newqry)
