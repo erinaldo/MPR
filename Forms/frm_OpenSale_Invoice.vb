@@ -641,6 +641,9 @@ restart:
                     'If dtable_Item_List.Rows.Count = 0 Then dtable_Item_List.Rows.Add(dtable_Item_List.NewRow)
 
                     generate_tree()
+                    flxItems.Rows(flxItems.Rows.Count - 1).Selected = True
+
+
                 Else
                     MsgBox("Stock is not avaialable for this Item.", MsgBoxStyle.Information)
                 End If
