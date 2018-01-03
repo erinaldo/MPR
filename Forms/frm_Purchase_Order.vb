@@ -926,9 +926,82 @@ restart:
         End If
     End Sub
 
+    Public Sub get_row(ByVal item_id As Integer)
+        Dim dr As DataRow
+        Dim ds As DataSet
+        frm_Indent_Items.dTable_POItems = flxItemList.DataSource
+
+        dr = frm_Indent_Items.dTable_POItems.NewRow
+
+
+        ds = Obj.Fill_DataSet("SELECT ITEM_ID, ITEM_CODE, ITEM_NAME, UM_Name, UNIT_MASTER.UM_ID  FROM item_master" & _
+                                " INNER JOIN dbo.UNIT_MASTER ON dbo.UNIT_MASTER .UM_ID =dbo.ITEM_MASTER .UM_ID" & _
+                                " WHERE ITEM_ID=" & Convert.ToInt32(item_id) & "")
+
+        Dim dv_Items As DataView
+        Dim tempdt As DataTable
+        tempdt = frm_Indent_Items.dTable_POItems.Copy
+        dv_Items = tempdt.DefaultView
+
+
+        dv_Items.RowFilter = "item_id=" & ds.Tables(0).Rows(0)("item_id").ToString() & ""
+
+        tempdt = dv_Items.ToTable()
+
+        For i As Integer = 0 To frm_Indent_Items.dTable_POItems.Rows.Count - 1
+            If tempdt.Rows.Count() > 0 Then
+                MsgBox("Item already exists.")
+                Exit Sub
+            End If
+        Next
+
+        dr("Item_id") = ds.Tables(0).Rows(0)("ITEM_ID").ToString
+        dr("Item_Code") = ds.Tables(0).Rows(0)("ITEM_CODE").ToString
+        dr("Item_Name") = ds.Tables(0).Rows(0)("ITEM_NAME").ToString
+        dr("UM_Name") = ds.Tables(0).Rows(0)("UM_Name").ToString
+        'dr("UM_Id") = ds.Tables(0).Rows(0)("UM_ID").ToString
+        ds = Obj.Fill_DataSet("DECLARE @rate NUMERIC (18,2);SELECT @rate=SUPPLIER_RATE_LIST_DETAIL.ITEM_RATE FROM SUPPLIER_RATE_LIST INNER JOIN SUPPLIER_RATE_LIST_DETAIL ON SUPPLIER_RATE_LIST.SRL_ID = SUPPLIER_RATE_LIST_DETAIL.SRL_ID WHERE (SUPPLIER_RATE_LIST_DETAIL.ITEM_ID = " & Convert.ToInt32(item_id) & " ) AND (SUPPLIER_RATE_LIST.SUPP_ID = " & Convert.ToInt32(cmbSupplier.SelectedValue) & ") AND (SUPPLIER_RATE_LIST.ACTIVE = 1);SELECT ISNULL(@rate,0);SELECT     ITEM_DETAIL.PURCHASE_VAT_ID as PURCHASE_VAT_ID, VAT_MASTER.VAT_PERCENTAGE, VAT_MASTER.VAT_NAME FROM ITEM_DETAIL INNER JOIN VAT_MASTER ON ITEM_DETAIL.PURCHASE_VAT_ID = VAT_MASTER.VAT_ID WHERE (ITEM_DETAIL.ITEM_ID = " & Convert.ToInt32(item_id) & " )")
+        dr("Item_Rate") = ds.Tables(0).Rows(0)(0)
+        dr("Vat_Id") = ds.Tables(1).Rows(0)("PURCHASE_VAT_ID")
+        dr("Vat_Name") = ds.Tables(1).Rows(0)("VAT_NAME")
+        dr("Req_Qty") = 0.0
+        dr("Po_Qty") = 0.0
+        dr("DType") = "P"
+        dr("Disc") = 0.0
+        'dr("Exice_Per") = 0
+        dr("Vat_per") = ds.Tables(1).Rows(0)("VAT_PERCENTAGE")
+        dr("Item_value") = (dr("PO_Qty") * dr("Item_Rate")) + ((dr("PO_Qty") * dr("Item_Rate") * dr("Vat_Per")) / 100)
+        dr("Indent_Id") = -1
+
+        frm_Indent_Items.dTable_POItems.Rows.Add(dr)
+        generate_tree()
+        AddHandler flxItemList.AfterDataRefresh, AddressOf flxItemList_AfterDataRefresh
+
+
+    End Sub
+
     Private Sub chk_VatCal_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chk_VatCal.CheckedChanged
         CalculateAmount()
     End Sub
 
 
+    Private Sub txtBarcodeSearch_KeyDown(sender As Object, e As KeyEventArgs) Handles txtBarcodeSearch.KeyDown
+        If e.KeyCode = Keys.Enter Then
+            If Not String.IsNullOrEmpty(txtBarcodeSearch.Text) Then
+
+                Dim qry As String = "SELECT  IM.ITEM_ID,BarCode_vch FROM    ITEM_MASTER AS IM INNER JOIN dbo.SUPPLIER_RATE_LIST_DETAIL AS SRLD ON SRLD.ITEM_ID = IM.ITEM_ID INNER JOIN dbo.SUPPLIER_RATE_LIST AS  srl ON srl.SRL_ID = SRLD.SRL_ID  WHERE srl.active = 1 AND srl.supp_id =" + cmbSupplier.SelectedValue.ToString() + " And   Barcode_vch = '" + txtBarcodeSearch.Text + "'"
+                Dim id As Int32 = clsObj.ExecuteScalar(qry)
+
+                If id > 0 Then
+                 
+
+                    'If Not check_item_exist(id) Then
+                    get_row(id)
+                    'End If
+                End If
+                txtBarcodeSearch.Text = ""
+                txtBarcodeSearch.Focus()
+            End If
+        End If
+    End Sub
 End Class

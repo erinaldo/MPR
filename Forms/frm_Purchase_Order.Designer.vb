@@ -97,6 +97,8 @@ Partial Class frm_Purchase_Order
         Me.lblCap10 = New System.Windows.Forms.Label()
         Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
         Me.erp = New System.Windows.Forms.ErrorProvider(Me.components)
+        Me.txtBarcodeSearch = New System.Windows.Forms.TextBox()
+        Me.Label52 = New System.Windows.Forms.Label()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
@@ -615,6 +617,8 @@ Partial Class frm_Purchase_Order
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.txtBarcodeSearch)
+        Me.GroupBox1.Controls.Add(Me.Label52)
         Me.GroupBox1.Controls.Add(Me.chk_VatCal)
         Me.GroupBox1.Controls.Add(Me.txtPOPrefix)
         Me.GroupBox1.Controls.Add(Me.txtPONO)
@@ -645,7 +649,7 @@ Partial Class frm_Purchase_Order
         '
         Me.chk_VatCal.AutoSize = True
         Me.chk_VatCal.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chk_VatCal.Location = New System.Drawing.Point(604, 101)
+        Me.chk_VatCal.Location = New System.Drawing.Point(633, 73)
         Me.chk_VatCal.Name = "chk_VatCal"
         Me.chk_VatCal.Size = New System.Drawing.Size(153, 19)
         Me.chk_VatCal.TabIndex = 6
@@ -658,7 +662,7 @@ Partial Class frm_Purchase_Order
         Me.txtPOPrefix.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.txtPOPrefix.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtPOPrefix.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtPOPrefix.Location = New System.Drawing.Point(649, 77)
+        Me.txtPOPrefix.Location = New System.Drawing.Point(618, 26)
         Me.txtPOPrefix.Name = "txtPOPrefix"
         Me.txtPOPrefix.Size = New System.Drawing.Size(100, 18)
         Me.txtPOPrefix.TabIndex = 20
@@ -669,7 +673,7 @@ Partial Class frm_Purchase_Order
         Me.txtPONO.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.txtPONO.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtPONO.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtPONO.Location = New System.Drawing.Point(649, 20)
+        Me.txtPONO.Location = New System.Drawing.Point(616, 6)
         Me.txtPONO.Name = "txtPONO"
         Me.txtPONO.Size = New System.Drawing.Size(100, 18)
         Me.txtPONO.TabIndex = 9
@@ -679,7 +683,7 @@ Partial Class frm_Purchase_Order
         '
         Me.CHK_OPEN_PO_QTY.AutoSize = True
         Me.CHK_OPEN_PO_QTY.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.CHK_OPEN_PO_QTY.Location = New System.Drawing.Point(458, 101)
+        Me.CHK_OPEN_PO_QTY.Location = New System.Drawing.Point(633, 50)
         Me.CHK_OPEN_PO_QTY.Name = "CHK_OPEN_PO_QTY"
         Me.CHK_OPEN_PO_QTY.Size = New System.Drawing.Size(123, 19)
         Me.CHK_OPEN_PO_QTY.TabIndex = 5
@@ -691,9 +695,9 @@ Partial Class frm_Purchase_Order
         Me.lblFormHeading.BackColor = System.Drawing.Color.Transparent
         Me.lblFormHeading.Font = New System.Drawing.Font("Verdana", 15.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblFormHeading.ForeColor = System.Drawing.Color.White
-        Me.lblFormHeading.Location = New System.Drawing.Point(775, 10)
+        Me.lblFormHeading.Location = New System.Drawing.Point(762, 6)
         Me.lblFormHeading.Name = "lblFormHeading"
-        Me.lblFormHeading.Size = New System.Drawing.Size(119, 62)
+        Me.lblFormHeading.Size = New System.Drawing.Size(122, 58)
         Me.lblFormHeading.TabIndex = 3
         Me.lblFormHeading.Text = "Purchase Order"
         '
@@ -703,7 +707,7 @@ Partial Class frm_Purchase_Order
         Me.dtpEndDate.CalendarMonthBackground = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.dtpEndDate.CustomFormat = "dd-MMM-yyyy"
         Me.dtpEndDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpEndDate.Location = New System.Drawing.Point(523, 74)
+        Me.dtpEndDate.Location = New System.Drawing.Point(515, 74)
         Me.dtpEndDate.Name = "dtpEndDate"
         Me.dtpEndDate.Size = New System.Drawing.Size(111, 21)
         Me.dtpEndDate.TabIndex = 2
@@ -714,7 +718,7 @@ Partial Class frm_Purchase_Order
         Me.dtpStartDate.CalendarMonthBackground = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.dtpStartDate.CustomFormat = "dd-MMM-yyyy"
         Me.dtpStartDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpStartDate.Location = New System.Drawing.Point(523, 44)
+        Me.dtpStartDate.Location = New System.Drawing.Point(515, 44)
         Me.dtpStartDate.Name = "dtpStartDate"
         Me.dtpStartDate.Size = New System.Drawing.Size(111, 21)
         Me.dtpStartDate.TabIndex = 1
@@ -758,7 +762,7 @@ Partial Class frm_Purchase_Order
         '
         Me.lblCap8.AutoSize = True
         Me.lblCap8.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblCap8.Location = New System.Drawing.Point(455, 77)
+        Me.lblCap8.Location = New System.Drawing.Point(447, 77)
         Me.lblCap8.Name = "lblCap8"
         Me.lblCap8.Size = New System.Drawing.Size(64, 15)
         Me.lblCap8.TabIndex = 0
@@ -768,7 +772,7 @@ Partial Class frm_Purchase_Order
         '
         Me.lblCap7.AutoSize = True
         Me.lblCap7.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblCap7.Location = New System.Drawing.Point(455, 49)
+        Me.lblCap7.Location = New System.Drawing.Point(447, 49)
         Me.lblCap7.Name = "lblCap7"
         Me.lblCap7.Size = New System.Drawing.Size(67, 15)
         Me.lblCap7.TabIndex = 0
@@ -798,7 +802,7 @@ Partial Class frm_Purchase_Order
         '
         Me.lblStatus.AutoSize = True
         Me.lblStatus.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblStatus.Location = New System.Drawing.Point(520, 21)
+        Me.lblStatus.Location = New System.Drawing.Point(512, 21)
         Me.lblStatus.Name = "lblStatus"
         Me.lblStatus.Size = New System.Drawing.Size(47, 13)
         Me.lblStatus.TabIndex = 2
@@ -808,7 +812,7 @@ Partial Class frm_Purchase_Order
         '
         Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(455, 21)
+        Me.Label4.Location = New System.Drawing.Point(447, 21)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(68, 15)
         Me.Label4.TabIndex = 0
@@ -990,6 +994,30 @@ Partial Class frm_Purchase_Order
         '
         Me.erp.ContainerControl = Me
         '
+        'txtBarcodeSearch
+        '
+        Me.txtBarcodeSearch.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.txtBarcodeSearch.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.txtBarcodeSearch.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtBarcodeSearch.ForeColor = System.Drawing.Color.White
+        Me.txtBarcodeSearch.Location = New System.Drawing.Point(514, 101)
+        Me.txtBarcodeSearch.MaxLength = 100
+        Me.txtBarcodeSearch.Name = "txtBarcodeSearch"
+        Me.txtBarcodeSearch.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
+        Me.txtBarcodeSearch.Size = New System.Drawing.Size(272, 19)
+        Me.txtBarcodeSearch.TabIndex = 38
+        '
+        'Label52
+        '
+        Me.Label52.AutoSize = True
+        Me.Label52.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label52.ForeColor = System.Drawing.Color.White
+        Me.Label52.Location = New System.Drawing.Point(449, 104)
+        Me.Label52.Name = "Label52"
+        Me.Label52.Size = New System.Drawing.Size(59, 15)
+        Me.Label52.TabIndex = 37
+        Me.Label52.Text = "Barcode :"
+        '
         'frm_Purchase_Order
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1091,4 +1119,6 @@ Partial Class frm_Purchase_Order
     Friend WithEvents txtPONO As System.Windows.Forms.TextBox
     Friend WithEvents chk_VatCal As System.Windows.Forms.CheckBox
     Friend WithEvents ImageList1 As ImageList
+    Friend WithEvents txtBarcodeSearch As System.Windows.Forms.TextBox
+    Friend WithEvents Label52 As System.Windows.Forms.Label
 End Class

@@ -196,7 +196,6 @@ Public Class frm_Sale_Invoice
         Try
             If TabControl1.SelectedIndex = 0 Then
                 If flxList.SelectedRows.Count > 0 Then
-
                     obj.RptShow(enmReportName.RptInvoicePrint, "Si_ID", CStr(flxList("Si_ID", flxList.CurrentCell.RowIndex).Value()), CStr(enmDataType.D_int))
                 End If
             Else
@@ -1049,5 +1048,26 @@ restart:
         End If
         fill_grid()
 
+    End Sub
+
+    Private Sub txtBarcodeSearch_KeyDown(sender As Object, e As KeyEventArgs) Handles txtBarcodeSearch.KeyDown
+        If e.KeyCode = Keys.Enter Then
+            If Not String.IsNullOrEmpty(txtBarcodeSearch.Text) Then
+
+                Dim qry As String = "SELECT  IM.ITEM_ID FROM  ITEM_MASTER AS IM INNER JOIN dbo.SUPPLIER_RATE_LIST_DETAIL AS SRLD ON SRLD.ITEM_ID = IM.ITEM_ID INNER JOIN dbo.SUPPLIER_RATE_LIST AS SRL ON SRL.SRL_ID = SRLD.SRL_ID  INNER JOIN dbo.CUSTOMER_RATE_LIST_MAPPING AS RLM ON RLM.SRL_ID = SRL.SRL_ID WHERE   srl.active = 1 AND rlm.supp_id =" + cmbSupplier.SelectedValue.ToString() + " And   Barcode_vch = '" + txtBarcodeSearch.Text + "'"
+                Dim id As Int32 = clsObj.ExecuteScalar(qry)
+
+                If id > 0 Then
+                    Dim newqry As String = "SELECT  Item_Rate FROM  ITEM_MASTER AS IM INNER JOIN dbo.SUPPLIER_RATE_LIST_DETAIL AS SRLD ON SRLD.ITEM_ID = IM.ITEM_ID INNER JOIN dbo.SUPPLIER_RATE_LIST AS SRL ON SRL.SRL_ID = SRLD.SRL_ID  INNER JOIN dbo.CUSTOMER_RATE_LIST_MAPPING AS RLM ON RLM.SRL_ID = SRL.SRL_ID WHERE   srl.active = 1 AND rlm.supp_id =" + cmbSupplier.SelectedValue.ToString() + "  AND IM.ITEM_ID =" + id.ToString()
+                    Dim itemRate As Decimal = clsObj.ExecuteScalar(newqry)
+
+                    If Not check_item_exist(id) Then
+                        get_row(id, 0, itemRate)
+                    End If
+                End If
+                txtBarcodeSearch.Text = ""
+                txtBarcodeSearch.Focus()
+            End If
+        End If
     End Sub
 End Class
