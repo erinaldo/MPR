@@ -46,12 +46,12 @@ Public Class frm_Stock_Transfer
             flxList.DataSource = dt
 
             flxList.Cols(1).Visible = False
-            flxList.Cols(2).Width = 80
-            flxList.Cols(3).Width = 80
+            flxList.Cols(2).Width = 100
+            flxList.Cols(3).Width = 100
             flxList.Cols(4).Width = 170
-            flxList.Cols(5).Width = 80
-            flxList.Cols(6).Width = 80
-            flxList.Cols(7).Width = 250
+            flxList.Cols(5).Width = 100
+            flxList.Cols(6).Width = 100
+            flxList.Cols(7).Width = 200
 
         Catch ex As Exception
             MsgBox(gblMessageHeading_Error & vbCrLf & gblMessage_ContactInfo & vbCrLf & ex.Message, MsgBoxStyle.Critical, gblMessageHeading)
@@ -64,7 +64,7 @@ Public Class frm_Stock_Transfer
             obj.FormatGrid(flxItems)
             obj.FormatGrid(flxList)
             table_style()
-            obj.ComboBind_Remote(cmbOutlet, "select Pk_DivisionId_num,DivisionName_vch from DivisionMaster where Pk_DivisionId_num<>" & v_the_current_division_id, "DivisionName_vch", "Pk_DivisionId_num", True)
+            obj.ComboBind_Remote(cmbOutlet, "Select 'W'+convert(varchar(10),Pk_DivisionId_num)as Pk_DivisionId_num,DivisionName_vch from DivisionMaster where Pk_DivisionId_num<>" & v_the_current_division_id & " UNION ALL select 'O'+convert(varchar(10),Pk_OutletId_num) AS Pk_DivisionId_num,OutletName_vch AS DivisionName_vch from OutletMaster", "DivisionName_vch", "Pk_DivisionId_num", True)
 
             new_initilization()
             fill_grid()
@@ -118,12 +118,12 @@ Public Class frm_Stock_Transfer
                 Dim ds As New DataSet()
                 ds = obj.fill_Data_set("GET_DC_NO", "@DIV_ID", v_the_current_division_id)
                 If ds.Tables(0).Rows.Count = 0 Then
-                    MsgBox("DC series does not exists", MsgBoxStyle.Information, gblMessageHeading)
+                    MsgBox("DC series does Not exists", MsgBoxStyle.Information, gblMessageHeading)
                     ds.Dispose()
                     Exit Sub
                 Else
                     If ds.Tables(0).Rows(0)(0).ToString() = "-1" Then
-                        MsgBox("DC series does not exists", MsgBoxStyle.Information, gblMessageHeading)
+                        MsgBox("DC series does Not exists", MsgBoxStyle.Information, gblMessageHeading)
                         ds.Dispose()
                         Exit Sub
                     ElseIf ds.Tables(0).Rows(0)(0).ToString() = "-2" Then
@@ -162,7 +162,7 @@ Public Class frm_Stock_Transfer
 
 
             If flag = "save" Then
-                If MsgBox("Transfer information has been Saved." & vbCrLf & "Do You Want to Print Preview.", MsgBoxStyle.Question + MsgBoxStyle.YesNo, gblMessageHeading) = MsgBoxResult.Yes Then
+                If MsgBox("Transfer information has been Saved." & vbCrLf & "Do You Want To Print Preview.", MsgBoxStyle.Question + MsgBoxStyle.YesNo, gblMessageHeading) = MsgBoxResult.Yes Then
                     obj.RptShow(enmReportName.RptStockTransferCCPrint, "Transfer_ID", CStr(prpty.TRANSFER_ID), CStr(enmDataType.D_int))
                 End If
             Else
@@ -508,5 +508,7 @@ restart:
         MsgBox("You Can't Edit this transfer." & vbCrLf & "Please click in print to view/print this transfer DC.", MsgBoxStyle.Information)
     End Sub
 
-  
+    Private Sub cmbOutlet_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbOutlet.SelectedIndexChanged
+        ' String A = cmbOutlet.SelectedValue.ToString().Substring(1, 1)
+    End Sub
 End Class
