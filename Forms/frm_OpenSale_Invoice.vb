@@ -895,7 +895,7 @@ restart:
         txtcustomer_name.Focus()
     End Sub
 
-    Private Sub cmbSupplier_SelectedIndexChanged_1(sender As Object, e As EventArgs) Handles cmbSupplier.SelectedIndexChanged
+    Private Sub cmbSupplier_SelectedIndexChanged_1(sender As Object, e As EventArgs) Handles cmbSupplier.SelectionChangeCommitted
 
         Dim strSql As String
         If cmbSupplier.SelectedValue <> -1 Then
@@ -981,4 +981,5 @@ restart:
         End If
 
     End Sub
+
 End Class

@@ -32,6 +32,7 @@ Partial Class frm_Stock_Transfer
         Me.GBItemInfo = New System.Windows.Forms.GroupBox()
         Me.flxItems = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.GBDCMASTER = New System.Windows.Forms.GroupBox()
+        Me.Label2 = New System.Windows.Forms.Label()
         Me.cmbOutlet = New System.Windows.Forms.ComboBox()
         Me.lbl_Outlet = New System.Windows.Forms.Label()
         Me.lbl_Status = New System.Windows.Forms.Label()
@@ -44,7 +45,8 @@ Partial Class frm_Stock_Transfer
         Me.lblMRSCode = New System.Windows.Forms.Label()
         Me.lblFormHeading = New System.Windows.Forms.Label()
         Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
-        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.txtBarcodeSearch = New System.Windows.Forms.TextBox()
         Me.TabControl1.SuspendLayout()
         Me.List.SuspendLayout()
         Me.GBMRSDetail.SuspendLayout()
@@ -96,7 +98,7 @@ Partial Class frm_Stock_Transfer
         Me.flxList.AllowEditing = False
         Me.flxList.AllowSorting = C1.Win.C1FlexGrid.AllowSortingEnum.None
         Me.flxList.BackColor = System.Drawing.Color.Silver
-        Me.flxList.ColumnInfo = "1,1,0,0,0,85,Columns:0{Width:26;AllowSorting:False;AllowDragging:False;AllowResiz" &
+        Me.flxList.ColumnInfo = "1,1,0,0,0,85,Columns:0{Width:26;AllowSorting:False;AllowDragging:False;AllowResiz" & _
     "ing:False;AllowMerging:True;AllowEditing:False;}" & Global.Microsoft.VisualBasic.ChrW(9)
         Me.flxList.Dock = System.Windows.Forms.DockStyle.Fill
         Me.flxList.Location = New System.Drawing.Point(3, 16)
@@ -168,7 +170,7 @@ Partial Class frm_Stock_Transfer
         '
         Me.flxItems.AllowSorting = C1.Win.C1FlexGrid.AllowSortingEnum.None
         Me.flxItems.BackColor = System.Drawing.Color.Silver
-        Me.flxItems.ColumnInfo = "1,1,0,0,0,90,Columns:0{Width:26;AllowSorting:False;AllowDragging:False;AllowResiz" &
+        Me.flxItems.ColumnInfo = "1,1,0,0,0,90,Columns:0{Width:26;AllowSorting:False;AllowDragging:False;AllowResiz" & _
     "ing:False;AllowMerging:True;AllowEditing:False;}" & Global.Microsoft.VisualBasic.ChrW(9)
         Me.flxItems.Dock = System.Windows.Forms.DockStyle.Fill
         Me.flxItems.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -182,6 +184,8 @@ Partial Class frm_Stock_Transfer
         '
         'GBDCMASTER
         '
+        Me.GBDCMASTER.Controls.Add(Me.txtBarcodeSearch)
+        Me.GBDCMASTER.Controls.Add(Me.Label3)
         Me.GBDCMASTER.Controls.Add(Me.Label2)
         Me.GBDCMASTER.Controls.Add(Me.cmbOutlet)
         Me.GBDCMASTER.Controls.Add(Me.lbl_Outlet)
@@ -201,12 +205,23 @@ Partial Class frm_Stock_Transfer
         Me.GBDCMASTER.TabIndex = 0
         Me.GBDCMASTER.TabStop = False
         '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Font = New System.Drawing.Font("Verdana", 15.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.ForeColor = System.Drawing.Color.White
+        Me.Label2.Location = New System.Drawing.Point(719, 36)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(165, 25)
+        Me.Label2.TabIndex = 15
+        Me.Label2.Text = "Delivery Note"
+        '
         'cmbOutlet
         '
         Me.cmbOutlet.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbOutlet.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmbOutlet.FormattingEnabled = True
-        Me.cmbOutlet.Location = New System.Drawing.Point(109, 65)
+        Me.cmbOutlet.Location = New System.Drawing.Point(109, 56)
         Me.cmbOutlet.Name = "cmbOutlet"
         Me.cmbOutlet.Size = New System.Drawing.Size(600, 23)
         Me.cmbOutlet.TabIndex = 14
@@ -215,7 +230,7 @@ Partial Class frm_Stock_Transfer
         '
         Me.lbl_Outlet.AutoSize = True
         Me.lbl_Outlet.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lbl_Outlet.Location = New System.Drawing.Point(35, 68)
+        Me.lbl_Outlet.Location = New System.Drawing.Point(35, 59)
         Me.lbl_Outlet.Name = "lbl_Outlet"
         Me.lbl_Outlet.Size = New System.Drawing.Size(57, 15)
         Me.lbl_Outlet.TabIndex = 13
@@ -248,7 +263,7 @@ Partial Class frm_Stock_Transfer
         Me.txtDCRemarks.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtDCRemarks.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtDCRemarks.ForeColor = System.Drawing.Color.White
-        Me.txtDCRemarks.Location = New System.Drawing.Point(110, 109)
+        Me.txtDCRemarks.Location = New System.Drawing.Point(110, 91)
         Me.txtDCRemarks.Multiline = True
         Me.txtDCRemarks.Name = "txtDCRemarks"
         Me.txtDCRemarks.Size = New System.Drawing.Size(599, 48)
@@ -280,7 +295,7 @@ Partial Class frm_Stock_Transfer
         '
         Me.lblMRSRemarks.AutoSize = True
         Me.lblMRSRemarks.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblMRSRemarks.Location = New System.Drawing.Point(35, 110)
+        Me.lblMRSRemarks.Location = New System.Drawing.Point(35, 92)
         Me.lblMRSRemarks.Name = "lblMRSRemarks"
         Me.lblMRSRemarks.Size = New System.Drawing.Size(64, 15)
         Me.lblMRSRemarks.TabIndex = 8
@@ -324,16 +339,28 @@ Partial Class frm_Stock_Transfer
         Me.ImageList1.Images.SetKeyName(0, "Zoom_search_find_magnifying_glass.png")
         Me.ImageList1.Images.SetKeyName(1, "Inventory_box_shipment_product.png")
         '
-        'Label2
+        'Label3
         '
-        Me.Label2.AutoSize = True
-        Me.Label2.Font = New System.Drawing.Font("Verdana", 15.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.ForeColor = System.Drawing.Color.White
-        Me.Label2.Location = New System.Drawing.Point(719, 36)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(165, 25)
-        Me.Label2.TabIndex = 15
-        Me.Label2.Text = "Delivery Note"
+        Me.Label3.AutoSize = True
+        Me.Label3.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label3.Location = New System.Drawing.Point(30, 148)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(62, 15)
+        Me.Label3.TabIndex = 16
+        Me.Label3.Text = "BarCode :"
+        '
+        'txtBarcodeSearch
+        '
+        Me.txtBarcodeSearch.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.txtBarcodeSearch.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.txtBarcodeSearch.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtBarcodeSearch.ForeColor = System.Drawing.Color.White
+        Me.txtBarcodeSearch.Location = New System.Drawing.Point(110, 148)
+        Me.txtBarcodeSearch.MaxLength = 100
+        Me.txtBarcodeSearch.Name = "txtBarcodeSearch"
+        Me.txtBarcodeSearch.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
+        Me.txtBarcodeSearch.Size = New System.Drawing.Size(599, 19)
+        Me.txtBarcodeSearch.TabIndex = 63
         '
         'frm_Stock_Transfer
         '
@@ -381,4 +408,6 @@ Partial Class frm_Stock_Transfer
     Friend WithEvents flxList As C1.Win.C1FlexGrid.C1FlexGrid
     Friend WithEvents ImageList1 As ImageList
     Friend WithEvents Label2 As Label
+    Friend WithEvents Label3 As System.Windows.Forms.Label
+    Friend WithEvents txtBarcodeSearch As System.Windows.Forms.TextBox
 End Class

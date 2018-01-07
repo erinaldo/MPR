@@ -20,7 +20,7 @@ Partial Class frm_openSale_Invoice
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frm_openSale_Invoice))
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.List = New System.Windows.Forms.TabPage()
@@ -163,12 +163,12 @@ Partial Class frm_openSale_Invoice
         Me.flxList.Location = New System.Drawing.Point(3, 16)
         Me.flxList.Name = "flxList"
         Me.flxList.RowHeadersVisible = False
-        DataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black
-        Me.flxList.RowsDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black
+        Me.flxList.RowsDefaultCellStyle = DataGridViewCellStyle1
         Me.flxList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.flxList.Size = New System.Drawing.Size(858, 422)
         Me.flxList.TabIndex = 3
@@ -340,7 +340,7 @@ Partial Class frm_openSale_Invoice
         Me.flxItems.AllowSorting = C1.Win.C1FlexGrid.AllowSortingEnum.None
         Me.flxItems.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.flxItems.BackColor = System.Drawing.Color.Silver
-        Me.flxItems.ColumnInfo = "1,1,0,0,0,90,Columns:0{Width:26;AllowSorting:False;AllowDragging:False;AllowResiz" &
+        Me.flxItems.ColumnInfo = "1,1,0,0,0,90,Columns:0{Width:26;AllowSorting:False;AllowDragging:False;AllowResiz" & _
     "ing:False;AllowMerging:True;AllowEditing:False;}" & Global.Microsoft.VisualBasic.ChrW(9)
         Me.flxItems.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.flxItems.Location = New System.Drawing.Point(4, 23)
@@ -830,11 +830,11 @@ Partial Class frm_openSale_Invoice
     Friend WithEvents txtTransport As TextBox
     Friend WithEvents Label11 As Label
     Friend WithEvents btnAddNew As Button
-    Friend WithEvents cmbSupplier As ComboBox
     Friend WithEvents cmbCity As ComboBox
     Friend WithEvents Label13 As Label
     Friend WithEvents Label14 As Label
     Friend WithEvents txtShippingAddress As TextBox
     Friend WithEvents Label15 As System.Windows.Forms.Label
     Friend WithEvents txtBarcodeSearch As System.Windows.Forms.TextBox
+    Friend WithEvents cmbSupplier As System.Windows.Forms.ComboBox
 End Class

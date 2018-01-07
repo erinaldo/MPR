@@ -1478,8 +1478,17 @@ restart:
                 Dim id As Int32 = clsObj.ExecuteScalar(qry)
                 If id > 0 Then
 
+                    Dim item_is_stockable As Boolean
+                    item_is_stockable = Convert.ToBoolean(obj.ExecuteScalar("select isnull(IS_STOCKABLE,1) IS_STOCKABLE from ITEM_DETAIL where item_id = " + frm_Show_search.search_result))
+                    If item_is_stockable = True Then
+                        get_row(id)
+                    Else
+                        get_row_Stockable(id)
+                    End If
+
+
                     'If Not check_item_exist(id) Then
-                    get_row(id)
+                    ' get_row(id)
                     'End If
                 End If
                 txtBarcodeSearch.Text = ""

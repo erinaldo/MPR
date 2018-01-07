@@ -409,12 +409,6 @@ again:
                     Next
 
 
-
-
-
-
-
-
                     cmd = New SqlCommand
 
                     For i As Integer = 0 To Dtitemsnew.Rows.Count - 1
