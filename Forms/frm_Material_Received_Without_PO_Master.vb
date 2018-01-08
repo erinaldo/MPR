@@ -1454,8 +1454,6 @@ restart:
         NewstrSql = "SELECT STATE_ID,isUT_bit FROM dbo.STATE_MASTER WHERE STATE_ID IN(SELECT STATE_ID FROM dbo.CITY_MASTER WHERE CITY_ID IN(SELECT CITY_ID FROM dbo.DIVISION_SETTINGS))"
         NewstrSql = NewstrSql & " SELECT STATE_ID,isUT_bit FROM dbo.STATE_MASTER WHERE STATE_ID IN(SELECT STATE_ID FROM dbo.CITY_MASTER WHERE CITY_ID IN(SELECT CITY_ID FROM dbo.ACCOUNT_MASTER WHERE ACC_ID=" & cmbVendor.SelectedValue & "))"
         dsdata = clsObj.Fill_DataSet(NewstrSql)
-
-
         'SCGST
         'IGST
         'UGST
@@ -1468,6 +1466,33 @@ restart:
                 Else
                     cmbMRNType.Text = "SGST"
                 End If
+            End If
+        End If
+    End Sub
+
+    Private Sub txtBarcodeSearch_KeyDown(sender As Object, e As KeyEventArgs) Handles txtBarcodeSearch.KeyDown
+        If e.KeyCode = Keys.Enter Then
+            If Not String.IsNullOrEmpty(txtBarcodeSearch.Text) Then
+
+                Dim qry As String = "SELECT  item_id FROM    ITEM_MASTER WHERE   Barcode_vch = '" + txtBarcodeSearch.Text + "'"
+                Dim id As Int32 = clsObj.ExecuteScalar(qry)
+                If id > 0 Then
+
+                    Dim item_is_stockable As Boolean
+                    item_is_stockable = Convert.ToBoolean(obj.ExecuteScalar("select isnull(IS_STOCKABLE,1) IS_STOCKABLE from ITEM_DETAIL where item_id = " + frm_Show_search.search_result))
+                    If item_is_stockable = True Then
+                        get_row(id)
+                    Else
+                        get_row_Stockable(id)
+                    End If
+
+
+                    'If Not check_item_exist(id) Then
+                    ' get_row(id)
+                    'End If
+                End If
+                txtBarcodeSearch.Text = ""
+                txtBarcodeSearch.Focus()
             End If
         End If
     End Sub

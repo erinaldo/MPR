@@ -12,7 +12,6 @@ Public Class frm_Stock_Transfer
     Dim prpty As cls_Stock_Transfer_prop
     Dim flag As String
     Dim Transfer_ID As Int16
-
     Dim dtable_Item_List As DataTable
 
     Dim _rights As Form_Rights
@@ -26,12 +25,14 @@ Public Class frm_Stock_Transfer
         Try
 
             Dim strsql As String
-            '
-          
+            Dim divname() As String = v_the_current_selected_division.ToString().Split("--")
+            Dim currentname As String = divname(2)
+
             strsql = "  select * from (SELECT    STOCK_TRANSFER_MASTER.TRANSFER_ID," & _
                         " STOCK_TRANSFER_MASTER.DC_CODE " & _
                         " + CAST(STOCK_TRANSFER_MASTER.DC_NO AS VARCHAR) AS [DC No]," & _
-                        " dbo.fn_Format(STOCK_TRANSFER_MASTER.TRANSFER_DATE) AS [DC DATE]," & _
+                        " dbo.fn_Format(STOCK_TRANSFER_MASTER.TRANSFER_DATE) AS [DC DATE],'" & _
+                         currentname & "' as [Transfer From]," & _
                         " DivisionMaster.DivisionName_vch AS [Transfer to]," & _
                         " ISNULL(STOCK_TRANSFER_MASTER.MRN_PREFIX" & _
                         " + CAST(CASE WHEN STOCK_TRANSFER_MASTER.MRN_NO <>-1 THEN STOCK_TRANSFER_MASTER.MRN_NO END  AS VARCHAR),'') [MRN No]," & _
@@ -39,19 +40,32 @@ Public Class frm_Stock_Transfer
                         " STOCK_TRANSFER_MASTER.TRANSFER_REMARKS AS Remarks " & _
                     " FROM STOCK_TRANSFER_MASTER" & _
                         " INNER JOIN DivisionMaster ON STOCK_TRANSFER_MASTER.TRANSFER_OUTLET_ID = DivisionMaster.Pk_DivisionId_num" & _
-                        " where STOCK_TRANSFER_MASTER.division_id=" & v_the_current_division_id & ") tb  where ([DC No] + [DC DATE] + [Transfer to] + [MRN No] + [MRN Date] + Remarks) like '%" & condition & "%'"
+                        " where STOCK_TRANSFER_MASTER.division_id=" & v_the_current_division_id & " AND TYPE='W') tb  where ([DC No] + [DC DATE] + [Transfer to] + [MRN No] + [MRN Date] + Remarks) like '%" & condition & "%'" & _
+                        " union all select * from (SELECT    STOCK_TRANSFER_MASTER.TRANSFER_ID," & _
+                        " STOCK_TRANSFER_MASTER.DC_CODE " & _
+                        " + CAST(STOCK_TRANSFER_MASTER.DC_NO AS VARCHAR) AS [DC No]," & _
+                        " dbo.fn_Format(STOCK_TRANSFER_MASTER.TRANSFER_DATE) AS [DC DATE],'" & _
+                        currentname & "' as [Transfer From]," & _
+                        "  OutletMaster.OutletName_vch AS [Transfer to]," & _
+                        " ISNULL(STOCK_TRANSFER_MASTER.MRN_PREFIX" & _
+                        " + CAST(CASE WHEN STOCK_TRANSFER_MASTER.MRN_NO <>-1 THEN STOCK_TRANSFER_MASTER.MRN_NO END  AS VARCHAR),'') [MRN No]," & _
+                        " ISNULL(CASE WHEN STOCK_TRANSFER_MASTER.MRN_NO <>-1 THEN dbo.fn_Format(STOCK_TRANSFER_MASTER.RECEIVED_DATE) end,'') AS [MRN Date]," & _
+                        " STOCK_TRANSFER_MASTER.TRANSFER_REMARKS AS Remarks " & _
+                    " FROM STOCK_TRANSFER_MASTER" & _
+                        " INNER JOIN OutletMaster ON STOCK_TRANSFER_MASTER.TRANSFER_OUTLET_ID = OutletMaster.Pk_OutletId_num" & _
+                        " where STOCK_TRANSFER_MASTER.division_id=" & v_the_current_division_id & " AND TYPE='O') tb  where ([DC No] + [DC DATE] + [Transfer to] + [MRN No] + [MRN Date] + Remarks) like '%" & condition & "%'"
 
-            Dim dt As DataTable = obj.Fill_DataSet(strsql).Tables(0)
+            Dim dt As DataTable = obj.FillDataSet_Remote(strsql).Tables(0)
 
             flxList.DataSource = dt
-
-            flxList.Cols(1).Visible = False
-            flxList.Cols(2).Width = 80
-            flxList.Cols(3).Width = 80
-            flxList.Cols(4).Width = 170
-            flxList.Cols(5).Width = 80
-            flxList.Cols(6).Width = 80
-            flxList.Cols(7).Width = 250
+            flxList.Columns(0).Visible = False
+            flxList.Columns(1).Width = 100
+            flxList.Columns(2).Width = 100
+            flxList.Columns(3).Width = 200
+            flxList.Columns(4).Width = 200
+            flxList.Columns(5).Width = 150
+            flxList.Columns(6).Width = 100
+            flxList.Columns(7).Visible = False
 
         Catch ex As Exception
             MsgBox(gblMessageHeading_Error & vbCrLf & gblMessage_ContactInfo & vbCrLf & ex.Message, MsgBoxStyle.Critical, gblMessageHeading)
@@ -61,10 +75,10 @@ Public Class frm_Stock_Transfer
 
     Private Sub frm_Stock_Transfer_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Try
-            obj.FormatGrid(flxItems)
-            obj.FormatGrid(flxList)
+            'obj.FormatGrid(flxItems)
+            'obj.FormatGrid(flxList)
             table_style()
-            obj.ComboBind_Remote(cmbOutlet, "select Pk_DivisionId_num,DivisionName_vch from DivisionMaster where Pk_DivisionId_num<>" & v_the_current_division_id, "DivisionName_vch", "Pk_DivisionId_num", True)
+            obj.ComboBind_Remote(cmbOutlet, "Select 'W-'+convert(varchar(10),Pk_DivisionId_num)as Pk_DivisionId_num,DivisionName_vch from DivisionMaster where Pk_DivisionId_num<>" & v_the_current_division_id & " UNION ALL select 'O-'+convert(varchar(10),Pk_OutletId_num) AS Pk_DivisionId_num,OutletName_vch AS DivisionName_vch from OutletMaster", "DivisionName_vch", "Pk_DivisionId_num", True)
 
             new_initilization()
             fill_grid()
@@ -105,10 +119,13 @@ Public Class frm_Stock_Transfer
 
 
                 prpty = New cls_Stock_Transfer_prop
-                
-                Dim ds1 As DataSet = obj.FillDataSet_Remote("Select isnull(max(Transfer_ID),0) + 1 from STOCK_TRANSFER_MASTER") '( getMaxValue("Transfer_ID", "STOCK_TRANSFER_MASTER"))
+
+                Dim ds1 As DataSet = obj.FillDataSet_Remote("Select isnull(max(Transfer_ID),0) + 1 from STOCK_TRANSFER_MASTER")
                 Transfer_ID = Convert.ToInt32(ds1.Tables(0).Rows(0)(0))
                 prpty.TRANSFER_ID = Transfer_ID
+
+
+
 
 
                 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -118,12 +135,12 @@ Public Class frm_Stock_Transfer
                 Dim ds As New DataSet()
                 ds = obj.fill_Data_set("GET_DC_NO", "@DIV_ID", v_the_current_division_id)
                 If ds.Tables(0).Rows.Count = 0 Then
-                    MsgBox("DC series does not exists", MsgBoxStyle.Information, gblMessageHeading)
+                    MsgBox("DC series does Not exists", MsgBoxStyle.Information, gblMessageHeading)
                     ds.Dispose()
                     Exit Sub
                 Else
                     If ds.Tables(0).Rows(0)(0).ToString() = "-1" Then
-                        MsgBox("DC series does not exists", MsgBoxStyle.Information, gblMessageHeading)
+                        MsgBox("DC series does Not exists", MsgBoxStyle.Information, gblMessageHeading)
                         ds.Dispose()
                         Exit Sub
                     ElseIf ds.Tables(0).Rows(0)(0).ToString() = "-2" Then
@@ -142,6 +159,11 @@ Public Class frm_Stock_Transfer
                 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
 
+                Dim ar() As String = cmbOutlet.SelectedValue.ToString().Split("-")
+                Dim a As String = ar(0)
+                Dim b As String = ar(1)
+
+
                 prpty.TRANSFER_DATE = Now
                 prpty.TRANSFER_STATUS = Convert.ToInt32(GlobalModule.TRANSFER_STATUS.Fresh)
                 prpty.RECEIVED_DATE = NULL_DATE
@@ -152,18 +174,18 @@ Public Class frm_Stock_Transfer
                 prpty.MODIFIED_BY = ""
                 prpty.MODIFIED_DATE = NULL_DATE
                 prpty.DIVISION_ID = v_the_current_division_id
-                prpty.TRANSFER_OUTLET_ID = Convert.ToInt32(cmbOutlet.SelectedValue)
-
+                prpty.TYPE = ar(0)
+                prpty.TRANSFER_OUTLET_ID = Convert.ToInt32(ar(1))
                 prpty.dtable_Item_List = dtable_Item_List
                 clsObj.Insert_STOCK_TRANSFER(prpty)
 
 
             End If
-
+            fill_grid()
 
             If flag = "save" Then
-                If MsgBox("Transfer information has been Saved." & vbCrLf & "Do You Want to Print Preview.", MsgBoxStyle.Question + MsgBoxStyle.YesNo, gblMessageHeading) = MsgBoxResult.Yes Then
-                    obj.RptShow(enmReportName.RptStockTransferCCPrint, "Transfer_ID", CStr(prpty.TRANSFER_ID), CStr(enmDataType.D_int))
+                If MsgBox("Transfer information has been Saved." & vbCrLf & "Do You Want To Print Preview.", MsgBoxStyle.Question + MsgBoxStyle.YesNo, gblMessageHeading) = MsgBoxResult.Yes Then
+                    obj.RptShow(enmReportName.RptDeliveryNotePrint, "TRANSFERID", CStr(prpty.TRANSFER_ID), CStr(enmDataType.D_int))
                 End If
             Else
                 MsgBox("You Can't edit this.")
@@ -179,6 +201,16 @@ Public Class frm_Stock_Transfer
 
     Public Sub ViewClick(ByVal sender As Object, ByVal e As System.EventArgs) Implements IForm.ViewClick
 
+
+        Try
+            If flxList.Rows.Count > 0 Then
+                obj.RptShow(enmReportName.RptDeliveryNotePrint, "TRANSFERID", CStr(flxList("TRANSFER_ID", flxList.CurrentCell.RowIndex).Value()), CStr(enmDataType.D_int))
+            Else
+                MsgBox("No Records To Print", MsgBoxStyle.Information, gblMessageHeading)
+            End If
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
     End Sub
 
     Private Sub new_initilization()
@@ -226,7 +258,7 @@ Public Class frm_Stock_Transfer
         flag = "save"
     End Sub
     Private Function Validation() As Boolean
-        
+
         If cmbOutlet.SelectedIndex = 0 Then
             MsgBox("Select Outlet/Warehouse to Transfer.", MsgBoxStyle.Information, gblMessageHeading)
             Return False
@@ -255,8 +287,8 @@ again:
         Return True
 
     End Function
-  
-    
+
+
     Private Sub table_style()
         Try
             If Not dtable_Item_List Is Nothing Then dtable_Item_List.Dispose()
@@ -277,12 +309,12 @@ again:
 
             format_grid()
 
-         
+
         Catch ex As Exception
             MsgBox(gblMessageHeading_Error & vbCrLf & gblMessage_ContactInfo & vbCrLf & ex.Message, MsgBoxStyle.Critical, gblMessageHeading)
         End Try
     End Sub
-    
+
 
     Private Sub format_grid()
 
@@ -361,18 +393,18 @@ again:
                 If e.KeyCode = Keys.Space Then
                     iRowindex = flxItems.Row
 
-                    frm_Show_search.qry = " SELECT " & _
-                                       " ITEM_MASTER.ITEM_ID,   " & _
-                                       " ITEM_MASTER.ITEM_CODE, " & _
-                                       " ITEM_MASTER.ITEM_NAME, " & _
-                                       " ITEM_MASTER.ITEM_DESC, " & _
-                                       " UNIT_MASTER.UM_Name,   " & _
-                                       " ITEM_CATEGORY.ITEM_CAT_NAME, " & _
-                                       " ITEM_MASTER.IS_STOCKABLE " & _
-                               " FROM " & _
-                                       " ITEM_MASTER " & _
-                                       " INNER JOIN UNIT_MASTER ON ITEM_MASTER.UM_ID = UNIT_MASTER.UM_ID " & _
-                                       " INNER JOIN ITEM_CATEGORY ON ITEM_MASTER.ITEM_CATEGORY_ID = ITEM_CATEGORY.ITEM_CAT_ID " & _
+                    frm_Show_search.qry = " SELECT " &
+                                       " ITEM_MASTER.ITEM_ID,   " &
+                                       " ITEM_MASTER.ITEM_CODE, " &
+                                       " ITEM_MASTER.ITEM_NAME, " &
+                                       " ITEM_MASTER.ITEM_DESC, " &
+                                       " UNIT_MASTER.UM_Name,   " &
+                                       " ITEM_CATEGORY.ITEM_CAT_NAME, " &
+                                       " ITEM_MASTER.IS_STOCKABLE " &
+                               " FROM " &
+                                       " ITEM_MASTER " &
+                                       " INNER JOIN UNIT_MASTER ON ITEM_MASTER.UM_ID = UNIT_MASTER.UM_ID " &
+                                       " INNER JOIN ITEM_CATEGORY ON ITEM_MASTER.ITEM_CATEGORY_ID = ITEM_CATEGORY.ITEM_CAT_ID " &
                                         "INNER JOIN ITEM_DETAIL ON ITEM_MASTER.ITEM_ID = ITEM_DETAIL.ITEM_ID "
 
 
@@ -416,23 +448,23 @@ restart:
         Try
             Dim ds As DataSet
             Dim sqlqry As String
-            sqlqry = "SELECT  " & _
-                                        " IM.ITEM_ID , " & _
-                                        " IM.ITEM_CODE , " & _
-                                        " IM.ITEM_NAME , " & _
-                                        " UM.UM_Name , " & _
-                                        " SD.Batch_no , " & _
-                                        " dbo.fn_Format(SD.Expiry_date) AS Expiry_Date, " & _
-                                        " dbo.Get_Average_Rate_as_on_date(IM.ITEM_ID,'" & Now.ToString("dd-MMM-yyyy") & "'," & v_the_current_division_id & ",0) as Item_Rate," & _
-                                        " SD.Balance_Qty, " & _
-                                        " 0.00  as transfer_qty, " & _
-                                        " SD.STOCK_DETAIL_ID  " & _
-                                " FROM " & _
-                                        " ITEM_MASTER  IM " & _
-                                        " INNER JOIN ITEM_DETAIL ID ON IM.ITEM_ID = ID.ITEM_ID " & _
-                                        " INNER JOIN STOCK_DETAIL SD ON ID.ITEM_ID = SD.Item_id " & _
-                                        " INNER JOIN UNIT_MASTER UM ON IM.UM_ID = UM.UM_ID" & _
-                                " where " & _
+            sqlqry = "SELECT  " &
+                                        " IM.ITEM_ID , " &
+                                        " IM.ITEM_CODE , " &
+                                        " IM.ITEM_NAME , " &
+                                        " UM.UM_Name , " &
+                                        " SD.Batch_no , " &
+                                        " dbo.fn_Format(SD.Expiry_date) AS Expiry_Date, " &
+                                        " dbo.Get_Average_Rate_as_on_date(IM.ITEM_ID,'" & Now.ToString("dd-MMM-yyyy") & "'," & v_the_current_division_id & ",0) as Item_Rate," &
+                                        " SD.Balance_Qty, " &
+                                        " 0.00  as transfer_qty, " &
+                                        " SD.STOCK_DETAIL_ID  " &
+                                " FROM " &
+                                        " ITEM_MASTER  IM " &
+                                        " INNER JOIN ITEM_DETAIL ID ON IM.ITEM_ID = ID.ITEM_ID " &
+                                        " INNER JOIN STOCK_DETAIL SD ON ID.ITEM_ID = SD.Item_id " &
+                                        " INNER JOIN UNIT_MASTER UM ON IM.UM_ID = UM.UM_ID" &
+                                " where " &
                                         " IM.ITEM_ID = " & item_id & " and SD.Balance_Qty > 0"
             ds = clsObj.Fill_DataSet(sqlqry)
 
@@ -499,14 +531,33 @@ restart:
         End If
     End Sub
 
-   
+
     Private Sub txtSearch_KeyUp(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles txtSearch.KeyUp
         fill_grid(txtSearch.Text)
     End Sub
 
-    Private Sub flxList_DoubleClick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles flxList.DoubleClick
+    Private Sub flxList_DoubleClick(ByVal sender As System.Object, ByVal e As System.EventArgs)
         MsgBox("You Can't Edit this transfer." & vbCrLf & "Please click in print to view/print this transfer DC.", MsgBoxStyle.Information)
     End Sub
 
-  
+    Private Sub txtBarcodeSearch_KeyDown(sender As Object, e As KeyEventArgs) Handles txtBarcodeSearch.KeyDown
+        If e.KeyCode = Keys.Enter Then
+            If Not String.IsNullOrEmpty(txtBarcodeSearch.Text) Then
+
+                Dim qry As String = "SELECT  item_id FROM    ITEM_MASTER WHERE   Barcode_vch = '" + txtBarcodeSearch.Text + "'"
+                Dim id As Int32 = clsObj.ExecuteScalar(qry)
+                If id > 0 Then
+                    If Not check_item_exist(id) Then
+                        get_row(id, 0)
+                    End If
+                End If
+                txtBarcodeSearch.Text = ""
+                txtBarcodeSearch.Focus()
+            End If
+        End If
+    End Sub
+
+    Private Sub cmbOutlet_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbOutlet.SelectedIndexChanged
+
+    End Sub
 End Class

@@ -138,7 +138,7 @@ Public Class frm_Item_Master
     Private Sub FillGrid()
         Try
             Call Obj.GridBind(grdItemMaster, "SELECT ITEM_MASTER.ITEM_ID,ITEM_MASTER.ITEM_CODE," _
-                & " ITEM_MASTER.ITEM_NAME,UNIT_MASTER.UM_Name,ITEM_CATEGORY.ITEM_CAT_NAME, Barcode_Vch FROM ITEM_MASTER " _
+                & " ITEM_MASTER.ITEM_NAME,UNIT_MASTER.UM_Name,ITEM_CATEGORY.ITEM_CAT_NAME, Barcode_Vch ,item_master.ITEM_DESC As Brand FROM ITEM_MASTER " _
                 & " INNER JOIN  UNIT_MASTER ON ITEM_MASTER.UM_ID = UNIT_MASTER.UM_ID INNER JOIN ITEM_CATEGORY " _
                 & " ON ITEM_MASTER.ITEM_CATEGORY_ID = ITEM_CATEGORY.ITEM_CAT_ID order by Item_Master.Item_Code")
             grdItemMaster.Columns(0).Visible = False 'Item Master id
@@ -152,9 +152,12 @@ Public Class frm_Item_Master
             grdItemMaster.Columns(3).Width = 100
 
             grdItemMaster.Columns(4).HeaderText = "Item Category Name"
-            grdItemMaster.Columns(4).Width = 220
+            grdItemMaster.Columns(4).Width = 250
             grdItemMaster.Columns(5).HeaderText = "Barcode"
             grdItemMaster.Columns(5).Width = 100
+
+            grdItemMaster.Columns(6).HeaderText = "Brand"
+            grdItemMaster.Columns(6).Width = 100
 
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "Error --> FillGrid")
@@ -180,10 +183,10 @@ Public Class frm_Item_Master
             'grdItemMaster.Columns(4).HeaderText = "Item Category Name"
             'grdItemMaster.Columns(4).Width = 207
             Call Obj.GridBind(grdItemMaster, "SELECT ITEM_MASTER.ITEM_ID,ITEM_MASTER.ITEM_CODE," _
-              & " ITEM_MASTER.ITEM_NAME,UNIT_MASTER.UM_Name,ITEM_CATEGORY.ITEM_CAT_NAME, Barcode_vch FROM ITEM_MASTER " _
+              & " ITEM_MASTER.ITEM_NAME,UNIT_MASTER.UM_Name,ITEM_CATEGORY.ITEM_CAT_NAME, Barcode_vch,item_master.ITEM_DESC As Brand FROM ITEM_MASTER " _
               & " INNER JOIN  UNIT_MASTER ON ITEM_MASTER.UM_ID = UNIT_MASTER.UM_ID INNER JOIN ITEM_CATEGORY " _
               & " ON ITEM_MASTER.ITEM_CATEGORY_ID = ITEM_CATEGORY.ITEM_CAT_ID where (item_master.item_code + " _
-            & " item_master.item_name + ITEM_CATEGORY.item_cat_name + UNIT_MASTER.um_name + isnull(Barcode_Vch,'')) " _
+            & "item_master.ITEM_DESC+ item_master.item_name + ITEM_CATEGORY.item_cat_name + UNIT_MASTER.um_name + isnull(Barcode_Vch,'')) " _
             & " like '%" & txtSearch.Text & "%'")
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "Error --> FillGrid")
@@ -295,6 +298,7 @@ Public Class frm_Item_Master
                 Flag = "save"
             End If
             ds.Dispose()
+            'txtSearch.Text = ""
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "Error --> ")
         End Try

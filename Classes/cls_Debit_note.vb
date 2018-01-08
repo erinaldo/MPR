@@ -31,6 +31,8 @@ Namespace DebitNote
         Dim _Stock_Detail_Id As Double
         Dim _INV_No As String
         Dim _INV_Date As DateTime
+        Dim _DN_ItemValue As Double
+        Dim _DN_ItemTax As Double
 
         Public Property DebitNote_ID() As Integer
             Get
@@ -213,6 +215,25 @@ Namespace DebitNote
                 _INV_Date = value
             End Set
         End Property
+
+        Public Property DN_ItemValue() As Double
+            Get
+                DN_ItemValue = _DN_ItemValue
+            End Get
+            Set(ByVal value As Double)
+                _DN_ItemValue = value
+            End Set
+        End Property
+
+        Public Property DN_ItemTax() As Double
+            Get
+                DN_ItemTax = _DN_ItemTax
+            End Get
+            Set(ByVal value As Double)
+                _DN_ItemTax = value
+            End Set
+        End Property
+
     End Class
 
     Public Class cls_DebitNote_Master
@@ -237,6 +258,8 @@ Namespace DebitNote
             cmd.Parameters.AddWithValue("@v_DN_CustId", clsObj.DN_CustId)
             cmd.Parameters.AddWithValue("@v_INV_No", clsObj.INV_No)
             cmd.Parameters.AddWithValue("@v_INV_Date", clsObj.INV_Date)
+            cmd.Parameters.AddWithValue("@v_DN_ItemValue", clsObj.DN_ItemValue)
+            cmd.Parameters.AddWithValue("@v_DN_ItemTax", clsObj.DN_ItemTax)
             cmd.Parameters.AddWithValue("@V_PROC_TYPE", 1)
             cmd.ExecuteNonQuery()
             cmd.Dispose()

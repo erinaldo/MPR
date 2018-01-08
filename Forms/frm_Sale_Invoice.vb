@@ -32,8 +32,8 @@ Public Class frm_Sale_Invoice
             "(SI_CODE+CAST(SI_NO AS VARCHAR)) AS InvNo,('DC/'+CAST(DC_GST_NO AS VARCHAR) ) AS [DC NO]," & _
             " dbo.fn_Format(dbo.SALE_INVOICE_MASTER.CREATION_DATE) AS [INV DATE]," & _
             " NET_AMOUNT AS Amount,ACC_NAME Customer,CASE WHEN INVOICE_STATUS =1 THEN 'Fresh'  WHEN INVOICE_STATUS =2 THEN 'Pending' WHEN INVOICE_STATUS =3 THEN 'Clear'  WHEN INVOICE_STATUS =4 THEN 'Cancel' END AS Status FROM dbo.SALE_INVOICE_MASTER " & _
-            "JOIN dbo.ACCOUNT_MASTER ON ACCOUNT_MASTER.ACC_ID=dbo.SALE_INVOICE_MASTER.CUST_ID)tb " & _
-            "WHERE (CAST(SI_ID AS varchar) +InvNo+[DC NO]+[INV DATE]+ CAST(tb.Amount AS VARCHAR)+tb.Customer+tb.Status) LIKE '%" & condition & "%'  order by 1"
+            "JOIN dbo.ACCOUNT_MASTER ON ACCOUNT_MASTER.ACC_ID=dbo.SALE_INVOICE_MASTER.CUST_ID WHERE FLAG=0)tb " & _
+            "WHERE  (CAST(SI_ID AS varchar) +InvNo+[DC NO]+[INV DATE]+ CAST(tb.Amount AS VARCHAR)+tb.Customer+tb.Status) LIKE '%" & condition & "%'  order by 1"
 
             Dim dt As DataTable = obj.Fill_DataSet(strsql).Tables(0)
 
@@ -152,15 +152,13 @@ Public Class frm_Sale_Invoice
             End If
 
 
-
-
-            prpty.GROSS_AMOUNT = Convert.ToDouble(lblItemValue.Text)
+            prpty.GROSS_AMOUNT = Convert.ToDouble(lblItemValue.Text - lblTotalDisc.Text)
             prpty.VAT_AMOUNT = Convert.ToDouble(lblVatAmount.Text)
             prpty.NET_AMOUNT = Convert.ToDouble(lblNetAmount.Text)
             prpty.IS_SAMPLE = 0
             prpty.DELIVERY_NOTE_NO = 0
             prpty.VAT_CST_PER = 0
-            prpty.SAMPLE_ADDRESS = lblAddress.Text
+            prpty.SAMPLE_ADDRESS = txtShippingAddress.Text
             prpty.CREATED_BY = v_the_current_logged_in_user_name
             prpty.CREATION_DATE = Now
             prpty.MODIFIED_BY = ""
@@ -198,7 +196,6 @@ Public Class frm_Sale_Invoice
         Try
             If TabControl1.SelectedIndex = 0 Then
                 If flxList.SelectedRows.Count > 0 Then
-
                     obj.RptShow(enmReportName.RptInvoicePrint, "Si_ID", CStr(flxList("Si_ID", flxList.CurrentCell.RowIndex).Value()), CStr(enmDataType.D_int))
                 End If
             Else
@@ -268,12 +265,12 @@ Public Class frm_Sale_Invoice
             Return False
         End If
 
-        If Not String.IsNullOrEmpty(txt_txtphoneNo.Text.Trim) Then
-            If Not mobileRegex.IsMatch(txt_txtphoneNo.Text) Then
-                MsgBox("Phone number is not valid. Try again after entering valid number.", MsgBoxStyle.Information, "Invalid Phone Format!!!")
-                Return False
-            End If
-        End If
+        'If Not String.IsNullOrEmpty(txt_txtphoneNo.Text.Trim) Then
+        '    If Not mobileRegex.IsMatch(txt_txtphoneNo.Text) Then
+        '        MsgBox("Phone number is not valid. Try again after entering valid number.", MsgBoxStyle.Information, "Invalid Phone Format!!!")
+        '        Return False
+        '    End If
+        'End If
 
         If Not String.IsNullOrEmpty(txtGstNo.Text.Trim) Then
             If Not gstnoRegex.IsMatch(txtGstNo.Text) Then
@@ -674,7 +671,7 @@ restart:
                         dr("HsnCodeId") = ds.Tables(0).Rows(i)("fk_HsnId_num")
                         ' dr("Item_Rate") = ds.Tables(0).Rows(0)("Item_Rate")
 
-                        ds2 = obj.Fill_DataSet("SELECT VAT_MASTER.VAT_PERCENTAGE FROM ITEM_DETAIL INNER JOIN VAT_MASTER ON ITEM_DETAIL.PURCHASE_VAT_ID = VAT_MASTER.VAT_ID WHERE (ITEM_DETAIL.ITEM_ID = " & Convert.ToInt32(frm_Show_search.search_result) & " )")
+                        ds2 = obj.Fill_DataSet("SELECT VAT_MASTER.VAT_PERCENTAGE FROM ITEM_DETAIL INNER JOIN VAT_MASTER ON ITEM_DETAIL.PURCHASE_VAT_ID = VAT_MASTER.VAT_ID WHERE (ITEM_DETAIL.ITEM_ID = " & Convert.ToInt32(item_id) & " )")
                         dr("Item_Rate") = itemRate.ToString("#0.00")
                         dr("Amount") = 0.0
                         dr("DISC") = 0.0
@@ -694,6 +691,9 @@ restart:
                     'If dtable_Item_List.Rows.Count = 0 Then dtable_Item_List.Rows.Add(dtable_Item_List.NewRow)
 
                     generate_tree()
+
+                    flxItems.Rows(flxItems.Rows.Count - 1).Selected = True
+
                 Else
                     MsgBox("Stock is not avaialable for this Item.", MsgBoxStyle.Information)
                 End If
@@ -838,13 +838,15 @@ restart:
         Dim dsdata As DataSet
 
         If cmbSupplier.SelectedValue <> -1 Then
-            strSql = "SELECT ACCOUNT_MASTER.ADDRESS_PRIM + ' - {'  + ISNULL(CITY_MASTER.CITY_NAME,'') + '}', PHONE_PRIM, VAT_NO"
+            strSql = "SELECT ACCOUNT_MASTER.ADDRESS_PRIM + ' - {'  + ISNULL(CITY_MASTER.CITY_NAME,'') + '}', PHONE_PRIM, VAT_NO,ACCOUNT_MASTER.CITY_ID,case when ISNULL(ADDRESS_SEC,'')='' then ADDRESS_PRIM + ' - {'  + ISNULL(CITY_MASTER.CITY_NAME,'') + '}' else ADDRESS_SEC end as Shipping"
             strSql = strSql & " FROM ACCOUNT_MASTER LEFT OUTER JOIN"
             strSql = strSql & " CITY_MASTER ON ACCOUNT_MASTER.CITY_ID = CITY_MASTER.CITY_ID"
             strSql = strSql & " WHERE ACCOUNT_MASTER.ACC_ID = " & cmbSupplier.SelectedValue
             lblAddress.Text = obj.Fill_DataSet(strSql).Tables(0).Rows(0)(0)
             txt_txtphoneNo.Text = obj.Fill_DataSet(strSql).Tables(0).Rows(0)(1)
             txtGstNo.Text = obj.Fill_DataSet(strSql).Tables(0).Rows(0)(2)
+            'cmbCity.SelectedValue = obj.Fill_DataSet(strSql).Tables(0).Rows(0)(3)
+            txtShippingAddress.Text = obj.Fill_DataSet(strSql).Tables(0).Rows(0)(4)
 
 
             NewstrSql = "SELECT STATE_ID,isUT_bit FROM dbo.STATE_MASTER WHERE STATE_ID IN(SELECT STATE_ID FROM dbo.CITY_MASTER WHERE CITY_ID IN(SELECT CITY_ID FROM dbo.DIVISION_SETTINGS))"
@@ -1049,5 +1051,26 @@ restart:
         End If
         fill_grid()
 
+    End Sub
+
+    Private Sub txtBarcodeSearch_KeyDown(sender As Object, e As KeyEventArgs) Handles txtBarcodeSearch.KeyDown
+        If e.KeyCode = Keys.Enter Then
+            If Not String.IsNullOrEmpty(txtBarcodeSearch.Text) Then
+
+                Dim qry As String = "SELECT  IM.ITEM_ID FROM  ITEM_MASTER AS IM INNER JOIN dbo.SUPPLIER_RATE_LIST_DETAIL AS SRLD ON SRLD.ITEM_ID = IM.ITEM_ID INNER JOIN dbo.SUPPLIER_RATE_LIST AS SRL ON SRL.SRL_ID = SRLD.SRL_ID  INNER JOIN dbo.CUSTOMER_RATE_LIST_MAPPING AS RLM ON RLM.SRL_ID = SRL.SRL_ID WHERE   srl.active = 1 AND rlm.supp_id =" + cmbSupplier.SelectedValue.ToString() + " And   Barcode_vch = '" + txtBarcodeSearch.Text + "'"
+                Dim id As Int32 = clsObj.ExecuteScalar(qry)
+
+                If id > 0 Then
+                    Dim newqry As String = "SELECT  Item_Rate FROM  ITEM_MASTER AS IM INNER JOIN dbo.SUPPLIER_RATE_LIST_DETAIL AS SRLD ON SRLD.ITEM_ID = IM.ITEM_ID INNER JOIN dbo.SUPPLIER_RATE_LIST AS SRL ON SRL.SRL_ID = SRLD.SRL_ID  INNER JOIN dbo.CUSTOMER_RATE_LIST_MAPPING AS RLM ON RLM.SRL_ID = SRL.SRL_ID WHERE   srl.active = 1 AND rlm.supp_id =" + cmbSupplier.SelectedValue.ToString() + "  AND IM.ITEM_ID =" + id.ToString()
+                    Dim itemRate As Decimal = clsObj.ExecuteScalar(newqry)
+
+                    If Not check_item_exist(id) Then
+                        get_row(id, 0, itemRate)
+                    End If
+                End If
+                txtBarcodeSearch.Text = ""
+                txtBarcodeSearch.Focus()
+            End If
+        End If
     End Sub
 End Class

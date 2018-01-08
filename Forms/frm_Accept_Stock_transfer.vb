@@ -83,11 +83,12 @@ Public Class frm_Accept_stock_transfer
                 prpty.MODIFIED_DATE = Now
                 prpty.MODIFIED_BY = v_the_current_logged_in_user_name
                 prpty.DIVISION_ID = Convert.ToInt32(dt.Rows(0)("DIVISION_ID"))
+                prpty.TYPE = dt.Rows(0)("type")
 
                 prpty.Data_Table = dt
 
                 clsObj.Update_Stock_Transfer(prpty)
-
+                GetItemList()
                 new_initilization()
                 MsgBox("Stock Accepted Successfully.", MsgBoxStyle.Information, gblMessageHeading)
             Else
@@ -132,7 +133,7 @@ Public Class frm_Accept_stock_transfer
         'dtableItem_List.Rows.Add(dtableItem_List.NewRow)
         TabControl2.SelectTab(1)
         GetMrnNo()
-        obj.ComboBind_Remote(cmb_DcNo, "select TRANSFER_ID,(DC_CODE + CONVERT(nvarchar(10),DC_NO)) as DCNO from STOCK_TRANSFER_MASTER where Transfer_Status=1 and TRANSFER_OUTLET_ID = " & v_the_current_division_id, "DCNO", "TRANSFER_ID", True)
+        obj.ComboBind_Remote(cmb_DcNo, "select TRANSFER_ID,(DC_CODE + CONVERT(nvarchar(10),DC_NO)) as DCNO from STOCK_TRANSFER_MASTER where Transfer_Status=1 AND  TYPE='W' AND TRANSFER_OUTLET_ID = " & v_the_current_division_id, "DCNO", "TRANSFER_ID", True)
         'flag = "save"
     End Sub
     ''' <summary>
@@ -195,13 +196,13 @@ Public Class frm_Accept_stock_transfer
         "dbo.ITEM_MASTER.ITEM_CODE, " & _
         "dbo.ITEM_MASTER.ITEM_NAME, " & _
         "dbo.UNIT_MASTER.UM_Name, " & _
-                "DIVISIONMASTER.DIVISIONNAME_VCH " & _
+                "DIVISIONMASTER.DIVISIONNAME_VCH ,Type " & _
                 "FROM STOCK_TRANSFER_MASTER " & _
         "INNER JOIN STOCK_TRANSFER_DETAIL ON STOCK_TRANSFER_DETAIL.TRANSFER_ID = STOCK_TRANSFER_MASTER.TRANSFER_ID " & _
         "INNER JOIN dbo.ITEM_MASTER ON dbo.ITEM_MASTER.ITEM_ID = STOCK_TRANSFER_DETAIL.ITEM_ID " & _
         "INNER JOIN dbo.UNIT_MASTER ON dbo.UNIT_MASTER.UM_ID = dbo.ITEM_MASTER.issue_um_id " & _
         "INNER JOIN DIVISIONMASTER ON DivisionMaster.Pk_DivisionId_num = STOCK_TRANSFER_MASTER.TRANSFER_OUTLET_ID " & _
-        "WHERE STOCK_TRANSFER_MASTER.TRANSFER_STATUS=1 AND STOCK_TRANSFER_DETAIL.TRANSFER_ID=" & cmb_DcNo.SelectedValue)
+        "WHERE STOCK_TRANSFER_MASTER.TRANSFER_STATUS=1 AND  TYPE='W'  AND STOCK_TRANSFER_DETAIL.TRANSFER_ID=" & cmb_DcNo.SelectedValue)
 
                 If ds.Tables(0).Rows.Count = 0 Then
                     lbl_DcRemarks.Text = ""

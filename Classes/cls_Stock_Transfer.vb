@@ -28,6 +28,7 @@ Namespace stock_transfer_outlet
         Dim _ACCEPTED_QTY As Double
         Dim _RETURNED_QTY As Double
         Dim _TRANSFER_RATE As Double
+        Dim _TYPE As String
         Dim _dtable_Item_List As DataTable
         Dim _DataTable As DataTable
 
@@ -238,6 +239,15 @@ Namespace stock_transfer_outlet
             End Set
         End Property
 
+
+        Public Property TYPE() As String
+            Get
+                TYPE = _TYPE
+            End Get
+            Set(ByVal value As String)
+                _TYPE = value
+            End Set
+        End Property
     End Class
     Public Class cls_Stock_Transfer_master
         Inherits CommonClass
@@ -286,6 +296,7 @@ Namespace stock_transfer_outlet
                 cmd.Parameters.AddWithValue("@Modified_By", clsobj.MODIFIED_BY)
                 cmd.Parameters.AddWithValue("@Modification_Date", clsobj.MODIFIED_DATE)
                 cmd.Parameters.AddWithValue("@Division_ID", clsobj.DIVISION_ID)
+                cmd.Parameters.AddWithValue("@TYPE", clsobj.TYPE)
                 cmd.Parameters.AddWithValue("@PROC_TYPE", 1)
                 cmd.ExecuteNonQuery()
                 cmd.Dispose()
@@ -382,6 +393,7 @@ again:
                     cmd.Parameters.AddWithValue("@Modified_By", clsobj.MODIFIED_BY)
                     cmd.Parameters.AddWithValue("@Modification_Date", clsobj.MODIFIED_DATE)
                     cmd.Parameters.AddWithValue("@Division_ID", clsobj.DIVISION_ID)
+                    cmd.Parameters.AddWithValue("@TYPE", clsobj.TYPE)
                     cmd.Parameters.AddWithValue("@PROC_TYPE", 1)
 
 
@@ -720,7 +732,7 @@ again:
                     cmd.Parameters.AddWithValue("@Division_ID", clsobj.DIVISION_ID)
                     cmd.Parameters.AddWithValue("@MRN_NO", clsobj.MRN_NO)
                     cmd.Parameters.AddWithValue("@MRN_PREFIX", clsobj.MRN_PREFIX)
-
+                    cmd.Parameters.AddWithValue("@TYPE", clsobj.TYPE)
 
 
                     cmd.ExecuteNonQuery()
