@@ -75,8 +75,8 @@ Public Class frm_Stock_Transfer
 
     Private Sub frm_Stock_Transfer_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Try
-            obj.FormatGrid(flxItems)
-            obj.FormatGrid(flxList)
+            'obj.FormatGrid(flxItems)
+            'obj.FormatGrid(flxList)
             table_style()
             obj.ComboBind_Remote(cmbOutlet, "Select 'W-'+convert(varchar(10),Pk_DivisionId_num)as Pk_DivisionId_num,DivisionName_vch from DivisionMaster where Pk_DivisionId_num<>" & v_the_current_division_id & " UNION ALL select 'O-'+convert(varchar(10),Pk_OutletId_num) AS Pk_DivisionId_num,OutletName_vch AS DivisionName_vch from OutletMaster", "DivisionName_vch", "Pk_DivisionId_num", True)
 
@@ -393,18 +393,18 @@ again:
                 If e.KeyCode = Keys.Space Then
                     iRowindex = flxItems.Row
 
-                    frm_Show_search.qry = " SELECT " & _
-                                       " ITEM_MASTER.ITEM_ID,   " & _
-                                       " ITEM_MASTER.ITEM_CODE, " & _
-                                       " ITEM_MASTER.ITEM_NAME, " & _
-                                       " ITEM_MASTER.ITEM_DESC, " & _
-                                       " UNIT_MASTER.UM_Name,   " & _
-                                       " ITEM_CATEGORY.ITEM_CAT_NAME, " & _
-                                       " ITEM_MASTER.IS_STOCKABLE " & _
-                               " FROM " & _
-                                       " ITEM_MASTER " & _
-                                       " INNER JOIN UNIT_MASTER ON ITEM_MASTER.UM_ID = UNIT_MASTER.UM_ID " & _
-                                       " INNER JOIN ITEM_CATEGORY ON ITEM_MASTER.ITEM_CATEGORY_ID = ITEM_CATEGORY.ITEM_CAT_ID " & _
+                    frm_Show_search.qry = " SELECT " &
+                                       " ITEM_MASTER.ITEM_ID,   " &
+                                       " ITEM_MASTER.ITEM_CODE, " &
+                                       " ITEM_MASTER.ITEM_NAME, " &
+                                       " ITEM_MASTER.ITEM_DESC, " &
+                                       " UNIT_MASTER.UM_Name,   " &
+                                       " ITEM_CATEGORY.ITEM_CAT_NAME, " &
+                                       " ITEM_MASTER.IS_STOCKABLE " &
+                               " FROM " &
+                                       " ITEM_MASTER " &
+                                       " INNER JOIN UNIT_MASTER ON ITEM_MASTER.UM_ID = UNIT_MASTER.UM_ID " &
+                                       " INNER JOIN ITEM_CATEGORY ON ITEM_MASTER.ITEM_CATEGORY_ID = ITEM_CATEGORY.ITEM_CAT_ID " &
                                         "INNER JOIN ITEM_DETAIL ON ITEM_MASTER.ITEM_ID = ITEM_DETAIL.ITEM_ID "
 
 
@@ -448,23 +448,23 @@ restart:
         Try
             Dim ds As DataSet
             Dim sqlqry As String
-            sqlqry = "SELECT  " & _
-                                        " IM.ITEM_ID , " & _
-                                        " IM.ITEM_CODE , " & _
-                                        " IM.ITEM_NAME , " & _
-                                        " UM.UM_Name , " & _
-                                        " SD.Batch_no , " & _
-                                        " dbo.fn_Format(SD.Expiry_date) AS Expiry_Date, " & _
-                                        " dbo.Get_Average_Rate_as_on_date(IM.ITEM_ID,'" & Now.ToString("dd-MMM-yyyy") & "'," & v_the_current_division_id & ",0) as Item_Rate," & _
-                                        " SD.Balance_Qty, " & _
-                                        " 0.00  as transfer_qty, " & _
-                                        " SD.STOCK_DETAIL_ID  " & _
-                                " FROM " & _
-                                        " ITEM_MASTER  IM " & _
-                                        " INNER JOIN ITEM_DETAIL ID ON IM.ITEM_ID = ID.ITEM_ID " & _
-                                        " INNER JOIN STOCK_DETAIL SD ON ID.ITEM_ID = SD.Item_id " & _
-                                        " INNER JOIN UNIT_MASTER UM ON IM.UM_ID = UM.UM_ID" & _
-                                " where " & _
+            sqlqry = "SELECT  " &
+                                        " IM.ITEM_ID , " &
+                                        " IM.ITEM_CODE , " &
+                                        " IM.ITEM_NAME , " &
+                                        " UM.UM_Name , " &
+                                        " SD.Batch_no , " &
+                                        " dbo.fn_Format(SD.Expiry_date) AS Expiry_Date, " &
+                                        " dbo.Get_Average_Rate_as_on_date(IM.ITEM_ID,'" & Now.ToString("dd-MMM-yyyy") & "'," & v_the_current_division_id & ",0) as Item_Rate," &
+                                        " SD.Balance_Qty, " &
+                                        " 0.00  as transfer_qty, " &
+                                        " SD.STOCK_DETAIL_ID  " &
+                                " FROM " &
+                                        " ITEM_MASTER  IM " &
+                                        " INNER JOIN ITEM_DETAIL ID ON IM.ITEM_ID = ID.ITEM_ID " &
+                                        " INNER JOIN STOCK_DETAIL SD ON ID.ITEM_ID = SD.Item_id " &
+                                        " INNER JOIN UNIT_MASTER UM ON IM.UM_ID = UM.UM_ID" &
+                                " where " &
                                         " IM.ITEM_ID = " & item_id & " and SD.Balance_Qty > 0"
             ds = clsObj.Fill_DataSet(sqlqry)
 
