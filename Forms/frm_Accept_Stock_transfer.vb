@@ -88,7 +88,7 @@ Public Class frm_Accept_stock_transfer
                 prpty.Data_Table = dt
 
                 clsObj.Update_Stock_Transfer(prpty)
-
+                GetItemList()
                 new_initilization()
                 MsgBox("Stock Accepted Successfully.", MsgBoxStyle.Information, gblMessageHeading)
             Else

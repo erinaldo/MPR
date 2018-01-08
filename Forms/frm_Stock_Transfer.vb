@@ -181,7 +181,7 @@ Public Class frm_Stock_Transfer
 
 
             End If
-
+            fill_grid()
 
             If flag = "save" Then
                 If MsgBox("Transfer information has been Saved." & vbCrLf & "Do You Want To Print Preview.", MsgBoxStyle.Question + MsgBoxStyle.YesNo, gblMessageHeading) = MsgBoxResult.Yes Then
