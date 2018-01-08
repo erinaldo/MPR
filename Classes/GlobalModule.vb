@@ -132,6 +132,7 @@ Module GlobalModule
         RptSuppPaymentPrint = 74
         RptDebtorsOSPrint = 75
         RptAccPaymentPrint = 76
+        RptDeliveryNotePrint = 77
     End Enum
     Public Enum IndentStatus As Integer
         Fresh = 1
