@@ -185,7 +185,7 @@ Public Class frm_Stock_Transfer
 
             If flag = "save" Then
                 If MsgBox("Transfer information has been Saved." & vbCrLf & "Do You Want To Print Preview.", MsgBoxStyle.Question + MsgBoxStyle.YesNo, gblMessageHeading) = MsgBoxResult.Yes Then
-                    obj.RptShow(enmReportName.RptStockTransferCCPrint, "Transfer_ID", CStr(prpty.TRANSFER_ID), CStr(enmDataType.D_int))
+                    obj.RptShow(enmReportName.RptDeliveryNotePrint, "TRANSFERID", CStr(prpty.TRANSFER_ID), CStr(enmDataType.D_int))
                 End If
             Else
                 MsgBox("You Can't edit this.")
@@ -200,7 +200,30 @@ Public Class frm_Stock_Transfer
     End Sub
 
     Public Sub ViewClick(ByVal sender As Object, ByVal e As System.EventArgs) Implements IForm.ViewClick
+        'Try
+        '    If TabControl1.SelectedIndex = 0 Then
+        '        If flxList.SelectedRows.Count > 0 Then
+        '            obj.RptShow(enmReportName.RptDeliveryNotePrint, "TRANSFERID", CStr(flxList("TRANSFER_ID", flxList.CurrentCell.RowIndex).Value()), CStr(enmDataType.D_int))
+        '        End If
+        '    Else
+        '        If flag <> "save" Then
+        '            obj.RptShow(enmReportName.RptDeliveryNotePrint, "TRANSFERID", CStr(Transfer_ID), CStr(enmDataType.D_int))
+        '        End If
+        '    End If
+        'Catch ex As Exception
+        '    MsgBox(ex.Message)
+        'End Try
 
+
+        Try
+            If flxList.Rows.Count > 0 Then
+                obj.RptShow(enmReportName.RptCustomerRateList, "TRANSFERID", CStr(flxList("TRANSFER_ID", flxList.CurrentCell.RowIndex).Value()), CStr(enmDataType.D_int))
+            Else
+                MsgBox("No Records To Print", MsgBoxStyle.Information, gblMessageHeading)
+            End If
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
     End Sub
 
     Private Sub new_initilization()
