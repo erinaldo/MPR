@@ -58,14 +58,14 @@ Public Class frm_Stock_Transfer
             Dim dt As DataTable = obj.FillDataSet_Remote(strsql).Tables(0)
 
             flxList.DataSource = dt
-            flxList.Cols(1).Visible = False
-            flxList.Cols(2).Width = 100
-            flxList.Cols(3).Width = 100
-            flxList.Cols(4).Width = 200
-            flxList.Cols(5).Width = 200
-            flxList.Cols(6).Width = 150
-            flxList.Cols(7).Width = 100
-            flxList.Cols(8).Visible = False
+            flxList.Columns(0).Visible = False
+            flxList.Columns(1).Width = 100
+            flxList.Columns(2).Width = 100
+            flxList.Columns(3).Width = 200
+            flxList.Columns(4).Width = 200
+            flxList.Columns(5).Width = 150
+            flxList.Columns(6).Width = 100
+            flxList.Columns(7).Visible = False
 
         Catch ex As Exception
             MsgBox(gblMessageHeading_Error & vbCrLf & gblMessage_ContactInfo & vbCrLf & ex.Message, MsgBoxStyle.Critical, gblMessageHeading)
@@ -200,24 +200,11 @@ Public Class frm_Stock_Transfer
     End Sub
 
     Public Sub ViewClick(ByVal sender As Object, ByVal e As System.EventArgs) Implements IForm.ViewClick
-        'Try
-        '    If TabControl1.SelectedIndex = 0 Then
-        '        If flxList.SelectedRows.Count > 0 Then
-        '            obj.RptShow(enmReportName.RptDeliveryNotePrint, "TRANSFERID", CStr(flxList("TRANSFER_ID", flxList.CurrentCell.RowIndex).Value()), CStr(enmDataType.D_int))
-        '        End If
-        '    Else
-        '        If flag <> "save" Then
-        '            obj.RptShow(enmReportName.RptDeliveryNotePrint, "TRANSFERID", CStr(Transfer_ID), CStr(enmDataType.D_int))
-        '        End If
-        '    End If
-        'Catch ex As Exception
-        '    MsgBox(ex.Message)
-        'End Try
 
 
         Try
             If flxList.Rows.Count > 0 Then
-                obj.RptShow(enmReportName.RptCustomerRateList, "TRANSFERID", CStr(flxList("TRANSFER_ID", flxList.CurrentCell.RowIndex).Value()), CStr(enmDataType.D_int))
+                obj.RptShow(enmReportName.RptDeliveryNotePrint, "TRANSFERID", CStr(flxList("TRANSFER_ID", flxList.CurrentCell.RowIndex).Value()), CStr(enmDataType.D_int))
             Else
                 MsgBox("No Records To Print", MsgBoxStyle.Information, gblMessageHeading)
             End If
@@ -549,7 +536,7 @@ restart:
         fill_grid(txtSearch.Text)
     End Sub
 
-    Private Sub flxList_DoubleClick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles flxList.DoubleClick
+    Private Sub flxList_DoubleClick(ByVal sender As System.Object, ByVal e As System.EventArgs)
         MsgBox("You Can't Edit this transfer." & vbCrLf & "Please click in print to view/print this transfer DC.", MsgBoxStyle.Information)
     End Sub
 

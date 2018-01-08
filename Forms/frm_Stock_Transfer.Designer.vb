@@ -21,10 +21,10 @@ Partial Class frm_Stock_Transfer
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frm_Stock_Transfer))
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.List = New System.Windows.Forms.TabPage()
         Me.GBMRSDetail = New System.Windows.Forms.GroupBox()
-        Me.flxList = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.txtSearch = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
@@ -32,6 +32,8 @@ Partial Class frm_Stock_Transfer
         Me.GBItemInfo = New System.Windows.Forms.GroupBox()
         Me.flxItems = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.GBDCMASTER = New System.Windows.Forms.GroupBox()
+        Me.txtBarcodeSearch = New System.Windows.Forms.TextBox()
+        Me.Label3 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.cmbOutlet = New System.Windows.Forms.ComboBox()
         Me.lbl_Outlet = New System.Windows.Forms.Label()
@@ -45,17 +47,16 @@ Partial Class frm_Stock_Transfer
         Me.lblMRSCode = New System.Windows.Forms.Label()
         Me.lblFormHeading = New System.Windows.Forms.Label()
         Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.txtBarcodeSearch = New System.Windows.Forms.TextBox()
+        Me.flxList = New System.Windows.Forms.DataGridView()
         Me.TabControl1.SuspendLayout()
         Me.List.SuspendLayout()
         Me.GBMRSDetail.SuspendLayout()
-        CType(Me.flxList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox2.SuspendLayout()
         Me.TabPage2.SuspendLayout()
         Me.GBItemInfo.SuspendLayout()
         CType(Me.flxItems, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GBDCMASTER.SuspendLayout()
+        CType(Me.flxList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'TabControl1
@@ -92,22 +93,6 @@ Partial Class frm_Stock_Transfer
         Me.GBMRSDetail.Size = New System.Drawing.Size(864, 489)
         Me.GBMRSDetail.TabIndex = 6
         Me.GBMRSDetail.TabStop = False
-        '
-        'flxList
-        '
-        Me.flxList.AllowEditing = False
-        Me.flxList.AllowSorting = C1.Win.C1FlexGrid.AllowSortingEnum.None
-        Me.flxList.BackColor = System.Drawing.Color.Silver
-        Me.flxList.ColumnInfo = "1,1,0,0,0,85,Columns:0{Width:26;AllowSorting:False;AllowDragging:False;AllowResiz" & _
-    "ing:False;AllowMerging:True;AllowEditing:False;}" & Global.Microsoft.VisualBasic.ChrW(9)
-        Me.flxList.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.flxList.Location = New System.Drawing.Point(3, 16)
-        Me.flxList.Name = "flxList"
-        Me.flxList.Rows.Count = 2
-        Me.flxList.Rows.DefaultSize = 17
-        Me.flxList.Size = New System.Drawing.Size(858, 470)
-        Me.flxList.Styles = New C1.Win.C1FlexGrid.CellStyleCollection(resources.GetString("flxList.Styles"))
-        Me.flxList.TabIndex = 3
         '
         'GroupBox2
         '
@@ -204,6 +189,29 @@ Partial Class frm_Stock_Transfer
         Me.GBDCMASTER.Size = New System.Drawing.Size(896, 176)
         Me.GBDCMASTER.TabIndex = 0
         Me.GBDCMASTER.TabStop = False
+        '
+        'txtBarcodeSearch
+        '
+        Me.txtBarcodeSearch.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.txtBarcodeSearch.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.txtBarcodeSearch.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtBarcodeSearch.ForeColor = System.Drawing.Color.White
+        Me.txtBarcodeSearch.Location = New System.Drawing.Point(110, 148)
+        Me.txtBarcodeSearch.MaxLength = 100
+        Me.txtBarcodeSearch.Name = "txtBarcodeSearch"
+        Me.txtBarcodeSearch.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
+        Me.txtBarcodeSearch.Size = New System.Drawing.Size(599, 19)
+        Me.txtBarcodeSearch.TabIndex = 63
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label3.Location = New System.Drawing.Point(30, 148)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(62, 15)
+        Me.Label3.TabIndex = 16
+        Me.Label3.Text = "BarCode :"
         '
         'Label2
         '
@@ -339,28 +347,23 @@ Partial Class frm_Stock_Transfer
         Me.ImageList1.Images.SetKeyName(0, "Zoom_search_find_magnifying_glass.png")
         Me.ImageList1.Images.SetKeyName(1, "Inventory_box_shipment_product.png")
         '
-        'Label3
+        'flxList
         '
-        Me.Label3.AutoSize = True
-        Me.Label3.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(30, 148)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(62, 15)
-        Me.Label3.TabIndex = 16
-        Me.Label3.Text = "BarCode :"
-        '
-        'txtBarcodeSearch
-        '
-        Me.txtBarcodeSearch.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.txtBarcodeSearch.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.txtBarcodeSearch.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtBarcodeSearch.ForeColor = System.Drawing.Color.White
-        Me.txtBarcodeSearch.Location = New System.Drawing.Point(110, 148)
-        Me.txtBarcodeSearch.MaxLength = 100
-        Me.txtBarcodeSearch.Name = "txtBarcodeSearch"
-        Me.txtBarcodeSearch.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtBarcodeSearch.Size = New System.Drawing.Size(599, 19)
-        Me.txtBarcodeSearch.TabIndex = 63
+        Me.flxList.AllowUserToAddRows = False
+        Me.flxList.AllowUserToDeleteRows = False
+        Me.flxList.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.flxList.Location = New System.Drawing.Point(3, 16)
+        Me.flxList.Name = "flxList"
+        Me.flxList.RowHeadersVisible = False
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black
+        Me.flxList.RowsDefaultCellStyle = DataGridViewCellStyle1
+        Me.flxList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.flxList.Size = New System.Drawing.Size(858, 470)
+        Me.flxList.TabIndex = 4
         '
         'frm_Stock_Transfer
         '
@@ -373,7 +376,6 @@ Partial Class frm_Stock_Transfer
         Me.TabControl1.ResumeLayout(False)
         Me.List.ResumeLayout(False)
         Me.GBMRSDetail.ResumeLayout(False)
-        CType(Me.flxList, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
         Me.TabPage2.ResumeLayout(False)
@@ -381,6 +383,7 @@ Partial Class frm_Stock_Transfer
         CType(Me.flxItems, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GBDCMASTER.ResumeLayout(False)
         Me.GBDCMASTER.PerformLayout()
+        CType(Me.flxList, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -405,9 +408,9 @@ Partial Class frm_Stock_Transfer
     Friend WithEvents GBItemInfo As System.Windows.Forms.GroupBox
     Friend WithEvents cmbOutlet As System.Windows.Forms.ComboBox
     Friend WithEvents flxItems As C1.Win.C1FlexGrid.C1FlexGrid
-    Friend WithEvents flxList As C1.Win.C1FlexGrid.C1FlexGrid
     Friend WithEvents ImageList1 As ImageList
     Friend WithEvents Label2 As Label
     Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents txtBarcodeSearch As System.Windows.Forms.TextBox
+    Friend WithEvents flxList As System.Windows.Forms.DataGridView
 End Class
