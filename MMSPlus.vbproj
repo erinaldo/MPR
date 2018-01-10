@@ -748,6 +748,12 @@
       <DependentUpon>CryCustomerrateList.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Reports\cryStockValueBrandWise.vb">
+      <DependentUpon>cryStockValueBrandWise.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Reports\cry_CreditorOutstanding.vb">
       <DependentUpon>cry_CreditorOutstanding.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -1639,6 +1645,10 @@
     <EmbeddedResource Include="Reports\CryCustomerrateList.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>CryCustomerrateList1.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\cryStockValueBrandWise.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cryStockValueBrandWise.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\cry_CreditorOutstanding.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

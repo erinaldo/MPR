@@ -52,6 +52,8 @@ Partial Class MDIMain
         Me.frm_ReverseMaterial_Issue_To_Cost_Center_Master = New System.Windows.Forms.ToolStripMenuItem()
         Me.MaterialReturnfromCostCenterToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_DebitNote = New System.Windows.Forms.ToolStripMenuItem()
+        Me.frm_Accept_Stock_transfer = New System.Windows.Forms.ToolStripMenuItem()
+        Me.frm_Stock_Transfer = New System.Windows.Forms.ToolStripMenuItem()
         Me.ReportsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_Material_Issue_To_Cost_Center_Master = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_Wastage_Master = New System.Windows.Forms.ToolStripMenuItem()
@@ -154,8 +156,7 @@ Partial Class MDIMain
         Me.picLogo = New System.Windows.Forms.PictureBox()
         Me.TabControl2 = New System.Windows.Forms.TabControl()
         Me.frm_open_invoice = New System.Windows.Forms.ToolStripMenuItem()
-        Me.frm_Accept_Stock_transfer = New System.Windows.Forms.ToolStripMenuItem()
-        Me.frm_Stock_Transfer = New System.Windows.Forms.ToolStripMenuItem()
+        Me.StockValueBrandWise = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.toolbar.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
@@ -488,6 +489,24 @@ Partial Class MDIMain
         Me.frm_DebitNote.Name = "frm_DebitNote"
         Me.frm_DebitNote.Size = New System.Drawing.Size(285, 22)
         Me.frm_DebitNote.Text = "Debit Note"
+        '
+        'frm_Accept_Stock_transfer
+        '
+        Me.frm_Accept_Stock_transfer.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.frm_Accept_Stock_transfer.ForeColor = System.Drawing.Color.White
+        Me.frm_Accept_Stock_transfer.Image = Global.MMSPlus.My.Resources.Resources.Loading_throbber_time_loader1
+        Me.frm_Accept_Stock_transfer.Name = "frm_Accept_Stock_transfer"
+        Me.frm_Accept_Stock_transfer.Size = New System.Drawing.Size(285, 22)
+        Me.frm_Accept_Stock_transfer.Text = "Stock In D.N."
+        '
+        'frm_Stock_Transfer
+        '
+        Me.frm_Stock_Transfer.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.frm_Stock_Transfer.ForeColor = System.Drawing.Color.White
+        Me.frm_Stock_Transfer.Image = Global.MMSPlus.My.Resources.Resources.Unloading_web_vector_uploading
+        Me.frm_Stock_Transfer.Name = "frm_Stock_Transfer"
+        Me.frm_Stock_Transfer.Size = New System.Drawing.Size(285, 22)
+        Me.frm_Stock_Transfer.Text = "Stock Out D.N."
         '
         'ReportsToolStripMenuItem
         '
@@ -862,7 +881,7 @@ Partial Class MDIMain
         'frm_Stock
         '
         Me.frm_Stock.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.frm_Stock.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.frmStockValue, Me.StockValueCategoryWise, Me.frmStockValueBatchWise})
+        Me.frm_Stock.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.frmStockValue, Me.StockValueCategoryWise, Me.frmStockValueBatchWise, Me.StockValueBrandWise})
         Me.frm_Stock.ForeColor = System.Drawing.Color.White
         Me.frm_Stock.Image = Global.MMSPlus.My.Resources.Resources.Reports
         Me.frm_Stock.Name = "frm_Stock"
@@ -1486,23 +1505,14 @@ Partial Class MDIMain
         Me.frm_open_invoice.Size = New System.Drawing.Size(181, 22)
         Me.frm_open_invoice.Text = "Opne Invoice"
         '
-        'frm_Accept_Stock_transfer
+        'StockValueBrandWise
         '
-        Me.frm_Accept_Stock_transfer.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.frm_Accept_Stock_transfer.ForeColor = System.Drawing.Color.White
-        Me.frm_Accept_Stock_transfer.Image = Global.MMSPlus.My.Resources.Resources.Loading_throbber_time_loader1
-        Me.frm_Accept_Stock_transfer.Name = "frm_Accept_Stock_transfer"
-        Me.frm_Accept_Stock_transfer.Size = New System.Drawing.Size(285, 22)
-        Me.frm_Accept_Stock_transfer.Text = "Stock In D.N."
-        '
-        'frm_Stock_Transfer
-        '
-        Me.frm_Stock_Transfer.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.frm_Stock_Transfer.ForeColor = System.Drawing.Color.White
-        Me.frm_Stock_Transfer.Image = Global.MMSPlus.My.Resources.Resources.Unloading_web_vector_uploading
-        Me.frm_Stock_Transfer.Name = "frm_Stock_Transfer"
-        Me.frm_Stock_Transfer.Size = New System.Drawing.Size(285, 22)
-        Me.frm_Stock_Transfer.Text = "Stock Out D.N."
+        Me.StockValueBrandWise.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.StockValueBrandWise.ForeColor = System.Drawing.Color.White
+        Me.StockValueBrandWise.Image = Global.MMSPlus.My.Resources.Resources.Reports
+        Me.StockValueBrandWise.Name = "StockValueBrandWise"
+        Me.StockValueBrandWise.Size = New System.Drawing.Size(221, 22)
+        Me.StockValueBrandWise.Text = "Stock Value Brand Wise"
         '
         'MDIMain
         '
@@ -1667,4 +1677,5 @@ Partial Class MDIMain
     Friend WithEvents frm_depreciation_cal As ToolStripMenuItem
     Friend WithEvents frm_Accept_Stock_transfer As ToolStripMenuItem
     Friend WithEvents frm_Stock_Transfer As ToolStripMenuItem
+    Friend WithEvents StockValueBrandWise As ToolStripMenuItem
 End Class
