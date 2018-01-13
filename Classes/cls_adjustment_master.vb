@@ -221,7 +221,7 @@ Namespace Adjustment_master
 
                 Next iRow
 
-
+                cmd.Parameters.Clear()
                 cmd.CommandType = CommandType.StoredProcedure
                 cmd.CommandText = "PROC_ADJUSTMENT_DETAIL"
                 cmd.Parameters.AddWithValue("@V_adjustment_ID", clsObj.adjustment_ID)
