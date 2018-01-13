@@ -30,6 +30,8 @@ Partial Class frmStockValue
         Me.cmd_Show = New System.Windows.Forms.Button()
         Me.chkCalculateAllData = New System.Windows.Forms.CheckBox()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.cmbBrand = New System.Windows.Forms.ComboBox()
         Me.chk_NotZeroQty = New System.Windows.Forms.CheckBox()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.cmb_subCategory = New System.Windows.Forms.ComboBox()
@@ -97,10 +99,9 @@ Partial Class frmStockValue
         'cmbItemCatId
         '
         Me.cmbItemCatId.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.cmbItemCatId.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbItemCatId.ForeColor = System.Drawing.Color.White
         Me.cmbItemCatId.FormattingEnabled = True
-        Me.cmbItemCatId.Location = New System.Drawing.Point(102, 29)
+        Me.cmbItemCatId.Location = New System.Drawing.Point(102, 21)
         Me.cmbItemCatId.Name = "cmbItemCatId"
         Me.cmbItemCatId.Size = New System.Drawing.Size(416, 23)
         Me.cmbItemCatId.TabIndex = 20
@@ -108,7 +109,7 @@ Partial Class frmStockValue
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(8, 32)
+        Me.Label1.Location = New System.Drawing.Point(8, 24)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(92, 15)
         Me.Label1.TabIndex = 19
@@ -136,6 +137,8 @@ Partial Class frmStockValue
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.Label6)
+        Me.GroupBox1.Controls.Add(Me.cmbBrand)
         Me.GroupBox1.Controls.Add(Me.chk_NotZeroQty)
         Me.GroupBox1.Controls.Add(Me.Label5)
         Me.GroupBox1.Controls.Add(Me.cmb_subCategory)
@@ -158,6 +161,25 @@ Partial Class frmStockValue
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Filter options"
         '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Location = New System.Drawing.Point(8, 89)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(83, 15)
+        Me.Label6.TabIndex = 32
+        Me.Label6.Text = "Label / Brand:"
+        '
+        'cmbBrand
+        '
+        Me.cmbBrand.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.cmbBrand.ForeColor = System.Drawing.Color.White
+        Me.cmbBrand.FormattingEnabled = True
+        Me.cmbBrand.Location = New System.Drawing.Point(102, 86)
+        Me.cmbBrand.Name = "cmbBrand"
+        Me.cmbBrand.Size = New System.Drawing.Size(416, 23)
+        Me.cmbBrand.TabIndex = 33
+        '
         'chk_NotZeroQty
         '
         Me.chk_NotZeroQty.AutoSize = True
@@ -171,7 +193,7 @@ Partial Class frmStockValue
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(8, 75)
+        Me.Label5.Location = New System.Drawing.Point(8, 57)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(84, 15)
         Me.Label5.TabIndex = 29
@@ -180,11 +202,10 @@ Partial Class frmStockValue
         'cmb_subCategory
         '
         Me.cmb_subCategory.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.cmb_subCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmb_subCategory.Enabled = False
         Me.cmb_subCategory.ForeColor = System.Drawing.Color.White
         Me.cmb_subCategory.FormattingEnabled = True
-        Me.cmb_subCategory.Location = New System.Drawing.Point(102, 72)
+        Me.cmb_subCategory.Location = New System.Drawing.Point(102, 54)
         Me.cmb_subCategory.Name = "cmb_subCategory"
         Me.cmb_subCategory.Size = New System.Drawing.Size(416, 23)
         Me.cmb_subCategory.TabIndex = 30
@@ -216,5 +237,6 @@ Partial Class frmStockValue
     Friend WithEvents Label5 As System.Windows.Forms.Label
     Friend WithEvents cmb_subCategory As System.Windows.Forms.ComboBox
     Friend WithEvents chk_NotZeroQty As System.Windows.Forms.CheckBox
-
+    Friend WithEvents Label6 As Label
+    Friend WithEvents cmbBrand As ComboBox
 End Class

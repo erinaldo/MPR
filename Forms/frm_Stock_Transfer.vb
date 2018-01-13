@@ -59,12 +59,14 @@ Public Class frm_Stock_Transfer
 
             flxList.DataSource = dt
             flxList.Columns(0).Visible = False
-            flxList.Columns(1).Width = 100
-            flxList.Columns(2).Width = 100
-            flxList.Columns(3).Width = 200
-            flxList.Columns(4).Width = 200
+            flxList.Columns(1).Width = 150
+            flxList.Columns(2).Width = 150
+            flxList.Columns(3).Width = 265
+            flxList.Columns(4).Width = 265
             flxList.Columns(5).Width = 150
             flxList.Columns(6).Width = 100
+            flxList.Columns(5).Visible = False
+            flxList.Columns(6).Visible = False
             flxList.Columns(7).Visible = False
 
         Catch ex As Exception
@@ -491,7 +493,7 @@ restart:
 
 
 
-                dtable_Item_List.DefaultView.Sort = strSort
+                ' dtable_Item_List.DefaultView.Sort = strSort
 
                 If dtable_Item_List.Rows.Count = 0 Then dtable_Item_List.Rows.Add(dtable_Item_List.NewRow)
 

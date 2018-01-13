@@ -789,9 +789,13 @@ restart:
             Dim discamt As Decimal = 0.0
             Dim totdiscamt As Decimal = 0.0
             Dim Gpaid As Decimal = 0.0
+            Dim totQty As Decimal = 0.0
 
             For i = 1 To flxItems.Rows.Count - 1
 
+                If flxItems.Rows(i).Item("item_rate") > 0 Then
+                    totQty = totQty + flxItems.Rows(i).Item("transfer_Qty")
+                End If
 
                 total_item_value = total_item_value + (flxItems.Rows(i).Item("transfer_Qty") * flxItems.Rows(i).Item("item_rate"))
 
@@ -825,6 +829,7 @@ restart:
 
             AddHandler flxItems.AfterDataRefresh, AddressOf flxItems_AfterDataRefresh
 
+            lblTotalQty.Text = totQty.ToString("#0.00")
             lblTotalDisc.Text = totdiscamt.ToString("#0.00")
             lblItemValue.Text = total_item_value.ToString("#0.00")
             lblVatAmount.Text = total_vat_amount.ToString("#0.00")
@@ -868,13 +873,13 @@ restart:
             MessageBox.Show("this Invoice is already canceled")
             Return
         End If
-        If ((DateTime.Now - Invdate).TotalDays <= 7) Then
+        'If ((DateTime.Now - Invdate).TotalDays <= 7) Then
 
-            clsObj.Cancel_SALE_INVOICE_MASTER(invId, Convert.ToInt32(GlobalModule.InvoiceStatus.Cancel), GlobalModule.v_the_current_logged_in_user_name)
+        clsObj.Cancel_SALE_INVOICE_MASTER(invId, Convert.ToInt32(GlobalModule.InvoiceStatus.Cancel), GlobalModule.v_the_current_logged_in_user_name)
             MessageBox.Show("Selected Invoice cancel successfully.")
-        Else
-            MessageBox.Show("You Can't Edit this Invoice.")
-        End If
+        'Else
+        '    MessageBox.Show("You Can't Edit this Invoice.")
+        'End If
         fill_grid()
 
     End Sub

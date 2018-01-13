@@ -17,6 +17,11 @@ Public Class frmStockValue
 
     Private Sub frmStockValue_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         objCommFunction.ComboBind(cmbItemCatId, "select  '%' as ITEM_CAT_HEAD_ID,'--All Categories--' as ITEM_CAT_Head_NAME union select  cast(ITEM_CAT_HEAD_ID as varchar), ITEM_CAT_Head_NAME from ITEM_CATEGORY_HEAD_MASTER ORDER BY ITEM_CAT_HEAD_ID", "ITEM_CAT_Head_NAME", "ITEM_CAT_HEAD_ID")
+        objCommFunction.ComboBind(cmbBrand, "select  '%' as Pk_LabelDetailId_Num,'--All Brands--' as LabelItemName_vch union select  cast(Pk_LabelDetailId_Num as varchar), LabelItemName_vch from Label_Items ORDER BY Pk_LabelDetailId_Num", "LabelItemName_vch", "Pk_LabelDetailId_Num")
+
+        cmbBrand.Visible = False
+        Label6.Visible = False
+
         If _call_type = enmReportName.RptStockValue Then
             cmbItemCatId.Visible = True
             cmb_subCategory.Visible = True
@@ -27,6 +32,17 @@ Public Class frmStockValue
         ElseIf _call_type = enmReportName.RptStockValueCategoryWise Then
             cmbItemCatId.Visible = True
             cmb_subCategory.Visible = True
+            txtItemCode.Visible = True
+            txtItemName.Visible = True
+            dtpDate.Visible = True
+            chk_NotZeroQty.Checked = True
+        ElseIf _call_type = enmReportName.RptStockValueBrandWise Then
+            cmbItemCatId.Visible = False
+            cmb_subCategory.Visible = False
+            Label1.Visible = False
+            Label5.Visible = False
+            Label6.Visible = True
+            cmbBrand.Visible = True
             txtItemCode.Visible = True
             txtItemName.Visible = True
             dtpDate.Visible = True
@@ -112,6 +128,8 @@ Public Class frmStockValue
                 filepath = ReportFilePath & "cryStockValue.rpt"
             ElseIf _call_type = enmReportName.RptStockValueCategoryWise Then
                 filepath = ReportFilePath & "cryStockValueCategoryWise.rpt"
+            ElseIf _call_type = enmReportName.RptStockValueBrandWise Then
+                filepath = ReportFilePath & "cryStockValueBrandWise.rpt"
             ElseIf _call_type = enmReportName.RptStockValueBatchWise Then
                 filepath = ReportFilePath & "cryStockValue_BatchWise.rpt"
             ElseIf _call_type = enmReportName.RptStockValueCC Then
@@ -191,197 +209,252 @@ Public Class frmStockValue
                 End If
                 rep.SetParameterValue("On_Date", "'" & dtpDate.Value.Date.ToString("dd-MMM-yyyy") & "'")
 
-
-            ElseIf _call_type = enmReportName.RptStockValue Then
-
+            ElseIf _call_type = enmReportName.RptStockValueBrandWise Then
                 selectionFormnula = ""
-                If cmbItemCatId.SelectedIndex > 0 Then
-                    If Trim(selectionFormnula) = "" Then
+                    If cmbItemCatId.SelectedIndex > 0 Then
+                        If Trim(selectionFormnula) = "" Then
 
-                        selectionFormnula = " {item_stock.fk_ITEM_CAT_Head_ID}=" & cmbItemCatId.SelectedValue
-                    Else
-                        selectionFormnula += " and {item_stock.fk_ITEM_CAT_Head_ID}=" & cmbItemCatId.SelectedValue
+                            selectionFormnula = " {category_stock.ITEM_CAT_Head_ID}=" & cmbItemCatId.SelectedValue
+                        Else
+                            selectionFormnula += " and {category_stock.ITEM_CAT_Head_ID}=" & cmbItemCatId.SelectedValue
+                        End If
+
                     End If
-
-                End If
-
                 If cmb_subCategory.SelectedIndex > 0 Then
                     If Trim(selectionFormnula) = "" Then
 
-                        selectionFormnula = " {item_stock.ITEM_CATEGORY_ID}=" & cmb_subCategory.SelectedValue
+                        selectionFormnula = " {category_stock.ITEM_CAT_ID}=" & cmb_subCategory.SelectedValue
                     Else
-                        selectionFormnula += " and {item_stock.ITEM_CATEGORY_ID}=" & cmb_subCategory.SelectedValue
+                        selectionFormnula += " and {category_stock.ITEM_CAT_ID}=" & cmb_subCategory.SelectedValue
+                    End If
+
+                End If
+                If cmbBrand.SelectedIndex > 0 Then
+                    If Trim(selectionFormnula) = "" Then
+
+                        selectionFormnula = " {category_stock.Pk_LabelDetailId_Num}=" & cmbBrand.SelectedValue
+                    Else
+                        selectionFormnula += " and {category_stock.Pk_LabelDetailId_Num}=" & cmbBrand.SelectedValue
                     End If
 
                 End If
                 If Trim(txtItemCode.Text) <> "" Then
-                    If Trim(selectionFormnula) = "" Then
-                        selectionFormnula = " {item_stock.ITEM_CODE}='" & Trim(txtItemCode.Text) & "'"
-                    Else
-                        selectionFormnula += " and  {item_stock.ITEM_CODE}='" & Trim(txtItemCode.Text) & "'"
-                    End If
-                End If
-
-                If Trim(txtItemName.Text) <> "" Then
-                    If Trim(selectionFormnula) = "" Then
-                        selectionFormnula = " {item_stock.ITEM_NAME}='" & Trim(txtItemName.Text) & "'"
-                    Else
-                        selectionFormnula += " and  {item_stock.ITEM_NAME}='" & Trim(txtItemName.Text) & "'"
-                    End If
-                End If
-                If Not chk_NotZeroQty.Checked Then
-                    If Trim(selectionFormnula) = "" Then
-                        selectionFormnula = " {item_stock.STOCK}<> 0"
-                    Else
-                        selectionFormnula += " and {item_stock.STOCK}<> 0"
+                        If Trim(selectionFormnula) = "" Then
+                            selectionFormnula = " {category_stock.ITEM_CODE}='" & Trim(txtItemCode.Text) & "'"
+                        Else
+                            selectionFormnula += " and  {category_stock.ITEM_CODE}='" & Trim(txtItemCode.Text) & "'"
+                        End If
                     End If
 
-                End If
+                    If Trim(txtItemName.Text) <> "" Then
+                        If Trim(selectionFormnula) = "" Then
+                            selectionFormnula = " {category_stock.ITEM_NAME}='" & Trim(txtItemName.Text) & "'"
+                        Else
+                            selectionFormnula += " and  {category_stock.ITEM_NAME}='" & Trim(txtItemName.Text) & "'"
+                        End If
+                    End If
+                    If Not chk_NotZeroQty.Checked Then
+                        If Trim(selectionFormnula) = "" Then
+                            selectionFormnula = " {category_stock.STOCK}<> 0"
+                        Else
+                            selectionFormnula += " and {category_stock.STOCK}<> 0"
+                        End If
 
-                If Trim(selectionFormnula) <> "" Then
-                    rep.RecordSelectionFormula = selectionFormnula
-                End If
-                rep.SetParameterValue("on_date", "'" & dtpDate.Value.Date.ToString("dd-MMM-yyyy") & "'")
-                rep.SetParameterValue("calculate_all_data", chkCalculateAllData.Checked)
-
-
-
-
-
-            ElseIf _call_type = enmReportName.RptStockValueBatchWise Then
-
-                selectionFormnula = ""
-                If cmbItemCatId.SelectedIndex > 0 Then
-                    If Trim(selectionFormnula) = "" Then
-
-                        selectionFormnula = " {item_stock.fk_ITEM_CAT_Head_ID}=" & cmbItemCatId.SelectedValue
-                    Else
-                        selectionFormnula += " and {item_stock.fk_ITEM_CAT_Head_ID}=" & cmbItemCatId.SelectedValue
                     End If
 
-                End If
-                If cmb_subCategory.SelectedIndex > 0 Then
-                    If Trim(selectionFormnula) = "" Then
+                    If Trim(selectionFormnula) <> "" Then
+                        rep.RecordSelectionFormula = selectionFormnula
+                    End If
+                    rep.SetParameterValue("On_Date", "'" & dtpDate.Value.Date.ToString("dd-MMM-yyyy") & "'")
 
-                        selectionFormnula = " {item_stock.ITEM_CATEGORY_ID}=" & cmb_subCategory.SelectedValue
-                    Else
-                        selectionFormnula += " and {item_stock.ITEM_CATEGORY_ID}=" & cmb_subCategory.SelectedValue
+
+                ElseIf _call_type = enmReportName.RptStockValue Then
+
+                    selectionFormnula = ""
+                    If cmbItemCatId.SelectedIndex > 0 Then
+                        If Trim(selectionFormnula) = "" Then
+
+                            selectionFormnula = " {item_stock.fk_ITEM_CAT_Head_ID}=" & cmbItemCatId.SelectedValue
+                        Else
+                            selectionFormnula += " and {item_stock.fk_ITEM_CAT_Head_ID}=" & cmbItemCatId.SelectedValue
+                        End If
+
                     End If
 
-                End If
-                If Trim(txtItemCode.Text) <> "" Then
-                    If Trim(selectionFormnula) = "" Then
-                        selectionFormnula = " {item_stock.ITEM_CODE}='" & Trim(txtItemCode.Text) & "'"
-                    Else
-                        selectionFormnula += " and  {item_stock.ITEM_CODE}='" & Trim(txtItemCode.Text) & "'"
-                    End If
-                End If
+                    If cmb_subCategory.SelectedIndex > 0 Then
+                        If Trim(selectionFormnula) = "" Then
 
-                If Trim(txtItemName.Text) <> "" Then
-                    If Trim(selectionFormnula) = "" Then
-                        selectionFormnula = " {item_stock.ITEM_NAME}='" & Trim(txtItemName.Text) & "'"
-                    Else
-                        selectionFormnula += " and  {item_stock.ITEM_NAME}='" & Trim(txtItemName.Text) & "'"
-                    End If
-                End If
+                            selectionFormnula = " {item_stock.ITEM_CATEGORY_ID}=" & cmb_subCategory.SelectedValue
+                        Else
+                            selectionFormnula += " and {item_stock.ITEM_CATEGORY_ID}=" & cmb_subCategory.SelectedValue
+                        End If
 
-                If Not chk_NotZeroQty.Checked Then
-                    If Trim(selectionFormnula) = "" Then
-                        selectionFormnula = " {item_stock.STOCK}<> 0"
-                    Else
-                        selectionFormnula += " and {item_stock.STOCK}<> 0"
+                    End If
+                    If Trim(txtItemCode.Text) <> "" Then
+                        If Trim(selectionFormnula) = "" Then
+                            selectionFormnula = " {item_stock.ITEM_CODE}='" & Trim(txtItemCode.Text) & "'"
+                        Else
+                            selectionFormnula += " and  {item_stock.ITEM_CODE}='" & Trim(txtItemCode.Text) & "'"
+                        End If
                     End If
 
-                End If
+                    If Trim(txtItemName.Text) <> "" Then
+                        If Trim(selectionFormnula) = "" Then
+                            selectionFormnula = " {item_stock.ITEM_NAME}='" & Trim(txtItemName.Text) & "'"
+                        Else
+                            selectionFormnula += " and  {item_stock.ITEM_NAME}='" & Trim(txtItemName.Text) & "'"
+                        End If
+                    End If
+                    If Not chk_NotZeroQty.Checked Then
+                        If Trim(selectionFormnula) = "" Then
+                            selectionFormnula = " {item_stock.STOCK}<> 0"
+                        Else
+                            selectionFormnula += " and {item_stock.STOCK}<> 0"
+                        End If
 
-                If Trim(selectionFormnula) <> "" Then
-                    rep.RecordSelectionFormula = selectionFormnula
-                End If
-                rep.SetParameterValue("on_date", "'" & dtpDate.Value.Date.ToString("dd-MMM-yyyy") & "'")
-
-            ElseIf _call_type = enmReportName.RptLastpurchaserate Then
-                selectionFormnula = ""
-                If cmbItemCatId.SelectedIndex > 0 Then
-                    If Trim(selectionFormnula) = "" Then
-
-                        selectionFormnula = " {command_1.ITEM_CAT_Head_ID}=" & cmbItemCatId.SelectedValue
-                    Else
-                        selectionFormnula += " and {command_1.ITEM_CAT_Head_ID}=" & cmbItemCatId.SelectedValue
                     End If
 
-                End If
-                If cmb_subCategory.SelectedIndex > 0 Then
-                    If Trim(selectionFormnula) = "" Then
+                    If Trim(selectionFormnula) <> "" Then
+                        rep.RecordSelectionFormula = selectionFormnula
+                    End If
+                    rep.SetParameterValue("on_date", "'" & dtpDate.Value.Date.ToString("dd-MMM-yyyy") & "'")
+                    rep.SetParameterValue("calculate_all_data", chkCalculateAllData.Checked)
 
-                        selectionFormnula = " {command_1.ITEM_CAT_ID}=" & cmb_subCategory.SelectedValue
-                    Else
-                        selectionFormnula += " and {command_1.ITEM_CAT_ID}=" & cmb_subCategory.SelectedValue
+
+                ElseIf _call_type = enmReportName.RptStockValueBatchWise Then
+
+                    selectionFormnula = ""
+                    If cmbItemCatId.SelectedIndex > 0 Then
+                        If Trim(selectionFormnula) = "" Then
+
+                            selectionFormnula = " {item_stock.fk_ITEM_CAT_Head_ID}=" & cmbItemCatId.SelectedValue
+                        Else
+                            selectionFormnula += " and {item_stock.fk_ITEM_CAT_Head_ID}=" & cmbItemCatId.SelectedValue
+                        End If
+
+                    End If
+                    If cmb_subCategory.SelectedIndex > 0 Then
+                        If Trim(selectionFormnula) = "" Then
+
+                            selectionFormnula = " {item_stock.ITEM_CATEGORY_ID}=" & cmb_subCategory.SelectedValue
+                        Else
+                            selectionFormnula += " and {item_stock.ITEM_CATEGORY_ID}=" & cmb_subCategory.SelectedValue
+                        End If
+
+                    End If
+                    If Trim(txtItemCode.Text) <> "" Then
+                        If Trim(selectionFormnula) = "" Then
+                            selectionFormnula = " {item_stock.ITEM_CODE}='" & Trim(txtItemCode.Text) & "'"
+                        Else
+                            selectionFormnula += " and  {item_stock.ITEM_CODE}='" & Trim(txtItemCode.Text) & "'"
+                        End If
                     End If
 
-                End If
-                If Trim(txtItemCode.Text) <> "" Then
-                    If Trim(selectionFormnula) = "" Then
-                        selectionFormnula = " {command_1.ITEM_CODE}='" & Trim(txtItemCode.Text) & "'"
-                    Else
-                        selectionFormnula += " and  {command_1.ITEM_CODE}='" & Trim(txtItemCode.Text) & "'"
-                    End If
-                End If
-
-                If Trim(txtItemName.Text) <> "" Then
-                    If Trim(selectionFormnula) = "" Then
-                        selectionFormnula = " {command_1.ITEM_NAME}='" & Trim(txtItemName.Text) & "'"
-                    Else
-                        selectionFormnula += " and  {command_1.ITEM_NAME}='" & Trim(txtItemName.Text) & "'"
-                    End If
-                End If
-
-                If Trim(selectionFormnula) <> "" Then
-                    rep.RecordSelectionFormula = selectionFormnula
-                End If
-
-            ElseIf _call_type = enmReportName.RptAllPurchaseRate Then
-                selectionFormnula = ""
-                If cmbItemCatId.SelectedIndex > 0 Then
-                    If Trim(selectionFormnula) = "" Then
-
-                        selectionFormnula = " {command_1.ITEM_CAT_Head_ID}=" & cmbItemCatId.SelectedValue
-                    Else
-                        selectionFormnula += " and {command_1.ITEM_CAT_Head_ID}=" & cmbItemCatId.SelectedValue
+                    If Trim(txtItemName.Text) <> "" Then
+                        If Trim(selectionFormnula) = "" Then
+                            selectionFormnula = " {item_stock.ITEM_NAME}='" & Trim(txtItemName.Text) & "'"
+                        Else
+                            selectionFormnula += " and  {item_stock.ITEM_NAME}='" & Trim(txtItemName.Text) & "'"
+                        End If
                     End If
 
-                End If
-                If cmb_subCategory.SelectedIndex > 0 Then
-                    If Trim(selectionFormnula) = "" Then
+                    If Not chk_NotZeroQty.Checked Then
+                        If Trim(selectionFormnula) = "" Then
+                            selectionFormnula = " {item_stock.STOCK}<> 0"
+                        Else
+                            selectionFormnula += " and {item_stock.STOCK}<> 0"
+                        End If
 
-                        selectionFormnula = " {command_1.ITEM_CAT_ID}=" & cmb_subCategory.SelectedValue
-                    Else
-                        selectionFormnula += " and {command_1.ITEM_CAT_ID}=" & cmb_subCategory.SelectedValue
                     End If
 
-                End If
-                If Trim(txtItemCode.Text) <> "" Then
-                    If Trim(selectionFormnula) = "" Then
-                        selectionFormnula = " {command_1.ITEM_CODE}='" & Trim(txtItemCode.Text) & "'"
-                    Else
-                        selectionFormnula += " and  {command_1.ITEM_CODE}='" & Trim(txtItemCode.Text) & "'"
+                    If Trim(selectionFormnula) <> "" Then
+                        rep.RecordSelectionFormula = selectionFormnula
                     End If
-                End If
+                    rep.SetParameterValue("on_date", "'" & dtpDate.Value.Date.ToString("dd-MMM-yyyy") & "'")
 
-                If Trim(txtItemName.Text) <> "" Then
-                    If Trim(selectionFormnula) = "" Then
-                        selectionFormnula = " {command_1.ITEM_NAME}='" & Trim(txtItemName.Text) & "'"
-                    Else
-                        selectionFormnula += " and  {command_1.ITEM_NAME}='" & Trim(txtItemName.Text) & "'"
+                ElseIf _call_type = enmReportName.RptLastpurchaserate Then
+                    selectionFormnula = ""
+                    If cmbItemCatId.SelectedIndex > 0 Then
+                        If Trim(selectionFormnula) = "" Then
+
+                            selectionFormnula = " {command_1.ITEM_CAT_Head_ID}=" & cmbItemCatId.SelectedValue
+                        Else
+                            selectionFormnula += " and {command_1.ITEM_CAT_Head_ID}=" & cmbItemCatId.SelectedValue
+                        End If
+
                     End If
-                End If
+                    If cmb_subCategory.SelectedIndex > 0 Then
+                        If Trim(selectionFormnula) = "" Then
 
-                If Trim(selectionFormnula) <> "" Then
-                    rep.RecordSelectionFormula = selectionFormnula
-                End If
+                            selectionFormnula = " {command_1.ITEM_CAT_ID}=" & cmb_subCategory.SelectedValue
+                        Else
+                            selectionFormnula += " and {command_1.ITEM_CAT_ID}=" & cmb_subCategory.SelectedValue
+                        End If
 
-            ElseIf _call_type = enmReportName.RptStockValueCC Then
+                    End If
+                    If Trim(txtItemCode.Text) <> "" Then
+                        If Trim(selectionFormnula) = "" Then
+                            selectionFormnula = " {command_1.ITEM_CODE}='" & Trim(txtItemCode.Text) & "'"
+                        Else
+                            selectionFormnula += " and  {command_1.ITEM_CODE}='" & Trim(txtItemCode.Text) & "'"
+                        End If
+                    End If
 
-                selectionFormnula = ""
+                    If Trim(txtItemName.Text) <> "" Then
+                        If Trim(selectionFormnula) = "" Then
+                            selectionFormnula = " {command_1.ITEM_NAME}='" & Trim(txtItemName.Text) & "'"
+                        Else
+                            selectionFormnula += " and  {command_1.ITEM_NAME}='" & Trim(txtItemName.Text) & "'"
+                        End If
+                    End If
+
+                    If Trim(selectionFormnula) <> "" Then
+                        rep.RecordSelectionFormula = selectionFormnula
+                    End If
+
+                ElseIf _call_type = enmReportName.RptAllPurchaseRate Then
+                    selectionFormnula = ""
+                    If cmbItemCatId.SelectedIndex > 0 Then
+                        If Trim(selectionFormnula) = "" Then
+
+                            selectionFormnula = " {command_1.ITEM_CAT_Head_ID}=" & cmbItemCatId.SelectedValue
+                        Else
+                            selectionFormnula += " and {command_1.ITEM_CAT_Head_ID}=" & cmbItemCatId.SelectedValue
+                        End If
+
+                    End If
+                    If cmb_subCategory.SelectedIndex > 0 Then
+                        If Trim(selectionFormnula) = "" Then
+
+                            selectionFormnula = " {command_1.ITEM_CAT_ID}=" & cmb_subCategory.SelectedValue
+                        Else
+                            selectionFormnula += " and {command_1.ITEM_CAT_ID}=" & cmb_subCategory.SelectedValue
+                        End If
+
+                    End If
+                    If Trim(txtItemCode.Text) <> "" Then
+                        If Trim(selectionFormnula) = "" Then
+                            selectionFormnula = " {command_1.ITEM_CODE}='" & Trim(txtItemCode.Text) & "'"
+                        Else
+                            selectionFormnula += " and  {command_1.ITEM_CODE}='" & Trim(txtItemCode.Text) & "'"
+                        End If
+                    End If
+
+                    If Trim(txtItemName.Text) <> "" Then
+                        If Trim(selectionFormnula) = "" Then
+                            selectionFormnula = " {command_1.ITEM_NAME}='" & Trim(txtItemName.Text) & "'"
+                        Else
+                            selectionFormnula += " and  {command_1.ITEM_NAME}='" & Trim(txtItemName.Text) & "'"
+                        End If
+                    End If
+
+                    If Trim(selectionFormnula) <> "" Then
+                        rep.RecordSelectionFormula = selectionFormnula
+                    End If
+
+                ElseIf _call_type = enmReportName.RptStockValueCC Then
+
+                    selectionFormnula = ""
                 If cmbItemCatId.SelectedIndex > 0 Then
                     If Trim(selectionFormnula) = "" Then
 
