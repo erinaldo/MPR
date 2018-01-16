@@ -729,6 +729,12 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Reports\AccountPayment1.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AccountPayment.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Reports\Copy of cryMrsDetail.vb">
       <DependentUpon>cryMrsDetailMStore.rpt</DependentUpon>
       <SubType>Component</SubType>
@@ -1474,6 +1480,7 @@
       <SubType>Designer</SubType>
       <DependentUpon>SplashScreen.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="My Project\licenses.licx" />
     <EmbeddedResource Include="My Project\Resources.resx">
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
@@ -1642,7 +1649,10 @@
       <SubType>Designer</SubType>
       <DependentUpon>MDIMain.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="My Project\licenses.licx" />
+    <EmbeddedResource Include="Reports\AccountPayment.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>AccountPayment1.vb</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reports\CryCreditorsLedger.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>CryCreditorsLedger.vb</LastGenOutput>
@@ -2063,6 +2073,7 @@
     </Content>
     <Content Include="Scripts\Updates\00001_29_Dec_Add_Duty_And_Taxes.sql" />
     <Content Include="Scripts\Updates\0001_04_Jan_2018_Stock_Transfer.sql" />
+    <Content Include="Scripts\Updates\0001_16_JAN_2018.sql" />
     <Content Include="Scripts\Updates\0005_depreciation_16_Dec_2017 .sql" />
     <Content Include="Scripts\Updates\00001_08_Dec_2017.sql" />
     <Content Include="Scripts\Updates\00001_10_Dec_2017_Updatepayment.sql" />
