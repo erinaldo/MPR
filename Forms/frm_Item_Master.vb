@@ -33,7 +33,6 @@ Public Class frm_Item_Master
     End Sub
 
     Private Sub new_initialisation()
-
         Flag = "save"
         txtItemCat.Text = ""
         txtItemCode.Text = ""

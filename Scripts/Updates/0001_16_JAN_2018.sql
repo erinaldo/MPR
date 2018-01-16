@@ -1,4 +1,5 @@
-﻿ALTER PROCEDURE [dbo].[get_count_Item_Issued]
+﻿
+ALTER PROCEDURE [dbo].[get_count_Item_Issued]
  @Item_ID INT  
 AS  
 BEGIN  

@@ -75,6 +75,8 @@ Public Class frm_Show_search
             search_result = grdSearch.SelectedRows.Item(0).Cells(ret_column).Value
             If Not String.IsNullOrEmpty(item_rate_column) Then
                 item_rate = grdSearch.SelectedRows.Item(0).Cells(item_rate_column).Value
+            Else
+                item_rate = 0
             End If
         End If
 
