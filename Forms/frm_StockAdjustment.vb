@@ -245,6 +245,7 @@ restart:
                         For Each dr As DataRow In dt.Rows
                             If Convert.ToString(dr("item_code")) = item_code Then
                                 dr.Delete()
+                                dt.AcceptChanges()
                                 GoTo restart
                             End If
                         Next
