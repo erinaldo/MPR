@@ -312,6 +312,7 @@ Public Class frm_openSale_Invoice
             Return False
         End If
 
+        dtable_Item_List.AcceptChanges()
         Dim dt As DataTable
         dt = dtable_Item_List.Copy
         For j As Integer = 0 To dt.Rows.Count
@@ -900,7 +901,7 @@ restart:
         txtcustomer_name.Focus()
     End Sub
 
-    Private Sub cmbSupplier_SelectedIndexChanged_1(sender As Object, e As EventArgs) Handles cmbSupplier.SelectionChangeCommitted
+    Private Sub cmbSupplier_SelectedIndexChanged_1(sender As Object, e As EventArgs) Handles cmbSupplier.SelectionChangeCommitted, cmbSupplier.SelectedIndexChanged
 
         Dim strSql As String
         If cmbSupplier.SelectedValue <> -1 Then

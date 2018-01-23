@@ -306,8 +306,8 @@ Namespace stock_transfer_outlet
                 Try
 
 
-                    Dim dt As DataTable = clsobj.dtable_Item_List.Copy
-
+                    Dim dt As DataTable = clsobj.dtable_Item_List
+                    dt.AcceptChanges()
                     For j As Integer = 0 To dt.Rows.Count
                         Dim i As Integer
 again:
@@ -315,6 +315,7 @@ again:
                             If IsNumeric(dt.Rows(i)("transfer_qty")) Then
                                 If Convert.ToDouble(dt.Rows(i)("transfer_qty")) <= 0 Then
                                     dt.Rows.RemoveAt(i)
+                                    dt.AcceptChanges()
                                     GoTo again
                                 End If
                             End If
@@ -705,6 +706,7 @@ again:
                     cmd.Parameters.AddWithValue("@Recieved_Date", clsobj.RECEIVED_DATE)
                     cmd.ExecuteNonQuery()
                     cmd.Dispose()
+
 
 
                     '2) Insert in Stock transfer Master table of local database
