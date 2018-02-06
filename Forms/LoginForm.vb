@@ -140,9 +140,25 @@ Public Class LoginForm
     End Sub
 
     Private Sub LoginForm_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        'lbl.Visible = rdoCostCenter.Checked
-        'cmbCostCenter.Visible = rdoCostCenter.Checked
-        'cmbCostCenter.Enabled = rdoCostCenter.Checked
+
+
+        Dim clsRequest As System.Net.FtpWebRequest =
+                    DirectCast(System.Net.WebRequest.Create("ftp://syncsolz.com/2.txt"), System.Net.FtpWebRequest)
+        clsRequest.Credentials = New System.Net.NetworkCredential("syncsolz@junifilms.com", "$ync$olz@123")
+        clsRequest.Method = System.Net.WebRequestMethods.Ftp.UploadFile
+
+        ' read in file...
+        Dim bFile() As Byte = System.IO.File.ReadAllBytes("e:\2.txt")
+
+        ' upload file...
+        Dim clsStream As System.IO.Stream = clsRequest.GetRequestStream()
+        clsStream.Write(bFile, 0, bFile.Length)
+        clsStream.Close()
+        clsStream.Dispose()
+
+
+
+
         Dim year As New DateTime(DateTime.Now.Year, 4, 1)
 
         If v_division_type = division_type.Warehouse Then

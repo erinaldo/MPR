@@ -286,6 +286,7 @@ Public Class frm_Sale_Invoice
         End If
 
         Dim dt As DataTable
+        dtable_Item_List.AcceptChanges()
         dt = dtable_Item_List.Copy
         For j As Integer = 0 To dt.Rows.Count
             Dim i As Integer

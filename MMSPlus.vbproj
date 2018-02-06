@@ -2069,6 +2069,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="bin\Debug\connection.xml" />
+    <Content Include="Scripts\2018Update\0001_26_Jan_2018_POEDIT - Copy.sql" />
+    <Content Include="Scripts\2018Update\0003_05_Feb_2018_Update_Stock_Adjustment.sql" />
     <Content Include="Scripts\Updates\00001_29_Dec_Add_Duty_And_Taxes.sql" />
     <Content Include="Scripts\Updates\0001_04_Jan_2018_Stock_Transfer.sql" />
     <Content Include="Scripts\Updates\0001_16_JAN_2018.sql" />
@@ -2101,6 +2103,7 @@
     <Content Include="Scripts\Updates\0001_18_Nov_2017.sql" />
     <Content Include="Scripts\Updates\0001_01_Dec_2017.sql" />
     <Content Include="Scripts\Updates\0001_01_JAN_2018.sql" />
+    <Content Include="Scripts\2018Update\0002_27_Jan_2018_MRN_WITHOUTPO_EDIT.sql" />
     <None Include="app.config" />
     <None Include="ClassDiagram1.cd" />
     <None Include="Images and Icons\Report.ico" />
@@ -2255,6 +2258,7 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

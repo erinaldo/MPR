@@ -472,6 +472,10 @@ Namespace material_recieved_without_po_master
 
             cmd = New SqlClient.SqlCommand
             cmd.Connection = con
+
+
+
+
             cmd.CommandType = CommandType.StoredProcedure
             cmd.CommandText = "PROC_MATERIAL_RECIEVED_WITHOUT_PO_MASTER"
 
