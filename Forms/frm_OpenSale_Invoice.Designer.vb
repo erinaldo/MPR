@@ -20,7 +20,7 @@ Partial Class frm_openSale_Invoice
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frm_openSale_Invoice))
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.List = New System.Windows.Forms.TabPage()
@@ -34,6 +34,7 @@ Partial Class frm_openSale_Invoice
         Me.Label1 = New System.Windows.Forms.Label()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.GBItemInfo = New System.Windows.Forms.GroupBox()
+        Me.lblTotalQty = New System.Windows.Forms.Label()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.lblTotalDisc = New System.Windows.Forms.Label()
         Me.lnkCalculatePOAmt = New System.Windows.Forms.LinkLabel()
@@ -78,7 +79,6 @@ Partial Class frm_openSale_Invoice
         Me.lblMRSCode = New System.Windows.Forms.Label()
         Me.lblFormHeading = New System.Windows.Forms.Label()
         Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
-        Me.lblTotalQty = New System.Windows.Forms.Label()
         Me.TabControl1.SuspendLayout()
         Me.List.SuspendLayout()
         Me.GBMRSDetail.SuspendLayout()
@@ -164,12 +164,12 @@ Partial Class frm_openSale_Invoice
         Me.flxList.Location = New System.Drawing.Point(3, 16)
         Me.flxList.Name = "flxList"
         Me.flxList.RowHeadersVisible = False
-        DataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle7.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle7.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
-        DataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.Black
-        Me.flxList.RowsDefaultCellStyle = DataGridViewCellStyle7
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black
+        Me.flxList.RowsDefaultCellStyle = DataGridViewCellStyle1
         Me.flxList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.flxList.Size = New System.Drawing.Size(858, 422)
         Me.flxList.TabIndex = 3
@@ -240,6 +240,17 @@ Partial Class frm_openSale_Invoice
         Me.GBItemInfo.TabIndex = 8
         Me.GBItemInfo.TabStop = False
         Me.GBItemInfo.Text = "List of Items"
+        '
+        'lblTotalQty
+        '
+        Me.lblTotalQty.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblTotalQty.ForeColor = System.Drawing.Color.Lime
+        Me.lblTotalQty.Location = New System.Drawing.Point(409, 353)
+        Me.lblTotalQty.Name = "lblTotalQty"
+        Me.lblTotalQty.Size = New System.Drawing.Size(64, 20)
+        Me.lblTotalQty.TabIndex = 18
+        Me.lblTotalQty.Text = "0.00"
+        Me.lblTotalQty.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'Label10
         '
@@ -759,17 +770,6 @@ Partial Class frm_openSale_Invoice
         Me.ImageList1.TransparentColor = System.Drawing.Color.Transparent
         Me.ImageList1.Images.SetKeyName(0, "Zoom_search_find_magnifying_glass.png")
         Me.ImageList1.Images.SetKeyName(1, "Inventory_box_shipment_product.png")
-        '
-        'lblTotalQty
-        '
-        Me.lblTotalQty.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblTotalQty.ForeColor = System.Drawing.Color.Lime
-        Me.lblTotalQty.Location = New System.Drawing.Point(409, 353)
-        Me.lblTotalQty.Name = "lblTotalQty"
-        Me.lblTotalQty.Size = New System.Drawing.Size(64, 20)
-        Me.lblTotalQty.TabIndex = 18
-        Me.lblTotalQty.Text = "0.00"
-        Me.lblTotalQty.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'frm_openSale_Invoice
         '

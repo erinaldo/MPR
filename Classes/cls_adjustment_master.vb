@@ -247,7 +247,8 @@ Namespace Adjustment_master
                     cmd.Parameters.Clear()
                     If Convert.ToDouble(dt.Rows(iRowSD)("adjustment_Qty") > 0) Then
                         cmd.CommandType = CommandType.StoredProcedure
-                        cmd.CommandText = "insert_Stock_Detail_Adjustment"
+                        cmd.CommandText = "Update_Stock_Detail_Adjustment"
+                        cmd.Parameters.AddWithValue("@STOCKDETAIL_ID", dt.Rows(iRowSD)("stock_detail_id"))
                         cmd.Parameters.AddWithValue("@item_ID", dt.Rows(iRowSD)("Item_Id"))
                         cmd.Parameters.AddWithValue("@Batch_no", dt.Rows(iRowSD)("Batch_no"))
                         cmd.Parameters.AddWithValue("@Expiry_Date", dt.Rows(iRowSD)("Expiry_date"))
