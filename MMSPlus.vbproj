@@ -783,6 +783,12 @@
       <DependentUpon>cry_DebtorOutstanding.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Reports\crySaleInvoiceList.vb">
+      <DependentUpon>crySaleInvoiceList.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Reports\PaymentVoucher.vb">
       <DependentUpon>PaymentVoucher.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -1121,12 +1127,6 @@
     </Compile>
     <Compile Include="Reports\cryRevWastagePrint.vb">
       <DependentUpon>cryRevWastagePrint.rpt</DependentUpon>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Include="Reports\crySaleInvoiceList.vb">
-      <DependentUpon>crySaleInvoiceList.rpt</DependentUpon>
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -1677,6 +1677,10 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>cry_DebtorOutstanding.vb</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Reports\crySaleInvoiceList.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crySaleInvoiceList.vb</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reports\PaymentVoucher.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>PaymentVoucher.vb</LastGenOutput>
@@ -1912,10 +1916,6 @@
     <EmbeddedResource Include="Reports\cryRevWastagePrint.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>cryRevWastagePrint.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Reports\crySaleInvoiceList.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>crySaleInvoiceList.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\cryStockAcceptCCPrint.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
