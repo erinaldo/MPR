@@ -356,7 +356,7 @@ again:
                     Next
                     ' Next
 
-
+                    clsobj.dtable_Item_List.AcceptChanges()
 
                     Dim Dtitemsnew As DataTable = clsobj.dtable_Item_List.Copy
                     Dtitemsnew.Rows.Clear()
@@ -399,7 +399,7 @@ again:
                         End If
                     Next
 
-
+                    Dtitemsnew.AcceptChanges()
                     cmd = New SqlCommand
 
                     For i As Integer = 0 To Dtitemsnew.Rows.Count - 1

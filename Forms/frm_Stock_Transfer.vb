@@ -196,7 +196,6 @@ Public Class frm_Stock_Transfer
             new_initilization()
         Catch ex As Exception
             obj.MyCon_RollBackTransaction(cmd)
-
             MsgBox(gblMessageHeading_Error & vbCrLf & gblMessage_ContactInfo & vbCrLf & ex.Message, MsgBoxStyle.Critical, gblMessageHeading)
         End Try
     End Sub
