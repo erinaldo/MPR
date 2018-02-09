@@ -596,6 +596,7 @@ Public Class frm_Indent_Master
                     frm_Show_search.column_name = "Item_Name"
                     frm_Show_search.extra_condition = ""
                     frm_Show_search.ret_column = "Item_ID"
+                    frm_Show_search.item_rate_column = ""
                     ' frm_Show_search.ret_column = "division_id"
                     frm_Show_search.ShowDialog()
                     get_row(frm_Show_search.search_result)

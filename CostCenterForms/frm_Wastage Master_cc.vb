@@ -296,6 +296,7 @@ restart:
                     frm_Show_search.qry = "Select Item_master.ITEM_ID,Item_master.ITEM_CODE as [Item Code],Item_master.ITEM_NAME  as [Item Name] from Item_master inner join item_detail on item_master.item_id = item_detail.item_id " 'where item_detail.div_id = '" + Convert.ToString(v_the_curre) + "'"
                     frm_Show_search.extra_condition = ""
                     frm_Show_search.ret_column = "Item_ID"
+                    frm_Show_search.item_rate_column = ""
                     frm_Show_search.column_name = "ITEM_NAME"
                     frm_Show_search.cols_width = "80,300"
                     frm_Show_search.cols_no_for_width = "1,2"

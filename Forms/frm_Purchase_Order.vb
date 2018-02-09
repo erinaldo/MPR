@@ -859,7 +859,7 @@ restart:
             frm_Indent_Items.dTable_POItems = flxItemList.DataSource
             'frm_Show_search.extra_condition = ""
             frm_Show_search.ret_column = "Item_ID"
-
+            frm_Show_search.item_rate_column = ""
             frm_Show_search.cols_no_for_width = "1,2,3"
             frm_Show_search.cols_width = "60,350,50"
             ' frm_Show_search.ret_column = "division_id"

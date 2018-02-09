@@ -741,6 +741,7 @@ Public Class frm_Material_Received_Without_PO_Master
                 frm_Show_search.cols_width = "60,350,50,60"
                 frm_Show_search.extra_condition = ""
                 frm_Show_search.ret_column = "Item_ID"
+                frm_Show_search.item_rate_column = ""
                 frm_Show_search.ShowDialog()
 
                 Dim item_is_stockable As Boolean

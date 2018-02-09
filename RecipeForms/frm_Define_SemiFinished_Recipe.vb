@@ -430,6 +430,7 @@ Public Class frm_Define_SemiFinished_Recipe
                             frm_Show_search.extra_condition = ""
                             frm_Show_search.ret_column = "Item_ID"
                             frm_Show_search.column_name = "ITEM_NAME"
+                            frm_Show_search.item_rate_column = ""
                             frm_Show_search.cols_width = "80,300"
                             frm_Show_search.cols_no_for_width = "1,2"
                             frm_Show_search.ShowDialog()
