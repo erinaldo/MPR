@@ -321,6 +321,8 @@ again:
 
         flxItems.Cols(0).Width = 10
         flxItems.Cols("Item_Id").Visible = False
+        flxItems.Cols("Item_Id").AllowEditing = False
+
         flxItems.Cols("Stock_Detail_Id").Visible = True
         flxItems.Cols("Item_Code").Caption = "Item Code"
         flxItems.Cols("Item_Name").Caption = "Item Name"
@@ -351,7 +353,6 @@ again:
         flxItems.Cols("Stock_Detail_Id").Width = 60
         flxItems.Cols("transfer_Qty").Width = 80
         flxItems.Cols("Item_Rate").Width = 80
-
         flxItems.Cols("Stock_Detail_Id").Visible = False
 
     End Sub
@@ -488,8 +489,9 @@ restart:
                     dr("Stock_Detail_Id") = ds.Tables(0).Rows(i)("STOCK_DETAIL_ID")
                     dr("transfer_Qty") = ds.Tables(0).Rows(i)("transfer_Qty")
                     dtable_Item_List.Rows.Add(dr)
+                    dtable_Item_List.AcceptChanges()
                 Next
-                Dim strSort As String = flxItems.Cols(1).Name + ", " + flxItems.Cols(2).Name + ", " + flxItems.Cols(3).Name
+                ' Dim strSort As String = flxItems.Cols(1).Name + ", " + flxItems.Cols(2).Name + ", " + flxItems.Cols(3).Name
 
 
 

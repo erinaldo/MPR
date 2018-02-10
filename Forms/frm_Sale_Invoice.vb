@@ -411,8 +411,9 @@ again:
 
         flxItems.Cols(0).Width = 10
         flxItems.Cols("Item_Id").Visible = False
-        flxItems.Cols("Stock_Detail_Id").Visible = True
+        flxItems.Cols("Item_Id").AllowEditing = False
 
+        flxItems.Cols("Stock_Detail_Id").Visible = True
         flxItems.Cols("Item_Code").Caption = "Code"
         flxItems.Cols("Item_Name").Caption = "Description"
         flxItems.Cols("UM_Name").Caption = "UOM"
@@ -663,7 +664,7 @@ restart:
                     'obj.RemoveBlankRow(dtable_Item_List, "item_id")
                     For i = 0 To ds.Tables(0).Rows.Count - 1
                         dr = dtable_Item_List.NewRow
-                        dr("Item_Id") = item_id
+                        dr("Item_Id") = ds.Tables(0).Rows(i)("ITEM_ID")
                         dr("Item_Code") = ds.Tables(0).Rows(i)("ITEM_CODE")
                         dr("Item_Name") = ds.Tables(0).Rows(i)("ITEM_NAME")
                         dr("UM_Name") = ds.Tables(0).Rows(i)("UM_Name")
@@ -685,6 +686,7 @@ restart:
                         dr("Stock_Detail_Id") = ds.Tables(0).Rows(i)("STOCK_DETAIL_ID")
                         dr("transfer_Qty") = 0
                         dtable_Item_List.Rows.Add(dr)
+                        dtable_Item_List.AcceptChanges()
                     Next
                     'Dim strSort As String = flxItems.Cols(1).Name + ", " + flxItems.Cols(2).Name + ", " + flxItems.Cols(3).Name
                     'dtable_Item_List.DefaultView.Sort = strSort

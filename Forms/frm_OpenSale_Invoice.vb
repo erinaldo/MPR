@@ -28,11 +28,11 @@ Public Class frm_openSale_Invoice
 
             Dim strsql As String
 
-            strsql = "SELECT * FROM (SELECT SI_ID," & _
-            "(SI_CODE+CAST(SI_NO AS VARCHAR)) AS InvNo,('DC/'+CAST(DC_GST_NO AS VARCHAR) ) AS [DC NO]," & _
-            " dbo.fn_Format(dbo.SALE_INVOICE_MASTER.CREATION_DATE) AS [INV DATE]," & _
-            " NET_AMOUNT AS Amount,ACC_NAME Customer,CASE WHEN INVOICE_STATUS =1 THEN 'Fresh'  WHEN INVOICE_STATUS =2 THEN 'Pending' WHEN INVOICE_STATUS =3 THEN 'Clear'  WHEN INVOICE_STATUS =4 THEN 'Cancel' END AS Status FROM dbo.SALE_INVOICE_MASTER " & _
-            "JOIN dbo.ACCOUNT_MASTER ON ACCOUNT_MASTER.ACC_ID=dbo.SALE_INVOICE_MASTER.CUST_ID where FLAG=1)tb " & _
+            strsql = "SELECT * FROM (SELECT SI_ID," &
+            "(SI_CODE+CAST(SI_NO AS VARCHAR)) AS InvNo,('DC/'+CAST(DC_GST_NO AS VARCHAR) ) AS [DC NO]," &
+            " dbo.fn_Format(dbo.SALE_INVOICE_MASTER.CREATION_DATE) AS [INV DATE]," &
+            " NET_AMOUNT AS Amount,ACC_NAME Customer,CASE WHEN INVOICE_STATUS =1 THEN 'Fresh'  WHEN INVOICE_STATUS =2 THEN 'Pending' WHEN INVOICE_STATUS =3 THEN 'Clear'  WHEN INVOICE_STATUS =4 THEN 'Cancel' END AS Status FROM dbo.SALE_INVOICE_MASTER " &
+            "JOIN dbo.ACCOUNT_MASTER ON ACCOUNT_MASTER.ACC_ID=dbo.SALE_INVOICE_MASTER.CUST_ID where FLAG=1)tb " &
             "WHERE (CAST(SI_ID AS varchar) +InvNo+[DC NO]+[INV DATE]+ CAST(tb.Amount AS VARCHAR)+tb.Customer+tb.Status) LIKE '%" & condition & "%'  order by 1"
 
             Dim dt As DataTable = obj.Fill_DataSet(strsql).Tables(0)
@@ -227,7 +227,6 @@ Public Class frm_openSale_Invoice
 
     Private Sub new_initilization()
 
-
         lbl_TransferDate.Text = Now.ToString("dd-MMM-yyyy")
         txt_txtphoneNo.Text = ""
         cmbSupplier.SelectedIndex = 0
@@ -374,6 +373,8 @@ again:
 
         flxItems.Cols(0).Width = 10
         flxItems.Cols("Item_Id").Visible = False
+        flxItems.Cols("Item_Id").AllowEditing = False
+
         flxItems.Cols("Stock_Detail_Id").Visible = True
 
         flxItems.Cols("Item_Code").Caption = "Code"
@@ -584,23 +585,23 @@ restart:
                 Dim ds As DataSet
                 Dim ds2 As DataSet
                 Dim sqlqry As String
-                sqlqry = "SELECT  " & _
-                                            " IM.ITEM_ID , " & _
-                                            " IM.ITEM_CODE , " & _
-                                            " IM.ITEM_NAME , " & _
-                                            " UM.UM_Name , " & _
-                                            " SD.Batch_no , " & _
-                                            " dbo.fn_Format(SD.Expiry_date) AS Expiry_Date, " & _
-                                            " dbo.Get_Average_Rate_as_on_date(IM.ITEM_ID,'" & Now.ToString("dd-MMM-yyyy") & "'," & v_the_current_division_id & ",0) as Item_Rate," & _
-                                            " SD.Balance_Qty, " & _
-                                            " 0.00  as transfer_qty, " & _
-                                            " SD.STOCK_DETAIL_ID  ,fk_HsnId_num" & _
-                                    " FROM " & _
-                                            " ITEM_MASTER  IM " & _
-                                            " INNER JOIN ITEM_DETAIL ID ON IM.ITEM_ID = ID.ITEM_ID " & _
-                                            " INNER JOIN STOCK_DETAIL SD ON ID.ITEM_ID = SD.Item_id " & _
-                                            " INNER JOIN UNIT_MASTER UM ON IM.UM_ID = UM.UM_ID" & _
-                                    " where " & _
+                sqlqry = "SELECT  " &
+                                            " IM.ITEM_ID , " &
+                                            " IM.ITEM_CODE , " &
+                                            " IM.ITEM_NAME , " &
+                                            " UM.UM_Name , " &
+                                            " SD.Batch_no , " &
+                                            " dbo.fn_Format(SD.Expiry_date) AS Expiry_Date, " &
+                                            " dbo.Get_Average_Rate_as_on_date(IM.ITEM_ID,'" & Now.ToString("dd-MMM-yyyy") & "'," & v_the_current_division_id & ",0) as Item_Rate," &
+                                            " SD.Balance_Qty, " &
+                                            " 0.00  as transfer_qty, " &
+                                            " SD.STOCK_DETAIL_ID  ,fk_HsnId_num" &
+                                    " FROM " &
+                                            " ITEM_MASTER  IM " &
+                                            " INNER JOIN ITEM_DETAIL ID ON IM.ITEM_ID = ID.ITEM_ID " &
+                                            " INNER JOIN STOCK_DETAIL SD ON ID.ITEM_ID = SD.Item_id " &
+                                            " INNER JOIN UNIT_MASTER UM ON IM.UM_ID = UM.UM_ID" &
+                                    " where " &
                                             " IM.ITEM_ID = " & item_id & " and SD.Balance_Qty > 0"
                 ds = clsObj.Fill_DataSet(sqlqry)
 
@@ -611,7 +612,7 @@ restart:
                     'obj.RemoveBlankRow(dtable_Item_List, "item_id")
                     For i = 0 To ds.Tables(0).Rows.Count - 1
                         dr = dtable_Item_List.NewRow
-                        dr("Item_Id") = item_id
+                        dr("Item_Id") = ds.Tables(0).Rows(i)("ITEM_ID")
                         dr("Item_Code") = ds.Tables(0).Rows(i)("ITEM_CODE")
                         dr("Item_Name") = ds.Tables(0).Rows(i)("ITEM_NAME")
                         dr("UM_Name") = ds.Tables(0).Rows(i)("UM_Name")
@@ -634,6 +635,7 @@ restart:
                         dr("Stock_Detail_Id") = ds.Tables(0).Rows(i)("STOCK_DETAIL_ID")
                         dr("transfer_Qty") = 0
                         dtable_Item_List.Rows.Add(dr)
+                        dtable_Item_List.AcceptChanges()
                     Next
                     'Dim strSort As String = flxItems.Cols(1).Name + ", " + flxItems.Cols(2).Name + ", " + flxItems.Cols(3).Name
                     'dtable_Item_List.DefaultView.Sort = strSort
@@ -876,7 +878,7 @@ restart:
         'If ((DateTime.Now - Invdate).TotalDays <= 7) Then
 
         clsObj.Cancel_SALE_INVOICE_MASTER(invId, Convert.ToInt32(GlobalModule.InvoiceStatus.Cancel), GlobalModule.v_the_current_logged_in_user_name)
-            MessageBox.Show("Selected Invoice cancel successfully.")
+        MessageBox.Show("Selected Invoice cancel successfully.")
         'Else
         '    MessageBox.Show("You Can't Edit this Invoice.")
         'End If
