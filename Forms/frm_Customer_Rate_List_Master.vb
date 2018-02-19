@@ -620,6 +620,7 @@ Public Class frm_Customer_Rate_List_Master
                     frm_Show_search.column_name = "Item_Name"
                     frm_Show_search.extra_condition = ""
                     frm_Show_search.ret_column = "Item_ID"
+                    frm_Show_search.item_rate_column = ""
                     frm_Show_search.cols_no_for_width = "1,2,3"
                     frm_Show_search.cols_width = "60,350,50"
                     frm_Show_search.ShowDialog()

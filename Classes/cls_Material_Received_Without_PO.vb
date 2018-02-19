@@ -468,14 +468,38 @@ Namespace material_recieved_without_po_master
 
         End Sub
 
+        Public Sub Update_MATERIAL_RECEIVED_WITHOUT_PO_DETAIL(ByVal clsObj As cls_material_recieved_without_po_master_prop, ByVal cmd As SqlCommand)
+            cmd = New SqlClient.SqlCommand
+            cmd.Connection = con
+            cmd.CommandType = CommandType.StoredProcedure
+            cmd.CommandText = "PROC_MATERIAL_RECEIVED_WITHOUT_PO_DETAIL"
+
+            cmd.Parameters.AddWithValue("@V_Received_ID", clsObj.Received_ID)
+            cmd.Parameters.AddWithValue("@V_Item_ID", clsObj.Item_ID)
+            cmd.Parameters.AddWithValue("@V_Item_Qty", clsObj.Item_Qty)
+            cmd.Parameters.AddWithValue("@V_Item_Rate", clsObj.Item_Rate)
+            cmd.Parameters.AddWithValue("@V_Created_By", clsObj.Created_By)
+            cmd.Parameters.AddWithValue("@V_Creation_Date", clsObj.Creation_Date)
+            cmd.Parameters.AddWithValue("@V_Modified_By", clsObj.Modified_By)
+            cmd.Parameters.AddWithValue("@V_Modification_Date", clsObj.Modification_Date)
+            cmd.Parameters.AddWithValue("@V_Division_Id", clsObj.Division_ID)
+            cmd.Parameters.AddWithValue("@V_Item_vat", clsObj.Item_vat)
+            cmd.Parameters.AddWithValue("@V_Item_exice", clsObj.Item_exice)
+            cmd.Parameters.AddWithValue("@V_Batch_No", clsObj.Batch_No)
+            cmd.Parameters.AddWithValue("@V_Expiry_Date", clsObj.Expiry_Date)
+            cmd.Parameters.AddWithValue("@V_Trans_Type", Transaction_Type.MaterialReceivedWithoutPO)
+            cmd.Parameters.AddWithValue("@V_PROC_TYPE", 2)
+            cmd.Parameters.AddWithValue("@v_DType", clsObj.DType)
+            cmd.Parameters.AddWithValue("@v_DiscountValue", clsObj.DISC)
+            cmd.ExecuteNonQuery()
+            cmd.Dispose()
+
+        End Sub
+
         Public Sub update_MATERIAL_RECIEVED_WITHOUT_PO_MASTER(ByVal clsObj As cls_material_recieved_without_po_master_prop)
 
             cmd = New SqlClient.SqlCommand
             cmd.Connection = con
-
-
-
-
             cmd.CommandType = CommandType.StoredProcedure
             cmd.CommandText = "PROC_MATERIAL_RECIEVED_WITHOUT_PO_MASTER"
 
@@ -493,17 +517,24 @@ Namespace material_recieved_without_po_master
             cmd.Parameters.AddWithValue("@V_Creation_Date", clsObj.Creation_Date)
             cmd.Parameters.AddWithValue("@V_Modified_By", clsObj.Modified_By)
             cmd.Parameters.AddWithValue("@V_Modification_Date", clsObj.Modification_Date)
+            cmd.Parameters.AddWithValue("@v_Invoice_No", clsObj.Invoice_No)
+            cmd.Parameters.AddWithValue("@v_Invoice_Date", clsObj.Invoice_Date)
             cmd.Parameters.AddWithValue("@V_Division_ID", clsObj.Division_ID)
             cmd.Parameters.AddWithValue("@V_mrn_status", clsObj.mrn_status)
+            cmd.Parameters.AddWithValue("@V_freight", clsObj.freight)
+            cmd.Parameters.AddWithValue("@V_freight_type", clsObj.freight_type)
+            cmd.Parameters.AddWithValue("@v_MRNCompanies_ID", clsObj.MRNCompanies_ID)
             cmd.Parameters.AddWithValue("@v_other_charges", clsObj.Other_Charges)
             cmd.Parameters.AddWithValue("@v_Discount_amt", clsObj.Discount_amt)
             cmd.Parameters.AddWithValue("@V_VAT_ON_EXICE", clsObj.VAT_ON_EXICE)
             cmd.Parameters.AddWithValue("@V_PROC_TYPE", 2)
+            cmd.Parameters.AddWithValue("@v_GROSS_AMOUNT", clsObj.GROSS_AMOUNT)
+            cmd.Parameters.AddWithValue("@v_GST_AMOUNT", clsObj.GST_AMOUNT)
+            cmd.Parameters.AddWithValue("@v_NET_AMOUNT", clsObj.NET_AMOUNT)
+            cmd.Parameters.AddWithValue("@V_MRN_TYPE", clsObj.MRNType)
 
             cmd.ExecuteNonQuery()
             cmd.Dispose()
-            con.Close()
-            con.Dispose()
 
         End Sub
 

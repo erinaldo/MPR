@@ -292,6 +292,7 @@ Public Class frm_Material_Received_Without_PO_Master
                     prpty.Received_Code = ""
                     prpty.Received_No = 0
                     prpty.Received_Date = Now
+                    MRN_Code = ""
                 End If
 
 
@@ -386,7 +387,12 @@ Public Class frm_Material_Received_Without_PO_Master
                         prpty.Division_ID = v_the_current_division_id
 
                         'SAVE DETAIL ENTRY
-                        clsObj.insert_MATERIAL_RECEIVED_WITHOUT_PO_DETAIL(prpty, cmd)
+                        If flag = "save" Then
+                            clsObj.insert_MATERIAL_RECEIVED_WITHOUT_PO_DETAIL(prpty, cmd)
+                        Else
+                            clsObj.Update_MATERIAL_RECEIVED_WITHOUT_PO_DETAIL(prpty, cmd)
+                        End If
+
 
 
 
@@ -735,6 +741,7 @@ Public Class frm_Material_Received_Without_PO_Master
                 frm_Show_search.cols_width = "60,350,50,60"
                 frm_Show_search.extra_condition = ""
                 frm_Show_search.ret_column = "Item_ID"
+                frm_Show_search.item_rate_column = ""
                 frm_Show_search.ShowDialog()
 
                 Dim item_is_stockable As Boolean
