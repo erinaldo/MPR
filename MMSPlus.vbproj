@@ -789,6 +789,12 @@
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Reports\PaymentDetailCrReport.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PaymentDetailCrReport.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Reports\PaymentVoucher.vb">
       <DependentUpon>PaymentVoucher.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -1239,7 +1245,7 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Include="Reports\cry_Sale_Invoice_Summary1.vb">
+    <Compile Include="Reports\cry_Sale_Invoice_Summary.vb">
       <DependentUpon>cry_Sale_Invoice_Summary.rpt</DependentUpon>
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
@@ -1298,12 +1304,6 @@
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Include="Reports\PaymentDetailCrReport.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>PaymentDetailCrReport.rpt</DependentUpon>
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\tcryMaterialRecAgainstPOPrint.vb">
       <DependentUpon>tcryMaterialRecAgainstPOPrint.rpt</DependentUpon>
@@ -1681,6 +1681,10 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>crySaleInvoiceList.vb</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Reports\PaymentDetailCrReport.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>PaymentDetailCrReport.vb</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reports\PaymentVoucher.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>PaymentVoucher.vb</LastGenOutput>
@@ -1991,7 +1995,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\cry_Sale_Invoice_Summary.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>cry_Sale_Invoice_Summary1.vb</LastGenOutput>
+      <LastGenOutput>cry_Sale_Invoice_Summary.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\CyItemWiseIndentsCategoryHeadWise.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
@@ -2028,10 +2032,6 @@
     <EmbeddedResource Include="Reports\NonMovingItems.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>NonMovingItems.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Reports\PaymentDetailCrReport.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>PaymentDetailCrReport.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\tcryMaterialRecAgainstPOPrint.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
