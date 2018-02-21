@@ -684,7 +684,7 @@ Public Class frm_Material_Received_Without_PO_Master
         FLXGRD_MatItem_NonStockable.Cols("DISC").AllowEditing = True
 
         FLXGRD_MatItem_NonStockable.Cols("Vat_Per").AllowEditing = True
-        FLXGRD_MatItem_NonStockable.Cols("Vat_Per").ComboList = "0|5|12|18|28"
+        FLXGRD_MatItem_NonStockable.Cols("Vat_Per").ComboList = "0|3|5|12|18|28"
         FLXGRD_MatItem_NonStockable.Cols("exe_Per").AllowEditing = True
         FLXGRD_MatItem_NonStockable.Cols("BATCH_NO").AllowEditing = True
         FLXGRD_MatItem_NonStockable.Cols("EXPIRY_DATE").AllowEditing = True

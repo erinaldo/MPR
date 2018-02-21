@@ -96,6 +96,7 @@ Partial Class MDIMain
         Me.frmStockValue = New System.Windows.Forms.ToolStripMenuItem()
         Me.StockValueCategoryWise = New System.Windows.Forms.ToolStripMenuItem()
         Me.frmStockValueBatchWise = New System.Windows.Forms.ToolStripMenuItem()
+        Me.StockValueBrandWise = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_Item_Ledger = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_LedgerSummary = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_Indents = New System.Windows.Forms.ToolStripMenuItem()
@@ -156,7 +157,7 @@ Partial Class MDIMain
         Me.picLogo = New System.Windows.Forms.PictureBox()
         Me.TabControl2 = New System.Windows.Forms.TabControl()
         Me.frm_open_invoice = New System.Windows.Forms.ToolStripMenuItem()
-        Me.StockValueBrandWise = New System.Windows.Forms.ToolStripMenuItem()
+        Me.frm_Print_Barcode = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.toolbar.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
@@ -208,7 +209,7 @@ Partial Class MDIMain
         'MasterSetupToolStripMenuItem
         '
         Me.MasterSetupToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(22, Byte), Integer), CType(CType(22, Byte), Integer), CType(CType(22, Byte), Integer))
-        Me.MasterSetupToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.frm_Item_Master, Me.frm_Cost_Center, Me.frm_Division_Settings, Me.Synchronization, Me.TransferDataToolStripMenuItem, Me.TransferDataBetweenDatesToolStripMenuItem, Me.frm_Change_Password, Me.frm_StockAdjustment, Me.frm_Item_rate_list, Me.frm_user_rights})
+        Me.MasterSetupToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.frm_Item_Master, Me.frm_Cost_Center, Me.frm_Division_Settings, Me.Synchronization, Me.TransferDataToolStripMenuItem, Me.TransferDataBetweenDatesToolStripMenuItem, Me.frm_Change_Password, Me.frm_StockAdjustment, Me.frm_Item_rate_list, Me.frm_user_rights, Me.frm_Print_Barcode})
         Me.MasterSetupToolStripMenuItem.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.MasterSetupToolStripMenuItem.ForeColor = System.Drawing.Color.White
         Me.MasterSetupToolStripMenuItem.Image = Global.MMSPlus.My.Resources.Resources.smserver
@@ -915,6 +916,15 @@ Partial Class MDIMain
         Me.frmStockValueBatchWise.Size = New System.Drawing.Size(221, 22)
         Me.frmStockValueBatchWise.Text = "Stock Value Batch Wise"
         '
+        'StockValueBrandWise
+        '
+        Me.StockValueBrandWise.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.StockValueBrandWise.ForeColor = System.Drawing.Color.White
+        Me.StockValueBrandWise.Image = Global.MMSPlus.My.Resources.Resources.Reports
+        Me.StockValueBrandWise.Name = "StockValueBrandWise"
+        Me.StockValueBrandWise.Size = New System.Drawing.Size(221, 22)
+        Me.StockValueBrandWise.Text = "Stock Value Brand Wise"
+        '
         'frm_Item_Ledger
         '
         Me.frm_Item_Ledger.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
@@ -1505,14 +1515,14 @@ Partial Class MDIMain
         Me.frm_open_invoice.Size = New System.Drawing.Size(181, 22)
         Me.frm_open_invoice.Text = "Opne Invoice"
         '
-        'StockValueBrandWise
+        'frm_Print_Barcode
         '
-        Me.StockValueBrandWise.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.StockValueBrandWise.ForeColor = System.Drawing.Color.White
-        Me.StockValueBrandWise.Image = Global.MMSPlus.My.Resources.Resources.Reports
-        Me.StockValueBrandWise.Name = "StockValueBrandWise"
-        Me.StockValueBrandWise.Size = New System.Drawing.Size(221, 22)
-        Me.StockValueBrandWise.Text = "Stock Value Brand Wise"
+        Me.frm_Print_Barcode.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.frm_Print_Barcode.ForeColor = System.Drawing.Color.White
+        Me.frm_Print_Barcode.Image = Global.MMSPlus.My.Resources.Resources.Client_list_text1
+        Me.frm_Print_Barcode.Name = "frm_Print_Barcode"
+        Me.frm_Print_Barcode.Size = New System.Drawing.Size(233, 22)
+        Me.frm_Print_Barcode.Text = "Print BarCode"
         '
         'MDIMain
         '
@@ -1678,4 +1688,5 @@ Partial Class MDIMain
     Friend WithEvents frm_Accept_Stock_transfer As ToolStripMenuItem
     Friend WithEvents frm_Stock_Transfer As ToolStripMenuItem
     Friend WithEvents StockValueBrandWise As ToolStripMenuItem
+    Friend WithEvents frm_Print_Barcode As ToolStripMenuItem
 End Class
