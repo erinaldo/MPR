@@ -793,24 +793,25 @@ again:
     End Sub
 
     Private Sub BtnCancelInv_Click(sender As Object, e As EventArgs) Handles BtnCancelInv.Click
-        Dim invId As Integer
-        Dim Invdate As Date
-        invId = flxList.SelectedRows(0).Cells("Si_id").Value
-        Invdate = flxList.SelectedRows(0).Cells("INV DATE").Value
-        Dim Status As String
-        Status = flxList.SelectedRows(0).Cells("Status").Value
-        If Status = "Cancel" Then
-            MessageBox.Show("this Invoice is already canceled")
-            Return
-        End If
-        'If ((DateTime.Now - Invdate).TotalDays <= 7) Then
+        Dim result As Integer = MessageBox.Show("Are you sure you want to cancel this Invoice ?", "Cancel Invoice", MessageBoxButtons.YesNo)
+        If result = DialogResult.Yes Then
 
-        clsObj.Cancel_SALE_INVOICE_MASTER(invId, Convert.ToInt32(GlobalModule.InvoiceStatus.Cancel), GlobalModule.v_the_current_logged_in_user_name)
-        MessageBox.Show("Selected Invoice cancel successfully.")
-        'Else
-        '    MessageBox.Show("You Can't Edit this Invoice.")
-        'End If
-        fill_grid()
+            Dim invId As Integer
+            Dim Invdate As Date
+            invId = flxList.SelectedRows(0).Cells("Si_id").Value
+            Invdate = flxList.SelectedRows(0).Cells("INV DATE").Value
+            Dim Status As String
+            Status = flxList.SelectedRows(0).Cells("Status").Value
+
+            If Status = "Cancel" Then
+                MessageBox.Show("this Invoice is already canceled")
+                Return
+            End If
+
+            clsObj.Cancel_SALE_INVOICE_MASTER(invId, Convert.ToInt32(GlobalModule.InvoiceStatus.Cancel), GlobalModule.v_the_current_logged_in_user_name)
+            MessageBox.Show("Selected Invoice cancel successfully.")
+            fill_grid()
+        End If
 
     End Sub
 

@@ -154,7 +154,7 @@ Public Class frm_Print_Barcode
                 ''fill values in parameters in template file
                 ''fs = fs.Replace("!105111-barcode-111", String.Format("!105{0}", barcode))
                 fs = fs.Replace("Barcode", dr("BarCode_vch"))
-                fs = fs.Replace("Company Name", GlobalModule.v_the_current_division_id)
+                fs = fs.Replace("Company Name", "")
 
                 fs = fs.Replace("Item Name", dr("Item_Name").ToString().Substring(0, length) + "..")
                 Dim rateInfo As String = "MRP " & dr("MRP_num").ToString()
