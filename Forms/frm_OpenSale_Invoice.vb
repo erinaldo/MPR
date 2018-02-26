@@ -501,7 +501,78 @@ again:
     End Sub
 
     Private Sub flxItems_KeyDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles flxItems.KeyDown
+        Try
+            'If cmbSupplier.SelectedIndex > 0 Then
 
+            Dim iRowindex As Int32
+            If flag = "save" Or flag = "update" Then
+                If e.KeyCode = Keys.Space Then
+                    iRowindex = flxItems.Row
+
+                    'frm_Show_search.qry = " SELECT " & _
+                    '                   " ITEM_MASTER.ITEM_ID,   " & _
+                    '                   " ITEM_MASTER.ITEM_CODE, " & _
+                    '                   " ITEM_MASTER.ITEM_NAME, " & _
+                    '                   " ITEM_MASTER.ITEM_DESC, " & _
+                    '                   " UNIT_MASTER.UM_Name,   " & _
+                    '                   " ITEM_CATEGORY.ITEM_CAT_NAME, " & _
+                    '                   " ITEM_MASTER.IS_STOCKABLE " & _
+                    '           " FROM " & _
+                    '                   " ITEM_MASTER " & _
+                    '                   " INNER JOIN UNIT_MASTER ON ITEM_MASTER.UM_ID = UNIT_MASTER.UM_ID " & _
+                    '                   " INNER JOIN ITEM_CATEGORY ON ITEM_MASTER.ITEM_CATEGORY_ID = ITEM_CATEGORY.ITEM_CAT_ID " & _
+                    '                    "INNER JOIN ITEM_DETAIL ON ITEM_MASTER.ITEM_ID = ITEM_DETAIL.ITEM_ID "
+
+                    frm_Show_search.qry = "SELECT IM.ITEM_ID,IM.ITEM_CODE," &
+                                       " IM.ITEM_NAME,UM.UM_Name,CM.ITEM_CAT_NAME," &
+                                       " IM.DIVISION_ID, 0.00 as Quantity, ISNULL(MRP_Num,0) as Rate " &
+                                       " FROM ITEM_MASTER  AS IM INNER JOIN " &
+                                       " ITEM_DETAIL AS ID ON IM.ITEM_ID = ID.ITEM_ID  INNER JOIN  UNIT_MASTER AS UM " &
+                                       " ON IM.UM_ID = UM.UM_ID INNER JOIN ITEM_CATEGORY AS CM ON " &
+                                       " IM.ITEM_CATEGORY_ID = CM.ITEM_CAT_ID"
+
+                    frm_Show_search.column_name = "Item_Name"
+                    frm_Show_search.extra_condition = ""
+                    frm_Show_search.ret_column = "Item_ID"
+                    frm_Show_search.item_rate_column = "Rate"
+                    frm_Show_search.ShowDialog()
+                    If Not check_item_exist(frm_Show_search.search_result) Then
+                        get_row(frm_Show_search.search_result, 0, frm_Show_search.item_rate)
+                    End If
+                End If
+
+            End If
+            If e.KeyCode = Keys.Delete Then
+
+                Dim result As Integer
+                Dim item_code As String
+                result = MsgBox("Do you want to remove """ & flxItems.Rows(flxItems.CursorCell.r1).Item(3) & """ from the list?", MsgBoxStyle.YesNo + MsgBoxStyle.Question)
+                item_code = flxItems.Rows(flxItems.CursorCell.r1).Item("item_code")
+                If result = MsgBoxResult.Yes Then
+restart:
+                    Dim dt As DataTable
+                    dt = TryCast(flxItems.DataSource, DataTable)
+                    If Not dt Is Nothing Then
+                        For Each dr As DataRow In dt.Rows
+                            If Convert.ToString(dr("item_code")) = item_code Then
+                                dr.Delete()
+                                dt.AcceptChanges()
+                                GoTo restart
+                            End If
+                        Next
+                        '        dt.AcceptChanges()
+                    End If
+                End If
+                generate_tree()
+                CalculateAmount()
+            End If
+
+            'Else
+            '    MsgBox("Please select Customer first.", MsgBoxStyle.Information)
+            'End If
+        Catch ex As Exception
+
+        End Try
     End Sub
 
     Public Sub get_row(ByVal item_id As Integer, ByVal Wastage_id As Integer, ByVal itemRate As Decimal)
