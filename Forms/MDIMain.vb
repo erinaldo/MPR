@@ -450,18 +450,19 @@ Public Class MDIMain
                 End Select
 
                 '  tbp.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-
-                SetEventHandlers(tbp.Controls(0))
-                TabControl2.TabPages.Add(tbp)
-                TabControl2.SelectTab(TabControl2.TabPages.Count - 1)
-                If TabControl2.TabCount = 0 Then
-                    picLogo.Visible = True
-                    TabControl2.SendToBack()
-                    toolbar.Visible = False
-                Else
-                    picLogo.Visible = False
-                    toolbar.Visible = True
-                    TabControl2.BringToFront()
+                If menuItem.Name <> "tsmAccount" Then
+                    SetEventHandlers(tbp.Controls(0))
+                    TabControl2.TabPages.Add(tbp)
+                    TabControl2.SelectTab(TabControl2.TabPages.Count - 1)
+                    If TabControl2.TabCount = 0 Then
+                        picLogo.Visible = True
+                        TabControl2.SendToBack()
+                        toolbar.Visible = False
+                    Else
+                        picLogo.Visible = False
+                        toolbar.Visible = True
+                        TabControl2.BringToFront()
+                    End If
                 End If
             End If
         Else

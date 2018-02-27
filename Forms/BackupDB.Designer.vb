@@ -57,7 +57,7 @@ Partial Class BackupDB
         Me.TabPage1.Location = New System.Drawing.Point(4, 26)
         Me.TabPage1.Name = "TabPage1"
         Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage1.Size = New System.Drawing.Size(953, 620)
+        Me.TabPage1.Size = New System.Drawing.Size(902, 600)
         Me.TabPage1.TabIndex = 0
         '
         'FgrdBykMaster
@@ -69,21 +69,21 @@ Partial Class BackupDB
         Me.FgrdBykMaster.ColumnInfo = "1,1,0,0,0,90,Columns:0{Width:25;Visible:False;}" & Global.Microsoft.VisualBasic.ChrW(9)
         Me.FgrdBykMaster.FocusRect = C1.Win.C1FlexGrid.FocusRectEnum.None
         Me.FgrdBykMaster.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.FgrdBykMaster.Location = New System.Drawing.Point(55, 406)
+        Me.FgrdBykMaster.Location = New System.Drawing.Point(11, 395)
         Me.FgrdBykMaster.Name = "FgrdBykMaster"
         Me.FgrdBykMaster.Rows.Count = 1
         Me.FgrdBykMaster.Rows.DefaultSize = 18
         Me.FgrdBykMaster.SelectionMode = C1.Win.C1FlexGrid.SelectionModeEnum.Row
         Me.FgrdBykMaster.ShowCellLabels = True
-        Me.FgrdBykMaster.Size = New System.Drawing.Size(843, 199)
+        Me.FgrdBykMaster.Size = New System.Drawing.Size(878, 189)
         Me.FgrdBykMaster.Styles = New C1.Win.C1FlexGrid.CellStyleCollection(resources.GetString("FgrdBykMaster.Styles"))
         Me.FgrdBykMaster.TabIndex = 168
         '
         'progressBar
         '
-        Me.progressBar.Location = New System.Drawing.Point(226, 354)
+        Me.progressBar.Location = New System.Drawing.Point(182, 348)
         Me.progressBar.Name = "progressBar"
-        Me.progressBar.Size = New System.Drawing.Size(672, 33)
+        Me.progressBar.Size = New System.Drawing.Size(707, 33)
         Me.progressBar.TabIndex = 167
         '
         'btnBackupDb
@@ -95,7 +95,7 @@ Partial Class BackupDB
         Me.btnBackupDb.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnBackupDb.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnBackupDb.ForeColor = System.Drawing.Color.White
-        Me.btnBackupDb.Location = New System.Drawing.Point(55, 348)
+        Me.btnBackupDb.Location = New System.Drawing.Point(11, 342)
         Me.btnBackupDb.Name = "btnBackupDb"
         Me.btnBackupDb.Size = New System.Drawing.Size(150, 44)
         Me.btnBackupDb.TabIndex = 165
@@ -110,9 +110,9 @@ Partial Class BackupDB
         Me.GroupBox1.Controls.Add(Me.lblFormHeading)
         Me.GroupBox1.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GroupBox1.ForeColor = System.Drawing.Color.White
-        Me.GroupBox1.Location = New System.Drawing.Point(3, 7)
+        Me.GroupBox1.Location = New System.Drawing.Point(11, 7)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(946, 326)
+        Me.GroupBox1.Size = New System.Drawing.Size(878, 326)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         '
@@ -121,7 +121,7 @@ Partial Class BackupDB
         Me.lblOnlineBackupStatus.AutoSize = True
         Me.lblOnlineBackupStatus.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblOnlineBackupStatus.ForeColor = System.Drawing.Color.White
-        Me.lblOnlineBackupStatus.Location = New System.Drawing.Point(67, 36)
+        Me.lblOnlineBackupStatus.Location = New System.Drawing.Point(34, 36)
         Me.lblOnlineBackupStatus.Name = "lblOnlineBackupStatus"
         Me.lblOnlineBackupStatus.Size = New System.Drawing.Size(212, 13)
         Me.lblOnlineBackupStatus.TabIndex = 32
@@ -132,7 +132,7 @@ Partial Class BackupDB
         Me.lblCurrentBackupDetail.AutoSize = True
         Me.lblCurrentBackupDetail.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblCurrentBackupDetail.ForeColor = System.Drawing.Color.White
-        Me.lblCurrentBackupDetail.Location = New System.Drawing.Point(67, 278)
+        Me.lblCurrentBackupDetail.Location = New System.Drawing.Point(34, 278)
         Me.lblCurrentBackupDetail.Name = "lblCurrentBackupDetail"
         Me.lblCurrentBackupDetail.Size = New System.Drawing.Size(157, 13)
         Me.lblCurrentBackupDetail.TabIndex = 31
@@ -144,7 +144,7 @@ Partial Class BackupDB
         Me.lblLastBackupDetail.BackColor = System.Drawing.Color.FromArgb(CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.lblLastBackupDetail.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblLastBackupDetail.ForeColor = System.Drawing.Color.White
-        Me.lblLastBackupDetail.Location = New System.Drawing.Point(67, 64)
+        Me.lblLastBackupDetail.Location = New System.Drawing.Point(34, 64)
         Me.lblLastBackupDetail.Name = "lblLastBackupDetail"
         Me.lblLastBackupDetail.Size = New System.Drawing.Size(812, 208)
         Me.lblLastBackupDetail.TabIndex = 30
@@ -156,7 +156,7 @@ Partial Class BackupDB
         Me.lblFormHeading.BackColor = System.Drawing.Color.Transparent
         Me.lblFormHeading.Font = New System.Drawing.Font("Verdana", 15.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblFormHeading.ForeColor = System.Drawing.Color.White
-        Me.lblFormHeading.Location = New System.Drawing.Point(730, 17)
+        Me.lblFormHeading.Location = New System.Drawing.Point(657, 17)
         Me.lblFormHeading.Name = "lblFormHeading"
         Me.lblFormHeading.Size = New System.Drawing.Size(200, 25)
         Me.lblFormHeading.TabIndex = 29
@@ -171,7 +171,7 @@ Partial Class BackupDB
         Me.TabControl1.Location = New System.Drawing.Point(0, 0)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(961, 650)
+        Me.TabControl1.Size = New System.Drawing.Size(910, 630)
         Me.TabControl1.TabIndex = 1
         '
         'BackupDB
@@ -181,7 +181,7 @@ Partial Class BackupDB
         Me.BackColor = System.Drawing.Color.LightGray
         Me.Controls.Add(Me.TabControl1)
         Me.Name = "BackupDB"
-        Me.Size = New System.Drawing.Size(961, 650)
+        Me.Size = New System.Drawing.Size(910, 630)
         Me.TabPage1.ResumeLayout(False)
         CType(Me.FgrdBykMaster, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox1.ResumeLayout(False)
