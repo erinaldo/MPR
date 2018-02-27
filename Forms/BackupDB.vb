@@ -217,7 +217,7 @@ Public Class BackupDB
         If Not Directory.Exists(path) Then
             Directory.CreateDirectory(path)
         End If
-        Return path & DateTime.Now.ToString("yyyyMMddhhmmss") & "_POSR.bak"
+        Return path & DateTime.Now.ToString("yyyyMMddhhmmss") & "_MMSR.bak"
     End Function
 
 
