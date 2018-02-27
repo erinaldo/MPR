@@ -72,7 +72,7 @@ Public Class BackupDB
 
     End Sub
     Private Sub bw_RunWorkerCompleted(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs)
-        InfoMessage("Backup Progress completed. Please check last record status for detail.", "Backup Progress completed")
+        MsgBox("Backup Progress completed. Please check last record status for detail.", MsgBoxStyle.Information, "Backup Progress completed")
         progressBar.Style = ProgressBarStyle.Blocks
         LoadGrid()
     End Sub
@@ -82,7 +82,7 @@ Public Class BackupDB
     End Sub
 
     Private Function GetOnlineBackupStatus() As String
-        FTPBackupFolder = CommonFunction.GetValueByKey("FTPBackupFolder", "")
+        FTPBackupFolder = "ANMOL ENTERPRISES" 'CommonFunction.GetValueByKey("FTPBackupFolder", "")
         If String.IsNullOrEmpty(FTPBackupFolder) Then
             Return "Online Backup Status : Disabled"
         Else
@@ -91,9 +91,9 @@ Public Class BackupDB
     End Function
 
     Private Sub LoadGrid()
-        Query = "SELECT top 100 FileName_vch AS [File Name],OnLocaLoaded_bit [On Local] ,OnOnlineLoaded_bit [On Online] ,BackupStatus_vch [Backup Status]," &
+        Dim Query As String = "SELECT top 100 FileName_vch AS [File Name],OnLocaLoaded_bit [On Local] ,OnOnlineLoaded_bit [On Online] ,BackupStatus_vch [Backup Status]," &
             " TimeStamp_dt as [Backup Taken On] FROM dbo.DBBackupDetails ORDER BY TimeStamp_dt DESC"
-        Dim table As DataTable = CommonFunction.FillDataSet(Query).Tables(0)
+        Dim table As DataTable = obj.FillDataSet(Query).Tables(0)
         lblLastBackupDetail.Text = "Last Backup Detail : N.A."
         FgrdBykMaster.DataSource = table
         If table.Rows.Count > 0 Then
@@ -106,15 +106,15 @@ Public Class BackupDB
         End If
     End Sub
 
-    Private Sub btn_Close_Click(sender As Object, e As EventArgs) Handles btn_Close.Click
-        If worker.IsBusy = True Then
-            If InfoMessage("Backup process is already in progress. Click 'Yes' to cancel the backup process.",
-                        "Backup Process in Progress", MsgBoxStyle.YesNo) = vbYes Then
-                Me.Close()
-            End If
-        Else
-            Me.Close()
-        End If
+    Private Sub btn_Close_Click(sender As Object, e As EventArgs)
+        'If worker.IsBusy = True Then
+        '    If MsgBox("Backup process is already in progress. Click 'Yes' to cancel the backup process.",
+        '                "Backup Process in Progress", MsgBoxStyle.YesNo) = vbYes Then
+        '        Me.Close()
+        '    End If
+        'Else
+        '    Me.Close()
+        'End If
     End Sub
 
     Private Sub btnBackupDb_Click(sender As Object, e As EventArgs) Handles btnBackupDb.Click
@@ -122,7 +122,7 @@ Public Class BackupDB
             progressBar.Style = ProgressBarStyle.Marquee
             worker.RunWorkerAsync()
         Else
-            InfoMessage("Backup process is already in progress.", "Backup Process in Progress")
+            MsgBox("Backup process is already in progress.", MsgBoxStyle.Information, "Backup Process in Progress")
         End If
     End Sub
 
@@ -134,7 +134,7 @@ Public Class BackupDB
     End Sub
 
     Private Sub InsertRecord(fileName As String, localBackupStatus As String, onlineBackupStatus As String)
-        Query = "INSERT into dbo.DBBackupDetails" &
+        Dim Query As String = "INSERT into dbo.DBBackupDetails" &
                 "(FileName_vch ," &
                 "OnLocaLoaded_bit ," &
                 "OnOnlineLoaded_bit , " &
@@ -147,7 +147,7 @@ Public Class BackupDB
                 "'" & String.Format("Local : {0}, Remote : {1}", localBackupStatus, onlineBackupStatus) & "' ," &
                 "GETDATE()" &
                 ")"
-        CommonFunction.ExecuteNonQuery(Query, Nothing, ConnectionType.LocalConnection, CommandType.Text)
+        obj.ExecuteNonQuery(Query)
     End Sub
 
     Private Function TakeFtpBackup(fileName As String) As String
@@ -192,8 +192,8 @@ Public Class BackupDB
 
     Private Function TakeLocalBackup(fileName As String) As String
         Try
-            Query = "BACKUP DATABASE " & CommonFunction.LocalConnection.Database & " TO DISK = '" & fileName & "'"
-            CommonFunction.ExecuteNonQuery(Query, Nothing, ConnectionType.LocalConnection, CommandType.Text)
+            Dim Query = "BACKUP DATABASE " & "mmsplus" & " TO DISK = '" & fileName & "'"
+            obj.ExecuteNonQuery(Query)
 
             Dim fileInfo As New FileInfo(fileName)
             Using zip As ZipFile = New ZipFile()

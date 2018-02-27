@@ -23,20 +23,19 @@ Partial Class BackupDB
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(BackupDB))
         Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
         Me.TabPage1 = New System.Windows.Forms.TabPage()
+        Me.FgrdBykMaster = New C1.Win.C1FlexGrid.C1FlexGrid()
+        Me.progressBar = New System.Windows.Forms.ProgressBar()
+        Me.btnBackupDb = New System.Windows.Forms.Button()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.lblFormHeading = New System.Windows.Forms.Label()
-        Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.lblOnlineBackupStatus = New System.Windows.Forms.Label()
         Me.lblCurrentBackupDetail = New System.Windows.Forms.Label()
         Me.lblLastBackupDetail = New System.Windows.Forms.Label()
-        Me.progressBar = New System.Windows.Forms.ProgressBar()
-        Me.btn_Close = New System.Windows.Forms.Button()
-        Me.btnBackupDb = New System.Windows.Forms.Button()
-        Me.FgrdBykMaster = New C1.Win.C1FlexGrid.C1FlexGrid()
+        Me.lblFormHeading = New System.Windows.Forms.Label()
+        Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1.SuspendLayout()
+        CType(Me.FgrdBykMaster, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
         Me.TabControl1.SuspendLayout()
-        CType(Me.FgrdBykMaster, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'ImageList1
@@ -51,7 +50,6 @@ Partial Class BackupDB
         Me.TabPage1.BackColor = System.Drawing.Color.DimGray
         Me.TabPage1.Controls.Add(Me.FgrdBykMaster)
         Me.TabPage1.Controls.Add(Me.progressBar)
-        Me.TabPage1.Controls.Add(Me.btn_Close)
         Me.TabPage1.Controls.Add(Me.btnBackupDb)
         Me.TabPage1.Controls.Add(Me.GroupBox1)
         Me.TabPage1.ForeColor = System.Drawing.Color.White
@@ -61,6 +59,48 @@ Partial Class BackupDB
         Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
         Me.TabPage1.Size = New System.Drawing.Size(953, 620)
         Me.TabPage1.TabIndex = 0
+        '
+        'FgrdBykMaster
+        '
+        Me.FgrdBykMaster.AllowDragging = C1.Win.C1FlexGrid.AllowDraggingEnum.None
+        Me.FgrdBykMaster.AllowEditing = False
+        Me.FgrdBykMaster.AutoSearch = C1.Win.C1FlexGrid.AutoSearchEnum.FromCursor
+        Me.FgrdBykMaster.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
+        Me.FgrdBykMaster.ColumnInfo = "1,1,0,0,0,90,Columns:0{Width:25;Visible:False;}" & Global.Microsoft.VisualBasic.ChrW(9)
+        Me.FgrdBykMaster.FocusRect = C1.Win.C1FlexGrid.FocusRectEnum.None
+        Me.FgrdBykMaster.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.FgrdBykMaster.Location = New System.Drawing.Point(55, 406)
+        Me.FgrdBykMaster.Name = "FgrdBykMaster"
+        Me.FgrdBykMaster.Rows.Count = 1
+        Me.FgrdBykMaster.Rows.DefaultSize = 18
+        Me.FgrdBykMaster.SelectionMode = C1.Win.C1FlexGrid.SelectionModeEnum.Row
+        Me.FgrdBykMaster.ShowCellLabels = True
+        Me.FgrdBykMaster.Size = New System.Drawing.Size(843, 199)
+        Me.FgrdBykMaster.Styles = New C1.Win.C1FlexGrid.CellStyleCollection(resources.GetString("FgrdBykMaster.Styles"))
+        Me.FgrdBykMaster.TabIndex = 168
+        '
+        'progressBar
+        '
+        Me.progressBar.Location = New System.Drawing.Point(226, 354)
+        Me.progressBar.Name = "progressBar"
+        Me.progressBar.Size = New System.Drawing.Size(672, 33)
+        Me.progressBar.TabIndex = 167
+        '
+        'btnBackupDb
+        '
+        Me.btnBackupDb.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.btnBackupDb.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.btnBackupDb.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(100, Byte), Integer), CType(CType(100, Byte), Integer))
+        Me.btnBackupDb.FlatAppearance.BorderSize = 0
+        Me.btnBackupDb.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnBackupDb.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnBackupDb.ForeColor = System.Drawing.Color.White
+        Me.btnBackupDb.Location = New System.Drawing.Point(55, 348)
+        Me.btnBackupDb.Name = "btnBackupDb"
+        Me.btnBackupDb.Size = New System.Drawing.Size(150, 44)
+        Me.btnBackupDb.TabIndex = 165
+        Me.btnBackupDb.Text = "Start Backup"
+        Me.btnBackupDb.UseVisualStyleBackColor = False
         '
         'GroupBox1
         '
@@ -75,30 +115,6 @@ Partial Class BackupDB
         Me.GroupBox1.Size = New System.Drawing.Size(946, 326)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
-        '
-        'lblFormHeading
-        '
-        Me.lblFormHeading.AutoSize = True
-        Me.lblFormHeading.BackColor = System.Drawing.Color.Transparent
-        Me.lblFormHeading.Font = New System.Drawing.Font("Verdana", 15.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblFormHeading.ForeColor = System.Drawing.Color.White
-        Me.lblFormHeading.Location = New System.Drawing.Point(730, 17)
-        Me.lblFormHeading.Name = "lblFormHeading"
-        Me.lblFormHeading.Size = New System.Drawing.Size(200, 25)
-        Me.lblFormHeading.TabIndex = 29
-        Me.lblFormHeading.Text = "SYSTEM BACKUP"
-        '
-        'TabControl1
-        '
-        Me.TabControl1.Appearance = System.Windows.Forms.TabAppearance.FlatButtons
-        Me.TabControl1.Controls.Add(Me.TabPage1)
-        Me.TabControl1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TabControl1.ImageList = Me.ImageList1
-        Me.TabControl1.Location = New System.Drawing.Point(0, 0)
-        Me.TabControl1.Name = "TabControl1"
-        Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(961, 650)
-        Me.TabControl1.TabIndex = 1
         '
         'lblOnlineBackupStatus
         '
@@ -134,63 +150,29 @@ Partial Class BackupDB
         Me.lblLastBackupDetail.TabIndex = 30
         Me.lblLastBackupDetail.Text = "Last Backup Detail :"
         '
-        'progressBar
+        'lblFormHeading
         '
-        Me.progressBar.Location = New System.Drawing.Point(226, 354)
-        Me.progressBar.Name = "progressBar"
-        Me.progressBar.Size = New System.Drawing.Size(519, 33)
-        Me.progressBar.TabIndex = 167
+        Me.lblFormHeading.AutoSize = True
+        Me.lblFormHeading.BackColor = System.Drawing.Color.Transparent
+        Me.lblFormHeading.Font = New System.Drawing.Font("Verdana", 15.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblFormHeading.ForeColor = System.Drawing.Color.White
+        Me.lblFormHeading.Location = New System.Drawing.Point(730, 17)
+        Me.lblFormHeading.Name = "lblFormHeading"
+        Me.lblFormHeading.Size = New System.Drawing.Size(200, 25)
+        Me.lblFormHeading.TabIndex = 29
+        Me.lblFormHeading.Text = "SYSTEM BACKUP"
         '
-        'btn_Close
+        'TabControl1
         '
-        Me.btn_Close.BackColor = System.Drawing.Color.Red
-        Me.btn_Close.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.btn_Close.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(33, Byte), Integer), CType(CType(33, Byte), Integer), CType(CType(33, Byte), Integer))
-        Me.btn_Close.FlatAppearance.BorderSize = 0
-        Me.btn_Close.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btn_Close.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btn_Close.ForeColor = System.Drawing.Color.White
-        Me.btn_Close.Location = New System.Drawing.Point(768, 348)
-        Me.btn_Close.Name = "btn_Close"
-        Me.btn_Close.Size = New System.Drawing.Size(130, 44)
-        Me.btn_Close.TabIndex = 166
-        Me.btn_Close.Text = "Close"
-        Me.btn_Close.UseVisualStyleBackColor = False
-        '
-        'btnBackupDb
-        '
-        Me.btnBackupDb.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.btnBackupDb.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.btnBackupDb.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(100, Byte), Integer), CType(CType(100, Byte), Integer))
-        Me.btnBackupDb.FlatAppearance.BorderSize = 0
-        Me.btnBackupDb.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnBackupDb.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnBackupDb.ForeColor = System.Drawing.Color.White
-        Me.btnBackupDb.Location = New System.Drawing.Point(55, 348)
-        Me.btnBackupDb.Name = "btnBackupDb"
-        Me.btnBackupDb.Size = New System.Drawing.Size(150, 44)
-        Me.btnBackupDb.TabIndex = 165
-        Me.btnBackupDb.Text = "Start Backup"
-        Me.btnBackupDb.UseVisualStyleBackColor = False
-        '
-        'FgrdBykMaster
-        '
-        Me.FgrdBykMaster.AllowDragging = C1.Win.C1FlexGrid.AllowDraggingEnum.None
-        Me.FgrdBykMaster.AllowEditing = False
-        Me.FgrdBykMaster.AutoSearch = C1.Win.C1FlexGrid.AutoSearchEnum.FromCursor
-        Me.FgrdBykMaster.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
-        Me.FgrdBykMaster.ColumnInfo = "1,1,0,0,0,90,Columns:0{Width:25;Visible:False;}" & Global.Microsoft.VisualBasic.ChrW(9)
-        Me.FgrdBykMaster.FocusRect = C1.Win.C1FlexGrid.FocusRectEnum.None
-        Me.FgrdBykMaster.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.FgrdBykMaster.Location = New System.Drawing.Point(55, 406)
-        Me.FgrdBykMaster.Name = "FgrdBykMaster"
-        Me.FgrdBykMaster.Rows.Count = 1
-        Me.FgrdBykMaster.Rows.DefaultSize = 18
-        Me.FgrdBykMaster.SelectionMode = C1.Win.C1FlexGrid.SelectionModeEnum.Row
-        Me.FgrdBykMaster.ShowCellLabels = True
-        Me.FgrdBykMaster.Size = New System.Drawing.Size(843, 199)
-        Me.FgrdBykMaster.Styles = New C1.Win.C1FlexGrid.CellStyleCollection(resources.GetString("FgrdBykMaster.Styles"))
-        Me.FgrdBykMaster.TabIndex = 168
+        Me.TabControl1.Appearance = System.Windows.Forms.TabAppearance.FlatButtons
+        Me.TabControl1.Controls.Add(Me.TabPage1)
+        Me.TabControl1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TabControl1.ImageList = Me.ImageList1
+        Me.TabControl1.Location = New System.Drawing.Point(0, 0)
+        Me.TabControl1.Name = "TabControl1"
+        Me.TabControl1.SelectedIndex = 0
+        Me.TabControl1.Size = New System.Drawing.Size(961, 650)
+        Me.TabControl1.TabIndex = 1
         '
         'BackupDB
         '
@@ -201,10 +183,10 @@ Partial Class BackupDB
         Me.Name = "BackupDB"
         Me.Size = New System.Drawing.Size(961, 650)
         Me.TabPage1.ResumeLayout(False)
+        CType(Me.FgrdBykMaster, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.TabControl1.ResumeLayout(False)
-        CType(Me.FgrdBykMaster, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -218,6 +200,5 @@ Partial Class BackupDB
     Friend WithEvents lblLastBackupDetail As Label
     Friend WithEvents FgrdBykMaster As C1.Win.C1FlexGrid.C1FlexGrid
     Friend WithEvents progressBar As ProgressBar
-    Friend WithEvents btn_Close As Button
     Friend WithEvents btnBackupDb As Button
 End Class
