@@ -31,6 +31,7 @@ Partial Class MDIMain
         Me.frm_Cost_Center = New System.Windows.Forms.ToolStripMenuItem()
         Me.TransferDataToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.TransferDataBetweenDatesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.BackupDB = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_Division_Settings = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_Item_rate_list = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_Change_Password = New System.Windows.Forms.ToolStripMenuItem()
@@ -69,6 +70,7 @@ Partial Class MDIMain
         Me.frm_CreditNote = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_GatePass = New System.Windows.Forms.ToolStripMenuItem()
         Me.UserManagmentToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.tsmAccount = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_user_master = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_OpeningBalance = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_Supplier_Invoice_Settlement = New System.Windows.Forms.ToolStripMenuItem()
@@ -80,12 +82,12 @@ Partial Class MDIMain
         Me.frm_DebtorsLedger = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_CreditorsOS = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_CreditorsLedger = New System.Windows.Forms.ToolStripMenuItem()
+        Me.frm_depreciation_cal = New System.Windows.Forms.ToolStripMenuItem()
         Me.GSTRegitorToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_GSTR1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.GSTR2ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.GSTR3ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.GSTSummaryToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.frm_depreciation_cal = New System.Windows.Forms.ToolStripMenuItem()
         Me.Recipe = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_menu_item_recipe = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_Recipe_Master = New System.Windows.Forms.ToolStripMenuItem()
@@ -158,7 +160,6 @@ Partial Class MDIMain
         Me.picLogo = New System.Windows.Forms.PictureBox()
         Me.TabControl2 = New System.Windows.Forms.TabControl()
         Me.frm_open_invoice = New System.Windows.Forms.ToolStripMenuItem()
-        Me.BackupDB = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.toolbar.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
@@ -284,6 +285,15 @@ Partial Class MDIMain
         Me.TransferDataBetweenDatesToolStripMenuItem.Name = "TransferDataBetweenDatesToolStripMenuItem"
         Me.TransferDataBetweenDatesToolStripMenuItem.Size = New System.Drawing.Size(233, 22)
         Me.TransferDataBetweenDatesToolStripMenuItem.Text = "Transfer Data Between Dates"
+        '
+        'BackupDB
+        '
+        Me.BackupDB.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.BackupDB.ForeColor = System.Drawing.Color.White
+        Me.BackupDB.Image = Global.MMSPlus.My.Resources.Resources.PC_Web_synchronization
+        Me.BackupDB.Name = "BackupDB"
+        Me.BackupDB.Size = New System.Drawing.Size(233, 22)
+        Me.BackupDB.Text = "System Backup"
         '
         'frm_Division_Settings
         '
@@ -651,7 +661,7 @@ Partial Class MDIMain
         'UserManagmentToolStripMenuItem
         '
         Me.UserManagmentToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(77, Byte), Integer), CType(CType(77, Byte), Integer), CType(CType(77, Byte), Integer))
-        Me.UserManagmentToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.frm_user_master, Me.frm_OpeningBalance, Me.frm_Supplier_Invoice_Settlement, Me.frm_Invoice_Settlement, Me.frm_Journal_Entry, Me.frm_Contra_Entry, Me.frm_Expense_Entry, Me.frm_DebtorsOS, Me.frm_DebtorsLedger, Me.frm_CreditorsOS, Me.frm_CreditorsLedger, Me.GSTRegitorToolStripMenuItem, Me.frm_depreciation_cal})
+        Me.UserManagmentToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsmAccount, Me.frm_user_master, Me.frm_OpeningBalance, Me.frm_Supplier_Invoice_Settlement, Me.frm_Invoice_Settlement, Me.frm_Journal_Entry, Me.frm_Contra_Entry, Me.frm_Expense_Entry, Me.frm_DebtorsOS, Me.frm_DebtorsLedger, Me.frm_CreditorsOS, Me.frm_CreditorsLedger, Me.frm_depreciation_cal, Me.GSTRegitorToolStripMenuItem})
         Me.UserManagmentToolStripMenuItem.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.UserManagmentToolStripMenuItem.ForeColor = System.Drawing.Color.White
         Me.UserManagmentToolStripMenuItem.Image = Global.MMSPlus.My.Resources.Resources.Client_list_text
@@ -660,6 +670,15 @@ Partial Class MDIMain
         Me.UserManagmentToolStripMenuItem.Size = New System.Drawing.Size(98, 66)
         Me.UserManagmentToolStripMenuItem.Text = "Finance"
         Me.UserManagmentToolStripMenuItem.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
+        '
+        'tsmAccount
+        '
+        Me.tsmAccount.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.tsmAccount.ForeColor = System.Drawing.Color.Coral
+        Me.tsmAccount.Image = Global.MMSPlus.My.Resources.Resources.MMS_Login_New_03
+        Me.tsmAccount.Name = "tsmAccount"
+        Me.tsmAccount.Size = New System.Drawing.Size(213, 22)
+        Me.tsmAccount.Text = "Advance Account Module"
         '
         'frm_user_master
         '
@@ -762,6 +781,15 @@ Partial Class MDIMain
         Me.frm_CreditorsLedger.Size = New System.Drawing.Size(170, 22)
         Me.frm_CreditorsLedger.Text = "Creditors Ledger"
         '
+        'frm_depreciation_cal
+        '
+        Me.frm_depreciation_cal.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.frm_depreciation_cal.ForeColor = System.Drawing.Color.White
+        Me.frm_depreciation_cal.Image = Global.MMSPlus.My.Resources.Resources.Refresh_list
+        Me.frm_depreciation_cal.Name = "frm_depreciation_cal"
+        Me.frm_depreciation_cal.Size = New System.Drawing.Size(170, 22)
+        Me.frm_depreciation_cal.Text = "Depreciation Cal."
+        '
         'GSTRegitorToolStripMenuItem
         '
         Me.GSTRegitorToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
@@ -807,15 +835,6 @@ Partial Class MDIMain
         Me.GSTSummaryToolStripMenuItem.Name = "GSTSummaryToolStripMenuItem"
         Me.GSTSummaryToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.GSTSummaryToolStripMenuItem.Text = "GST Summary"
-        '
-        'frm_depreciation_cal
-        '
-        Me.frm_depreciation_cal.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.frm_depreciation_cal.ForeColor = System.Drawing.Color.White
-        Me.frm_depreciation_cal.Image = Global.MMSPlus.My.Resources.Resources.Refresh_list
-        Me.frm_depreciation_cal.Name = "frm_depreciation_cal"
-        Me.frm_depreciation_cal.Size = New System.Drawing.Size(170, 22)
-        Me.frm_depreciation_cal.Text = "Depreciation Cal."
         '
         'Recipe
         '
@@ -1524,15 +1543,6 @@ Partial Class MDIMain
         Me.frm_open_invoice.Size = New System.Drawing.Size(181, 22)
         Me.frm_open_invoice.Text = "Opne Invoice"
         '
-        'BackupDB
-        '
-        Me.BackupDB.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.BackupDB.ForeColor = System.Drawing.Color.White
-        Me.BackupDB.Image = Global.MMSPlus.My.Resources.Resources.MMS_Login_New_03
-        Me.BackupDB.Name = "BackupDB"
-        Me.BackupDB.Size = New System.Drawing.Size(233, 22)
-        Me.BackupDB.Text = "System Backup"
-        '
         'MDIMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1699,4 +1709,5 @@ Partial Class MDIMain
     Friend WithEvents StockValueBrandWise As ToolStripMenuItem
     Friend WithEvents frm_Print_Barcode As ToolStripMenuItem
     Friend WithEvents BackupDB As ToolStripMenuItem
+    Friend WithEvents tsmAccount As ToolStripMenuItem
 End Class
