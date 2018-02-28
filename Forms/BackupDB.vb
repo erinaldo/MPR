@@ -85,7 +85,7 @@ Public Class BackupDB
     End Sub
 
     Private Function GetOnlineBackupStatus() As String
-        FTPBackupFolder = "ANMOL ENTERPRISES" 'CommonFunction.GetValueByKey("FTPBackupFolder", "")
+        FTPBackupFolder = "SyncSolz" 'CommonFunction.GetValueByKey("FTPBackupFolder", "")
         If String.IsNullOrEmpty(FTPBackupFolder) Then
             Return "Online Backup Status : Disabled"
         Else
