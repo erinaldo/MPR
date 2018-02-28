@@ -81,6 +81,7 @@ Partial Class BackupDB
         '
         'progressBar
         '
+        Me.progressBar.BackColor = System.Drawing.Color.DarkGray
         Me.progressBar.Location = New System.Drawing.Point(182, 348)
         Me.progressBar.Name = "progressBar"
         Me.progressBar.Size = New System.Drawing.Size(707, 33)
