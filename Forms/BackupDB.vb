@@ -34,17 +34,10 @@ Public Class BackupDB
         _rights = rights
         InitializeComponent()
     End Sub
-    Private Sub InitializeControls()
-        AddHandler worker.DoWork, AddressOf bw_DoWork
-        AddHandler worker.RunWorkerCompleted, AddressOf bw_RunWorkerCompleted
-        progressBar.Style = ProgressBarStyle.Blocks
-        progressBar.Step = 15
-        ftpRequest = FtpWebRequest.Create(ftpPath)
-        lblOnlineBackupStatus.Text = GetOnlineBackupStatus()
-        lblCurrentBackupDetail.Text = "Current Backup Detail :"
-        LoadGrid()
-    End Sub
 
+    Private Sub BackupDB_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        InitializeControls()
+    End Sub
 
     Public Sub CloseClick(ByVal sender As Object, ByVal e As System.EventArgs) Implements IForm.CloseClick
 
@@ -67,6 +60,16 @@ Public Class BackupDB
     End Sub
     Public Sub ViewClick(ByVal sender As Object, ByVal e As System.EventArgs) Implements IForm.ViewClick
 
+    End Sub
+    Private Sub InitializeControls()
+        AddHandler worker.DoWork, AddressOf bw_DoWork
+        AddHandler worker.RunWorkerCompleted, AddressOf bw_RunWorkerCompleted
+        progressBar.Style = ProgressBarStyle.Blocks
+        progressBar.Step = 15
+        ftpRequest = FtpWebRequest.Create(ftpPath)
+        lblOnlineBackupStatus.Text = GetOnlineBackupStatus()
+        lblCurrentBackupDetail.Text = "Current Backup Detail :"
+        LoadGrid()
     End Sub
     Private Sub new_initilization()
 
@@ -193,7 +196,7 @@ Public Class BackupDB
     Private Function TakeLocalBackup(fileName As String) As String
         Try
             Dim Query = "BACKUP DATABASE " & "mmsplus" & " TO DISK = '" & fileName & "'"
-            obj.ExecuteNonQuery(Query)
+            obj.ExecuteNonQueryWithoutTransaction(Query)
 
             Dim fileInfo As New FileInfo(fileName)
             Using zip As ZipFile = New ZipFile()
