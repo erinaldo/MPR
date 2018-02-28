@@ -24,9 +24,10 @@ Module GlobalModule
     Public gblMessage_ContactInfo As String = "For further support Contact IT Dept at mailto:mmsplus@SyncSolz.com or http://SyncSolz.com/support"
 
     Public gblDataBaseServer_Name As String = "afblmms"
-    Public gblDataBase_UserName As String = "sa"
-    Public gblDataBase_Password As String = "DataBase@123"
-    Public gblDataBase_Name As String = "MMSPLUS"
+
+    Public gblDataBase_UserName As String = ""
+    Public gblDataBase_Password As String = ""
+    Public gblDataBase_Name As String = ""
 
     Public v_division_type As division_type
 

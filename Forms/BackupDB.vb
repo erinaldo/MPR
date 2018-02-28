@@ -85,12 +85,17 @@ Public Class BackupDB
     End Sub
 
     Private Function GetOnlineBackupStatus() As String
-        FTPBackupFolder = "SyncSolz" 'CommonFunction.GetValueByKey("FTPBackupFolder", "")
+
+        Dim query As String = "SELECT value FROM mmssetting WHERE [key]='FTPBackupFolder'"
+        Dim BackupFolderName = obj.ExecuteScalar(query)
+
+        FTPBackupFolder = BackupFolderName
         If String.IsNullOrEmpty(FTPBackupFolder) Then
             Return "Online Backup Status : Disabled"
         Else
             Return "Online Backup Status : Enabled - " & FTPBackupFolder
         End If
+
     End Function
 
     Private Sub LoadGrid()
@@ -195,7 +200,7 @@ Public Class BackupDB
 
     Private Function TakeLocalBackup(fileName As String) As String
         Try
-            Dim Query = "BACKUP DATABASE " & "mmsplus" & " TO DISK = '" & fileName & "'"
+            Dim Query = "BACKUP DATABASE " & gblDataBase_Name & " TO DISK = '" & fileName & "'"
             obj.ExecuteNonQueryWithoutTransaction(Query)
 
             Dim fileInfo As New FileInfo(fileName)
