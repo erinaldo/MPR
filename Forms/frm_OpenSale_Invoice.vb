@@ -721,17 +721,26 @@ restart:
     End Sub
 
     Private Sub flxList_DoubleClick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles flxList.DoubleClick
-        Dim strSql As String
-        Dim count As Int32
-        strSql = " SELECT COUNT(*) FROM dbo.SettlementDetail WHERE InvoiceId= " & flxList("Si_ID", flxList.CurrentCell.RowIndex).Value()
-        count = obj.Fill_DataSet(strSql).Tables(0).Rows(0)(0)
-        If count > 0 Then
-            MsgBox("You Can't Edit this Invoice." & vbCrLf & "Please click in print to view/print this Invoice/ DC.", MsgBoxStyle.Information)
+
+        Dim Status As String
+        Status = flxList.SelectedRows(0).Cells("Status").Value
+
+        If Status <> "Cancel" Then
+            Dim strSql As String
+            Dim count As Int32
+            strSql = " SELECT COUNT(*) FROM dbo.SettlementDetail JOIN dbo.PaymentTransaction ON dbo.PaymentTransaction.PaymentTransactionId = dbo.SettlementDetail.PaymentTransactionId  where  PM_TYPE=1 and InvoiceId= " & flxList("Si_ID", flxList.CurrentCell.RowIndex).Value()
+            count = obj.Fill_DataSet(strSql).Tables(0).Rows(0)(0)
+            If count > 0 Then
+                MsgBox("You Can't Edit Settled Invoice." & vbCrLf & "Please click in print to view/print this Invoice/ DC.", MsgBoxStyle.Information)
+            Else
+                new_initilization()
+                flag = "update"
+                Si_ID = Convert.ToInt32(flxList("Si_ID", flxList.CurrentCell.RowIndex).Value())
+                fill_InvoiceDetail(Si_ID)
+            End If
         Else
-            new_initilization()
-            flag = "update"
-            Si_ID = Convert.ToInt32(flxList("Si_ID", flxList.CurrentCell.RowIndex).Value())
-            fill_InvoiceDetail(Si_ID)
+            MessageBox.Show("You Can't Edit canceled Invoice. ")
+            Return
         End If
     End Sub
 
