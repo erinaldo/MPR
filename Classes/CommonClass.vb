@@ -29,6 +29,7 @@ Public Class CommonClass
         grdcmb.DataSource = dt
     End Sub
 
+
     ' Dim DR As Odbc.OdbcDataReader
     Public Function FillDataSet(ByVal qry As String) As DataSet
         '' Common Function to open a DataSet

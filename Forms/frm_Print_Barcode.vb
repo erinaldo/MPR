@@ -64,8 +64,16 @@ Public Class frm_Print_Barcode
 
         Dim itemDetailTable As DataTable = obj.FillDataSet(Query).Tables(0)
 
-        'dgvPrintBarcode.RowCount = 0
+
         For Each row As DataRow In itemDetailTable.Rows
+
+            For Each Grow As DataGridViewRow In dgvPrintBarcode.Rows
+                If Grow.Cells(1).Value = row("ItemCode_num") Then
+                    MsgBox("Item you have search already exist.", "Item Already Exist!!!")
+                    Exit Sub
+                End If
+            Next
+
             Dim index As Int32 = dgvPrintBarcode.RowCount
             dgvPrintBarcode.RowCount += 1
             dgvPrintBarcode.Rows(index).Cells(0).Value = row("SNO")
