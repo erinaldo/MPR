@@ -139,6 +139,7 @@ Public Class frm_Customer_Rate_List_Master
             End If
 
             cmd = obj.MyCon_BeginTransaction
+
             Try
                 lblFormHeading.Focus()
                 If flag = "save" Then
