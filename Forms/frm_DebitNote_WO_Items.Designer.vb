@@ -197,7 +197,7 @@ Partial Class frm_DebitNote_WO_Items
         Me.txtTaxAmt.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtTaxAmt.Font = New System.Drawing.Font("Arial Narrow", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtTaxAmt.ForeColor = System.Drawing.Color.White
-        Me.txtTaxAmt.Location = New System.Drawing.Point(495, 159)
+        Me.txtTaxAmt.Location = New System.Drawing.Point(145, 158)
         Me.txtTaxAmt.MaxLength = 0
         Me.txtTaxAmt.Name = "txtTaxAmt"
         Me.txtTaxAmt.Size = New System.Drawing.Size(222, 19)
@@ -207,7 +207,7 @@ Partial Class frm_DebitNote_WO_Items
         '
         Me.lblTaxAmt.AutoSize = True
         Me.lblTaxAmt.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblTaxAmt.Location = New System.Drawing.Point(407, 159)
+        Me.lblTaxAmt.Location = New System.Drawing.Point(28, 158)
         Me.lblTaxAmt.Name = "lblTaxAmt"
         Me.lblTaxAmt.Size = New System.Drawing.Size(75, 15)
         Me.lblTaxAmt.TabIndex = 264
@@ -219,17 +219,17 @@ Partial Class frm_DebitNote_WO_Items
         Me.txtDebitAmt.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtDebitAmt.Font = New System.Drawing.Font("Arial Narrow", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtDebitAmt.ForeColor = System.Drawing.Color.White
-        Me.txtDebitAmt.Location = New System.Drawing.Point(145, 159)
+        Me.txtDebitAmt.Location = New System.Drawing.Point(512, 162)
         Me.txtDebitAmt.MaxLength = 0
         Me.txtDebitAmt.Name = "txtDebitAmt"
-        Me.txtDebitAmt.Size = New System.Drawing.Size(222, 19)
+        Me.txtDebitAmt.Size = New System.Drawing.Size(205, 19)
         Me.txtDebitAmt.TabIndex = 263
         '
         'lblDebitAmt
         '
         Me.lblDebitAmt.AutoSize = True
         Me.lblDebitAmt.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblDebitAmt.Location = New System.Drawing.Point(28, 159)
+        Me.lblDebitAmt.Location = New System.Drawing.Point(420, 162)
         Me.lblDebitAmt.Name = "lblDebitAmt"
         Me.lblDebitAmt.Size = New System.Drawing.Size(86, 15)
         Me.lblDebitAmt.TabIndex = 262
