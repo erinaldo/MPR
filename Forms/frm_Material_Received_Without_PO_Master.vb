@@ -589,6 +589,7 @@ Public Class frm_Material_Received_Without_PO_Master
         dtable_Item_List.Rows.Add(dtable_Item_List.NewRow)
         dtable_Item_List_Stockable.Rows.Add(dtable_Item_List_Stockable.NewRow)
         FLXGRD_MaterialItem.Cols(0).Width = 10
+        FLXGRD_MaterialItem.Cols(0).AllowEditing = False
         FLXGRD_MatItem_NonStockable.Cols(0).Width = 10
 
         SetGridSettingValues()
@@ -764,15 +765,18 @@ Public Class frm_Material_Received_Without_PO_Master
 restart:
                     Dim dt As DataTable
                     dt = TryCast(FLXGRD_MaterialItem.DataSource, DataTable)
+                    dt.AcceptChanges()
                     If Not dt Is Nothing Then
                         For Each dr As DataRow In dt.Rows
                             If Convert.ToString(dr("item_code")) = item_code Then
                                 dr.Delete()
+                                dt.AcceptChanges()
                                 GoTo restart
                             End If
                         Next
                         '        dt.AcceptChanges()
                     End If
+                    Calculate_Amount()
                 End If
             End If
         Catch ex As Exception
@@ -1522,5 +1526,9 @@ restart:
                 txtBarcodeSearch.Focus()
             End If
         End If
+    End Sub
+
+    Private Sub FLXGRD_MaterialItem_AfterDataRefresh(sender As Object, e As System.ComponentModel.ListChangedEventArgs)
+        Calculate_Amount()
     End Sub
 End Class
