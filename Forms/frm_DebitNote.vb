@@ -188,12 +188,15 @@ Public Class frm_DebitNote
         CalculateAmount()
         Dim cmd As SqlCommand
 
-        cmd = obj.MyCon_BeginTransaction
 
+        'If cmd Is Nothing Then
+        '    G_MyConTransaction = False
+        '    cmd = obj.MyCon_BeginTransaction
+        'End If
         txtRemarks.Focus()
         Try
             If flag = "save" And validate_data() Then
-
+                cmd = obj.MyCon_BeginTransaction
                 GetDNCode()
                 DN_Id = Convert.ToInt32(obj.getMaxValue("DebitNote_ID", "DebitNote_MASTER"))
                 prpty.DebitNote_ID = Convert.ToInt32(DN_Id)
