@@ -48,6 +48,8 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.Label10 = New System.Windows.Forms.Label()
         Me.Panel17 = New System.Windows.Forms.Panel()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.txtBarcodeSearch = New System.Windows.Forms.TextBox()
+        Me.Label52 = New System.Windows.Forms.Label()
         Me.cmbMRNType = New System.Windows.Forms.ComboBox()
         Me.Label49 = New System.Windows.Forms.Label()
         Me.Label7 = New System.Windows.Forms.Label()
@@ -190,8 +192,6 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.Label46 = New System.Windows.Forms.Label()
         Me.Label47 = New System.Windows.Forms.Label()
         Me.Label48 = New System.Windows.Forms.Label()
-        Me.txtBarcodeSearch = New System.Windows.Forms.TextBox()
-        Me.Label52 = New System.Windows.Forms.Label()
         Me.TbPO.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.GroupBox5.SuspendLayout()
@@ -460,12 +460,13 @@ Partial Class frm_Material_Received_Without_PO_Master
         '
         Me.GroupBox4.Controls.Add(Me.FLXGRD_MatItem_NonStockable)
         Me.GroupBox4.ForeColor = System.Drawing.Color.White
-        Me.GroupBox4.Location = New System.Drawing.Point(6, 348)
+        Me.GroupBox4.Location = New System.Drawing.Point(6, 401)
         Me.GroupBox4.Name = "GroupBox4"
-        Me.GroupBox4.Size = New System.Drawing.Size(890, 63)
+        Me.GroupBox4.Size = New System.Drawing.Size(890, 10)
         Me.GroupBox4.TabIndex = 2
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "Non Stockable Items"
+        Me.GroupBox4.Visible = False
         '
         'FLXGRD_MatItem_NonStockable
         '
@@ -478,9 +479,10 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.FLXGRD_MatItem_NonStockable.Name = "FLXGRD_MatItem_NonStockable"
         Me.FLXGRD_MatItem_NonStockable.Rows.Count = 1
         Me.FLXGRD_MatItem_NonStockable.Rows.DefaultSize = 18
-        Me.FLXGRD_MatItem_NonStockable.Size = New System.Drawing.Size(884, 43)
+        Me.FLXGRD_MatItem_NonStockable.Size = New System.Drawing.Size(884, 0)
         Me.FLXGRD_MatItem_NonStockable.Styles = New C1.Win.C1FlexGrid.CellStyleCollection(resources.GetString("FLXGRD_MatItem_NonStockable.Styles"))
         Me.FLXGRD_MatItem_NonStockable.TabIndex = 0
+        Me.FLXGRD_MatItem_NonStockable.Visible = False
         '
         'GroupBox2
         '
@@ -489,7 +491,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.GroupBox2.ForeColor = System.Drawing.Color.White
         Me.GroupBox2.Location = New System.Drawing.Point(6, 118)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(890, 227)
+        Me.GroupBox2.Size = New System.Drawing.Size(890, 291)
         Me.GroupBox2.TabIndex = 1
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Stockable Items"
@@ -506,7 +508,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.FLXGRD_MaterialItem.Name = "FLXGRD_MaterialItem"
         Me.FLXGRD_MaterialItem.Rows.Count = 1
         Me.FLXGRD_MaterialItem.Rows.DefaultSize = 17
-        Me.FLXGRD_MaterialItem.Size = New System.Drawing.Size(884, 208)
+        Me.FLXGRD_MaterialItem.Size = New System.Drawing.Size(884, 272)
         Me.FLXGRD_MaterialItem.Styles = New C1.Win.C1FlexGrid.CellStyleCollection(resources.GetString("FLXGRD_MaterialItem.Styles"))
         Me.FLXGRD_MaterialItem.TabIndex = 0
         '
@@ -562,6 +564,30 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.GroupBox1.Size = New System.Drawing.Size(890, 114)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
+        '
+        'txtBarcodeSearch
+        '
+        Me.txtBarcodeSearch.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.txtBarcodeSearch.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.txtBarcodeSearch.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtBarcodeSearch.ForeColor = System.Drawing.Color.White
+        Me.txtBarcodeSearch.Location = New System.Drawing.Point(112, 92)
+        Me.txtBarcodeSearch.MaxLength = 100
+        Me.txtBarcodeSearch.Name = "txtBarcodeSearch"
+        Me.txtBarcodeSearch.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
+        Me.txtBarcodeSearch.Size = New System.Drawing.Size(552, 19)
+        Me.txtBarcodeSearch.TabIndex = 36
+        '
+        'Label52
+        '
+        Me.Label52.AutoSize = True
+        Me.Label52.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label52.ForeColor = System.Drawing.Color.White
+        Me.Label52.Location = New System.Drawing.Point(13, 95)
+        Me.Label52.Name = "Label52"
+        Me.Label52.Size = New System.Drawing.Size(59, 15)
+        Me.Label52.TabIndex = 35
+        Me.Label52.Text = "Barcode :"
         '
         'cmbMRNType
         '
@@ -2053,30 +2079,6 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.Label48.Size = New System.Drawing.Size(92, 13)
         Me.Label48.TabIndex = 0
         Me.Label48.Text = "Delivery Rate :"
-        '
-        'txtBarcodeSearch
-        '
-        Me.txtBarcodeSearch.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.txtBarcodeSearch.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.txtBarcodeSearch.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtBarcodeSearch.ForeColor = System.Drawing.Color.White
-        Me.txtBarcodeSearch.Location = New System.Drawing.Point(112, 92)
-        Me.txtBarcodeSearch.MaxLength = 100
-        Me.txtBarcodeSearch.Name = "txtBarcodeSearch"
-        Me.txtBarcodeSearch.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtBarcodeSearch.Size = New System.Drawing.Size(552, 19)
-        Me.txtBarcodeSearch.TabIndex = 36
-        '
-        'Label52
-        '
-        Me.Label52.AutoSize = True
-        Me.Label52.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label52.ForeColor = System.Drawing.Color.White
-        Me.Label52.Location = New System.Drawing.Point(13, 95)
-        Me.Label52.Name = "Label52"
-        Me.Label52.Size = New System.Drawing.Size(59, 15)
-        Me.Label52.TabIndex = 35
-        Me.Label52.Text = "Barcode :"
         '
         'frm_Material_Received_Without_PO_Master
         '

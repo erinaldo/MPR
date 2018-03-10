@@ -401,7 +401,13 @@ Namespace material_recieved_without_po_master
 
         Public Sub insert_MATERIAL_RECIEVED_WITHOUT_PO_MASTER(ByVal clsObj As cls_material_recieved_without_po_master_prop, ByVal cmd As SqlCommand)
             cmd = New SqlClient.SqlCommand
+
+            If con.State = ConnectionState.Closed Then
+                con.Open()
+            End If
+
             cmd.Connection = con
+
             cmd.CommandType = CommandType.StoredProcedure
             cmd.CommandText = "PROC_MATERIAL_RECIEVED_WITHOUT_PO_MASTER"
 
@@ -442,6 +448,11 @@ Namespace material_recieved_without_po_master
 
         Public Sub insert_MATERIAL_RECEIVED_WITHOUT_PO_DETAIL(ByVal clsObj As cls_material_recieved_without_po_master_prop, ByVal cmd As SqlCommand)
             cmd = New SqlClient.SqlCommand
+
+            If con.State = ConnectionState.Closed Then
+                con.Open()
+            End If
+
             cmd.Connection = con
             cmd.CommandType = CommandType.StoredProcedure
             cmd.CommandText = "PROC_MATERIAL_RECEIVED_WITHOUT_PO_DETAIL"
@@ -470,6 +481,11 @@ Namespace material_recieved_without_po_master
 
         Public Sub Update_MATERIAL_RECEIVED_WITHOUT_PO_DETAIL(ByVal clsObj As cls_material_recieved_without_po_master_prop, ByVal cmd As SqlCommand)
             cmd = New SqlClient.SqlCommand
+
+            If con.State = ConnectionState.Closed Then
+                con.Open()
+            End If
+
             cmd.Connection = con
             cmd.CommandType = CommandType.StoredProcedure
             cmd.CommandText = "PROC_MATERIAL_RECEIVED_WITHOUT_PO_DETAIL"
@@ -499,6 +515,11 @@ Namespace material_recieved_without_po_master
         Public Sub update_MATERIAL_RECIEVED_WITHOUT_PO_MASTER(ByVal clsObj As cls_material_recieved_without_po_master_prop)
 
             cmd = New SqlClient.SqlCommand
+
+            If con.State = ConnectionState.Closed Then
+                con.Open()
+            End If
+
             cmd.Connection = con
             cmd.CommandType = CommandType.StoredProcedure
             cmd.CommandText = "PROC_MATERIAL_RECIEVED_WITHOUT_PO_MASTER"
@@ -541,6 +562,11 @@ Namespace material_recieved_without_po_master
         Public Sub Update_PrintStatus_MRN(ByVal clsobj As cls_material_recieved_without_po_master_prop, ByVal cmd As SqlCommand)
 
             cmd = New SqlClient.SqlCommand
+
+            If con.State = ConnectionState.Closed Then
+                con.Open()
+            End If
+
             cmd.Connection = con
             cmd.CommandType = CommandType.StoredProcedure
             cmd.CommandText = "PROC_UPDATE_PRINT_STATUS_MRN"
@@ -558,6 +584,11 @@ Namespace material_recieved_without_po_master
         Public Sub delete_MATERIAL_RECIEVED_WITHOUT_PO_MASTER(ByVal clsObj As cls_material_recieved_without_po_master_prop)
 
             cmd = New SqlClient.SqlCommand
+
+            If con.State = ConnectionState.Closed Then
+                con.Open()
+            End If
+
             cmd.Connection = con
             cmd.CommandType = CommandType.StoredProcedure
             cmd.CommandText = "PROC_MATERIAL_RECIEVED_WITHOUT_PO_MASTER"
@@ -591,6 +622,11 @@ Namespace material_recieved_without_po_master
         End Sub
         Public Sub Insert_Non_Stockable_Items(ByVal clsObj As cls_material_recieved_without_po_master_prop)
             cmd = New SqlClient.SqlCommand
+
+            If con.State = ConnectionState.Closed Then
+                con.Open()
+            End If
+
             cmd.Connection = con
             cmd.CommandType = CommandType.StoredProcedure
             cmd.CommandText = "PROC_INSERT_NON_STOCKABLE_ITEMS"
