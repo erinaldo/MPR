@@ -63,9 +63,7 @@ Public Class frm_DebitNote
         If Not dtable_Item_List Is Nothing Then dtable_Item_List.Rows.Clear()
         TbRMRN.SelectTab(1)
         ' intColumnIndex = -1
-
         FillGrid()
-
         flag = "save"
     End Sub
 
@@ -118,7 +116,7 @@ Public Class frm_DebitNote
 
     Private Sub FillGrid(Optional ByVal condition As String = "")
         Try
-            obj.GridBind(dgvList, "SELECT *FROM ( SELECT DebitNote_Id,DebitNote_Code + CAST(DebitNote_No AS VARCHAR(10)) AS DebitNote_No ,dbo.fn_format(DebitNote_Date) AS DebitNote_Date ,MRNId ,MM.MRN_PREFIX + CAST(MM.MRN_NO AS VARCHAR(10)) AS MRNNo ,DN_Amount ,ACC_NAME,DM.Remarks,DM.Created_by FROM DebitNote_Master Dm INNER JOIN MATERIAL_RECEIVED_AGAINST_PO_MASTER MM ON DM.MRNId = MM.Receipt_ID INNER JOIN dbo.ACCOUNT_MASTER AM ON am.ACC_ID=dm.DN_CustId UNION ALL SELECT    DebitNote_Id ,DebitNote_Code + CAST(DebitNote_No AS VARCHAR(10)) AS DebitNote_No ,dbo.fn_format(DebitNote_Date) AS DebitNote_Date ,MRNId ,MM.MRN_PREFIX + CAST(MM.MRN_NO AS VARCHAR(10)) AS MRNNo ,DN_Amount ,ACC_NAME ,DM.Remarks ,DM.Created_by FROM      DebitNote_Master Dm INNER JOIN dbo.MATERIAL_RECIEVED_WITHOUT_PO_MASTER MM ON DM.MRNId = MM.MRN_NO INNER JOIN dbo.ACCOUNT_MASTER AM ON am.ACC_ID = dm.DN_CustId) tb  WHERE (tb.DebitNote_No+tb.DebitNote_Date+MRNNo+tb.Remarks+tb.Created_by+ACC_NAME + CAST(DN_Amount as varchar(50))) LIKE '%" & condition & "%'")
+            obj.GridBind(dgvList, "SELECT * FROM ( SELECT DebitNote_Id,DebitNote_Code + CAST(DebitNote_No AS VARCHAR(10)) AS DebitNote_No ,dbo.fn_format(DebitNote_Date) AS DebitNote_Date ,MRNId ,MM.MRN_PREFIX + CAST(MM.MRN_NO AS VARCHAR(10)) AS MRNNo ,DN_Amount ,ACC_NAME,DM.Remarks,DM.Created_by FROM DebitNote_Master Dm INNER JOIN MATERIAL_RECEIVED_AGAINST_PO_MASTER MM ON DM.MRNId = MM.Receipt_ID INNER JOIN dbo.ACCOUNT_MASTER AM ON am.ACC_ID=dm.DN_CustId UNION ALL SELECT    DebitNote_Id ,DebitNote_Code + CAST(DebitNote_No AS VARCHAR(10)) AS DebitNote_No ,dbo.fn_format(DebitNote_Date) AS DebitNote_Date ,MRNId ,MM.MRN_PREFIX + CAST(MM.MRN_NO AS VARCHAR(10)) AS MRNNo ,DN_Amount ,ACC_NAME ,DM.Remarks ,DM.Created_by FROM      DebitNote_Master Dm INNER JOIN dbo.MATERIAL_RECIEVED_WITHOUT_PO_MASTER MM ON DM.MRNId = MM.MRN_NO INNER JOIN dbo.ACCOUNT_MASTER AM ON am.ACC_ID = dm.DN_CustId) tb  WHERE (tb.DebitNote_No+tb.DebitNote_Date+MRNNo+tb.Remarks+tb.Created_by+ACC_NAME + CAST(DN_Amount as varchar(50))) LIKE '%" & condition & "%'")
             dgvList.Width = 100
             dgvList.Columns(0).Visible = False 'Reverse_ID
             dgvList.Columns(0).Width = 100
@@ -131,13 +129,10 @@ Public Class frm_DebitNote
             dgvList.Columns(3).Visible = False
             dgvList.Columns(4).HeaderText = "MRN No."
             dgvList.Columns(4).Width = 100
-
             dgvList.Columns(5).HeaderText = "Dn. Amount"
             dgvList.Columns(5).Width = 100
-
             dgvList.Columns(6).HeaderText = "Supplier"
             dgvList.Columns(6).Width = 170
-
             dgvList.Columns(7).HeaderText = "Remarks"
             dgvList.Columns(7).Width = 200
             dgvList.Columns(8).HeaderText = "User"
@@ -218,6 +213,11 @@ Public Class frm_DebitNote
                 prpty.INV_Date = txt_INVDate.Text
                 prpty.DN_ItemValue = lblAmount.Text
                 prpty.DN_ItemTax = lblVatAmount.Text
+                prpty.DN_Type = "Item"
+                prpty.Ref_No = ""
+                prpty.Ref_Date = DateTime.Now()
+                prpty.Tax_Num = 0
+
                 clsObj.insert_DebitNote_MASTER(prpty, cmd)
 
                 Dim iRowCount As Int32
