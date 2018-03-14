@@ -600,6 +600,7 @@ Public Class frm_Material_Received_Without_PO_Master
     Private Sub SetGridSettingValues()
 
         FLXGRD_MaterialItem.Cols(1).Visible = False
+        FLXGRD_MaterialItem.Cols(1).AllowEditing = False
 
         FLXGRD_MaterialItem.Cols("Item_Code").Caption = "Item Code"
         FLXGRD_MaterialItem.Cols("Item_Name").Caption = "Item Name"
@@ -654,6 +655,7 @@ Public Class frm_Material_Received_Without_PO_Master
         ''**************************************************************
 
         FLXGRD_MatItem_NonStockable.Cols(1).Visible = False
+        FLXGRD_MatItem_NonStockable.Cols(1).AllowEditing = False
         FLXGRD_MatItem_NonStockable.Cols(2).Visible = False
         FLXGRD_MatItem_NonStockable.Cols("CostCenter_ID").Visible = False
         FLXGRD_MatItem_NonStockable.Cols("CostCenter_code").Visible = False
