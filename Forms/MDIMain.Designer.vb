@@ -52,6 +52,8 @@ Partial Class MDIMain
         Me.frm_ReverseMaterial_Issue_To_Cost_Center_Master = New System.Windows.Forms.ToolStripMenuItem()
         Me.MaterialReturnfromCostCenterToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_DebitNote = New System.Windows.Forms.ToolStripMenuItem()
+        Me.frm_Accept_Stock_transfer = New System.Windows.Forms.ToolStripMenuItem()
+        Me.frm_Stock_Transfer = New System.Windows.Forms.ToolStripMenuItem()
         Me.ReportsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_Material_Issue_To_Cost_Center_Master = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_Wastage_Master = New System.Windows.Forms.ToolStripMenuItem()
@@ -79,8 +81,7 @@ Partial Class MDIMain
         Me.frm_CreditorsLedger = New System.Windows.Forms.ToolStripMenuItem()
         Me.GSTRegitorToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_GSTR1 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.GSTR2ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.GSTR3ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.frm_GSTR3 = New System.Windows.Forms.ToolStripMenuItem()
         Me.GSTSummaryToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_depreciation_cal = New System.Windows.Forms.ToolStripMenuItem()
         Me.Recipe = New System.Windows.Forms.ToolStripMenuItem()
@@ -154,8 +155,6 @@ Partial Class MDIMain
         Me.picLogo = New System.Windows.Forms.PictureBox()
         Me.TabControl2 = New System.Windows.Forms.TabControl()
         Me.frm_open_invoice = New System.Windows.Forms.ToolStripMenuItem()
-        Me.frm_Accept_Stock_transfer = New System.Windows.Forms.ToolStripMenuItem()
-        Me.frm_Stock_Transfer = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.toolbar.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
@@ -489,6 +488,24 @@ Partial Class MDIMain
         Me.frm_DebitNote.Size = New System.Drawing.Size(285, 22)
         Me.frm_DebitNote.Text = "Debit Note"
         '
+        'frm_Accept_Stock_transfer
+        '
+        Me.frm_Accept_Stock_transfer.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.frm_Accept_Stock_transfer.ForeColor = System.Drawing.Color.White
+        Me.frm_Accept_Stock_transfer.Image = Global.MMSPlus.My.Resources.Resources.Loading_throbber_time_loader1
+        Me.frm_Accept_Stock_transfer.Name = "frm_Accept_Stock_transfer"
+        Me.frm_Accept_Stock_transfer.Size = New System.Drawing.Size(285, 22)
+        Me.frm_Accept_Stock_transfer.Text = "Stock In D.N."
+        '
+        'frm_Stock_Transfer
+        '
+        Me.frm_Stock_Transfer.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.frm_Stock_Transfer.ForeColor = System.Drawing.Color.White
+        Me.frm_Stock_Transfer.Image = Global.MMSPlus.My.Resources.Resources.Unloading_web_vector_uploading
+        Me.frm_Stock_Transfer.Name = "frm_Stock_Transfer"
+        Me.frm_Stock_Transfer.Size = New System.Drawing.Size(285, 22)
+        Me.frm_Stock_Transfer.Text = "Stock Out D.N."
+        '
         'ReportsToolStripMenuItem
         '
         Me.ReportsToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(55, Byte), Integer), CType(CType(55, Byte), Integer), CType(CType(55, Byte), Integer))
@@ -735,7 +752,7 @@ Partial Class MDIMain
         'GSTRegitorToolStripMenuItem
         '
         Me.GSTRegitorToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.GSTRegitorToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.frm_GSTR1, Me.GSTR2ToolStripMenuItem, Me.GSTR3ToolStripMenuItem, Me.GSTSummaryToolStripMenuItem})
+        Me.GSTRegitorToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.frm_GSTR1, Me.frm_GSTR3, Me.GSTSummaryToolStripMenuItem})
         Me.GSTRegitorToolStripMenuItem.ForeColor = System.Drawing.Color.White
         Me.GSTRegitorToolStripMenuItem.Image = Global.MMSPlus.My.Resources.Resources.Items_recent_list_to_do_formatting1
         Me.GSTRegitorToolStripMenuItem.Name = "GSTRegitorToolStripMenuItem"
@@ -751,23 +768,14 @@ Partial Class MDIMain
         Me.frm_GSTR1.Size = New System.Drawing.Size(152, 22)
         Me.frm_GSTR1.Text = "GSTR 1"
         '
-        'GSTR2ToolStripMenuItem
+        'frm_GSTR3
         '
-        Me.GSTR2ToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.GSTR2ToolStripMenuItem.ForeColor = System.Drawing.Color.White
-        Me.GSTR2ToolStripMenuItem.Image = CType(resources.GetObject("GSTR2ToolStripMenuItem.Image"), System.Drawing.Image)
-        Me.GSTR2ToolStripMenuItem.Name = "GSTR2ToolStripMenuItem"
-        Me.GSTR2ToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
-        Me.GSTR2ToolStripMenuItem.Text = "GSTR 2"
-        '
-        'GSTR3ToolStripMenuItem
-        '
-        Me.GSTR3ToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.GSTR3ToolStripMenuItem.ForeColor = System.Drawing.Color.White
-        Me.GSTR3ToolStripMenuItem.Image = CType(resources.GetObject("GSTR3ToolStripMenuItem.Image"), System.Drawing.Image)
-        Me.GSTR3ToolStripMenuItem.Name = "GSTR3ToolStripMenuItem"
-        Me.GSTR3ToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
-        Me.GSTR3ToolStripMenuItem.Text = "GSTR 3"
+        Me.frm_GSTR3.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.frm_GSTR3.ForeColor = System.Drawing.Color.White
+        Me.frm_GSTR3.Image = CType(resources.GetObject("frm_GSTR3.Image"), System.Drawing.Image)
+        Me.frm_GSTR3.Name = "frm_GSTR3"
+        Me.frm_GSTR3.Size = New System.Drawing.Size(152, 22)
+        Me.frm_GSTR3.Text = "GSTR 3"
         '
         'GSTSummaryToolStripMenuItem
         '
@@ -1486,24 +1494,6 @@ Partial Class MDIMain
         Me.frm_open_invoice.Size = New System.Drawing.Size(181, 22)
         Me.frm_open_invoice.Text = "Opne Invoice"
         '
-        'frm_Accept_Stock_transfer
-        '
-        Me.frm_Accept_Stock_transfer.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.frm_Accept_Stock_transfer.ForeColor = System.Drawing.Color.White
-        Me.frm_Accept_Stock_transfer.Image = Global.MMSPlus.My.Resources.Resources.Loading_throbber_time_loader1
-        Me.frm_Accept_Stock_transfer.Name = "frm_Accept_Stock_transfer"
-        Me.frm_Accept_Stock_transfer.Size = New System.Drawing.Size(285, 22)
-        Me.frm_Accept_Stock_transfer.Text = "Stock In D.N."
-        '
-        'frm_Stock_Transfer
-        '
-        Me.frm_Stock_Transfer.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.frm_Stock_Transfer.ForeColor = System.Drawing.Color.White
-        Me.frm_Stock_Transfer.Image = Global.MMSPlus.My.Resources.Resources.Unloading_web_vector_uploading
-        Me.frm_Stock_Transfer.Name = "frm_Stock_Transfer"
-        Me.frm_Stock_Transfer.Size = New System.Drawing.Size(285, 22)
-        Me.frm_Stock_Transfer.Text = "Stock Out D.N."
-        '
         'MDIMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1655,8 +1645,7 @@ Partial Class MDIMain
     Friend WithEvents frm_CreditorsLedger As ToolStripMenuItem
     Friend WithEvents GSTRegitorToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents frm_GSTR1 As ToolStripMenuItem
-    Friend WithEvents GSTR2ToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents GSTR3ToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents frm_GSTR3 As ToolStripMenuItem
     Friend WithEvents GSTSummaryToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents frm_DebtorsOS As ToolStripMenuItem
     Friend WithEvents frm_CreditorsOS As ToolStripMenuItem
