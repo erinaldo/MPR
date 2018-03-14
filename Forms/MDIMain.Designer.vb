@@ -56,6 +56,7 @@ Partial Class MDIMain
         Me.frm_DebitNote = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_Accept_Stock_transfer = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_Stock_Transfer = New System.Windows.Forms.ToolStripMenuItem()
+        Me.frm_DebitNote_WO_Items = New System.Windows.Forms.ToolStripMenuItem()
         Me.ReportsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_Material_Issue_To_Cost_Center_Master = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_Wastage_Master = New System.Windows.Forms.ToolStripMenuItem()
@@ -443,7 +444,7 @@ Partial Class MDIMain
         'StockINToolStripMenuItem
         '
         Me.StockINToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(44, Byte), Integer), CType(CType(44, Byte), Integer))
-        Me.StockINToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.frm_Material_Received_Without_PO_Master, Me.frm_material_rec_against_PO, Me.frm_Reverse_Wastage_Master, Me.frm_ReverseMaterial_Issue_To_Cost_Center_Master, Me.MaterialReturnfromCostCenterToolStripMenuItem, Me.frm_DebitNote, Me.frm_Accept_Stock_transfer, Me.frm_Stock_Transfer})
+        Me.StockINToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.frm_Material_Received_Without_PO_Master, Me.frm_material_rec_against_PO, Me.frm_Reverse_Wastage_Master, Me.frm_ReverseMaterial_Issue_To_Cost_Center_Master, Me.MaterialReturnfromCostCenterToolStripMenuItem, Me.frm_DebitNote, Me.frm_Accept_Stock_transfer, Me.frm_Stock_Transfer, Me.frm_DebitNote_WO_Items})
         Me.StockINToolStripMenuItem.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.StockINToolStripMenuItem.ForeColor = System.Drawing.Color.White
         Me.StockINToolStripMenuItem.Image = Global.MMSPlus.My.Resources.Resources.receive
@@ -523,11 +524,22 @@ Partial Class MDIMain
         'frm_Stock_Transfer
         '
         Me.frm_Stock_Transfer.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.frm_Stock_Transfer.Enabled = False
         Me.frm_Stock_Transfer.ForeColor = System.Drawing.Color.White
         Me.frm_Stock_Transfer.Image = Global.MMSPlus.My.Resources.Resources.Unloading_web_vector_uploading
         Me.frm_Stock_Transfer.Name = "frm_Stock_Transfer"
         Me.frm_Stock_Transfer.Size = New System.Drawing.Size(285, 22)
         Me.frm_Stock_Transfer.Text = "Stock Out D.N."
+        '
+        'frm_DebitNote_WO_Items
+        '
+        Me.frm_DebitNote_WO_Items.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.frm_DebitNote_WO_Items.Checked = True
+        Me.frm_DebitNote_WO_Items.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.frm_DebitNote_WO_Items.ForeColor = System.Drawing.Color.White
+        Me.frm_DebitNote_WO_Items.Name = "frm_DebitNote_WO_Items"
+        Me.frm_DebitNote_WO_Items.Size = New System.Drawing.Size(285, 22)
+        Me.frm_DebitNote_WO_Items.Text = "Debit Not (w/o Items)"
         '
         'ReportsToolStripMenuItem
         '
@@ -687,7 +699,7 @@ Partial Class MDIMain
         Me.frm_user_master.ForeColor = System.Drawing.Color.White
         Me.frm_user_master.Image = Global.MMSPlus.My.Resources.Resources.Psichologist_doctor_psychologist1
         Me.frm_user_master.Name = "frm_user_master"
-        Me.frm_user_master.Size = New System.Drawing.Size(170, 22)
+        Me.frm_user_master.Size = New System.Drawing.Size(213, 22)
         Me.frm_user_master.Text = "User Master"
         Me.frm_user_master.Visible = False
         '
@@ -697,7 +709,7 @@ Partial Class MDIMain
         Me.frm_OpeningBalance.ForeColor = System.Drawing.Color.White
         Me.frm_OpeningBalance.Image = Global.MMSPlus.My.Resources.Resources.Refresh_list
         Me.frm_OpeningBalance.Name = "frm_OpeningBalance"
-        Me.frm_OpeningBalance.Size = New System.Drawing.Size(170, 22)
+        Me.frm_OpeningBalance.Size = New System.Drawing.Size(213, 22)
         Me.frm_OpeningBalance.Text = "Opening Balance"
         '
         'frm_Supplier_Invoice_Settlement
@@ -706,7 +718,7 @@ Partial Class MDIMain
         Me.frm_Supplier_Invoice_Settlement.ForeColor = System.Drawing.Color.White
         Me.frm_Supplier_Invoice_Settlement.Image = Global.MMSPlus.My.Resources.Resources.Refresh_list
         Me.frm_Supplier_Invoice_Settlement.Name = "frm_Supplier_Invoice_Settlement"
-        Me.frm_Supplier_Invoice_Settlement.Size = New System.Drawing.Size(170, 22)
+        Me.frm_Supplier_Invoice_Settlement.Size = New System.Drawing.Size(213, 22)
         Me.frm_Supplier_Invoice_Settlement.Text = "A/c Payable"
         '
         'frm_Invoice_Settlement
@@ -715,7 +727,7 @@ Partial Class MDIMain
         Me.frm_Invoice_Settlement.ForeColor = System.Drawing.Color.White
         Me.frm_Invoice_Settlement.Image = Global.MMSPlus.My.Resources.Resources.Refresh_list
         Me.frm_Invoice_Settlement.Name = "frm_Invoice_Settlement"
-        Me.frm_Invoice_Settlement.Size = New System.Drawing.Size(170, 22)
+        Me.frm_Invoice_Settlement.Size = New System.Drawing.Size(213, 22)
         Me.frm_Invoice_Settlement.Text = "A/c Receivable"
         '
         'frm_Journal_Entry
@@ -724,7 +736,7 @@ Partial Class MDIMain
         Me.frm_Journal_Entry.ForeColor = System.Drawing.Color.White
         Me.frm_Journal_Entry.Image = Global.MMSPlus.My.Resources.Resources.Refresh_list
         Me.frm_Journal_Entry.Name = "frm_Journal_Entry"
-        Me.frm_Journal_Entry.Size = New System.Drawing.Size(170, 22)
+        Me.frm_Journal_Entry.Size = New System.Drawing.Size(213, 22)
         Me.frm_Journal_Entry.Text = "Journal Entry"
         '
         'frm_Contra_Entry
@@ -733,7 +745,7 @@ Partial Class MDIMain
         Me.frm_Contra_Entry.ForeColor = System.Drawing.Color.White
         Me.frm_Contra_Entry.Image = Global.MMSPlus.My.Resources.Resources.Refresh_list
         Me.frm_Contra_Entry.Name = "frm_Contra_Entry"
-        Me.frm_Contra_Entry.Size = New System.Drawing.Size(170, 22)
+        Me.frm_Contra_Entry.Size = New System.Drawing.Size(213, 22)
         Me.frm_Contra_Entry.Text = "Contra Entry"
         '
         'frm_Expense_Entry
@@ -742,7 +754,7 @@ Partial Class MDIMain
         Me.frm_Expense_Entry.ForeColor = System.Drawing.Color.White
         Me.frm_Expense_Entry.Image = Global.MMSPlus.My.Resources.Resources.Refresh_list
         Me.frm_Expense_Entry.Name = "frm_Expense_Entry"
-        Me.frm_Expense_Entry.Size = New System.Drawing.Size(170, 22)
+        Me.frm_Expense_Entry.Size = New System.Drawing.Size(213, 22)
         Me.frm_Expense_Entry.Text = "Expense Entry"
         '
         'frm_DebtorsOS
@@ -751,7 +763,7 @@ Partial Class MDIMain
         Me.frm_DebtorsOS.ForeColor = System.Drawing.Color.White
         Me.frm_DebtorsOS.Image = Global.MMSPlus.My.Resources.Resources.Reports
         Me.frm_DebtorsOS.Name = "frm_DebtorsOS"
-        Me.frm_DebtorsOS.Size = New System.Drawing.Size(170, 22)
+        Me.frm_DebtorsOS.Size = New System.Drawing.Size(213, 22)
         Me.frm_DebtorsOS.Text = "Debtors O/S"
         '
         'frm_DebtorsLedger
@@ -760,7 +772,7 @@ Partial Class MDIMain
         Me.frm_DebtorsLedger.ForeColor = System.Drawing.Color.White
         Me.frm_DebtorsLedger.Image = Global.MMSPlus.My.Resources.Resources.Page_preview
         Me.frm_DebtorsLedger.Name = "frm_DebtorsLedger"
-        Me.frm_DebtorsLedger.Size = New System.Drawing.Size(170, 22)
+        Me.frm_DebtorsLedger.Size = New System.Drawing.Size(213, 22)
         Me.frm_DebtorsLedger.Text = "Debtors Ledger"
         '
         'frm_CreditorsOS
@@ -769,7 +781,7 @@ Partial Class MDIMain
         Me.frm_CreditorsOS.ForeColor = System.Drawing.Color.White
         Me.frm_CreditorsOS.Image = Global.MMSPlus.My.Resources.Resources.Reports
         Me.frm_CreditorsOS.Name = "frm_CreditorsOS"
-        Me.frm_CreditorsOS.Size = New System.Drawing.Size(170, 22)
+        Me.frm_CreditorsOS.Size = New System.Drawing.Size(213, 22)
         Me.frm_CreditorsOS.Text = "Creditors O/S"
         '
         'frm_CreditorsLedger
@@ -778,7 +790,7 @@ Partial Class MDIMain
         Me.frm_CreditorsLedger.ForeColor = System.Drawing.Color.White
         Me.frm_CreditorsLedger.Image = Global.MMSPlus.My.Resources.Resources.Page_preview
         Me.frm_CreditorsLedger.Name = "frm_CreditorsLedger"
-        Me.frm_CreditorsLedger.Size = New System.Drawing.Size(170, 22)
+        Me.frm_CreditorsLedger.Size = New System.Drawing.Size(213, 22)
         Me.frm_CreditorsLedger.Text = "Creditors Ledger"
         '
         'frm_depreciation_cal
@@ -787,7 +799,7 @@ Partial Class MDIMain
         Me.frm_depreciation_cal.ForeColor = System.Drawing.Color.White
         Me.frm_depreciation_cal.Image = Global.MMSPlus.My.Resources.Resources.Refresh_list
         Me.frm_depreciation_cal.Name = "frm_depreciation_cal"
-        Me.frm_depreciation_cal.Size = New System.Drawing.Size(170, 22)
+        Me.frm_depreciation_cal.Size = New System.Drawing.Size(213, 22)
         Me.frm_depreciation_cal.Text = "Depreciation Cal."
         '
         'GSTRegitorToolStripMenuItem
@@ -797,7 +809,7 @@ Partial Class MDIMain
         Me.GSTRegitorToolStripMenuItem.ForeColor = System.Drawing.Color.White
         Me.GSTRegitorToolStripMenuItem.Image = Global.MMSPlus.My.Resources.Resources.Items_recent_list_to_do_formatting1
         Me.GSTRegitorToolStripMenuItem.Name = "GSTRegitorToolStripMenuItem"
-        Me.GSTRegitorToolStripMenuItem.Size = New System.Drawing.Size(170, 22)
+        Me.GSTRegitorToolStripMenuItem.Size = New System.Drawing.Size(213, 22)
         Me.GSTRegitorToolStripMenuItem.Text = "GST Register"
         '
         'frm_GSTR1
@@ -1710,4 +1722,5 @@ Partial Class MDIMain
     Friend WithEvents frm_Print_Barcode As ToolStripMenuItem
     Friend WithEvents BackupDB As ToolStripMenuItem
     Friend WithEvents tsmAccount As ToolStripMenuItem
+    Friend WithEvents frm_DebitNote_WO_Items As ToolStripMenuItem
 End Class
