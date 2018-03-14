@@ -146,12 +146,12 @@ Public Class frm_CreditNote
         Dim blnIsExist As Boolean
         blnIsExist = False
 
-        'If String.IsNullOrEmpty(txtRemarks.Text) Then
-        '    MsgBox("Please fill the Remarks", vbExclamation, gblMessageHeading)
-        '    txtRemarks.Focus()
-        '    validate_data = False
-        '    Exit Function
-        'End If
+        If String.IsNullOrEmpty(txtRemarks.Text) Then
+            MsgBox("Please fill the Remarks", vbExclamation, gblMessageHeading)
+            txtRemarks.Focus()
+            validate_data = False
+            Exit Function
+        End If
 
         If cmbINVNo.SelectedIndex <= 0 Then
             MsgBox("Select INV to create Credit note.", vbExclamation, gblMessageHeading)
@@ -182,12 +182,12 @@ Public Class frm_CreditNote
 
         Dim cmd As SqlCommand
 
-        cmd = obj.MyCon_BeginTransaction
+
 
         txtRemarks.Focus()
         Try
             If flag = "save" And validate_data() Then
-
+                cmd = obj.MyCon_BeginTransaction
                 CalculateAmount()
 
                 GetCNCode()

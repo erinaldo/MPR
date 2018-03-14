@@ -140,9 +140,9 @@ Public Class LoginForm
     End Sub
 
     Private Sub LoginForm_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        'lbl.Visible = rdoCostCenter.Checked
-        'cmbCostCenter.Visible = rdoCostCenter.Checked
-        'cmbCostCenter.Enabled = rdoCostCenter.Checked
+
+
+
         Dim year As New DateTime(DateTime.Now.Year, 4, 1)
 
         If v_division_type = division_type.Warehouse Then

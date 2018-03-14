@@ -245,6 +245,7 @@ restart:
                         For Each dr As DataRow In dt.Rows
                             If Convert.ToString(dr("item_code")) = item_code Then
                                 dr.Delete()
+                                dt.AcceptChanges()
                                 GoTo restart
                             End If
                         Next
@@ -275,6 +276,7 @@ restart:
         frm_Show_search.txtSearch.Text = ""
         frm_Show_search.column_name = "(Item_Name + isnull(Barcode_vch,''))"
         frm_Show_search.extra_condition = ""
+        frm_Show_search.item_rate_column = ""
         frm_Show_search.ret_column = "Item_ID"
         frm_Show_search.ShowDialog()
         If Not check_item_exist(frm_Show_search.search_result) Then

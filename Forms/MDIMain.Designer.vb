@@ -24,15 +24,17 @@ Partial Class MDIMain
         Me.logo = New System.Windows.Forms.ToolStripMenuItem()
         Me.Home = New System.Windows.Forms.ToolStripMenuItem()
         Me.MasterSetupToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.frm_Item_Master = New System.Windows.Forms.ToolStripMenuItem()
-        Me.frm_Cost_Center = New System.Windows.Forms.ToolStripMenuItem()
-        Me.frm_Division_Settings = New System.Windows.Forms.ToolStripMenuItem()
         Me.Synchronization = New System.Windows.Forms.ToolStripMenuItem()
+        Me.frm_Item_Master = New System.Windows.Forms.ToolStripMenuItem()
+        Me.frm_StockAdjustment = New System.Windows.Forms.ToolStripMenuItem()
+        Me.frm_Print_Barcode = New System.Windows.Forms.ToolStripMenuItem()
+        Me.frm_Cost_Center = New System.Windows.Forms.ToolStripMenuItem()
         Me.TransferDataToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.TransferDataBetweenDatesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.frm_Change_Password = New System.Windows.Forms.ToolStripMenuItem()
-        Me.frm_StockAdjustment = New System.Windows.Forms.ToolStripMenuItem()
+        Me.BackupDB = New System.Windows.Forms.ToolStripMenuItem()
+        Me.frm_Division_Settings = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_Item_rate_list = New System.Windows.Forms.ToolStripMenuItem()
+        Me.frm_Change_Password = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_user_rights = New System.Windows.Forms.ToolStripMenuItem()
         Me.PurchaseToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_Supplier_Rate_List_Master = New System.Windows.Forms.ToolStripMenuItem()
@@ -68,22 +70,24 @@ Partial Class MDIMain
         Me.frm_CreditNote = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_GatePass = New System.Windows.Forms.ToolStripMenuItem()
         Me.UserManagmentToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.tsmAccount = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_user_master = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_OpeningBalance = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_Supplier_Invoice_Settlement = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_Invoice_Settlement = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_Journal_Entry = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_Contra_Entry = New System.Windows.Forms.ToolStripMenuItem()
+        Me.frm_DebitNote_WO_Items = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_Expense_Entry = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_DebtorsOS = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_DebtorsLedger = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_CreditorsOS = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_CreditorsLedger = New System.Windows.Forms.ToolStripMenuItem()
+        Me.frm_depreciation_cal = New System.Windows.Forms.ToolStripMenuItem()
         Me.GSTRegitorToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_GSTR1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_GSTR3 = New System.Windows.Forms.ToolStripMenuItem()
         Me.GSTSummaryToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.frm_depreciation_cal = New System.Windows.Forms.ToolStripMenuItem()
         Me.Recipe = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_menu_item_recipe = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_Recipe_Master = New System.Windows.Forms.ToolStripMenuItem()
@@ -95,8 +99,10 @@ Partial Class MDIMain
         Me.frmStockValue = New System.Windows.Forms.ToolStripMenuItem()
         Me.StockValueCategoryWise = New System.Windows.Forms.ToolStripMenuItem()
         Me.frmStockValueBatchWise = New System.Windows.Forms.ToolStripMenuItem()
+        Me.StockValueBrandWise = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_Item_Ledger = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_LedgerSummary = New System.Windows.Forms.ToolStripMenuItem()
+        Me.NonMovingItemList = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_Indents = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_ListIndents = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_ListIndentDetail = New System.Windows.Forms.ToolStripMenuItem()
@@ -111,15 +117,7 @@ Partial Class MDIMain
         Me.frm_WastageItemDetail = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_WastageItemWise = New System.Windows.Forms.ToolStripMenuItem()
         Me.ItemWiseWastagebetweenDatesCategoryHeadWiseToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.frm_MRNDetails = New System.Windows.Forms.ToolStripMenuItem()
-        Me.frm_IssueDetail = New System.Windows.Forms.ToolStripMenuItem()
         Me.Purchase_rpt = New System.Windows.Forms.ToolStripMenuItem()
-        Me.frm_rpt_SaleInvoice = New System.Windows.Forms.ToolStripMenuItem()
-        Me.frmsaleInvoicesummary = New System.Windows.Forms.ToolStripMenuItem()
-        Me.frmSaleInvoiceDetail = New System.Windows.Forms.ToolStripMenuItem()
-        Me.AllPurchaseRate = New System.Windows.Forms.ToolStripMenuItem()
-        Me.NonMovingItemList = New System.Windows.Forms.ToolStripMenuItem()
-        Me.LastPurchaseratelist = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_MRN = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_ListMRNDetail = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_ListMRN = New System.Windows.Forms.ToolStripMenuItem()
@@ -132,6 +130,13 @@ Partial Class MDIMain
         Me.frm_MRNWithPOSUPWISEe = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_mrnPOItemWiseSupplier = New System.Windows.Forms.ToolStripMenuItem()
         Me.cmd_ItemWiseMRNwithPO = New System.Windows.Forms.ToolStripMenuItem()
+        Me.frm_MRNDetails = New System.Windows.Forms.ToolStripMenuItem()
+        Me.frm_rpt_SaleInvoice = New System.Windows.Forms.ToolStripMenuItem()
+        Me.frmsaleInvoicesummary = New System.Windows.Forms.ToolStripMenuItem()
+        Me.frmSaleInvoiceDetail = New System.Windows.Forms.ToolStripMenuItem()
+        Me.LastPurchaseratelist = New System.Windows.Forms.ToolStripMenuItem()
+        Me.AllPurchaseRate = New System.Windows.Forms.ToolStripMenuItem()
+        Me.frm_IssueDetail = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_ReverseMaterial = New System.Windows.Forms.ToolStripMenuItem()
         Me.ItemWiseMaterialIssueToCostCenterToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ItemWiseMaterialIssueToCostCenterCatHeadWiseToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -206,7 +211,7 @@ Partial Class MDIMain
         'MasterSetupToolStripMenuItem
         '
         Me.MasterSetupToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(22, Byte), Integer), CType(CType(22, Byte), Integer), CType(CType(22, Byte), Integer))
-        Me.MasterSetupToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.frm_Item_Master, Me.frm_Cost_Center, Me.frm_Division_Settings, Me.Synchronization, Me.TransferDataToolStripMenuItem, Me.TransferDataBetweenDatesToolStripMenuItem, Me.frm_Change_Password, Me.frm_StockAdjustment, Me.frm_Item_rate_list, Me.frm_user_rights})
+        Me.MasterSetupToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Synchronization, Me.frm_Item_Master, Me.frm_StockAdjustment, Me.frm_Print_Barcode, Me.frm_Cost_Center, Me.TransferDataToolStripMenuItem, Me.TransferDataBetweenDatesToolStripMenuItem, Me.BackupDB, Me.frm_Division_Settings, Me.frm_Item_rate_list, Me.frm_Change_Password, Me.frm_user_rights})
         Me.MasterSetupToolStripMenuItem.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.MasterSetupToolStripMenuItem.ForeColor = System.Drawing.Color.White
         Me.MasterSetupToolStripMenuItem.Image = Global.MMSPlus.My.Resources.Resources.smserver
@@ -216,6 +221,15 @@ Partial Class MDIMain
         Me.MasterSetupToolStripMenuItem.Text = "Configuration"
         Me.MasterSetupToolStripMenuItem.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
+        'Synchronization
+        '
+        Me.Synchronization.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.Synchronization.ForeColor = System.Drawing.Color.White
+        Me.Synchronization.Image = Global.MMSPlus.My.Resources.Resources.Refresh_list
+        Me.Synchronization.Name = "Synchronization"
+        Me.Synchronization.Size = New System.Drawing.Size(233, 22)
+        Me.Synchronization.Text = "Synchronize Data"
+        '
         'frm_Item_Master
         '
         Me.frm_Item_Master.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
@@ -224,6 +238,24 @@ Partial Class MDIMain
         Me.frm_Item_Master.Name = "frm_Item_Master"
         Me.frm_Item_Master.Size = New System.Drawing.Size(233, 22)
         Me.frm_Item_Master.Text = "Item Master"
+        '
+        'frm_StockAdjustment
+        '
+        Me.frm_StockAdjustment.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.frm_StockAdjustment.ForeColor = System.Drawing.Color.White
+        Me.frm_StockAdjustment.Image = Global.MMSPlus.My.Resources.Resources.Data_transmission_database
+        Me.frm_StockAdjustment.Name = "frm_StockAdjustment"
+        Me.frm_StockAdjustment.Size = New System.Drawing.Size(233, 22)
+        Me.frm_StockAdjustment.Text = "Stock Adjustment"
+        '
+        'frm_Print_Barcode
+        '
+        Me.frm_Print_Barcode.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.frm_Print_Barcode.ForeColor = System.Drawing.Color.White
+        Me.frm_Print_Barcode.Image = Global.MMSPlus.My.Resources.Resources.Client_list_text1
+        Me.frm_Print_Barcode.Name = "frm_Print_Barcode"
+        Me.frm_Print_Barcode.Size = New System.Drawing.Size(233, 22)
+        Me.frm_Print_Barcode.Text = "Print BarCode"
         '
         'frm_Cost_Center
         '
@@ -235,24 +267,6 @@ Partial Class MDIMain
         Me.frm_Cost_Center.Size = New System.Drawing.Size(233, 22)
         Me.frm_Cost_Center.Text = "Cost Center"
         Me.frm_Cost_Center.Visible = False
-        '
-        'frm_Division_Settings
-        '
-        Me.frm_Division_Settings.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.frm_Division_Settings.ForeColor = System.Drawing.Color.White
-        Me.frm_Division_Settings.Image = Global.MMSPlus.My.Resources.Resources.Setup_page_document_settings
-        Me.frm_Division_Settings.Name = "frm_Division_Settings"
-        Me.frm_Division_Settings.Size = New System.Drawing.Size(233, 22)
-        Me.frm_Division_Settings.Text = "Division Settings"
-        '
-        'Synchronization
-        '
-        Me.Synchronization.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.Synchronization.ForeColor = System.Drawing.Color.White
-        Me.Synchronization.Image = Global.MMSPlus.My.Resources.Resources.Refresh_list
-        Me.Synchronization.Name = "Synchronization"
-        Me.Synchronization.Size = New System.Drawing.Size(233, 22)
-        Me.Synchronization.Text = "Synchronize Data"
         '
         'TransferDataToolStripMenuItem
         '
@@ -272,23 +286,23 @@ Partial Class MDIMain
         Me.TransferDataBetweenDatesToolStripMenuItem.Size = New System.Drawing.Size(233, 22)
         Me.TransferDataBetweenDatesToolStripMenuItem.Text = "Transfer Data Between Dates"
         '
-        'frm_Change_Password
+        'BackupDB
         '
-        Me.frm_Change_Password.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.frm_Change_Password.ForeColor = System.Drawing.Color.White
-        Me.frm_Change_Password.Image = Global.MMSPlus.My.Resources.Resources.Psichologist_doctor_psychologist
-        Me.frm_Change_Password.Name = "frm_Change_Password"
-        Me.frm_Change_Password.Size = New System.Drawing.Size(233, 22)
-        Me.frm_Change_Password.Text = "Change Password"
+        Me.BackupDB.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.BackupDB.ForeColor = System.Drawing.Color.White
+        Me.BackupDB.Image = Global.MMSPlus.My.Resources.Resources.PC_Web_synchronization
+        Me.BackupDB.Name = "BackupDB"
+        Me.BackupDB.Size = New System.Drawing.Size(233, 22)
+        Me.BackupDB.Text = "System Backup"
         '
-        'frm_StockAdjustment
+        'frm_Division_Settings
         '
-        Me.frm_StockAdjustment.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.frm_StockAdjustment.ForeColor = System.Drawing.Color.White
-        Me.frm_StockAdjustment.Image = Global.MMSPlus.My.Resources.Resources.Data_transmission_database
-        Me.frm_StockAdjustment.Name = "frm_StockAdjustment"
-        Me.frm_StockAdjustment.Size = New System.Drawing.Size(233, 22)
-        Me.frm_StockAdjustment.Text = "Stock Adjustment"
+        Me.frm_Division_Settings.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.frm_Division_Settings.ForeColor = System.Drawing.Color.White
+        Me.frm_Division_Settings.Image = Global.MMSPlus.My.Resources.Resources.Setup_page_document_settings
+        Me.frm_Division_Settings.Name = "frm_Division_Settings"
+        Me.frm_Division_Settings.Size = New System.Drawing.Size(233, 22)
+        Me.frm_Division_Settings.Text = "Division Settings"
         '
         'frm_Item_rate_list
         '
@@ -298,6 +312,15 @@ Partial Class MDIMain
         Me.frm_Item_rate_list.Name = "frm_Item_rate_list"
         Me.frm_Item_rate_list.Size = New System.Drawing.Size(233, 22)
         Me.frm_Item_rate_list.Text = "Item Rate"
+        '
+        'frm_Change_Password
+        '
+        Me.frm_Change_Password.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.frm_Change_Password.ForeColor = System.Drawing.Color.White
+        Me.frm_Change_Password.Image = Global.MMSPlus.My.Resources.Resources.Psichologist_doctor_psychologist
+        Me.frm_Change_Password.Name = "frm_Change_Password"
+        Me.frm_Change_Password.Size = New System.Drawing.Size(233, 22)
+        Me.frm_Change_Password.Text = "Change Password"
         '
         'frm_user_rights
         '
@@ -500,6 +523,7 @@ Partial Class MDIMain
         'frm_Stock_Transfer
         '
         Me.frm_Stock_Transfer.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.frm_Stock_Transfer.Enabled = False
         Me.frm_Stock_Transfer.ForeColor = System.Drawing.Color.White
         Me.frm_Stock_Transfer.Image = Global.MMSPlus.My.Resources.Resources.Unloading_web_vector_uploading
         Me.frm_Stock_Transfer.Name = "frm_Stock_Transfer"
@@ -638,7 +662,7 @@ Partial Class MDIMain
         'UserManagmentToolStripMenuItem
         '
         Me.UserManagmentToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(77, Byte), Integer), CType(CType(77, Byte), Integer), CType(CType(77, Byte), Integer))
-        Me.UserManagmentToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.frm_user_master, Me.frm_OpeningBalance, Me.frm_Supplier_Invoice_Settlement, Me.frm_Invoice_Settlement, Me.frm_Journal_Entry, Me.frm_Contra_Entry, Me.frm_Expense_Entry, Me.frm_DebtorsOS, Me.frm_DebtorsLedger, Me.frm_CreditorsOS, Me.frm_CreditorsLedger, Me.GSTRegitorToolStripMenuItem, Me.frm_depreciation_cal})
+        Me.UserManagmentToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsmAccount, Me.frm_user_master, Me.frm_OpeningBalance, Me.frm_Supplier_Invoice_Settlement, Me.frm_Invoice_Settlement, Me.frm_Journal_Entry, Me.frm_Contra_Entry, Me.frm_Expense_Entry, Me.frm_DebitNote_WO_Items, Me.frm_DebtorsOS, Me.frm_DebtorsLedger, Me.frm_CreditorsOS, Me.frm_CreditorsLedger, Me.frm_depreciation_cal, Me.GSTRegitorToolStripMenuItem})
         Me.UserManagmentToolStripMenuItem.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.UserManagmentToolStripMenuItem.ForeColor = System.Drawing.Color.White
         Me.UserManagmentToolStripMenuItem.Image = Global.MMSPlus.My.Resources.Resources.Client_list_text
@@ -648,6 +672,15 @@ Partial Class MDIMain
         Me.UserManagmentToolStripMenuItem.Text = "Finance"
         Me.UserManagmentToolStripMenuItem.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
+        'tsmAccount
+        '
+        Me.tsmAccount.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.tsmAccount.ForeColor = System.Drawing.Color.Coral
+        Me.tsmAccount.Image = Global.MMSPlus.My.Resources.Resources.MMS_Login_New_03
+        Me.tsmAccount.Name = "tsmAccount"
+        Me.tsmAccount.Size = New System.Drawing.Size(213, 22)
+        Me.tsmAccount.Text = "Advance Account Module"
+        '
         'frm_user_master
         '
         Me.frm_user_master.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
@@ -655,7 +688,7 @@ Partial Class MDIMain
         Me.frm_user_master.ForeColor = System.Drawing.Color.White
         Me.frm_user_master.Image = Global.MMSPlus.My.Resources.Resources.Psichologist_doctor_psychologist1
         Me.frm_user_master.Name = "frm_user_master"
-        Me.frm_user_master.Size = New System.Drawing.Size(170, 22)
+        Me.frm_user_master.Size = New System.Drawing.Size(213, 22)
         Me.frm_user_master.Text = "User Master"
         Me.frm_user_master.Visible = False
         '
@@ -665,7 +698,7 @@ Partial Class MDIMain
         Me.frm_OpeningBalance.ForeColor = System.Drawing.Color.White
         Me.frm_OpeningBalance.Image = Global.MMSPlus.My.Resources.Resources.Refresh_list
         Me.frm_OpeningBalance.Name = "frm_OpeningBalance"
-        Me.frm_OpeningBalance.Size = New System.Drawing.Size(170, 22)
+        Me.frm_OpeningBalance.Size = New System.Drawing.Size(213, 22)
         Me.frm_OpeningBalance.Text = "Opening Balance"
         '
         'frm_Supplier_Invoice_Settlement
@@ -674,7 +707,7 @@ Partial Class MDIMain
         Me.frm_Supplier_Invoice_Settlement.ForeColor = System.Drawing.Color.White
         Me.frm_Supplier_Invoice_Settlement.Image = Global.MMSPlus.My.Resources.Resources.Refresh_list
         Me.frm_Supplier_Invoice_Settlement.Name = "frm_Supplier_Invoice_Settlement"
-        Me.frm_Supplier_Invoice_Settlement.Size = New System.Drawing.Size(170, 22)
+        Me.frm_Supplier_Invoice_Settlement.Size = New System.Drawing.Size(213, 22)
         Me.frm_Supplier_Invoice_Settlement.Text = "A/c Payable"
         '
         'frm_Invoice_Settlement
@@ -683,7 +716,7 @@ Partial Class MDIMain
         Me.frm_Invoice_Settlement.ForeColor = System.Drawing.Color.White
         Me.frm_Invoice_Settlement.Image = Global.MMSPlus.My.Resources.Resources.Refresh_list
         Me.frm_Invoice_Settlement.Name = "frm_Invoice_Settlement"
-        Me.frm_Invoice_Settlement.Size = New System.Drawing.Size(170, 22)
+        Me.frm_Invoice_Settlement.Size = New System.Drawing.Size(213, 22)
         Me.frm_Invoice_Settlement.Text = "A/c Receivable"
         '
         'frm_Journal_Entry
@@ -692,7 +725,7 @@ Partial Class MDIMain
         Me.frm_Journal_Entry.ForeColor = System.Drawing.Color.White
         Me.frm_Journal_Entry.Image = Global.MMSPlus.My.Resources.Resources.Refresh_list
         Me.frm_Journal_Entry.Name = "frm_Journal_Entry"
-        Me.frm_Journal_Entry.Size = New System.Drawing.Size(170, 22)
+        Me.frm_Journal_Entry.Size = New System.Drawing.Size(213, 22)
         Me.frm_Journal_Entry.Text = "Journal Entry"
         '
         'frm_Contra_Entry
@@ -701,8 +734,17 @@ Partial Class MDIMain
         Me.frm_Contra_Entry.ForeColor = System.Drawing.Color.White
         Me.frm_Contra_Entry.Image = Global.MMSPlus.My.Resources.Resources.Refresh_list
         Me.frm_Contra_Entry.Name = "frm_Contra_Entry"
-        Me.frm_Contra_Entry.Size = New System.Drawing.Size(170, 22)
+        Me.frm_Contra_Entry.Size = New System.Drawing.Size(213, 22)
         Me.frm_Contra_Entry.Text = "Contra Entry"
+        '
+        'frm_DebitNote_WO_Items
+        '
+        Me.frm_DebitNote_WO_Items.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.frm_DebitNote_WO_Items.ForeColor = System.Drawing.Color.White
+        Me.frm_DebitNote_WO_Items.Image = Global.MMSPlus.My.Resources.Resources.Refresh_list
+        Me.frm_DebitNote_WO_Items.Name = "frm_DebitNote_WO_Items"
+        Me.frm_DebitNote_WO_Items.Size = New System.Drawing.Size(213, 22)
+        Me.frm_DebitNote_WO_Items.Text = "DebitNote_WO_Items"
         '
         'frm_Expense_Entry
         '
@@ -710,7 +752,7 @@ Partial Class MDIMain
         Me.frm_Expense_Entry.ForeColor = System.Drawing.Color.White
         Me.frm_Expense_Entry.Image = Global.MMSPlus.My.Resources.Resources.Refresh_list
         Me.frm_Expense_Entry.Name = "frm_Expense_Entry"
-        Me.frm_Expense_Entry.Size = New System.Drawing.Size(170, 22)
+        Me.frm_Expense_Entry.Size = New System.Drawing.Size(213, 22)
         Me.frm_Expense_Entry.Text = "Expense Entry"
         '
         'frm_DebtorsOS
@@ -719,7 +761,7 @@ Partial Class MDIMain
         Me.frm_DebtorsOS.ForeColor = System.Drawing.Color.White
         Me.frm_DebtorsOS.Image = Global.MMSPlus.My.Resources.Resources.Reports
         Me.frm_DebtorsOS.Name = "frm_DebtorsOS"
-        Me.frm_DebtorsOS.Size = New System.Drawing.Size(170, 22)
+        Me.frm_DebtorsOS.Size = New System.Drawing.Size(213, 22)
         Me.frm_DebtorsOS.Text = "Debtors O/S"
         '
         'frm_DebtorsLedger
@@ -728,7 +770,7 @@ Partial Class MDIMain
         Me.frm_DebtorsLedger.ForeColor = System.Drawing.Color.White
         Me.frm_DebtorsLedger.Image = Global.MMSPlus.My.Resources.Resources.Page_preview
         Me.frm_DebtorsLedger.Name = "frm_DebtorsLedger"
-        Me.frm_DebtorsLedger.Size = New System.Drawing.Size(170, 22)
+        Me.frm_DebtorsLedger.Size = New System.Drawing.Size(213, 22)
         Me.frm_DebtorsLedger.Text = "Debtors Ledger"
         '
         'frm_CreditorsOS
@@ -737,7 +779,7 @@ Partial Class MDIMain
         Me.frm_CreditorsOS.ForeColor = System.Drawing.Color.White
         Me.frm_CreditorsOS.Image = Global.MMSPlus.My.Resources.Resources.Reports
         Me.frm_CreditorsOS.Name = "frm_CreditorsOS"
-        Me.frm_CreditorsOS.Size = New System.Drawing.Size(170, 22)
+        Me.frm_CreditorsOS.Size = New System.Drawing.Size(213, 22)
         Me.frm_CreditorsOS.Text = "Creditors O/S"
         '
         'frm_CreditorsLedger
@@ -746,8 +788,17 @@ Partial Class MDIMain
         Me.frm_CreditorsLedger.ForeColor = System.Drawing.Color.White
         Me.frm_CreditorsLedger.Image = Global.MMSPlus.My.Resources.Resources.Page_preview
         Me.frm_CreditorsLedger.Name = "frm_CreditorsLedger"
-        Me.frm_CreditorsLedger.Size = New System.Drawing.Size(170, 22)
+        Me.frm_CreditorsLedger.Size = New System.Drawing.Size(213, 22)
         Me.frm_CreditorsLedger.Text = "Creditors Ledger"
+        '
+        'frm_depreciation_cal
+        '
+        Me.frm_depreciation_cal.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.frm_depreciation_cal.ForeColor = System.Drawing.Color.White
+        Me.frm_depreciation_cal.Image = Global.MMSPlus.My.Resources.Resources.Refresh_list
+        Me.frm_depreciation_cal.Name = "frm_depreciation_cal"
+        Me.frm_depreciation_cal.Size = New System.Drawing.Size(213, 22)
+        Me.frm_depreciation_cal.Text = "Depreciation Cal."
         '
         'GSTRegitorToolStripMenuItem
         '
@@ -756,7 +807,7 @@ Partial Class MDIMain
         Me.GSTRegitorToolStripMenuItem.ForeColor = System.Drawing.Color.White
         Me.GSTRegitorToolStripMenuItem.Image = Global.MMSPlus.My.Resources.Resources.Items_recent_list_to_do_formatting1
         Me.GSTRegitorToolStripMenuItem.Name = "GSTRegitorToolStripMenuItem"
-        Me.GSTRegitorToolStripMenuItem.Size = New System.Drawing.Size(170, 22)
+        Me.GSTRegitorToolStripMenuItem.Size = New System.Drawing.Size(213, 22)
         Me.GSTRegitorToolStripMenuItem.Text = "GST Register"
         '
         'frm_GSTR1
@@ -785,15 +836,6 @@ Partial Class MDIMain
         Me.GSTSummaryToolStripMenuItem.Name = "GSTSummaryToolStripMenuItem"
         Me.GSTSummaryToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.GSTSummaryToolStripMenuItem.Text = "GST Summary"
-        '
-        'frm_depreciation_cal
-        '
-        Me.frm_depreciation_cal.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.frm_depreciation_cal.ForeColor = System.Drawing.Color.White
-        Me.frm_depreciation_cal.Image = Global.MMSPlus.My.Resources.Resources.Refresh_list
-        Me.frm_depreciation_cal.Name = "frm_depreciation_cal"
-        Me.frm_depreciation_cal.Size = New System.Drawing.Size(170, 22)
-        Me.frm_depreciation_cal.Text = "Depreciation Cal."
         '
         'Recipe
         '
@@ -857,7 +899,7 @@ Partial Class MDIMain
         'Reports
         '
         Me.Reports.BackColor = System.Drawing.Color.FromArgb(CType(CType(88, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(88, Byte), Integer))
-        Me.Reports.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.frm_Stock, Me.frm_Item_Ledger, Me.frm_LedgerSummary, Me.frm_Indents, Me.frm_MRS, Me.frm_Wastage, Me.frm_MRNDetails, Me.frm_IssueDetail, Me.Purchase_rpt, Me.frm_rpt_SaleInvoice, Me.AllPurchaseRate, Me.NonMovingItemList, Me.LastPurchaseratelist, Me.frm_MRN, Me.frm_Mrnwithpo, Me.frm_ReverseMaterial, Me.ItemWiseMaterialIssueToCostCenterToolStripMenuItem, Me.ItemWiseMaterialIssueToCostCenterCatHeadWiseToolStripMenuItem, Me.CostofIssueReport})
+        Me.Reports.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.frm_Stock, Me.frm_Item_Ledger, Me.frm_LedgerSummary, Me.NonMovingItemList, Me.frm_Indents, Me.frm_MRS, Me.frm_Wastage, Me.Purchase_rpt, Me.frm_MRN, Me.frm_Mrnwithpo, Me.frm_MRNDetails, Me.frm_rpt_SaleInvoice, Me.LastPurchaseratelist, Me.AllPurchaseRate, Me.frm_IssueDetail, Me.frm_ReverseMaterial, Me.ItemWiseMaterialIssueToCostCenterToolStripMenuItem, Me.ItemWiseMaterialIssueToCostCenterCatHeadWiseToolStripMenuItem, Me.CostofIssueReport})
         Me.Reports.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Reports.ForeColor = System.Drawing.Color.White
         Me.Reports.Image = Global.MMSPlus.My.Resources.Resources.Market_report
@@ -870,7 +912,7 @@ Partial Class MDIMain
         'frm_Stock
         '
         Me.frm_Stock.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.frm_Stock.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.frmStockValue, Me.StockValueCategoryWise, Me.frmStockValueBatchWise})
+        Me.frm_Stock.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.frmStockValue, Me.StockValueCategoryWise, Me.frmStockValueBatchWise, Me.StockValueBrandWise})
         Me.frm_Stock.ForeColor = System.Drawing.Color.White
         Me.frm_Stock.Image = Global.MMSPlus.My.Resources.Resources.Reports
         Me.frm_Stock.Name = "frm_Stock"
@@ -904,6 +946,15 @@ Partial Class MDIMain
         Me.frmStockValueBatchWise.Size = New System.Drawing.Size(221, 22)
         Me.frmStockValueBatchWise.Text = "Stock Value Batch Wise"
         '
+        'StockValueBrandWise
+        '
+        Me.StockValueBrandWise.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.StockValueBrandWise.ForeColor = System.Drawing.Color.White
+        Me.StockValueBrandWise.Image = Global.MMSPlus.My.Resources.Resources.Reports
+        Me.StockValueBrandWise.Name = "StockValueBrandWise"
+        Me.StockValueBrandWise.Size = New System.Drawing.Size(221, 22)
+        Me.StockValueBrandWise.Text = "Stock Value Brand Wise"
+        '
         'frm_Item_Ledger
         '
         Me.frm_Item_Ledger.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
@@ -921,7 +972,15 @@ Partial Class MDIMain
         Me.frm_LedgerSummary.Name = "frm_LedgerSummary"
         Me.frm_LedgerSummary.Size = New System.Drawing.Size(280, 22)
         Me.frm_LedgerSummary.Text = "Item Ledger Summary"
-        Me.frm_LedgerSummary.Visible = False
+        '
+        'NonMovingItemList
+        '
+        Me.NonMovingItemList.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.NonMovingItemList.ForeColor = System.Drawing.Color.White
+        Me.NonMovingItemList.Image = Global.MMSPlus.My.Resources.Resources.Reports
+        Me.NonMovingItemList.Name = "NonMovingItemList"
+        Me.NonMovingItemList.Size = New System.Drawing.Size(280, 22)
+        Me.NonMovingItemList.Text = "Non Moving Item List"
         '
         'frm_Indents
         '
@@ -1052,26 +1111,6 @@ Partial Class MDIMain
         Me.ItemWiseWastagebetweenDatesCategoryHeadWiseToolStripMenuItem.Size = New System.Drawing.Size(386, 22)
         Me.ItemWiseWastagebetweenDatesCategoryHeadWiseToolStripMenuItem.Text = "Item Wise Wastage (between Dates Category Head Wise)"
         '
-        'frm_MRNDetails
-        '
-        Me.frm_MRNDetails.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.frm_MRNDetails.ForeColor = System.Drawing.Color.White
-        Me.frm_MRNDetails.Image = Global.MMSPlus.My.Resources.Resources.Reports
-        Me.frm_MRNDetails.Name = "frm_MRNDetails"
-        Me.frm_MRNDetails.Size = New System.Drawing.Size(280, 22)
-        Me.frm_MRNDetails.Text = "List of MRN (with Detail)"
-        Me.frm_MRNDetails.Visible = False
-        '
-        'frm_IssueDetail
-        '
-        Me.frm_IssueDetail.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.frm_IssueDetail.ForeColor = System.Drawing.Color.White
-        Me.frm_IssueDetail.Image = Global.MMSPlus.My.Resources.Resources.Reports
-        Me.frm_IssueDetail.Name = "frm_IssueDetail"
-        Me.frm_IssueDetail.Size = New System.Drawing.Size(280, 22)
-        Me.frm_IssueDetail.Text = "List DC (with Detail)"
-        Me.frm_IssueDetail.Visible = False
-        '
         'Purchase_rpt
         '
         Me.Purchase_rpt.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
@@ -1080,62 +1119,7 @@ Partial Class MDIMain
         Me.Purchase_rpt.Name = "Purchase_rpt"
         Me.Purchase_rpt.ShowShortcutKeys = False
         Me.Purchase_rpt.Size = New System.Drawing.Size(280, 22)
-        Me.Purchase_rpt.Text = "Total Purchase (category Wise)"
-        '
-        'frm_rpt_SaleInvoice
-        '
-        Me.frm_rpt_SaleInvoice.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.frm_rpt_SaleInvoice.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.frmsaleInvoicesummary, Me.frmSaleInvoiceDetail})
-        Me.frm_rpt_SaleInvoice.ForeColor = System.Drawing.Color.White
-        Me.frm_rpt_SaleInvoice.Image = Global.MMSPlus.My.Resources.Resources.Reports
-        Me.frm_rpt_SaleInvoice.Name = "frm_rpt_SaleInvoice"
-        Me.frm_rpt_SaleInvoice.Size = New System.Drawing.Size(280, 22)
-        Me.frm_rpt_SaleInvoice.Text = "Sale Invoice"
-        '
-        'frmsaleInvoicesummary
-        '
-        Me.frmsaleInvoicesummary.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.frmsaleInvoicesummary.ForeColor = System.Drawing.Color.White
-        Me.frmsaleInvoicesummary.Image = Global.MMSPlus.My.Resources.Resources.Reports
-        Me.frmsaleInvoicesummary.Name = "frmsaleInvoicesummary"
-        Me.frmsaleInvoicesummary.Size = New System.Drawing.Size(202, 22)
-        Me.frmsaleInvoicesummary.Text = "sales invoice summary"
-        '
-        'frmSaleInvoiceDetail
-        '
-        Me.frmSaleInvoiceDetail.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.frmSaleInvoiceDetail.ForeColor = System.Drawing.Color.White
-        Me.frmSaleInvoiceDetail.Image = Global.MMSPlus.My.Resources.Resources.Reports
-        Me.frmSaleInvoiceDetail.Name = "frmSaleInvoiceDetail"
-        Me.frmSaleInvoiceDetail.Size = New System.Drawing.Size(202, 22)
-        Me.frmSaleInvoiceDetail.Text = "Sales Invoice Detail"
-        '
-        'AllPurchaseRate
-        '
-        Me.AllPurchaseRate.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.AllPurchaseRate.ForeColor = System.Drawing.Color.White
-        Me.AllPurchaseRate.Image = Global.MMSPlus.My.Resources.Resources.Reports
-        Me.AllPurchaseRate.Name = "AllPurchaseRate"
-        Me.AllPurchaseRate.Size = New System.Drawing.Size(280, 22)
-        Me.AllPurchaseRate.Text = "All Item Purchase Rates"
-        '
-        'NonMovingItemList
-        '
-        Me.NonMovingItemList.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.NonMovingItemList.ForeColor = System.Drawing.Color.White
-        Me.NonMovingItemList.Image = Global.MMSPlus.My.Resources.Resources.Reports
-        Me.NonMovingItemList.Name = "NonMovingItemList"
-        Me.NonMovingItemList.Size = New System.Drawing.Size(280, 22)
-        Me.NonMovingItemList.Text = "Non Moving Item List"
-        '
-        'LastPurchaseratelist
-        '
-        Me.LastPurchaseratelist.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.LastPurchaseratelist.ForeColor = System.Drawing.Color.White
-        Me.LastPurchaseratelist.Image = Global.MMSPlus.My.Resources.Resources.Reports
-        Me.LastPurchaseratelist.Name = "LastPurchaseratelist"
-        Me.LastPurchaseratelist.Size = New System.Drawing.Size(280, 22)
-        Me.LastPurchaseratelist.Text = "Last Purchase Rate List"
+        Me.Purchase_rpt.Text = "Purchase Register"
         '
         'frm_MRN
         '
@@ -1146,7 +1130,7 @@ Partial Class MDIMain
         Me.frm_MRN.Name = "frm_MRN"
         Me.frm_MRN.ShowShortcutKeys = False
         Me.frm_MRN.Size = New System.Drawing.Size(280, 22)
-        Me.frm_MRN.Text = "MRN Without PO"
+        Me.frm_MRN.Text = "Purchase Register-Without PO"
         '
         'frm_ListMRNDetail
         '
@@ -1201,7 +1185,7 @@ Partial Class MDIMain
         Me.frm_Mrnwithpo.Image = Global.MMSPlus.My.Resources.Resources.Reports
         Me.frm_Mrnwithpo.Name = "frm_Mrnwithpo"
         Me.frm_Mrnwithpo.Size = New System.Drawing.Size(280, 22)
-        Me.frm_Mrnwithpo.Text = "MRN With PO"
+        Me.frm_Mrnwithpo.Text = "Purchase Register-With PO"
         '
         'cmd_ListMRNwithPO
         '
@@ -1247,6 +1231,72 @@ Partial Class MDIMain
         Me.cmd_ItemWiseMRNwithPO.Name = "cmd_ItemWiseMRNwithPO"
         Me.cmd_ItemWiseMRNwithPO.Size = New System.Drawing.Size(310, 22)
         Me.cmd_ItemWiseMRNwithPO.Text = "Item Wise MRN between dates (With PO)"
+        '
+        'frm_MRNDetails
+        '
+        Me.frm_MRNDetails.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.frm_MRNDetails.ForeColor = System.Drawing.Color.White
+        Me.frm_MRNDetails.Image = Global.MMSPlus.My.Resources.Resources.Reports
+        Me.frm_MRNDetails.Name = "frm_MRNDetails"
+        Me.frm_MRNDetails.Size = New System.Drawing.Size(280, 22)
+        Me.frm_MRNDetails.Text = "List of MRN (with Detail)"
+        Me.frm_MRNDetails.Visible = False
+        '
+        'frm_rpt_SaleInvoice
+        '
+        Me.frm_rpt_SaleInvoice.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.frm_rpt_SaleInvoice.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.frmsaleInvoicesummary, Me.frmSaleInvoiceDetail})
+        Me.frm_rpt_SaleInvoice.ForeColor = System.Drawing.Color.White
+        Me.frm_rpt_SaleInvoice.Image = Global.MMSPlus.My.Resources.Resources.Reports
+        Me.frm_rpt_SaleInvoice.Name = "frm_rpt_SaleInvoice"
+        Me.frm_rpt_SaleInvoice.Size = New System.Drawing.Size(280, 22)
+        Me.frm_rpt_SaleInvoice.Text = "Sale Register"
+        '
+        'frmsaleInvoicesummary
+        '
+        Me.frmsaleInvoicesummary.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.frmsaleInvoicesummary.ForeColor = System.Drawing.Color.White
+        Me.frmsaleInvoicesummary.Image = Global.MMSPlus.My.Resources.Resources.Reports
+        Me.frmsaleInvoicesummary.Name = "frmsaleInvoicesummary"
+        Me.frmsaleInvoicesummary.Size = New System.Drawing.Size(202, 22)
+        Me.frmsaleInvoicesummary.Text = "sales invoice summary"
+        '
+        'frmSaleInvoiceDetail
+        '
+        Me.frmSaleInvoiceDetail.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.frmSaleInvoiceDetail.ForeColor = System.Drawing.Color.White
+        Me.frmSaleInvoiceDetail.Image = Global.MMSPlus.My.Resources.Resources.Reports
+        Me.frmSaleInvoiceDetail.Name = "frmSaleInvoiceDetail"
+        Me.frmSaleInvoiceDetail.Size = New System.Drawing.Size(202, 22)
+        Me.frmSaleInvoiceDetail.Text = "Sales Invoice Detail"
+        '
+        'LastPurchaseratelist
+        '
+        Me.LastPurchaseratelist.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.LastPurchaseratelist.ForeColor = System.Drawing.Color.White
+        Me.LastPurchaseratelist.Image = Global.MMSPlus.My.Resources.Resources.Reports
+        Me.LastPurchaseratelist.Name = "LastPurchaseratelist"
+        Me.LastPurchaseratelist.Size = New System.Drawing.Size(280, 22)
+        Me.LastPurchaseratelist.Text = "Last Purchase Rate List"
+        '
+        'AllPurchaseRate
+        '
+        Me.AllPurchaseRate.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.AllPurchaseRate.ForeColor = System.Drawing.Color.White
+        Me.AllPurchaseRate.Image = Global.MMSPlus.My.Resources.Resources.Reports
+        Me.AllPurchaseRate.Name = "AllPurchaseRate"
+        Me.AllPurchaseRate.Size = New System.Drawing.Size(280, 22)
+        Me.AllPurchaseRate.Text = "All Item Purchase Rates"
+        '
+        'frm_IssueDetail
+        '
+        Me.frm_IssueDetail.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.frm_IssueDetail.ForeColor = System.Drawing.Color.White
+        Me.frm_IssueDetail.Image = Global.MMSPlus.My.Resources.Resources.Reports
+        Me.frm_IssueDetail.Name = "frm_IssueDetail"
+        Me.frm_IssueDetail.Size = New System.Drawing.Size(280, 22)
+        Me.frm_IssueDetail.Text = "List DC (with Detail)"
+        Me.frm_IssueDetail.Visible = False
         '
         'frm_ReverseMaterial
         '
@@ -1656,4 +1706,9 @@ Partial Class MDIMain
     Friend WithEvents frm_depreciation_cal As ToolStripMenuItem
     Friend WithEvents frm_Accept_Stock_transfer As ToolStripMenuItem
     Friend WithEvents frm_Stock_Transfer As ToolStripMenuItem
+    Friend WithEvents StockValueBrandWise As ToolStripMenuItem
+    Friend WithEvents frm_Print_Barcode As ToolStripMenuItem
+    Friend WithEvents BackupDB As ToolStripMenuItem
+    Friend WithEvents tsmAccount As ToolStripMenuItem
+    Friend WithEvents frm_DebitNote_WO_Items As ToolStripMenuItem
 End Class

@@ -491,6 +491,7 @@ Public Class frm_Semi_Finished_Recipe_Master
 
                         frm_Show_search.column_name = "Item_Name"
                         frm_Show_search.extra_condition = ""
+                        frm_Show_search.item_rate_column = ""
                         frm_Show_search.ret_column = "Item_ID"
                         frm_Show_search.ShowDialog()
 

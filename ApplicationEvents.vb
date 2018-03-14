@@ -25,21 +25,21 @@ Namespace My
 
         Private Sub TakeBackUp()
             ''run the secondary thread while the primary thread is alive
-            While PrimaryThread.IsAlive
-                Try
-                    Dim CommonFunction As New CommonClass
-                    Dim FilePath As String = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData)
+            'While PrimaryThread.IsAlive
+            '    Try
+            '        Dim CommonFunction As New CommonClass
+            '        Dim FilePath As String = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData)
 
-                    Dim BackupQuery As String = " BACKUP DATABASE [MMSPlus] TO  DISK = N'" & FilePath & "\MMSPlus" &
-                        DateTime.Today.ToString("_dd_MM_yyyy") & ".bak' " &
-                        " WITH NOFORMAT, NOINIT,  NAME = N'MMSPlus-Full Database Backup', " &
-                        " SKIP, NOREWIND, NOUNLOAD,  STATS = 10"
-                    CommonFunction.ExecuteNonQueryWithoutTransaction(BackupQuery)
-                Catch ex As Exception
-                    ''do nothing
-                End Try
-                System.Threading.Thread.Sleep(1800000)
-            End While
+            '        Dim BackupQuery As String = " BACKUP DATABASE [MMSPlus] TO  DISK = N'" & FilePath & "\MMSPlus" &
+            '            DateTime.Today.ToString("_dd_MM_yyyy") & ".bak' " &
+            '            " WITH NOFORMAT, NOINIT,  NAME = N'MMSPlus-Full Database Backup', " &
+            '            " SKIP, NOREWIND, NOUNLOAD,  STATS = 10"
+            '        CommonFunction.ExecuteNonQueryWithoutTransaction(BackupQuery)
+            '    Catch ex As Exception
+            '        ''do nothing
+            '    End Try
+            '    System.Threading.Thread.Sleep(1800000)
+            'End While
         End Sub
         ''********************************************************************''
         ''********************************************************************''

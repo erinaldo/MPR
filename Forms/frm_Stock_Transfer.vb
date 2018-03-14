@@ -59,12 +59,14 @@ Public Class frm_Stock_Transfer
 
             flxList.DataSource = dt
             flxList.Columns(0).Visible = False
-            flxList.Columns(1).Width = 100
-            flxList.Columns(2).Width = 100
-            flxList.Columns(3).Width = 200
-            flxList.Columns(4).Width = 200
+            flxList.Columns(1).Width = 150
+            flxList.Columns(2).Width = 150
+            flxList.Columns(3).Width = 265
+            flxList.Columns(4).Width = 265
             flxList.Columns(5).Width = 150
             flxList.Columns(6).Width = 100
+            flxList.Columns(5).Visible = False
+            flxList.Columns(6).Visible = False
             flxList.Columns(7).Visible = False
 
         Catch ex As Exception
@@ -194,7 +196,6 @@ Public Class frm_Stock_Transfer
             new_initilization()
         Catch ex As Exception
             obj.MyCon_RollBackTransaction(cmd)
-
             MsgBox(gblMessageHeading_Error & vbCrLf & gblMessage_ContactInfo & vbCrLf & ex.Message, MsgBoxStyle.Critical, gblMessageHeading)
         End Try
     End Sub
@@ -320,6 +321,8 @@ again:
 
         flxItems.Cols(0).Width = 10
         flxItems.Cols("Item_Id").Visible = False
+        flxItems.Cols("Item_Id").AllowEditing = False
+
         flxItems.Cols("Stock_Detail_Id").Visible = True
         flxItems.Cols("Item_Code").Caption = "Item Code"
         flxItems.Cols("Item_Name").Caption = "Item Name"
@@ -350,7 +353,6 @@ again:
         flxItems.Cols("Stock_Detail_Id").Width = 60
         flxItems.Cols("transfer_Qty").Width = 80
         flxItems.Cols("Item_Rate").Width = 80
-
         flxItems.Cols("Stock_Detail_Id").Visible = False
 
     End Sub
@@ -411,6 +413,7 @@ again:
                     frm_Show_search.column_name = "Item_Name"
                     frm_Show_search.extra_condition = ""
                     frm_Show_search.ret_column = "Item_ID"
+                    frm_Show_search.item_rate_column = ""
                     frm_Show_search.ShowDialog()
                     If Not check_item_exist(frm_Show_search.search_result) Then
                         get_row(frm_Show_search.search_result, 0)
@@ -486,12 +489,13 @@ restart:
                     dr("Stock_Detail_Id") = ds.Tables(0).Rows(i)("STOCK_DETAIL_ID")
                     dr("transfer_Qty") = ds.Tables(0).Rows(i)("transfer_Qty")
                     dtable_Item_List.Rows.Add(dr)
+                    dtable_Item_List.AcceptChanges()
                 Next
-                Dim strSort As String = flxItems.Cols(1).Name + ", " + flxItems.Cols(2).Name + ", " + flxItems.Cols(3).Name
+                ' Dim strSort As String = flxItems.Cols(1).Name + ", " + flxItems.Cols(2).Name + ", " + flxItems.Cols(3).Name
 
 
 
-                dtable_Item_List.DefaultView.Sort = strSort
+                ' dtable_Item_List.DefaultView.Sort = strSort
 
                 If dtable_Item_List.Rows.Count = 0 Then dtable_Item_List.Rows.Add(dtable_Item_List.NewRow)
 

@@ -260,6 +260,7 @@ restart:
                     frm_Show_search.extra_condition = ""
                     frm_Show_search.ret_column = "Item_ID"
                     frm_Show_search.column_name = "Item_name"
+                    frm_Show_search.item_rate_column = ""
                     frm_Show_search.ShowDialog()
                     If Not check_item_exist(frm_Show_search.search_result) Then
                         get_row(frm_Show_search.search_result, 0)

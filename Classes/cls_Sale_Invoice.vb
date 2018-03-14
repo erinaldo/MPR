@@ -334,14 +334,6 @@ Namespace Sale_Invoice
                 cmd.Dispose()
 
 
-
-
-
-
-
-
-
-
                 ''   2) insert in stock transfer detail table of local database
 
                 Try
@@ -357,20 +349,18 @@ again:
 
                             If Convert.ToDouble(clsobj.dtable_Item_List.Rows(i)("transfer_qty")) <= 0 Then
                                 clsobj.dtable_Item_List.Rows.RemoveAt(i)
-
+                                clsobj.dtable_Item_List.AcceptChanges()
                                 GoTo again
                             End If
                         End If
                     Next
                     ' Next
 
-
+                    clsobj.dtable_Item_List.AcceptChanges()
 
                     Dim Dtitemsnew As DataTable = clsobj.dtable_Item_List.Copy
                     Dtitemsnew.Rows.Clear()
-
-
-
+                    Dtitemsnew.AcceptChanges()
 
                     For Each items_DataRow As DataRow In clsobj.dtable_Item_List.Rows
 
@@ -386,6 +376,8 @@ again:
                             If items_DataRow("DType").ToString() = "A" Then
                                 items_row(0)("DISC") = (items_row(0)("DISC") + items_DataRow("DISC"))
                             End If
+
+                            Dtitemsnew.AcceptChanges()
 
                         Else
                             Dim OrderDataRow As DataRow = Dtitemsnew.NewRow()
@@ -403,12 +395,11 @@ again:
                             End If
 
                             Dtitemsnew.Rows.Add(OrderDataRow)
+                            Dtitemsnew.AcceptChanges()
                         End If
-
-                        Dtitemsnew.AcceptChanges()
                     Next
 
-
+                    Dtitemsnew.AcceptChanges()
                     cmd = New SqlCommand
 
                     For i As Integer = 0 To Dtitemsnew.Rows.Count - 1
@@ -685,7 +676,7 @@ again:
 
                             If Convert.ToDouble(clsobj.dtable_Item_List.Rows(i)("transfer_qty")) <= 0 Then
                                 clsobj.dtable_Item_List.Rows.RemoveAt(i)
-
+                                clsobj.dtable_Item_List.AcceptChanges()
                                 GoTo again
                             End If
                         End If
@@ -694,6 +685,7 @@ again:
 
                     Dim Dtitemsnew As DataTable = clsobj.dtable_Item_List.Copy
                     Dtitemsnew.Rows.Clear()
+                    Dtitemsnew.AcceptChanges()
 
 
 
@@ -712,6 +704,7 @@ again:
                             If items_DataRow("DType").ToString() = "A" Then
                                 items_row(0)("DISC") = (items_row(0)("DISC") + items_DataRow("DISC"))
                             End If
+                            Dtitemsnew.AcceptChanges()
 
                         Else
                             Dim OrderDataRow As DataRow = Dtitemsnew.NewRow()
@@ -728,6 +721,7 @@ again:
                             End If
                             OrderDataRow("Amount") = items_DataRow("Amount")
                             Dtitemsnew.Rows.Add(OrderDataRow)
+                            Dtitemsnew.AcceptChanges()
                         End If
 
                         Dtitemsnew.AcceptChanges()
@@ -802,12 +796,8 @@ again:
 
                     cmd.Dispose()
                     tran.Commit()
-                    'trans_global.Commit()
-
-
                 Catch ex As Exception
                     tran.Rollback()
-                    ' trans_global.Rollback()
                     MsgBox(ex.Message)
                 End Try
             Catch ex As Exception

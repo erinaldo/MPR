@@ -79,7 +79,7 @@ Public Class frm_Material_Received_Without_PO_Master
         cmbMRNType.SelectedIndex = 0
         cmbVendor.Enabled = False
         If flag = "save" Then
-            lbl_PODate.Text = now.ToString("dd/MMM/yyyy")
+            lbl_PODate.Text = Now.ToString("dd/MMM/yyyy")
             lblMrnStatus.Text = "FRESH"
         End If
     End Sub
@@ -121,18 +121,18 @@ Public Class frm_Material_Received_Without_PO_Master
         Try
             'obj.GridBind(grdSupplierList, "SELECT srl_id,srl_name,srl_desc,active,creation_date from Supplier_rate_list")
             Dim qry As String
-            qry = "SELECT  MM.Received_ID," & _
-                    " MM.Received_Code + CAST(MM.Received_No AS VARCHAR(20)) AS MRNNo," & _
-                    "dbo.fn_Format(MM.Received_Date) AS Received_Date," & _
-                    "MM.Purchase_Type," & _
-                    "ISNULL(ACCOUNT_MASTER.ACC_NAME, '--DIRECT PURCHASE--') ACC_NAME, " & _
-                    "PM.PurchaseType," & _
-                    "CASE WHEN MM.mrn_status = 1 THEN 'NORMAL'" & _
-                    "     WHEN MM.mrn_status = 3 THEN 'CLEAR'" & _
-                    "     ELSE 'CANCEL'" & _
-                    "END AS MRNStatus " & _
-            "FROM    MATERIAL_RECIEVED_WITHOUT_PO_MASTER AS MM" & _
-                    " INNER JOIN PurchaseType_Master AS PM ON MM.Purchase_Type = PM.pk_PurchaseTypeId" & _
+            qry = "SELECT  MM.Received_ID," &
+                    " MM.Received_Code + CAST(MM.Received_No AS VARCHAR(20)) AS MRNNo," &
+                    "dbo.fn_Format(MM.Received_Date) AS Received_Date," &
+                    "MM.Purchase_Type," &
+                    "ISNULL(ACCOUNT_MASTER.ACC_NAME, '--DIRECT PURCHASE--') ACC_NAME, " &
+                    "PM.PurchaseType," &
+                    "CASE WHEN MM.mrn_status = 1 THEN 'NORMAL'" &
+                    "     WHEN MM.mrn_status = 3 THEN 'CLEAR'" &
+                    "     ELSE 'CANCEL'" &
+                    "END AS MRNStatus " &
+            "FROM    MATERIAL_RECIEVED_WITHOUT_PO_MASTER AS MM" &
+                    " INNER JOIN PurchaseType_Master AS PM ON MM.Purchase_Type = PM.pk_PurchaseTypeId" &
                     " LEFT OUTER JOIN ACCOUNT_MASTER ON MM.Vendor_ID = ACCOUNT_MASTER.ACC_ID " & condition
 
             obj.GridBind(dgvList, qry)
@@ -234,53 +234,68 @@ Public Class frm_Material_Received_Without_PO_Master
 
         lblMrnStatus.Focus()
         Try
-            If flag = "save" And validate_data() Then
+            If validate_data() Then
                 Dim RECEIVEDID As Integer
 
-                If cmbMRNType.SelectedIndex <= 0 Then
-                    MsgBox("Please Select MRN Type first.")
-                    Exit Sub
-                End If
-                If txt_Invoice_No.Text = Nothing Then
-                    MsgBox("Please Enter Invoice No. first.")
-                    Exit Sub
-                End If
 
-                If txt_Invoice_No.Text <> "" Then
-                    Dim invoicecount = Convert.ToInt32(obj.ExecuteScalar("SELECT COUNT(Received_ID) FROM dbo.MATERIAL_RECIEVED_WITHOUT_PO_MASTER WHERE Vendor_ID=" & cmbVendor.SelectedValue & " AND Invoice_No='" & txt_Invoice_No.Text & "'"))
-                    If invoicecount > 0 Then
-                        MsgBox("Invoice No. cannot be same for the singler supplier.")
+                If flag = "save" Then
+
+
+
+                    If cmbMRNType.SelectedIndex <= 0 Then
+                        MsgBox("Please Select MRN Type first.")
                         Exit Sub
                     End If
-                End If
+                    If txt_Invoice_No.Text = Nothing Then
+                        MsgBox("Please Enter Invoice No. first.")
+                        Exit Sub
+                    End If
 
-                Dim ds As New DataSet()
-                ds = clsObj.fill_Data_set("GET_MRN_NO", "@DIV_ID", v_the_current_division_id)
-                If ds.Tables(0).Rows.Count = 0 Then
-                    MsgBox("MRN series does not exists", MsgBoxStyle.Information, gblMessageHeading)
-                    ds.Dispose()
-                    Exit Sub
-                Else
-                    If ds.Tables(0).Rows(0)(0).ToString() = "-1" Then
+                    If txt_Invoice_No.Text <> "" Then
+                        Dim invoicecount = Convert.ToInt32(obj.ExecuteScalar("SELECT COUNT(Received_ID) FROM dbo.MATERIAL_RECIEVED_WITHOUT_PO_MASTER WHERE Vendor_ID=" & cmbVendor.SelectedValue & " AND Invoice_No='" & txt_Invoice_No.Text & "'"))
+                        If invoicecount > 0 Then
+                            MsgBox("Invoice No. cannot be same for the singler supplier.")
+                            Exit Sub
+                        End If
+                    End If
+
+                    Dim ds As New DataSet()
+                    ds = clsObj.fill_Data_set("GET_MRN_NO", "@DIV_ID", v_the_current_division_id)
+                    If ds.Tables(0).Rows.Count = 0 Then
                         MsgBox("MRN series does not exists", MsgBoxStyle.Information, gblMessageHeading)
                         ds.Dispose()
                         Exit Sub
-                    ElseIf ds.Tables(0).Rows(0)(0).ToString() = "-2" Then
-                        MsgBox("MRN series has been completed", MsgBoxStyle.Information, gblMessageHeading)
-                        ds.Dispose()
-                        Exit Sub
                     Else
-                        MRN_Code = ds.Tables(0).Rows(0)(0).ToString()
-                        MRN_No = Convert.ToDecimal(ds.Tables(0).Rows(0)(1).ToString()) + 1
-                        ds.Dispose()
+                        If ds.Tables(0).Rows(0)(0).ToString() = "-1" Then
+                            MsgBox("MRN series does not exists", MsgBoxStyle.Information, gblMessageHeading)
+                            ds.Dispose()
+                            Exit Sub
+                        ElseIf ds.Tables(0).Rows(0)(0).ToString() = "-2" Then
+                            MsgBox("MRN series has been completed", MsgBoxStyle.Information, gblMessageHeading)
+                            ds.Dispose()
+                            Exit Sub
+                        Else
+                            MRN_Code = ds.Tables(0).Rows(0)(0).ToString()
+                            MRN_No = Convert.ToDecimal(ds.Tables(0).Rows(0)(1).ToString()) + 1
+                            ds.Dispose()
+                        End If
                     End If
+
+
+                    RECEIVEDID = Convert.ToInt32(obj.getMaxValue(" RECEIVED_ID", "MATERIAL_RECIEVED_WITHOUT_PO_MASTER"))
+                    prpty.Received_ID = Convert.ToInt32(RECEIVEDID)
+                    prpty.Received_Code = MRN_Code ' GetReceivedCode()
+                    prpty.Received_No = MRN_No ' Convert.ToInt32(RECEIVEDID)
+                    prpty.Received_Date = Now 'Convert.ToDateTime(lbl_PODate.Text).ToString()
+                Else
+                    prpty.Received_ID = Convert.ToInt32(receive_Id)
+                    prpty.Received_Code = ""
+                    prpty.Received_No = 0
+                    prpty.Received_Date = Now
+                    MRN_Code = ""
                 End If
 
-                RECEIVEDID = Convert.ToInt32(obj.getMaxValue("RECEIVED_ID", "MATERIAL_RECIEVED_WITHOUT_PO_MASTER"))
-                prpty.Received_ID = Convert.ToInt32(RECEIVEDID)
-                prpty.Received_Code = MRN_Code ' GetReceivedCode()
-                prpty.Received_No = MRN_No ' Convert.ToInt32(RECEIVEDID)
-                prpty.Received_Date = Now 'Convert.ToDateTime(lbl_PODate.Text).ToString()
+
                 prpty.Purchase_Type = Convert.ToInt32(cmbPurchaseType.SelectedValue)
                 prpty.Invoice_Date = Convert.ToDateTime(dt_Invoice_Date.Value)
                 prpty.Invoice_No = txt_Invoice_No.Text
@@ -321,7 +336,12 @@ Public Class frm_Material_Received_Without_PO_Master
                 End If
                 prpty.MRNCompanies_ID = Convert.ToInt16(cmb_MRNAgainst.SelectedValue)
                 'SAVE MASTER ENTERY
-                clsObj.insert_MATERIAL_RECIEVED_WITHOUT_PO_MASTER(prpty, cmd)
+                If flag = "save" Then
+                    clsObj.insert_MATERIAL_RECIEVED_WITHOUT_PO_MASTER(prpty, cmd)
+                Else
+                    clsObj.update_MATERIAL_RECIEVED_WITHOUT_PO_MASTER(prpty)
+                End If
+
 
                 Dim iRowCount As Int32
                 Dim iRow As Int32
@@ -367,7 +387,12 @@ Public Class frm_Material_Received_Without_PO_Master
                         prpty.Division_ID = v_the_current_division_id
 
                         'SAVE DETAIL ENTRY
-                        clsObj.insert_MATERIAL_RECEIVED_WITHOUT_PO_DETAIL(prpty, cmd)
+                        If flag = "save" Then
+                            clsObj.insert_MATERIAL_RECEIVED_WITHOUT_PO_DETAIL(prpty, cmd)
+                        Else
+                            clsObj.Update_MATERIAL_RECEIVED_WITHOUT_PO_DETAIL(prpty, cmd)
+                        End If
+
 
 
 
@@ -440,7 +465,7 @@ Public Class frm_Material_Received_Without_PO_Master
 
                 ''SAVE IN NON STOCKABLE ITEMS 
 
-                Dim result As String = "MRN saved with No. " & MRN_Code & MRN_No
+                Dim result As String = "MRN saved With No. " & MRN_Code & MRN_No
 
                 MsgBox(result, MsgBoxStyle.Information, gblMessageHeading)
 
@@ -448,7 +473,7 @@ Public Class frm_Material_Received_Without_PO_Master
 
 
                 If flag = "save" Then
-                    If MsgBox(result & vbCrLf & "Do You Want to Print Preview.", MsgBoxStyle.Question + MsgBoxStyle.YesNo, gblMessageHeading) = MsgBoxResult.Yes Then
+                    If MsgBox(result & vbCrLf & "Do You Want To Print Preview.", MsgBoxStyle.Question + MsgBoxStyle.YesNo, gblMessageHeading) = MsgBoxResult.Yes Then
                         obj.RptShow(enmReportName.RptMRNActualWithoutPOPrint, "Received_ID", CStr(prpty.Received_ID), CStr(enmDataType.D_int))
                         frm_Report.Mrn_id = CInt(prpty.Received_ID)
                         frm_Report.formName = "MRN_WithoutPO"
@@ -564,6 +589,7 @@ Public Class frm_Material_Received_Without_PO_Master
         dtable_Item_List.Rows.Add(dtable_Item_List.NewRow)
         dtable_Item_List_Stockable.Rows.Add(dtable_Item_List_Stockable.NewRow)
         FLXGRD_MaterialItem.Cols(0).Width = 10
+        FLXGRD_MaterialItem.Cols(0).AllowEditing = False
         FLXGRD_MatItem_NonStockable.Cols(0).Width = 10
 
         SetGridSettingValues()
@@ -574,6 +600,7 @@ Public Class frm_Material_Received_Without_PO_Master
     Private Sub SetGridSettingValues()
 
         FLXGRD_MaterialItem.Cols(1).Visible = False
+        FLXGRD_MaterialItem.Cols(1).AllowEditing = False
 
         FLXGRD_MaterialItem.Cols("Item_Code").Caption = "Item Code"
         FLXGRD_MaterialItem.Cols("Item_Name").Caption = "Item Name"
@@ -628,6 +655,7 @@ Public Class frm_Material_Received_Without_PO_Master
         ''**************************************************************
 
         FLXGRD_MatItem_NonStockable.Cols(1).Visible = False
+        FLXGRD_MatItem_NonStockable.Cols(1).AllowEditing = False
         FLXGRD_MatItem_NonStockable.Cols(2).Visible = False
         FLXGRD_MatItem_NonStockable.Cols("CostCenter_ID").Visible = False
         FLXGRD_MatItem_NonStockable.Cols("CostCenter_code").Visible = False
@@ -659,7 +687,7 @@ Public Class frm_Material_Received_Without_PO_Master
         FLXGRD_MatItem_NonStockable.Cols("DISC").AllowEditing = True
 
         FLXGRD_MatItem_NonStockable.Cols("Vat_Per").AllowEditing = True
-        FLXGRD_MatItem_NonStockable.Cols("Vat_Per").ComboList = "0|5|12|18|28"
+        FLXGRD_MatItem_NonStockable.Cols("Vat_Per").ComboList = "0|3|5|12|18|28"
         FLXGRD_MatItem_NonStockable.Cols("exe_Per").AllowEditing = True
         FLXGRD_MatItem_NonStockable.Cols("BATCH_NO").AllowEditing = True
         FLXGRD_MatItem_NonStockable.Cols("EXPIRY_DATE").AllowEditing = True
@@ -696,19 +724,19 @@ Public Class frm_Material_Received_Without_PO_Master
             If e.KeyCode = Keys.Space Then
                 grdMaterial_Rowindex = FLXGRD_MaterialItem.Row
 
-                frm_Show_search.qry = " SELECT " & _
-                                       " ITEM_MASTER.ITEM_ID,   " & _
-                                       " ITEM_MASTER.ITEM_CODE, " & _
-                                       " ITEM_MASTER.ITEM_NAME, " & _
-                                       " /*ITEM_MASTER.ITEM_DESC,*/ " & _
-                                       " UNIT_MASTER.UM_Name,   " & _
-                                       " /*ITEM_CATEGORY.ITEM_CAT_NAME, */" & _
-                                       " ITEM_DETAIL.IS_STOCKABLE " & _
-                               " FROM " & _
-                                       " ITEM_MASTER " & _
-                                       " INNER JOIN UNIT_MASTER ON ITEM_MASTER.UM_ID = UNIT_MASTER.UM_ID " & _
-                                       " INNER JOIN ITEM_CATEGORY ON ITEM_MASTER.ITEM_CATEGORY_ID = ITEM_CATEGORY.ITEM_CAT_ID " & _
-                                        "INNER JOIN ITEM_DETAIL ON ITEM_MASTER.ITEM_ID = ITEM_DETAIL.ITEM_ID and ITEM_DETAIL.is_active=1 "
+                frm_Show_search.qry = " Select " &
+                                       " ITEM_MASTER.ITEM_ID,   " &
+                                       " ITEM_MASTER.ITEM_CODE, " &
+                                       " ITEM_MASTER.ITEM_NAME, " &
+                                       " /*ITEM_MASTER.ITEM_DESC,*/ " &
+                                       " UNIT_MASTER.UM_Name,   " &
+                                       " /*ITEM_CATEGORY.ITEM_CAT_NAME, */" &
+                                       " ITEM_DETAIL.IS_STOCKABLE " &
+                               " FROM " &
+                                       " ITEM_MASTER " &
+                                       " INNER JOIN UNIT_MASTER On ITEM_MASTER.UM_ID = UNIT_MASTER.UM_ID " &
+                                       " INNER JOIN ITEM_CATEGORY On ITEM_MASTER.ITEM_CATEGORY_ID = ITEM_CATEGORY.ITEM_CAT_ID " &
+                                        "INNER JOIN ITEM_DETAIL On ITEM_MASTER.ITEM_ID = ITEM_DETAIL.ITEM_ID And ITEM_DETAIL.is_active=1 "
 
 
                 frm_Show_search.column_name = "Item_Name"
@@ -716,10 +744,11 @@ Public Class frm_Material_Received_Without_PO_Master
                 frm_Show_search.cols_width = "60,350,50,60"
                 frm_Show_search.extra_condition = ""
                 frm_Show_search.ret_column = "Item_ID"
+                frm_Show_search.item_rate_column = ""
                 frm_Show_search.ShowDialog()
 
                 Dim item_is_stockable As Boolean
-                item_is_stockable = Convert.ToBoolean(obj.ExecuteScalar("select isnull(IS_STOCKABLE,1) IS_STOCKABLE from ITEM_DETAIL where item_id = " + frm_Show_search.search_result))
+                item_is_stockable = Convert.ToBoolean(obj.ExecuteScalar("Select isnull(IS_STOCKABLE,1) IS_STOCKABLE from ITEM_DETAIL where item_id = " + frm_Show_search.search_result))
                 If item_is_stockable = True Then
                     get_row(frm_Show_search.search_result)
                 Else
@@ -732,21 +761,24 @@ Public Class frm_Material_Received_Without_PO_Master
 
                 Dim result As Integer
                 Dim item_code As String
-                result = MsgBox("Do you want to remove """ & FLXGRD_MaterialItem.Rows(FLXGRD_MaterialItem.CursorCell.r1).Item(3) & """ from the list?", MsgBoxStyle.YesNo + MsgBoxStyle.Question)
+                result = MsgBox("Do you want To remove """ & FLXGRD_MaterialItem.Rows(FLXGRD_MaterialItem.CursorCell.r1).Item(3) & """ from the list?", MsgBoxStyle.YesNo + MsgBoxStyle.Question)
                 item_code = FLXGRD_MaterialItem.Rows(FLXGRD_MaterialItem.CursorCell.r1).Item("item_code")
                 If result = MsgBoxResult.Yes Then
 restart:
                     Dim dt As DataTable
                     dt = TryCast(FLXGRD_MaterialItem.DataSource, DataTable)
+                    dt.AcceptChanges()
                     If Not dt Is Nothing Then
                         For Each dr As DataRow In dt.Rows
                             If Convert.ToString(dr("item_code")) = item_code Then
                                 dr.Delete()
+                                dt.AcceptChanges()
                                 GoTo restart
                             End If
                         Next
                         '        dt.AcceptChanges()
                     End If
+                    Calculate_Amount()
                 End If
             End If
         Catch ex As Exception
@@ -825,7 +857,7 @@ restart:
 
 
                 ds = obj.fill_Data_set("GET_ITEM_BY_ID", "@V_ITEM_ID", item_id)
-                ds_CC = obj.Fill_DataSet("SELECT * FROM dbo.COST_CENTER_MASTER where display_at_mrn = 1")
+                ds_CC = obj.Fill_DataSet("Select * FROM dbo.COST_CENTER_MASTER where display_at_mrn = 1")
                 Dim iRowCount As Int32
                 Dim iRow As Int32
                 Dim dt As DataTable
@@ -960,75 +992,76 @@ restart:
 
     Private Sub dgvList_DoubleClick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles dgvList.DoubleClick
 
-        MsgBox("You can't Edit this MRN." & vbCrLf & "To view this MRN Click on ""Print""")
-        ''Dim receive_Id As Integer
-        'Dim dtMRN As New DataTable
-        'Dim dtMRNDetail As New DataTable
-        'Dim dtMRNDetail_NonStockableItems As New DataTable
-        'Dim ds As New DataSet
+        'MsgBox("You can't Edit this MRN." & vbCrLf & "To view this MRN Click on ""Print""")
+        'Dim receive_Id As Integer
+        Dim dtMRN As New DataTable
+        Dim dtMRNDetail As New DataTable
+        Dim dtMRNDetail_NonStockableItems As New DataTable
+        Dim ds As New DataSet
 
-        ''receive_Id = Convert.ToInt32(dgvList.SelectedRows.Item(0).Cells(0).Value)
-        'receive_Id = Convert.ToInt32(dgvList.CurrentRow.Cells(0).Value)
-        'flag = "update"
-        'ds = obj.fill_Data_set("Get_MRN_WithOutPO_Detail", "@V_Receive_ID", receive_Id)
+        'receive_Id = Convert.ToInt32(dgvList.SelectedRows.Item(0).Cells(0).Value)
+        receive_Id = Convert.ToInt32(dgvList.CurrentRow.Cells(0).Value)
+        flag = "update"
+        ds = obj.fill_Data_set("Get_MRN_WithOutPO_Detail", "@V_Receive_ID", receive_Id)
 
-        'If ds.Tables.Count > 0 Then
+        If ds.Tables.Count > 0 Then
 
-        '    dtMRN = ds.Tables(0)
+            dtMRN = ds.Tables(0)
 
-        '    cmbPurchaseType.SelectedValue = dtMRN.Rows(0)("Purchase_Type")
-        '    cmb_MRNAgainst.SelectedValue = dtMRN.Rows(0)("MRNCompanies_ID")
-        '    If dtMRN.Rows(0)("Purchase_Type") = 2 Then
-        '        cmbVendor.SelectedValue = dtMRN.Rows(0)("Vendor_Id")
-        '    End If
-        '    lbl_PODate.Text = dtMRN.Rows(0)("Received_Date")
-        '    txtMrnRemarks.Text = dtMRN.Rows(0)("Remarks")
-        '    If dtMRN.Rows(0)("MRN_Status") = MRNStatus.cancel Then
-        '        lblMrnStatus.Text = "Cancel"
-        '    ElseIf dtMRN.Rows(0)("MRN_Status") = MRNStatus.clear Then
-        '        lblMrnStatus.Text = "Clear"
-        '    ElseIf dtMRN.Rows(0)("MRN_Status") = MRNStatus.normal Then
-        '        lblMrnStatus.Text = "Normal"
-        '    End If
-        '    txt_Amount.Text = Convert.ToString(dtMRN.Rows(0)("freight"))
-        '    txtotherchrgs.Text = Convert.ToString(dtMRN.Rows(0)("Other_charges"))
-        '    txtdiscount.Text = Convert.ToString(dtMRN.Rows(0)("Discount_amt"))
+            cmbPurchaseType.SelectedValue = dtMRN.Rows(0)("Purchase_Type")
+            cmb_MRNAgainst.SelectedValue = dtMRN.Rows(0)("MRNCompanies_ID")
+            If dtMRN.Rows(0)("Purchase_Type") = 2 Then
+                cmbVendor.SelectedValue = dtMRN.Rows(0)("Vendor_Id")
+            End If
+            lbl_PODate.Text = dtMRN.Rows(0)("Received_Date")
+            txtMrnRemarks.Text = dtMRN.Rows(0)("Remarks")
+            If dtMRN.Rows(0)("MRN_Status") = MRNStatus.cancel Then
+                lblMrnStatus.Text = "Cancel"
+            ElseIf dtMRN.Rows(0)("MRN_Status") = MRNStatus.clear Then
+                lblMrnStatus.Text = "Clear"
+            ElseIf dtMRN.Rows(0)("MRN_Status") = MRNStatus.normal Then
+                lblMrnStatus.Text = "Normal"
+            End If
+            txt_Amount.Text = Convert.ToString(dtMRN.Rows(0)("freight"))
+            txtotherchrgs.Text = Convert.ToString(dtMRN.Rows(0)("Other_charges"))
+            txtdiscount.Text = Convert.ToString(dtMRN.Rows(0)("Discount_amt"))
+            dt_Invoice_Date.Value = dtMRN.Rows(0)("Invoice_Date")
+            txt_Invoice_No.Text = dtMRN.Rows(0)("Invoice_No")
+            ' Grid_styles()
+            'dtable_Item_List = ds.Tables(1).Copy
 
+            dtable_Item_List = ds.Tables(1).Copy
+            dtable_Item_List.Rows.Add(dtable_Item_List.NewRow)
+            FLXGRD_MaterialItem.DataSource = dtable_Item_List
 
-        '    ' Grid_styles()
-        '    'dtable_Item_List = ds.Tables(1).Copy
+            dtMRNDetail_NonStockableItems = ds.Tables(2).Copy
+            FLXGRD_MatItem_NonStockable.DataSource = dtMRNDetail_NonStockableItems
+            SetGridSettingValues()
+            'FLXGRD_MaterialItem.DataSource = ds.Tables(1)
+            'Dim iRowCount As Int32
+            'Dim iRow As Int32
+            'iRowCount = dtMRNDetail.Rows.Count
+            'For iRow = 0 To iRowCount - 1
+            '    If dtMRNDetail.Rows.Count > 0 Then
+            '        Dim rowindex As Integer = dgvList.Rows.Add()
+            '        dgvList.Rows(rowindex).Cells("Sup_Id").Value = Convert.ToInt32(dtMRNDetail.Rows(iRow)("SUPP_ID"))
+            '        dgvList.Rows(rowindex).Cells("Item_Id").Value = Convert.ToString(dtMRNDetail.Rows(iRow)("Item_Id"))
+            '        dgvList.Rows(rowindex).Cells("Item_Code").Value = Convert.ToString(dtMRNDetail.Rows(iRow)("Item_Code"))
+            '        dgvList.Rows(rowindex).Cells("Item_Name").Value = Convert.ToString(dtMRNDetail.Rows(iRow)("Item_Name"))
+            '        dgvList.Rows(rowindex).Cells("UOM").Value = Convert.ToString(dtMRNDetail.Rows(iRow)("UM_Name"))
+            '        dgvList.Rows(rowindex).Cells("Rate").Value = Convert.ToDouble(dtMRNDetail.Rows(iRow)("ITEM_RATE"))
+            '        dgvList.Rows(rowindex).Cells("Del_Qty").Value = Convert.ToDouble(dtMRNDetail.Rows(iRow)("DEL_QTY"))
+            '        dgvList.Rows(rowindex).Cells("Del_Days").Value = Convert.ToString(dtMRNDetail.Rows(iRow)("DEL_DAYS"))
+            '    End If
+            'Next iRow
+            Calculate_Amount()
+            TbPO.SelectTab(1)
 
-        '    dtable_Item_List = ds.Tables(1).Copy
-        '    FLXGRD_MaterialItem.DataSource = dtable_Item_List
-
-        '    dtMRNDetail_NonStockableItems = ds.Tables(2).Copy
-        '    FLXGRD_MatItem_NonStockable.DataSource = dtMRNDetail_NonStockableItems
-        '    SetGridSettingValues()
-        '    'FLXGRD_MaterialItem.DataSource = ds.Tables(1)
-        '    'Dim iRowCount As Int32
-        '    'Dim iRow As Int32
-        '    'iRowCount = dtMRNDetail.Rows.Count
-        '    'For iRow = 0 To iRowCount - 1
-        '    '    If dtMRNDetail.Rows.Count > 0 Then
-        '    '        Dim rowindex As Integer = dgvList.Rows.Add()
-        '    '        dgvList.Rows(rowindex).Cells("Sup_Id").Value = Convert.ToInt32(dtMRNDetail.Rows(iRow)("SUPP_ID"))
-        '    '        dgvList.Rows(rowindex).Cells("Item_Id").Value = Convert.ToString(dtMRNDetail.Rows(iRow)("Item_Id"))
-        '    '        dgvList.Rows(rowindex).Cells("Item_Code").Value = Convert.ToString(dtMRNDetail.Rows(iRow)("Item_Code"))
-        '    '        dgvList.Rows(rowindex).Cells("Item_Name").Value = Convert.ToString(dtMRNDetail.Rows(iRow)("Item_Name"))
-        '    '        dgvList.Rows(rowindex).Cells("UOM").Value = Convert.ToString(dtMRNDetail.Rows(iRow)("UM_Name"))
-        '    '        dgvList.Rows(rowindex).Cells("Rate").Value = Convert.ToDouble(dtMRNDetail.Rows(iRow)("ITEM_RATE"))
-        '    '        dgvList.Rows(rowindex).Cells("Del_Qty").Value = Convert.ToDouble(dtMRNDetail.Rows(iRow)("DEL_QTY"))
-        '    '        dgvList.Rows(rowindex).Cells("Del_Days").Value = Convert.ToString(dtMRNDetail.Rows(iRow)("DEL_DAYS"))
-        '    '    End If
-        '    'Next iRow
-        '    Calculate_Amount()
-        '    TbPO.SelectTab(1)
-
-        '    ds.Dispose()
-        'End If
+            ds.Dispose()
+        End If
     End Sub
 
-   
+
 
 
     Private Sub FLXGRD_MatItem_NonStockable_KeyDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles FLXGRD_MatItem_NonStockable.KeyDown
@@ -1213,11 +1246,11 @@ restart:
                 frm_Report.formName = "MRN_WithoutPO"
 
             Else
-            If flag <> "save" Then
-                obj.RptShow(enmReportName.RptMRNActualWithoutPOPrint, "Received_ID", CStr(receive_Id), CStr(enmDataType.D_int))
+                If flag <> "save" Then
+                    obj.RptShow(enmReportName.RptMRNActualWithoutPOPrint, "Received_ID", CStr(receive_Id), CStr(enmDataType.D_int))
                     frm_Report.Mrn_id = CInt(receive_Id)
                     frm_Report.formName = "MRN_WithoutPO"
-            End If
+                End If
             End If
 
         Catch ex As Exception
@@ -1479,7 +1512,7 @@ restart:
                 If id > 0 Then
 
                     Dim item_is_stockable As Boolean
-                    item_is_stockable = Convert.ToBoolean(obj.ExecuteScalar("select isnull(IS_STOCKABLE,1) IS_STOCKABLE from ITEM_DETAIL where item_id = " + frm_Show_search.search_result))
+                    item_is_stockable = Convert.ToBoolean(obj.ExecuteScalar("select isnull(IS_STOCKABLE,1) IS_STOCKABLE from ITEM_DETAIL where item_id = " + id.ToString()))
                     If item_is_stockable = True Then
                         get_row(id)
                     Else
@@ -1495,5 +1528,9 @@ restart:
                 txtBarcodeSearch.Focus()
             End If
         End If
+    End Sub
+
+    Private Sub FLXGRD_MaterialItem_AfterDataRefresh(sender As Object, e As System.ComponentModel.ListChangedEventArgs)
+        Calculate_Amount()
     End Sub
 End Class

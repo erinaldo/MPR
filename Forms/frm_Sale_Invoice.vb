@@ -28,11 +28,11 @@ Public Class frm_Sale_Invoice
 
             Dim strsql As String
 
-            strsql = "SELECT * FROM (SELECT SI_ID," & _
-            "(SI_CODE+CAST(SI_NO AS VARCHAR)) AS InvNo,('DC/'+CAST(DC_GST_NO AS VARCHAR) ) AS [DC NO]," & _
-            " dbo.fn_Format(dbo.SALE_INVOICE_MASTER.CREATION_DATE) AS [INV DATE]," & _
-            " NET_AMOUNT AS Amount,ACC_NAME Customer,CASE WHEN INVOICE_STATUS =1 THEN 'Fresh'  WHEN INVOICE_STATUS =2 THEN 'Pending' WHEN INVOICE_STATUS =3 THEN 'Clear'  WHEN INVOICE_STATUS =4 THEN 'Cancel' END AS Status FROM dbo.SALE_INVOICE_MASTER " & _
-            "JOIN dbo.ACCOUNT_MASTER ON ACCOUNT_MASTER.ACC_ID=dbo.SALE_INVOICE_MASTER.CUST_ID WHERE FLAG=0)tb " & _
+            strsql = "SELECT * FROM (SELECT SI_ID," &
+            "(SI_CODE+CAST(SI_NO AS VARCHAR)) AS InvNo,('DC/'+CAST(DC_GST_NO AS VARCHAR) ) AS [DC NO]," &
+            " dbo.fn_Format(dbo.SALE_INVOICE_MASTER.CREATION_DATE) AS [INV DATE]," &
+            " NET_AMOUNT AS Amount,ACC_NAME Customer,CASE WHEN INVOICE_STATUS =1 THEN 'Fresh'  WHEN INVOICE_STATUS =2 THEN 'Pending' WHEN INVOICE_STATUS =3 THEN 'Clear'  WHEN INVOICE_STATUS =4 THEN 'Cancel' END AS Status FROM dbo.SALE_INVOICE_MASTER " &
+            "JOIN dbo.ACCOUNT_MASTER ON ACCOUNT_MASTER.ACC_ID=dbo.SALE_INVOICE_MASTER.CUST_ID WHERE FLAG=0)tb " &
             "WHERE  (CAST(SI_ID AS varchar) +InvNo+[DC NO]+[INV DATE]+ CAST(tb.Amount AS VARCHAR)+tb.Customer+tb.Status) LIKE '%" & condition & "%'  order by 1"
 
             Dim dt As DataTable = obj.Fill_DataSet(strsql).Tables(0)
@@ -286,6 +286,7 @@ Public Class frm_Sale_Invoice
         End If
 
         Dim dt As DataTable
+        dtable_Item_List.AcceptChanges()
         dt = dtable_Item_List.Copy
         For j As Integer = 0 To dt.Rows.Count
             Dim i As Integer
@@ -410,8 +411,9 @@ again:
 
         flxItems.Cols(0).Width = 10
         flxItems.Cols("Item_Id").Visible = False
-        flxItems.Cols("Stock_Detail_Id").Visible = True
+        flxItems.Cols("Item_Id").AllowEditing = False
 
+        flxItems.Cols("Stock_Detail_Id").Visible = True
         flxItems.Cols("Item_Code").Caption = "Code"
         flxItems.Cols("Item_Name").Caption = "Description"
         flxItems.Cols("UM_Name").Caption = "UOM"
@@ -569,16 +571,16 @@ again:
 
 
 
-                        frm_Show_search.qry = "SELECT IM.ITEM_ID,IM.ITEM_CODE," & _
-                                           " IM.ITEM_NAME,UM.UM_Name,CM.ITEM_CAT_NAME," & _
-                                           " IM.DIVISION_ID, 0.00 as Quantity, ITEM_RATE as Rate " & _
-                                           " FROM ITEM_MASTER  AS IM INNER JOIN " & _
-                                           " ITEM_DETAIL AS ID ON IM.ITEM_ID = ID.ITEM_ID  INNER JOIN  UNIT_MASTER AS UM " & _
-                                           " ON IM.UM_ID = UM.UM_ID INNER JOIN ITEM_CATEGORY AS CM ON " & _
-                                           " IM.ITEM_CATEGORY_ID = CM.ITEM_CAT_ID" & _
-                                           " INNER JOIN dbo.SUPPLIER_RATE_LIST_DETAIL AS SRLD ON SRLD.ITEM_ID = IM.ITEM_ID" & _
-                                           " INNER JOIN dbo.SUPPLIER_RATE_LIST AS SRL ON SRL.SRL_ID=SRLD.SRL_ID" & _
-                                           " INNER JOIN dbo.CUSTOMER_RATE_LIST_MAPPING AS RLM ON RLM.SRL_ID=SRL.SRL_ID" & _
+                        frm_Show_search.qry = "SELECT IM.ITEM_ID,IM.ITEM_CODE," &
+                                           " IM.ITEM_NAME,UM.UM_Name,CM.ITEM_CAT_NAME," &
+                                           " IM.DIVISION_ID, 0.00 as Quantity, ITEM_RATE as Rate " &
+                                           " FROM ITEM_MASTER  AS IM INNER JOIN " &
+                                           " ITEM_DETAIL AS ID ON IM.ITEM_ID = ID.ITEM_ID  INNER JOIN  UNIT_MASTER AS UM " &
+                                           " ON IM.UM_ID = UM.UM_ID INNER JOIN ITEM_CATEGORY AS CM ON " &
+                                           " IM.ITEM_CATEGORY_ID = CM.ITEM_CAT_ID" &
+                                           " INNER JOIN dbo.SUPPLIER_RATE_LIST_DETAIL AS SRLD ON SRLD.ITEM_ID = IM.ITEM_ID" &
+                                           " INNER JOIN dbo.SUPPLIER_RATE_LIST AS SRL ON SRL.SRL_ID=SRLD.SRL_ID" &
+                                           " INNER JOIN dbo.CUSTOMER_RATE_LIST_MAPPING AS RLM ON RLM.SRL_ID=SRL.SRL_ID" &
                                            " where rlm.supp_id = " & cmbSupplier.SelectedValue & " AND srl.active = 1 "
 
 
@@ -635,23 +637,23 @@ restart:
                 Dim ds As DataSet
                 Dim ds2 As DataSet
                 Dim sqlqry As String
-                sqlqry = "SELECT  " & _
-                                            " IM.ITEM_ID , " & _
-                                            " IM.ITEM_CODE , " & _
-                                            " IM.ITEM_NAME , " & _
-                                            " UM.UM_Name , " & _
-                                            " SD.Batch_no , " & _
-                                            " dbo.fn_Format(SD.Expiry_date) AS Expiry_Date, " & _
-                                            " dbo.Get_Average_Rate_as_on_date(IM.ITEM_ID,'" & Now.ToString("dd-MMM-yyyy") & "'," & v_the_current_division_id & ",0) as Item_Rate," & _
-                                            " SD.Balance_Qty, " & _
-                                            " 0.00  as transfer_qty, " & _
-                                            " SD.STOCK_DETAIL_ID  ,fk_HsnId_num" & _
-                                    " FROM " & _
-                                            " ITEM_MASTER  IM " & _
-                                            " INNER JOIN ITEM_DETAIL ID ON IM.ITEM_ID = ID.ITEM_ID " & _
-                                            " INNER JOIN STOCK_DETAIL SD ON ID.ITEM_ID = SD.Item_id " & _
-                                            " INNER JOIN UNIT_MASTER UM ON IM.UM_ID = UM.UM_ID" & _
-                                    " where " & _
+                sqlqry = "SELECT  " &
+                                            " IM.ITEM_ID , " &
+                                            " IM.ITEM_CODE , " &
+                                            " IM.ITEM_NAME , " &
+                                            " UM.UM_Name , " &
+                                            " SD.Batch_no , " &
+                                            " dbo.fn_Format(SD.Expiry_date) AS Expiry_Date, " &
+                                            " dbo.Get_Average_Rate_as_on_date(IM.ITEM_ID,'" & Now.ToString("dd-MMM-yyyy") & "'," & v_the_current_division_id & ",0) as Item_Rate," &
+                                            " SD.Balance_Qty, " &
+                                            " 0.00  as transfer_qty, " &
+                                            " SD.STOCK_DETAIL_ID  ,fk_HsnId_num" &
+                                    " FROM " &
+                                            " ITEM_MASTER  IM " &
+                                            " INNER JOIN ITEM_DETAIL ID ON IM.ITEM_ID = ID.ITEM_ID " &
+                                            " INNER JOIN STOCK_DETAIL SD ON ID.ITEM_ID = SD.Item_id " &
+                                            " INNER JOIN UNIT_MASTER UM ON IM.UM_ID = UM.UM_ID" &
+                                    " where " &
                                             " IM.ITEM_ID = " & item_id & " and SD.Balance_Qty > 0"
                 ds = clsObj.Fill_DataSet(sqlqry)
 
@@ -662,7 +664,7 @@ restart:
                     'obj.RemoveBlankRow(dtable_Item_List, "item_id")
                     For i = 0 To ds.Tables(0).Rows.Count - 1
                         dr = dtable_Item_List.NewRow
-                        dr("Item_Id") = item_id
+                        dr("Item_Id") = ds.Tables(0).Rows(i)("ITEM_ID")
                         dr("Item_Code") = ds.Tables(0).Rows(i)("ITEM_CODE")
                         dr("Item_Name") = ds.Tables(0).Rows(i)("ITEM_NAME")
                         dr("UM_Name") = ds.Tables(0).Rows(i)("UM_Name")
@@ -684,6 +686,7 @@ restart:
                         dr("Stock_Detail_Id") = ds.Tables(0).Rows(i)("STOCK_DETAIL_ID")
                         dr("transfer_Qty") = 0
                         dtable_Item_List.Rows.Add(dr)
+                        dtable_Item_List.AcceptChanges()
                     Next
                     'Dim strSort As String = flxItems.Cols(1).Name + ", " + flxItems.Cols(2).Name + ", " + flxItems.Cols(3).Name
                     'dtable_Item_List.DefaultView.Sort = strSort
@@ -772,21 +775,27 @@ restart:
 
     Private Sub flxList_DoubleClick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles flxList.DoubleClick
 
-        Dim strSql As String
-        Dim count As Int32
-        strSql = " SELECT COUNT(*) FROM dbo.SettlementDetail WHERE InvoiceId= " & flxList("Si_ID", flxList.CurrentCell.RowIndex).Value()
-        count = obj.Fill_DataSet(strSql).Tables(0).Rows(0)(0)
-        If count > 0 Then
-            MsgBox("You Can't Edit this Invoice." & vbCrLf & "Please click in print to view/print this Invoice/ DC.", MsgBoxStyle.Information)
+        Dim Status As String
+        Status = flxList.SelectedRows(0).Cells("Status").Value
+
+        If Status <> "Cancel" Then
+
+            Dim strSql As String
+            Dim count As Int32
+            strSql = " SELECT COUNT(*) FROM dbo.SettlementDetail JOIN dbo.PaymentTransaction ON dbo.PaymentTransaction.PaymentTransactionId = dbo.SettlementDetail.PaymentTransactionId  where  PM_TYPE=1 and InvoiceId = " & flxList("Si_ID", flxList.CurrentCell.RowIndex).Value()
+            count = obj.Fill_DataSet(strSql).Tables(0).Rows(0)(0)
+            If count > 0 Then
+                MsgBox("You Can't Edit Settled Invoice." & vbCrLf & "Please click in print to view/print this Invoice/ DC.", MsgBoxStyle.Information)
+            Else
+                new_initilization()
+                flag = "update"
+                Si_ID = Convert.ToInt32(flxList("Si_ID", flxList.CurrentCell.RowIndex).Value())
+                fill_InvoiceDetail(Si_ID)
+            End If
         Else
-            new_initilization()
-            flag = "update"
-            Si_ID = Convert.ToInt32(flxList("Si_ID", flxList.CurrentCell.RowIndex).Value())
-            fill_InvoiceDetail(Si_ID)
+            MessageBox.Show("You Can't Edit canceled Invoice. ")
+            Return
         End If
-
-
-
 
     End Sub
 
@@ -968,9 +977,15 @@ restart:
 
             Dim discamt As Decimal = 0.0
             Dim totdiscamt As Decimal = 0.0
+            Dim totQty As Decimal = 0.0
 
             For i = 1 To flxItems.Rows.Count - 1
                 'If flxItems.Rows(i).IsNode Then
+
+                If flxItems.Rows(i).Item("item_rate") > 0 Then
+                    totQty = totQty + flxItems.Rows(i).Item("transfer_Qty")
+                End If
+
                 total_item_value = total_item_value + (flxItems.Rows(i).Item("transfer_Qty") * flxItems.Rows(i).Item("item_rate"))
 
                 If (flxItems.Rows(i).Item("DType")) = "P" Then
@@ -994,6 +1009,7 @@ restart:
 
             AddHandler flxItems.AfterDataRefresh, AddressOf flxItems_AfterDataRefresh
 
+            lblTotalQty.Text = totQty.ToString("#0.00")
             lblTotalDisc.Text = totdiscamt.ToString("#0.00")
             lblItemValue.Text = total_item_value.ToString("#0.00")
             lblVatAmount.Text = total_vat_amount.ToString("#0.00")
@@ -1026,30 +1042,36 @@ restart:
     End Sub
 
     Private Sub BtnCancelInv_Click(sender As Object, e As EventArgs) Handles BtnCancelInv.Click
-        Dim invId As Integer
-        Dim Invdate As Date
-        invId = flxList.SelectedRows(0).Cells("Si_id").Value
-        Invdate = flxList.SelectedRows(0).Cells("INV DATE").Value
-        Dim Status As String
-        Status = flxList.SelectedRows(0).Cells("Status").Value
-        If Status = "Cancel" Then
-            MessageBox.Show("this Invoice is already canceled")
-            Return
-        End If
 
-        Dim strSql As String
-        Dim count As Int32
-        strSql = " SELECT COUNT(*) FROM dbo.CustomerSettlementDetail WHERE InvoiceId= " & flxList("Si_ID", flxList.CurrentCell.RowIndex).Value()
-        count = obj.Fill_DataSet(strSql).Tables(0).Rows(0)(0)
 
-        If (count > 0) Then
+        Dim result As Integer = MessageBox.Show("Are you sure you want to cancel this Invoice ?", "Cancel Invoice", MessageBoxButtons.YesNo)
+        If result = DialogResult.Yes Then
+            Dim invId As Integer
+            Dim Invdate As Date
+            invId = flxList.SelectedRows(0).Cells("Si_id").Value
+            Invdate = flxList.SelectedRows(0).Cells("INV DATE").Value
+            Dim Status As String
+            Status = flxList.SelectedRows(0).Cells("Status").Value
+            If Status = "Cancel" Then
+                MessageBox.Show("this Invoice is already canceled")
+                Return
+            End If
+
+            Dim strSql As String
+            Dim count As Int32
+            strSql = " SELECT COUNT(*) FROM dbo.SettlementDetail WHERE InvoiceId= " & flxList("Si_ID", flxList.CurrentCell.RowIndex).Value()
+            count = obj.Fill_DataSet(strSql).Tables(0).Rows(0)(0)
+
+            'If (count > 0) Then
 
             clsObj.Cancel_SALE_INVOICE_MASTER(invId, Convert.ToInt32(GlobalModule.InvoiceStatus.Cancel), GlobalModule.v_the_current_logged_in_user_name)
             MessageBox.Show("Selected Invoice cancel successfully.")
-        Else
-            MessageBox.Show("You Can't Edit this Invoice.")
+            'Else
+            '    MessageBox.Show("You Can't Edit this Invoice.")
+            'End If
+            fill_grid()
+
         End If
-        fill_grid()
 
     End Sub
 
