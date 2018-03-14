@@ -56,7 +56,6 @@ Partial Class MDIMain
         Me.frm_DebitNote = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_Accept_Stock_transfer = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_Stock_Transfer = New System.Windows.Forms.ToolStripMenuItem()
-        Me.frm_DebitNote_WO_Items = New System.Windows.Forms.ToolStripMenuItem()
         Me.ReportsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_Material_Issue_To_Cost_Center_Master = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_Wastage_Master = New System.Windows.Forms.ToolStripMenuItem()
@@ -78,6 +77,7 @@ Partial Class MDIMain
         Me.frm_Invoice_Settlement = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_Journal_Entry = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_Contra_Entry = New System.Windows.Forms.ToolStripMenuItem()
+        Me.frm_DebitNote_WO_Items = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_Expense_Entry = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_DebtorsOS = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_DebtorsLedger = New System.Windows.Forms.ToolStripMenuItem()
@@ -444,7 +444,7 @@ Partial Class MDIMain
         'StockINToolStripMenuItem
         '
         Me.StockINToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(44, Byte), Integer), CType(CType(44, Byte), Integer))
-        Me.StockINToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.frm_Material_Received_Without_PO_Master, Me.frm_material_rec_against_PO, Me.frm_Reverse_Wastage_Master, Me.frm_ReverseMaterial_Issue_To_Cost_Center_Master, Me.MaterialReturnfromCostCenterToolStripMenuItem, Me.frm_DebitNote, Me.frm_Accept_Stock_transfer, Me.frm_Stock_Transfer, Me.frm_DebitNote_WO_Items})
+        Me.StockINToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.frm_Material_Received_Without_PO_Master, Me.frm_material_rec_against_PO, Me.frm_Reverse_Wastage_Master, Me.frm_ReverseMaterial_Issue_To_Cost_Center_Master, Me.MaterialReturnfromCostCenterToolStripMenuItem, Me.frm_DebitNote, Me.frm_Accept_Stock_transfer, Me.frm_Stock_Transfer})
         Me.StockINToolStripMenuItem.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.StockINToolStripMenuItem.ForeColor = System.Drawing.Color.White
         Me.StockINToolStripMenuItem.Image = Global.MMSPlus.My.Resources.Resources.receive
@@ -530,16 +530,6 @@ Partial Class MDIMain
         Me.frm_Stock_Transfer.Name = "frm_Stock_Transfer"
         Me.frm_Stock_Transfer.Size = New System.Drawing.Size(285, 22)
         Me.frm_Stock_Transfer.Text = "Stock Out D.N."
-        '
-        'frm_DebitNote_WO_Items
-        '
-        Me.frm_DebitNote_WO_Items.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.frm_DebitNote_WO_Items.Checked = True
-        Me.frm_DebitNote_WO_Items.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.frm_DebitNote_WO_Items.ForeColor = System.Drawing.Color.White
-        Me.frm_DebitNote_WO_Items.Name = "frm_DebitNote_WO_Items"
-        Me.frm_DebitNote_WO_Items.Size = New System.Drawing.Size(285, 22)
-        Me.frm_DebitNote_WO_Items.Text = "Debit Not (w/o Items)"
         '
         'ReportsToolStripMenuItem
         '
@@ -673,7 +663,7 @@ Partial Class MDIMain
         'UserManagmentToolStripMenuItem
         '
         Me.UserManagmentToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(77, Byte), Integer), CType(CType(77, Byte), Integer), CType(CType(77, Byte), Integer))
-        Me.UserManagmentToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsmAccount, Me.frm_user_master, Me.frm_OpeningBalance, Me.frm_Supplier_Invoice_Settlement, Me.frm_Invoice_Settlement, Me.frm_Journal_Entry, Me.frm_Contra_Entry, Me.frm_Expense_Entry, Me.frm_DebtorsOS, Me.frm_DebtorsLedger, Me.frm_CreditorsOS, Me.frm_CreditorsLedger, Me.frm_depreciation_cal, Me.GSTRegitorToolStripMenuItem})
+        Me.UserManagmentToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsmAccount, Me.frm_user_master, Me.frm_OpeningBalance, Me.frm_Supplier_Invoice_Settlement, Me.frm_Invoice_Settlement, Me.frm_Journal_Entry, Me.frm_Contra_Entry, Me.frm_Expense_Entry, Me.frm_DebitNote_WO_Items, Me.frm_DebtorsOS, Me.frm_DebtorsLedger, Me.frm_CreditorsOS, Me.frm_CreditorsLedger, Me.frm_depreciation_cal, Me.GSTRegitorToolStripMenuItem})
         Me.UserManagmentToolStripMenuItem.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.UserManagmentToolStripMenuItem.ForeColor = System.Drawing.Color.White
         Me.UserManagmentToolStripMenuItem.Image = Global.MMSPlus.My.Resources.Resources.Client_list_text
@@ -747,6 +737,15 @@ Partial Class MDIMain
         Me.frm_Contra_Entry.Name = "frm_Contra_Entry"
         Me.frm_Contra_Entry.Size = New System.Drawing.Size(213, 22)
         Me.frm_Contra_Entry.Text = "Contra Entry"
+        '
+        'frm_DebitNote_WO_Items
+        '
+        Me.frm_DebitNote_WO_Items.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.frm_DebitNote_WO_Items.ForeColor = System.Drawing.Color.White
+        Me.frm_DebitNote_WO_Items.Image = Global.MMSPlus.My.Resources.Resources.Refresh_list
+        Me.frm_DebitNote_WO_Items.Name = "frm_DebitNote_WO_Items"
+        Me.frm_DebitNote_WO_Items.Size = New System.Drawing.Size(213, 22)
+        Me.frm_DebitNote_WO_Items.Text = "DebitNote_WO_Items"
         '
         'frm_Expense_Entry
         '
