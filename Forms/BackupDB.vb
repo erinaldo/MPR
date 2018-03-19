@@ -199,10 +199,10 @@ Public Class BackupDB
             obj.ExecuteNonQueryWithoutTransaction(Query)
 
             Dim fileInfo As New FileInfo(fileName)
-            Using zip As ZipFile = New ZipFile()
-                zip.AddFile(fileName, "backup")
-                zip.Save(ToZipFileName(fileInfo.FullName))
-            End Using
+            'Using zip As ZipFile = New ZipFile()
+            '    zip.AddFile(fileName, "backup")
+            '    zip.Save(ToZipFileName(fileInfo.FullName))
+            'End Using
 
             File.Delete(fileName)
             Return success

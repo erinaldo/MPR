@@ -16,7 +16,7 @@ Public Class frm_GSTR_3
         InitializeComponent()
     End Sub
 
-    Private Sub frm_GSTR_1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub frm_GSTR_3_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         stateId = objCommFunction.ExecuteScalar("SELECT STATE_ID FROM dbo.OutletMaster om JOIN dbo.CITY_MASTER cm ON om.fk_CityId_num = cm.CITY_ID")
     End Sub
 
@@ -54,6 +54,7 @@ Public Class frm_GSTR_3
 
         xlWorkSheet = AddBasicData(xlWorkSheet)
         xlWorkSheet = Add3_1SectionData(xlWorkSheet)
+        xlWorkSheet = Add3_2SectionData(xlWorkSheet)
         xlWorkSheet = Add4SectionData(xlWorkSheet)
         xlWorkSheet = Add5SectionData(xlWorkSheet)
     End Sub
@@ -102,22 +103,32 @@ Public Class frm_GSTR_3
         Return xlWorkSheet
     End Function
 
+    Dim noOfRowsInserted As Int32 = 0
     Private Function Add3_2SectionData(xlWorkSheet As Excel.Worksheet) As Excel.Worksheet
-        row = Get3_2_SectionData()
-        ''xlWorkSheet.Rows.Insert(21)
-        xlWorkSheet.Cells(21, 7) = row("")
-        xlWorkSheet.Cells(23, 7) = row("")
-        xlWorkSheet.Cells(25, 7) = row("")
-        xlWorkSheet.Cells(21, 12) = row("")
-        xlWorkSheet.Cells(23, 12) = row("")
-        xlWorkSheet.Cells(25, 12) = row("")
-
+        Dim table As System.Data.DataTable = Get3_2_SectionData()
+        Dim rowIndex As Int16 = 21
+        If table.Rows.Count > 0 Then
+            noOfRowsInserted = table.Rows.Count
+            For Each row As DataRow In table.Rows
+                'CType(xlWorkSheet.Rows(20), Range).Select()
+                CType(xlWorkSheet.Rows(rowIndex), Range).Insert(XlInsertShiftDirection.xlShiftDown, True)
+                xlWorkSheet.Range("B" & rowIndex.ToString & ":F" & rowIndex.ToString).MergeCells = True
+                xlWorkSheet.Range("G" & rowIndex.ToString & ":K" & rowIndex.ToString).MergeCells = True
+                xlWorkSheet.Range("L" & rowIndex.ToString & ":P" & rowIndex.ToString).MergeCells = True
+                xlWorkSheet.Cells(rowIndex, 2) = row("STATE_CODE") & "-" & row("STATE_NAME")
+                xlWorkSheet.Cells(rowIndex, 7) = row("Taxable_Value")
+                xlWorkSheet.Cells(rowIndex, 12) = row("integrated_tax")
+                rowIndex += 1
+            Next
+            xlWorkSheet.Cells(rowIndex, 7) = table.Compute("sum(Taxable_Value)", Nothing)
+            xlWorkSheet.Cells(rowIndex, 12) = table.Compute("sum(integrated_tax)", Nothing)
+        End If
         Return xlWorkSheet
     End Function
 
     Dim rowIndex As Int16 = 34
     Private Function Add4SectionData(xlWorkSheet As Excel.Worksheet) As Excel.Worksheet
-        rowIndex = 34
+        rowIndex = 34 + noOfRowsInserted
         row = Get4_SectionDataForPurchase()
         xlWorkSheet.Cells(rowIndex, 2) = row("integrated_tax")
         xlWorkSheet.Cells(rowIndex, 6) = row("non_integrated_tax") / 2
@@ -135,7 +146,7 @@ Public Class frm_GSTR_3
     End Function
 
     Private Function Add5SectionData(xlWorkSheet As Worksheet) As Worksheet
-        rowIndex = 45
+        rowIndex = 45 + noOfRowsInserted
         row = Get5SectionData()
         xlWorkSheet.Cells(rowIndex, 5) = row("InterState_TaxableValue")
         xlWorkSheet.Cells(rowIndex, 11) = row("IntraState_TaxableValue")
@@ -204,8 +215,20 @@ Public Class frm_GSTR_3
         Return objCommFunction.Fill_DataSet(Qry).Tables(0).Rows(0)
     End Function
 
-    Private Function Get3_2_SectionData() As DataRow
-        Throw New NotImplementedException()
+    Private Function Get3_2_SectionData() As System.Data.DataTable
+        Qry = " SELECT STATE_CODE, STATE_NAME, " &
+             " SUM(((BAL_ITEM_QTY * BAL_ITEM_RATE) - ISNULL(ITEM_DISCOUNT,0))) As Taxable_Value, " &
+             " SUM(invd.VAT_AMOUNT) as integrated_tax " &
+             " FROM dbo.SALE_INVOICE_MASTER inv " &
+             " INNER JOIN dbo.SALE_INVOICE_DETAIL invd ON invd.SI_ID = inv.SI_ID" &
+             " INNER JOIN dbo.ACCOUNT_MASTER am ON am.ACC_ID = inv.CUST_ID " &
+             " INNER JOIN dbo.CITY_MASTER cm ON cm.CITY_ID = am.CITY_ID " &
+             " INNER JOIN dbo.STATE_MASTER sm ON sm.STATE_ID = cm.STATE_ID " &
+             " WHERE MONTH(SI_DATE) =  " & txtFromDate.Value.Month &
+             " And YEAR(SI_DATE) =  " & txtFromDate.Value.Year &
+             " And sm.STATE_ID != " & stateId &
+             " AND len(VAT_NO)=0 Group By STATE_CODE, STATE_NAME"
+        Return objCommFunction.Fill_DataSet(Qry).Tables(0)
     End Function
 
     Private Function Get3_1_SectionData(condition As String) As DataRow
