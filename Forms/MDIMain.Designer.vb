@@ -86,8 +86,7 @@ Partial Class MDIMain
         Me.frm_depreciation_cal = New System.Windows.Forms.ToolStripMenuItem()
         Me.GSTRegitorToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_GSTR1 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.GSTR2ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.GSTR3ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.frm_GSTR3 = New System.Windows.Forms.ToolStripMenuItem()
         Me.GSTSummaryToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.Recipe = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_menu_item_recipe = New System.Windows.Forms.ToolStripMenuItem()
@@ -805,7 +804,7 @@ Partial Class MDIMain
         'GSTRegitorToolStripMenuItem
         '
         Me.GSTRegitorToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.GSTRegitorToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.frm_GSTR1, Me.GSTR2ToolStripMenuItem, Me.GSTR3ToolStripMenuItem, Me.GSTSummaryToolStripMenuItem})
+        Me.GSTRegitorToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.frm_GSTR1, Me.frm_GSTR3, Me.GSTSummaryToolStripMenuItem})
         Me.GSTRegitorToolStripMenuItem.ForeColor = System.Drawing.Color.White
         Me.GSTRegitorToolStripMenuItem.Image = Global.MMSPlus.My.Resources.Resources.Items_recent_list_to_do_formatting1
         Me.GSTRegitorToolStripMenuItem.Name = "GSTRegitorToolStripMenuItem"
@@ -821,23 +820,14 @@ Partial Class MDIMain
         Me.frm_GSTR1.Size = New System.Drawing.Size(152, 22)
         Me.frm_GSTR1.Text = "GSTR 1"
         '
-        'GSTR2ToolStripMenuItem
+        'frm_GSTR3
         '
-        Me.GSTR2ToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.GSTR2ToolStripMenuItem.ForeColor = System.Drawing.Color.White
-        Me.GSTR2ToolStripMenuItem.Image = CType(resources.GetObject("GSTR2ToolStripMenuItem.Image"), System.Drawing.Image)
-        Me.GSTR2ToolStripMenuItem.Name = "GSTR2ToolStripMenuItem"
-        Me.GSTR2ToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
-        Me.GSTR2ToolStripMenuItem.Text = "GSTR 2"
-        '
-        'GSTR3ToolStripMenuItem
-        '
-        Me.GSTR3ToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.GSTR3ToolStripMenuItem.ForeColor = System.Drawing.Color.White
-        Me.GSTR3ToolStripMenuItem.Image = CType(resources.GetObject("GSTR3ToolStripMenuItem.Image"), System.Drawing.Image)
-        Me.GSTR3ToolStripMenuItem.Name = "GSTR3ToolStripMenuItem"
-        Me.GSTR3ToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
-        Me.GSTR3ToolStripMenuItem.Text = "GSTR 3"
+        Me.frm_GSTR3.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.frm_GSTR3.ForeColor = System.Drawing.Color.White
+        Me.frm_GSTR3.Image = CType(resources.GetObject("frm_GSTR3.Image"), System.Drawing.Image)
+        Me.frm_GSTR3.Name = "frm_GSTR3"
+        Me.frm_GSTR3.Size = New System.Drawing.Size(152, 22)
+        Me.frm_GSTR3.Text = "GSTR 3"
         '
         'GSTSummaryToolStripMenuItem
         '
@@ -1715,8 +1705,7 @@ Partial Class MDIMain
     Friend WithEvents frm_CreditorsLedger As ToolStripMenuItem
     Friend WithEvents GSTRegitorToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents frm_GSTR1 As ToolStripMenuItem
-    Friend WithEvents GSTR2ToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents GSTR3ToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents frm_GSTR3 As ToolStripMenuItem
     Friend WithEvents GSTSummaryToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents frm_DebtorsOS As ToolStripMenuItem
     Friend WithEvents frm_CreditorsOS As ToolStripMenuItem

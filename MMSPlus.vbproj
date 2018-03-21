@@ -544,6 +544,12 @@
     <Compile Include="ReportsForms\frm_DebtorsOS.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="ReportsForms\frm_GSTR_3.Designer.vb">
+      <DependentUpon>frm_GSTR_3.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ReportsForms\frm_GSTR_3.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="ReportsForms\Frm_IndentPrint.Designer.vb">
       <DependentUpon>Frm_IndentPrint.vb</DependentUpon>
     </Compile>
@@ -1581,6 +1587,9 @@
     <EmbeddedResource Include="ReportsForms\frm_GSTR_1.resx">
       <DependentUpon>frm_GSTR_1.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ReportsForms\frm_GSTR_3.resx">
+      <DependentUpon>frm_GSTR_3.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ReportsForms\Frm_IndentPrint.resx">
       <DependentUpon>Frm_IndentPrint.vb</DependentUpon>
       <SubType>Designer</SubType>
@@ -2120,6 +2129,9 @@
     </None>
     <None Include="ClassDiagram2.cd" />
     <None Include="ExcelTemplate\GSTR1_Template.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ExcelTemplate\GSTR3_Template.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="My Project\Application.myapp">
