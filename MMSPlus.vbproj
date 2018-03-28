@@ -251,6 +251,12 @@
     <Compile Include="Forms\frm_Account_Payment.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Forms\frm_CreditNote_WO_Items.Designer.vb">
+      <DependentUpon>frm_CreditNote_WO_Items.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frm_CreditNote_WO_Items.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Forms\frm_DebitNote_WO_Items.Designer.vb">
       <DependentUpon>frm_DebitNote_WO_Items.vb</DependentUpon>
     </Compile>
@@ -795,6 +801,12 @@
     </Compile>
     <Compile Include="Reports\cry_CreditorOutstanding.vb">
       <DependentUpon>cry_CreditorOutstanding.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reports\Cry_Credit_Note_WO_Item.vb">
+      <DependentUpon>Cry_Credit_Note_WO_Item.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
@@ -1388,6 +1400,10 @@
     <EmbeddedResource Include="Forms\frm_Account_Payment.resx">
       <DependentUpon>frm_Account_Payment.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frm_CreditNote_WO_Items.resx">
+      <DependentUpon>frm_CreditNote_WO_Items.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\frm_DebitNote_WO_Items.resx">
       <DependentUpon>frm_DebitNote_WO_Items.vb</DependentUpon>
       <SubType>Designer</SubType>
@@ -1717,6 +1733,10 @@
     <EmbeddedResource Include="Reports\cry_CreditorOutstanding.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>cry_CreditorOutstanding.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Cry_Credit_Note_WO_Item.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Cry_Credit_Note_WO_Item.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\Cry_Debit_Note_WO_Item.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
@@ -2107,6 +2127,7 @@
     <None Include="afbl_mmsDataSet.xss">
       <DependentUpon>afbl_mmsDataSet.xsd</DependentUpon>
     </None>
+    <None Include="ClassDiagram2.cd" />
     <None Include="ExcelTemplate\GSTR1_Template.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -2128,6 +2149,7 @@
     <Content Include="bin\Debug\Ionic.Zip.dll" />
     <Content Include="Scripts\2018Update\0001_26_Jan_2018_POEDIT.sql" />
     <Content Include="Scripts\2018Update\0003_05_Feb_2018_Update_Stock_Adjustment.sql" />
+    <Content Include="Scripts\2018Update\0006_21_Mar_2018_CreditNote_WO_Items.sql" />
     <Content Include="Scripts\2018Update\0005_10_Mar_2018_DebitNote_WO_Items.sql" />
     <Content Include="Scripts\2018Update\0004_27_Feb_2018_DBbackup.sql" />
     <Content Include="Scripts\Updates\00001_29_Dec_Add_Duty_And_Taxes.sql" />
