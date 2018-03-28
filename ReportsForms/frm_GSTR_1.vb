@@ -87,7 +87,7 @@ Public Class frm_GSTR_1
     	''set global values
     	Dim noOfRecipients As Int32 = b2bTable.DefaultView.ToTable(True,"VAT_NO").Rows.Count 
     	Dim noOfInvoices As Int32 = b2bTable.DefaultView.ToTable(True,"SI_CODE", "SI_NO").Rows.Count 
-    	Dim sumOfInvoices As Decimal = b2bTable.DefaultView.ToTable(True,"SI_CODE", "SI_NO","NET_AMOUNT").Compute("sum(CN_Amount)", Nothing)
+    	Dim sumOfInvoices As Decimal = b2bTable.DefaultView.ToTable(True,"SI_CODE", "SI_NO","NET_AMOUNT").Compute("sum(NET_AMOUNT)", Nothing)
     	
     	xlWorkSheet.Cells(3 , 1) =noOfRecipients
     	xlWorkSheet.Cells(3 , 2) =noOfInvoices
@@ -128,7 +128,7 @@ Public Class frm_GSTR_1
     	
     	''set global values
     	Dim noOfInvoices As Int32 = b2clTable.DefaultView.ToTable(True,"SI_CODE", "SI_NO").Rows.Count 
-    	Dim sumOfInvoices As Decimal = b2clTable.DefaultView.ToTable(True,"SI_CODE", "SI_NO","NET_AMOUNT").Compute("sum(CN_Amount)", Nothing)
+    	Dim sumOfInvoices As Decimal = b2clTable.DefaultView.ToTable(True,"SI_CODE", "SI_NO","NET_AMOUNT").Compute("sum(NET_AMOUNT)", Nothing)
     	
     	xlWorkSheet.Cells(3 , 1) =noOfInvoices
     	xlWorkSheet.Cells(3 , 3) =sumOfInvoices
@@ -171,7 +171,7 @@ Public Class frm_GSTR_1
     	Next
     	
     	''set global values 
-    	Dim noOfHSNC As Int32 = cdnrTable.DefaultView.ToTable(True,"VAT_NO").Rows.Count
+    	Dim noOfHSNC As Int32 = hsnTable.DefaultView.ToTable(True,"HsnCode_vch").Rows.Count
     	
     	xlWorkSheet.Cells(3 , 1) =noOfHSNC
     End Sub
