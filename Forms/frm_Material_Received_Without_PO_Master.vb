@@ -600,7 +600,7 @@ Public Class frm_Material_Received_Without_PO_Master
     Private Sub SetGridSettingValues()
 
         FLXGRD_MaterialItem.Cols(1).Visible = False
-
+        FLXGRD_MaterialItem.Cols(1).AllowEditing = False
         FLXGRD_MaterialItem.Cols("Item_Code").Caption = "Item Code"
         FLXGRD_MaterialItem.Cols("Item_Name").Caption = "Item Name"
         FLXGRD_MaterialItem.Cols("UM_Name").Caption = "UOM"
@@ -626,7 +626,7 @@ Public Class frm_Material_Received_Without_PO_Master
         FLXGRD_MaterialItem.Cols("DISC").AllowEditing = True
 
         FLXGRD_MaterialItem.Cols("Vat_Per").AllowEditing = True
-        FLXGRD_MaterialItem.Cols("Vat_Per").ComboList = "0|5|12|18|28"
+        FLXGRD_MaterialItem.Cols("Vat_Per").ComboList = "0|5|12|18|28|3"
         FLXGRD_MaterialItem.Cols("exe_Per").AllowEditing = True
         FLXGRD_MaterialItem.Cols("BATCH_NO").AllowEditing = True
         FLXGRD_MaterialItem.Cols("EXPIRY_DATE").AllowEditing = True
@@ -685,7 +685,7 @@ Public Class frm_Material_Received_Without_PO_Master
         FLXGRD_MatItem_NonStockable.Cols("DISC").AllowEditing = True
 
         FLXGRD_MatItem_NonStockable.Cols("Vat_Per").AllowEditing = True
-        FLXGRD_MatItem_NonStockable.Cols("Vat_Per").ComboList = "0|3|5|12|18|28"
+        FLXGRD_MatItem_NonStockable.Cols("Vat_Per").ComboList = "0|3|5|12|18|28|3"
         FLXGRD_MatItem_NonStockable.Cols("exe_Per").AllowEditing = True
         FLXGRD_MatItem_NonStockable.Cols("BATCH_NO").AllowEditing = True
         FLXGRD_MatItem_NonStockable.Cols("EXPIRY_DATE").AllowEditing = True
