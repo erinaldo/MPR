@@ -209,6 +209,10 @@ Public Class frm_CreditNote
                 prpty.INV_Date = lblInvdate.Text
                 prpty.CN_ItemValue = lblAmount.Text
                 prpty.CN_ItemTax = lblVatAmount.Text
+                prpty.CN_Type = "Item"
+                prpty.Ref_No = ""
+                prpty.Ref_Date = DateTime.Now()
+                prpty.Tax_Amt = 0
                 clsObj.insert_CreditNote_MASTER(prpty, cmd)
 
                 Dim iRowCount As Int32

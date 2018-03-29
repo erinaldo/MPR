@@ -1389,8 +1389,14 @@ Public MustInherit Class Connection
             ElseIf RptNo = enmReportName.RptDebitNotePrint Then
                 filepath = ReportFilePath & "Cry_Debit_Note.rpt"
 
+            ElseIf RptNo = enmReportName.RptDebitNoteWOItemPrint Then
+                filepath = ReportFilePath & "Cry_Debit_Note_WO_Item.rpt"
+
             ElseIf RptNo = enmReportName.RptCreditNotePrint Then
                 filepath = ReportFilePath & "Cry_Credit_Note.rpt"
+
+            ElseIf RptNo = enmReportName.RptCreditNoteWOItemPrint Then
+                filepath = ReportFilePath & "Cry_Credit_Note_WO_Item.rpt"
 
             ElseIf RptNo = enmReportName.RptGatePassPrint Then
                 filepath = ReportFilePath & "CryGatePass.rpt"
@@ -1485,7 +1491,15 @@ Public MustInherit Class Connection
                         PInteger = CInt(value(ArrIndex))
                         rep.SetParameterValue("DN_ID", CInt(value(ArrIndex)))
 
+                    ElseIf RptNo = enmReportName.RptDebitNoteWOItemPrint Then
+                        PInteger = CInt(value(ArrIndex))
+                        rep.SetParameterValue("DN_ID", CInt(value(ArrIndex)))
+
                     ElseIf RptNo = enmReportName.RptCreditNotePrint Then
+                        PInteger = CInt(value(ArrIndex))
+                        rep.SetParameterValue("CN_ID", CInt(value(ArrIndex)))
+
+                    ElseIf RptNo = enmReportName.RptCreditNoteWOItemPrint Then
                         PInteger = CInt(value(ArrIndex))
                         rep.SetParameterValue("CN_ID", CInt(value(ArrIndex)))
 

@@ -135,6 +135,9 @@ Module GlobalModule
         RptAccPaymentPrint = 76
         RptDeliveryNotePrint = 77
         RptStockValueBrandWise = 78
+        RptDebitNoteWOItemPrint = 79
+        RptCreditNoteWOItemPrint = 80
+
     End Enum
     Public Enum IndentStatus As Integer
         Fresh = 1

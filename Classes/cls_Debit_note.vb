@@ -33,6 +33,10 @@ Namespace DebitNote
         Dim _INV_Date As DateTime
         Dim _DN_ItemValue As Double
         Dim _DN_ItemTax As Double
+        Dim _DebitNote_Type As String
+        Dim _RefNo As String
+        Dim _RefDate_dt As DateTime
+        Dim _Tax_num As Double
 
         Public Property DebitNote_ID() As Integer
             Get
@@ -225,6 +229,7 @@ Namespace DebitNote
             End Set
         End Property
 
+
         Public Property DN_ItemTax() As Double
             Get
                 DN_ItemTax = _DN_ItemTax
@@ -233,6 +238,46 @@ Namespace DebitNote
                 _DN_ItemTax = value
             End Set
         End Property
+
+
+
+        Public Property DN_Type() As String
+            Get
+                DN_Type = _DebitNote_Type
+            End Get
+            Set(ByVal value As String)
+                _DebitNote_Type = value
+            End Set
+        End Property
+
+        Public Property Ref_No() As String
+            Get
+                Ref_No = _RefNo
+            End Get
+            Set(ByVal value As String)
+                _RefNo = value
+            End Set
+        End Property
+
+
+        Public Property Ref_Date() As DateTime
+            Get
+                Ref_Date = _RefDate_dt
+            End Get
+            Set(ByVal value As DateTime)
+                _RefDate_dt = value
+            End Set
+        End Property
+
+        Public Property Tax_Num() As Double
+            Get
+                Tax_Num = _Tax_num
+            End Get
+            Set(ByVal value As Double)
+                _Tax_num = value
+            End Set
+        End Property
+
 
     End Class
 
@@ -260,6 +305,10 @@ Namespace DebitNote
             cmd.Parameters.AddWithValue("@v_INV_Date", clsObj.INV_Date)
             cmd.Parameters.AddWithValue("@v_DN_ItemValue", clsObj.DN_ItemValue)
             cmd.Parameters.AddWithValue("@v_DN_ItemTax", clsObj.DN_ItemTax)
+            cmd.Parameters.AddWithValue("@v_DebitNote_Type", clsObj.DN_Type)
+            cmd.Parameters.AddWithValue("@v_RefNo", clsObj.Ref_No)
+            cmd.Parameters.AddWithValue("@v_RefDate_dt", clsObj.Ref_Date)
+            cmd.Parameters.AddWithValue("@v_Tax_num", clsObj.Tax_Num)
             cmd.Parameters.AddWithValue("@V_PROC_TYPE", 1)
             cmd.ExecuteNonQuery()
             cmd.Dispose()
@@ -270,6 +319,29 @@ Namespace DebitNote
             cmd.Parameters.Clear()
             cmd.CommandType = CommandType.StoredProcedure
             cmd.CommandText = "PROC_DebitNote_DETAIL"
+
+            cmd.Parameters.AddWithValue("@v_DebitNote_ID", clsObj.DebitNote_ID)
+            cmd.Parameters.AddWithValue("@v_Item_ID", clsObj.Item_ID)
+            cmd.Parameters.AddWithValue("@v_Item_Qty", clsObj.Item_Qty)
+            cmd.Parameters.AddWithValue("@V_Created_By", clsObj.Created_By)
+            cmd.Parameters.AddWithValue("@V_Creation_Date", clsObj.Creation_Date)
+            cmd.Parameters.AddWithValue("@V_Modified_By", clsObj.Modified_By)
+            cmd.Parameters.AddWithValue("@V_Modification_Date", clsObj.Modification_Date)
+            cmd.Parameters.AddWithValue("@V_Division_Id", clsObj.Division_ID)
+            cmd.Parameters.AddWithValue("@v_Stock_Detail_Id", clsObj.Stock_Detail_ID)
+            cmd.Parameters.AddWithValue("@v_Item_Rate", clsObj.Item_Rate)
+            cmd.Parameters.AddWithValue("@v_Item_Tax", clsObj.Item_Tax)
+            cmd.Parameters.AddWithValue("@V_Trans_Type", Transaction_Type.DebitNote)
+            cmd.Parameters.AddWithValue("@V_PROC_TYPE", 1)
+            cmd.ExecuteNonQuery()
+            cmd.Dispose()
+
+        End Sub
+
+        Public Sub insert_DebitNote_WO_Items_DETAIL(ByVal clsObj As cls_DebitNote_Prop, ByVal cmd As SqlCommand)
+            cmd.Parameters.Clear()
+            cmd.CommandType = CommandType.StoredProcedure
+            cmd.CommandText = "PROC_DebitNote_WO_Items_DETAIL"
 
             cmd.Parameters.AddWithValue("@v_DebitNote_ID", clsObj.DebitNote_ID)
             cmd.Parameters.AddWithValue("@v_Item_ID", clsObj.Item_ID)
