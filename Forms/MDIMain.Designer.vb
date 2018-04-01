@@ -77,8 +77,8 @@ Partial Class MDIMain
         Me.frm_Invoice_Settlement = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_Journal_Entry = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_Contra_Entry = New System.Windows.Forms.ToolStripMenuItem()
-        Me.frm_DebitNote_WO_Items = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_Expense_Entry = New System.Windows.Forms.ToolStripMenuItem()
+        Me.frm_DebitNote_WO_Items = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_DebtorsOS = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_DebtorsLedger = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_CreditorsOS = New System.Windows.Forms.ToolStripMenuItem()
@@ -524,7 +524,6 @@ Partial Class MDIMain
         'frm_Stock_Transfer
         '
         Me.frm_Stock_Transfer.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.frm_Stock_Transfer.Enabled = False
         Me.frm_Stock_Transfer.ForeColor = System.Drawing.Color.White
         Me.frm_Stock_Transfer.Image = Global.MMSPlus.My.Resources.Resources.Unloading_web_vector_uploading
         Me.frm_Stock_Transfer.Name = "frm_Stock_Transfer"
@@ -738,15 +737,6 @@ Partial Class MDIMain
         Me.frm_Contra_Entry.Size = New System.Drawing.Size(213, 22)
         Me.frm_Contra_Entry.Text = "Contra Entry"
         '
-        'frm_DebitNote_WO_Items
-        '
-        Me.frm_DebitNote_WO_Items.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.frm_DebitNote_WO_Items.ForeColor = System.Drawing.Color.White
-        Me.frm_DebitNote_WO_Items.Image = Global.MMSPlus.My.Resources.Resources.Refresh_list
-        Me.frm_DebitNote_WO_Items.Name = "frm_DebitNote_WO_Items"
-        Me.frm_DebitNote_WO_Items.Size = New System.Drawing.Size(213, 22)
-        Me.frm_DebitNote_WO_Items.Text = "DebitNote_WO_Items"
-        '
         'frm_Expense_Entry
         '
         Me.frm_Expense_Entry.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
@@ -755,6 +745,15 @@ Partial Class MDIMain
         Me.frm_Expense_Entry.Name = "frm_Expense_Entry"
         Me.frm_Expense_Entry.Size = New System.Drawing.Size(213, 22)
         Me.frm_Expense_Entry.Text = "Expense Entry"
+        '
+        'frm_DebitNote_WO_Items
+        '
+        Me.frm_DebitNote_WO_Items.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.frm_DebitNote_WO_Items.ForeColor = System.Drawing.Color.White
+        Me.frm_DebitNote_WO_Items.Image = Global.MMSPlus.My.Resources.Resources.Refresh_list
+        Me.frm_DebitNote_WO_Items.Name = "frm_DebitNote_WO_Items"
+        Me.frm_DebitNote_WO_Items.Size = New System.Drawing.Size(213, 22)
+        Me.frm_DebitNote_WO_Items.Text = "DebitNote_WO_Items"
         '
         'frm_DebtorsOS
         '
