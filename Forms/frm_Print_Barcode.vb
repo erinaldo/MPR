@@ -42,12 +42,14 @@ Public Class frm_Print_Barcode
         SearchItem()
     End Sub
     Private Sub SearchItem()
+        dgvPrintBarcode.DataSource = Nothing
+
         Dim Query As String
         Query = "SELECT top 250  ROW_NUMBER() OVER ( ORDER BY ITEM_ID ) AS SNO ," &
             " Item_Code ," &
-            " Item_Name,BarCode_vch," &
+            " Item_Name, BarCode_vch," &
             " MRP_num as MRP ," &
-            " basePrice_num," &
+            " sale_rate," &
             " 0 AS [Current Stock]" &
             " From dbo.Item_Master mm" &
             " where 1=1 "
@@ -67,12 +69,12 @@ Public Class frm_Print_Barcode
 
         For Each row As DataRow In itemDetailTable.Rows
 
-            For Each Grow As DataGridViewRow In dgvPrintBarcode.Rows
-                If Grow.Cells(1).Value = row("ItemCode_num") Then
-                    MsgBox("Item you have search already exist.", "Item Already Exist!!!")
-                    Exit Sub
-                End If
-            Next
+            'For Each Grow As DataGridViewRow In dgvPrintBarcode.Rows
+            '    If Grow.Cells(1).Value = row("ItemCode_num") Then
+            '        MsgBox("Item you have search already exist.", "Item Already Exist!!!")
+            '        Exit Sub
+            '    End If
+            'Next
 
             Dim index As Int32 = dgvPrintBarcode.RowCount
             dgvPrintBarcode.RowCount += 1
@@ -81,7 +83,7 @@ Public Class frm_Print_Barcode
             dgvPrintBarcode.Rows(index).Cells(2).Value = row("Item_Name")
             dgvPrintBarcode.Rows(index).Cells(3).Value = row("MRP")
             dgvPrintBarcode.Rows(index).Cells(4).Value = row("BarCode_vch")
-            dgvPrintBarcode.Rows(index).Cells(5).Value = row("basePrice_num")
+            dgvPrintBarcode.Rows(index).Cells(5).Value = row("sale_rate")
             dgvPrintBarcode.Rows(index).Cells(6).Value = ""
         Next
     End Sub
@@ -120,7 +122,7 @@ Public Class frm_Print_Barcode
 
         Query = " SELECT TOP(1) Item_Name," &
             " MRP_num ," &
-            " BasePrice_num ," &
+            " sale_rate ," &
             " BarCode_vch" &
             " From dbo.item_master " &
             " where Item_Code = '" & itemcode & "'"
@@ -167,7 +169,7 @@ Public Class frm_Print_Barcode
                 fs = fs.Replace("Item Name", dr("Item_Name").ToString().Substring(0, length) + "..")
                 Dim rateInfo As String = "MRP " & dr("MRP_num").ToString()
                 If chkPrintOurPrice.Checked Then
-                    rateInfo += "  Our Price " & dr("BasePrice_num")
+                    rateInfo += "  Our Price " & dr("sale_rate")
                 End If
 
                 fs = fs.Replace("Rate Info", rateInfo)

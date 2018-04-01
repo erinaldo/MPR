@@ -524,7 +524,6 @@ Partial Class MDIMain
         'frm_Stock_Transfer
         '
         Me.frm_Stock_Transfer.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.frm_Stock_Transfer.Enabled = False
         Me.frm_Stock_Transfer.ForeColor = System.Drawing.Color.White
         Me.frm_Stock_Transfer.Image = Global.MMSPlus.My.Resources.Resources.Unloading_web_vector_uploading
         Me.frm_Stock_Transfer.Name = "frm_Stock_Transfer"
