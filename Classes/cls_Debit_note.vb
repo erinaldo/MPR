@@ -338,6 +338,29 @@ Namespace DebitNote
 
         End Sub
 
+        Public Sub insert_DebitNote_WO_Items_DETAIL(ByVal clsObj As cls_DebitNote_Prop, ByVal cmd As SqlCommand)
+            cmd.Parameters.Clear()
+            cmd.CommandType = CommandType.StoredProcedure
+            cmd.CommandText = "PROC_DebitNote_WO_Items_DETAIL"
+
+            cmd.Parameters.AddWithValue("@v_DebitNote_ID", clsObj.DebitNote_ID)
+            cmd.Parameters.AddWithValue("@v_Item_ID", clsObj.Item_ID)
+            cmd.Parameters.AddWithValue("@v_Item_Qty", clsObj.Item_Qty)
+            cmd.Parameters.AddWithValue("@V_Created_By", clsObj.Created_By)
+            cmd.Parameters.AddWithValue("@V_Creation_Date", clsObj.Creation_Date)
+            cmd.Parameters.AddWithValue("@V_Modified_By", clsObj.Modified_By)
+            cmd.Parameters.AddWithValue("@V_Modification_Date", clsObj.Modification_Date)
+            cmd.Parameters.AddWithValue("@V_Division_Id", clsObj.Division_ID)
+            cmd.Parameters.AddWithValue("@v_Stock_Detail_Id", clsObj.Stock_Detail_ID)
+            cmd.Parameters.AddWithValue("@v_Item_Rate", clsObj.Item_Rate)
+            cmd.Parameters.AddWithValue("@v_Item_Tax", clsObj.Item_Tax)
+            cmd.Parameters.AddWithValue("@V_Trans_Type", Transaction_Type.DebitNote)
+            cmd.Parameters.AddWithValue("@V_PROC_TYPE", 1)
+            cmd.ExecuteNonQuery()
+            cmd.Dispose()
+
+        End Sub
+
         Public Sub update_DebitNote(ByVal clsObj As cls_DebitNote_Prop, ByVal cmd As SqlCommand)
 
             cmd = New SqlClient.SqlCommand
