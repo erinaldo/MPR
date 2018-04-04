@@ -447,7 +447,7 @@ Public Class frm_CreditNote
         Dim Dtrow As DataRow
         Dim ds As DataSet
 
-        ds = clsObj.FillDataSet("SELECT ADDRESS_PRIM +ADDRESS_SEC AS Address FROM dbo.ACCOUNT_MASTER WHERE ACC_ID=" & cmbCustomer.SelectedValue)
+        ds = clsObj.FillDataSet("SELECT Isnull(ADDRESS_PRIM +ADDRESS_SEC,'') AS Address FROM dbo.ACCOUNT_MASTER WHERE ACC_ID=" & cmbCustomer.SelectedValue)
         If ds.Tables(0).Rows.Count > 0 Then
             lblAddress.Text = ds.Tables(0).Rows(0)(0)
 

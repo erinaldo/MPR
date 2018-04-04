@@ -215,6 +215,7 @@ Partial Class frm_OpeningBalance
         Me.dtpOpeningDate.Name = "dtpOpeningDate"
         Me.dtpOpeningDate.Size = New System.Drawing.Size(243, 22)
         Me.dtpOpeningDate.TabIndex = 54
+        Me.dtpOpeningDate.Visible = False
         '
         'Label7
         '
@@ -225,6 +226,7 @@ Partial Class frm_OpeningBalance
         Me.Label7.Size = New System.Drawing.Size(89, 15)
         Me.Label7.TabIndex = 53
         Me.Label7.Text = "Opening Date :"
+        Me.Label7.Visible = False
         '
         'Label6
         '

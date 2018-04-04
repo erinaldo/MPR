@@ -46,8 +46,6 @@ Public Class frm_DebitNote
 
     End Enum
 
-
-
     Private Sub set_new_initilize()
         lbl_DNDate.Text = Now.ToString("dd-MMM-yyyy")
         GetDNCode()
@@ -373,7 +371,6 @@ Public Class frm_DebitNote
 
     End Sub
 
-
     Private Sub FLXGRD_MaterialItem_AfterEdit(ByVal sender As System.Object, ByVal e As C1.Win.C1FlexGrid.RowColEventArgs) Handles FLXGRD_MaterialItem.AfterEdit
         If IsNumeric(FLXGRD_MaterialItem.Rows(e.Row)("Item_Qty")) = True Then
             If FLXGRD_MaterialItem.Rows(e.Row)("Item_Qty") > FLXGRD_MaterialItem.Rows(e.Row)("Prev_Item_Qty") Then
@@ -500,7 +497,6 @@ Public Class frm_DebitNote
     Private Sub lnkCalculateDebitAmt_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lnkCalculateDebitAmt.LinkClicked
         CalculateAmount()
     End Sub
-
 
     Private Function CalculateAmount() As String
         Dim i As Integer

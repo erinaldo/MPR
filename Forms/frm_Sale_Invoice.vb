@@ -847,7 +847,7 @@ restart:
         Dim dsdata As DataSet
 
         If cmbSupplier.SelectedValue <> -1 Then
-            strSql = "SELECT ACCOUNT_MASTER.ADDRESS_PRIM + ' - {'  + ISNULL(CITY_MASTER.CITY_NAME,'') + '}', PHONE_PRIM, VAT_NO,ACCOUNT_MASTER.CITY_ID,case when ISNULL(ADDRESS_SEC,'')='' then ADDRESS_PRIM + ' - {'  + ISNULL(CITY_MASTER.CITY_NAME,'') + '}' else ADDRESS_SEC end as Shipping"
+            strSql = "SELECT ISNULL(ACCOUNT_MASTER.ADDRESS_PRIM,'') + ' - {'  + ISNULL(CITY_MASTER.CITY_NAME,'') + '}', ISNULL(PHONE_PRIM,''), ISNULL(VAT_NO,''),ACCOUNT_MASTER.CITY_ID,case when ISNULL(ADDRESS_SEC,'')='' then ADDRESS_PRIM + ' - {'  + ISNULL(CITY_MASTER.CITY_NAME,'') + '}' else ADDRESS_SEC end as Shipping"
             strSql = strSql & " FROM ACCOUNT_MASTER LEFT OUTER JOIN"
             strSql = strSql & " CITY_MASTER ON ACCOUNT_MASTER.CITY_ID = CITY_MASTER.CITY_ID"
             strSql = strSql & " WHERE ACCOUNT_MASTER.ACC_ID = " & cmbSupplier.SelectedValue
