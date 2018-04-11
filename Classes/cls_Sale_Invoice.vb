@@ -372,7 +372,7 @@ again:
 
                             items_row(0)("TRANSFER_QTY") = (items_row(0)("TRANSFER_QTY") + items_DataRow("TRANSFER_QTY"))
                             items_row(0)("GST_Amount") = (items_row(0)("GST_Amount") + items_DataRow("GST_Amount"))
-
+                            items_row(0)("Amount") = (items_row(0)("Amount") + items_DataRow("Amount"))
                             If items_DataRow("DType").ToString() = "A" Then
                                 items_row(0)("DISC") = (items_row(0)("DISC") + items_DataRow("DISC"))
                             End If
@@ -687,9 +687,6 @@ again:
                     Dtitemsnew.Rows.Clear()
                     Dtitemsnew.AcceptChanges()
 
-
-
-
                     For Each items_DataRow As DataRow In clsobj.dtable_Item_List.Rows
 
 
@@ -700,7 +697,7 @@ again:
 
                             items_row(0)("TRANSFER_QTY") = (items_row(0)("TRANSFER_QTY") + items_DataRow("TRANSFER_QTY"))
                             items_row(0)("GST_Amount") = (items_row(0)("GST_Amount") + items_DataRow("GST_Amount"))
-
+                            items_row(0)("Amount") = (items_row(0)("Amount") + items_DataRow("Amount"))
                             If items_DataRow("DType").ToString() = "A" Then
                                 items_row(0)("DISC") = (items_row(0)("DISC") + items_DataRow("DISC"))
                             End If

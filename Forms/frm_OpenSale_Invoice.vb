@@ -441,7 +441,7 @@ again:
 
 
     Private Sub flxItems_AfterDataRefresh(ByVal sender As System.Object, ByVal e As System.ComponentModel.ListChangedEventArgs) Handles flxItems.AfterDataRefresh
-
+        'generate_tree()
     End Sub
     Private Sub generate_tree()
         flxItems.DataSource = Nothing
@@ -578,8 +578,6 @@ restart:
     Public Sub get_row(ByVal item_id As Integer, ByVal Wastage_id As Integer, ByVal itemRate As Decimal)
         Try
             If item_id <> -1 Then
-
-
 
                 Dim ds As DataSet
                 Dim ds2 As DataSet
@@ -768,15 +766,14 @@ restart:
             txtLRNO.Text = dr("LR_NO")
             cmbinvtype.Text = dr("INV_TYPE")
 
+            RemoveHandler flxItems.AfterDataRefresh, AddressOf flxItems_AfterDataRefresh
+
             dtable_Item_List = clsObj.fill_Data_set("GET_INV_ITEM_DETAILS", "@V_SI_ID", strSIID).Tables(0)
-
-
-
             flxItems.DataSource = dtable_Item_List
-
             format_grid()
 
             generate_tree()
+            AddHandler flxItems.AfterDataRefresh, AddressOf flxItems_AfterDataRefresh
             CalculateAmount()
 
         End If
@@ -917,7 +914,7 @@ restart:
 
         Dim strSql As String
         If cmbSupplier.SelectedValue <> -1 Then
-            strSql = "SELECT ACCOUNT_MASTER.ADDRESS_PRIM + ' - {'  + ISNULL(CITY_MASTER.CITY_NAME,'') + '}', PHONE_PRIM, VAT_NO,ACCOUNT_MASTER.CITY_ID,case when ISNULL(ADDRESS_SEC,'')='' then ADDRESS_PRIM + ' - {'  + ISNULL(CITY_MASTER.CITY_NAME,'') + '}' else ADDRESS_SEC end as Shipping"
+            strSql = "SELECT ISNULL(ACCOUNT_MASTER.ADDRESS_PRIM,'') + ' - {'  + ISNULL(CITY_MASTER.CITY_NAME,'') + '}', ISNULL(PHONE_PRIM,'')As PHONE_PRIM, ISNULL(VAT_NO,0)as VAT_NO,ACCOUNT_MASTER.CITY_ID,ISNULL(case when ISNULL(ADDRESS_SEC,'')='' then ADDRESS_PRIM + ' - {'  + ISNULL(CITY_MASTER.CITY_NAME,'') + '}' else ADDRESS_SEC end,'') as Shipping"
             strSql = strSql & " FROM ACCOUNT_MASTER LEFT OUTER JOIN"
             strSql = strSql & " CITY_MASTER ON ACCOUNT_MASTER.CITY_ID = CITY_MASTER.CITY_ID"
             strSql = strSql & " WHERE ACCOUNT_MASTER.ACC_ID = " & cmbSupplier.SelectedValue
