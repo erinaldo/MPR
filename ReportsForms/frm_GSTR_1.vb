@@ -349,7 +349,7 @@ Public Class frm_GSTR_1
             " INNER JOIN dbo.ACCOUNT_MASTER am ON am.ACC_ID = inv.CUST_ID" &
             " INNER JOIN dbo.CITY_MASTER cm On cm.CITY_ID = am.CITY_ID" &
             " INNER JOIN dbo.STATE_MASTER sm ON sm.STATE_ID = cm.STATE_ID" &
-            " WHERE MONTH(SI_DATE) =" + txtFromDate.Value.Month.ToString() &
+            " WHERE inv.INVOICE_STATUS <> 4 And MONTH(SI_DATE) =" + txtFromDate.Value.Month.ToString() &
             " And YEAR(SI_DATE)=" + txtFromDate.Value.Year.ToString() + " AND invd.VAT_AMOUNT > 0 AND 1=1 " &
             " GROUP BY inv.NET_AMOUNT, VAT_NO,SI_CODE, SI_NO, SI_DATE, STATE_CODE,STATE_NAME,VAT_PER"
 
@@ -367,7 +367,7 @@ Public Class frm_GSTR_1
             " INNER JOIN dbo.ACCOUNT_MASTER am ON am.ACC_ID = inv.CUST_ID" &
             " INNER JOIN dbo.CITY_MASTER cm On cm.CITY_ID = am.CITY_ID" &
             " INNER JOIN dbo.STATE_MASTER sm ON sm.STATE_ID = cm.STATE_ID" &
-            " WHERE MONTH(SI_DATE) =" & txtFromDate.Value.Month.ToString() &
+            " WHERE inv.INVOICE_STATUS <> 4 And MONTH(SI_DATE) =" & txtFromDate.Value.Month.ToString() &
             " And YEAR(SI_DATE)=" & txtFromDate.Value.Year.ToString() &
             " AND LEN(ISNULL(VAT_NO,''))=0 and inv.NET_AMOUNT<=250000 and inv.Inv_type='I' AND invd.VAT_AMOUNT > 0 " &
             " GROUP BY STATE_CODE,STATE_NAME,VAT_PER" &
@@ -380,27 +380,27 @@ Public Class frm_GSTR_1
             " INNER JOIN dbo.ACCOUNT_MASTER am ON am.ACC_ID = inv.CUST_ID" &
             " INNER JOIN dbo.CITY_MASTER cm On cm.CITY_ID = am.CITY_ID" &
             " INNER JOIN dbo.STATE_MASTER sm ON sm.STATE_ID = cm.STATE_ID" &
-            " WHERE MONTH(SI_DATE) =" & txtFromDate.Value.Month.ToString() &
+            " WHERE inv.INVOICE_STATUS <> 4 And MONTH(SI_DATE) =" & txtFromDate.Value.Month.ToString() &
             " And YEAR(SI_DATE)=" & txtFromDate.Value.Year.ToString() &
             " AND LEN(ISNULL(VAT_NO,''))=0 and inv.Inv_type <> 'I' AND invd.VAT_AMOUNT > 0 " &
             " GROUP BY STATE_CODE,STATE_NAME,VAT_PER"
         b2csTable = objCommFunction.Fill_DataSet(Qry).Tables(0)
-        
+
         Qry = " SELECT HsnCode_vch, ITEM_NAME, UM_Name, UM_DESC, SUM(invd.BAL_ITEM_QTY) AS Qty, " &
-			" SUM(((BAL_ITEM_QTY * BAL_ITEM_RATE) - ISNULL(ITEM_DISCOUNT,0))) AS Taxable_Value, SUM(0) Cess_Amount," &
-			" SUM(CASE WHEN sm.STATE_ID =4 THEN invd.VAT_AMOUNT ELSE 0 END) AS non_integrated_tax," &
-			" SUM(CASE WHEN sm.STATE_ID !=4 THEN invd.VAT_AMOUNT ELSE 0 END) AS integrated_tax" &
-			" FROM    dbo.SALE_INVOICE_MASTER inv" &
-			" INNER JOIN dbo.SALE_INVOICE_DETAIL invd ON invd.SI_ID = inv.SI_ID" &
-			" INNER JOIN dbo.ITEM_MASTER im ON invd.ITEM_ID = im.ITEM_ID" &
-			" INNER JOIN dbo.UNIT_MASTER um ON um.UM_ID = im.UM_ID" &
-			" INNER JOIN dbo.ACCOUNT_MASTER am ON am.ACC_ID = inv.CUST_ID" &
-			" INNER JOIN dbo.CITY_MASTER cm ON cm.CITY_ID = am.CITY_ID" &
-			" INNER JOIN dbo.STATE_MASTER sm ON sm.STATE_ID = cm.STATE_ID" &
-			" INNER JOIN dbo.HsnCode_Master hsn ON hsn.Pk_HsnId_num = im.fk_HsnId_num" &
-			" WHERE MONTH(SI_DATE) =" & txtFromDate.Value.Month.ToString() &
+            " SUM(((BAL_ITEM_QTY * BAL_ITEM_RATE) - ISNULL(ITEM_DISCOUNT,0))) AS Taxable_Value, SUM(0) Cess_Amount," &
+            " SUM(CASE WHEN sm.STATE_ID =4 THEN invd.VAT_AMOUNT ELSE 0 END) AS non_integrated_tax," &
+            " SUM(CASE WHEN sm.STATE_ID !=4 THEN invd.VAT_AMOUNT ELSE 0 END) AS integrated_tax" &
+            " FROM    dbo.SALE_INVOICE_MASTER inv" &
+            " INNER JOIN dbo.SALE_INVOICE_DETAIL invd ON invd.SI_ID = inv.SI_ID" &
+            " INNER JOIN dbo.ITEM_MASTER im ON invd.ITEM_ID = im.ITEM_ID" &
+            " INNER JOIN dbo.UNIT_MASTER um ON um.UM_ID = im.UM_ID" &
+            " INNER JOIN dbo.ACCOUNT_MASTER am ON am.ACC_ID = inv.CUST_ID" &
+            " INNER JOIN dbo.CITY_MASTER cm ON cm.CITY_ID = am.CITY_ID" &
+            " INNER JOIN dbo.STATE_MASTER sm ON sm.STATE_ID = cm.STATE_ID" &
+            " INNER JOIN dbo.HsnCode_Master hsn ON hsn.Pk_HsnId_num = im.fk_HsnId_num" &
+            " WHERE inv.INVOICE_STATUS <> 4 And MONTH(SI_DATE) =" & txtFromDate.Value.Month.ToString() &
             " And YEAR(SI_DATE)=" & txtFromDate.Value.Year.ToString() &
-			" GROUP BY HsnCode_vch,ITEM_NAME, UM_Name,UM_DESC"
+            " GROUP BY HsnCode_vch,ITEM_NAME, UM_Name,UM_DESC"
         hsnTable = objCommFunction.Fill_DataSet(Qry).Tables(0)
 
         Qry = " SELECT  ISNULL(VAT_NO,'') As VAT_NO, ACC_NAME ,CreditNote_Code ,CreditNote_No,CreditNote_Date ,cnm.CN_Amount,SI_CODE, SI_NO," &
@@ -411,7 +411,7 @@ Public Class frm_GSTR_1
         " INNER JOIN dbo.ACCOUNT_MASTER am ON am.ACC_ID = cnm.CN_CustId " &
         " INNER JOIN dbo.CITY_MASTER cm ON cm.CITY_ID = am.CITY_ID " &
         " INNER JOIN dbo.STATE_MASTER sm ON sm.STATE_ID = cm.STATE_ID " &
-        " WHERE MONTH(CreditNote_Date) =" & txtFromDate.Value.Month.ToString() &
+        " WHERE sim.INVOICE_STATUS <> 4 And MONTH(CreditNote_Date) =" & txtFromDate.Value.Month.ToString() &
         " And YEAR(CreditNote_Date)=" & txtFromDate.Value.Year.ToString() &
         " AND LEN(ISNULL(VAT_NO,'')) > 0" &
          " GROUP BY  VAT_NO, ACC_NAME ,CreditNote_Code ,CreditNote_No,CreditNote_Date ,cnm.CN_Amount,SI_CODE, SI_NO," &
@@ -427,7 +427,7 @@ Public Class frm_GSTR_1
         " INNER JOIN dbo.ACCOUNT_MASTER am ON am.ACC_ID = cnm.CN_CustId " &
         " INNER JOIN dbo.CITY_MASTER cm ON cm.CITY_ID = am.CITY_ID " &
         " INNER JOIN dbo.STATE_MASTER sm ON sm.STATE_ID = cm.STATE_ID " &
-        " WHERE MONTH(CreditNote_Date) =" & txtFromDate.Value.Month.ToString() &
+        " WHERE sim.INVOICE_STATUS <> 4 And MONTH(CreditNote_Date) =" & txtFromDate.Value.Month.ToString() &
         " And YEAR(CreditNote_Date)=" & txtFromDate.Value.Year.ToString() &
         " AND LEN(ISNULL(VAT_NO,''))= 0 and sim.NET_AMOUNT > 250000 and sim.Inv_type='I' " &
          " GROUP BY  VAT_NO, ACC_NAME ,CreditNote_Code ,CreditNote_No,CreditNote_Date ,cnm.CN_Amount,SI_CODE, SI_NO," &
@@ -443,7 +443,7 @@ Public Class frm_GSTR_1
             " INNER JOIN dbo.ACCOUNT_MASTER am ON am.ACC_ID = inv.CUST_ID" &
             " INNER JOIN dbo.CITY_MASTER cm On cm.CITY_ID = am.CITY_ID" &
             " INNER JOIN dbo.STATE_MASTER sm ON sm.STATE_ID = cm.STATE_ID" &
-            " WHERE MONTH(SI_DATE) =" + txtFromDate.Value.Month.ToString() &
+            " WHERE inv.INVOICE_STATUS <> 4 And MONTH(SI_DATE) =" + txtFromDate.Value.Month.ToString() &
             " And YEAR(SI_DATE)=" + txtFromDate.Value.Year.ToString() + " AND LEN(ISNULL(VAT_NO,'')) > 0 AND invd.VAT_AMOUNT = 0 AND inv.Inv_type = 'I' " &
             " GROUP BY inv.NET_AMOUNT, VAT_NO,SI_CODE, SI_NO, SI_DATE, STATE_CODE,STATE_NAME,VAT_PER " &
             " Union All " &
@@ -455,7 +455,7 @@ Public Class frm_GSTR_1
             " INNER JOIN dbo.ACCOUNT_MASTER am ON am.ACC_ID = inv.CUST_ID" &
             " INNER JOIN dbo.CITY_MASTER cm On cm.CITY_ID = am.CITY_ID" &
             " INNER JOIN dbo.STATE_MASTER sm ON sm.STATE_ID = cm.STATE_ID" &
-            " WHERE MONTH(SI_DATE) =" + txtFromDate.Value.Month.ToString() &
+            " WHERE inv.INVOICE_STATUS <> 4 And MONTH(SI_DATE) =" + txtFromDate.Value.Month.ToString() &
             " And YEAR(SI_DATE)=" + txtFromDate.Value.Year.ToString() + " AND LEN(ISNULL(VAT_NO,'')) > 0 AND invd.VAT_AMOUNT = 0 AND inv.Inv_type <> 'I' " &
             " GROUP BY inv.NET_AMOUNT, VAT_NO,SI_CODE, SI_NO, SI_DATE, STATE_CODE,STATE_NAME,VAT_PER " &
             " Union All " &
@@ -467,7 +467,7 @@ Public Class frm_GSTR_1
             " INNER JOIN dbo.ACCOUNT_MASTER am ON am.ACC_ID = inv.CUST_ID" &
             " INNER JOIN dbo.CITY_MASTER cm On cm.CITY_ID = am.CITY_ID" &
             " INNER JOIN dbo.STATE_MASTER sm ON sm.STATE_ID = cm.STATE_ID" &
-            " WHERE MONTH(SI_DATE) =" + txtFromDate.Value.Month.ToString() &
+            " WHERE inv.INVOICE_STATUS <> 4 And MONTH(SI_DATE) =" + txtFromDate.Value.Month.ToString() &
             " And YEAR(SI_DATE)=" + txtFromDate.Value.Year.ToString() + " AND LEN(ISNULL(VAT_NO,'')) = 0 AND invd.VAT_AMOUNT = 0 AND inv.Inv_type = 'I' " &
             " GROUP BY inv.NET_AMOUNT, VAT_NO,SI_CODE, SI_NO, SI_DATE, STATE_CODE,STATE_NAME,VAT_PER " &
             " Union All " &
@@ -479,7 +479,7 @@ Public Class frm_GSTR_1
             " INNER JOIN dbo.ACCOUNT_MASTER am ON am.ACC_ID = inv.CUST_ID" &
             " INNER JOIN dbo.CITY_MASTER cm On cm.CITY_ID = am.CITY_ID" &
             " INNER JOIN dbo.STATE_MASTER sm ON sm.STATE_ID = cm.STATE_ID" &
-            " WHERE MONTH(SI_DATE) =" + txtFromDate.Value.Month.ToString() &
+            " WHERE inv.INVOICE_STATUS <> 4 And MONTH(SI_DATE) =" + txtFromDate.Value.Month.ToString() &
             " And YEAR(SI_DATE)=" + txtFromDate.Value.Year.ToString() + " AND LEN(ISNULL(VAT_NO,'')) = 0 AND invd.VAT_AMOUNT = 0 AND inv.Inv_type <> 'I' " &
             " GROUP BY inv.NET_AMOUNT, VAT_NO,SI_CODE, SI_NO, SI_DATE, STATE_CODE,STATE_NAME,VAT_PER "
 
