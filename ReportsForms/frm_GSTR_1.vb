@@ -411,11 +411,11 @@ Public Class frm_GSTR_1
         " INNER JOIN dbo.ACCOUNT_MASTER am ON am.ACC_ID = cnm.CN_CustId " &
         " INNER JOIN dbo.CITY_MASTER cm ON cm.CITY_ID = am.CITY_ID " &
         " INNER JOIN dbo.STATE_MASTER sm ON sm.STATE_ID = cm.STATE_ID " &
-        " WHERE sim.INVOICE_STATUS <> 4 And MONTH(CreditNote_Date) =" & txtFromDate.Value.Month.ToString() &
+        " WHERE MONTH(CreditNote_Date) =" & txtFromDate.Value.Month.ToString() &
         " And YEAR(CreditNote_Date)=" & txtFromDate.Value.Year.ToString() &
         " AND LEN(ISNULL(VAT_NO,'')) > 0" &
          " GROUP BY  VAT_NO, ACC_NAME ,CreditNote_Code ,CreditNote_No,CreditNote_Date ,cnm.CN_Amount,SI_CODE, SI_NO," &
-        " SI_DATE,STATE_CODE ,STATE_NAME ,Item_Tax"
+        " SI_DATE,STATE_CODE ,STATE_NAME ,Item_Tax   ORDER BY cnm.CreditNote_No"
         cdnrTable = objCommFunction.Fill_DataSet(Qry).Tables(0)
 
 
@@ -427,11 +427,11 @@ Public Class frm_GSTR_1
         " INNER JOIN dbo.ACCOUNT_MASTER am ON am.ACC_ID = cnm.CN_CustId " &
         " INNER JOIN dbo.CITY_MASTER cm ON cm.CITY_ID = am.CITY_ID " &
         " INNER JOIN dbo.STATE_MASTER sm ON sm.STATE_ID = cm.STATE_ID " &
-        " WHERE sim.INVOICE_STATUS <> 4 And MONTH(CreditNote_Date) =" & txtFromDate.Value.Month.ToString() &
+        " WHERE MONTH(CreditNote_Date) =" & txtFromDate.Value.Month.ToString() &
         " And YEAR(CreditNote_Date)=" & txtFromDate.Value.Year.ToString() &
         " AND LEN(ISNULL(VAT_NO,''))= 0 and sim.NET_AMOUNT > 250000 and sim.Inv_type='I' " &
          " GROUP BY  VAT_NO, ACC_NAME ,CreditNote_Code ,CreditNote_No,CreditNote_Date ,cnm.CN_Amount,SI_CODE, SI_NO," &
-        " SI_DATE,STATE_CODE ,STATE_NAME ,Item_Tax"
+        " SI_DATE,STATE_CODE ,STATE_NAME ,Item_Tax  ORDER BY cnm.CreditNote_No"
         cdnurTable = objCommFunction.Fill_DataSet(Qry).Tables(0)
 
 
