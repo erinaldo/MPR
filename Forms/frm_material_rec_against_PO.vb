@@ -562,9 +562,6 @@ Public Class frm_material_rec_against_PO
         'End If
 
 
-
-
-
         'Get Supplier
         lblSupplier.Text = ""
 

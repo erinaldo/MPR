@@ -823,8 +823,6 @@ restart:
 
             dtable_Item_List = clsObj.fill_Data_set("GET_INV_ITEM_DETAILS", "@V_SI_ID", strSIID).Tables(0)
 
-
-
             flxItems.DataSource = dtable_Item_List
 
             format_grid()
@@ -833,9 +831,6 @@ restart:
             CalculateAmount()
 
         End If
-
-
-
 
 
     End Sub
