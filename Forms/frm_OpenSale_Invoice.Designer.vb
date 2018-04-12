@@ -496,6 +496,7 @@ Partial Class frm_openSale_Invoice
         Me.btnAddNew.TabIndex = 0
         Me.btnAddNew.Text = "Add New"
         Me.btnAddNew.UseVisualStyleBackColor = False
+        Me.btnAddNew.Visible = False
         '
         'txtLRNO
         '

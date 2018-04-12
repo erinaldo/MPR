@@ -60,7 +60,7 @@ Public Class MDIMain
                     Case UCase("tsmAccount")
                         Try
                             Dim startInfo As New ProcessStartInfo()
-                            startInfo.FileName = Application.StartupPath & "\AccountModule.exe"
+                            startInfo.FileName = Application.StartupPath & "\acapp\AccountModule.exe"
                             startInfo.Arguments = "header.h"
                             Process.Start(startInfo)
                         Catch ex As Exception

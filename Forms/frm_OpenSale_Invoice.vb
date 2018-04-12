@@ -239,7 +239,7 @@ Public Class frm_openSale_Invoice
         cmbinvtype.SelectedIndex = 0
         cmbCity.SelectedIndex = 0
         NEWCUST = 0
-        btnAddNew.Visible = True
+        'btnAddNew.Visible = True
         dtable_Item_List.Rows.Clear()
         'dtable_Item_List.Rows.Add()
         TabControl1.SelectTab(1)
