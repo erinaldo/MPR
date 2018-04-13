@@ -388,8 +388,8 @@ Public Class frm_GSTR_1
 
         Qry = " SELECT HsnCode_vch, ITEM_NAME, UM_Name, UM_DESC, SUM(invd.BAL_ITEM_QTY) AS Qty, " &
             " SUM(((BAL_ITEM_QTY * BAL_ITEM_RATE) - ISNULL(ITEM_DISCOUNT,0))) AS Taxable_Value, SUM(0) Cess_Amount," &
-            " SUM(CASE WHEN sm.STATE_ID =4 THEN invd.VAT_AMOUNT ELSE 0 END) AS non_integrated_tax," &
-            " SUM(CASE WHEN sm.STATE_ID !=4 THEN invd.VAT_AMOUNT ELSE 0 END) AS integrated_tax" &
+            " SUM(CASE WHEN inv.INV_TYPE <> 'I' THEN invd.VAT_AMOUNT ELSE 0 END) AS non_integrated_tax," &
+            " SUM(CASE WHEN inv.INV_TYPE = 'I' THEN invd.VAT_AMOUNT ELSE 0 END) AS integrated_tax" &
             " FROM    dbo.SALE_INVOICE_MASTER inv" &
             " INNER JOIN dbo.SALE_INVOICE_DETAIL invd ON invd.SI_ID = inv.SI_ID" &
             " INNER JOIN dbo.ITEM_MASTER im ON invd.ITEM_ID = im.ITEM_ID" &
@@ -485,13 +485,13 @@ Public Class frm_GSTR_1
 
         exempTable = objCommFunction.Fill_DataSet(Qry).Tables(0)
 
-        Qry = "SELECT 'Invoice for outward supply' AS Description,  MIN(SI_NO) AS 'Sr. No. From', MAX(SI_NO) AS 'Sr. No. To', COUNT(SI_No) AS 'Total Number', " &
+        Qry = "SELECT 'Invoice for outward supply' AS Description,  Isnull(MIN(SI_NO),0) AS 'Sr. No. From', Isnull(MAX(SI_NO),0) AS 'Sr. No. To', COUNT(SI_No) AS 'Total Number', " &
         "  ( SELECT  COUNT(SI_NO) FROM  dbo.SALE_INVOICE_MASTER WHERE MONTH(SI_DATE) =" + txtFromDate.Value.Month.ToString() &
         "   AND YEAR(SI_DATE) = " + txtFromDate.Value.Year.ToString() &
         "  AND INVOICE_STATUS = 4) AS Cancelled FROM  dbo.SALE_INVOICE_MASTER WHERE MONTH(SI_DATE) = " + txtFromDate.Value.Month.ToString() &
         "  AND YEAR(SI_DATE) = " + txtFromDate.Value.Year.ToString() &
         "  UNION ALL " &
-        "  SELECT 'Credit Note' AS Description, MIN(CreditNote_No) AS 'Sr. No. From', MAX(CreditNote_No) AS 'Sr. No. To', COUNT(CreditNote_No) AS 'Total Number', " &
+        "  SELECT 'Credit Note' AS Description, Isnull(MIN(CreditNote_No),0) AS 'Sr. No. From', Isnull(MAX(CreditNote_No),0) AS 'Sr. No. To', COUNT(CreditNote_No) AS 'Total Number', " &
         "  0 AS Cancelled FROM  dbo.CreditNote_Master WHERE MONTH(CreditNote_Date) = " + txtFromDate.Value.Month.ToString() &
         "  AND YEAR(CreditNote_Date) = " + txtFromDate.Value.Year.ToString()
 
