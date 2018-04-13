@@ -432,11 +432,11 @@ restart:
     End Sub
     Private Sub generate_tree()
         If grdAdjustmentItem.Rows.Count > 1 Then
-            grdAdjustmentItem.Tree.Style = TreeStyleFlags.CompleteLeaf
-            grdAdjustmentItem.Tree.Column = 1
-            grdAdjustmentItem.AllowMerging = AllowMergingEnum.None
-            Dim totalOn As Integer = grdAdjustmentItem.Cols("Batch_Qty").SafeIndex
-            grdAdjustmentItem.Subtotal(AggregateEnum.Sum, 0, 3, totalOn)
+            'grdAdjustmentItem.Tree.Style = TreeStyleFlags.CompleteLeaf
+            'grdAdjustmentItem.Tree.Column = 1
+            'grdAdjustmentItem.AllowMerging = AllowMergingEnum.None
+            'Dim totalOn As Integer = grdAdjustmentItem.Cols("Batch_Qty").SafeIndex
+            'grdAdjustmentItem.Subtotal(AggregateEnum.Sum, 0, 3, totalOn)
             'totalOn = grdAdjustmentItem.Cols("adjustment_Qty").SafeIndex
             'grdAdjustmentItem.Subtotal(AggregateEnum.Sum, 0, 3, totalOn)
 

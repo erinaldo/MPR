@@ -738,12 +738,12 @@ Public Class frm_material_rec_against_PO
         End If
         'AddHandler FLXGRD_PO_NON_STOCKABLEITEMS.AfterDataRefresh, AddressOf FLXGRD_PO_NON_STOCKABLEITEMS_AfterDataRefresh
 
-        FLXGRD_PO_NON_STOCKABLEITEMS.Tree.Style = TreeStyleFlags.Complete
-        FLXGRD_PO_NON_STOCKABLEITEMS.Tree.Column = 3
-        FLXGRD_PO_NON_STOCKABLEITEMS.AllowMerging = AllowMergingEnum.Nodes
+        'FLXGRD_PO_NON_STOCKABLEITEMS.Tree.Style = TreeStyleFlags.Complete
+        'FLXGRD_PO_NON_STOCKABLEITEMS.Tree.Column = 3
+        'FLXGRD_PO_NON_STOCKABLEITEMS.AllowMerging = AllowMergingEnum.Nodes
 
-        Dim totalOn As Integer = FLXGRD_PO_NON_STOCKABLEITEMS.Cols("BATCH_QTY").SafeIndex
-        FLXGRD_PO_NON_STOCKABLEITEMS.Subtotal(AggregateEnum.Sum, 0, 4, totalOn)
+        'Dim totalOn As Integer = FLXGRD_PO_NON_STOCKABLEITEMS.Cols("BATCH_QTY").SafeIndex
+        'FLXGRD_PO_NON_STOCKABLEITEMS.Subtotal(AggregateEnum.Sum, 0, 4, totalOn)
 
         Dim cs As C1.Win.C1FlexGrid.CellStyle
 

@@ -395,22 +395,22 @@ Public Class frm_Purchase_Order
             'End If
             'strSort = ""
 
-            flxItemList.Tree.Style = TreeStyleFlags.CompleteLeaf
-            flxItemList.Tree.Column = 1
-            flxItemList.AllowMerging = AllowMergingEnum.None
+            'flxItemList.Tree.Style = TreeStyleFlags.CompleteLeaf
+            'flxItemList.Tree.Column = 1
+            'flxItemList.AllowMerging = AllowMergingEnum.None
 
-            Dim totalOn As Integer = flxItemList.Cols("Req_Qty").SafeIndex
-            flxItemList.Subtotal(AggregateEnum.Sum, 0, 2, totalOn)
-            totalOn = flxItemList.Cols("PO_Qty").SafeIndex
-            flxItemList.Subtotal(AggregateEnum.Sum, 0, 2, totalOn)
-            totalOn = flxItemList.Cols("item_value").SafeIndex
-            flxItemList.Subtotal(AggregateEnum.Sum, 0, 2, totalOn)
-            totalOn = flxItemList.Cols("item_rate").SafeIndex
-            flxItemList.Subtotal(AggregateEnum.Max, 0, 2, totalOn)
-            totalOn = flxItemList.Cols("vat_per").SafeIndex
-            flxItemList.Subtotal(AggregateEnum.Max, 0, 2, totalOn)
-            totalOn = flxItemList.Cols("vat_name").SafeIndex
-            flxItemList.Subtotal(AggregateEnum.None, 0, 2, totalOn)
+            'Dim totalOn As Integer = flxItemList.Cols("Req_Qty").SafeIndex
+            'flxItemList.Subtotal(AggregateEnum.Sum, 0, 2, totalOn)
+            'totalOn = flxItemList.Cols("PO_Qty").SafeIndex
+            'flxItemList.Subtotal(AggregateEnum.Sum, 0, 2, totalOn)
+            'totalOn = flxItemList.Cols("item_value").SafeIndex
+            'flxItemList.Subtotal(AggregateEnum.Sum, 0, 2, totalOn)
+            'totalOn = flxItemList.Cols("item_rate").SafeIndex
+            'flxItemList.Subtotal(AggregateEnum.Max, 0, 2, totalOn)
+            'totalOn = flxItemList.Cols("vat_per").SafeIndex
+            'flxItemList.Subtotal(AggregateEnum.Max, 0, 2, totalOn)
+            'totalOn = flxItemList.Cols("vat_name").SafeIndex
+            'flxItemList.Subtotal(AggregateEnum.None, 0, 2, totalOn)
         End If
 
         Dim cs As C1.Win.C1FlexGrid.CellStyle

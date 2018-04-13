@@ -368,13 +368,13 @@ Public Class frm_Accept_stock_transfer
         format_grid()
 
         If flxItems.Rows.Count > 1 Then
-            flxItems.Tree.Style = TreeStyleFlags.CompleteLeaf
-            flxItems.Tree.Column = 2
-            flxItems.AllowMerging = AllowMergingEnum.None
-            'Dim totalOn As Integer = flxItems.Cols("Batch_Qty").SafeIndex
+            'flxItems.Tree.Style = TreeStyleFlags.CompleteLeaf
+            'flxItems.Tree.Column = 2
+            'flxItems.AllowMerging = AllowMergingEnum.None
+            ''Dim totalOn As Integer = flxItems.Cols("Batch_Qty").SafeIndex
+            ''flxItems.Subtotal(AggregateEnum.Sum, 0, 3, totalOn)
+            'Dim totalOn As Integer = flxItems.Cols("transfer_Qty").SafeIndex
             'flxItems.Subtotal(AggregateEnum.Sum, 0, 3, totalOn)
-            Dim totalOn As Integer = flxItems.Cols("transfer_Qty").SafeIndex
-            flxItems.Subtotal(AggregateEnum.Sum, 0, 3, totalOn)
 
             Dim cs As C1.Win.C1FlexGrid.CellStyle
             cs = Me.flxItems.Styles.Add("transfer_Qty")

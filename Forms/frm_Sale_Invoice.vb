@@ -169,6 +169,7 @@ Public Class frm_Sale_Invoice
             prpty.SHIPP_ADD_ID = 0
             prpty.INV_TYPE = cmbinvtype.SelectedItem
             prpty.LR_NO = txt_LRNO.Text
+            prpty.Flag = 1
             prpty.dtable_Item_List = dtable_Item_List
 
             If flag = "save" Then
@@ -315,19 +316,7 @@ again:
         Try
             If Not dtable_Item_List Is Nothing Then dtable_Item_List.Dispose()
             dtable_Item_List = New DataTable()
-            'dtable_Item_List.Columns.Add("Item_Id", GetType(System.Int32))
-            'dtable_Item_List.Columns.Add("Item_Code", GetType(System.String))
-            'dtable_Item_List.Columns.Add("Item_Name", GetType(System.String))
-            'dtable_Item_List.Columns.Add("UM_Name", GetType(System.String))
-            'dtable_Item_List.Columns.Add("Batch_no", GetType(System.String))
-            'dtable_Item_List.Columns.Add("Expiry_date", GetType(System.String))
-            'dtable_Item_List.Columns.Add("Batch_Qty", GetType(System.Double))
-            'dtable_Item_List.Columns.Add("Stock_Detail_Id", GetType(System.Int32))
-            'dtable_Item_List.Columns.Add("Item_Rate", GetType(System.Decimal))
-            'dtable_Item_List.Columns.Add("GST", GetType(System.Decimal))
-            'dtable_Item_List.Columns.Add("GST_Amount", GetType(System.Decimal))
-            'dtable_Item_List.Columns.Add("HsnCodeId", GetType(System.Int32))
-            'dtable_Item_List.Columns.Add("transfer_Qty", GetType(System.Decimal))
+
             dtable_Item_List.Columns.Add("Item_Id", GetType(System.Int32))
             dtable_Item_List.Columns.Add("Item_Code", GetType(System.String))
             dtable_Item_List.Columns.Add("Item_Name", GetType(System.String))
@@ -340,6 +329,7 @@ again:
             dtable_Item_List.Columns.Add("Item_Rate", GetType(System.Decimal))
             dtable_Item_List.Columns.Add("DType", GetType(System.String))
             dtable_Item_List.Columns.Add("DISC", GetType(System.Decimal))
+            dtable_Item_List.Columns.Add("GPAID", GetType(System.String))
             dtable_Item_List.Columns.Add("Amount", GetType(System.Decimal))
             dtable_Item_List.Columns.Add("GST", GetType(System.Decimal))
             dtable_Item_List.Columns.Add("GST_Amount", GetType(System.Decimal))
@@ -357,55 +347,6 @@ again:
         End Try
     End Sub
 
-    'Private Sub format_grid()
-
-    '    flxItems.Cols(0).Width = 10
-    '    flxItems.Cols("Item_Id").Visible = False
-    '    flxItems.Cols("Stock_Detail_Id").Visible = True
-
-    '    flxItems.Cols("Item_Code").Caption = "Item Code"
-    '    flxItems.Cols("Item_Name").Caption = "Item Name"
-    '    flxItems.Cols("UM_Name").Caption = "UOM"
-    '    flxItems.Cols("Batch_no").Caption = "Batch No"
-    '    flxItems.Cols("Expiry_date").Caption = "Expiry Date"
-    '    flxItems.Cols("batch_qty").Caption = "Batch Qty"
-    '    flxItems.Cols("transfer_Qty").Caption = "Transfer Qty"
-    '    flxItems.Cols("Item_Rate").Caption = "Item Rate"
-    '    flxItems.Cols("GST").Caption = "GST % "
-    '    flxItems.Cols("GST_Amount").Caption = "GST Amount"
-    '    flxItems.Cols("HsnCodeId").Visible = False
-
-    '    flxItems.Cols("Item_Code").AllowEditing = False
-    '    flxItems.Cols("Item_Name").AllowEditing = False
-    '    flxItems.Cols("UM_Name").AllowEditing = False
-    '    flxItems.Cols("Batch_no").AllowEditing = False
-    '    flxItems.Cols("Expiry_date").AllowEditing = False
-    '    flxItems.Cols("batch_qty").AllowEditing = False
-    '    flxItems.Cols("Stock_Detail_Id").AllowEditing = False
-    '    flxItems.Cols("transfer_Qty").AllowEditing = True
-    '    flxItems.Cols("Item_Rate").AllowEditing = False
-    '    flxItems.Cols("Item_Rate").AllowEditing = False
-    '    flxItems.Cols("GST").AllowEditing = False
-
-    '    flxItems.Cols("GST_Amount").Width = 50
-
-    '    flxItems.Cols("Item_Id").Width = 40
-    '    flxItems.Cols("Item_Code").Width = 70
-    '    flxItems.Cols("Item_Name").Width = 230
-    '    flxItems.Cols("UM_Name").Width = 40
-    '    flxItems.Cols("Batch_No").Width = 70
-    '    flxItems.Cols("Expiry_date").Width = 80
-    '    flxItems.Cols("Batch_Qty").Width = 60
-    '    flxItems.Cols("Stock_Detail_Id").Width = 60
-    '    flxItems.Cols("transfer_Qty").Width = 80
-    '    flxItems.Cols("Item_Rate").Width = 80
-
-    '    flxItems.Cols("GST").Width = 50
-    '    flxItems.Cols("GST_Amount").Width = 50
-
-    '    flxItems.Cols("Stock_Detail_Id").Visible = False
-
-    'End Sub
 
     Private Sub format_grid()
 
@@ -424,6 +365,7 @@ again:
         flxItems.Cols("Item_Rate").Caption = "Rate"
         flxItems.Cols("DType").Caption = "DType"
         flxItems.Cols("DISC").Caption = "DISC"
+        flxItems.Cols("GPAID").Caption = "GSTPaid"
         flxItems.Cols("GST").Caption = "GST% "
         flxItems.Cols("GST_Amount").Caption = "GST Amt"
 
@@ -432,8 +374,11 @@ again:
         flxItems.Cols("Amount").AllowEditing = False
         flxItems.Cols("DType").AllowEditing = True
         flxItems.Cols("DType").ComboList = "P|A"
+        flxItems.Cols("GPAID").AllowEditing = True
+        flxItems.Cols("GPAID").ComboList = "N|Y"
 
         flxItems.Cols("Item_Code").AllowEditing = False
+        flxItems.Cols("Item_Code").Visible = False
         flxItems.Cols("Item_Name").AllowEditing = False
         flxItems.Cols("UM_Name").AllowEditing = False
         flxItems.Cols("Batch_no").AllowEditing = False
@@ -463,6 +408,7 @@ again:
         flxItems.Cols("Item_Rate").Width = 50
         flxItems.Cols("DType").Width = 40
         flxItems.Cols("DISC").Width = 45
+        flxItems.Cols("GPAID").Width = 60
         flxItems.Cols("GST").Width = 40
         flxItems.Cols("GST_Amount").Width = 50
         flxItems.Cols("LandingAmt").Width = 70
@@ -473,32 +419,7 @@ again:
     Private Sub flxItems_AfterDataRefresh(ByVal sender As System.Object, ByVal e As System.ComponentModel.ListChangedEventArgs) Handles flxItems.AfterDataRefresh
 
     End Sub
-    'Private Sub generate_tree()
-    '    flxItems.DataSource = Nothing
-    '    flxItems.DataSource = dtable_Item_List
-    '    format_grid()
 
-    '    If flxItems.Rows.Count > 1 Then
-    '        flxItems.Tree.Style = TreeStyleFlags.CompleteLeaf
-    '        flxItems.Tree.Column = 2
-    '        flxItems.AllowMerging = AllowMergingEnum.None
-    '        Dim totalOn As Integer = flxItems.Cols("Batch_Qty").SafeIndex
-    '        flxItems.Subtotal(AggregateEnum.Sum, 0, 3, totalOn)
-    '        totalOn = flxItems.Cols("transfer_Qty").SafeIndex
-    '        flxItems.Subtotal(AggregateEnum.Sum, 0, 3, totalOn)
-
-    '        Dim cs As C1.Win.C1FlexGrid.CellStyle
-    '        cs = Me.flxItems.Styles.Add("transfer_Qty")
-    '        cs.ForeColor = Color.White
-    '        cs.BackColor = Color.Green
-    '        cs.Border.Style = BorderStyleEnum.Raised
-
-    '        Dim i As Integer
-    '        For i = 1 To flxItems.Rows.Count - 1
-    '            If Not flxItems.Rows(i).IsNode Then flxItems.SetCellStyle(i, flxItems.Cols("transfer_Qty").SafeIndex, cs)
-    '        Next
-    '    End If
-    'End Sub
 
     Private Sub generate_tree()
         flxItems.DataSource = Nothing
@@ -506,13 +427,13 @@ again:
         format_grid()
 
         If flxItems.Rows.Count > 1 Then
-            flxItems.Tree.Style = TreeStyleFlags.CompleteLeaf
-            flxItems.Tree.Column = 2
-            flxItems.AllowMerging = AllowMergingEnum.None
-            Dim totalOn As Integer = flxItems.Cols("Batch_Qty").SafeIndex
-            flxItems.Subtotal(AggregateEnum.Sum, 0, 3, totalOn)
-            totalOn = flxItems.Cols("transfer_Qty").SafeIndex
-            flxItems.Subtotal(AggregateEnum.Sum, 0, 3, totalOn)
+            'flxItems.Tree.Style = TreeStyleFlags.CompleteLeaf
+            'flxItems.Tree.Column = 2
+            'flxItems.AllowMerging = AllowMergingEnum.None
+            'Dim totalOn As Integer = flxItems.Cols("Batch_Qty").SafeIndex
+            'flxItems.Subtotal(AggregateEnum.Sum, 0, 3, totalOn)
+            'totalOn = flxItems.Cols("transfer_Qty").SafeIndex
+            'flxItems.Subtotal(AggregateEnum.Sum, 0, 3, totalOn)
 
             Dim cs2 As C1.Win.C1FlexGrid.CellStyle
             cs2 = Me.flxItems.Styles.Add("DISC")
@@ -526,6 +447,12 @@ again:
             cs3.BackColor = Color.Gold
             cs3.Border.Style = BorderStyleEnum.Raised
 
+            Dim cs4 As C1.Win.C1FlexGrid.CellStyle
+            cs4 = Me.flxItems.Styles.Add("GPAID")
+            'cs3.ForeColor = Color.White
+            cs4.BackColor = Color.Gold
+            cs4.Border.Style = BorderStyleEnum.Raised
+
             Dim cs As C1.Win.C1FlexGrid.CellStyle
             cs = Me.flxItems.Styles.Add("transfer_Qty")
             'cs.ForeColor = Color.White
@@ -537,6 +464,7 @@ again:
                 If Not flxItems.Rows(i).IsNode Then
                     flxItems.SetCellStyle(i, flxItems.Cols("DISC").SafeIndex, cs2)
                     flxItems.SetCellStyle(i, flxItems.Cols("DType").SafeIndex, cs3)
+                    flxItems.SetCellStyle(i, flxItems.Cols("GPAID").SafeIndex, cs4)
                     flxItems.SetCellStyle(i, flxItems.Cols("transfer_Qty").SafeIndex, cs)
                 End If
             Next
@@ -679,6 +607,7 @@ restart:
                         dr("DISC") = 0.0
                         dr("LandingAmt") = 0.0
                         dr("DType") = "P"
+                        dr("GPAID") = "N"
                         dr("GST") = ds2.Tables(0).Rows(0)("VAT_PERCENTAGE")
                         dr("GSt_Amount") = "0"
 
@@ -741,7 +670,7 @@ restart:
 
         If Convert.ToDecimal(flxItems.Rows(e.Row)("transfer_Qty")) > Convert.ToDecimal(flxItems.Rows(e.Row)("Batch_Qty")) Then
             flxItems.Rows(e.Row)("transfer_Qty") = 0.0
-            generate_tree()
+            'generate_tree()
         Else
             Dim discamt As Decimal = 0.0
 
@@ -749,21 +678,30 @@ restart:
 
             Dim i As Integer
             Dim dTY As String = flxItems.Rows(e.Row)("DType")
+            Dim GPD As String = flxItems.Rows(e.Row)("GPAID")
+            Dim ITEM As Integer = flxItems.Rows(e.Row)("Item_Id")
+            Dim RATE As Decimal = flxItems.Rows(e.Row)("Item_Rate")
+            Dim DISC As Decimal = flxItems.Rows(e.Row)("DISC")
 
             For i = 1 To flxItems.Rows.Count - 1
                 flxItems.Rows(i).Item("DType") = dTY
+                If (flxItems.Rows(i).Item("Item_Id") = ITEM) Then
+                    flxItems.Rows(i).Item("GPAID") = GPD
+                    flxItems.Rows(i).Item("Item_Rate") = RATE
+                    flxItems.Rows(i).Item("DISC") = DISC
+                End If
             Next
 
-            If (flxItems.Rows(e.Row)("DType")) = "P" Then
-                discamt = Math.Round((flxItems.Rows(e.Row)("Amount") * flxItems.Rows(e.Row)("DISC") / 100), 2)
-            Else
-                discamt = Math.Round((flxItems.Rows(e.Row)("DISC")), 2)
-            End If
+            'If (flxItems.Rows(e.Row)("DType")) = "P" Then
+            '    discamt = Math.Round((flxItems.Rows(e.Row)("Amount") * flxItems.Rows(e.Row)("DISC") / 100), 2)
+            'Else
+            '    discamt = Math.Round((flxItems.Rows(e.Row)("DISC")), 2)
+            'End If
 
-            flxItems.Rows(e.Row)("GST_Amount") = Math.Round((flxItems.Rows(e.Row)("Amount") - discamt) * (flxItems.Rows(e.Row)("GST") / 100), 2)
-            flxItems.Rows(e.Row)("LandingAmt") = Math.Round((flxItems.Rows(e.Row)("Amount") - discamt) + (flxItems.Rows(e.Row)("GST_Amount")), 2)
+            'flxItems.Rows(e.Row)("GST_Amount") = Math.Round((flxItems.Rows(e.Row)("Amount") - discamt) * (flxItems.Rows(e.Row)("GST") / 100), 2)
+            'flxItems.Rows(e.Row)("LandingAmt") = Math.Round((flxItems.Rows(e.Row)("Amount") - discamt) + (flxItems.Rows(e.Row)("GST_Amount")), 2)
 
-            generate_tree()
+            'generate_tree()
 
         End If
 
@@ -842,7 +780,7 @@ restart:
         Dim dsdata As DataSet
 
         If cmbSupplier.SelectedValue <> -1 Then
-            strSql = "SELECT ISNULL(ACCOUNT_MASTER.ADDRESS_PRIM,'') + ' - {'  + ISNULL(CITY_MASTER.CITY_NAME,'') + '}', ISNULL(PHONE_PRIM,''), ISNULL(VAT_NO,''),ACCOUNT_MASTER.CITY_ID,case when ISNULL(ADDRESS_SEC,'')='' then ADDRESS_PRIM + ' - {'  + ISNULL(CITY_MASTER.CITY_NAME,'') + '}' else ADDRESS_SEC end as Shipping"
+            strSql = "SELECT ISNULL(ACCOUNT_MASTER.ADDRESS_PRIM,'') + ' - {'  + ISNULL(CITY_MASTER.CITY_NAME,'') + '}', ISNULL(PHONE_PRIM,''), ISNULL(VAT_NO,''),ACCOUNT_MASTER.CITY_ID,case when ISNULL(ADDRESS_SEC,'')='' then ISNULL(ADDRESS_PRIM,'') + ' - {'  + ISNULL(CITY_MASTER.CITY_NAME,'') + '}' else ADDRESS_SEC end as Shipping"
             strSql = strSql & " FROM ACCOUNT_MASTER LEFT OUTER JOIN"
             strSql = strSql & " CITY_MASTER ON ACCOUNT_MASTER.CITY_ID = CITY_MASTER.CITY_ID"
             strSql = strSql & " WHERE ACCOUNT_MASTER.ACC_ID = " & cmbSupplier.SelectedValue
@@ -895,87 +833,29 @@ restart:
         'End If
     End Sub
 
-    'Private Function CalculateAmount() As String
-    '    Try
-
-    '        Dim i As Integer
-    '        Dim Str As String
 
 
-    '        Dim total_item_value As Double
-    '        Dim total_vat_amount As Double
-    '        Dim total_exice_amount As Double
-    '        Dim tot_amt As Double
-    '        total_exice_amount = 0
-    '        total_item_value = 0
-    '        total_vat_amount = 0
-    '        tot_amt = 0
-
-
-
-    '        For i = 1 To flxItems.Rows.Count - 1
-    '            'If flxItems.Rows(i).IsNode Then
-    '            total_item_value = total_item_value + (flxItems.Rows(i).Item("transfer_Qty") * flxItems.Rows(i).Item("item_rate"))
-    '            total_vat_amount = total_vat_amount + ((flxItems.Rows(i)("item_rate") * flxItems.Rows(i)("transfer_Qty")) * flxItems.Rows(i)("GST") / 100)
-    '            'End If 
-    '        Next
-
-
-    '        RemoveHandler flxItems.AfterDataRefresh, AddressOf flxItems_AfterDataRefresh
-
-    '        'For i = 1 To flxItems.Rows.Count - 1
-    '        '    With flxItems.Rows(i)
-    '        '        If Not .IsNode Then
-    '        '            .Item("Item_Value") = (.Item("transfer_Qty") * .Item("Item_Rate")) '+ ((.Item("PO_Qty") * .Item("Item_Rate") * .Item("Vat_Per")) / 100)
-    '        '            total_item_value = total_item_value + (.Item("transfer_Qty") * .Item("Item_Rate"))
-    '        '            'exice_per = IIf((.Item("Exice_Per")) Is DBNull.Value, 0, .Item("Exice_Per"))
-    '        '            'exice_per = exice_per / 100
-    '        '            'total_exice_amount = total_exice_amount + (.Item("Item_Value") * exice_per)
-
-    '        '            'If chk_VatCal.Checked = True Then
-    '        '            '    total_vat_amount = total_vat_amount + ((((.Item("PO_Qty") * .Item("Item_Rate")) + (.Item("Item_Value") * exice_per) - ((.Item("item_value") / tot_amt) * Convert.ToDouble(txtDiscountAmount.Text))) * .Item("Vat_Per")) / 100)
-    '        '            'Else
-    '        '            '    total_vat_amount = total_vat_amount + ((((.Item("PO_Qty") * .Item("Item_Rate")) - ((.Item("item_value") / tot_amt) * Convert.ToDouble(txtDiscountAmount.Text))) * .Item("Vat_Per")) / 100)
-    '        '            'End If
-    '        '            total_vat_amount = total_vat_amount + ((((.Item("transfer_Qty") * .Item("Item_Rate")) - ((.Item("item_value") / tot_amt))) * .Item("GST")) / 100)
-
-    '        '        End If
-    '        '    End With
-    '        'Next
-
-    '        AddHandler flxItems.AfterDataRefresh, AddressOf flxItems_AfterDataRefresh
-
-    '        lblItemValue.Text = total_item_value.ToString("#0.00")
-    '        lblVatAmount.Text = total_vat_amount.ToString("#0.00")
-    '        lblNetAmount.Text = (total_item_value + total_vat_amount + total_exice_amount).ToString("#0.00")
-    '        Str = total_item_value.ToString("#0.00") + "," + total_vat_amount.ToString("#0.00") + "," + lblNetAmount.Text + "," + total_exice_amount.ToString()
-    '        Return Str
-    '    Catch ex As Exception
-    '        'MsgBox(ex.Message)
-    '    End Try
-    '    Return ""
-    'End Function
     Private Function CalculateAmount() As String
         Try
 
             Dim i As Integer
             Dim Str As String
 
-            Dim total_item_value As Double
-            Dim total_vat_amount As Double
-            Dim total_exice_amount As Double
-            Dim tot_amt As Double
-            total_exice_amount = 0
-            total_item_value = 0
-            total_vat_amount = 0
-            tot_amt = 0
+            Dim total_item_value As Decimal
+            Dim total_vat_amount As Decimal
+            Dim total_exice_amount As Decimal
+            Dim tot_amt As Decimal
+            total_exice_amount = 0.0
+            total_item_value = 0.0
+            total_vat_amount = 0.0
+            tot_amt = 0.0
 
             Dim discamt As Decimal = 0.0
             Dim totdiscamt As Decimal = 0.0
+            Dim Gpaid As Decimal = 0.0
             Dim totQty As Decimal = 0.0
 
             For i = 1 To flxItems.Rows.Count - 1
-                'If flxItems.Rows(i).IsNode Then
 
                 If flxItems.Rows(i).Item("item_rate") > 0 Then
                     totQty = totQty + flxItems.Rows(i).Item("transfer_Qty")
@@ -983,19 +863,28 @@ restart:
 
                 total_item_value = total_item_value + (flxItems.Rows(i).Item("transfer_Qty") * flxItems.Rows(i).Item("item_rate"))
 
-                If (flxItems.Rows(i).Item("DType")) = "P" Then
-                    discamt = Math.Round((flxItems.Rows(i).Item("Amount") * flxItems.Rows(i).Item("DISC") / 100), 2)
-                    totdiscamt = totdiscamt + ((flxItems.Rows(i).Item("transfer_Qty") * flxItems.Rows(i).Item("item_rate")) * flxItems.Rows(i)("DISC") / 100)
-                    total_vat_amount = total_vat_amount + (((flxItems.Rows(i).Item("transfer_Qty") * flxItems.Rows(i).Item("item_rate")) - ((flxItems.Rows(i).Item("transfer_Qty") * flxItems.Rows(i).Item("item_rate")) * flxItems.Rows(i)("DISC") / 100)) * flxItems.Rows(i)("GST") / 100)
-                Else
-                    discamt = Math.Round((flxItems.Rows(i).Item("DISC")), 2)
-                    totdiscamt = totdiscamt + flxItems.Rows(i)("DISC")
-                    total_vat_amount = total_vat_amount + (((flxItems.Rows(i).Item("transfer_Qty") * flxItems.Rows(i).Item("item_rate")) - discamt) * flxItems.Rows(i)("GST") / 100)
+                If (flxItems.Rows(i).Item("DType")) IsNot Nothing Then
+
+                    If (flxItems.Rows(i).Item("GPAID")) = "Y" Then
+                        Gpaid = ((flxItems.Rows(i).Item("Amount") - (flxItems.Rows(i).Item("Amount") * flxItems.Rows(i).Item("DISC") / 100))) - ((flxItems.Rows(i).Item("Amount") - (flxItems.Rows(i).Item("Amount") * flxItems.Rows(i).Item("DISC") / 100))) / (1 + (flxItems.Rows(i).Item("GST") / 100))
+                    End If
+
+
+                    If (flxItems.Rows(i).Item("DType")) = "P" Then
+                        discamt = (flxItems.Rows(i).Item("Amount") * flxItems.Rows(i).Item("DISC") / 100) + Gpaid
+                        totdiscamt = totdiscamt + ((flxItems.Rows(i).Item("transfer_Qty") * flxItems.Rows(i).Item("item_rate")) * flxItems.Rows(i)("DISC") / 100) + Gpaid
+                        total_vat_amount = total_vat_amount + (((flxItems.Rows(i).Item("transfer_Qty") * flxItems.Rows(i).Item("item_rate")) - ((flxItems.Rows(i).Item("transfer_Qty") * flxItems.Rows(i).Item("item_rate")) * flxItems.Rows(i)("DISC") / 100 + Gpaid)) * flxItems.Rows(i)("GST") / 100)
+                    Else
+                        discamt = (flxItems.Rows(i).Item("DISC")) + Gpaid
+                        totdiscamt = totdiscamt + flxItems.Rows(i)("DISC") + Gpaid
+                        total_vat_amount = total_vat_amount + (((flxItems.Rows(i).Item("transfer_Qty") * flxItems.Rows(i).Item("item_rate")) - discamt) * flxItems.Rows(i)("GST") / 100)
+                    End If
+
+                    flxItems.Rows(i).Item("GST_Amount") = Math.Round((flxItems.Rows(i).Item("Amount") - discamt) * (flxItems.Rows(i).Item("GST") / 100), 2)
+                    flxItems.Rows(i).Item("LandingAmt") = Math.Round((flxItems.Rows(i).Item("Amount") - discamt) + (flxItems.Rows(i).Item("GST_Amount")), 2)
+
                 End If
-
-                flxItems.Rows(i).Item("GST_Amount") = Math.Round((flxItems.Rows(i).Item("Amount") - discamt) * (flxItems.Rows(i).Item("GST") / 100), 2)
-                flxItems.Rows(i).Item("LandingAmt") = Math.Round((flxItems.Rows(i).Item("Amount") - discamt) + (flxItems.Rows(i).Item("GST_Amount")), 2)
-
+                Gpaid = 0.0
             Next
 
 

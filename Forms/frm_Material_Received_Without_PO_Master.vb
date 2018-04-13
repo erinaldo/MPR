@@ -1134,12 +1134,12 @@ restart:
         End If
         AddHandler FLXGRD_MatItem_NonStockable.AfterDataRefresh, AddressOf FLXGRD_MatItem_NonStockable_AfterDataRefresh
 
-        FLXGRD_MatItem_NonStockable.Tree.Style = TreeStyleFlags.CompleteLeaf
-        FLXGRD_MatItem_NonStockable.Tree.Column = 3
-        FLXGRD_MatItem_NonStockable.AllowMerging = AllowMergingEnum.Nodes
+        'FLXGRD_MatItem_NonStockable.Tree.Style = TreeStyleFlags.CompleteLeaf
+        'FLXGRD_MatItem_NonStockable.Tree.Column = 3
+        'FLXGRD_MatItem_NonStockable.AllowMerging = AllowMergingEnum.Nodes
 
-        Dim totalOn As Integer = FLXGRD_MatItem_NonStockable.Cols("BATCH_Qty").SafeIndex
-        FLXGRD_MatItem_NonStockable.Subtotal(AggregateEnum.Sum, 0, 4, totalOn)
+        'Dim totalOn As Integer = FLXGRD_MatItem_NonStockable.Cols("BATCH_Qty").SafeIndex
+        'FLXGRD_MatItem_NonStockable.Subtotal(AggregateEnum.Sum, 0, 4, totalOn)
 
         Dim cs As C1.Win.C1FlexGrid.CellStyle
 
