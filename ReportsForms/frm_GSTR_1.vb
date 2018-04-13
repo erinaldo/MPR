@@ -388,8 +388,8 @@ Public Class frm_GSTR_1
 
         Qry = " SELECT HsnCode_vch, ITEM_NAME, UM_Name, UM_DESC, SUM(invd.BAL_ITEM_QTY) AS Qty, " &
             " SUM(((BAL_ITEM_QTY * BAL_ITEM_RATE) - ISNULL(ITEM_DISCOUNT,0))) AS Taxable_Value, SUM(0) Cess_Amount," &
-            " SUM(CASE WHEN sm.STATE_ID =4 THEN invd.VAT_AMOUNT ELSE 0 END) AS non_integrated_tax," &
-            " SUM(CASE WHEN sm.STATE_ID !=4 THEN invd.VAT_AMOUNT ELSE 0 END) AS integrated_tax" &
+            " SUM(CASE WHEN inv.INV_TYPE <> 'I' THEN invd.VAT_AMOUNT ELSE 0 END) AS non_integrated_tax," &
+            " SUM(CASE WHEN inv.INV_TYPE = 'I' THEN invd.VAT_AMOUNT ELSE 0 END) AS integrated_tax" &
             " FROM    dbo.SALE_INVOICE_MASTER inv" &
             " INNER JOIN dbo.SALE_INVOICE_DETAIL invd ON invd.SI_ID = inv.SI_ID" &
             " INNER JOIN dbo.ITEM_MASTER im ON invd.ITEM_ID = im.ITEM_ID" &
