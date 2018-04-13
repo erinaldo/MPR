@@ -46,6 +46,7 @@ Public Class frm_GSTR_3
             xlApp.Quit()
             releaseObject(xlApp)
             releaseObject(xlWorkBook)
+            MsgBox("GSTR 3 exported sucessfully", MsgBoxStyle.Information, gblMessageHeading)
         End Try
     End Sub
 
