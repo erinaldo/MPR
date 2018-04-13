@@ -345,7 +345,7 @@ again:
 
         flxItems.Cols("Item_Id").Width = 40
         flxItems.Cols("Item_Code").Width = 70
-        flxItems.Cols("Item_Name").Width = 250
+        flxItems.Cols("Item_Name").Width = 350
         flxItems.Cols("UM_Name").Width = 40
         flxItems.Cols("Batch_No").Width = 70
         flxItems.Cols("Expiry_date").Width = 80
@@ -367,13 +367,13 @@ again:
         format_grid()
 
         If flxItems.Rows.Count > 1 Then
-            flxItems.Tree.Style = TreeStyleFlags.CompleteLeaf
-            flxItems.Tree.Column = 2
-            flxItems.AllowMerging = AllowMergingEnum.None
-            Dim totalOn As Integer = flxItems.Cols("Batch_Qty").SafeIndex
-            flxItems.Subtotal(AggregateEnum.Sum, 0, 3, totalOn)
-            totalOn = flxItems.Cols("transfer_Qty").SafeIndex
-            flxItems.Subtotal(AggregateEnum.Sum, 0, 3, totalOn)
+            'flxItems.Tree.Style = TreeStyleFlags.CompleteLeaf
+            'flxItems.Tree.Column = 2
+            'flxItems.AllowMerging = AllowMergingEnum.None
+            'Dim totalOn As Integer = flxItems.Cols("Batch_Qty").SafeIndex
+            'flxItems.Subtotal(AggregateEnum.Sum, 0, 3, totalOn)
+            'totalOn = flxItems.Cols("transfer_Qty").SafeIndex
+            'flxItems.Subtotal(AggregateEnum.Sum, 0, 3, totalOn)
 
             Dim cs As C1.Win.C1FlexGrid.CellStyle
             cs = Me.flxItems.Styles.Add("transfer_Qty")

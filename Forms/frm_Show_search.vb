@@ -23,8 +23,8 @@ Public Class frm_Show_search
     Private Sub frm_Show_search_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Try
 
-           
 
+            txtSearch.Text = ""
             GroupBox1.Width = Me.Width - 20
             grdSearch.Width = Me.Width - 50
             grdSearch.ScrollBars = ScrollBars.Vertical

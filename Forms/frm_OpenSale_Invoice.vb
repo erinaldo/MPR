@@ -449,13 +449,13 @@ again:
         format_grid()
 
         If flxItems.Rows.Count > 1 Then
-            flxItems.Tree.Style = TreeStyleFlags.CompleteLeaf
-            flxItems.Tree.Column = 2
-            flxItems.AllowMerging = AllowMergingEnum.None
-            Dim totalOn As Integer = flxItems.Cols("Batch_Qty").SafeIndex
-            flxItems.Subtotal(AggregateEnum.Sum, 0, 3, totalOn)
-            totalOn = flxItems.Cols("transfer_Qty").SafeIndex
-            flxItems.Subtotal(AggregateEnum.Sum, 0, 3, totalOn)
+            'flxItems.Tree.Style = TreeStyleFlags.CompleteLeaf
+            'flxItems.Tree.Column = 2
+            'flxItems.AllowMerging = AllowMergingEnum.None
+            'Dim totalOn As Integer = flxItems.Cols("Batch_Qty").SafeIndex
+            'flxItems.Subtotal(AggregateEnum.Sum, 0, 3, totalOn)
+            'totalOn = flxItems.Cols("transfer_Qty").SafeIndex
+            'flxItems.Subtotal(AggregateEnum.Sum, 0, 3, totalOn)
 
             Dim cs1 As C1.Win.C1FlexGrid.CellStyle
             cs1 = Me.flxItems.Styles.Add("Item_Rate")
@@ -676,7 +676,7 @@ restart:
 
         If Convert.ToDecimal(flxItems.Rows(e.Row)("transfer_Qty")) > Convert.ToDecimal(flxItems.Rows(e.Row)("Batch_Qty")) Then
             flxItems.Rows(e.Row)("transfer_Qty") = 0.0
-            generate_tree()
+            ' generate_tree()
         Else
             Dim discamt As Decimal = 0.0
 
@@ -707,11 +707,12 @@ restart:
             'flxItems.Rows(e.Row)("GST_Amount") = Math.Round((flxItems.Rows(e.Row)("Amount") - discamt) * (flxItems.Rows(e.Row)("GST") / 100), 2)
             'flxItems.Rows(e.Row)("LandingAmt") = Math.Round((flxItems.Rows(e.Row)("Amount") - discamt) + (flxItems.Rows(e.Row)("GST_Amount")), 2)
 
-            generate_tree()
+            '  generate_tree()
 
         End If
 
         CalculateAmount()
+
     End Sub
 
     Private Sub txtSearch_KeyUp(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles txtSearch.KeyUp
@@ -914,7 +915,7 @@ restart:
 
         Dim strSql As String
         If cmbSupplier.SelectedValue <> -1 Then
-            strSql = "SELECT ISNULL(ACCOUNT_MASTER.ADDRESS_PRIM,'') + ' - {'  + ISNULL(CITY_MASTER.CITY_NAME,'') + '}', ISNULL(PHONE_PRIM,'')As PHONE_PRIM, ISNULL(VAT_NO,0)as VAT_NO,ACCOUNT_MASTER.CITY_ID,ISNULL(case when ISNULL(ADDRESS_SEC,'')='' then ADDRESS_PRIM + ' - {'  + ISNULL(CITY_MASTER.CITY_NAME,'') + '}' else ADDRESS_SEC end,'') as Shipping"
+            strSql = "SELECT ISNULL(ACCOUNT_MASTER.ADDRESS_PRIM,'') + ' - {'  + ISNULL(CITY_MASTER.CITY_NAME,'') + '}', ISNULL(PHONE_PRIM,'')As PHONE_PRIM, ISNULL(VAT_NO,'')as VAT_NO,ACCOUNT_MASTER.CITY_ID,ISNULL(case when ISNULL(ADDRESS_SEC,'')='' then ISNULL(ADDRESS_PRIM,'') + ' - {'  + ISNULL(CITY_MASTER.CITY_NAME,'') + '}' else ADDRESS_SEC end,'') as Shipping"
             strSql = strSql & " FROM ACCOUNT_MASTER LEFT OUTER JOIN"
             strSql = strSql & " CITY_MASTER ON ACCOUNT_MASTER.CITY_ID = CITY_MASTER.CITY_ID"
             strSql = strSql & " WHERE ACCOUNT_MASTER.ACC_ID = " & cmbSupplier.SelectedValue
