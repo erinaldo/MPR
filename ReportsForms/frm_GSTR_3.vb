@@ -155,16 +155,42 @@ Public Class frm_GSTR_3
     End Function
 
     Private Function Get5SectionData() As DataRow
-        Qry = " SELECT " &
-             " SUM(CASE WHEN inv.INV_TYPE <>'I' THEN ((BAL_ITEM_QTY * BAL_ITEM_RATE) - ISNULL(ITEM_DISCOUNT,0)) ELSE 0 END) AS IntraState_TaxableValue, " &
-             " SUM(CASE WHEN inv.INV_TYPE ='I' THEN ((BAL_ITEM_QTY * BAL_ITEM_RATE) - ISNULL(ITEM_DISCOUNT,0)) ELSE 0 END) AS InterState_TaxableValue " &
-             " FROM    dbo.SALE_INVOICE_MASTER inv " &
-             " INNER JOIN dbo.SALE_INVOICE_DETAIL invd ON invd.SI_ID = inv.SI_ID" &
-             " INNER JOIN dbo.ACCOUNT_MASTER am ON am.ACC_ID = inv.CUST_ID " &
-             " INNER JOIN dbo.CITY_MASTER cm ON cm.CITY_ID = am.CITY_ID " &
-             " INNER JOIN dbo.STATE_MASTER sm ON sm.STATE_ID = cm.STATE_ID " &
-             " WHERE (invd.VAT_PER)=0 And MONTH(SI_DATE) =  " & txtFromDate.Value.Month &
-             " And YEAR(SI_DATE)=  " & txtFromDate.Value.Year
+        Qry = "SELECT  SUM(CASE WHEN inv.INV_TYPE <> 'I'
+                 THEN ( ( BAL_ITEM_QTY * BAL_ITEM_RATE )
+                        - ISNULL(CASE WHEN DISCOUNT_TYPE = 'P'
+                                      THEN ( ( BAL_ITEM_QTY * BAL_ITEM_RATE )
+                                             * DISCOUNT_VALUE ) / 100
+                                      ELSE DISCOUNT_VALUE
+                                 END, 0) )
+                 ELSE 0
+            END) AS IntraState_TaxableValue ,
+        SUM(CASE WHEN inv.INV_TYPE = 'I'
+                 THEN ( ( BAL_ITEM_QTY * BAL_ITEM_RATE )
+                        - ISNULL(CASE WHEN DISCOUNT_TYPE = 'P'
+                                      THEN ( ( BAL_ITEM_QTY * BAL_ITEM_RATE )
+                                             * DISCOUNT_VALUE ) / 100
+                                      ELSE DISCOUNT_VALUE
+                                 END, 0) )
+                 ELSE 0
+            END) AS InterState_TaxableValue
+FROM    dbo.SALE_INVOICE_MASTER inv
+        INNER JOIN dbo.SALE_INVOICE_DETAIL invd ON invd.SI_ID = inv.SI_ID
+        INNER JOIN dbo.ACCOUNT_MASTER am ON am.ACC_ID = inv.CUST_ID
+        INNER JOIN dbo.CITY_MASTER cm ON cm.CITY_ID = am.CITY_ID
+        INNER JOIN dbo.STATE_MASTER sm ON sm.STATE_ID = cm.STATE_ID
+WHERE   (invd.VAT_PER ) = 0
+        AND MONTH(SI_DATE) =  " & txtFromDate.Value.Month &
+       " AND YEAR(SI_DATE) =  " & txtFromDate.Value.Year
+        'Qry = " SELECT " &
+        '     " SUM(CASE WHEN inv.INV_TYPE <>'I' THEN ((BAL_ITEM_QTY * BAL_ITEM_RATE) - ISNULL(ITEM_DISCOUNT,0)) ELSE 0 END) AS IntraState_TaxableValue, " &
+        '     " SUM(CASE WHEN inv.INV_TYPE ='I' THEN ((BAL_ITEM_QTY * BAL_ITEM_RATE) - ISNULL(ITEM_DISCOUNT,0)) ELSE 0 END) AS InterState_TaxableValue " &
+        '     " FROM    dbo.SALE_INVOICE_MASTER inv " &
+        '     " INNER JOIN dbo.SALE_INVOICE_DETAIL invd ON invd.SI_ID = inv.SI_ID" &
+        '     " INNER JOIN dbo.ACCOUNT_MASTER am ON am.ACC_ID = inv.CUST_ID " &
+        '     " INNER JOIN dbo.CITY_MASTER cm ON cm.CITY_ID = am.CITY_ID " &
+        '     " INNER JOIN dbo.STATE_MASTER sm ON sm.STATE_ID = cm.STATE_ID " &
+        '     " WHERE (invd.VAT_PER)=0 And MONTH(SI_DATE) =  " & txtFromDate.Value.Month &
+        '     " And YEAR(SI_DATE)=  " & txtFromDate.Value.Year
         Return objCommFunction.Fill_DataSet(Qry).Tables(0).Rows(0)
     End Function
 
@@ -242,34 +268,109 @@ Public Class frm_GSTR_3
     End Function
 
     Private Function Get3_2_SectionData() As System.Data.DataTable
-        Qry = " SELECT STATE_CODE, STATE_NAME, " &
-             " SUM(((BAL_ITEM_QTY * BAL_ITEM_RATE) - ISNULL(ITEM_DISCOUNT,0))) As Taxable_Value, " &
-             " SUM(invd.VAT_AMOUNT) as integrated_tax " &
-             " FROM dbo.SALE_INVOICE_MASTER inv " &
-             " INNER JOIN dbo.SALE_INVOICE_DETAIL invd ON invd.SI_ID = inv.SI_ID" &
-             " INNER JOIN dbo.ACCOUNT_MASTER am ON am.ACC_ID = inv.CUST_ID " &
-             " INNER JOIN dbo.CITY_MASTER cm ON cm.CITY_ID = am.CITY_ID " &
-             " INNER JOIN dbo.STATE_MASTER sm ON sm.STATE_ID = cm.STATE_ID " &
-             " WHERE MONTH(SI_DATE) =  " & txtFromDate.Value.Month &
-             " And YEAR(SI_DATE) =  " & txtFromDate.Value.Year &
-             " AND inv.INV_TYPE='I' " &
-             " AND len(isnull(VAT_NO,''))=0 Group By STATE_CODE, STATE_NAME"
+
+        Qry = " 
+ SELECT STATE_CODE ,
+        STATE_NAME ,
+        CAST(SUM(CASE WHEN GSTPaid = 'Y'
+                      THEN Taxable_Value - ( Taxable_Value - ( Taxable_Value
+                                                              / ( 1 + VAT_PER
+                                                              / 100 ) ) )
+                      ELSE Taxable_Value
+                 END) AS DECIMAL(18, 2)) AS Taxable_Value ,
+        SUM(integrated_tax) AS integrated_tax
+ FROM   ( SELECT    STATE_CODE ,
+                    STATE_NAME ,
+                    SUM(( ( BAL_ITEM_QTY * BAL_ITEM_RATE )
+                          - ISNULL(CASE WHEN DISCOUNT_TYPE = 'P'
+                                        THEN ( ( BAL_ITEM_QTY * BAL_ITEM_RATE )
+                                               * DISCOUNT_VALUE ) / 100
+                                        ELSE DISCOUNT_VALUE
+                                   END, 0) )) AS Taxable_Value ,
+                    SUM(invd.VAT_AMOUNT) AS integrated_tax ,
+                    GSTPaid ,
+                    VAT_PER
+          FROM      dbo.SALE_INVOICE_MASTER inv
+                    INNER JOIN dbo.SALE_INVOICE_DETAIL invd ON invd.SI_ID = inv.SI_ID
+                    INNER JOIN dbo.ACCOUNT_MASTER am ON am.ACC_ID = inv.CUST_ID
+                    INNER JOIN dbo.CITY_MASTER cm ON cm.CITY_ID = am.CITY_ID
+                    INNER JOIN dbo.STATE_MASTER sm ON sm.STATE_ID = cm.STATE_ID
+          WHERE     MONTH(SI_DATE) =" & txtFromDate.Value.Month &
+                    " AND YEAR(SI_DATE) =" & txtFromDate.Value.Year &
+                    " AND inv.INV_TYPE = 'I'
+                    AND LEN(ISNULL(VAT_NO, '')) = 0
+          GROUP BY  STATE_CODE ,
+                    STATE_NAME ,
+                    GSTPaid ,
+                    VAT_PER
+        ) tb
+ GROUP BY STATE_CODE ,
+        STATE_NAME "
+
+        'Qry = " SELECT STATE_CODE, STATE_NAME, " &
+        '     " SUM(((BAL_ITEM_QTY * BAL_ITEM_RATE) - ISNULL(ITEM_DISCOUNT,0))) As Taxable_Value, " &
+        '     " SUM(invd.VAT_AMOUNT) as integrated_tax " &
+        '     " FROM dbo.SALE_INVOICE_MASTER inv " &
+        '     " INNER JOIN dbo.SALE_INVOICE_DETAIL invd ON invd.SI_ID = inv.SI_ID" &
+        '     " INNER JOIN dbo.ACCOUNT_MASTER am ON am.ACC_ID = inv.CUST_ID " &
+        '     " INNER JOIN dbo.CITY_MASTER cm ON cm.CITY_ID = am.CITY_ID " &
+        '     " INNER JOIN dbo.STATE_MASTER sm ON sm.STATE_ID = cm.STATE_ID " &
+        '     " WHERE MONTH(SI_DATE) =  " & txtFromDate.Value.Month &
+        '     " And YEAR(SI_DATE) =  " & txtFromDate.Value.Year &
+        '     " AND inv.INV_TYPE='I' " &
+        '     " AND len(isnull(VAT_NO,''))=0 Group By STATE_CODE, STATE_NAME"
         Return objCommFunction.Fill_DataSet(Qry).Tables(0)
     End Function
 
     Private Function Get3_1_SectionData(condition As String) As DataRow
-        Qry = " SELECT " &
-             " isnull(SUM(((BAL_ITEM_QTY * BAL_ITEM_RATE) - ISNULL(ITEM_DISCOUNT,0))),0) As Taxable_Value, SUM(0) Cess_Amount, " &
-             " isnull(SUM(CASE WHEN inv.INV_TYPE <>'I' THEN invd.VAT_AMOUNT ELSE 0 END),0) AS non_integrated_tax, " &
-             " isnull(SUM(CASE WHEN inv.INV_TYPE = 'I' THEN invd.VAT_AMOUNT ELSE 0 END),0) AS integrated_tax " &
-             " FROM    dbo.SALE_INVOICE_MASTER inv " &
-             " INNER JOIN dbo.SALE_INVOICE_DETAIL invd ON invd.SI_ID = inv.SI_ID" &
-             " INNER JOIN dbo.ACCOUNT_MASTER am ON am.ACC_ID = inv.CUST_ID " &
-             " INNER JOIN dbo.CITY_MASTER cm ON cm.CITY_ID = am.CITY_ID " &
-             " INNER JOIN dbo.STATE_MASTER sm ON sm.STATE_ID = cm.STATE_ID " &
-             " WHERE MONTH(SI_DATE) =  " & txtFromDate.Value.Month &
-             " And YEAR(SI_DATE)=  " & txtFromDate.Value.Year
-        Qry = Qry + condition
+
+        Qry = " SELECT CAST(SUM(CASE WHEN GSTPaid = 'Y'
+                      THEN Taxable_Value - ( Taxable_Value - ( Taxable_Value
+                                                              / ( 1 + VAT_PER
+                                                              / 100 ) ) )
+                      ELSE Taxable_Value
+                 END) AS DECIMAL(18, 2)) AS Taxable_Value ,
+        ISNULL(SUM(Cess_Amount), 0) AS Cess_Amount ,
+        ISNULL(SUM(non_integrated_tax), 0) AS non_integrated_tax ,
+        ISNULL(SUM(integrated_tax), 0) AS integrated_tax
+ FROM   ( SELECT    ISNULL(SUM(( ( BAL_ITEM_QTY * BAL_ITEM_RATE )
+                                 - ISNULL(CASE WHEN DISCOUNT_TYPE = 'P'
+                                               THEN ( ( BAL_ITEM_QTY
+                                                        * BAL_ITEM_RATE )
+                                                      * DISCOUNT_VALUE ) / 100
+                                               ELSE DISCOUNT_VALUE
+                                          END, 0) )), 0) AS Taxable_Value ,
+                    SUM(0) Cess_Amount ,
+                    ISNULL(SUM(CASE WHEN inv.INV_TYPE <> 'I'
+                                    THEN invd.VAT_AMOUNT
+                                    ELSE 0
+                               END), 0) AS non_integrated_tax ,
+                    ISNULL(SUM(CASE WHEN inv.INV_TYPE = 'I'
+                                    THEN invd.VAT_AMOUNT
+                                    ELSE 0
+                               END), 0) AS integrated_tax ,
+                    GSTPaid ,
+                    VAT_PER
+          FROM      dbo.SALE_INVOICE_MASTER inv
+                    INNER JOIN dbo.SALE_INVOICE_DETAIL invd ON invd.SI_ID = inv.SI_ID
+                    INNER JOIN dbo.ACCOUNT_MASTER am ON am.ACC_ID = inv.CUST_ID
+                    INNER JOIN dbo.CITY_MASTER cm ON cm.CITY_ID = am.CITY_ID
+                    INNER JOIN dbo.STATE_MASTER sm ON sm.STATE_ID = cm.STATE_ID
+          WHERE     MONTH(SI_DATE) = " & txtFromDate.Value.Month &
+                    " AND YEAR(SI_DATE) =" & txtFromDate.Value.Year
+
+        ''Qry = " SELECT " &
+        ''     " isnull(SUM(((BAL_ITEM_QTY * BAL_ITEM_RATE) - ISNULL(ITEM_DISCOUNT,0))),0) As Taxable_Value, SUM(0) Cess_Amount, " &
+        ''     " isnull(SUM(CASE WHEN inv.INV_TYPE <>'I' THEN invd.VAT_AMOUNT ELSE 0 END),0) AS non_integrated_tax, " &
+        ''     " isnull(SUM(CASE WHEN inv.INV_TYPE = 'I' THEN invd.VAT_AMOUNT ELSE 0 END),0) AS integrated_tax " &
+        ''     " FROM    dbo.SALE_INVOICE_MASTER inv " &
+        ''     " INNER JOIN dbo.SALE_INVOICE_DETAIL invd ON invd.SI_ID = inv.SI_ID" &
+        ''     " INNER JOIN dbo.ACCOUNT_MASTER am ON am.ACC_ID = inv.CUST_ID " &
+        ''     " INNER JOIN dbo.CITY_MASTER cm ON cm.CITY_ID = am.CITY_ID " &
+        ''     " INNER JOIN dbo.STATE_MASTER sm ON sm.STATE_ID = cm.STATE_ID " &
+        ''     " WHERE MONTH(SI_DATE) =  " & txtFromDate.Value.Month &
+        ''     " And YEAR(SI_DATE)=  " & txtFromDate.Value.Year
+        Qry = Qry + condition + " GROUP BY  GSTPaid ,VAT_PER) tb"
         Return objCommFunction.Fill_DataSet(Qry).Tables(0).Rows(0)
     End Function
 
