@@ -2153,7 +2153,8 @@
     <Content Include="Scripts\2018Update\0005_10_Mar_2018_DebitNote_WO_Items.sql" />
     <Content Include="Scripts\2018Update\0004_27_Feb_2018_DBbackup.sql" />
     <Content Include="Scripts\2018Update\0007_05_Apr_2018_MMSLedgerUpdations.sql" />
-    <Content Include="Scripts\2018Update\0008_11_Apr_2018_editinvoce.sql" />
+    <Content Include="Scripts\2018Update\0008_11_Apr_2018_editinvoice.sql" />
+    <Content Include="Scripts\2018Update\0009_18_Apr_2018_StockUpdate.sql" />
     <Content Include="Scripts\Updates\00001_29_Dec_Add_Duty_And_Taxes.sql" />
     <Content Include="Scripts\Updates\0001_04_Jan_2018_Stock_Transfer.sql" />
     <Content Include="Scripts\Updates\0001_16_JAN_2018.sql" />
