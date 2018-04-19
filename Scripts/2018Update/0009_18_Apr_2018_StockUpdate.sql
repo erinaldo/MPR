@@ -1,4 +1,12 @@
-﻿ALTER PROCEDURE [dbo].[PROC_ITEM_DETAIL]
+﻿
+insert INTO dbo.DBScriptUpdateLog
+        ( LogFileName, ExecuteDateTime )
+VALUES  ( '0009_18_Apr_2018_StockUpdate',
+          GETDATE()
+          )
+
+  Go
+ALTER PROCEDURE [dbo].[PROC_ITEM_DETAIL]
     (
       @v_ITEM_ID DECIMAL ,
       @v_DIV_ID INT ,

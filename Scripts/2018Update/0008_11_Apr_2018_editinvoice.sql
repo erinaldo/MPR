@@ -1,4 +1,12 @@
-﻿ALTER PROCEDURE [dbo].[GET_INV_ITEM_DETAILS] ( @V_SI_ID NUMERIC(18, 0) )      
+﻿
+insert INTO dbo.DBScriptUpdateLog
+        ( LogFileName, ExecuteDateTime )
+VALUES  ( '0008_11_Apr_2018_editinvoice',
+          GETDATE()
+          )
+
+  Go
+ALTER PROCEDURE [dbo].[GET_INV_ITEM_DETAILS] ( @V_SI_ID NUMERIC(18, 0) )      
 AS      
     BEGIN       
       
