@@ -169,7 +169,7 @@ Public Class frm_Sale_Invoice
             prpty.SHIPP_ADD_ID = 0
             prpty.INV_TYPE = cmbinvtype.SelectedItem
             prpty.LR_NO = txt_LRNO.Text
-            prpty.Flag = 1
+            prpty.Flag = 0
             prpty.dtable_Item_List = dtable_Item_List
 
             If flag = "save" Then

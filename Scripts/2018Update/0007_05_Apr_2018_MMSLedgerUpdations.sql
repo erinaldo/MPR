@@ -1,7 +1,7 @@
 
 insert INTO dbo.DBScriptUpdateLog
         ( LogFileName, ExecuteDateTime )
-VALUES  ( '0006_21_Mar_2018_CreditNote_WO_Items',
+VALUES  ( '0007_05_Apr_2018_MMSLedgerUpdations',
           GETDATE()
           )
 

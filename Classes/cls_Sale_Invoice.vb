@@ -390,9 +390,9 @@ again:
                             OrderDataRow("DType") = items_DataRow("DType")
                             OrderDataRow("DISC") = items_DataRow("DISC")
                             OrderDataRow("Amount") = items_DataRow("Amount")
-                            If (clsobj.Flag = 1) Then
-                                OrderDataRow("GPAID") = items_DataRow("GPAID")
-                            End If
+                            'If (clsobj.Flag = 1) Then
+                            OrderDataRow("GPAID") = items_DataRow("GPAID")
+                            'End If
 
                             Dtitemsnew.Rows.Add(OrderDataRow)
                             Dtitemsnew.AcceptChanges()
@@ -425,9 +425,9 @@ again:
                         cmd.Parameters.AddWithValue("@v_DISCOUNT_TYPE", Dtitemsnew.Rows(i)("DType"))
                         cmd.Parameters.AddWithValue("@v_DISCOUNT_VALUE", Dtitemsnew.Rows(i)("DISC"))
                         cmd.Parameters.AddWithValue("@V_MODE", 1)
-                        If (clsobj.Flag = 1) Then
-                            cmd.Parameters.AddWithValue("@v_GSTPAID", Dtitemsnew.Rows(i)("GPAID"))
-                        End If
+                        'If (clsobj.Flag = 1) Then
+                        cmd.Parameters.AddWithValue("@v_GSTPAID", Dtitemsnew.Rows(i)("GPAID"))
+                        'End If
 
                         cmd.ExecuteNonQuery()
                     Next
@@ -713,9 +713,9 @@ again:
                             OrderDataRow("HsnCodeId") = items_DataRow("HsnCodeId")
                             OrderDataRow("DType") = items_DataRow("DType")
                             OrderDataRow("DISC") = items_DataRow("DISC")
-                            If (clsobj.Flag = 1) Then
-                                OrderDataRow("GPAID") = items_DataRow("GPAID")
-                            End If
+                            'If (clsobj.Flag = 1) Then
+                            OrderDataRow("GPAID") = items_DataRow("GPAID")
+                            'End If
                             OrderDataRow("Amount") = items_DataRow("Amount")
                             Dtitemsnew.Rows.Add(OrderDataRow)
                             Dtitemsnew.AcceptChanges()
@@ -750,9 +750,9 @@ again:
                         cmd.Parameters.AddWithValue("@v_DISCOUNT_TYPE", Dtitemsnew.Rows(i)("DType"))
                         cmd.Parameters.AddWithValue("@v_DISCOUNT_VALUE", Dtitemsnew.Rows(i)("DISC"))
                         cmd.Parameters.AddWithValue("@V_MODE", 1)
-                        If (clsobj.Flag = 1) Then
-                            cmd.Parameters.AddWithValue("@v_GSTPAID", Dtitemsnew.Rows(i)("GPAID"))
-                        End If
+                        'If (clsobj.Flag = 1) Then
+                        cmd.Parameters.AddWithValue("@v_GSTPAID", Dtitemsnew.Rows(i)("GPAID"))
+                        'End If
                         cmd.ExecuteNonQuery()
                     Next
 
