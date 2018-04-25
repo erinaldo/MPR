@@ -6,6 +6,8 @@ Imports CrystalDecisions.CrystalReports.Engine
 Imports CrystalDecisions.ReportSource
 Imports CrystalDecisions.Shared
 Imports System.Xml
+Imports System.IO
+Imports Microsoft.Office.Interop
 
 Public Class CommonClass
     Inherits Connection
@@ -1636,5 +1638,50 @@ again:
         Dim Values1 As Array = [Enum].GetValues(enm.GetType())
         cmb.Items.Clear()
         cmb.DataSource = Values1
+    End Sub
+    Public Sub ExportGridToExcel(dgv As DataGridView)
+
+        Dim sfd As New SaveFileDialog
+        sfd.CheckFileExists = False
+        If sfd.ShowDialog <> Windows.Forms.DialogResult.OK Then
+            Exit Sub
+        End If
+
+
+        Dim APP As New Excel.Application
+        Dim worksheet As Excel.Worksheet
+        Dim workbook As Excel.Workbook
+        Dim excelLocation As String = sfd.FileName
+
+        workbook = APP.Workbooks.Add(System.Reflection.Missing.Value)
+        worksheet = workbook.Sheets("sheet1")
+        'Excel.Range("A50:I50").EntireColumn.AutoFit()
+        With workbook
+            .Sheets("Sheet1").Select()
+            .Sheets(1).Name = "TAX Report"
+        End With
+
+        'Export Header Names Start
+        Dim columnsCount As Integer = dgv.Columns.Count
+        For Each column As DataGridViewColumn In dgv.Columns
+            worksheet.Cells(1, column.Index + 1).Value = column.HeaderText
+        Next
+        'Export Header Name End
+
+
+        'Export Each Row Start
+        For rowIndex As Integer = 0 To dgv.Rows.Count - 1
+            Dim columnIndex As Integer = 0
+            Do Until columnIndex = columnsCount
+                worksheet.Cells(rowIndex + 2, columnIndex + 1).Value =
+                   Convert.ToString(dgv.Item(columnIndex, rowIndex).Value)
+                columnIndex += 1
+            Loop
+        Next
+        'Export Each Row End
+
+        workbook.SaveAs(excelLocation)
+        APP.Workbooks.Open(excelLocation)
+        APP.Visible = True
     End Sub
 End Class

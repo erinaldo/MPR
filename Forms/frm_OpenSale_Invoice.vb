@@ -149,7 +149,7 @@ Public Class frm_openSale_Invoice
             If NEWCUST = 0 Then
                 prpty.CUST_ID = cmbSupplier.SelectedValue
             Else
-                Dim dscust As DataSet = clsObj.GetDCDetail_remote("Select isnull(max(ACC_ID),0) + 1 from dbo.ACCOUNT_MASTER WHERE ACC_ID<9999")
+                Dim dscust As DataSet = clsObj.GetDCDetail_remote("Select isnull(max(ACC_ID),0) + 1 from dbo.ACCOUNT_MASTER WHERE ACC_ID<10000")
                 prpty.CUST_ID = Convert.ToInt32(dscust.Tables(0).Rows(0)(0))
 
                 clsObj.Insert_New_Customer_Remote(prpty.CUST_ID, txtcustomer_name.Text, txtAddress.Text, txtShippingAddress.Text, txt_txtphoneNo.Text, txtGstNo.Text, Convert.ToInt32(cmbCity.SelectedValue))

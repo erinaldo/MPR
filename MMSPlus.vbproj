@@ -281,6 +281,18 @@
     <Compile Include="Forms\frm_Print_Barcode.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="ReportsForms\frm_SaleTaxRegister.Designer.vb">
+      <DependentUpon>frm_SaleTaxRegister.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ReportsForms\frm_SaleTaxRegister.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ReportsForms\frm_PurchaseTaxRegister.Designer.vb">
+      <DependentUpon>frm_PurchaseTaxRegister.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ReportsForms\frm_PurchaseTaxRegister.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="ReportsForms\frm_GSTR_1.Designer.vb">
       <DependentUpon>frm_GSTR_1.vb</DependentUpon>
     </Compile>
@@ -1583,6 +1595,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ReportsForms\frm_DebtorsOS.resx">
       <DependentUpon>frm_DebtorsOS.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportsForms\frm_SaleTaxRegister.resx">
+      <DependentUpon>frm_SaleTaxRegister.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportsForms\frm_PurchaseTaxRegister.resx">
+      <DependentUpon>frm_PurchaseTaxRegister.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ReportsForms\frm_GSTR_1.resx">
       <DependentUpon>frm_GSTR_1.vb</DependentUpon>
