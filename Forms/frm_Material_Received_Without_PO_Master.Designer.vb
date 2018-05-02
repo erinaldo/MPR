@@ -36,7 +36,6 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.Panel19 = New System.Windows.Forms.Panel()
         Me.lnkCalculateAmount = New System.Windows.Forms.LinkLabel()
         Me.Label9 = New System.Windows.Forms.Label()
-        Me.Panel18 = New System.Windows.Forms.Panel()
         Me.Panel13 = New System.Windows.Forms.Panel()
         Me.cmb_MRNAgainst = New System.Windows.Forms.ComboBox()
         Me.Panel14 = New System.Windows.Forms.Panel()
@@ -192,6 +191,8 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.Label46 = New System.Windows.Forms.Label()
         Me.Label47 = New System.Windows.Forms.Label()
         Me.Label48 = New System.Windows.Forms.Label()
+        Me.lblcessamt = New System.Windows.Forms.Label()
+        Me.Label57 = New System.Windows.Forms.Label()
         Me.TbPO.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.GroupBox5.SuspendLayout()
@@ -325,12 +326,13 @@ Partial Class frm_Material_Received_Without_PO_Master
         'TabPage2
         '
         Me.TabPage2.BackColor = System.Drawing.Color.DimGray
+        Me.TabPage2.Controls.Add(Me.lblcessamt)
         Me.TabPage2.Controls.Add(Me.lblexciseamt)
+        Me.TabPage2.Controls.Add(Me.Label57)
         Me.TabPage2.Controls.Add(Me.Label11)
         Me.TabPage2.Controls.Add(Me.Panel19)
         Me.TabPage2.Controls.Add(Me.lnkCalculateAmount)
         Me.TabPage2.Controls.Add(Me.Label9)
-        Me.TabPage2.Controls.Add(Me.Panel18)
         Me.TabPage2.Controls.Add(Me.Panel13)
         Me.TabPage2.Controls.Add(Me.cmb_MRNAgainst)
         Me.TabPage2.Controls.Add(Me.Panel14)
@@ -420,14 +422,6 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.Label9.Size = New System.Drawing.Size(51, 15)
         Me.Label9.TabIndex = 46
         Me.Label9.Text = "Frieght :"
-        '
-        'Panel18
-        '
-        Me.Panel18.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel18.Location = New System.Drawing.Point(579, 399)
-        Me.Panel18.Name = "Panel18"
-        Me.Panel18.Size = New System.Drawing.Size(1, 126)
-        Me.Panel18.TabIndex = 45
         '
         'Panel13
         '
@@ -2080,6 +2074,28 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.Label48.TabIndex = 0
         Me.Label48.Text = "Delivery Rate :"
         '
+        'lblcessamt
+        '
+        Me.lblcessamt.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblcessamt.ForeColor = System.Drawing.Color.Orange
+        Me.lblcessamt.Location = New System.Drawing.Point(778, 467)
+        Me.lblcessamt.Name = "lblcessamt"
+        Me.lblcessamt.Size = New System.Drawing.Size(118, 20)
+        Me.lblcessamt.TabIndex = 19
+        Me.lblcessamt.Text = "0.00"
+        Me.lblcessamt.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'Label57
+        '
+        Me.Label57.AutoSize = True
+        Me.Label57.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label57.ForeColor = System.Drawing.Color.White
+        Me.Label57.Location = New System.Drawing.Point(646, 471)
+        Me.Label57.Name = "Label57"
+        Me.Label57.Size = New System.Drawing.Size(90, 15)
+        Me.Label57.TabIndex = 20
+        Me.Label57.Text = "CESS Amount :"
+        '
         'frm_Material_Received_Without_PO_Master
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -2275,7 +2291,6 @@ Partial Class frm_Material_Received_Without_PO_Master
     Friend WithEvents lblgrossamt As System.Windows.Forms.Label
     Friend WithEvents Label55 As System.Windows.Forms.Label
     Friend WithEvents Label56 As System.Windows.Forms.Label
-    Friend WithEvents Panel18 As System.Windows.Forms.Panel
     Friend WithEvents Label9 As System.Windows.Forms.Label
     Friend WithEvents lnkCalculateAmount As System.Windows.Forms.LinkLabel
     Friend WithEvents Panel19 As System.Windows.Forms.Panel
@@ -2287,4 +2302,6 @@ Partial Class frm_Material_Received_Without_PO_Master
     Friend WithEvents Label49 As Label
     Friend WithEvents txtBarcodeSearch As System.Windows.Forms.TextBox
     Friend WithEvents Label52 As System.Windows.Forms.Label
+    Friend WithEvents lblcessamt As Label
+    Friend WithEvents Label57 As Label
 End Class
