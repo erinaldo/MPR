@@ -675,6 +675,7 @@ restart:
         End If
 
         If Convert.ToDecimal(flxItems.Rows(e.Row)("transfer_Qty")) > Convert.ToDecimal(flxItems.Rows(e.Row)("Batch_Qty")) Then
+            MsgBox("transfer quantity cant be greater than batch quantity  !", MsgBoxStyle.Information, gblMessageHeading)
             flxItems.Rows(e.Row)("transfer_Qty") = 0.0
             ' generate_tree()
         Else

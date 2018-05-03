@@ -305,7 +305,7 @@ Namespace CreditNote
             cmd.Parameters.AddWithValue("@v_CreditNote_Type", clsObj.CN_Type)
             cmd.Parameters.AddWithValue("@v_RefNo", clsObj.Ref_No)
             cmd.Parameters.AddWithValue("@v_RefDate_dt", clsObj.Ref_Date)
-            cmd.Parameters.AddWithValue("@v_Tax_Amt", clsObj.Tax_Amt)
+            cmd.Parameters.AddWithValue("@v_Tax_Amt", clsObj.CN_ItemTax)
             cmd.Parameters.AddWithValue("@V_PROC_TYPE", 1)
 
             cmd.ExecuteNonQuery()

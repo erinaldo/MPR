@@ -308,7 +308,7 @@ Namespace DebitNote
             cmd.Parameters.AddWithValue("@v_DebitNote_Type", clsObj.DN_Type)
             cmd.Parameters.AddWithValue("@v_RefNo", clsObj.Ref_No)
             cmd.Parameters.AddWithValue("@v_RefDate_dt", clsObj.Ref_Date)
-            cmd.Parameters.AddWithValue("@v_Tax_num", clsObj.Tax_Num)
+            cmd.Parameters.AddWithValue("@v_Tax_num", clsObj.DN_ItemTax)
             cmd.Parameters.AddWithValue("@V_PROC_TYPE", 1)
             cmd.ExecuteNonQuery()
             cmd.Dispose()
