@@ -174,6 +174,12 @@ Module SyncronizeData
         Table.TableName = "Company_Master"
         GlobalTables.Tables.Add(Table.Copy())
 
+        ''29) CESSMASTER
+        Query = "Select * from CESSMASTER"
+        Table = Get_Remote_DataSet(Query).Tables(0)
+        Table.TableName = "CESSMASTER"
+        GlobalTables.Tables.Add(Table.Copy())
+
 
         If NEW_OUTLET Then
 
@@ -447,6 +453,10 @@ Module SyncronizeData
             cmd.Connection = con
             cmd.ExecuteNonQuery()
 
+            cmd = New SqlCommand("delete from CessMaster")
+            cmd.Transaction = tran
+            cmd.Connection = con
+            cmd.ExecuteNonQuery()
 
             Dim BulkCopy As New SqlBulkCopy(con, SqlBulkCopyOptions.Default, tran)
 

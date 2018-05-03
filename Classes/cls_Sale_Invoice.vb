@@ -17,6 +17,7 @@ Namespace Sale_Invoice
         Dim _SALE_TYPE As String
         Dim _GROSS_AMOUNT As Double
         Dim _VAT_AMOUNT As Double
+        Dim _CESS_AMOUNT As Double
         Dim _NET_AMOUNT As Double
         Dim _IS_SAMPLE As Integer
         Dim _DELIVERY_NOTE_NO As String
@@ -131,6 +132,14 @@ Namespace Sale_Invoice
             End Get
             Set(ByVal value As Double)
                 _VAT_AMOUNT = value
+            End Set
+        End Property
+        Public Property CESS_AMOUNT() As Double
+            Get
+                CESS_AMOUNT = _CESS_AMOUNT
+            End Get
+            Set(ByVal value As Double)
+                _CESS_AMOUNT = value
             End Set
         End Property
         Public Property NET_AMOUNT() As Double
@@ -313,6 +322,9 @@ Namespace Sale_Invoice
                 cmd.Parameters.AddWithValue("@v_SALE_TYPE", clsobj.SALE_TYPE)
                 cmd.Parameters.AddWithValue("@v_GROSS_AMOUNT", clsobj.GROSS_AMOUNT)
                 cmd.Parameters.AddWithValue("@v_VAT_AMOUNT", clsobj.VAT_AMOUNT)
+
+                cmd.Parameters.AddWithValue("@v_CESS_AMOUNT", clsobj.CESS_AMOUNT)
+
                 cmd.Parameters.AddWithValue("@v_NET_AMOUNT", clsobj.NET_AMOUNT)
                 cmd.Parameters.AddWithValue("@V_IS_SAMPLE", clsobj.IS_SAMPLE)
                 cmd.Parameters.AddWithValue("@V_DELIVERY_NOTE_NO", clsobj.DELIVERY_NOTE_NO)
@@ -364,14 +376,13 @@ again:
 
                     For Each items_DataRow As DataRow In clsobj.dtable_Item_List.Rows
 
-
-
                         If (Dtitemsnew.Select("Item_Id=" & items_DataRow("Item_Id")).Length > 0) Then
 
                             Dim items_row() As DataRow = Dtitemsnew.Select("item_id=" & items_DataRow("item_id"))
 
                             items_row(0)("TRANSFER_QTY") = (items_row(0)("TRANSFER_QTY") + items_DataRow("TRANSFER_QTY"))
                             items_row(0)("GST_Amount") = (items_row(0)("GST_Amount") + items_DataRow("GST_Amount"))
+                            items_row(0)("Cess_Amount") = (items_row(0)("Cess_Amount") + items_DataRow("Cess_Amount"))
                             items_row(0)("Amount") = (items_row(0)("Amount") + items_DataRow("Amount"))
                             If items_DataRow("DType").ToString() = "A" Then
                                 items_row(0)("DISC") = (items_row(0)("DISC") + items_DataRow("DISC"))
@@ -386,6 +397,11 @@ again:
                             OrderDataRow("ITEM_RATE") = items_DataRow("ITEM_RATE")
                             OrderDataRow("GST") = items_DataRow("GST")
                             OrderDataRow("GST_Amount") = items_DataRow("GST_Amount")
+
+                            OrderDataRow("MRP") = items_DataRow("MRP")
+                            OrderDataRow("Cess") = items_DataRow("Cess")
+                            OrderDataRow("Cess_Amount") = items_DataRow("Cess_Amount")
+
                             OrderDataRow("HsnCodeId") = items_DataRow("HsnCodeId")
                             OrderDataRow("DType") = items_DataRow("DType")
                             OrderDataRow("DISC") = items_DataRow("DISC")
@@ -416,6 +432,11 @@ again:
                         cmd.Parameters.AddWithValue("@v_ITEM_AMOUNT", Dtitemsnew.Rows(i)("Amount"))
                         cmd.Parameters.AddWithValue("@v_VAT_PER", Dtitemsnew.Rows(i)("GST"))
                         cmd.Parameters.AddWithValue("@v_VAT_AMOUNT", Dtitemsnew.Rows(i)("GST_Amount"))
+
+                        cmd.Parameters.AddWithValue("@v_MRP", Dtitemsnew.Rows(i)("MRP"))
+                        cmd.Parameters.AddWithValue("@v_CESS_PER", Dtitemsnew.Rows(i)("Cess"))
+                        cmd.Parameters.AddWithValue("@v_CESS_AMOUNT", Dtitemsnew.Rows(i)("Cess_Amount"))
+
                         cmd.Parameters.AddWithValue("@v_CREATED_BY", clsobj.CREATED_BY)
                         cmd.Parameters.AddWithValue("@v_CREATION_DATE", clsobj.CREATION_DATE)
                         cmd.Parameters.AddWithValue("@v_MODIFIED_BY", clsobj.MODIFIED_BY)
@@ -480,7 +501,6 @@ again:
                     tran.Commit()
 
                     'trans_global.Commit()
-
 
                 Catch ex As Exception
                     tran.Rollback()
@@ -625,10 +645,6 @@ again:
                 cmd.Connection = con
                 cmd.Transaction = tran
 
-
-
-
-
                 cmd.CommandType = CommandType.StoredProcedure
                 cmd.CommandText = "PROC_OUTSIDE_SALE_MASTER_SALE_NEW"
                 cmd.Parameters.AddWithValue("@v_SI_ID", clsobj.SI_ID)
@@ -643,6 +659,9 @@ again:
                 cmd.Parameters.AddWithValue("@v_SALE_TYPE", clsobj.SALE_TYPE)
                 cmd.Parameters.AddWithValue("@v_GROSS_AMOUNT", clsobj.GROSS_AMOUNT)
                 cmd.Parameters.AddWithValue("@v_VAT_AMOUNT", clsobj.VAT_AMOUNT)
+
+                cmd.Parameters.AddWithValue("@v_CESS_AMOUNT", clsobj.CESS_AMOUNT)
+
                 cmd.Parameters.AddWithValue("@v_NET_AMOUNT", clsobj.NET_AMOUNT)
                 cmd.Parameters.AddWithValue("@V_IS_SAMPLE", clsobj.IS_SAMPLE)
                 cmd.Parameters.AddWithValue("@V_DELIVERY_NOTE_NO", clsobj.DELIVERY_NOTE_NO)
@@ -663,10 +682,6 @@ again:
                 cmd.Dispose()
 
                 Try
-
-
-
-
 
 
 again:
@@ -697,6 +712,7 @@ again:
 
                             items_row(0)("TRANSFER_QTY") = (items_row(0)("TRANSFER_QTY") + items_DataRow("TRANSFER_QTY"))
                             items_row(0)("GST_Amount") = (items_row(0)("GST_Amount") + items_DataRow("GST_Amount"))
+                            items_row(0)("Cess_Amount") = (items_row(0)("Cess_Amount") + items_DataRow("Cess_Amount"))
                             items_row(0)("Amount") = (items_row(0)("Amount") + items_DataRow("Amount"))
                             If items_DataRow("DType").ToString() = "A" Then
                                 items_row(0)("DISC") = (items_row(0)("DISC") + items_DataRow("DISC"))
@@ -710,6 +726,11 @@ again:
                             OrderDataRow("ITEM_RATE") = items_DataRow("ITEM_RATE")
                             OrderDataRow("GST") = items_DataRow("GST")
                             OrderDataRow("GST_Amount") = items_DataRow("GST_Amount")
+
+                            OrderDataRow("MRP") = items_DataRow("MRP")
+                            OrderDataRow("Cess") = items_DataRow("Cess")
+                            OrderDataRow("Cess_Amount") = items_DataRow("Cess_Amount")
+
                             OrderDataRow("HsnCodeId") = items_DataRow("HsnCodeId")
                             OrderDataRow("DType") = items_DataRow("DType")
                             OrderDataRow("DISC") = items_DataRow("DISC")
@@ -741,6 +762,11 @@ again:
                         cmd.Parameters.AddWithValue("@v_ITEM_AMOUNT", Dtitemsnew.Rows(i)("Amount"))
                         cmd.Parameters.AddWithValue("@v_VAT_PER", Dtitemsnew.Rows(i)("GST"))
                         cmd.Parameters.AddWithValue("@v_VAT_AMOUNT", Dtitemsnew.Rows(i)("GST_Amount"))
+
+                        cmd.Parameters.AddWithValue("@v_MRP", Dtitemsnew.Rows(i)("MRP"))
+                        cmd.Parameters.AddWithValue("@v_CESS_PER", Dtitemsnew.Rows(i)("Cess"))
+                        cmd.Parameters.AddWithValue("@v_CESS_AMOUNT", Dtitemsnew.Rows(i)("Cess_Amount"))
+
                         cmd.Parameters.AddWithValue("@v_CREATED_BY", clsobj.CREATED_BY)
                         cmd.Parameters.AddWithValue("@v_CREATION_DATE", clsobj.CREATION_DATE)
                         cmd.Parameters.AddWithValue("@v_MODIFIED_BY", clsobj.MODIFIED_BY)

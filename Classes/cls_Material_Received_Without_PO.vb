@@ -45,6 +45,7 @@ Namespace material_recieved_without_po_master
         Dim _MRNType As Int32
         Dim _GROSS_AMOUNT As Double
         Dim _GST_AMOUNT As Double
+        Dim _CESS_AMOUNT As Double
         Dim _NET_AMOUNT As Double
 
         Public Property Received_ID() As Integer
@@ -382,6 +383,14 @@ Namespace material_recieved_without_po_master
             End Get
             Set(ByVal value As Double)
                 _GST_AMOUNT = value
+            End Set
+        End Property
+        Public Property CESS_AMOUNT() As Double
+            Get
+                CESS_AMOUNT = _CESS_AMOUNT
+            End Get
+            Set(ByVal value As Double)
+                _CESS_AMOUNT = value
             End Set
         End Property
         Public Property NET_AMOUNT() As Double
