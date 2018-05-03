@@ -392,16 +392,17 @@ again:
         flxItems.Cols("Batch_no").Caption = "Batch No"
         flxItems.Cols("Expiry_date").Caption = "Expiry Date"
         flxItems.Cols("batch_qty").Caption = "Stock"
-        flxItems.Cols("transfer_Qty").Caption = "Transfer Qty"
+        flxItems.Cols("transfer_Qty").Caption = "Quantity"
         flxItems.Cols("Item_Rate").Caption = "Rate"
         flxItems.Cols("MRP").Caption = "MRP"
         flxItems.Cols("DType").Caption = "DType"
         flxItems.Cols("DISC").Caption = "DISC"
-        flxItems.Cols("GPAID").Caption = "GSTPaid"
+        flxItems.Cols("GPAID").Caption = "GST Paid"
         flxItems.Cols("GST").Caption = "GST% "
         flxItems.Cols("GST_Amount").Caption = "GST Amt"
         flxItems.Cols("Cess").Caption = "Cess% "
         flxItems.Cols("Cess_Amount").Caption = "Cess Amt"
+        flxItems.Cols("LandingAmt").Caption = "Landing Amt"
 
         flxItems.Cols("Amount").Caption = "Amount"
         flxItems.Cols("HsnCodeId").Visible = False
@@ -421,7 +422,7 @@ again:
         flxItems.Cols("batch_qty").AllowEditing = False
         flxItems.Cols("Stock_Detail_Id").AllowEditing = False
         flxItems.Cols("transfer_Qty").AllowEditing = True
-        flxItems.Cols("Item_Rate").AllowEditing = False
+        flxItems.Cols("Item_Rate").AllowEditing = True
         flxItems.Cols("MRP").AllowEditing = False
 
         flxItems.Cols("DType").AllowEditing = True
@@ -435,20 +436,20 @@ again:
 
         flxItems.Cols("Item_Id").Width = 40
         flxItems.Cols("Item_Code").Width = 55
-        flxItems.Cols("Item_Name").Width = 210
+        flxItems.Cols("Item_Name").Width = 225
         flxItems.Cols("UM_Name").Width = 35
         'flxItems.Cols("Batch_No").Width = 70
         flxItems.Cols("Amount").Width = 60
-        flxItems.Cols("Batch_Qty").Width = 55
+        flxItems.Cols("Batch_Qty").Width = 50
         flxItems.Cols("Stock_Detail_Id").Width = 60
-        flxItems.Cols("transfer_Qty").Width = 70
-        flxItems.Cols("Item_Rate").Width = 50
+        flxItems.Cols("transfer_Qty").Width = 50
+        flxItems.Cols("Item_Rate").Width = 55
         'flxItems.Cols("MRP").Width = 50
         flxItems.Cols("DType").Width = 40
         flxItems.Cols("DISC").Width = 45
-        flxItems.Cols("GPAID").Width = 60
+        flxItems.Cols("GPAID").Width = 55
         flxItems.Cols("GST").Width = 40
-        flxItems.Cols("GST_Amount").Width = 50
+        flxItems.Cols("GST_Amount").Width = 55
         flxItems.Cols("Cess").Width = 40
         flxItems.Cols("Cess_Amount").Width = 55
         flxItems.Cols("LandingAmt").Width = 70
@@ -518,74 +519,74 @@ again:
 
     Private Sub flxItems_KeyDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles flxItems.KeyDown
         Try
-            'If cmbSupplier.SelectedIndex > 0 Then
+            If cmbSupplier.SelectedIndex > 0 Then
 
-            Dim iRowindex As Int32
-            If flag = "save" Or flag = "update" Then
-                If e.KeyCode = Keys.Space Then
-                    iRowindex = flxItems.Row
+                Dim iRowindex As Int32
+                If flag = "save" Or flag = "update" Then
+                    If e.KeyCode = Keys.Space Then
+                        iRowindex = flxItems.Row
 
-                    'frm_Show_search.qry = " SELECT " & _
-                    '                   " ITEM_MASTER.ITEM_ID,   " & _
-                    '                   " ITEM_MASTER.ITEM_CODE, " & _
-                    '                   " ITEM_MASTER.ITEM_NAME, " & _
-                    '                   " ITEM_MASTER.ITEM_DESC, " & _
-                    '                   " UNIT_MASTER.UM_Name,   " & _
-                    '                   " ITEM_CATEGORY.ITEM_CAT_NAME, " & _
-                    '                   " ITEM_MASTER.IS_STOCKABLE " & _
-                    '           " FROM " & _
-                    '                   " ITEM_MASTER " & _
-                    '                   " INNER JOIN UNIT_MASTER ON ITEM_MASTER.UM_ID = UNIT_MASTER.UM_ID " & _
-                    '                   " INNER JOIN ITEM_CATEGORY ON ITEM_MASTER.ITEM_CATEGORY_ID = ITEM_CATEGORY.ITEM_CAT_ID " & _
-                    '                    "INNER JOIN ITEM_DETAIL ON ITEM_MASTER.ITEM_ID = ITEM_DETAIL.ITEM_ID "
+                        'frm_Show_search.qry = " SELECT " & _
+                        '                   " ITEM_MASTER.ITEM_ID,   " & _
+                        '                   " ITEM_MASTER.ITEM_CODE, " & _
+                        '                   " ITEM_MASTER.ITEM_NAME, " & _
+                        '                   " ITEM_MASTER.ITEM_DESC, " & _
+                        '                   " UNIT_MASTER.UM_Name,   " & _
+                        '                   " ITEM_CATEGORY.ITEM_CAT_NAME, " & _
+                        '                   " ITEM_MASTER.IS_STOCKABLE " & _
+                        '           " FROM " & _
+                        '                   " ITEM_MASTER " & _
+                        '                   " INNER JOIN UNIT_MASTER ON ITEM_MASTER.UM_ID = UNIT_MASTER.UM_ID " & _
+                        '                   " INNER JOIN ITEM_CATEGORY ON ITEM_MASTER.ITEM_CATEGORY_ID = ITEM_CATEGORY.ITEM_CAT_ID " & _
+                        '                    "INNER JOIN ITEM_DETAIL ON ITEM_MASTER.ITEM_ID = ITEM_DETAIL.ITEM_ID "
 
-                    frm_Show_search.qry = "SELECT IM.ITEM_ID,IM.ITEM_CODE," &
-                                       " IM.ITEM_NAME,UM.UM_Name,CM.ITEM_CAT_NAME," &
-                                       " IM.DIVISION_ID, 0.00 as Quantity, ISNULL(MRP_Num,0) as Rate " &
-                                       " FROM ITEM_MASTER  AS IM INNER JOIN " &
-                                       " ITEM_DETAIL AS ID ON IM.ITEM_ID = ID.ITEM_ID  INNER JOIN  UNIT_MASTER AS UM " &
-                                       " ON IM.UM_ID = UM.UM_ID INNER JOIN ITEM_CATEGORY AS CM ON " &
-                                       " IM.ITEM_CATEGORY_ID = CM.ITEM_CAT_ID"
+                        frm_Show_search.qry = "SELECT IM.ITEM_ID,IM.ITEM_CODE," &
+                                           " IM.ITEM_NAME,UM.UM_Name,CM.ITEM_CAT_NAME," &
+                                           " IM.DIVISION_ID, 0.00 as Quantity, ISNULL(MRP_Num,0) as Rate " &
+                                           " FROM ITEM_MASTER  AS IM INNER JOIN " &
+                                           " ITEM_DETAIL AS ID ON IM.ITEM_ID = ID.ITEM_ID  INNER JOIN  UNIT_MASTER AS UM " &
+                                           " ON IM.UM_ID = UM.UM_ID INNER JOIN ITEM_CATEGORY AS CM ON " &
+                                           " IM.ITEM_CATEGORY_ID = CM.ITEM_CAT_ID"
 
-                    frm_Show_search.column_name = "Item_Name"
-                    frm_Show_search.extra_condition = ""
-                    frm_Show_search.ret_column = "Item_ID"
-                    frm_Show_search.item_rate_column = "Rate"
-                    frm_Show_search.ShowDialog()
-                    If Not check_item_exist(frm_Show_search.search_result) Then
-                        get_row(frm_Show_search.search_result, 0, frm_Show_search.item_rate)
+                        frm_Show_search.column_name = "Item_Name"
+                        frm_Show_search.extra_condition = ""
+                        frm_Show_search.ret_column = "Item_ID"
+                        frm_Show_search.item_rate_column = "Rate"
+                        frm_Show_search.ShowDialog()
+                        If Not check_item_exist(frm_Show_search.search_result) Then
+                            get_row(frm_Show_search.search_result, 0, frm_Show_search.item_rate)
+                        End If
                     End If
+
                 End If
+                If e.KeyCode = Keys.Delete Then
 
-            End If
-            If e.KeyCode = Keys.Delete Then
-
-                Dim result As Integer
-                Dim item_code As String
-                result = MsgBox("Do you want to remove """ & flxItems.Rows(flxItems.CursorCell.r1).Item(3) & """ from the list?", MsgBoxStyle.YesNo + MsgBoxStyle.Question)
-                item_code = flxItems.Rows(flxItems.CursorCell.r1).Item("item_code")
-                If result = MsgBoxResult.Yes Then
+                    Dim result As Integer
+                    Dim item_code As String
+                    result = MsgBox("Do you want to remove """ & flxItems.Rows(flxItems.CursorCell.r1).Item(3) & """ from the list?", MsgBoxStyle.YesNo + MsgBoxStyle.Question)
+                    item_code = flxItems.Rows(flxItems.CursorCell.r1).Item("item_code")
+                    If result = MsgBoxResult.Yes Then
 restart:
-                    Dim dt As DataTable
-                    dt = TryCast(flxItems.DataSource, DataTable)
-                    If Not dt Is Nothing Then
-                        For Each dr As DataRow In dt.Rows
-                            If Convert.ToString(dr("item_code")) = item_code Then
-                                dr.Delete()
-                                dt.AcceptChanges()
-                                GoTo restart
-                            End If
-                        Next
-                        '        dt.AcceptChanges()
+                        Dim dt As DataTable
+                        dt = TryCast(flxItems.DataSource, DataTable)
+                        If Not dt Is Nothing Then
+                            For Each dr As DataRow In dt.Rows
+                                If Convert.ToString(dr("item_code")) = item_code Then
+                                    dr.Delete()
+                                    dt.AcceptChanges()
+                                    GoTo restart
+                                End If
+                            Next
+                            '        dt.AcceptChanges()
+                        End If
                     End If
+                    generate_tree()
+                    CalculateAmount()
                 End If
-                generate_tree()
-                CalculateAmount()
-            End If
 
-            'Else
-            '    MsgBox("Please select Customer first.", MsgBoxStyle.Information)
-            'End If
+            Else
+                MsgBox("Please select a valid Customer.", MsgBoxStyle.Information)
+            End If
         Catch ex As Exception
 
         End Try
@@ -941,40 +942,44 @@ restart:
     Private Sub cmbSupplier_SelectedIndexChanged_1(sender As Object, e As EventArgs) Handles cmbSupplier.SelectionChangeCommitted, cmbSupplier.SelectedIndexChanged
 
         Dim strSql As String
+        Dim Accdata As DataSet
+
         If cmbSupplier.SelectedValue <> -1 Then
             strSql = "SELECT ISNULL(ACCOUNT_MASTER.ADDRESS_PRIM,'') + ' - {'  + ISNULL(CITY_MASTER.CITY_NAME,'') + '}', ISNULL(PHONE_PRIM,'')As PHONE_PRIM, ISNULL(VAT_NO,'')as VAT_NO,ACCOUNT_MASTER.CITY_ID,ISNULL(case when ISNULL(ADDRESS_SEC,'')='' then ISNULL(ADDRESS_PRIM,'') + ' - {'  + ISNULL(CITY_MASTER.CITY_NAME,'') + '}' else ADDRESS_SEC end,'') as Shipping"
             strSql = strSql & " FROM ACCOUNT_MASTER LEFT OUTER JOIN"
             strSql = strSql & " CITY_MASTER ON ACCOUNT_MASTER.CITY_ID = CITY_MASTER.CITY_ID"
             strSql = strSql & " WHERE ACCOUNT_MASTER.ACC_ID = " & cmbSupplier.SelectedValue
-            txtAddress.Text = obj.Fill_DataSet(strSql).Tables(0).Rows(0)(0)
-            txt_txtphoneNo.Text = obj.Fill_DataSet(strSql).Tables(0).Rows(0)(1)
-            txtGstNo.Text = obj.Fill_DataSet(strSql).Tables(0).Rows(0)(2)
-            cmbCity.SelectedValue = obj.Fill_DataSet(strSql).Tables(0).Rows(0)(3)
-            txtShippingAddress.Text = obj.Fill_DataSet(strSql).Tables(0).Rows(0)(4)
+            Accdata = obj.Fill_DataSet(strSql)
+
+            txtAddress.Text = Accdata.Tables(0).Rows(0)(0)
+            txt_txtphoneNo.Text = Accdata.Tables(0).Rows(0)(1)
+            txtGstNo.Text = Accdata.Tables(0).Rows(0)(2)
+            cmbCity.SelectedValue = Accdata.Tables(0).Rows(0)(3)
+            txtShippingAddress.Text = Accdata.Tables(0).Rows(0)(4)
             txtvechicle_no.Focus()
 
 
-            Dim NewstrSql As String
-            Dim dsdata As DataSet
+                Dim NewstrSql As String
+                Dim dsdata As DataSet
 
-            NewstrSql = "SELECT STATE_ID,isUT_bit FROM dbo.STATE_MASTER WHERE STATE_ID IN(SELECT STATE_ID FROM dbo.CITY_MASTER WHERE CITY_ID IN(SELECT CITY_ID FROM dbo.DIVISION_SETTINGS))"
-            NewstrSql = NewstrSql & " SELECT STATE_ID,isUT_bit FROM dbo.STATE_MASTER WHERE STATE_ID IN(SELECT STATE_ID FROM dbo.CITY_MASTER WHERE CITY_ID IN(SELECT CITY_ID FROM dbo.ACCOUNT_MASTER WHERE ACC_ID=" & cmbSupplier.SelectedValue & "))"
-            dsdata = clsObj.Fill_DataSet(NewstrSql)
+                NewstrSql = "SELECT STATE_ID,isUT_bit FROM dbo.STATE_MASTER WHERE STATE_ID IN(SELECT STATE_ID FROM dbo.CITY_MASTER WHERE CITY_ID IN(SELECT CITY_ID FROM dbo.DIVISION_SETTINGS))"
+                NewstrSql = NewstrSql & " SELECT STATE_ID,isUT_bit FROM dbo.STATE_MASTER WHERE STATE_ID IN(SELECT STATE_ID FROM dbo.CITY_MASTER WHERE CITY_ID IN(SELECT CITY_ID FROM dbo.ACCOUNT_MASTER WHERE ACC_ID=" & cmbSupplier.SelectedValue & "))"
+                dsdata = clsObj.Fill_DataSet(NewstrSql)
 
 
-            'SCGST
-            'IGST
-            'UGST
-            If dsdata.Tables(0).Rows(0)(0) <> dsdata.Tables(1).Rows(0)(0) Then
-                cmbinvtype.Text = "IGST"
-            Else
-                If dsdata.Tables(0).Rows(0)(1) = True Then
-                    cmbinvtype.Text = "UGST"
+                'SCGST
+                'IGST
+                'UGST
+                If dsdata.Tables(0).Rows(0)(0) <> dsdata.Tables(1).Rows(0)(0) Then
+                    cmbinvtype.Text = "IGST"
                 Else
-                    cmbinvtype.Text = "SGST"
+                    If dsdata.Tables(0).Rows(0)(1) = True Then
+                        cmbinvtype.Text = "UGST"
+                    Else
+                        cmbinvtype.Text = "SGST"
+                    End If
                 End If
             End If
-        End If
     End Sub
 
     Private Sub cmbCity_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbCity.SelectedIndexChanged

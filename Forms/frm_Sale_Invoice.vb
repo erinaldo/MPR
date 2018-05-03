@@ -365,16 +365,17 @@ again:
         flxItems.Cols("Batch_no").Caption = "Batch No"
         flxItems.Cols("Expiry_date").Caption = "Expiry Date"
         flxItems.Cols("batch_qty").Caption = "Stock"
-        flxItems.Cols("transfer_Qty").Caption = "Transfer Qty"
+        flxItems.Cols("transfer_Qty").Caption = "Quantity"
         flxItems.Cols("Item_Rate").Caption = "Rate"
         flxItems.Cols("MRP").Caption = "MRP"
         flxItems.Cols("DType").Caption = "DType"
         flxItems.Cols("DISC").Caption = "DISC"
-        flxItems.Cols("GPAID").Caption = "GSTPaid"
+        flxItems.Cols("GPAID").Caption = "GST Paid"
         flxItems.Cols("GST").Caption = "GST% "
         flxItems.Cols("GST_Amount").Caption = "GST Amt"
         flxItems.Cols("Cess").Caption = "Cess% "
         flxItems.Cols("Cess_Amount").Caption = "Cess Amt"
+        flxItems.Cols("LandingAmt").Caption = "Landing Amt"
 
         flxItems.Cols("Amount").Caption = "Amount"
         flxItems.Cols("HsnCodeId").Visible = False
@@ -408,20 +409,20 @@ again:
 
         flxItems.Cols("Item_Id").Width = 40
         flxItems.Cols("Item_Code").Width = 55
-        flxItems.Cols("Item_Name").Width = 210
+        flxItems.Cols("Item_Name").Width = 225
         flxItems.Cols("UM_Name").Width = 35
         'flxItems.Cols("Batch_No").Width = 70
         flxItems.Cols("Amount").Width = 60
-        flxItems.Cols("Batch_Qty").Width = 55
+        flxItems.Cols("Batch_Qty").Width = 50
         flxItems.Cols("Stock_Detail_Id").Width = 60
-        flxItems.Cols("transfer_Qty").Width = 70
-        flxItems.Cols("Item_Rate").Width = 50
+        flxItems.Cols("transfer_Qty").Width = 50
+        flxItems.Cols("Item_Rate").Width = 55
         'flxItems.Cols("MRP").Width = 50
         flxItems.Cols("DType").Width = 40
         flxItems.Cols("DISC").Width = 45
-        flxItems.Cols("GPAID").Width = 60
+        flxItems.Cols("GPAID").Width = 55
         flxItems.Cols("GST").Width = 40
-        flxItems.Cols("GST_Amount").Width = 50
+        flxItems.Cols("GST_Amount").Width = 55
         flxItems.Cols("Cess").Width = 40
         flxItems.Cols("Cess_Amount").Width = 55
         flxItems.Cols("LandingAmt").Width = 70
@@ -565,7 +566,7 @@ restart:
                 End If
 
             Else
-                MsgBox("Please select Customer first.", MsgBoxStyle.Information)
+                MsgBox("Please select a valid Customer.", MsgBoxStyle.Information)
             End If
         Catch ex As Exception
 
