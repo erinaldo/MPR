@@ -409,8 +409,8 @@ FROM    ( SELECT    inv.NET_AMOUNT ,
           WHERE     inv.INVOICE_STATUS <> 4
                     AND MONTH(SI_DATE) =" + txtFromDate.Value.Month.ToString() &
                     " AND YEAR(SI_DATE) = " + txtFromDate.Value.Year.ToString() &
-                   " And invd.VAT_AMOUNT > 0
-                    AND LEN(ISNULL(VAT_NO, '')) > 0
+                   " And invd.VAT_AMOUNT > 0                     
+                    AND 1=1
           GROUP BY  inv.NET_AMOUNT ,
                     VAT_NO ,
                     SI_CODE ,
@@ -462,7 +462,7 @@ ORDER BY SI_NO"
 
 
 
-        Qry = "SELECT  SI_ID ,
+        Qry = "SELECT 
         STATE_CODE ,
         STATE_NAME ,
         VAT_PER ,
@@ -535,9 +535,8 @@ FROM    ( SELECT    inv.SI_ID ,
 GROUP BY STATE_CODE ,
         STATE_NAME ,
         VAT_PER ,
-        Cess_Amount ,
-        SI_ID
-ORDER BY TB.SI_ID"
+        Cess_Amount 
+ORDER BY TB.STATE_CODE"
 
         'Qry = "SELECT STATE_CODE,STATE_NAME,  " &
         '    " VAT_PER, SUM(((BAL_ITEM_QTY * BAL_ITEM_RATE) - ISNULL(ITEM_DISCOUNT,0))) AS Taxable_Value," &
