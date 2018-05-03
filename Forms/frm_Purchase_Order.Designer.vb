@@ -63,6 +63,8 @@ Partial Class frm_Purchase_Order
         Me.txtPORemarks = New System.Windows.Forms.TextBox()
         Me.cmbDeliveryRate = New System.Windows.Forms.ComboBox()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.txtBarcodeSearch = New System.Windows.Forms.TextBox()
+        Me.Label52 = New System.Windows.Forms.Label()
         Me.chk_VatCal = New System.Windows.Forms.CheckBox()
         Me.txtPOPrefix = New System.Windows.Forms.TextBox()
         Me.txtPONO = New System.Windows.Forms.TextBox()
@@ -97,8 +99,8 @@ Partial Class frm_Purchase_Order
         Me.lblCap10 = New System.Windows.Forms.Label()
         Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
         Me.erp = New System.Windows.Forms.ErrorProvider(Me.components)
-        Me.txtBarcodeSearch = New System.Windows.Forms.TextBox()
-        Me.Label52 = New System.Windows.Forms.Label()
+        Me.lblCESSAmount = New System.Windows.Forms.Label()
+        Me.Label16 = New System.Windows.Forms.Label()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
@@ -297,6 +299,8 @@ Partial Class frm_Purchase_Order
         'TabPage2
         '
         Me.TabPage2.BackColor = System.Drawing.Color.DimGray
+        Me.TabPage2.Controls.Add(Me.lblCESSAmount)
+        Me.TabPage2.Controls.Add(Me.Label16)
         Me.TabPage2.Controls.Add(Me.Label8)
         Me.TabPage2.Controls.Add(Me.dtpTransMode)
         Me.TabPage2.Controls.Add(Me.dtpPriceBasis)
@@ -478,7 +482,7 @@ Partial Class frm_Purchase_Order
         Me.txtOtherCharges.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtOtherCharges.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtOtherCharges.ForeColor = System.Drawing.Color.White
-        Me.txtOtherCharges.Location = New System.Drawing.Point(760, 442)
+        Me.txtOtherCharges.Location = New System.Drawing.Point(760, 476)
         Me.txtOtherCharges.Name = "txtOtherCharges"
         Me.txtOtherCharges.Size = New System.Drawing.Size(118, 18)
         Me.txtOtherCharges.TabIndex = 4
@@ -491,7 +495,7 @@ Partial Class frm_Purchase_Order
         Me.txtDiscountAmount.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtDiscountAmount.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtDiscountAmount.ForeColor = System.Drawing.Color.White
-        Me.txtDiscountAmount.Location = New System.Drawing.Point(760, 475)
+        Me.txtDiscountAmount.Location = New System.Drawing.Point(760, 509)
         Me.txtDiscountAmount.Name = "txtDiscountAmount"
         Me.txtDiscountAmount.ReadOnly = True
         Me.txtDiscountAmount.Size = New System.Drawing.Size(118, 18)
@@ -644,6 +648,30 @@ Partial Class frm_Purchase_Order
         Me.GroupBox1.Size = New System.Drawing.Size(890, 126)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
+        '
+        'txtBarcodeSearch
+        '
+        Me.txtBarcodeSearch.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.txtBarcodeSearch.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.txtBarcodeSearch.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtBarcodeSearch.ForeColor = System.Drawing.Color.White
+        Me.txtBarcodeSearch.Location = New System.Drawing.Point(514, 101)
+        Me.txtBarcodeSearch.MaxLength = 100
+        Me.txtBarcodeSearch.Name = "txtBarcodeSearch"
+        Me.txtBarcodeSearch.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
+        Me.txtBarcodeSearch.Size = New System.Drawing.Size(272, 19)
+        Me.txtBarcodeSearch.TabIndex = 38
+        '
+        'Label52
+        '
+        Me.Label52.AutoSize = True
+        Me.Label52.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label52.ForeColor = System.Drawing.Color.White
+        Me.Label52.Location = New System.Drawing.Point(449, 104)
+        Me.Label52.Name = "Label52"
+        Me.Label52.Size = New System.Drawing.Size(59, 15)
+        Me.Label52.TabIndex = 37
+        Me.Label52.Text = "Barcode :"
         '
         'chk_VatCal
         '
@@ -864,7 +892,7 @@ Partial Class frm_Purchase_Order
         '
         Me.lblNetAmount.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblNetAmount.ForeColor = System.Drawing.Color.Orange
-        Me.lblNetAmount.Location = New System.Drawing.Point(765, 513)
+        Me.lblNetAmount.Location = New System.Drawing.Point(765, 547)
         Me.lblNetAmount.Name = "lblNetAmount"
         Me.lblNetAmount.Size = New System.Drawing.Size(118, 20)
         Me.lblNetAmount.TabIndex = 0
@@ -875,7 +903,7 @@ Partial Class frm_Purchase_Order
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(646, 513)
+        Me.Label3.Location = New System.Drawing.Point(646, 547)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(76, 15)
         Me.Label3.TabIndex = 0
@@ -885,7 +913,7 @@ Partial Class frm_Purchase_Order
         '
         Me.Label6.AutoSize = True
         Me.Label6.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label6.Location = New System.Drawing.Point(646, 478)
+        Me.Label6.Location = New System.Drawing.Point(646, 512)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(85, 15)
         Me.Label6.TabIndex = 0
@@ -906,7 +934,7 @@ Partial Class frm_Purchase_Order
         '
         Me.Label5.AutoSize = True
         Me.Label5.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label5.Location = New System.Drawing.Point(646, 445)
+        Me.Label5.Location = New System.Drawing.Point(646, 479)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(94, 15)
         Me.Label5.TabIndex = 0
@@ -994,29 +1022,26 @@ Partial Class frm_Purchase_Order
         '
         Me.erp.ContainerControl = Me
         '
-        'txtBarcodeSearch
+        'lblCESSAmount
         '
-        Me.txtBarcodeSearch.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.txtBarcodeSearch.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.txtBarcodeSearch.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtBarcodeSearch.ForeColor = System.Drawing.Color.White
-        Me.txtBarcodeSearch.Location = New System.Drawing.Point(514, 101)
-        Me.txtBarcodeSearch.MaxLength = 100
-        Me.txtBarcodeSearch.Name = "txtBarcodeSearch"
-        Me.txtBarcodeSearch.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtBarcodeSearch.Size = New System.Drawing.Size(272, 19)
-        Me.txtBarcodeSearch.TabIndex = 38
+        Me.lblCESSAmount.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblCESSAmount.ForeColor = System.Drawing.Color.Orange
+        Me.lblCESSAmount.Location = New System.Drawing.Point(765, 443)
+        Me.lblCESSAmount.Name = "lblCESSAmount"
+        Me.lblCESSAmount.Size = New System.Drawing.Size(118, 20)
+        Me.lblCESSAmount.TabIndex = 43
+        Me.lblCESSAmount.Text = "0.00"
+        Me.lblCESSAmount.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'Label52
+        'Label16
         '
-        Me.Label52.AutoSize = True
-        Me.Label52.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label52.ForeColor = System.Drawing.Color.White
-        Me.Label52.Location = New System.Drawing.Point(449, 104)
-        Me.Label52.Name = "Label52"
-        Me.Label52.Size = New System.Drawing.Size(59, 15)
-        Me.Label52.TabIndex = 37
-        Me.Label52.Text = "Barcode :"
+        Me.Label16.AutoSize = True
+        Me.Label16.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label16.Location = New System.Drawing.Point(646, 448)
+        Me.Label16.Name = "Label16"
+        Me.Label16.Size = New System.Drawing.Size(93, 15)
+        Me.Label16.TabIndex = 44
+        Me.Label16.Text = "CESS  Amount :"
         '
         'frm_Purchase_Order
         '
@@ -1121,4 +1146,6 @@ Partial Class frm_Purchase_Order
     Friend WithEvents ImageList1 As ImageList
     Friend WithEvents txtBarcodeSearch As System.Windows.Forms.TextBox
     Friend WithEvents Label52 As System.Windows.Forms.Label
+    Friend WithEvents lblCESSAmount As Label
+    Friend WithEvents Label16 As Label
 End Class

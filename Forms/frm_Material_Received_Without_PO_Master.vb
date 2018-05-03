@@ -110,6 +110,7 @@ Public Class frm_Material_Received_Without_PO_Master
         txtdiscount.Text = "0.0"
         lblgrossamt.Text = "0.0"
         lblvatamt.Text = "0.0"
+        lblcessamt.Text = "0.0"
         lblexciseamt.Text = "0.0"
         lblnetamt.Text = "0.0"
         ' DGVIndentItem.Rows.Add()
@@ -237,10 +238,7 @@ Public Class frm_Material_Received_Without_PO_Master
             If validate_data() Then
                 Dim RECEIVEDID As Integer
 
-
                 If flag = "save" Then
-
-
 
                     If cmbMRNType.SelectedIndex <= 0 Then
                         MsgBox("Please Select MRN Type first.")
@@ -364,6 +362,12 @@ Public Class frm_Material_Received_Without_PO_Master
                             prpty.Item_vat = Convert.ToDouble(FLXGRD_MaterialItem.Item(iRow, "VAT_Per"))
                         End If
 
+                        If Convert.ToString(FLXGRD_MaterialItem.Item(iRow, "Cess_Per")) = "" Then
+                            prpty.Item_Cess = 0
+                        Else
+                            prpty.Item_Cess = Convert.ToDouble(FLXGRD_MaterialItem.Item(iRow, "Cess_Per"))
+                        End If
+
                         If Convert.ToString(FLXGRD_MaterialItem.Item(iRow, "Exe_per")) = "" Then
                             prpty.Item_exice = 0
                         Else
@@ -422,6 +426,12 @@ Public Class frm_Material_Received_Without_PO_Master
                             prpty.Item_vat = 0
                         Else
                             prpty.Item_vat = Convert.ToDouble(dt.Rows(i)("VAT_Per"))
+                        End If
+
+                        If Convert.ToString(dt.Rows(i)("Cess_Per")) = "" Then
+                            prpty.Item_Cess = 0
+                        Else
+                            prpty.Item_Cess = Convert.ToDouble(dt.Rows(i)("Cess_Per"))
                         End If
 
                         If Convert.ToString(dt.Rows(i)("Exe_per")) = "" Then

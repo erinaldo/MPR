@@ -32,6 +32,7 @@ Namespace Purchase_Order
         Dim _TRANSPORT_MODE As [String]
         Dim _TOTAL_AMOUNT As [Decimal]
         Dim _VAT_AMOUNT As [Decimal]
+        Dim _CESS_AMOUNT As [Decimal]
         Dim _NET_AMOUNT As [Decimal]
         Dim _CREATED_BY As [String]
         Dim _CREATION_DATE As DateTime
@@ -199,6 +200,15 @@ Namespace Purchase_Order
             End Get
             Set(ByVal value As [Decimal])
                 _VAT_AMOUNT = value
+            End Set
+        End Property
+
+        Public Property CESS_AMOUNT() As [Decimal]
+            Get
+                Return _CESS_AMOUNT
+            End Get
+            Set(ByVal value As [Decimal])
+                _CESS_AMOUNT = value
             End Set
         End Property
 
@@ -469,6 +479,7 @@ Namespace Purchase_Order
                 cmd.Parameters.AddWithValue("@V_TRANSPORT_MODE", clsPropObj.TRANSPORT_MODE)
                 cmd.Parameters.AddWithValue("@V_TOTAL_AMOUNT", clsPropObj.TOTAL_AMOUNT)
                 cmd.Parameters.AddWithValue("@V_VAT_AMOUNT", clsPropObj.VAT_AMOUNT)
+                cmd.Parameters.AddWithValue("@V_CESS_AMOUNT", clsPropObj.CESS_AMOUNT)
                 cmd.Parameters.AddWithValue("@V_NET_AMOUNT", clsPropObj.NET_AMOUNT)
                 cmd.Parameters.AddWithValue("@v_EXICE_AMOUNT", clsPropObj.EXICE_AMOUNT)
                 cmd.Parameters.AddWithValue("@v_PO_TYPE", clsPropObj.PO_TYPE)
@@ -476,7 +487,7 @@ Namespace Purchase_Order
                 cmd.Parameters.AddWithValue("@v_PRICE_BASIS", clsPropObj.OCTROI)
                 cmd.Parameters.AddWithValue("@v_FRIEGHT", clsPropObj.FRIEGHT)
                 cmd.Parameters.AddWithValue("@v_OTHER_CHARGES", clsPropObj.OTHER_CHARGES)
-                cmd.Parameters.AddWithValue("@v_CESS", clsPropObj.CESS)
+                'cmd.Parameters.AddWithValue("@v_CESS", clsPropObj.CESS)
                 cmd.Parameters.AddWithValue("@v_DISCOUNT_AMOUNT", clsPropObj.DISCOUNT_AMOUNT)
                 cmd.Parameters.AddWithValue("@V_CREATED_BY", clsPropObj.CREATED_BY)
                 cmd.Parameters.AddWithValue("@V_CREATION_DATE", clsPropObj.CREATION_DATE)
@@ -523,6 +534,7 @@ Namespace Purchase_Order
                 dt.Columns.Add("item_id")
                 dt.Columns.Add("item_Qty")
                 dt.Columns.Add("vat_per")
+                dt.Columns.Add("cess_per")
                 dt.Columns.Add("excise_per")
                 dt.Columns.Add("item_rate")
                 dt.Columns.Add("DType")
@@ -535,6 +547,7 @@ Namespace Purchase_Order
                     dr("item_id") = tempdt.Rows(i)(0)
                     dr("item_qty") = clsPropObj.PO_Items.Compute("sum(po_qty)", "item_id=" & tempdt.Rows(i)(0))
                     dr("vat_per") = IIf(IsDBNull(clsPropObj.PO_Items.Compute("Max(vat_per)", "item_id=" & tempdt.Rows(i)(0))), 0, clsPropObj.PO_Items.Compute("Max(vat_per)", "item_id=" & tempdt.Rows(i)(0)))
+                    dr("cess_per") = IIf(IsDBNull(clsPropObj.PO_Items.Compute("Max(cess_per)", "item_id=" & tempdt.Rows(i)(0))), 0, clsPropObj.PO_Items.Compute("Max(cess_per)", "item_id=" & tempdt.Rows(i)(0)))
                     dr("excise_per") = IIf(IsDBNull(clsPropObj.PO_Items.Compute("Max(exice_per)", "item_id=" & tempdt.Rows(i)(0))), 0, clsPropObj.PO_Items.Compute("Max(exice_per)", "item_id=" & tempdt.Rows(i)(0)))
                     dr("item_rate") = clsPropObj.PO_Items.Compute("Max(item_rate)", "item_id=" & tempdt.Rows(i)(0))
                     dr("DType") = clsPropObj.PO_Items.Compute("Max(DType)", "item_id=" & tempdt.Rows(i)(0))
@@ -562,12 +575,11 @@ Namespace Purchase_Order
                     cmd.Parameters.AddWithValue("@V_ITEM_ID", dt.Rows(i)("item_id"))
                     cmd.Parameters.AddWithValue("@V_ITEM_QTY", dt.Rows(i)("item_qty"))
                     cmd.Parameters.AddWithValue("@v_VAT_PER", dt.Rows(i)("Vat_Per"))
+                    cmd.Parameters.AddWithValue("@v_CESS_PER", dt.Rows(i)("Cess_Per"))
                     cmd.Parameters.AddWithValue("@v_EXICE_PER", dt.Rows(i)("excise_per"))
                     cmd.Parameters.AddWithValue("@V_ITEM_RATE", dt.Rows(i)("Item_Rate"))
-
                     cmd.Parameters.AddWithValue("@v_DTYPE", dt.Rows(i)("DType").ToString())
                     cmd.Parameters.AddWithValue("@v_DISC_VALUE", dt.Rows(i)("DISC"))
-
                     cmd.Parameters.AddWithValue("@V_CREATED_BY", clsPropObj.CREATED_BY)
                     cmd.Parameters.AddWithValue("@V_CREATION_DATE", clsPropObj.CREATION_DATE)
                     cmd.Parameters.AddWithValue("@V_MODIFIED_BY", clsPropObj.MODIFIED_BY)
@@ -630,7 +642,6 @@ Namespace Purchase_Order
                     cmd.Parameters.AddWithValue("@V_REQUIRED_QTY", dt.Rows(i)("PO_Qty"))
                     cmd.Parameters.AddWithValue("@V_RECIEVED_QTY", 0)
                     cmd.Parameters.AddWithValue("@V_BALANCE_QTY", dt.Rows(i)("PO_Qty"))
-
                     cmd.Parameters.AddWithValue("@V_CREATED_BY", clsPropObj.CREATED_BY)
                     cmd.Parameters.AddWithValue("@V_CREATION_DATE", clsPropObj.CREATION_DATE)
                     cmd.Parameters.AddWithValue("@V_MODIFIED_BY", clsPropObj.MODIFIED_BY)
@@ -794,6 +805,7 @@ Namespace Purchase_Order
                 cmd.Parameters.AddWithValue("@V_TRANSPORT_MODE", clsPropObj.TRANSPORT_MODE)
                 cmd.Parameters.AddWithValue("@V_TOTAL_AMOUNT", clsPropObj.TOTAL_AMOUNT)
                 cmd.Parameters.AddWithValue("@V_VAT_AMOUNT", clsPropObj.VAT_AMOUNT)
+                cmd.Parameters.AddWithValue("@V_CESS_AMOUNT", clsPropObj.CESS_AMOUNT)
                 cmd.Parameters.AddWithValue("@V_NET_AMOUNT", clsPropObj.NET_AMOUNT)
                 cmd.Parameters.AddWithValue("@v_EXICE_AMOUNT", clsPropObj.EXICE_AMOUNT)
                 cmd.Parameters.AddWithValue("@v_PO_TYPE", clsPropObj.PO_TYPE)
@@ -801,7 +813,7 @@ Namespace Purchase_Order
                 cmd.Parameters.AddWithValue("@v_PRICE_BASIS", clsPropObj.OCTROI)
                 cmd.Parameters.AddWithValue("@v_FRIEGHT", clsPropObj.FRIEGHT)
                 cmd.Parameters.AddWithValue("@v_OTHER_CHARGES", clsPropObj.OTHER_CHARGES)
-                cmd.Parameters.AddWithValue("@v_CESS", clsPropObj.CESS)
+                'cmd.Parameters.AddWithValue("@v_CESS", clsPropObj.CESS)
                 cmd.Parameters.AddWithValue("@v_DISCOUNT_AMOUNT", clsPropObj.DISCOUNT_AMOUNT)
                 cmd.Parameters.AddWithValue("@V_CREATED_BY", clsPropObj.CREATED_BY)
                 cmd.Parameters.AddWithValue("@V_CREATION_DATE", clsPropObj.CREATION_DATE)
@@ -827,8 +839,6 @@ Namespace Purchase_Order
 
                 Dim dt As DataTable
 
-
-
                 'Dim tempDT As DataTable
                 Dim dr As DataRow
                 Dim dv As DataView
@@ -842,6 +852,7 @@ Namespace Purchase_Order
                 dt.Columns.Add("item_id")
                 dt.Columns.Add("item_Qty")
                 dt.Columns.Add("vat_per")
+                dt.Columns.Add("cess_per")
                 dt.Columns.Add("excise_per")
                 dt.Columns.Add("item_rate")
                 dt.Columns.Add("DType")
@@ -855,7 +866,8 @@ Namespace Purchase_Order
                     dr("item_id") = tempDT.Rows(i)(0)
                     dr("item_qty") = clsPropObj.PO_Items.Compute("sum(po_qty)", "item_id=" & tempDT.Rows(i)(0))
                     dr("vat_per") = IIf(IsDBNull(clsPropObj.PO_Items.Compute("Max(vat_per)", "item_id=" & tempDT.Rows(i)(0))), 0, clsPropObj.PO_Items.Compute("Max(vat_per)", "item_id=" & tempDT.Rows(i)(0)))
-                    dr("excise_per") = IIf(IsDBNull(clsPropObj.PO_Items.Compute("Max(exice_per)", "item_id=" & tempDT.Rows(i)(0))), 0, clsPropObj.PO_Items.Compute("Max(exice_per)", "item_id=" & tempDT.Rows(i)(0)))
+                    dr("cess_per") = IIf(IsDBNull(clsPropObj.PO_Items.Compute("Max(cess_per)", "item_id=" & tempdt.Rows(i)(0))), 0, clsPropObj.PO_Items.Compute("Max(cess_per)", "item_id=" & tempdt.Rows(i)(0)))
+                    dr("excise_per") = IIf(IsDBNull(clsPropObj.PO_Items.Compute("Max(exice_per)", "item_id=" & tempdt.Rows(i)(0))), 0, clsPropObj.PO_Items.Compute("Max(exice_per)", "item_id=" & tempdt.Rows(i)(0)))
                     dr("item_rate") = clsPropObj.PO_Items.Compute("Max(item_rate)", "item_id=" & tempDT.Rows(i)(0))
                     dr("DType") = clsPropObj.PO_Items.Compute("Max(DType)", "item_id=" & tempdt.Rows(i)(0))
 
@@ -881,6 +893,7 @@ Namespace Purchase_Order
                     cmd.Parameters.AddWithValue("@V_ITEM_ID", dt.Rows(i)("item_id"))
                     cmd.Parameters.AddWithValue("@V_ITEM_QTY", dt.Rows(i)("item_qty"))
                     cmd.Parameters.AddWithValue("@v_VAT_PER", dt.Rows(i)("Vat_Per"))
+                    cmd.Parameters.AddWithValue("@v_CESS_PER", dt.Rows(i)("Cess_Per"))
                     cmd.Parameters.AddWithValue("@v_EXICE_PER", dt.Rows(i)("excise_per"))
                     cmd.Parameters.AddWithValue("@V_ITEM_RATE", dt.Rows(i)("Item_Rate"))
                     cmd.Parameters.AddWithValue("@v_DTYPE", dt.Rows(i)("DType").ToString())

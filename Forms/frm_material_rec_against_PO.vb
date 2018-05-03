@@ -58,6 +58,7 @@ Public Class frm_material_rec_against_PO
         lblexciseamt.Text = "0.00"
         lblgrossamt.Text = "0.00"
         lblvatamt.Text = "0.00"
+        lblcessamt.Text = "0.00"
         txt_Amount.Text = "0.00"
         txtotherchrgs.Text = "0.00"
         txtdiscount.Text = "0.00"
@@ -184,6 +185,7 @@ Public Class frm_material_rec_against_PO
                 prop.Discount_amt = Convert.ToDouble(txtdiscount.Text)
                 prop.GROSS_AMOUNT = Convert.ToDouble(lblgrossamt.Text)
                 prop.GST_AMOUNT = Convert.ToDouble(lblvatamt.Text)
+                prop.CESS_AMOUNT = Convert.ToDouble(lblcessamt.Text)
                 prop.NET_AMOUNT = Convert.ToDouble(lblnetamt.Text)
                 prop.MRN_TYPE = Convert.ToInt32(lblMRNType.Text)
                 prop.CUST_ID = Convert.ToInt32(lblcustid.Text)
@@ -290,6 +292,7 @@ Public Class frm_material_rec_against_PO
         dtable_Item_List.Columns.Add("DISC", GetType(System.Decimal))
 
         dtable_Item_List.Columns.Add("Vat_Per", GetType(System.Double))
+        dtable_Item_List.Columns.Add("Cess_Per", GetType(System.Double))
         dtable_Item_List.Columns.Add("EXICE_Per", GetType(System.Double))
         dtable_Item_List.Columns.Add("BATCH_NO", GetType(System.String))
         dtable_Item_List.Columns.Add("EXPIRY_DATE", GetType(System.DateTime))
@@ -312,26 +315,24 @@ Public Class frm_material_rec_against_PO
         FLXGRD_PO_Items.Cols(9).Caption = "DISC"
         FLXGRD_PO_Items.Cols(10).Caption = "GST%"
         FLXGRD_PO_Items.Cols(11).Caption = "EXICE%"
-        FLXGRD_PO_Items.Cols(12).Caption = "BatchNo"
+        FLXGRD_PO_Items.Cols(12).Caption = "CESS%"
+        'FLXGRD_PO_Items.Cols(12).Caption = "BatchNo"
         FLXGRD_PO_Items.Cols(13).Caption = "ExpiryDate"
         FLXGRD_PO_Items.Cols(14).Caption = "BatchQty"
         FLXGRD_PO_Items.Cols(15).Caption = "Net Amt"
         FLXGRD_PO_Items.Cols(16).Caption = "Gross Amt"
 
         FLXGRD_PO_Items.Cols(3).Width = 65
-        FLXGRD_PO_Items.Cols(4).Width = 300
+        FLXGRD_PO_Items.Cols(4).Width = 350
         FLXGRD_PO_Items.Cols(5).Width = 40
         FLXGRD_PO_Items.Cols(6).Width = 70
         FLXGRD_PO_Items.Cols(7).Width = 70
         FLXGRD_PO_Items.Cols(8).Width = 30
         FLXGRD_PO_Items.Cols(9).Width = 50
-
         FLXGRD_PO_Items.Cols(10).Width = 35
-
         FLXGRD_PO_Items.Cols(11).Width = 50
         FLXGRD_PO_Items.Cols(11).Visible = False
-
-        FLXGRD_PO_Items.Cols(12).Width = 100
+        FLXGRD_PO_Items.Cols(12).Width = 50
         FLXGRD_PO_Items.Cols(13).Width = 100
         FLXGRD_PO_Items.Cols(14).Width = 100
         FLXGRD_PO_Items.Cols(15).Width = 100
@@ -356,6 +357,7 @@ Public Class frm_material_rec_against_PO
         datatbl_NonStockable_Items.Columns.Add("DISC", GetType(System.Decimal))
 
         datatbl_NonStockable_Items.Columns.Add("Vat_Per", GetType(System.Double))
+        datatbl_NonStockable_Items.Columns.Add("Cess_Per", GetType(System.Double))
         datatbl_NonStockable_Items.Columns.Add("EXICE_Per", GetType(System.Double))
         datatbl_NonStockable_Items.Columns.Add("BATCH_NO", GetType(System.String))
         datatbl_NonStockable_Items.Columns.Add("EXPIRY_DATE", GetType(System.DateTime))
@@ -382,6 +384,7 @@ Public Class frm_material_rec_against_PO
         FLXGRD_PO_NON_STOCKABLEITEMS.Cols("DISC").Caption = "DISC"
 
         FLXGRD_PO_NON_STOCKABLEITEMS.Cols("Vat_Per").Caption = "GST%"
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("Cess_Per").Caption = "CESS%"
         FLXGRD_PO_NON_STOCKABLEITEMS.Cols("EXICE_Per").Caption = "EXICE%"
         FLXGRD_PO_NON_STOCKABLEITEMS.Cols("BATCH_NO").Caption = "Batch No."
         FLXGRD_PO_NON_STOCKABLEITEMS.Cols("EXPIRY_DATE").Caption = "Expiry Date"
@@ -399,10 +402,11 @@ Public Class frm_material_rec_against_PO
         FLXGRD_PO_NON_STOCKABLEITEMS.Cols("DType").Width = 30
         FLXGRD_PO_NON_STOCKABLEITEMS.Cols("DISC").Width = 40
 
-        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("Vat_Per").Width = 25
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("Vat_Per").Width = 50
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("Cess_Per").Width = 50
         FLXGRD_PO_NON_STOCKABLEITEMS.Cols("EXICE_Per").Width = 25
         FLXGRD_PO_NON_STOCKABLEITEMS.Cols("EXICE_Per").Visible = False
-        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("BATCH_NO").Width = 100
+        'FLXGRD_PO_NON_STOCKABLEITEMS.Cols("BATCH_NO").Width = 100
         FLXGRD_PO_NON_STOCKABLEITEMS.Cols("EXPIRY_DATE").Width = 100
         FLXGRD_PO_NON_STOCKABLEITEMS.Cols("BATCH_QTY").Width = 100
         FLXGRD_PO_NON_STOCKABLEITEMS.Cols("Net_Amount").Width = 100
@@ -534,6 +538,7 @@ Public Class frm_material_rec_against_PO
                         drItem("DISC") = dtable.Rows(rowcount)("DISC").ToString()
 
                         drItem("Vat_Per") = dtable.Rows(rowcount)("Vat_Per").ToString()
+                        drItem("Cess_Per") = dtable.Rows(rowcount)("Cess_Per").ToString()
                         drItem("EXICE_Per") = dtable.Rows(rowcount)("EXICE_Per").ToString()
                         drItem("BATCH_NO") = dtable.Rows(rowcount)("BATCH_NO").ToString()
                         drItem("EXPIRY_DATE") = dtable.Rows(rowcount)("EXPIRY_DATE").ToString()
@@ -588,9 +593,11 @@ Public Class frm_material_rec_against_PO
         FLXGRD_PO_Items.Cols("DISC").Caption = "DISC"
 
         FLXGRD_PO_Items.Cols("VAT_PER").Caption = "GST%"
+        FLXGRD_PO_Items.Cols("CESS_PER").Caption = "CESS%"
 
         FLXGRD_PO_Items.Cols("exice_per").Caption = "Exice%"
         FLXGRD_PO_Items.Cols("exice_per").Visible = False
+        FLXGRD_PO_Items.Cols("BATCH_NO").Visible = False
 
         FLXGRD_PO_Items.Cols("BATCH_NO").Caption = "BatchNo"
         FLXGRD_PO_Items.Cols("expiry_date").Caption = "ExpiryDate"
@@ -609,8 +616,9 @@ Public Class frm_material_rec_against_PO
         FLXGRD_PO_Items.Cols("DType").Width = 40
         FLXGRD_PO_Items.Cols("DISC").Width = 50
         FLXGRD_PO_Items.Cols("VAT_PER").Width = 40
+        FLXGRD_PO_Items.Cols("CESS_PER").Width = 60
         FLXGRD_PO_Items.Cols("exice_per").Width = 40
-        FLXGRD_PO_Items.Cols("BATCH_NO").Width = 70
+        'FLXGRD_PO_Items.Cols("BATCH_NO").Width = 70
         FLXGRD_PO_Items.Cols("expiry_date").Width = 70
         FLXGRD_PO_Items.Cols("BATCH_QTY").Width = 60
         FLXGRD_PO_Items.Cols("Net_amount").Width = 80
@@ -628,8 +636,9 @@ Public Class frm_material_rec_against_PO
         FLXGRD_PO_Items.Cols("DType").AllowEditing = False
         FLXGRD_PO_Items.Cols("DISC").AllowEditing = False
         FLXGRD_PO_Items.Cols("VAT_PER").AllowEditing = False
+        FLXGRD_PO_Items.Cols("CESS_PER").AllowEditing = False
         FLXGRD_PO_Items.Cols("exice_per").AllowEditing = True
-        FLXGRD_PO_Items.Cols("BATCH_NO").AllowEditing = True
+        'FLXGRD_PO_Items.Cols("BATCH_NO").AllowEditing = True
         FLXGRD_PO_Items.Cols("expiry_date").AllowEditing = True
         FLXGRD_PO_Items.Cols("BATCH_QTY").AllowEditing = True
         FLXGRD_PO_Items.Cols("Net_amount").AllowEditing = False
@@ -659,9 +668,12 @@ Public Class frm_material_rec_against_PO
         FLXGRD_PO_NON_STOCKABLEITEMS.Cols("DType").Caption = "DType"
         FLXGRD_PO_NON_STOCKABLEITEMS.Cols("DISC").Caption = "DISC"
         FLXGRD_PO_NON_STOCKABLEITEMS.Cols("VAT_PER").Caption = "GST %"
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("CESS_PER").Caption = "CESS %"
 
         FLXGRD_PO_NON_STOCKABLEITEMS.Cols("exice_per").Caption = "Exice %"
         FLXGRD_PO_NON_STOCKABLEITEMS.Cols("exice_per").Visible = False
+
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("BATCH_NO").Visible = False
 
         FLXGRD_PO_NON_STOCKABLEITEMS.Cols("BATCH_NO").Caption = "Batch No."
         FLXGRD_PO_NON_STOCKABLEITEMS.Cols("expiry_date").Caption = "Expiry Date"
@@ -682,8 +694,9 @@ Public Class frm_material_rec_against_PO
         FLXGRD_PO_NON_STOCKABLEITEMS.Cols("DISC").Width = 40
 
         FLXGRD_PO_NON_STOCKABLEITEMS.Cols("VAT_PER").Width = 40
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("CESS_PER").Width = 60
         FLXGRD_PO_NON_STOCKABLEITEMS.Cols("exice_per").Width = 40
-        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("BATCH_NO").Width = 70
+        'FLXGRD_PO_NON_STOCKABLEITEMS.Cols("BATCH_NO").Width = 70
         FLXGRD_PO_NON_STOCKABLEITEMS.Cols("expiry_date").Width = 60
         FLXGRD_PO_NON_STOCKABLEITEMS.Cols("BATCH_QTY").Width = 45
         FLXGRD_PO_NON_STOCKABLEITEMS.Cols("Net_amount").Width = 60
@@ -702,8 +715,9 @@ Public Class frm_material_rec_against_PO
         FLXGRD_PO_NON_STOCKABLEITEMS.Cols("DISC").AllowEditing = False
 
         FLXGRD_PO_NON_STOCKABLEITEMS.Cols("VAT_PER").AllowEditing = False
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("CESS_PER").AllowEditing = False
         FLXGRD_PO_NON_STOCKABLEITEMS.Cols("exice_per").AllowEditing = False
-        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("BATCH_NO").AllowEditing = True
+        'FLXGRD_PO_NON_STOCKABLEITEMS.Cols("BATCH_NO").AllowEditing = True
         FLXGRD_PO_NON_STOCKABLEITEMS.Cols("expiry_date").AllowEditing = True
         FLXGRD_PO_NON_STOCKABLEITEMS.Cols("BATCH_QTY").AllowEditing = True
         FLXGRD_PO_NON_STOCKABLEITEMS.Cols("Net_amount").AllowEditing = False
@@ -1000,6 +1014,7 @@ Public Class frm_material_rec_against_PO
         Dim item_value As Double = 0
         Dim gross_amt As Double = 0
         Dim tot_vat_amt As Double = 0
+        Dim tot_cess_amt As Double = 0
         Dim tot_exice_amt As Double = 0
         Dim exice_per As Double = 0
         Dim Net_amt As Double = 0
@@ -1016,7 +1031,7 @@ Public Class frm_material_rec_against_PO
             For i As Integer = 0 To dt.Rows.Count - 1
 
                 If (dt.Rows(i)("DType")) = "P" Then
-                    discamt = Math.Round(((dt.Rows(i)("PO_Qty") * dt.Rows(i)("Item_Rate")) * dt.Rows(i)("DISC") / 100), 2)
+                    discamt = Math.Round(((dt.Rows(i)("Batch_qty") * dt.Rows(i)("Item_Rate")) * dt.Rows(i)("DISC") / 100), 2)
                 Else
                     discamt = Math.Round(dt.Rows(i)("DISC"), 2)
                 End If
@@ -1028,7 +1043,8 @@ Public Class frm_material_rec_against_PO
                 exice_per = IIf((dt.Rows(i)("Exice_Per")) Is DBNull.Value, 0, dt.Rows(i)("Exice_Per"))
                 exice_per = exice_per / 100
                 tot_exice_amt = tot_exice_amt + (item_value * exice_per)
-                tot_vat_amt = tot_vat_amt + ((((dt.Rows(i)("PO_Qty") * dt.Rows(i)("Item_Rate")) - discamt) * dt.Rows(i)("Vat_Per")) / 100)
+                tot_vat_amt = tot_vat_amt + ((((dt.Rows(i)("Batch_qty") * dt.Rows(i)("Item_Rate")) - discamt) * dt.Rows(i)("Vat_Per")) / 100)
+                tot_cess_amt = tot_cess_amt + ((((dt.Rows(i)("Batch_qty") * dt.Rows(i)("Item_Rate")) - discamt) * dt.Rows(i)("Cess_Per")) / 100)
             Next
         End If
 
@@ -1039,8 +1055,6 @@ Public Class frm_material_rec_against_PO
         'Else
         '    discount_value = 0
         'End If
-
-
 
         'If Not dt Is Nothing Then
 
@@ -1070,7 +1084,7 @@ Public Class frm_material_rec_against_PO
                 '    tot_gross_amt = tot_gross_amt + item_value
 
                 If (dt.Rows(i)("DType")) = "P" Then
-                    discamt = Math.Round(((dt.Rows(i)("PO_Qty") * dt.Rows(i)("Item_Rate")) * dt.Rows(i)("DISC") / 100), 2)
+                    discamt = Math.Round(((dt.Rows(i)("Batch_qty") * dt.Rows(i)("Item_Rate")) * dt.Rows(i)("DISC") / 100), 2)
                 Else
                     discamt = Math.Round(dt.Rows(i)("DISC"), 2)
                 End If
@@ -1082,7 +1096,8 @@ Public Class frm_material_rec_against_PO
                 exice_per = IIf((dt.Rows(i)("Exice_Per")) Is DBNull.Value, 0, dt.Rows(i)("Exice_Per"))
                 exice_per = exice_per / 100
                 tot_exice_amt = tot_exice_amt + (item_value * exice_per)
-                tot_vat_amt = tot_vat_amt + ((((dt.Rows(i)("PO_Qty") * dt.Rows(i)("Item_Rate")) - discamt) * dt.Rows(i)("Vat_Per")) / 100)
+                tot_vat_amt = tot_vat_amt + ((((dt.Rows(i)("Batch_qty") * dt.Rows(i)("Item_Rate")) - discamt) * dt.Rows(i)("Vat_Per")) / 100)
+                tot_cess_amt = tot_cess_amt + ((((dt.Rows(i)("Batch_qty") * dt.Rows(i)("Item_Rate")) - discamt) * dt.Rows(i)("Cess_Per")) / 100)
 
             Next
         End If
@@ -1115,9 +1130,10 @@ Public Class frm_material_rec_against_PO
         txtdiscount.Text = totdiscamt.ToString("#0.00")
         lblgrossamt.Text = tot_gross_amt.ToString("0.00")
         lblvatamt.Text = tot_vat_amt.ToString("0.00")
+        lblcessamt.Text = tot_cess_amt.ToString("0.00")
         lblexciseamt.Text = tot_exice_amt.ToString("0.00")
 
-        Net_amt = (tot_gross_amt + tot_vat_amt + tot_exice_amt + Convert.ToDouble(IIf(IsNumeric(txt_Amount.Text), txt_Amount.Text, 0)) + Convert.ToDouble(IIf(IsNumeric(txtotherchrgs.Text), txtotherchrgs.Text, 0))) '- Convert.ToDouble(IIf(IsNumeric(txtdiscount.Text), txtdiscount.Text, 0))
+        Net_amt = (tot_gross_amt + tot_vat_amt + tot_cess_amt + tot_exice_amt + Convert.ToDouble(IIf(IsNumeric(txt_Amount.Text), txt_Amount.Text, 0)) + Convert.ToDouble(IIf(IsNumeric(txtotherchrgs.Text), txtotherchrgs.Text, 0))) '- Convert.ToDouble(IIf(IsNumeric(txtdiscount.Text), txtdiscount.Text, 0))
         lblnetamt.Text = Net_amt.ToString("0.00")
 
     End Sub
@@ -1153,4 +1169,5 @@ Public Class frm_material_rec_against_PO
     Private Sub Panel14_Paint(sender As Object, e As PaintEventArgs) Handles Panel14.Paint
 
     End Sub
+
 End Class

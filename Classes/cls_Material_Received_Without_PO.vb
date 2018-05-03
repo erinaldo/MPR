@@ -47,6 +47,7 @@ Namespace material_recieved_without_po_master
         Dim _GST_AMOUNT As Double
         Dim _CESS_AMOUNT As Double
         Dim _NET_AMOUNT As Double
+        Dim _Item_Cess As Double
 
         Public Property Received_ID() As Integer
             Get
@@ -309,6 +310,15 @@ Namespace material_recieved_without_po_master
             End Set
         End Property
 
+        Public Property Item_Cess() As Double
+            Get
+                Item_Cess = _Item_Cess
+            End Get
+            Set(ByVal value As Double)
+                _Item_Cess = value
+            End Set
+        End Property
+
         Public Property Item_exice() As Double
             Get
                 Item_exice = _Item_Exice
@@ -447,6 +457,7 @@ Namespace material_recieved_without_po_master
             cmd.Parameters.AddWithValue("@V_PROC_TYPE", 1)
             cmd.Parameters.AddWithValue("@v_GROSS_AMOUNT", clsObj.GROSS_AMOUNT)
             cmd.Parameters.AddWithValue("@v_GST_AMOUNT", clsObj.GST_AMOUNT)
+            cmd.Parameters.AddWithValue("@v_CESS_AMOUNT", clsObj.CESS_AMOUNT)
             cmd.Parameters.AddWithValue("@v_NET_AMOUNT", clsObj.NET_AMOUNT)
             cmd.Parameters.AddWithValue("@V_MRN_TYPE", clsObj.MRNType)
 
@@ -476,6 +487,7 @@ Namespace material_recieved_without_po_master
             cmd.Parameters.AddWithValue("@V_Modification_Date", clsObj.Modification_Date)
             cmd.Parameters.AddWithValue("@V_Division_Id", clsObj.Division_ID)
             cmd.Parameters.AddWithValue("@V_Item_vat", clsObj.Item_vat)
+            cmd.Parameters.AddWithValue("@V_Item_cess", clsObj.Item_Cess)
             cmd.Parameters.AddWithValue("@V_Item_exice", clsObj.Item_exice)
             cmd.Parameters.AddWithValue("@V_Batch_No", clsObj.Batch_No)
             cmd.Parameters.AddWithValue("@V_Expiry_Date", clsObj.Expiry_Date)
@@ -509,6 +521,7 @@ Namespace material_recieved_without_po_master
             cmd.Parameters.AddWithValue("@V_Modification_Date", clsObj.Modification_Date)
             cmd.Parameters.AddWithValue("@V_Division_Id", clsObj.Division_ID)
             cmd.Parameters.AddWithValue("@V_Item_vat", clsObj.Item_vat)
+            cmd.Parameters.AddWithValue("@V_Item_cess", clsObj.Item_Cess)
             cmd.Parameters.AddWithValue("@V_Item_exice", clsObj.Item_exice)
             cmd.Parameters.AddWithValue("@V_Batch_No", clsObj.Batch_No)
             cmd.Parameters.AddWithValue("@V_Expiry_Date", clsObj.Expiry_Date)
@@ -560,6 +573,7 @@ Namespace material_recieved_without_po_master
             cmd.Parameters.AddWithValue("@V_PROC_TYPE", 2)
             cmd.Parameters.AddWithValue("@v_GROSS_AMOUNT", clsObj.GROSS_AMOUNT)
             cmd.Parameters.AddWithValue("@v_GST_AMOUNT", clsObj.GST_AMOUNT)
+            cmd.Parameters.AddWithValue("@v_CESS_AMOUNT", clsObj.CESS_AMOUNT)
             cmd.Parameters.AddWithValue("@v_NET_AMOUNT", clsObj.NET_AMOUNT)
             cmd.Parameters.AddWithValue("@V_MRN_TYPE", clsObj.MRNType)
 
@@ -629,6 +643,7 @@ Namespace material_recieved_without_po_master
             con.Dispose()
 
         End Sub
+
         Public Sub Insert_Non_Stockable_Items(ByVal clsObj As cls_material_recieved_without_po_master_prop)
             cmd = New SqlClient.SqlCommand
 
@@ -643,8 +658,8 @@ Namespace material_recieved_without_po_master
             cmd.Parameters.AddWithValue("@V_CostCenter_Id", clsObj.CostCenter_ID)
             cmd.Parameters.AddWithValue("@V_Item_ID", clsObj.Item_ID)
             cmd.Parameters.AddWithValue("@V_Item_Qty", clsObj.Item_Qty)
-
             cmd.Parameters.AddWithValue("@v_Item_vat", clsObj.Item_vat)
+            cmd.Parameters.AddWithValue("@v_Item_cess", clsObj.Item_Cess)
             cmd.Parameters.AddWithValue("@v_Item_Exice", clsObj.Item_exice)
             cmd.Parameters.AddWithValue("@v_batch_no", clsObj.Batch_No)
             cmd.Parameters.AddWithValue("@v_batch_date", clsObj.Expiry_Date)
@@ -654,6 +669,8 @@ Namespace material_recieved_without_po_master
             cmd.ExecuteNonQuery()
             cmd.Dispose()
         End Sub
+
     End Class
+
 End Namespace
 

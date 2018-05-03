@@ -86,6 +86,8 @@ Partial Class frm_material_rec_against_PO
         Me.Label4 = New System.Windows.Forms.Label()
         Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
         Me.C1FlexGrid1 = New C1.Win.C1FlexGrid.C1FlexGrid()
+        Me.lblcessamt = New System.Windows.Forms.Label()
+        Me.Label16 = New System.Windows.Forms.Label()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
@@ -269,6 +271,8 @@ Partial Class frm_material_rec_against_PO
         'TabPage2
         '
         Me.TabPage2.BackColor = System.Drawing.Color.DimGray
+        Me.TabPage2.Controls.Add(Me.lblcessamt)
+        Me.TabPage2.Controls.Add(Me.Label16)
         Me.TabPage2.Controls.Add(Me.lblMRNType)
         Me.TabPage2.Controls.Add(Me.lblexciseamt)
         Me.TabPage2.Controls.Add(Me.Label14)
@@ -374,7 +378,7 @@ Partial Class frm_material_rec_against_PO
         Me.Label13.AutoSize = True
         Me.Label13.BackColor = System.Drawing.Color.Transparent
         Me.Label13.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label13.Location = New System.Drawing.Point(650, 476)
+        Me.Label13.Location = New System.Drawing.Point(650, 492)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(51, 15)
         Me.Label13.TabIndex = 73
@@ -428,7 +432,7 @@ Partial Class frm_material_rec_against_PO
         Me.txtotherchrgs.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtotherchrgs.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtotherchrgs.ForeColor = System.Drawing.Color.White
-        Me.txtotherchrgs.Location = New System.Drawing.Point(777, 499)
+        Me.txtotherchrgs.Location = New System.Drawing.Point(777, 515)
         Me.txtotherchrgs.Name = "txtotherchrgs"
         Me.txtotherchrgs.Size = New System.Drawing.Size(118, 18)
         Me.txtotherchrgs.TabIndex = 65
@@ -441,7 +445,7 @@ Partial Class frm_material_rec_against_PO
         Me.txtdiscount.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtdiscount.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtdiscount.ForeColor = System.Drawing.Color.White
-        Me.txtdiscount.Location = New System.Drawing.Point(777, 528)
+        Me.txtdiscount.Location = New System.Drawing.Point(777, 544)
         Me.txtdiscount.Name = "txtdiscount"
         Me.txtdiscount.ReadOnly = True
         Me.txtdiscount.Size = New System.Drawing.Size(118, 18)
@@ -455,7 +459,7 @@ Partial Class frm_material_rec_against_PO
         Me.txt_Amount.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txt_Amount.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txt_Amount.ForeColor = System.Drawing.Color.White
-        Me.txt_Amount.Location = New System.Drawing.Point(826, 473)
+        Me.txt_Amount.Location = New System.Drawing.Point(826, 489)
         Me.txt_Amount.Name = "txt_Amount"
         Me.txt_Amount.Size = New System.Drawing.Size(69, 18)
         Me.txt_Amount.TabIndex = 71
@@ -467,7 +471,7 @@ Partial Class frm_material_rec_against_PO
         Me.lblnetamt.BackColor = System.Drawing.Color.Transparent
         Me.lblnetamt.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblnetamt.ForeColor = System.Drawing.Color.Orange
-        Me.lblnetamt.Location = New System.Drawing.Point(778, 560)
+        Me.lblnetamt.Location = New System.Drawing.Point(778, 576)
         Me.lblnetamt.Name = "lblnetamt"
         Me.lblnetamt.Size = New System.Drawing.Size(118, 20)
         Me.lblnetamt.TabIndex = 64
@@ -479,7 +483,7 @@ Partial Class frm_material_rec_against_PO
         Me.Label50.AutoSize = True
         Me.Label50.BackColor = System.Drawing.Color.Transparent
         Me.Label50.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label50.Location = New System.Drawing.Point(650, 560)
+        Me.Label50.Location = New System.Drawing.Point(650, 576)
         Me.Label50.Name = "Label50"
         Me.Label50.Size = New System.Drawing.Size(76, 15)
         Me.Label50.TabIndex = 56
@@ -490,7 +494,7 @@ Partial Class frm_material_rec_against_PO
         Me.Label51.AutoSize = True
         Me.Label51.BackColor = System.Drawing.Color.Transparent
         Me.Label51.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label51.Location = New System.Drawing.Point(650, 530)
+        Me.Label51.Location = New System.Drawing.Point(650, 546)
         Me.Label51.Name = "Label51"
         Me.Label51.Size = New System.Drawing.Size(85, 15)
         Me.Label51.TabIndex = 55
@@ -501,7 +505,7 @@ Partial Class frm_material_rec_against_PO
         Me.lblvatamt.BackColor = System.Drawing.Color.Transparent
         Me.lblvatamt.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblvatamt.ForeColor = System.Drawing.Color.Orange
-        Me.lblvatamt.Location = New System.Drawing.Point(777, 437)
+        Me.lblvatamt.Location = New System.Drawing.Point(777, 435)
         Me.lblvatamt.Name = "lblvatamt"
         Me.lblvatamt.Size = New System.Drawing.Size(118, 20)
         Me.lblvatamt.TabIndex = 58
@@ -513,7 +517,7 @@ Partial Class frm_material_rec_against_PO
         Me.Label53.AutoSize = True
         Me.Label53.BackColor = System.Drawing.Color.Transparent
         Me.Label53.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label53.Location = New System.Drawing.Point(650, 501)
+        Me.Label53.Location = New System.Drawing.Point(650, 517)
         Me.Label53.Name = "Label53"
         Me.Label53.Size = New System.Drawing.Size(94, 15)
         Me.Label53.TabIndex = 63
@@ -536,7 +540,7 @@ Partial Class frm_material_rec_against_PO
         Me.Label55.AutoSize = True
         Me.Label55.BackColor = System.Drawing.Color.Transparent
         Me.Label55.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label55.Location = New System.Drawing.Point(650, 440)
+        Me.Label55.Location = New System.Drawing.Point(650, 438)
         Me.Label55.Name = "Label55"
         Me.Label55.Size = New System.Drawing.Size(81, 15)
         Me.Label55.TabIndex = 60
@@ -871,6 +875,29 @@ Partial Class frm_material_rec_against_PO
         Me.C1FlexGrid1.Styles = New C1.Win.C1FlexGrid.CellStyleCollection(resources.GetString("C1FlexGrid1.Styles"))
         Me.C1FlexGrid1.TabIndex = 0
         '
+        'lblcessamt
+        '
+        Me.lblcessamt.BackColor = System.Drawing.Color.Transparent
+        Me.lblcessamt.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblcessamt.ForeColor = System.Drawing.Color.Orange
+        Me.lblcessamt.Location = New System.Drawing.Point(777, 460)
+        Me.lblcessamt.Name = "lblcessamt"
+        Me.lblcessamt.Size = New System.Drawing.Size(118, 20)
+        Me.lblcessamt.TabIndex = 79
+        Me.lblcessamt.Text = "0.00"
+        Me.lblcessamt.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'Label16
+        '
+        Me.Label16.AutoSize = True
+        Me.Label16.BackColor = System.Drawing.Color.Transparent
+        Me.Label16.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label16.Location = New System.Drawing.Point(650, 463)
+        Me.Label16.Name = "Label16"
+        Me.Label16.Size = New System.Drawing.Size(90, 15)
+        Me.Label16.TabIndex = 80
+        Me.Label16.Text = "CESS Amount :"
+        '
         'frm_material_rec_against_PO
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -963,4 +990,6 @@ Partial Class frm_material_rec_against_PO
     Friend WithEvents Label14 As System.Windows.Forms.Label
     Friend WithEvents lblMRNType As Label
     Friend WithEvents lblcustid As System.Windows.Forms.Label
+    Friend WithEvents lblcessamt As Label
+    Friend WithEvents Label16 As Label
 End Class
