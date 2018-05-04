@@ -57,6 +57,7 @@ Public Class frm_DebitNote
 
         lblAmount.Text = 0
         lblVatAmount.Text = 0
+        lblCessAmount.Text = 0
         lblDebit.Text = 0
         If Not dtable_Item_List Is Nothing Then dtable_Item_List.Rows.Clear()
         TbRMRN.SelectTab(1)
@@ -114,7 +115,7 @@ Public Class frm_DebitNote
 
     Private Sub FillGrid(Optional ByVal condition As String = "")
         Try
-            obj.GridBind(dgvList, "SELECT * FROM ( SELECT DebitNote_Id,DebitNote_Code + CAST(DebitNote_No AS VARCHAR(10)) AS DebitNote_No ,dbo.fn_format(DebitNote_Date) AS DebitNote_Date ,MRNId ,MM.MRN_PREFIX + CAST(MM.MRN_NO AS VARCHAR(10)) AS MRNNo ,DN_Amount ,ACC_NAME,DM.Remarks,DM.Created_by FROM DebitNote_Master Dm INNER JOIN MATERIAL_RECEIVED_AGAINST_PO_MASTER MM ON DM.MRNId = MM.Receipt_ID INNER JOIN dbo.ACCOUNT_MASTER AM ON am.ACC_ID=dm.DN_CustId UNION ALL SELECT    DebitNote_Id ,DebitNote_Code + CAST(DebitNote_No AS VARCHAR(10)) AS DebitNote_No ,dbo.fn_format(DebitNote_Date) AS DebitNote_Date ,MRNId ,MM.MRN_PREFIX + CAST(MM.MRN_NO AS VARCHAR(10)) AS MRNNo ,DN_Amount ,ACC_NAME ,DM.Remarks ,DM.Created_by FROM      DebitNote_Master Dm INNER JOIN dbo.MATERIAL_RECIEVED_WITHOUT_PO_MASTER MM ON DM.MRNId = MM.MRN_NO INNER JOIN dbo.ACCOUNT_MASTER AM ON am.ACC_ID = dm.DN_CustId) tb  WHERE (tb.DebitNote_No+tb.DebitNote_Date+MRNNo+tb.Remarks+tb.Created_by+ACC_NAME + CAST(DN_Amount as varchar(50))) LIKE '%" & condition & "%'")
+            obj.GridBind(dgvList, "SELECT * FROM ( SELECT DebitNote_Id,DebitNote_Code + CAST(DebitNote_No AS VARCHAR(10)) AS DebitNote_No ,dbo.fn_format(DebitNote_Date) AS DebitNote_Date ,MRNId ,MM.MRN_PREFIX + CAST(MM.MRN_NO AS VARCHAR(10)) AS MRNNo ,DN_Amount ,ACC_NAME,DM.Remarks,DM.Created_by FROM DebitNote_Master Dm INNER JOIN MATERIAL_RECEIVED_AGAINST_PO_MASTER MM ON DM.MRNId = MM.MRN_NO INNER JOIN dbo.ACCOUNT_MASTER AM ON am.ACC_ID=dm.DN_CustId UNION ALL SELECT    DebitNote_Id ,DebitNote_Code + CAST(DebitNote_No AS VARCHAR(10)) AS DebitNote_No ,dbo.fn_format(DebitNote_Date) AS DebitNote_Date ,MRNId ,MM.MRN_PREFIX + CAST(MM.MRN_NO AS VARCHAR(10)) AS MRNNo ,DN_Amount ,ACC_NAME ,DM.Remarks ,DM.Created_by FROM      DebitNote_Master Dm INNER JOIN dbo.MATERIAL_RECIEVED_WITHOUT_PO_MASTER MM ON DM.MRNId = MM.MRN_NO INNER JOIN dbo.ACCOUNT_MASTER AM ON am.ACC_ID = dm.DN_CustId) tb  WHERE (tb.DebitNote_No+tb.DebitNote_Date+MRNNo+tb.Remarks+tb.Created_by+ACC_NAME + CAST(DN_Amount as varchar(50)) + tb.ACC_NAME + tb.Created_by)  LIKE '%" & condition & "%'")
             dgvList.Width = 100
             dgvList.Columns(0).Visible = False 'Reverse_ID
             dgvList.Columns(0).Width = 100
@@ -214,10 +215,10 @@ Public Class frm_DebitNote
                 prpty.INV_Date = txt_INVDate.Text
                 prpty.DN_ItemValue = lblAmount.Text
                 prpty.DN_ItemTax = lblVatAmount.Text
-                prpty.DN_Type = "Item"
+                prpty.DN_ItemCess = lblCessAmount.Text
+                prpty.DN_Type = ""
                 prpty.Ref_No = ""
-                prpty.Ref_Date = DateTime.Now()
-                prpty.Tax_Num = 0
+                prpty.Ref_Date = NULL_DATE
 
                 clsObj.insert_DebitNote_MASTER(prpty, cmd)
 
@@ -233,11 +234,12 @@ Public Class frm_DebitNote
                         prpty.Item_Qty = Convert.ToDouble(FLXGRD_MaterialItem.Item(iRow, "Item_Qty")).ToString()
                         prpty.Item_Rate = Convert.ToDouble(FLXGRD_MaterialItem.Item(iRow, "Item_rate")).ToString()
                         prpty.Item_Tax = Convert.ToDouble(FLXGRD_MaterialItem.Item(iRow, "Vat_Per")).ToString()
+                        prpty.Item_Cess = Convert.ToDouble(FLXGRD_MaterialItem.Item(iRow, "Cess_Per")).ToString()
                         prpty.Stock_Detail_ID = Convert.ToDouble(FLXGRD_MaterialItem.Item(iRow, "Stock_Detail_Id")).ToString()
                         prpty.Created_By = v_the_current_logged_in_user_name
                         prpty.Creation_Date = Now
                         prpty.Modified_By = v_the_current_logged_in_user_name
-                        prpty.Modification_Date = Now
+                        prpty.Modification_Date = NULL_DATE
                         prpty.Division_ID = v_the_current_division_id
                         clsObj.insert_DebitNote_DETAIL(prpty, cmd)
                         'End If
@@ -305,6 +307,7 @@ Public Class frm_DebitNote
         dtable_Item_List.Columns.Add("MRN_Qty", GetType(System.Double))
         dtable_Item_List.Columns.Add("Item_Rate", GetType(System.Double))
         dtable_Item_List.Columns.Add("Vat_Per", GetType(System.Double))
+        dtable_Item_List.Columns.Add("Cess_Per", GetType(System.Double))
         dtable_Item_List.Columns.Add("Item_Qty", GetType(System.Double))
         dtable_Item_List.Columns.Add("Stock_Detail_Id", GetType(System.Double))
 
@@ -327,6 +330,7 @@ Public Class frm_DebitNote
         FLXGRD_MaterialItem.Cols("MRN_Qty").Caption = "MRN Item Qty"
         FLXGRD_MaterialItem.Cols("Item_Rate").Caption = "Item Rate"
         FLXGRD_MaterialItem.Cols("Vat_Per").Caption = "Tax %"
+        FLXGRD_MaterialItem.Cols("Cess_Per").Caption = "Cess %"
 
         FLXGRD_MaterialItem.Cols("Item_Qty").Caption = "Item Qty"
 
@@ -339,6 +343,7 @@ Public Class frm_DebitNote
         FLXGRD_MaterialItem.Cols("MRN_Qty").AllowEditing = False
         FLXGRD_MaterialItem.Cols("Item_Rate").AllowEditing = False
         FLXGRD_MaterialItem.Cols("Vat_Per").AllowEditing = False
+        FLXGRD_MaterialItem.Cols("Cess_Per").AllowEditing = False
 
         FLXGRD_MaterialItem.Cols("Item_Qty").AllowEditing = True
 
@@ -349,9 +354,10 @@ Public Class frm_DebitNote
         FLXGRD_MaterialItem.Cols("UM_Name").Width = 40
         FLXGRD_MaterialItem.Cols("Prev_Item_Qty").Width = 90
 
-        FLXGRD_MaterialItem.Cols("MRN_Qty").Width = 90
-        FLXGRD_MaterialItem.Cols("Item_Rate").Width = 90
-        FLXGRD_MaterialItem.Cols("Vat_Per").Width = 90
+        FLXGRD_MaterialItem.Cols("MRN_Qty").Width = 75
+        FLXGRD_MaterialItem.Cols("Item_Rate").Width = 70
+        FLXGRD_MaterialItem.Cols("Vat_Per").Width = 65
+        FLXGRD_MaterialItem.Cols("Cess_Per").Width = 65
 
         FLXGRD_MaterialItem.Cols("Item_Qty").Width = 100
         FLXGRD_MaterialItem.Cols("Stock_Detail_Id").Width = 200
@@ -504,24 +510,28 @@ Public Class frm_DebitNote
 
         Dim total_item_value As Double
         Dim total_vat_amount As Double
+        Dim total_cess_amount As Double
         Dim total_exice_amount As Double
         Dim tot_amt As Double
         total_exice_amount = 0
         total_item_value = 0
         total_vat_amount = 0
+        total_cess_amount = 0
         tot_amt = 0
 
 
         For i = 1 To FLXGRD_MaterialItem.Rows.Count - 1
             total_item_value = total_item_value + (FLXGRD_MaterialItem.Rows(i).Item("Item_Qty") * FLXGRD_MaterialItem.Rows(i).Item("item_rate"))
             total_vat_amount = total_vat_amount + ((FLXGRD_MaterialItem.Rows(i).Item("item_rate") * FLXGRD_MaterialItem.Rows.Item(i)("Item_Qty")) * FLXGRD_MaterialItem.Rows(i).Item("Vat_Per") / 100)
+            total_cess_amount = total_cess_amount + ((FLXGRD_MaterialItem.Rows(i).Item("item_rate") * FLXGRD_MaterialItem.Rows.Item(i)("Item_Qty")) * FLXGRD_MaterialItem.Rows(i).Item("Cess_Per") / 100)
 
         Next
 
         lblAmount.Text = total_item_value.ToString("#0.00")
         lblVatAmount.Text = total_vat_amount.ToString("#0.00")
-        lblDebit.Text = (total_item_value + total_vat_amount + total_exice_amount).ToString("#0.00")
-        Str = total_item_value.ToString("#0.00") + "," + total_vat_amount.ToString("#0.00") + "," + total_exice_amount.ToString()
+        lblCessAmount.Text = total_cess_amount.ToString("#0.00")
+        lblDebit.Text = (total_item_value + total_vat_amount + total_cess_amount + total_exice_amount).ToString("#0.00")
+        Str = total_item_value.ToString("#0.00") + "," + total_vat_amount.ToString("#0.00") + "," + total_cess_amount.ToString("#0.00") + "," + total_exice_amount.ToString()
         Return Str
 
     End Function

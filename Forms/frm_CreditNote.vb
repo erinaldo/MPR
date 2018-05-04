@@ -38,8 +38,6 @@ Public Class frm_CreditNote
 
     'End Enum
 
-
-
     Private Sub set_new_initilize()
         lbl_CNDate.Text = Now.ToString("dd-MMM-yyyy")
         GetCNCode()
@@ -50,9 +48,13 @@ Public Class frm_CreditNote
         TbRMRN.SelectTab(1)
         ' intColumnIndex = -1
         FillGrid()
+        lblAddress.Text = ""
+        lblInvdate.Text = "#0000"
+        lblInvNo.Text = "#0000"
         flag = "save"
         lblAmount.Text = 0
         lblVatAmount.Text = 0
+        lblCessAmount.Text = 0
         lblCredit.Text = 0
     End Sub
 
@@ -178,12 +180,7 @@ Public Class frm_CreditNote
     End Function
 
     Public Sub SaveClick(ByVal sender As Object, ByVal e As System.EventArgs) Implements IForm.SaveClick
-
-
         Dim cmd As SqlCommand
-
-
-
         txtRemarks.Focus()
         Try
             If flag = "save" And validate_data() Then
@@ -209,10 +206,11 @@ Public Class frm_CreditNote
                 prpty.INV_Date = lblInvdate.Text
                 prpty.CN_ItemValue = lblAmount.Text
                 prpty.CN_ItemTax = lblVatAmount.Text
-                prpty.CN_Type = "Item"
+                prpty.CN_ItemCess = lblCessAmount.Text
+                prpty.CN_Type = ""
                 prpty.Ref_No = ""
-                prpty.Ref_Date = DateTime.Now()
-                prpty.Tax_Amt = 0
+                prpty.Ref_Date = NULL_DATE
+
                 clsObj.insert_CreditNote_MASTER(prpty, cmd)
 
                 Dim iRowCount As Int32
@@ -227,11 +225,12 @@ Public Class frm_CreditNote
                         prpty.Item_Qty = Convert.ToDouble(FLXGRD_MaterialItem.Item(iRow, "Item_Qty")).ToString()
                         prpty.Item_Rate = Convert.ToDouble(FLXGRD_MaterialItem.Item(iRow, "Item_rate")).ToString()
                         prpty.Item_Tax = Convert.ToDouble(FLXGRD_MaterialItem.Item(iRow, "Vat_Per")).ToString()
+                        prpty.Item_Cess = Convert.ToDouble(FLXGRD_MaterialItem.Item(iRow, "Cess_Per")).ToString()
                         prpty.Stock_Detail_ID = Convert.ToDouble(FLXGRD_MaterialItem.Item(iRow, "Stock_Detail_Id")).ToString()
                         prpty.Created_By = v_the_current_logged_in_user_name
                         prpty.Creation_Date = Now
                         prpty.Modified_By = v_the_current_logged_in_user_name
-                        prpty.Modification_Date = Now
+                        prpty.Modification_Date = NULL_DATE
                         prpty.Division_ID = v_the_current_division_id
                         clsObj.insert_CreditNote_DETAIL(prpty, cmd)
                         'End If
@@ -295,22 +294,20 @@ Public Class frm_CreditNote
         dtable_Item_List.Columns.Add("Item_Name", GetType(System.String))
         dtable_Item_List.Columns.Add("UM_Name", GetType(System.String))
         dtable_Item_List.Columns.Add("Prev_Item_Qty", GetType(System.Double))
-
         dtable_Item_List.Columns.Add("INV_Qty", GetType(System.Double))
         dtable_Item_List.Columns.Add("Item_Rate", GetType(System.Double))
         dtable_Item_List.Columns.Add("Vat_Per", GetType(System.Double))
+        dtable_Item_List.Columns.Add("Cess_Per", GetType(System.Double))
         dtable_Item_List.Columns.Add("Item_Qty", GetType(System.Double))
         dtable_Item_List.Columns.Add("Stock_Detail_Id", GetType(System.Double))
+
         dtable_Item_List.Columns.Add("INvDate", GetType(System.Double))
         dtable_Item_List.Columns.Add("SiNo", GetType(System.Double))
-
-
 
         FLXGRD_MaterialItem.DataSource = dtable_Item_List
         dtable_Item_List.Rows.Add(dtable_Item_List.NewRow)
         FLXGRD_MaterialItem.Cols(0).Width = 10
         SetGridSettingValues()
-
 
     End Sub
 
@@ -324,6 +321,7 @@ Public Class frm_CreditNote
         FLXGRD_MaterialItem.Cols("INV_Qty").Caption = "INV Item Qty"
         FLXGRD_MaterialItem.Cols("Item_Rate").Caption = "Item Rate"
         FLXGRD_MaterialItem.Cols("Vat_Per").Caption = "Tax %"
+        FLXGRD_MaterialItem.Cols("Cess_Per").Caption = "Cess %"
 
 
         FLXGRD_MaterialItem.Cols("Item_Qty").Caption = "Item Qty"
@@ -337,6 +335,7 @@ Public Class frm_CreditNote
         FLXGRD_MaterialItem.Cols("INV_Qty").AllowEditing = False
         FLXGRD_MaterialItem.Cols("Item_Rate").AllowEditing = False
         FLXGRD_MaterialItem.Cols("Vat_Per").AllowEditing = False
+        FLXGRD_MaterialItem.Cols("Cess_Per").AllowEditing = False
         FLXGRD_MaterialItem.Cols("Item_Qty").AllowEditing = True
 
         FLXGRD_MaterialItem.Cols("Stock_Detail_Id").AllowEditing = False
@@ -349,9 +348,10 @@ Public Class frm_CreditNote
         FLXGRD_MaterialItem.Cols("UM_Name").Width = 40
         FLXGRD_MaterialItem.Cols("Prev_Item_Qty").Width = 90
 
-        FLXGRD_MaterialItem.Cols("INV_Qty").Width = 90
-        FLXGRD_MaterialItem.Cols("Item_Rate").Width = 90
-        FLXGRD_MaterialItem.Cols("Vat_Per").Width = 90
+        FLXGRD_MaterialItem.Cols("INV_Qty").Width = 70
+        FLXGRD_MaterialItem.Cols("Item_Rate").Width = 70
+        FLXGRD_MaterialItem.Cols("Vat_Per").Width = 65
+        FLXGRD_MaterialItem.Cols("Cess_Per").Width = 65
 
         FLXGRD_MaterialItem.Cols("Item_Qty").Width = 100
         FLXGRD_MaterialItem.Cols("Stock_Detail_Id").Width = 200
@@ -405,7 +405,6 @@ Public Class frm_CreditNote
 
     Private Sub getMRNDetail(ByVal Receive_ID As Integer)
 
-
     End Sub
 
     Private Sub cmbINV_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmbINVNo.SelectedIndexChanged
@@ -418,8 +417,8 @@ Public Class frm_CreditNote
             If ds.Tables(0).Rows.Count > 0 Then
                 dtable_Item_List = ds.Tables(0).Copy
                 FLXGRD_MaterialItem.DataSource = dtable_Item_List
-                lblInvdate.Text = ds.Tables(0).Rows(0)(10)
-                lblInvNo.Text = ds.Tables(0).Rows(0)(11)
+                lblInvdate.Text = ds.Tables(0).Rows(0)("INvDate")
+                lblInvNo.Text = ds.Tables(0).Rows(0)("SiNo")
                 SetGridSettingValues()
             End If
             TbRMRN.SelectTab(1)
@@ -474,31 +473,34 @@ Public Class frm_CreditNote
         BindINVCombo()
     End Sub
 
-
     Private Function CalculateAmount() As String
         Dim i As Integer
         Dim Str As String
 
         Dim total_item_value As Double
         Dim total_vat_amount As Double
+        Dim total_cess_amount As Double
         Dim total_exice_amount As Double
         Dim tot_amt As Double
         total_exice_amount = 0
         total_item_value = 0
         total_vat_amount = 0
+        total_cess_amount = 0
         tot_amt = 0
 
 
         For i = 1 To FLXGRD_MaterialItem.Rows.Count - 1
             total_item_value = total_item_value + (FLXGRD_MaterialItem.Rows(i).Item("Item_Qty") * FLXGRD_MaterialItem.Rows(i).Item("item_rate"))
             total_vat_amount = total_vat_amount + ((FLXGRD_MaterialItem.Rows(i).Item("item_rate") * FLXGRD_MaterialItem.Rows.Item(i)("Item_Qty")) * FLXGRD_MaterialItem.Rows(i).Item("Vat_Per") / 100)
+            total_cess_amount = total_cess_amount + ((FLXGRD_MaterialItem.Rows(i).Item("item_rate") * FLXGRD_MaterialItem.Rows.Item(i)("Item_Qty")) * FLXGRD_MaterialItem.Rows(i).Item("Cess_Per") / 100)
 
         Next
 
         lblAmount.Text = total_item_value.ToString("#0.00")
         lblVatAmount.Text = total_vat_amount.ToString("#0.00")
-        lblCredit.Text = (total_item_value + total_vat_amount + total_exice_amount).ToString("#0.00")
-        Str = total_item_value.ToString("#0.00") + "," + total_vat_amount.ToString("#0.00") + "," + total_exice_amount.ToString()
+        lblCessAmount.Text = total_cess_amount.ToString("#0.00")
+        lblCredit.Text = (total_item_value + total_vat_amount + total_cess_amount + total_exice_amount).ToString("#0.00")
+        Str = total_item_value.ToString("#0.00") + "," + total_vat_amount.ToString("#0.00") + "," + total_cess_amount.ToString("#0.00") + "," + total_exice_amount.ToString()
         Return Str
 
     End Function
@@ -506,4 +508,5 @@ Public Class frm_CreditNote
     Private Sub lnkCalculateDebitAmt_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lnkCalculateDebitAmt.LinkClicked
         CalculateAmount()
     End Sub
+
 End Class
