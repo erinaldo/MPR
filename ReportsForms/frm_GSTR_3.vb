@@ -136,7 +136,7 @@ Public Class frm_GSTR_3
         xlWorkSheet.Cells(rowIndex, 2) = row("integrated_tax") - drrow("integrated_tax")
         xlWorkSheet.Cells(rowIndex, 6) = (row("non_integrated_tax") / 2) - (drrow("non_integrated_tax") / 2)
         xlWorkSheet.Cells(rowIndex, 10) = (row("non_integrated_tax") / 2) - (drrow("non_integrated_tax") / 2)
-        xlWorkSheet.Cells(rowIndex, 14) = 0
+        xlWorkSheet.Cells(rowIndex, 14) = row("CessAmt") - drrow("CessAmt")
 
         rowIndex += 3
         'row = Get4_SectionDataForPurchaseReturn()
@@ -271,42 +271,18 @@ FROM    ( SELECT    SUM(CASE WHEN MRWPM.MRN_TYPE <> 2
 
     Private Function Get4_SectionDataForPurchaseReturn() As DataRow
 
-
-        'Qry = " SELECT SUM(ISNULL(non_integrated_tax,0)) AS non_integrated_tax, " &
-        '    " SUM(ISNULL(integrated_tax,0)) As integrated_tax FROM (" &
-        '    " SELECT  SUM(CASE WHEN cm.STATE_ID = " & stateId & " THEN Item_vat ELSE 0 END) AS non_integrated_tax," &
-        '    "         SUM(CASE WHEN cm.STATE_ID != " & stateId & " THEN Item_vat ELSE 0 END) AS integrated_tax " &
-        '    " From dbo.ReverseMATERIAL_RECIEVED_Against_PO_MASTER ret" &
-        '    " inner Join dbo.MATERIAL_RECEIVED_AGAINST_PO_MASTER mrn ON ret.received_ID = mrn.Receipt_ID" &
-        '    " INNER Join dbo.ACCOUNT_MASTER am ON mrn.CUST_ID = am.ACC_ID" &
-        '    " INNER Join dbo.CITY_MASTER cm ON am.CITY_ID = cm.CITY_ID" &
-        '    " INNER Join dbo.ReverseMATERIAL_RECEIVED_Against_PO_DETAIL retd ON ret.Reverse_ID = retd.Reverse_ID" &
-        '    " WHERE MRN_STATUS <> 2 and MONTH(Reverse_Date) =  " & txtFromDate.Value.Month &
-        '    " And YEAR(Reverse_Date)=  " & txtFromDate.Value.Year &
-        '    " UNION" &
-        '    " SELECT  SUM(CASE WHEN cm.STATE_ID = " & stateId & " THEN Item_vat ELSE 0 END) AS non_integrated_tax," &
-        '    "         SUM(CASE WHEN cm.STATE_ID != " & stateId & " THEN Item_vat ELSE 0 END) AS integrated_tax " &
-        '    " From dbo.ReverseMATERIAL_RECIEVED_WITHOUT_PO_MASTER ret" &
-        '    " inner Join dbo.MATERIAL_RECIEVED_WITHOUT_PO_MASTER mrn ON ret.received_ID = mrn.Received_ID" &
-        '    " INNER Join dbo.ACCOUNT_MASTER am ON mrn.Vendor_ID = am.ACC_ID" &
-        '    " INNER Join dbo.CITY_MASTER cm ON am.CITY_ID = cm.CITY_ID" &
-        '    " INNER Join dbo.ReverseMATERIAL_RECEIVED_WITHOUT_PO_DETAIL retd ON ret.Reverse_ID = retd.Reverse_ID" &
-        '    " WHERE MRN_STATUS <> 2 and MONTH(Reverse_Date) =  " & txtFromDate.Value.Month &
-        '    " And YEAR(Reverse_Date)=  " & txtFromDate.Value.Year &
-        '    " ) AS temp"
-
-
-
         Qry = " SELECT ISNULL(SUM(non_integrated_tax), 0) AS non_integrated_tax ,
-       ISNULL(SUM(integrated_tax), 0) AS integrated_tax
+                        ISNULL(SUM(integrated_tax), 0) AS integrated_tax, 
+                        ISNULL(SUM(CessAmt), 0) AS CessAmt
  FROM   ( SELECT    CASE WHEN sm.STATE_ID =" & stateId & "
-                         THEN ISNULL(Item_Tax, 0)
+                         THEN ISNULL(Tax_num, 0)
                          ELSE 0
                     END AS non_integrated_tax ,
                     CASE WHEN sm.STATE_ID <> " & stateId & "
-                         THEN ISNULL(Item_Tax, 0)
+                         THEN ISNULL(Tax_num, 0)
                          ELSE 0
-                    END AS integrated_tax
+                    END AS integrated_tax,
+                    ISNULL(Cess_num, 0) As CessAmt
           FROM      dbo.DebitNote_Master
                     JOIN dbo.DebitNote_DETAIL ON dbo.DebitNote_Master.DebitNote_Id = dbo.DebitNote_DETAIL.DebitNote_Id
                     JOIN dbo.ACCOUNT_MASTER ON ACC_ID = DN_CustId
@@ -314,7 +290,7 @@ FROM    ( SELECT    SUM(CASE WHEN MRWPM.MRN_TYPE <> 2
                     JOIN dbo.STATE_MASTER sm ON sm.STATE_ID = dbo.CITY_MASTER.STATE_ID
           WHERE     MONTH(DebitNote_Master.Creation_Date) =" & txtFromDate.Value.Month & "
                     AND YEAR(DebitNote_Master.Creation_Date) = " & txtFromDate.Value.Year & "
-          AND item_tax>0) tb"
+          AND item_tax > 0) tb"
 
 
         Return objCommFunction.Fill_DataSet(Qry).Tables(0).Rows(0)
@@ -322,9 +298,10 @@ FROM    ( SELECT    SUM(CASE WHEN MRWPM.MRN_TYPE <> 2
 
     Private Function Get4_SectionDataForPurchase() As DataRow
         Qry = " SELECT SUM(ISNULL(non_integrated_tax,0)) AS non_integrated_tax, " &
-            " SUM(ISNULL(integrated_tax,0)) As integrated_tax FROM (" &
+            " SUM(ISNULL(integrated_tax,0)) As integrated_tax, SUM(ISNULL(CessAmt, 0)) AS CessAmt FROM (" &
             " SELECT  SUM(CASE WHEN mrn.MRN_TYPE <> 2 THEN mrn.GST_AMOUNT ELSE 0 END) AS non_integrated_tax," &
-            "         SUM(CASE WHEN mrn.MRN_TYPE = 2 THEN mrn.GST_AMOUNT ELSE 0 END) AS integrated_tax " &
+            "         SUM(CASE WHEN mrn.MRN_TYPE = 2 THEN mrn.GST_AMOUNT ELSE 0 END) AS integrated_tax, " &
+            "         SUM(mrn.CESS_AMOUNT) AS CessAmt " &
             " FROM dbo.MATERIAL_RECIEVED_WITHOUT_PO_MASTER  AS mrn " &
             " INNER JOIN dbo.ACCOUNT_MASTER am ON mrn.Vendor_ID = am.ACC_ID" &
             " INNER JOIN dbo.CITY_MASTER cm ON cm.CITY_ID = am.CITY_ID" &
@@ -332,7 +309,8 @@ FROM    ( SELECT    SUM(CASE WHEN MRWPM.MRN_TYPE <> 2
             " And YEAR(Received_Date)=  " & txtFromDate.Value.Year &
             " union" &
             " SELECT  SUM(CASE WHEN mrn.MRN_TYPE <> 2 THEN mrn.GST_AMOUNT ELSE 0 END) AS non_integrated_tax," &
-            "         SUM(CASE WHEN mrn.MRN_TYPE = 2 THEN mrn.GST_AMOUNT ELSE 0 END) AS integrated_tax " &
+            "         SUM(CASE WHEN mrn.MRN_TYPE = 2 THEN mrn.GST_AMOUNT ELSE 0 END) AS integrated_tax, " &
+            "         SUM(mrn.CESS_AMOUNT) AS CessAmt " &
             " FROM dbo.MATERIAL_RECEIVED_AGAINST_PO_MASTER AS mrn " &
             " INNER JOIN dbo.ACCOUNT_MASTER am ON mrn.CUST_ID = am.ACC_ID" &
             " INNER JOIN dbo.CITY_MASTER cm ON cm.CITY_ID = am.CITY_ID" &
@@ -451,7 +429,7 @@ GROUP BY STATE_CODE ,
                                                       * DISCOUNT_VALUE ) / 100
                                                ELSE DISCOUNT_VALUE
                                           END, 0) )), 0) AS Taxable_Value ,
-                    SUM(0) Cess_Amount ,
+                    SUM(invd.CessAmount_num) As Cess_Amount ,
                     ISNULL(SUM(CASE WHEN inv.INV_TYPE <> 'I'
                                     THEN invd.VAT_AMOUNT
                                     ELSE 0
@@ -483,18 +461,19 @@ GROUP BY STATE_CODE ,
         ''     " And YEAR(SI_DATE)=  " & txtFromDate.Value.Year
         Qry = Qry + condition + " GROUP BY  GSTPaid ,VAT_PER) tb UNION ALL
           SELECT    SUM(CAST(( d.Item_Qty * d.Item_Rate ) AS NUMERIC(18, 2)))
-                    * -1 AS Taxable_Value ,
-                    ISNULL(SUM(0), 0) Cess_Amount ,
+                    * (-1) AS Taxable_Value ,
+                    ISNULL(SUM(CAST(( d.Item_Qty * d.Item_Rate )
+                                         * Item_Cess / 100 AS NUMERIC(18, 2))), 0) * (-1) As Cess_Amount ,
                     ISNULL(SUM(CASE WHEN INV_TYPE <> 'I'
                                     THEN CAST(( d.Item_Qty * d.Item_Rate )
                                          * Item_Tax / 100 AS NUMERIC(18, 2))
                                     ELSE 0
-                               END), 0) * -1 AS non_integrated_tax ,
+                               END), 0) * (-1) AS non_integrated_tax ,
                     ISNULL(SUM(CASE WHEN INV_TYPE = 'I'
                                     THEN CAST(( d.Item_Qty * d.Item_Rate )
                                          * Item_Tax / 100 AS NUMERIC(18, 2))
                                     ELSE 0
-                               END), 0) * -1 AS integrated_tax
+                               END), 0) * (-1) AS integrated_tax
           FROM      dbo.SALE_INVOICE_MASTER
                     JOIN dbo.CreditNote_Master M ON M.INVId = dbo.SALE_INVOICE_MASTER.SI_ID
                     JOIN dbo.CreditNote_DETAIL D ON M.CreditNote_Id = D.CreditNote_Id
