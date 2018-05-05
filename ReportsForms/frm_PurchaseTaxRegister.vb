@@ -42,7 +42,9 @@ Public Class frm_PurchaseTaxRegister
         GST28Tax AS [Tax @28%] ,
         TaxableAmt AS [Total Txbl. GST] ,
         TotalTax AS [Total GST Tax] ,
-        otherAmount
+        [CESS %] ,
+        [Cess Amount] ,
+        otherAmount AS [Other Amount]
 FROM    ( SELECT    MRWPM.Received_ID ,
                     CONVERT(VARCHAR(20), Received_Date, 106) ReceivedDate ,
                     Invoice_No AS BillNo ,
@@ -183,13 +185,16 @@ FROM    ( SELECT    MRWPM.Received_ID ,
                                                               2)) AS GST28Tax ,
                     MAX(ISNULL(Other_Charges, 0) + ISNULL(freight, 0)) AS otherAmount ,
                     MAX(ISNULL(GROSS_AMOUNT, 0)) AS TaxableAmt ,
-                    MAX(ISNULL(GST_AMOUNT, 0)) TotalTax
+                    MAX(ISNULL(GST_AMOUNT, 0)) TotalTax ,
+                    MAX(ISNULL(MRWPD.Item_cess, 0)) AS [CESS %] ,
+                    SUM(ISNULL(GROSS_AMOUNT, 0) * ISNULL(MRWPD.Item_cess, 0)
+                        / 100) AS [Cess Amount]
           FROM      dbo.MATERIAL_RECIEVED_WITHOUT_PO_MASTER MRWPM
                     JOIN dbo.MATERIAL_RECEIVED_WITHOUT_PO_DETAIL MRWPD ON MRWPD.Received_ID = MRWPM.Received_ID
                     JOIN dbo.ACCOUNT_MASTER ACM ON ACM.ACC_ID = MRWPM.Vendor_ID
-                    where  MONTH(Received_Date) =" + txtFromDate.Value.Month.ToString() &
+          WHERE     MONTH(Received_Date) = " + txtFromDate.Value.Month.ToString() &
                     " AND YEAR(Received_Date) = " + txtFromDate.Value.Year.ToString() &
-         " GROUP BY  MRWPM.Received_ID ,
+          " GROUP BY  MRWPM.Received_ID ,
                     Received_Date ,
                     Invoice_No ,
                     Invoice_Date ,
@@ -339,11 +344,13 @@ FROM    ( SELECT    MRWPM.Received_ID ,
                                                               2)) AS GST28Tax ,
                     MAX(ISNULL(Other_Charges, 0) + ISNULL(freight, 0)) AS otherAmount ,
                     MAX(ISNULL(GROSS_AMOUNT, 0)) AS TaxableAmt ,
-                    MAX(ISNULL(GST_AMOUNT, 0)) TotalTax
+                    MAX(ISNULL(GST_AMOUNT, 0)) TotalTax ,
+                    0 AS [CESS %] ,
+                    0 AS [Cess Amount]
           FROM      dbo.MATERIAL_RECEIVED_AGAINST_PO_MASTER MRAPM
                     JOIN dbo.MATERIAL_RECEIVED_AGAINST_PO_DETAIL MRAPD ON MRAPD.Receipt_ID = MRAPM.Receipt_ID
                     JOIN dbo.ACCOUNT_MASTER ACM ON ACM.ACC_ID = MRAPM.CUST_ID
-                    where  MONTH(Receipt_Date) =" + txtFromDate.Value.Month.ToString() &
+          WHERE     MONTH(Receipt_Date) =" + txtFromDate.Value.Month.ToString() &
                     " AND YEAR(Receipt_Date) = " + txtFromDate.Value.Year.ToString() &
           " GROUP BY  MRAPM.Receipt_ID ,
                     Receipt_Date ,

@@ -114,7 +114,7 @@ Public Class frm_Material_Received_Without_PO_Master
         lblexciseamt.Text = "0.0"
         lblnetamt.Text = "0.0"
         ' DGVIndentItem.Rows.Add()
-
+        FillGrid()
         flag = "save"
     End Sub
 
@@ -344,10 +344,10 @@ Public Class frm_Material_Received_Without_PO_Master
 
                 Dim iRowCount As Int32
                 Dim iRow As Int32
-                iRowCount = FLXGRD_MaterialItem.Rows.Count - 1
+                iRowCount = FLXGRD_MaterialItem.Rows.Count
 
                 For iRow = 1 To iRowCount - 1
-                    If FLXGRD_MaterialItem.Item(iRow, "Batch_Qty") > 0 Then
+                    If Convert.ToDouble(FLXGRD_MaterialItem.Item(iRow, "Batch_Qty")) > 0 Then
                         prpty.Po_ID = RECEIVEDID
                         prpty.Item_ID = FLXGRD_MaterialItem.Item(iRow, "Item_Id")
 
@@ -495,6 +495,7 @@ Public Class frm_Material_Received_Without_PO_Master
                 obj.Clear_All_TextBox(Me.GroupBox1.Controls)
                 obj.Clear_All_ComoBox(Me.GroupBox1.Controls)
                 new_initilization()
+
             End If
         Catch ex As Exception
             obj.MyCon_RollBackTransaction(cmd)
@@ -599,8 +600,8 @@ Public Class frm_Material_Received_Without_PO_Master
         FLXGRD_MaterialItem.DataSource = dtable_Item_List
         FLXGRD_MatItem_NonStockable.DataSource = dtable_Item_List_Stockable
 
-        dtable_Item_List.Rows.Add(dtable_Item_List.NewRow)
-        dtable_Item_List_Stockable.Rows.Add(dtable_Item_List_Stockable.NewRow)
+        ' dtable_Item_List.Rows.Add(dtable_Item_List.NewRow)
+        '  dtable_Item_List_Stockable.Rows.Add(dtable_Item_List_Stockable.NewRow)
         FLXGRD_MaterialItem.Cols(0).Width = 10
         FLXGRD_MaterialItem.Cols(0).AllowEditing = False
         FLXGRD_MatItem_NonStockable.Cols(0).Width = 10
@@ -662,7 +663,7 @@ Public Class frm_Material_Received_Without_PO_Master
         FLXGRD_MaterialItem.Cols("BATCH_QTY").Width = 80
 
         FLXGRD_MaterialItem.Cols("exe_Per").Visible = False
-        FLXGRD_MaterialItem.Cols("BATCH_NO").Visible = False
+        FLXGRD_MaterialItem.Cols("Item_Code").Visible = False
         'FLXGRD_MaterialItem.Cols(11).Width = 120
 
         ''**************************************************************
@@ -713,7 +714,7 @@ Public Class frm_Material_Received_Without_PO_Master
 
 
 
-        FLXGRD_MatItem_NonStockable.Cols("Item_Code").Width = 65
+        ' FLXGRD_MatItem_NonStockable.Cols("Item_Code").Width = 65
         FLXGRD_MatItem_NonStockable.Cols("Item_Name").Width = 265
         FLXGRD_MatItem_NonStockable.Cols("UM_Name").Width = 40
         FLXGRD_MatItem_NonStockable.Cols("Item_Rate").Width = 60
@@ -723,7 +724,7 @@ Public Class frm_Material_Received_Without_PO_Master
         FLXGRD_MatItem_NonStockable.Cols("Vat_Per").Width = 50
         FLXGRD_MatItem_NonStockable.Cols("Cess_Per").Width = 50
         FLXGRD_MatItem_NonStockable.Cols("exe_Per").Width = 30
-        'FLXGRD_MatItem_NonStockable.Cols("BATCH_NO").Width = 60
+        FLXGRD_MatItem_NonStockable.Cols("BATCH_NO").Width = 65
         FLXGRD_MatItem_NonStockable.Cols("EXPIRY_DATE").Width = 70
         FLXGRD_MatItem_NonStockable.Cols("BATCH_QTY").Width = 60
         'FLXGRD_MatItem_NonStockable.Cols(11).Width = 120
@@ -847,7 +848,7 @@ restart:
                     drItem("Vat_Per") = ds.Tables(0).Rows(0)("VAT_PERCENTAGE")
                     drItem("Cess_Per") = ds.Tables(0).Rows(0)("CessPercentage_num")
                     dtable_Item_List.Rows.Add(drItem)
-                    dtable_Item_List.Rows.Add(dtable_Item_List.NewRow)
+                    ' dtable_Item_List.Rows.Add(dtable_Item_List.NewRow)
 
                     'FLXGRD_MaterialItem.DataSource = dtable_Item_List
                     'Dim introw As Integer
@@ -1052,7 +1053,7 @@ restart:
             'dtable_Item_List = ds.Tables(1).Copy
 
             dtable_Item_List = ds.Tables(1).Copy
-            dtable_Item_List.Rows.Add(dtable_Item_List.NewRow)
+            ' dtable_Item_List.Rows.Add(dtable_Item_List.NewRow)
             FLXGRD_MaterialItem.DataSource = dtable_Item_List
 
             dtMRNDetail_NonStockableItems = ds.Tables(2).Copy
@@ -1404,7 +1405,7 @@ restart:
         dt = FLXGRD_MaterialItem.DataSource
 
         If Not dt Is Nothing Then
-            For i As Integer = 0 To dt.Rows.Count - 2
+            For i As Integer = 0 To dt.Rows.Count - 1
 
                 If (dt.Rows(i)("DType")) = "P" Then
                     discamt = Math.Round(((dt.Rows(i)("Batch_qty") * dt.Rows(i)("Item_Rate")) * dt.Rows(i)("DISC") / 100), 2)
@@ -1438,7 +1439,7 @@ restart:
 
         dt = FLXGRD_MatItem_NonStockable.DataSource
         If Not dt Is Nothing Then
-            For i As Integer = 0 To dt.Rows.Count - 2
+            For i As Integer = 0 To dt.Rows.Count - 1
 
 
                 If (dt.Rows(i)("DType")) = "P" Then

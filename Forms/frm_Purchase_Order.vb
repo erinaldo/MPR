@@ -289,7 +289,7 @@ Public Class frm_Purchase_Order
         dtable_Item_List.Columns.Add("Vat_Name", GetType(System.String))
         dtable_Item_List.Columns.Add("Exice_Per", GetType(System.Double))
         dtable_Item_List.Columns.Add("Vat_Per", GetType(System.Double))
-        dtable_Item_List.Columns.Add("Item_Value", GetType(System.Double))
+        dtable_Item_List.Columns.Add("Item_Value", GetType(System.Decimal))
         dtable_Item_List.Columns.Add("Item_ID", GetType(System.Int32))
         dtable_Item_List.Columns.Add("Indent_ID", GetType(System.Int32))
         dtable_Item_List.Columns.Add("UM_ID", GetType(System.Int32))
@@ -484,18 +484,18 @@ Public Class frm_Purchase_Order
             Dim Str As String
 
 
-            Dim total_item_value As Double
-            Dim item_value As Double
-            Dim total_vat_amount As Double
-            Dim total_cess_amount As Double
-            Dim total_exice_amount As Double
-            Dim tot_amt As Double
-            total_exice_amount = 0
-            total_item_value = 0
-            total_vat_amount = 0
-            total_cess_amount = 0
-            tot_amt = 0
-            item_value = 0
+            Dim total_item_value As Decimal
+            Dim item_value As Decimal
+            Dim total_vat_amount As Decimal
+            Dim total_cess_amount As Decimal
+            Dim total_exice_amount As Decimal
+            Dim tot_amt As Decimal
+            total_exice_amount = 0.00
+            total_item_value = 0.00
+            total_vat_amount = 0.00
+            total_cess_amount = 0.00
+            tot_amt = 0.00
+            item_value = 0.00
 
             If Not IsNumeric(txtOtherCharges.Text) Then
                 txtOtherCharges.Text = 0.0
@@ -511,7 +511,8 @@ Public Class frm_Purchase_Order
                 End If
             Next
 
-            Dim exice_per As Double = 0.0
+            Dim itmVal As Decimal = 0
+            Dim exice_per As Decimal = 0.0
             Dim discamt As Decimal = 0.0
             Dim totdiscamt As Decimal = 0.0
 
@@ -527,14 +528,18 @@ Public Class frm_Purchase_Order
                             discamt = Math.Round(.Item("DISC"), 2)
                         End If
 
+
                         .Item("Item_Value") = Math.Round((.Item("PO_Qty") * .Item("Item_Rate")) - discamt, 2)
-                        total_item_value = total_item_value + (.Item("Item_Value"))
+
+                        itmVal = Math.Round((.Item("PO_Qty") * .Item("Item_Rate")) - discamt, 2)
+
+                        total_item_value = total_item_value + itmVal
 
                         totdiscamt = totdiscamt + discamt
 
                         exice_per = IIf((.Item("Exice_Per")) Is DBNull.Value, 0, .Item("Exice_Per"))
                         exice_per = exice_per / 100
-                        total_exice_amount = total_exice_amount + (.Item("Item_Value") * exice_per)
+                        total_exice_amount = total_exice_amount + itmVal * exice_per
                         total_vat_amount = total_vat_amount + ((((.Item("PO_Qty") * .Item("Item_Rate")) - discamt) * .Item("Vat_Per")) / 100)
                         total_cess_amount = total_cess_amount + ((((.Item("PO_Qty") * .Item("Item_Rate")) - discamt) * .Item("Cess_Per")) / 100)
                     End If
@@ -928,7 +933,7 @@ restart:
             dr("Disc") = 0.0
             'dr("Exice_Per") = 0
             dr("Vat_per") = ds.Tables(1).Rows(0)("VAT_PERCENTAGE")
-            dr("Item_value") = (dr("PO_Qty") * dr("Item_Rate")) + ((dr("PO_Qty") * dr("Item_Rate") * dr("Vat_Per")) / 100)
+            dr("Item_value") = (dr("PO_Qty") * dr("Item_Rate")) + ((dr("PO_Qty") * dr("Item_Rate") * dr("Vat_Per")) / 100).ToString("#0.00")
             dr("Indent_Id") = -1
 
             frm_Indent_Items.dTable_POItems.Rows.Add(dr)

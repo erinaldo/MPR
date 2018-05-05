@@ -36,6 +36,8 @@ Partial Class frm_material_rec_against_PO
         Me.BtnRevisedMRN = New System.Windows.Forms.Button()
         Me.dgvList = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
+        Me.lblcessamt = New System.Windows.Forms.Label()
+        Me.Label16 = New System.Windows.Forms.Label()
         Me.lblMRNType = New System.Windows.Forms.Label()
         Me.lblexciseamt = New System.Windows.Forms.Label()
         Me.Label14 = New System.Windows.Forms.Label()
@@ -86,8 +88,6 @@ Partial Class frm_material_rec_against_PO
         Me.Label4 = New System.Windows.Forms.Label()
         Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
         Me.C1FlexGrid1 = New C1.Win.C1FlexGrid.C1FlexGrid()
-        Me.lblcessamt = New System.Windows.Forms.Label()
-        Me.Label16 = New System.Windows.Forms.Label()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
@@ -264,6 +264,7 @@ Partial Class frm_material_rec_against_PO
         Me.dgvList.Name = "dgvList"
         Me.dgvList.Rows.Count = 1
         Me.dgvList.Rows.DefaultSize = 18
+        Me.dgvList.SelectionMode = C1.Win.C1FlexGrid.SelectionModeEnum.Row
         Me.dgvList.Size = New System.Drawing.Size(890, 440)
         Me.dgvList.Styles = New C1.Win.C1FlexGrid.CellStyleCollection(resources.GetString("dgvList.Styles"))
         Me.dgvList.TabIndex = 0
@@ -314,6 +315,29 @@ Partial Class frm_material_rec_against_PO
         Me.TabPage2.Size = New System.Drawing.Size(902, 600)
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "  "
+        '
+        'lblcessamt
+        '
+        Me.lblcessamt.BackColor = System.Drawing.Color.Transparent
+        Me.lblcessamt.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblcessamt.ForeColor = System.Drawing.Color.Orange
+        Me.lblcessamt.Location = New System.Drawing.Point(777, 460)
+        Me.lblcessamt.Name = "lblcessamt"
+        Me.lblcessamt.Size = New System.Drawing.Size(118, 20)
+        Me.lblcessamt.TabIndex = 79
+        Me.lblcessamt.Text = "0.00"
+        Me.lblcessamt.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'Label16
+        '
+        Me.Label16.AutoSize = True
+        Me.Label16.BackColor = System.Drawing.Color.Transparent
+        Me.Label16.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label16.Location = New System.Drawing.Point(650, 463)
+        Me.Label16.Name = "Label16"
+        Me.Label16.Size = New System.Drawing.Size(90, 15)
+        Me.Label16.TabIndex = 80
+        Me.Label16.Text = "CESS Amount :"
         '
         'lblMRNType
         '
@@ -874,29 +898,6 @@ Partial Class frm_material_rec_against_PO
         Me.C1FlexGrid1.Size = New System.Drawing.Size(0, 0)
         Me.C1FlexGrid1.Styles = New C1.Win.C1FlexGrid.CellStyleCollection(resources.GetString("C1FlexGrid1.Styles"))
         Me.C1FlexGrid1.TabIndex = 0
-        '
-        'lblcessamt
-        '
-        Me.lblcessamt.BackColor = System.Drawing.Color.Transparent
-        Me.lblcessamt.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblcessamt.ForeColor = System.Drawing.Color.Orange
-        Me.lblcessamt.Location = New System.Drawing.Point(777, 460)
-        Me.lblcessamt.Name = "lblcessamt"
-        Me.lblcessamt.Size = New System.Drawing.Size(118, 20)
-        Me.lblcessamt.TabIndex = 79
-        Me.lblcessamt.Text = "0.00"
-        Me.lblcessamt.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'Label16
-        '
-        Me.Label16.AutoSize = True
-        Me.Label16.BackColor = System.Drawing.Color.Transparent
-        Me.Label16.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label16.Location = New System.Drawing.Point(650, 463)
-        Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(90, 15)
-        Me.Label16.TabIndex = 80
-        Me.Label16.Text = "CESS Amount :"
         '
         'frm_material_rec_against_PO
         '
