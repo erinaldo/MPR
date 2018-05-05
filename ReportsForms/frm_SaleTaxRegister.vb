@@ -26,7 +26,9 @@ Public Class frm_SaleTaxRegister
           + ISNULL([Txbl. 12%], 0) + ISNULL([Txbl. 18%], 0)
           + ISNULL([Txbl. 28%], 0) ) AS [Total Txbl. GST] ,
         ( ISNULL([Tax @3%], 0) + ISNULL([Tax @5%], 0) + ISNULL([Tax @12%], 0)
-          + ISNULL([Tax @18%], 0) + ISNULL([Tax @28%], 0) ) AS [Total GST Tax]
+          + ISNULL([Tax @18%], 0) + ISNULL([Tax @28%], 0) ) AS [Total GST Tax] ,
+        [CESS %] ,
+        [Cess Amount]
 FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY SIM.SI_ID ) AS [S. No.] ,
                     CONVERT(VARCHAR(20), SI_DATE, 106) AS Date ,
                     SI_CODE + CAST(si_no AS VARCHAR) AS [Bill NO.] ,
@@ -197,13 +199,15 @@ FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY SIM.SI_ID ) AS [S. No.] ,
                                  END) ) AS DECIMAL(18, 2)) AS [Txbl. 28%] ,
                     CAST (SUM(CASE WHEN VAT_PER = 28 THEN SID.VAT_AMOUNT
                                    ELSE 0
-                              END) AS DECIMAL(18, 2)) AS [Tax @28%]
+                              END) AS DECIMAL(18, 2)) AS [Tax @28%] ,
+                    MAX(SID.CessPercentage_num) AS [CESS %] ,
+                    SUM(ISNULL(SID.CessAmount_num, 0)) AS [Cess Amount]
           FROM      dbo.SALE_INVOICE_MASTER SIM
                     JOIN dbo.SALE_INVOICE_DETAIL SID ON SIM.SI_ID = SID.SI_ID
                     JOIN dbo.ACCOUNT_MASTER ACM ON ACM.ACC_ID = SIM.CUST_ID
-          WHERE     INVOICE_STATUS <> 4 
+          WHERE     INVOICE_STATUS <> 4
                     AND MONTH(SI_DATE) =" + txtFromDate.Value.Month.ToString() &
-                    " AND YEAR(SI_DATE) = " + txtFromDate.Value.Year.ToString() &
+                    "AND YEAR(SI_DATE) =" + txtFromDate.Value.Year.ToString() &
           "GROUP BY  SIM.SI_ID ,
                     SI_DATE ,
                     SI_CODE ,
