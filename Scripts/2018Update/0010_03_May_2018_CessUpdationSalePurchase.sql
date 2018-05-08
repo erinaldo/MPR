@@ -22,6 +22,24 @@ ALTER TABLE dbo.MATERIAL_RECEIVED_AGAINST_PO_DETAIL ADD Cess_Per NUMERIC(18,2) D
 
 Go
 
+CREATE TABLE [dbo].[CessMaster](
+	[pk_CessId_num] [numeric](18, 0) NOT NULL,
+	[CessName_vch] [varchar](50) NOT NULL,
+	[CessPercentage_num] [numeric](18, 2) NOT NULL,
+	[IsActive_bit] [bit] NOT NULL,
+	[fk_CreatedBy_num] [numeric](18, 0) NOT NULL,
+	[CreatedDate_dt] [datetime] NOT NULL,
+ CONSTRAINT [PK_CessMaster] PRIMARY KEY CLUSTERED 
+(
+	[pk_CessId_num] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
 Alter PROCEDURE [dbo].[GET_INV_ITEM_DETAILS] ( @V_SI_ID NUMERIC(18, 0) )    
 AS    
     BEGIN           
