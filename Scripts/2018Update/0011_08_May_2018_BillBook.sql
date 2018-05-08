@@ -1,4 +1,11 @@
 
+insert INTO dbo.DBScriptUpdateLog
+        ( LogFileName, ExecuteDateTime )
+VALUES  ( '0011_08_May_2018_BillBook',
+          GETDATE()
+          )
+
+  Go
 
 CREATE TABLE [dbo].[BillBook_Series](
 	[DIV_ID] [numeric](18, 0) NULL,
