@@ -274,7 +274,7 @@ FROM    ( SELECT    SUM(CASE WHEN MRWPM.MRN_TYPE <> 2
         Qry = " SELECT ISNULL(SUM(non_integrated_tax), 0) AS non_integrated_tax ,
                         ISNULL(SUM(integrated_tax), 0) AS integrated_tax, 
                         ISNULL(SUM(CessAmt), 0) AS CessAmt
- FROM   ( SELECT    CASE WHEN sm.STATE_ID =" & stateId & "
+                FROM   ( SELECT    CASE WHEN sm.STATE_ID =" & stateId & "
                          THEN ISNULL(Tax_num, 0)
                          ELSE 0
                     END AS non_integrated_tax ,
@@ -283,14 +283,14 @@ FROM    ( SELECT    SUM(CASE WHEN MRWPM.MRN_TYPE <> 2
                          ELSE 0
                     END AS integrated_tax,
                     ISNULL(Cess_num, 0) As CessAmt
-          FROM      dbo.DebitNote_Master
-                    JOIN dbo.DebitNote_DETAIL ON dbo.DebitNote_Master.DebitNote_Id = dbo.DebitNote_DETAIL.DebitNote_Id
-                    JOIN dbo.ACCOUNT_MASTER ON ACC_ID = DN_CustId
-                    JOIN dbo.CITY_MASTER ON dbo.CITY_MASTER.CITY_ID = dbo.ACCOUNT_MASTER.CITY_ID
-                    JOIN dbo.STATE_MASTER sm ON sm.STATE_ID = dbo.CITY_MASTER.STATE_ID
-          WHERE     MONTH(DebitNote_Master.Creation_Date) =" & txtFromDate.Value.Month & "
-                    AND YEAR(DebitNote_Master.Creation_Date) = " & txtFromDate.Value.Year & "
-          AND item_tax > 0) tb"
+          FROM      dbo.DebitNote_Master dnm
+                    --INNER JOIN dbo.DebitNote_DETAIL dnd ON dnm.DebitNote_Id = dnd.DebitNote_Id
+                    INNER JOIN dbo.ACCOUNT_MASTER am ON ACC_ID = dnm.DN_CustId
+                    INNER JOIN dbo.CITY_MASTER cm ON cm.CITY_ID = am.CITY_ID
+                    INNER JOIN dbo.STATE_MASTER sm ON sm.STATE_ID = cm.STATE_ID
+          WHERE     MONTH(dnm.Creation_Date) =" & txtFromDate.Value.Month & "
+                    AND YEAR(dnm.Creation_Date) = " & txtFromDate.Value.Year & "
+          ) tb"
 
 
         Return objCommFunction.Fill_DataSet(Qry).Tables(0).Rows(0)
@@ -355,9 +355,9 @@ FROM    ( SELECT    STATE_CODE ,
                                 INNER JOIN dbo.CITY_MASTER cm ON cm.CITY_ID = am.CITY_ID
                                 INNER JOIN dbo.STATE_MASTER sm ON sm.STATE_ID = cm.STATE_ID
                       WHERE     INV.INVOICE_STATUS <> 4
-                                AND MONTH(SI_DATE) = " & txtFromDate.Value.Month &
-                                "AND YEAR(SI_DATE) = " & txtFromDate.Value.Year &
-                                "AND inv.INV_TYPE = 'I'
+                                 AND MONTH(SI_DATE) = " & txtFromDate.Value.Month &
+                                " AND YEAR(SI_DATE) = " & txtFromDate.Value.Year &
+                                " AND inv.INV_TYPE = 'I'
                                 AND LEN(ISNULL(VAT_NO, '')) = 0
                       GROUP BY  STATE_CODE ,
                                 STATE_NAME ,
@@ -383,9 +383,9 @@ FROM    ( SELECT    STATE_CODE ,
                     INNER JOIN dbo.CITY_MASTER cm ON cm.CITY_ID = am.CITY_ID
                     INNER JOIN dbo.STATE_MASTER sm ON sm.STATE_ID = cm.STATE_ID
           WHERE     MONTH(CreditNote_Date) =" & txtFromDate.Value.Month &
-                    "AND YEAR(CreditNote_Date) =" & txtFromDate.Value.Year &
-                    "AND INV_TYPE = 'I'
-                    AND LEN(ISNULL(VAT_NO, '')) = 0
+                    " AND YEAR(CreditNote_Date) =" & txtFromDate.Value.Year &
+                    " AND INV_TYPE = 'I'
+                     AND LEN(ISNULL(VAT_NO, '')) = 0
           GROUP BY  STATE_CODE ,
                     STATE_NAME
         ) tb
@@ -413,7 +413,7 @@ GROUP BY STATE_CODE ,
         SUM(ISNULL(Cess_Amount, 0)) AS Cess_Amount ,
         SUM(ISNULL(non_integrated_tax, 0)) AS non_integrated_tax ,
         SUM(ISNULL(integrated_tax, 0)) AS integrated_tax
- FROM   ( SELECT CAST(SUM(CASE WHEN GSTPaid = 'Y'
+        FROM   ( SELECT CAST(SUM(CASE WHEN GSTPaid = 'Y'
                       THEN Taxable_Value - ( Taxable_Value - ( Taxable_Value
                                                               / ( 1 + VAT_PER
                                                               / 100 ) ) )
@@ -422,7 +422,7 @@ GROUP BY STATE_CODE ,
         ISNULL(SUM(Cess_Amount), 0) AS Cess_Amount ,
         ISNULL(SUM(non_integrated_tax), 0) AS non_integrated_tax ,
         ISNULL(SUM(integrated_tax), 0) AS integrated_tax
- FROM   ( SELECT    ISNULL(SUM(( ( BAL_ITEM_QTY * BAL_ITEM_RATE )
+        FROM   ( SELECT    ISNULL(SUM(( ( BAL_ITEM_QTY * BAL_ITEM_RATE )
                                  - ISNULL(CASE WHEN DISCOUNT_TYPE = 'P'
                                                THEN ( ( BAL_ITEM_QTY
                                                         * BAL_ITEM_RATE )
@@ -525,4 +525,5 @@ GROUP BY STATE_CODE ,
 
     Public Sub RefreshClick(sender As Object, e As EventArgs) Implements IForm.RefreshClick
     End Sub
+
 End Class
