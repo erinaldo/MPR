@@ -2182,6 +2182,7 @@
     <Content Include="Scripts\2018Update\0004_27_Feb_2018_DBbackup.sql" />
     <Content Include="Scripts\2018Update\0007_05_Apr_2018_MMSLedgerUpdations.sql" />
     <Content Include="Scripts\2018Update\0008_11_Apr_2018_editinvoice.sql" />
+    <Content Include="Scripts\2018Update\0011_05_May_2018_PaymentTransactionProcedureCorrection.sql" />
     <Content Include="Scripts\2018Update\0010_04_May_2018_CessUpdationDebitCreditNote.sql" />
     <Content Include="Scripts\2018Update\0010_03_May_2018_CessUpdationSalePurchase.sql" />
     <Content Include="Scripts\2018Update\0009_18_Apr_2018_StockUpdate.sql" />
