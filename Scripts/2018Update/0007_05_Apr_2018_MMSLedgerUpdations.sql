@@ -8,6 +8,7 @@ VALUES  ( '0007_05_Apr_2018_MMSLedgerUpdations',
 Go
 
 
+
 ALTER PROC [dbo].[Proc_AddOpeningBalance]
     (
       @AccountId NUMERIC(18, 0) ,
