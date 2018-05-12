@@ -287,6 +287,12 @@
     <Compile Include="Forms\frm_Print_Barcode.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="ReportsForms\frm_MRN_Print_Barcode.Designer.vb">
+      <DependentUpon>frm_MRN_Print_Barcode.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ReportsForms\frm_MRN_Print_Barcode.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="ReportsForms\frm_SaleTaxRegister.Designer.vb">
       <DependentUpon>frm_SaleTaxRegister.vb</DependentUpon>
     </Compile>
@@ -1605,6 +1611,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ReportsForms\frm_DebtorsOS.resx">
       <DependentUpon>frm_DebtorsOS.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportsForms\frm_MRN_Print_Barcode.resx">
+      <DependentUpon>frm_MRN_Print_Barcode.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="ReportsForms\frm_SaleTaxRegister.resx">
       <DependentUpon>frm_SaleTaxRegister.vb</DependentUpon>

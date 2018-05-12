@@ -31,7 +31,9 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.BtnActualMRN = New System.Windows.Forms.Button()
         Me.dgvList = New System.Windows.Forms.DataGridView()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
+        Me.lblcessamt = New System.Windows.Forms.Label()
         Me.lblexciseamt = New System.Windows.Forms.Label()
+        Me.Label57 = New System.Windows.Forms.Label()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.Panel19 = New System.Windows.Forms.Panel()
         Me.lnkCalculateAmount = New System.Windows.Forms.LinkLabel()
@@ -191,8 +193,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.Label46 = New System.Windows.Forms.Label()
         Me.Label47 = New System.Windows.Forms.Label()
         Me.Label48 = New System.Windows.Forms.Label()
-        Me.lblcessamt = New System.Windows.Forms.Label()
-        Me.Label57 = New System.Windows.Forms.Label()
+        Me.btnPrintBarCode = New System.Windows.Forms.Button()
         Me.TbPO.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.GroupBox5.SuspendLayout()
@@ -274,6 +275,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         '
         'GroupBox3
         '
+        Me.GroupBox3.Controls.Add(Me.btnPrintBarCode)
         Me.GroupBox3.Controls.Add(Me.BtnRevisedMRN)
         Me.GroupBox3.Controls.Add(Me.BtnActualMRN)
         Me.GroupBox3.Controls.Add(Me.dgvList)
@@ -288,7 +290,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         '
         'BtnRevisedMRN
         '
-        Me.BtnRevisedMRN.Location = New System.Drawing.Point(620, 479)
+        Me.BtnRevisedMRN.Location = New System.Drawing.Point(458, 481)
         Me.BtnRevisedMRN.Name = "BtnRevisedMRN"
         Me.BtnRevisedMRN.Size = New System.Drawing.Size(128, 30)
         Me.BtnRevisedMRN.TabIndex = 2
@@ -298,7 +300,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         '
         'BtnActualMRN
         '
-        Me.BtnActualMRN.Location = New System.Drawing.Point(759, 479)
+        Me.BtnActualMRN.Location = New System.Drawing.Point(597, 481)
         Me.BtnActualMRN.Name = "BtnActualMRN"
         Me.BtnActualMRN.Size = New System.Drawing.Size(128, 30)
         Me.BtnActualMRN.TabIndex = 1
@@ -366,6 +368,17 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.TabPage2.Size = New System.Drawing.Size(902, 600)
         Me.TabPage2.TabIndex = 1
         '
+        'lblcessamt
+        '
+        Me.lblcessamt.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblcessamt.ForeColor = System.Drawing.Color.Orange
+        Me.lblcessamt.Location = New System.Drawing.Point(778, 467)
+        Me.lblcessamt.Name = "lblcessamt"
+        Me.lblcessamt.Size = New System.Drawing.Size(118, 20)
+        Me.lblcessamt.TabIndex = 19
+        Me.lblcessamt.Text = "0.00"
+        Me.lblcessamt.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
         'lblexciseamt
         '
         Me.lblexciseamt.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -377,6 +390,17 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.lblexciseamt.Text = "0.00"
         Me.lblexciseamt.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.lblexciseamt.Visible = False
+        '
+        'Label57
+        '
+        Me.Label57.AutoSize = True
+        Me.Label57.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label57.ForeColor = System.Drawing.Color.White
+        Me.Label57.Location = New System.Drawing.Point(646, 471)
+        Me.Label57.Name = "Label57"
+        Me.Label57.Size = New System.Drawing.Size(90, 15)
+        Me.Label57.TabIndex = 20
+        Me.Label57.Text = "CESS Amount :"
         '
         'Label11
         '
@@ -2074,27 +2098,14 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.Label48.TabIndex = 0
         Me.Label48.Text = "Delivery Rate :"
         '
-        'lblcessamt
+        'btnPrintBarCode
         '
-        Me.lblcessamt.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblcessamt.ForeColor = System.Drawing.Color.Orange
-        Me.lblcessamt.Location = New System.Drawing.Point(778, 467)
-        Me.lblcessamt.Name = "lblcessamt"
-        Me.lblcessamt.Size = New System.Drawing.Size(118, 20)
-        Me.lblcessamt.TabIndex = 19
-        Me.lblcessamt.Text = "0.00"
-        Me.lblcessamt.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'Label57
-        '
-        Me.Label57.AutoSize = True
-        Me.Label57.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label57.ForeColor = System.Drawing.Color.White
-        Me.Label57.Location = New System.Drawing.Point(646, 471)
-        Me.Label57.Name = "Label57"
-        Me.Label57.Size = New System.Drawing.Size(90, 15)
-        Me.Label57.TabIndex = 20
-        Me.Label57.Text = "CESS Amount :"
+        Me.btnPrintBarCode.Location = New System.Drawing.Point(746, 481)
+        Me.btnPrintBarCode.Name = "btnPrintBarCode"
+        Me.btnPrintBarCode.Size = New System.Drawing.Size(128, 30)
+        Me.btnPrintBarCode.TabIndex = 3
+        Me.btnPrintBarCode.Text = "Print MRN Bar Code"
+        Me.btnPrintBarCode.UseVisualStyleBackColor = True
         '
         'frm_Material_Received_Without_PO_Master
         '
@@ -2304,4 +2315,5 @@ Partial Class frm_Material_Received_Without_PO_Master
     Friend WithEvents Label52 As System.Windows.Forms.Label
     Friend WithEvents lblcessamt As Label
     Friend WithEvents Label57 As Label
+    Friend WithEvents btnPrintBarCode As Button
 End Class
