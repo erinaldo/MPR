@@ -31,12 +31,13 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.BtnActualMRN = New System.Windows.Forms.Button()
         Me.dgvList = New System.Windows.Forms.DataGridView()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
+        Me.lblcessamt = New System.Windows.Forms.Label()
         Me.lblexciseamt = New System.Windows.Forms.Label()
+        Me.Label57 = New System.Windows.Forms.Label()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.Panel19 = New System.Windows.Forms.Panel()
         Me.lnkCalculateAmount = New System.Windows.Forms.LinkLabel()
         Me.Label9 = New System.Windows.Forms.Label()
-        Me.Panel13 = New System.Windows.Forms.Panel()
         Me.cmb_MRNAgainst = New System.Windows.Forms.ComboBox()
         Me.Panel14 = New System.Windows.Forms.Panel()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
@@ -68,7 +69,6 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.txtotherchrgs = New System.Windows.Forms.TextBox()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.txtdiscount = New System.Windows.Forms.TextBox()
-        Me.txt_Amount = New System.Windows.Forms.TextBox()
         Me.lblnetamt = New System.Windows.Forms.Label()
         Me.rbPercentage = New System.Windows.Forms.RadioButton()
         Me.Label50 = New System.Windows.Forms.Label()
@@ -191,8 +191,9 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.Label46 = New System.Windows.Forms.Label()
         Me.Label47 = New System.Windows.Forms.Label()
         Me.Label48 = New System.Windows.Forms.Label()
-        Me.lblcessamt = New System.Windows.Forms.Label()
-        Me.Label57 = New System.Windows.Forms.Label()
+        Me.lblAcess = New System.Windows.Forms.Label()
+        Me.Label58 = New System.Windows.Forms.Label()
+        Me.txt_Amount = New System.Windows.Forms.TextBox()
         Me.TbPO.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.GroupBox5.SuspendLayout()
@@ -326,6 +327,9 @@ Partial Class frm_Material_Received_Without_PO_Master
         'TabPage2
         '
         Me.TabPage2.BackColor = System.Drawing.Color.DimGray
+        Me.TabPage2.Controls.Add(Me.txt_Amount)
+        Me.TabPage2.Controls.Add(Me.lblAcess)
+        Me.TabPage2.Controls.Add(Me.Label58)
         Me.TabPage2.Controls.Add(Me.lblcessamt)
         Me.TabPage2.Controls.Add(Me.lblexciseamt)
         Me.TabPage2.Controls.Add(Me.Label57)
@@ -333,7 +337,6 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.TabPage2.Controls.Add(Me.Panel19)
         Me.TabPage2.Controls.Add(Me.lnkCalculateAmount)
         Me.TabPage2.Controls.Add(Me.Label9)
-        Me.TabPage2.Controls.Add(Me.Panel13)
         Me.TabPage2.Controls.Add(Me.cmb_MRNAgainst)
         Me.TabPage2.Controls.Add(Me.Panel14)
         Me.TabPage2.Controls.Add(Me.GroupBox4)
@@ -345,7 +348,6 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.TabPage2.Controls.Add(Me.txtotherchrgs)
         Me.TabPage2.Controls.Add(Me.Label4)
         Me.TabPage2.Controls.Add(Me.txtdiscount)
-        Me.TabPage2.Controls.Add(Me.txt_Amount)
         Me.TabPage2.Controls.Add(Me.lblnetamt)
         Me.TabPage2.Controls.Add(Me.rbPercentage)
         Me.TabPage2.Controls.Add(Me.Label50)
@@ -366,6 +368,17 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.TabPage2.Size = New System.Drawing.Size(902, 600)
         Me.TabPage2.TabIndex = 1
         '
+        'lblcessamt
+        '
+        Me.lblcessamt.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblcessamt.ForeColor = System.Drawing.Color.Orange
+        Me.lblcessamt.Location = New System.Drawing.Point(778, 467)
+        Me.lblcessamt.Name = "lblcessamt"
+        Me.lblcessamt.Size = New System.Drawing.Size(118, 20)
+        Me.lblcessamt.TabIndex = 19
+        Me.lblcessamt.Text = "0.00"
+        Me.lblcessamt.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
         'lblexciseamt
         '
         Me.lblexciseamt.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -377,6 +390,17 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.lblexciseamt.Text = "0.00"
         Me.lblexciseamt.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.lblexciseamt.Visible = False
+        '
+        'Label57
+        '
+        Me.Label57.AutoSize = True
+        Me.Label57.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label57.ForeColor = System.Drawing.Color.White
+        Me.Label57.Location = New System.Drawing.Point(646, 471)
+        Me.Label57.Name = "Label57"
+        Me.Label57.Size = New System.Drawing.Size(90, 15)
+        Me.Label57.TabIndex = 20
+        Me.Label57.Text = "CESS Amount :"
         '
         'Label11
         '
@@ -422,14 +446,6 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.Label9.Size = New System.Drawing.Size(51, 15)
         Me.Label9.TabIndex = 46
         Me.Label9.Text = "Frieght :"
-        '
-        'Panel13
-        '
-        Me.Panel13.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel13.Location = New System.Drawing.Point(750, 523)
-        Me.Panel13.Name = "Panel13"
-        Me.Panel13.Size = New System.Drawing.Size(117, 1)
-        Me.Panel13.TabIndex = 25
         '
         'cmb_MRNAgainst
         '
@@ -800,20 +816,6 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.txtdiscount.TabIndex = 23
         Me.txtdiscount.Text = "0.00"
         Me.txtdiscount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        '
-        'txt_Amount
-        '
-        Me.txt_Amount.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.txt_Amount.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.txt_Amount.Enabled = False
-        Me.txt_Amount.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txt_Amount.ForeColor = System.Drawing.Color.White
-        Me.txt_Amount.Location = New System.Drawing.Point(822, 507)
-        Me.txt_Amount.Name = "txt_Amount"
-        Me.txt_Amount.Size = New System.Drawing.Size(69, 18)
-        Me.txt_Amount.TabIndex = 42
-        Me.txt_Amount.Text = "0.00"
-        Me.txt_Amount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'lblnetamt
         '
@@ -2074,27 +2076,41 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.Label48.TabIndex = 0
         Me.Label48.Text = "Delivery Rate :"
         '
-        'lblcessamt
+        'lblAcess
         '
-        Me.lblcessamt.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblcessamt.ForeColor = System.Drawing.Color.Orange
-        Me.lblcessamt.Location = New System.Drawing.Point(778, 467)
-        Me.lblcessamt.Name = "lblcessamt"
-        Me.lblcessamt.Size = New System.Drawing.Size(118, 20)
-        Me.lblcessamt.TabIndex = 19
-        Me.lblcessamt.Text = "0.00"
-        Me.lblcessamt.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.lblAcess.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblAcess.ForeColor = System.Drawing.Color.Orange
+        Me.lblAcess.Location = New System.Drawing.Point(778, 485)
+        Me.lblAcess.Name = "lblAcess"
+        Me.lblAcess.Size = New System.Drawing.Size(118, 20)
+        Me.lblAcess.TabIndex = 53
+        Me.lblAcess.Text = "0.00"
+        Me.lblAcess.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'Label57
+        'Label58
         '
-        Me.Label57.AutoSize = True
-        Me.Label57.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label57.ForeColor = System.Drawing.Color.White
-        Me.Label57.Location = New System.Drawing.Point(646, 471)
-        Me.Label57.Name = "Label57"
-        Me.Label57.Size = New System.Drawing.Size(90, 15)
-        Me.Label57.TabIndex = 20
-        Me.Label57.Text = "CESS Amount :"
+        Me.Label58.AutoSize = True
+        Me.Label58.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label58.ForeColor = System.Drawing.Color.White
+        Me.Label58.Location = New System.Drawing.Point(646, 490)
+        Me.Label58.Name = "Label58"
+        Me.Label58.Size = New System.Drawing.Size(97, 15)
+        Me.Label58.TabIndex = 54
+        Me.Label58.Text = "ACESS Amount :"
+        '
+        'txt_Amount
+        '
+        Me.txt_Amount.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.txt_Amount.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.txt_Amount.Enabled = False
+        Me.txt_Amount.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txt_Amount.ForeColor = System.Drawing.Color.White
+        Me.txt_Amount.Location = New System.Drawing.Point(802, 507)
+        Me.txt_Amount.Name = "txt_Amount"
+        Me.txt_Amount.Size = New System.Drawing.Size(89, 18)
+        Me.txt_Amount.TabIndex = 55
+        Me.txt_Amount.Text = "0.00"
+        Me.txt_Amount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'frm_Material_Received_Without_PO_Master
         '
@@ -2163,7 +2179,6 @@ Partial Class frm_Material_Received_Without_PO_Master
     Friend WithEvents Label8 As System.Windows.Forms.Label
     Friend WithEvents BtnRevisedMRN As System.Windows.Forms.Button
     Friend WithEvents BtnActualMRN As System.Windows.Forms.Button
-    Friend WithEvents txt_Amount As System.Windows.Forms.TextBox
     Friend WithEvents rb_Amount As System.Windows.Forms.RadioButton
     Friend WithEvents txt_Percentage As System.Windows.Forms.TextBox
     Friend WithEvents rbPercentage As System.Windows.Forms.RadioButton
@@ -2277,7 +2292,6 @@ Partial Class frm_Material_Received_Without_PO_Master
     Friend WithEvents Label46 As System.Windows.Forms.Label
     Friend WithEvents Label47 As System.Windows.Forms.Label
     Friend WithEvents Label48 As System.Windows.Forms.Label
-    Friend WithEvents Panel13 As System.Windows.Forms.Panel
     Friend WithEvents Panel14 As System.Windows.Forms.Panel
     Friend WithEvents Panel16 As System.Windows.Forms.Panel
     Friend WithEvents Panel17 As System.Windows.Forms.Panel
@@ -2304,4 +2318,7 @@ Partial Class frm_Material_Received_Without_PO_Master
     Friend WithEvents Label52 As System.Windows.Forms.Label
     Friend WithEvents lblcessamt As Label
     Friend WithEvents Label57 As Label
+    Friend WithEvents txt_Amount As TextBox
+    Friend WithEvents lblAcess As Label
+    Friend WithEvents Label58 As Label
 End Class

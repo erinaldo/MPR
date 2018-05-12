@@ -46,8 +46,10 @@ Namespace material_recieved_without_po_master
         Dim _GROSS_AMOUNT As Double
         Dim _GST_AMOUNT As Double
         Dim _CESS_AMOUNT As Double
+        Dim _ACESS_AMOUNT As Double
         Dim _NET_AMOUNT As Double
         Dim _Item_Cess As Double
+        Dim _A_Cess As Double
 
         Public Property Received_ID() As Integer
             Get
@@ -319,6 +321,16 @@ Namespace material_recieved_without_po_master
             End Set
         End Property
 
+        Public Property A_Cess() As Double
+            Get
+                A_Cess = _A_Cess
+            End Get
+            Set(ByVal value As Double)
+                _A_Cess = value
+            End Set
+        End Property
+
+
         Public Property Item_exice() As Double
             Get
                 Item_exice = _Item_Exice
@@ -403,6 +415,15 @@ Namespace material_recieved_without_po_master
                 _CESS_AMOUNT = value
             End Set
         End Property
+
+        Public Property ACESS_AMOUNT() As Double
+            Get
+                ACESS_AMOUNT = _ACESS_AMOUNT
+            End Get
+            Set(ByVal value As Double)
+                _ACESS_AMOUNT = value
+            End Set
+        End Property
         Public Property NET_AMOUNT() As Double
             Get
                 NET_AMOUNT = _NET_AMOUNT
@@ -458,6 +479,7 @@ Namespace material_recieved_without_po_master
             cmd.Parameters.AddWithValue("@v_GROSS_AMOUNT", clsObj.GROSS_AMOUNT)
             cmd.Parameters.AddWithValue("@v_GST_AMOUNT", clsObj.GST_AMOUNT)
             cmd.Parameters.AddWithValue("@v_CESS_AMOUNT", clsObj.CESS_AMOUNT)
+            cmd.Parameters.AddWithValue("@v_ACESS_AMOUNT", clsObj.ACESS_AMOUNT)
             cmd.Parameters.AddWithValue("@v_NET_AMOUNT", clsObj.NET_AMOUNT)
             cmd.Parameters.AddWithValue("@V_MRN_TYPE", clsObj.MRNType)
 
@@ -488,6 +510,7 @@ Namespace material_recieved_without_po_master
             cmd.Parameters.AddWithValue("@V_Division_Id", clsObj.Division_ID)
             cmd.Parameters.AddWithValue("@V_Item_vat", clsObj.Item_vat)
             cmd.Parameters.AddWithValue("@V_Item_cess", clsObj.Item_Cess)
+            cmd.Parameters.AddWithValue("@V_A_cess", clsObj.A_Cess)
             cmd.Parameters.AddWithValue("@V_Item_exice", clsObj.Item_exice)
             cmd.Parameters.AddWithValue("@V_Batch_No", clsObj.Batch_No)
             cmd.Parameters.AddWithValue("@V_Expiry_Date", clsObj.Expiry_Date)
@@ -522,6 +545,7 @@ Namespace material_recieved_without_po_master
             cmd.Parameters.AddWithValue("@V_Division_Id", clsObj.Division_ID)
             cmd.Parameters.AddWithValue("@V_Item_vat", clsObj.Item_vat)
             cmd.Parameters.AddWithValue("@V_Item_cess", clsObj.Item_Cess)
+            cmd.Parameters.AddWithValue("@V_A_cess", clsObj.A_Cess)
             cmd.Parameters.AddWithValue("@V_Item_exice", clsObj.Item_exice)
             cmd.Parameters.AddWithValue("@V_Batch_No", clsObj.Batch_No)
             cmd.Parameters.AddWithValue("@V_Expiry_Date", clsObj.Expiry_Date)
@@ -574,6 +598,7 @@ Namespace material_recieved_without_po_master
             cmd.Parameters.AddWithValue("@v_GROSS_AMOUNT", clsObj.GROSS_AMOUNT)
             cmd.Parameters.AddWithValue("@v_GST_AMOUNT", clsObj.GST_AMOUNT)
             cmd.Parameters.AddWithValue("@v_CESS_AMOUNT", clsObj.CESS_AMOUNT)
+            cmd.Parameters.AddWithValue("@v_ACESS_AMOUNT", clsObj.ACESS_AMOUNT)
             cmd.Parameters.AddWithValue("@v_NET_AMOUNT", clsObj.NET_AMOUNT)
             cmd.Parameters.AddWithValue("@V_MRN_TYPE", clsObj.MRNType)
 

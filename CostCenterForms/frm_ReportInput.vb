@@ -27,10 +27,28 @@ Public Class frm_ReportInput
             cmbstatus.Visible = False
             rBtnMRS.Visible = False
             rBtnReqDate.Visible = False
-            lblCategoryHead.Visible = False
             cmbCategoryHead.Visible = False
             lblSubCategory.Visible = False
             cmb_subCategory.Visible = False
+
+            lblCategoryHead.Text = "CustomerName:"
+            lblCategoryHead.Visible = True
+            cmbCategoryHead.Visible = True
+            Dim Query As String
+            Dim Dt As DataTable
+            Dim Dtrow As DataRow
+            Query = " SELECT ACC_ID,ACC_NAME FROM dbo.ACCOUNT_MASTER WHERE AG_ID=1 order by ACC_NAME"
+            Dt = objCommFunction.Fill_DataSet(Query).Tables(0)
+            Dtrow = Dt.NewRow
+            Dtrow("ACC_ID") = -1
+            Dtrow("ACC_NAME") = "--ALL Customer--"
+            Dt.Rows.InsertAt(Dtrow, 0)
+            cmbCategoryHead.DisplayMember = "ACC_NAME"
+            cmbCategoryHead.ValueMember = "ACC_ID"
+            cmbCategoryHead.DataSource = Dt
+            cmbCategoryHead.SelectedIndex = 0
+
+
         End If
 
 
@@ -1128,9 +1146,16 @@ Public Class frm_ReportInput
             If _call_type = enmReportName.RptSalesummary Or _call_type = enmReportName.RptSalesummaryList Then
                 rep.SetParameterValue("From", Convert.ToDateTime(dtp_FromDate.Value.Date.ToString("dd-MMM-yyyy")))
                 rep.SetParameterValue("To", Convert.ToDateTime(dtp_ToDate.Value.Date.ToString("dd-MMM-yyyy")))
+
+                If cmbCategoryHead.SelectedValue = -1 Then
+                    rep.SetParameterValue("ACCID", "NULL")
+                Else
+                    rep.SetParameterValue("ACCID", Convert.ToString(cmbCategoryHead.SelectedValue))
+                End If
+
                 frm_Report.cryViewer.ReportSource = rep
-                frm_Report.Show()
-            End If
+                    frm_Report.Show()
+                End If
 
 
         Catch ex As Exception

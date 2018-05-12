@@ -20,7 +20,7 @@ Partial Class frm_BillBook
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frm_BillBook))
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.List = New System.Windows.Forms.TabPage()
@@ -34,6 +34,9 @@ Partial Class frm_BillBook
         Me.Label1 = New System.Windows.Forms.Label()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.GBItemInfo = New System.Windows.Forms.GroupBox()
+        Me.Label18 = New System.Windows.Forms.Label()
+        Me.lblACessAmount = New System.Windows.Forms.Label()
+        Me.Label19 = New System.Windows.Forms.Label()
         Me.lblCessAmount = New System.Windows.Forms.Label()
         Me.Label16 = New System.Windows.Forms.Label()
         Me.lblTotalQty = New System.Windows.Forms.Label()
@@ -168,12 +171,12 @@ Partial Class frm_BillBook
         Me.flxList.Location = New System.Drawing.Point(3, 16)
         Me.flxList.Name = "flxList"
         Me.flxList.RowHeadersVisible = False
-        DataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black
-        Me.flxList.RowsDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black
+        Me.flxList.RowsDefaultCellStyle = DataGridViewCellStyle1
         Me.flxList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.flxList.Size = New System.Drawing.Size(858, 422)
         Me.flxList.TabIndex = 3
@@ -224,6 +227,9 @@ Partial Class frm_BillBook
         '
         'GBItemInfo
         '
+        Me.GBItemInfo.Controls.Add(Me.Label18)
+        Me.GBItemInfo.Controls.Add(Me.lblACessAmount)
+        Me.GBItemInfo.Controls.Add(Me.Label19)
         Me.GBItemInfo.Controls.Add(Me.lblCessAmount)
         Me.GBItemInfo.Controls.Add(Me.Label16)
         Me.GBItemInfo.Controls.Add(Me.lblTotalQty)
@@ -247,11 +253,42 @@ Partial Class frm_BillBook
         Me.GBItemInfo.TabStop = False
         Me.GBItemInfo.Text = "List of Items"
         '
+        'Label18
+        '
+        Me.Label18.AutoSize = True
+        Me.Label18.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label18.Location = New System.Drawing.Point(224, 354)
+        Me.Label18.Name = "Label18"
+        Me.Label18.Size = New System.Drawing.Size(86, 15)
+        Me.Label18.TabIndex = 27
+        Me.Label18.Text = "Total Quantity :"
+        '
+        'lblACessAmount
+        '
+        Me.lblACessAmount.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblACessAmount.ForeColor = System.Drawing.Color.Orange
+        Me.lblACessAmount.Location = New System.Drawing.Point(628, 381)
+        Me.lblACessAmount.Name = "lblACessAmount"
+        Me.lblACessAmount.Size = New System.Drawing.Size(62, 20)
+        Me.lblACessAmount.TabIndex = 25
+        Me.lblACessAmount.Text = "0.00"
+        Me.lblACessAmount.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'Label19
+        '
+        Me.Label19.AutoSize = True
+        Me.Label19.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label19.Location = New System.Drawing.Point(582, 385)
+        Me.Label19.Name = "Label19"
+        Me.Label19.Size = New System.Drawing.Size(50, 15)
+        Me.Label19.TabIndex = 24
+        Me.Label19.Text = "ACess :"
+        '
         'lblCessAmount
         '
         Me.lblCessAmount.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblCessAmount.ForeColor = System.Drawing.Color.Orange
-        Me.lblCessAmount.Location = New System.Drawing.Point(622, 380)
+        Me.lblCessAmount.Location = New System.Drawing.Point(496, 381)
         Me.lblCessAmount.Name = "lblCessAmount"
         Me.lblCessAmount.Size = New System.Drawing.Size(62, 20)
         Me.lblCessAmount.TabIndex = 23
@@ -262,17 +299,17 @@ Partial Class frm_BillBook
         '
         Me.Label16.AutoSize = True
         Me.Label16.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label16.Location = New System.Drawing.Point(529, 385)
+        Me.Label16.Location = New System.Drawing.Point(447, 385)
         Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(87, 15)
+        Me.Label16.Size = New System.Drawing.Size(43, 15)
         Me.Label16.TabIndex = 22
-        Me.Label16.Text = "Cess Amount :"
+        Me.Label16.Text = "Cess :"
         '
         'lblTotalQty
         '
         Me.lblTotalQty.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblTotalQty.ForeColor = System.Drawing.Color.Lime
-        Me.lblTotalQty.Location = New System.Drawing.Point(409, 353)
+        Me.lblTotalQty.Location = New System.Drawing.Point(308, 352)
         Me.lblTotalQty.Name = "lblTotalQty"
         Me.lblTotalQty.Size = New System.Drawing.Size(64, 20)
         Me.lblTotalQty.TabIndex = 18
@@ -283,17 +320,17 @@ Partial Class frm_BillBook
         '
         Me.Label10.AutoSize = True
         Me.Label10.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label10.Location = New System.Drawing.Point(191, 385)
+        Me.Label10.Location = New System.Drawing.Point(190, 384)
         Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(91, 15)
+        Me.Label10.Size = New System.Drawing.Size(62, 15)
         Me.Label10.TabIndex = 0
-        Me.Label10.Text = "Total Discount :"
+        Me.Label10.Text = "Discount :"
         '
         'lblTotalDisc
         '
         Me.lblTotalDisc.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblTotalDisc.ForeColor = System.Drawing.Color.Orange
-        Me.lblTotalDisc.Location = New System.Drawing.Point(287, 381)
+        Me.lblTotalDisc.Location = New System.Drawing.Point(248, 381)
         Me.lblTotalDisc.Name = "lblTotalDisc"
         Me.lblTotalDisc.Size = New System.Drawing.Size(60, 20)
         Me.lblTotalDisc.TabIndex = 0
@@ -305,7 +342,7 @@ Partial Class frm_BillBook
         Me.lnkCalculatePOAmt.AutoSize = True
         Me.lnkCalculatePOAmt.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lnkCalculatePOAmt.LinkColor = System.Drawing.Color.DarkOrange
-        Me.lnkCalculatePOAmt.Location = New System.Drawing.Point(11, 354)
+        Me.lnkCalculatePOAmt.Location = New System.Drawing.Point(5, 354)
         Me.lnkCalculatePOAmt.Name = "lnkCalculatePOAmt"
         Me.lnkCalculatePOAmt.Size = New System.Drawing.Size(110, 15)
         Me.lnkCalculatePOAmt.TabIndex = 17
@@ -315,8 +352,8 @@ Partial Class frm_BillBook
         'lblNetAmount
         '
         Me.lblNetAmount.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblNetAmount.ForeColor = System.Drawing.Color.Orange
-        Me.lblNetAmount.Location = New System.Drawing.Point(786, 382)
+        Me.lblNetAmount.ForeColor = System.Drawing.Color.Lime
+        Me.lblNetAmount.Location = New System.Drawing.Point(787, 382)
         Me.lblNetAmount.Name = "lblNetAmount"
         Me.lblNetAmount.Size = New System.Drawing.Size(101, 20)
         Me.lblNetAmount.TabIndex = 0
@@ -327,7 +364,7 @@ Partial Class frm_BillBook
         '
         Me.Label5.AutoSize = True
         Me.Label5.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label5.Location = New System.Drawing.Point(705, 384)
+        Me.Label5.Location = New System.Drawing.Point(708, 384)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(76, 15)
         Me.Label5.TabIndex = 0
@@ -337,7 +374,7 @@ Partial Class frm_BillBook
         '
         Me.lblVatAmount.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblVatAmount.ForeColor = System.Drawing.Color.Orange
-        Me.lblVatAmount.Location = New System.Drawing.Point(452, 381)
+        Me.lblVatAmount.Location = New System.Drawing.Point(367, 382)
         Me.lblVatAmount.Name = "lblVatAmount"
         Me.lblVatAmount.Size = New System.Drawing.Size(71, 20)
         Me.lblVatAmount.TabIndex = 0
@@ -348,7 +385,7 @@ Partial Class frm_BillBook
         '
         Me.lblItemValue.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblItemValue.ForeColor = System.Drawing.Color.Orange
-        Me.lblItemValue.Location = New System.Drawing.Point(115, 381)
+        Me.lblItemValue.Location = New System.Drawing.Point(97, 381)
         Me.lblItemValue.Name = "lblItemValue"
         Me.lblItemValue.Size = New System.Drawing.Size(66, 20)
         Me.lblItemValue.TabIndex = 0
@@ -359,21 +396,21 @@ Partial Class frm_BillBook
         '
         Me.Label6.AutoSize = True
         Me.Label6.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label6.Location = New System.Drawing.Point(359, 385)
+        Me.Label6.Location = New System.Drawing.Point(332, 384)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(84, 15)
+        Me.Label6.Size = New System.Drawing.Size(37, 15)
         Me.Label6.TabIndex = 0
-        Me.Label6.Text = "GST  Amount :"
+        Me.Label6.Text = "GST :"
         '
         'Label7
         '
         Me.Label7.AutoSize = True
         Me.Label7.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label7.Location = New System.Drawing.Point(12, 383)
+        Me.Label7.Location = New System.Drawing.Point(5, 383)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(99, 15)
+        Me.Label7.Size = New System.Drawing.Size(91, 15)
         Me.Label7.TabIndex = 0
-        Me.Label7.Text = "Total Item Value :"
+        Me.Label7.Text = "Gross Amount :"
         '
         'flxItems
         '
@@ -907,4 +944,7 @@ Partial Class frm_BillBook
     Friend WithEvents cmbBillBook As ComboBox
     Friend WithEvents Label17 As Label
     Friend WithEvents dtDate As DateTimePicker
+    Friend WithEvents lblACessAmount As Label
+    Friend WithEvents Label19 As Label
+    Friend WithEvents Label18 As Label
 End Class

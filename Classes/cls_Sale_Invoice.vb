@@ -18,6 +18,7 @@ Namespace Sale_Invoice
         Dim _GROSS_AMOUNT As Double
         Dim _VAT_AMOUNT As Double
         Dim _CESS_AMOUNT As Double
+        Dim _ACESS_AMOUNT As Double
         Dim _NET_AMOUNT As Double
         Dim _IS_SAMPLE As Integer
         Dim _DELIVERY_NOTE_NO As String
@@ -140,6 +141,14 @@ Namespace Sale_Invoice
             End Get
             Set(ByVal value As Double)
                 _CESS_AMOUNT = value
+            End Set
+        End Property
+        Public Property ACESS_AMOUNT() As Double
+            Get
+                ACESS_AMOUNT = _ACESS_AMOUNT
+            End Get
+            Set(ByVal value As Double)
+                _ACESS_AMOUNT = value
             End Set
         End Property
         Public Property NET_AMOUNT() As Double
@@ -324,6 +333,7 @@ Namespace Sale_Invoice
                 cmd.Parameters.AddWithValue("@v_VAT_AMOUNT", clsobj.VAT_AMOUNT)
 
                 cmd.Parameters.AddWithValue("@v_CESS_AMOUNT", clsobj.CESS_AMOUNT)
+                cmd.Parameters.AddWithValue("@v_ACESS_AMOUNT", clsobj.ACESS_AMOUNT)
 
                 cmd.Parameters.AddWithValue("@v_NET_AMOUNT", clsobj.NET_AMOUNT)
                 cmd.Parameters.AddWithValue("@V_IS_SAMPLE", clsobj.IS_SAMPLE)
@@ -400,6 +410,7 @@ again:
 
                             OrderDataRow("MRP") = items_DataRow("MRP")
                             OrderDataRow("Cess") = items_DataRow("Cess")
+                            OrderDataRow("ACess") = items_DataRow("ACess")
                             OrderDataRow("Cess_Amount") = items_DataRow("Cess_Amount")
 
                             OrderDataRow("HsnCodeId") = items_DataRow("HsnCodeId")
@@ -436,7 +447,7 @@ again:
                         cmd.Parameters.AddWithValue("@v_MRP", Dtitemsnew.Rows(i)("MRP"))
                         cmd.Parameters.AddWithValue("@v_CESS_PER", Dtitemsnew.Rows(i)("Cess"))
                         cmd.Parameters.AddWithValue("@v_CESS_AMOUNT", Dtitemsnew.Rows(i)("Cess_Amount"))
-
+                        cmd.Parameters.AddWithValue("@v_ACESS", Dtitemsnew.Rows(i)("ACess"))
                         cmd.Parameters.AddWithValue("@v_CREATED_BY", clsobj.CREATED_BY)
                         cmd.Parameters.AddWithValue("@v_CREATION_DATE", clsobj.CREATION_DATE)
                         cmd.Parameters.AddWithValue("@v_MODIFIED_BY", clsobj.MODIFIED_BY)
@@ -536,6 +547,7 @@ again:
                 cmd.Parameters.AddWithValue("@v_VAT_AMOUNT", clsobj.VAT_AMOUNT)
 
                 cmd.Parameters.AddWithValue("@v_CESS_AMOUNT", clsobj.CESS_AMOUNT)
+                cmd.Parameters.AddWithValue("@v_ACESS_AMOUNT", clsobj.ACESS_AMOUNT)
 
                 cmd.Parameters.AddWithValue("@v_NET_AMOUNT", clsobj.NET_AMOUNT)
                 cmd.Parameters.AddWithValue("@V_IS_SAMPLE", clsobj.IS_SAMPLE)
@@ -612,6 +624,7 @@ again:
 
                             OrderDataRow("MRP") = items_DataRow("MRP")
                             OrderDataRow("Cess") = items_DataRow("Cess")
+                            OrderDataRow("ACess") = items_DataRow("ACess")
                             OrderDataRow("Cess_Amount") = items_DataRow("Cess_Amount")
 
                             OrderDataRow("HsnCodeId") = items_DataRow("HsnCodeId")
@@ -648,7 +661,7 @@ again:
                         cmd.Parameters.AddWithValue("@v_MRP", Dtitemsnew.Rows(i)("MRP"))
                         cmd.Parameters.AddWithValue("@v_CESS_PER", Dtitemsnew.Rows(i)("Cess"))
                         cmd.Parameters.AddWithValue("@v_CESS_AMOUNT", Dtitemsnew.Rows(i)("Cess_Amount"))
-
+                        cmd.Parameters.AddWithValue("@v_ACESS", Dtitemsnew.Rows(i)("ACess"))
                         cmd.Parameters.AddWithValue("@v_CREATED_BY", clsobj.CREATED_BY)
                         cmd.Parameters.AddWithValue("@v_CREATION_DATE", clsobj.CREATION_DATE)
                         cmd.Parameters.AddWithValue("@v_MODIFIED_BY", clsobj.MODIFIED_BY)
@@ -873,6 +886,7 @@ again:
                 cmd.Parameters.AddWithValue("@v_VAT_AMOUNT", clsobj.VAT_AMOUNT)
 
                 cmd.Parameters.AddWithValue("@v_CESS_AMOUNT", clsobj.CESS_AMOUNT)
+                cmd.Parameters.AddWithValue("@v_ACESS_AMOUNT", clsobj.ACESS_AMOUNT)
 
                 cmd.Parameters.AddWithValue("@v_NET_AMOUNT", clsobj.NET_AMOUNT)
                 cmd.Parameters.AddWithValue("@V_IS_SAMPLE", clsobj.IS_SAMPLE)
@@ -941,6 +955,7 @@ again:
 
                             OrderDataRow("MRP") = items_DataRow("MRP")
                             OrderDataRow("Cess") = items_DataRow("Cess")
+                            OrderDataRow("ACess") = items_DataRow("ACess")
                             OrderDataRow("Cess_Amount") = items_DataRow("Cess_Amount")
 
                             OrderDataRow("HsnCodeId") = items_DataRow("HsnCodeId")
@@ -978,7 +993,7 @@ again:
                         cmd.Parameters.AddWithValue("@v_MRP", Dtitemsnew.Rows(i)("MRP"))
                         cmd.Parameters.AddWithValue("@v_CESS_PER", Dtitemsnew.Rows(i)("Cess"))
                         cmd.Parameters.AddWithValue("@v_CESS_AMOUNT", Dtitemsnew.Rows(i)("Cess_Amount"))
-
+                        cmd.Parameters.AddWithValue("@v_ACESS", Dtitemsnew.Rows(i)("ACess"))
                         cmd.Parameters.AddWithValue("@v_CREATED_BY", clsobj.CREATED_BY)
                         cmd.Parameters.AddWithValue("@v_CREATION_DATE", clsobj.CREATION_DATE)
                         cmd.Parameters.AddWithValue("@v_MODIFIED_BY", clsobj.MODIFIED_BY)
@@ -1080,6 +1095,7 @@ again:
                 cmd.Parameters.AddWithValue("@v_VAT_AMOUNT", clsobj.VAT_AMOUNT)
 
                 cmd.Parameters.AddWithValue("@v_CESS_AMOUNT", clsobj.CESS_AMOUNT)
+                cmd.Parameters.AddWithValue("@v_ACESS_AMOUNT", clsobj.ACESS_AMOUNT)
 
                 cmd.Parameters.AddWithValue("@v_NET_AMOUNT", clsobj.NET_AMOUNT)
                 cmd.Parameters.AddWithValue("@V_IS_SAMPLE", clsobj.IS_SAMPLE)
@@ -1148,6 +1164,7 @@ again:
 
                             OrderDataRow("MRP") = items_DataRow("MRP")
                             OrderDataRow("Cess") = items_DataRow("Cess")
+                            OrderDataRow("ACess") = items_DataRow("ACess")
                             OrderDataRow("Cess_Amount") = items_DataRow("Cess_Amount")
 
                             OrderDataRow("HsnCodeId") = items_DataRow("HsnCodeId")
@@ -1185,7 +1202,7 @@ again:
                         cmd.Parameters.AddWithValue("@v_MRP", Dtitemsnew.Rows(i)("MRP"))
                         cmd.Parameters.AddWithValue("@v_CESS_PER", Dtitemsnew.Rows(i)("Cess"))
                         cmd.Parameters.AddWithValue("@v_CESS_AMOUNT", Dtitemsnew.Rows(i)("Cess_Amount"))
-
+                        cmd.Parameters.AddWithValue("@v_ACESS", Dtitemsnew.Rows(i)("ACess"))
                         cmd.Parameters.AddWithValue("@v_CREATED_BY", clsobj.CREATED_BY)
                         cmd.Parameters.AddWithValue("@v_CREATION_DATE", clsobj.CREATION_DATE)
                         cmd.Parameters.AddWithValue("@v_MODIFIED_BY", clsobj.MODIFIED_BY)
