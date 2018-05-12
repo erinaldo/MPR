@@ -1586,4 +1586,10 @@ restart:
     Private Sub FLXGRD_MaterialItem_AfterDataRefresh(sender As Object, e As System.ComponentModel.ListChangedEventArgs)
         Calculate_Amount()
     End Sub
+
+    Private Sub btnPrintBarCode_Click(sender As Object, e As EventArgs) Handles btnPrintBarCode.Click
+        Dim MRNID As Int32 = (dgvList.SelectedRows(0).Cells("Received_ID").Value)
+        Dim PritBarcodeMrn As New frm_MRN_Print_Barcode(MRNID)
+        PritBarcodeMrn.ShowDialog()
+    End Sub
 End Class
