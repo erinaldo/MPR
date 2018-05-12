@@ -52,6 +52,38 @@ Public Class frm_ReportInput
         End If
 
 
+        If _call_type = enmReportName.RptBrandWiseSale Then
+            dtp_FromDate.Visible = True
+            dtp_ToDate.Visible = True
+
+            lblstatus.Visible = False
+            cmbstatus.Visible = False
+            rBtnMRS.Visible = False
+            rBtnReqDate.Visible = False
+            cmbCategoryHead.Visible = False
+            lblSubCategory.Visible = False
+            cmb_subCategory.Visible = False
+
+            lblCategoryHead.Text = "Brand Name:"
+            lblCategoryHead.Visible = True
+            cmbCategoryHead.Visible = True
+            Dim Query As String
+            Dim Dt As DataTable
+            Dim Dtrow As DataRow
+            Query = " SELECT Pk_LabelDetailId_Num ,LabelItemName_vch  FROM dbo.Label_Items ORDER BY LabelItemName_vch "
+            Dt = objCommFunction.Fill_DataSet(Query).Tables(0)
+            Dtrow = Dt.NewRow
+            Dtrow("Pk_LabelDetailId_Num") = -1
+            Dtrow("LabelItemName_vch") = "--ALL Brand--"
+            Dt.Rows.InsertAt(Dtrow, 0)
+            cmbCategoryHead.DisplayMember = "LabelItemName_vch"
+            cmbCategoryHead.ValueMember = "Pk_LabelDetailId_Num"
+            cmbCategoryHead.DataSource = Dt
+            cmbCategoryHead.SelectedIndex = 0
+
+        End If
+
+
 
         If _call_type = enmReportName.RptMrsItemList Or _call_type = enmReportName.RptMrsdetailList Then
             dtp_FromDate.Visible = True
@@ -571,6 +603,9 @@ Public Class frm_ReportInput
 
             ElseIf _call_type = enmReportName.RptSalesummaryList Then
                 filepath = ReportFilePath & "crySaleInvoiceList.rpt"
+
+            ElseIf _call_type = enmReportName.RptBrandWiseSale Then
+                filepath = ReportFilePath & "cry_Brand_Wise_Sale.rpt"
 
 
 
@@ -1109,7 +1144,7 @@ Public Class frm_ReportInput
             End With
 
 
-            If Not _call_type = enmReportName.RptCategoryHeadWiseIssue And Not _call_type = enmReportName.RptWastageDetail_ItemWise_cc And Not _call_type = enmReportName.RptIkt_ItemWise_cc And Not _call_type = enmReportName.RptConsumption_ItemWise_cc And Not _call_type = enmReportName.RptCatheadWise_Consumption_cc And Not _call_type = enmReportName.RptNonMovingItemList And Not _call_type = enmReportName.RptSalesummary And Not _call_type = enmReportName.RptSalesummaryList And Not _call_type = enmReportName.RptNonMovingItemList Then
+            If Not _call_type = enmReportName.RptCategoryHeadWiseIssue And Not _call_type = enmReportName.RptWastageDetail_ItemWise_cc And Not _call_type = enmReportName.RptIkt_ItemWise_cc And Not _call_type = enmReportName.RptConsumption_ItemWise_cc And Not _call_type = enmReportName.RptCatheadWise_Consumption_cc And Not _call_type = enmReportName.RptNonMovingItemList And Not _call_type = enmReportName.RptSalesummary And Not _call_type = enmReportName.RptSalesummaryList And Not _call_type = enmReportName.RptNonMovingItemList And Not _call_type = enmReportName.RptBrandWiseSale Then
 
                 rep.SetParameterValue("PFromDate", dtp_FromDate.Value.Date)
                 rep.SetParameterValue("PToDate", dtp_ToDate.Value.Date)
@@ -1154,10 +1189,22 @@ Public Class frm_ReportInput
                 End If
 
                 frm_Report.cryViewer.ReportSource = rep
-                    frm_Report.Show()
+                frm_Report.Show()
+            End If
+
+            If _call_type = enmReportName.RptBrandWiseSale Then
+                rep.SetParameterValue("From", Convert.ToDateTime(dtp_FromDate.Value.Date.ToString("dd-MMM-yyyy")))
+                rep.SetParameterValue("To", Convert.ToDateTime(dtp_ToDate.Value.Date.ToString("dd-MMM-yyyy")))
+
+                If cmbCategoryHead.SelectedValue = -1 Then
+                    rep.SetParameterValue("BrandID", "NULL")
+                Else
+                    rep.SetParameterValue("BrandID", Convert.ToString(cmbCategoryHead.SelectedValue))
                 End If
 
-
+                frm_Report.cryViewer.ReportSource = rep
+                frm_Report.Show()
+            End If
         Catch ex As Exception
             MsgBox(gblMessageHeading_Error & vbCrLf & gblMessage_ContactInfo & vbCrLf & ex.Message, MsgBoxStyle.Critical, gblMessageHeading)
         End Try

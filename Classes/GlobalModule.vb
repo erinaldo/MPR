@@ -137,6 +137,7 @@ Module GlobalModule
         RptStockValueBrandWise = 78
         RptDebitNoteWOItemPrint = 79
         RptCreditNoteWOItemPrint = 80
+        RptBrandWiseSale = 81
 
     End Enum
     Public Enum IndentStatus As Integer

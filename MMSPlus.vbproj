@@ -859,6 +859,12 @@
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Reports\cry_Brand_Wise_Sale.vb">
+      <DependentUpon>cry_Brand_Wise_Sale.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Reports\PaymentDetailCrReport.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1791,6 +1797,10 @@
     <EmbeddedResource Include="Reports\crySaleInvoiceList.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>crySaleInvoiceList.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\cry_Brand_Wise_Sale.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cry_Brand_Wise_Sale.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\PaymentDetailCrReport.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
