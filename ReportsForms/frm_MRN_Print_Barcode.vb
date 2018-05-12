@@ -111,16 +111,12 @@ WHERE   1 = 1 "
 
     End Sub
     Private Sub new_initilization()
-
-
-
-
     End Sub
     Private Sub dgvPrintBarcode_SelectionChanged(sender As Object, e As EventArgs) Handles dgvPrintBarcode.SelectionChanged
         If dgvPrintBarcode.SelectedRows.Count > 0 Then
-            Dim cell As DataGridViewCell = dgvPrintBarcode.SelectedRows(0).Cells(6)
+            ' Dim cell As DataGridViewCell = dgvPrintBarcode.SelectedRows(0).Cells(6)
             'dgvPrintBarcode.CurrentCell = cell
-            dgvPrintBarcode.BeginEdit(True)
+            'dgvPrintBarcode.BeginEdit(True)
         End If
     End Sub
 
@@ -229,5 +225,7 @@ WHERE   1 = 1 "
 
     End Sub
 
-
+    Private Sub btnClose_Click(sender As Object, e As EventArgs) Handles btnClose.Click
+        Me.Close()
+    End Sub
 End Class
