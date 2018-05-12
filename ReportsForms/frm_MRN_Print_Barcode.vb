@@ -69,18 +69,20 @@ WHERE   1 = 1 "
             Query += " and MRWPD.Received_ID = " & cmbMrn.SelectedValue & ""
         End If
         If Not String.IsNullOrEmpty(txtItemCode.Text.Trim) Then
-            Query += " and Item_Code = '" & txtItemCode.Text & "'"
+            Query += " and Item_Code Like '%" & txtItemCode.Text & "%'"
         End If
         If Not String.IsNullOrEmpty(txtItemName.Text.Trim) Then
             Query += " and Item_Name Like '%" & txtItemName.Text & "%'"
         End If
         If Not String.IsNullOrEmpty(txtItemBarcode.Text.Trim) Then
-            Query += " and BarCode_vch = '" & txtItemBarcode.Text & "'"
+            Query += " and BarCode_vch  Like '%" & txtItemBarcode.Text & "%'"
         End If
 
         Dim itemDetailTable As DataTable = obj.FillDataSet(Query).Tables(0)
 
 
+        dgvPrintBarcode.DataSource = Nothing
+        dgvPrintBarcode.RowCount = 0
         For Each row As DataRow In itemDetailTable.Rows
 
             'For Each Grow As DataGridViewRow In dgvPrintBarcode.Rows
