@@ -1597,24 +1597,7 @@ Partial Class MDIMain
         Me.frm_open_invoice.Size = New System.Drawing.Size(181, 22)
         Me.frm_open_invoice.Text = "Opne Invoice"
        '
-        'frm_PurchaseTaxRegister
-        '
-        Me.frm_PurchaseTaxRegister.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.frm_PurchaseTaxRegister.ForeColor = System.Drawing.Color.White
-        Me.frm_PurchaseTaxRegister.Image = Global.MMSPlus.My.Resources.Resources.Items_recent_list_to_do_formatting
-        Me.frm_PurchaseTaxRegister.Name = "frm_PurchaseTaxRegister"
-        Me.frm_PurchaseTaxRegister.Size = New System.Drawing.Size(201, 22)
-        Me.frm_PurchaseTaxRegister.Text = "GST Purchase Register"
-         '
-        'frm_EwayBill
-        '
-        Me.frm_EwayBill.Name = "frm_EwayBill"
-        Me.frm_EwayBill.Size = New System.Drawing.Size(213, 22)
-        Me.frm_EwayBill.Text = "frm"
-        '
-        'frmBrandWiseSale       
-         '
-
+        'frmBrandWiseSale
         '
         Me.frmBrandWiseSale.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.frmBrandWiseSale.ForeColor = System.Drawing.Color.White
@@ -1623,6 +1606,23 @@ Partial Class MDIMain
         Me.frmBrandWiseSale.Size = New System.Drawing.Size(202, 22)
         Me.frmBrandWiseSale.Text = "Brand Wise Sale"
         '
+        'frm_SaleTaxRegister
+        '
+        Me.frm_SaleTaxRegister.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.frm_SaleTaxRegister.ForeColor = System.Drawing.Color.White
+        Me.frm_SaleTaxRegister.Image = Global.MMSPlus.My.Resources.Resources.Items_recent_list_to_do_formatting
+        Me.frm_SaleTaxRegister.Name = "frm_SaleTaxRegister"
+        Me.frm_SaleTaxRegister.Size = New System.Drawing.Size(201, 22)
+        Me.frm_SaleTaxRegister.Text = "GST Sale Register"
+
+          '
+        'frm_EwayBill
+        '
+
+         Me.frm_EwayBill.Name = "frm_EwayBill"
+        Me.frm_EwayBill.Size = New System.Drawing.Size(213, 22)
+        Me.frm_EwayBill.Text = "frm"
+    
         'MDIMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)

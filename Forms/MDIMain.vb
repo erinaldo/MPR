@@ -43,6 +43,7 @@ Public Class MDIMain
 
 
 
+
         Dim menuItem As New ToolStripMenuItem
 
         If TypeOf sender Is ToolStripMenuItem Then
