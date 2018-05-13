@@ -280,10 +280,17 @@
     <Compile Include="Forms\BackupDB.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Forms\frm_EwayBill.Designer.vb">
+        <Compile Include="Forms\frm_EwayBill.Designer.vb">
       <DependentUpon>frm_EwayBill.vb</DependentUpon>
     </Compile>
     <Compile Include="Forms\frm_EwayBill.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+
+    <Compile Include="Forms\frm_BillBook.Designer.vb">
+      <DependentUpon>frm_BillBook.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frm_BillBook.vb">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Forms\frm_Print_Barcode.Designer.vb">
@@ -291,6 +298,12 @@
     </Compile>
     <Compile Include="Forms\frm_Print_Barcode.vb">
       <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ReportsForms\frm_MRN_Print_Barcode.Designer.vb">
+      <DependentUpon>frm_MRN_Print_Barcode.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ReportsForms\frm_MRN_Print_Barcode.vb">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="ReportsForms\frm_SaleTaxRegister.Designer.vb">
       <DependentUpon>frm_SaleTaxRegister.vb</DependentUpon>
@@ -854,6 +867,12 @@
     </Compile>
     <Compile Include="Reports\crySaleInvoiceList.vb">
       <DependentUpon>crySaleInvoiceList.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reports\cry_Brand_Wise_Sale.vb">
+      <DependentUpon>cry_Brand_Wise_Sale.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
@@ -1441,6 +1460,10 @@
     <EmbeddedResource Include="Forms\frm_EwayBill.resx">
       <DependentUpon>frm_EwayBill.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frm_BillBook.resx">
+      <DependentUpon>frm_BillBook.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\frm_Print_Barcode.resx">
       <DependentUpon>frm_Print_Barcode.vb</DependentUpon>
       <SubType>Designer</SubType>
@@ -1609,6 +1632,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ReportsForms\frm_DebtorsOS.resx">
       <DependentUpon>frm_DebtorsOS.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportsForms\frm_MRN_Print_Barcode.resx">
+      <DependentUpon>frm_MRN_Print_Barcode.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="ReportsForms\frm_SaleTaxRegister.resx">
       <DependentUpon>frm_SaleTaxRegister.vb</DependentUpon>
@@ -1785,6 +1812,10 @@
     <EmbeddedResource Include="Reports\crySaleInvoiceList.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>crySaleInvoiceList.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\cry_Brand_Wise_Sale.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cry_Brand_Wise_Sale.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\PaymentDetailCrReport.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
@@ -2186,7 +2217,12 @@
     <Content Include="Scripts\2018Update\0004_27_Feb_2018_DBbackup.sql" />
     <Content Include="Scripts\2018Update\0007_05_Apr_2018_MMSLedgerUpdations.sql" />
     <Content Include="Scripts\2018Update\0008_11_Apr_2018_editinvoice.sql" />
+    <Content Include="Scripts\2018Update\0011_05_May_2018_PaymentTransactionProcedureCorrection.sql" />
+    <Content Include="Scripts\2018Update\0010_04_May_2018_CessUpdationDebitCreditNote.sql" />
+    <Content Include="Scripts\2018Update\0010_03_May_2018_CessUpdationSalePurchase.sql" />
     <Content Include="Scripts\2018Update\0009_18_Apr_2018_StockUpdate.sql" />
+    <Content Include="Scripts\2018Update\0011_08_May_2018_BillBook.sql" />
+    <Content Include="Scripts\2018Update\0012_11_May_2018_ACESS.sql" />
     <Content Include="Scripts\Updates\00001_29_Dec_Add_Duty_And_Taxes.sql" />
     <Content Include="Scripts\Updates\0001_04_Jan_2018_Stock_Transfer.sql" />
     <Content Include="Scripts\Updates\0001_16_JAN_2018.sql" />

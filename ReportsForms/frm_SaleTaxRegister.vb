@@ -20,13 +20,36 @@ Public Class frm_SaleTaxRegister
 
     Private Sub BindData()
 
-        Qry = "SELECT  * ,
+        Qry = "SELECT  [S. No.] ,
+        Date ,
+        [Bill NO.] ,
+        [Account Name] ,
+        ADDRESS ,
+        [GST NO.] ,
+        [Credit Amount] ,
+        [Cash Amount] ,
+        [Bill Amount] ,
+        [Bill Type] ,
+        [Nill Rated] ,
+        [Txbl. 3%] ,
+        [Tax @3%] ,
+        [Txbl. 5%] ,
+        [Tax @5%] ,
+        [Txbl. 12%] ,
+        [Tax @12%] ,
+        [Txbl. 18%] ,
+        [Tax @18%] ,
+        [Txbl. 28%] ,
+        [Tax @28%] ,
         ( ISNULL([Nill Rated], 0) + ISNULL([Txbl. 3%], 0) + ISNULL([Txbl. 5%],
                                                               0)
           + ISNULL([Txbl. 12%], 0) + ISNULL([Txbl. 18%], 0)
           + ISNULL([Txbl. 28%], 0) ) AS [Total Txbl. GST] ,
         ( ISNULL([Tax @3%], 0) + ISNULL([Tax @5%], 0) + ISNULL([Tax @12%], 0)
-          + ISNULL([Tax @18%], 0) + ISNULL([Tax @28%], 0) ) AS [Total GST Tax]
+          + ISNULL([Tax @18%], 0) + ISNULL([Tax @28%], 0) ) AS [Total GST Tax] ,
+        [CESS %] ,
+        [Cess Amount] ,
+        [ACess Amount]
 FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY SIM.SI_ID ) AS [S. No.] ,
                     CONVERT(VARCHAR(20), SI_DATE, 106) AS Date ,
                     SI_CODE + CAST(si_no AS VARCHAR) AS [Bill NO.] ,
@@ -197,13 +220,17 @@ FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY SIM.SI_ID ) AS [S. No.] ,
                                  END) ) AS DECIMAL(18, 2)) AS [Txbl. 28%] ,
                     CAST (SUM(CASE WHEN VAT_PER = 28 THEN SID.VAT_AMOUNT
                                    ELSE 0
-                              END) AS DECIMAL(18, 2)) AS [Tax @28%]
+                              END) AS DECIMAL(18, 2)) AS [Tax @28%] ,
+                    MAX(SID.CessPercentage_num) AS [CESS %] ,
+                    SUM(ISNULL(SID.CessAmount_num, 0)) AS [Cess Amount] ,
+                    CAST(SUM(ISNULL(SID.ACess, 0) * ISNULL(SID.ITEM_QTY, 0)) AS NUMERIC(18,
+                                                              2)) AS [ACess Amount]
           FROM      dbo.SALE_INVOICE_MASTER SIM
                     JOIN dbo.SALE_INVOICE_DETAIL SID ON SIM.SI_ID = SID.SI_ID
                     JOIN dbo.ACCOUNT_MASTER ACM ON ACM.ACC_ID = SIM.CUST_ID
-          WHERE     INVOICE_STATUS <> 4 
-                    AND MONTH(SI_DATE) =" + txtFromDate.Value.Month.ToString() &
-                    " AND YEAR(SI_DATE) = " + txtFromDate.Value.Year.ToString() &
+          WHERE     INVOICE_STATUS <> 4
+                    AND MONTH(SI_DATE) = " + txtFromDate.Value.Month.ToString() &
+                    "AND YEAR(SI_DATE) = " + txtFromDate.Value.Year.ToString() &
           "GROUP BY  SIM.SI_ID ,
                     SI_DATE ,
                     SI_CODE ,

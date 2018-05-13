@@ -25,6 +25,7 @@ Namespace CreditNote
         Dim _Item_Qty As Double
         Dim _Item_rate As Double
         Dim _Item_Tax As Double
+        Dim _Item_Cess As Double
         Dim _CN_Amount As Double
         Dim _CN_CustId As Int32
         Dim _Stock_Detail_Id As Double
@@ -32,6 +33,7 @@ Namespace CreditNote
         Dim _INV_Date As DateTime
         Dim _CN_ItemValue As Double
         Dim _CN_ItemTax As Double
+        Dim _CN_ItemCess As Double
         Dim _CreditNote_Type As String
         Dim _RefNo As String
         Dim _RefDate_dt As DateTime
@@ -172,6 +174,15 @@ Namespace CreditNote
             End Set
         End Property
 
+        Public Property Item_Cess() As Double
+            Get
+                Item_Cess = _Item_Cess
+            End Get
+            Set(ByVal value As Double)
+                _Item_Cess = value
+            End Set
+        End Property
+
         Public Property Cn_Amount() As Double
             Get
                 Cn_Amount = _CN_Amount
@@ -235,6 +246,14 @@ Namespace CreditNote
             End Set
         End Property
 
+        Public Property CN_ItemCess() As Double
+            Get
+                CN_ItemCess = _CN_ItemCess
+            End Get
+            Set(ByVal value As Double)
+                _CN_ItemCess = value
+            End Set
+        End Property
 
         Public Property CN_Type() As String
             Get
@@ -298,14 +317,12 @@ Namespace CreditNote
             cmd.Parameters.AddWithValue("@v_CN_CustId", clsObj.CN_CustId)
             cmd.Parameters.AddWithValue("@v_INV_No", clsObj.INV_No)
             cmd.Parameters.AddWithValue("@v_INV_Date", clsObj.INV_Date)
-
             cmd.Parameters.AddWithValue("@v_CN_ItemValue", clsObj.CN_ItemValue)
             cmd.Parameters.AddWithValue("@v_CN_ItemTax", clsObj.CN_ItemTax)
-
+            cmd.Parameters.AddWithValue("@v_CN_ItemCess", clsObj.CN_ItemCess)
             cmd.Parameters.AddWithValue("@v_CreditNote_Type", clsObj.CN_Type)
             cmd.Parameters.AddWithValue("@v_RefNo", clsObj.Ref_No)
             cmd.Parameters.AddWithValue("@v_RefDate_dt", clsObj.Ref_Date)
-            cmd.Parameters.AddWithValue("@v_Tax_Amt", clsObj.Tax_Amt)
             cmd.Parameters.AddWithValue("@V_PROC_TYPE", 1)
 
             cmd.ExecuteNonQuery()
@@ -323,6 +340,7 @@ Namespace CreditNote
             cmd.Parameters.AddWithValue("@v_Item_Qty", clsObj.Item_Qty)
             cmd.Parameters.AddWithValue("@v_Item_Rate", clsObj.Item_Rate)
             cmd.Parameters.AddWithValue("@v_Item_Tax", clsObj.Item_Tax)
+            cmd.Parameters.AddWithValue("@v_Item_Cess", clsObj.Item_Cess)
             cmd.Parameters.AddWithValue("@V_Created_By", clsObj.Created_By)
             cmd.Parameters.AddWithValue("@V_Creation_Date", clsObj.Creation_Date)
             cmd.Parameters.AddWithValue("@V_Modified_By", clsObj.Modified_By)

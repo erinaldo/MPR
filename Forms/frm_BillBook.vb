@@ -3,7 +3,7 @@ Imports System.Data.SqlClient
 Imports System.Data
 Imports C1.Win.C1FlexGrid
 Imports System.Text.RegularExpressions
-Public Class frm_openSale_Invoice
+Public Class frm_BillBook
 
     Implements IForm
     Dim obj As New CommonClass
@@ -30,9 +30,9 @@ Public Class frm_openSale_Invoice
 
             strsql = "SELECT * FROM (SELECT SI_ID," &
             "(SI_CODE+CAST(SI_NO AS VARCHAR)) AS InvNo,('DC/'+CAST(DC_GST_NO AS VARCHAR) ) AS [DC NO]," &
-            " dbo.fn_Format(dbo.SALE_INVOICE_MASTER.CREATION_DATE) AS [INV DATE]," &
+            " dbo.fn_Format(dbo.SALE_INVOICE_MASTER.SI_DATE) AS [INV DATE]," &
             " NET_AMOUNT AS Amount,ACC_NAME Customer,CASE WHEN INVOICE_STATUS =1 THEN 'Fresh'  WHEN INVOICE_STATUS =2 THEN 'Pending' WHEN INVOICE_STATUS =3 THEN 'Clear'  WHEN INVOICE_STATUS =4 THEN 'Cancel' END AS Status FROM dbo.SALE_INVOICE_MASTER " &
-            "JOIN dbo.ACCOUNT_MASTER ON ACCOUNT_MASTER.ACC_ID=dbo.SALE_INVOICE_MASTER.CUST_ID where FLAG=1)tb " &
+            "JOIN dbo.ACCOUNT_MASTER ON ACCOUNT_MASTER.ACC_ID=dbo.SALE_INVOICE_MASTER.CUST_ID where FLAG=2)tb " &
             "WHERE (CAST(SI_ID AS varchar) +InvNo+[DC NO]+[INV DATE]+ CAST(tb.Amount AS VARCHAR)+tb.Customer+tb.Status) LIKE '%" & condition & "%'  order by 1"
 
             Dim dt As DataTable = obj.Fill_DataSet(strsql).Tables(0)
@@ -55,10 +55,9 @@ Public Class frm_openSale_Invoice
 
     Private Sub frm_Sale_Invoice_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Try
-
             obj.FormatGrid(flxItems)
             table_style()
-
+            BillBookBind()
             CustomerBind()
             cmbSupplier.Visible = True
             txtcustomer_name.Visible = False
@@ -74,6 +73,9 @@ Public Class frm_openSale_Invoice
     End Sub
     Public Sub CityBind()
         clsObj.ComboBind(cmbCity, "Select CITY_ID,CITY_NAME from CITY_MASTER Order by CITY_NAME", "CITY_NAME", "CITY_ID", True)
+    End Sub
+    Public Sub BillBookBind()
+        clsObj.ComboBind(cmbBillBook, "Select PREFIX,PREFIX as Name from BillBook_Series WHERE (CURRENT_USED+1)<=END_NO Order by PREFIX", "PREFIX", "Name", True)
     End Sub
     Public Sub CloseClick(ByVal sender As Object, ByVal e As System.EventArgs) Implements IForm.CloseClick
 
@@ -115,41 +117,47 @@ Public Class frm_openSale_Invoice
             End If
             prpty.SI_ID = Si_ID
 
-            Dim ds As New DataSet()
-            ds = obj.fill_Data_set("GET_INV_NO", "@DIV_ID", v_the_current_division_id)
-            If ds.Tables(0).Rows.Count = 0 Then
-                MsgBox("Invoice series does not exists", MsgBoxStyle.Information, gblMessageHeading)
-                ds.Dispose()
-                Exit Sub
-            Else
-                If ds.Tables(0).Rows(0)(0).ToString() = "-1" Then
-                    MsgBox("Invoice series does not exists", MsgBoxStyle.Information, gblMessageHeading)
-                    ds.Dispose()
-                    Exit Sub
-                ElseIf ds.Tables(0).Rows(0)(0).ToString() = "-2" Then
-                    MsgBox("Invoice series has been completed", MsgBoxStyle.Information, gblMessageHeading)
-                    ds.Dispose()
-                    Exit Sub
-                Else
-                    prpty.SI_CODE = ds.Tables(0).Rows(0)(0).ToString()
-                    prpty.SI_NO = Convert.ToDecimal(ds.Tables(0).Rows(0)(1).ToString()) + 1
-                    ds.Dispose()
-                End If
-            End If
+            Dim qry As String = "SELECT  CURRENT_USED+1 FROM BillBook_Series WHERE (CURRENT_USED+1)<=END_NO and PREFIX = '" + cmbBillBook.Text + "'"
+            Dim id As Int32 = clsObj.ExecuteScalar(qry)
+            prpty.SI_CODE = cmbBillBook.SelectedText
+            prpty.SI_NO = id.ToString
 
-            prpty.DC_GST_NO = Convert.ToDecimal(ds.Tables(0).Rows(0)(1).ToString()) + 1
-            prpty.SI_DATE = Now
+            'Dim ds As New DataSet()
+            'ds = obj.fill_Data_set("GET_INV_NO", "@DIV_ID", v_the_current_division_id)
+            'If ds.Tables(0).Rows.Count = 0 Then
+            '    MsgBox("Invoice series does not exists", MsgBoxStyle.Information, gblMessageHeading)
+            '    ds.Dispose()
+            '    Exit Sub
+            'Else
+            '    If ds.Tables(0).Rows(0)(0).ToString() = "-1" Then
+            '        MsgBox("Invoice series does not exists", MsgBoxStyle.Information, gblMessageHeading)
+            '        ds.Dispose()
+            '        Exit Sub
+            '    ElseIf ds.Tables(0).Rows(0)(0).ToString() = "-2" Then
+            '        MsgBox("Invoice series has been completed", MsgBoxStyle.Information, gblMessageHeading)
+            '        ds.Dispose()
+            '        Exit Sub
+            '    Else
+            '        prpty.SI_CODE = ds.Tables(0).Rows(0)(0).ToString()
+            '        prpty.SI_NO = Convert.ToDecimal(ds.Tables(0).Rows(0)(1).ToString()) + 1
+            '        ds.Dispose()
+            '    End If
+            'End If
+
+            prpty.DC_GST_NO = id
+            prpty.SI_DATE = Convert.ToDateTime(dtDate.Text)
 
             If (flag = "update") Then
                 prpty.SI_ID = Si_ID
                 prpty.SI_NO = Si_No
+                prpty.SI_DATE = Convert.ToDateTime(dtDate.Text)
             End If
 
 
             If NEWCUST = 0 Then
                 prpty.CUST_ID = cmbSupplier.SelectedValue
             Else
-                Dim dscust As DataSet = clsObj.GetDCDetail_remote("Select isnull(max(ACC_ID),0) + 1 from dbo.ACCOUNT_MASTER WHERE ACC_ID<9999")
+                Dim dscust As DataSet = clsObj.GetDCDetail_remote("Select isnull(max(ACC_ID),0) + 1 from dbo.ACCOUNT_MASTER WHERE ACC_ID<10000")
                 prpty.CUST_ID = Convert.ToInt32(dscust.Tables(0).Rows(0)(0))
 
                 clsObj.Insert_New_Customer_Remote(prpty.CUST_ID, txtcustomer_name.Text, txtAddress.Text, txtShippingAddress.Text, txt_txtphoneNo.Text, txtGstNo.Text, Convert.ToInt32(cmbCity.SelectedValue))
@@ -186,17 +194,17 @@ Public Class frm_openSale_Invoice
             prpty.SHIPP_ADD_ID = 0
             prpty.INV_TYPE = cmbinvtype.SelectedItem
             prpty.LR_NO = txtLRNO.Text
-            prpty.Flag = 1
+            prpty.Flag = 2
             prpty.dtable_Item_List = dtable_Item_List
 
             If flag = "save" Then
-                clsObj.Insert_SALE_INVOICE_MASTER(prpty)
+                clsObj.Insert_SALE_INVOICE_MASTER_BILLBOOK(prpty)
                 If MsgBox("Invoice information has been Saved." & vbCrLf & "Do You Want to Print Preview.", MsgBoxStyle.Question + MsgBoxStyle.YesNo, gblMessageHeading) = MsgBoxResult.Yes Then
                     obj.RptShow(enmReportName.RptInvoicePrint, "Si_ID", CStr(prpty.SI_ID), CStr(enmDataType.D_int))
                 End If
 
             Else
-                clsObj.Update_SALE_INVOICE_MASTER(prpty)
+                clsObj.Update_SALE_INVOICE_MASTER_BILLBOOK(prpty)
                 If MsgBox("Invoice information has been Updated." & vbCrLf & "Do You Want to Print Preview.", MsgBoxStyle.Question + MsgBoxStyle.YesNo, gblMessageHeading) = MsgBoxResult.Yes Then
                     obj.RptShow(enmReportName.RptInvoicePrint, "Si_ID", CStr(prpty.SI_ID), CStr(enmDataType.D_int))
                 End If
@@ -229,7 +237,7 @@ Public Class frm_openSale_Invoice
 
     Private Sub new_initilization()
 
-        lbl_TransferDate.Text = Now.ToString("dd-MMM-yyyy")
+
         txt_txtphoneNo.Text = ""
         cmbSupplier.SelectedIndex = 0
         txtAddress.Text = ""
@@ -246,6 +254,7 @@ Public Class frm_openSale_Invoice
         dtable_Item_List.Rows.Clear()
         'dtable_Item_List.Rows.Add()
         TabControl1.SelectTab(1)
+
         lblItemValue.Text = 0.00
         lblVatAmount.Text = 0.00
         lblCessAmount.Text = 0.00
@@ -253,30 +262,33 @@ Public Class frm_openSale_Invoice
         lblNetAmount.Text = 0.00
         lblTotalDisc.Text = 0.00
         lblTotalQty.Text = 0.000
+        cmbBillBook.Enabled = True
+        cmbBillBook.SelectedIndex = 0
+        lbl_INVNo.Text = 0
         '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         ''''''''''''''''''''''''''TO GET Inv NO'''''''''''''''''''''''''''''
         '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
-        Dim ds As New DataSet()
-        ds = obj.fill_Data_set("GET_INV_NO", "@DIV_ID", v_the_current_division_id)
-        If ds.Tables(0).Rows.Count = 0 Then
-            lbl_INVNo.Text = "Invoice series does not exists"
-            ds.Dispose()
-            Exit Sub
-        Else
-            If ds.Tables(0).Rows(0)(0).ToString() = "-1" Then
-                lbl_INVNo.Text = "Invoice series does not exists"
-                ds.Dispose()
-                Exit Sub
-            ElseIf ds.Tables(0).Rows(0)(0).ToString() = "-2" Then
-                lbl_INVNo.Text = "Invoice series has been completed"
-                ds.Dispose()
-                Exit Sub
-            Else
-                lbl_INVNo.Text = ds.Tables(0).Rows(0)(0).ToString() & (Convert.ToDecimal(ds.Tables(0).Rows(0)(1).ToString()) + 1).ToString
-                ds.Dispose()
-            End If
-        End If
+        'Dim ds As New DataSet()
+        'ds = obj.fill_Data_set("GET_INV_NO", "@DIV_ID", v_the_current_division_id)
+        'If ds.Tables(0).Rows.Count = 0 Then
+        '    lbl_INVNo.Text = "Invoice series does not exists"
+        '    ds.Dispose()
+        '    Exit Sub
+        'Else
+        '    If ds.Tables(0).Rows(0)(0).ToString() = "-1" Then
+        '        lbl_INVNo.Text = "Invoice series does not exists"
+        '        ds.Dispose()
+        '        Exit Sub
+        '    ElseIf ds.Tables(0).Rows(0)(0).ToString() = "-2" Then
+        '        lbl_INVNo.Text = "Invoice series has been completed"
+        '        ds.Dispose()
+        '        Exit Sub
+        '    Else
+        '        lbl_INVNo.Text = ds.Tables(0).Rows(0)(0).ToString() & (Convert.ToDecimal(ds.Tables(0).Rows(0)(1).ToString()) + 1).ToString
+        '        ds.Dispose()
+        '    End If
+        'End If
 
         '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         ''''''''''''''''''''''''''TO GET INV NO'''''''''''''''''''''''''''''
@@ -668,7 +680,7 @@ restart:
 
                         dr("Batch_Qty") = ds.Tables(0).Rows(i)("Balance_Qty")
                         dr("Stock_Detail_Id") = ds.Tables(0).Rows(i)("STOCK_DETAIL_ID")
-                        dr("transfer_Qty") = 0.000
+                        dr("transfer_Qty") = 0
                         dtable_Item_List.Rows.Add(dr)
                         dtable_Item_List.AcceptChanges()
                     Next
@@ -777,6 +789,7 @@ restart:
                 btnAddNew.Visible = False
                 Si_ID = Convert.ToInt32(flxList("Si_ID", flxList.CurrentCell.RowIndex).Value())
                 fill_InvoiceDetail(Si_ID)
+                cmbBillBook.Enabled = False
             End If
         Else
             MessageBox.Show("You Can't Edit canceled Invoice. ")
@@ -792,7 +805,7 @@ restart:
             Dim dr As DataRow = dt.Rows(0)
             Si_No = dr("INVNO")
             lbl_INVNo.Text = dr("SI_NO")
-            lbl_TransferDate.Text = Convert.ToDateTime(dr("InvDate"))
+            dtDate.Text = Convert.ToDateTime(dr("InvDate"))
 
             If dr("SALE_TYPE").ToString().Trim() = "Credit" Then
                 rdbtn_credit.Checked = True
@@ -979,27 +992,27 @@ restart:
             txtvechicle_no.Focus()
 
 
-                Dim NewstrSql As String
-                Dim dsdata As DataSet
+            Dim NewstrSql As String
+            Dim dsdata As DataSet
 
-                NewstrSql = "SELECT STATE_ID,isUT_bit FROM dbo.STATE_MASTER WHERE STATE_ID IN(SELECT STATE_ID FROM dbo.CITY_MASTER WHERE CITY_ID IN(SELECT CITY_ID FROM dbo.DIVISION_SETTINGS))"
-                NewstrSql = NewstrSql & " SELECT STATE_ID,isUT_bit FROM dbo.STATE_MASTER WHERE STATE_ID IN(SELECT STATE_ID FROM dbo.CITY_MASTER WHERE CITY_ID IN(SELECT CITY_ID FROM dbo.ACCOUNT_MASTER WHERE ACC_ID=" & cmbSupplier.SelectedValue & "))"
-                dsdata = clsObj.Fill_DataSet(NewstrSql)
+            NewstrSql = "SELECT STATE_ID,isUT_bit FROM dbo.STATE_MASTER WHERE STATE_ID IN(SELECT STATE_ID FROM dbo.CITY_MASTER WHERE CITY_ID IN(SELECT CITY_ID FROM dbo.DIVISION_SETTINGS))"
+            NewstrSql = NewstrSql & " SELECT STATE_ID,isUT_bit FROM dbo.STATE_MASTER WHERE STATE_ID IN(SELECT STATE_ID FROM dbo.CITY_MASTER WHERE CITY_ID IN(SELECT CITY_ID FROM dbo.ACCOUNT_MASTER WHERE ACC_ID=" & cmbSupplier.SelectedValue & "))"
+            dsdata = clsObj.Fill_DataSet(NewstrSql)
 
 
-                'SCGST
-                'IGST
-                'UGST
-                If dsdata.Tables(0).Rows(0)(0) <> dsdata.Tables(1).Rows(0)(0) Then
-                    cmbinvtype.Text = "IGST"
+            'SCGST
+            'IGST
+            'UGST
+            If dsdata.Tables(0).Rows(0)(0) <> dsdata.Tables(1).Rows(0)(0) Then
+                cmbinvtype.Text = "IGST"
+            Else
+                If dsdata.Tables(0).Rows(0)(1) = True Then
+                    cmbinvtype.Text = "UGST"
                 Else
-                    If dsdata.Tables(0).Rows(0)(1) = True Then
-                        cmbinvtype.Text = "UGST"
-                    Else
-                        cmbinvtype.Text = "SGST"
-                    End If
+                    cmbinvtype.Text = "SGST"
                 End If
             End If
+        End If
     End Sub
 
     Private Sub cmbCity_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbCity.SelectedIndexChanged
@@ -1048,6 +1061,12 @@ restart:
             End If
         End If
 
+    End Sub
+
+    Private Sub cmbBillBook_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbBillBook.SelectedIndexChanged
+        Dim qry As String = "SELECT  CURRENT_USED+1 FROM BillBook_Series WHERE (CURRENT_USED+1)<=END_NO and PREFIX = '" + cmbBillBook.Text + "'"
+        Dim id As Int32 = clsObj.ExecuteScalar(qry)
+        lbl_INVNo.Text = id.ToString
     End Sub
 
 End Class

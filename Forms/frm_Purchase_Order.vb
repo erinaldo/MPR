@@ -10,9 +10,7 @@ Public Class frm_Purchase_Order
     Dim dtable_Item_List As DataTable
     Dim flag As String
     Dim _po_id As Integer
-
     'Dim edit_mode As Boolean = False
-
     Dim _rights As Form_Rights
 
     Public Sub New(ByVal rights As Form_Rights)
@@ -109,9 +107,6 @@ Public Class frm_Purchase_Order
             VatTotalAmt = CalculateAmount()
             If validate() = True Then
 
-
-
-
                 ''Indent Master
                 'clsindpropobj.INDENT_ID = Convert.ToInt32(Obj.getMaxValue("INDENT_ID", "INDENT_MASTER"))
                 'clsindpropobj.INDENT_CODE = GetIndentCode()
@@ -141,14 +136,15 @@ Public Class frm_Purchase_Order
                 clsPropObj.TRANSPORT_MODE = dtpTransMode.Text
                 clsPropObj.TOTAL_AMOUNT = Convert.ToDecimal(GrossTotalVat(0).ToString())
                 clsPropObj.VAT_AMOUNT = Convert.ToDecimal(GrossTotalVat(1).ToString())
-                clsPropObj.NET_AMOUNT = Convert.ToDecimal(GrossTotalVat(2).ToString())
-                clsPropObj.EXICE_AMOUNT = Convert.ToDecimal(GrossTotalVat(3).ToString())
+                clsPropObj.CESS_AMOUNT = Convert.ToDecimal(GrossTotalVat(2).ToString())
+                clsPropObj.NET_AMOUNT = Convert.ToDecimal(GrossTotalVat(3).ToString())
+                clsPropObj.EXICE_AMOUNT = Convert.ToDecimal(GrossTotalVat(4).ToString())
                 clsPropObj.PO_TYPE = cmbPOType.SelectedValue
                 clsPropObj.OCTROI = dtpOctroi.Text
                 clsPropObj.PRICE_BASIS = dtpPriceBasis.Text
                 clsPropObj.FRIEGHT = Convert.ToInt32(dtpFreight.SelectedValue)
                 clsPropObj.OTHER_CHARGES = Convert.ToDecimal(txtOtherCharges.Text)
-                clsPropObj.CESS = Convert.ToDecimal("0.0".ToString())
+                'clsPropObj.CESS = Convert.ToDecimal("0.0".ToString())
                 clsPropObj.DISCOUNT_AMOUNT = Convert.ToDouble(txtDiscountAmount.Text)
                 clsPropObj.CREATED_BY = v_the_current_logged_in_user_name
                 clsPropObj.CREATION_DATE = Now
@@ -194,6 +190,7 @@ Public Class frm_Purchase_Order
             MsgBox(ex.Message)
         End Try
     End Sub
+
     Private Function validate() As Boolean
         Dim iRow As Int32
         validate = True
@@ -236,6 +233,7 @@ Public Class frm_Purchase_Order
     Private Sub new_initialization()
         ' edit_mode = False
         cmbPOType.SelectedIndex = 0
+        cmbSupplier.SelectedIndex = 0
         dtpoFromDate.Value = Now.AddDays(-10)
         cmbQualityRate.SelectedIndex = 0
         cmbDeliveryRate.SelectedIndex = 0
@@ -246,6 +244,7 @@ Public Class frm_Purchase_Order
         txtPaymentTerms.Text = ""
         lblItemValue.Text = "0.00"
         lblVatAmount.Text = "0.00"
+        lblCESSAmount.Text = "0.00"
         txtOtherCharges.Text = "0.00"
         txtDiscountAmount.Text = "0.00"
         lblNetAmount.Text = "0.00"
@@ -290,10 +289,13 @@ Public Class frm_Purchase_Order
         dtable_Item_List.Columns.Add("Vat_Name", GetType(System.String))
         dtable_Item_List.Columns.Add("Exice_Per", GetType(System.Double))
         dtable_Item_List.Columns.Add("Vat_Per", GetType(System.Double))
-        dtable_Item_List.Columns.Add("Item_Value", GetType(System.Double))
+        dtable_Item_List.Columns.Add("Item_Value", GetType(System.Decimal))
         dtable_Item_List.Columns.Add("Item_ID", GetType(System.Int32))
         dtable_Item_List.Columns.Add("Indent_ID", GetType(System.Int32))
         dtable_Item_List.Columns.Add("UM_ID", GetType(System.Int32))
+        dtable_Item_List.Columns.Add("Cess_Id", GetType(System.Int32))
+        dtable_Item_List.Columns.Add("Cess_Name", GetType(System.String))
+        dtable_Item_List.Columns.Add("Cess_Per", GetType(System.Double))
 
         flxItemList.DataSource = dtable_Item_List
 
@@ -301,15 +303,15 @@ Public Class frm_Purchase_Order
 
 
     End Sub
-    Private Sub format_grid()
 
+    Private Sub format_grid()
 
         flxItemList.Cols(0).Width = 10
         flxItemList.Cols("UM_ID").Visible = False
         flxItemList.Cols("Indent_ID").Visible = False
         flxItemList.Cols("Item_ID").Visible = False
         flxItemList.Cols("Vat_Id").Visible = False
-
+        flxItemList.Cols("Cess_Id").Visible = False
 
         flxItemList.Cols("Item_Code").Caption = "Item Code"
         flxItemList.Cols("Item_Name").Caption = "Item Name"
@@ -322,6 +324,8 @@ Public Class frm_Purchase_Order
 
         flxItemList.Cols("Vat_Name").Caption = "Gst Name"
         flxItemList.Cols("Vat_Per").Caption = "GST%"
+        flxItemList.Cols("Cess_Name").Caption = "Cess Name"
+        flxItemList.Cols("Cess_Per").Caption = "CESS%"
         flxItemList.Cols("Item_Value").Caption = "Item Value"
 
         flxItemList.Cols("Item_Code").AllowEditing = False
@@ -336,27 +340,31 @@ Public Class frm_Purchase_Order
 
         flxItemList.Cols("Vat_Name").AllowEditing = False
         flxItemList.Cols("Vat_Per").AllowEditing = False
+        flxItemList.Cols("Cess_Name").AllowEditing = False
+        flxItemList.Cols("Cess_Per").AllowEditing = False
         flxItemList.Cols("Item_Value").AllowEditing = False
 
 
         flxItemList.Cols("Item_Code").Width = 90
-        flxItemList.Cols("Item_Name").Width = 320
+        flxItemList.Cols("Item_Name").Width = 255
         flxItemList.Cols("UM_Name").Width = 40
         flxItemList.Cols("Req_Qty").Width = 60
         flxItemList.Cols("PO_Qty").Width = 60
         flxItemList.Cols("Exice_Per").Width = 30
         flxItemList.Cols("Item_Rate").Width = 70
-
         flxItemList.Cols("DType").Width = 45
         flxItemList.Cols("DISC").Width = 45
-
         flxItemList.Cols("Vat_Name").Width = 60
-        flxItemList.Cols("Vat_Per").Width = 20
-        flxItemList.Cols("Item_Value").Width = 80
+        'flxItemList.Cols("Vat_Per").Width = 20
+        flxItemList.Cols("Cess_Name").Width = 67
+        'flxItemList.Cols("Cess_Per").Width = 20
+        flxItemList.Cols("Item_Value").Width = 78
 
         flxItemList.Cols("Exice_Per").Visible = False
         flxItemList.Cols("Vat_Id").Visible = False
         flxItemList.Cols("Vat_Per").Visible = False
+        flxItemList.Cols("Cess_Id").Visible = False
+        flxItemList.Cols("Cess_Per").Visible = False
 
     End Sub
 
@@ -476,16 +484,18 @@ Public Class frm_Purchase_Order
             Dim Str As String
 
 
-            Dim total_item_value As Double
-            Dim item_value As Double
-            Dim total_vat_amount As Double
-            Dim total_exice_amount As Double
-            Dim tot_amt As Double
-            total_exice_amount = 0
-            total_item_value = 0
-            total_vat_amount = 0
-            tot_amt = 0
-            item_value = 0
+            Dim total_item_value As Decimal
+            Dim item_value As Decimal
+            Dim total_vat_amount As Decimal
+            Dim total_cess_amount As Decimal
+            Dim total_exice_amount As Decimal
+            Dim tot_amt As Decimal
+            total_exice_amount = 0.00
+            total_item_value = 0.00
+            total_vat_amount = 0.00
+            total_cess_amount = 0.00
+            tot_amt = 0.00
+            item_value = 0.00
 
             If Not IsNumeric(txtOtherCharges.Text) Then
                 txtOtherCharges.Text = 0.0
@@ -501,7 +511,8 @@ Public Class frm_Purchase_Order
                 End If
             Next
 
-            Dim exice_per As Double = 0.0
+            Dim itmVal As Decimal = 0
+            Dim exice_per As Decimal = 0.0
             Dim discamt As Decimal = 0.0
             Dim totdiscamt As Decimal = 0.0
 
@@ -517,15 +528,20 @@ Public Class frm_Purchase_Order
                             discamt = Math.Round(.Item("DISC"), 2)
                         End If
 
-                        .Item("Item_Value") = Math.Round((.Item("PO_Qty") * .Item("Item_Rate")), 2) - discamt
-                        total_item_value = total_item_value + (.Item("Item_Value"))
+
+                        .Item("Item_Value") = Math.Round((.Item("PO_Qty") * .Item("Item_Rate")) - discamt, 2)
+
+                        itmVal = Math.Round((.Item("PO_Qty") * .Item("Item_Rate")) - discamt, 2)
+
+                        total_item_value = total_item_value + itmVal
 
                         totdiscamt = totdiscamt + discamt
 
                         exice_per = IIf((.Item("Exice_Per")) Is DBNull.Value, 0, .Item("Exice_Per"))
                         exice_per = exice_per / 100
-                        total_exice_amount = total_exice_amount + (.Item("Item_Value") * exice_per)
+                        total_exice_amount = total_exice_amount + itmVal * exice_per
                         total_vat_amount = total_vat_amount + ((((.Item("PO_Qty") * .Item("Item_Rate")) - discamt) * .Item("Vat_Per")) / 100)
+                        total_cess_amount = total_cess_amount + ((((.Item("PO_Qty") * .Item("Item_Rate")) - discamt) * .Item("Cess_Per")) / 100)
                     End If
                 End With
             Next
@@ -535,9 +551,10 @@ Public Class frm_Purchase_Order
             txtDiscountAmount.Text = totdiscamt.ToString("#0.00")
             lblItemValue.Text = total_item_value.ToString("#0.00")
             lblVatAmount.Text = total_vat_amount.ToString("#0.00")
-            lblNetAmount.Text = (total_item_value + total_vat_amount + total_exice_amount + txtOtherCharges.Text).ToString("#0.00") '- txtDiscountAmount.Text).ToString("#0.00")
+            lblCESSAmount.Text = total_cess_amount.ToString("#0.00")
+            lblNetAmount.Text = (total_item_value + total_vat_amount + total_cess_amount + total_exice_amount + txtOtherCharges.Text).ToString("#0.00") '- txtDiscountAmount.Text).ToString("#0.00")
             'Return lblItemValue.Text + "," + lblVatAmount.Text + "," + lblNetAmount.Text + "," + lblNetAmount.Text + "," + ExiceGross
-            Str = total_item_value.ToString("#0.00") + "," + total_vat_amount.ToString("#0.00") + "," + lblNetAmount.Text + "," + total_exice_amount.ToString()
+            Str = total_item_value.ToString("#0.00") + "," + total_vat_amount.ToString("#0.00") + "," + total_cess_amount.ToString("#0.00") + "," + lblNetAmount.Text + "," + total_exice_amount.ToString()
             Return Str
         Catch ex As Exception
             'MsgBox(ex.Message)
@@ -877,8 +894,8 @@ restart:
             dr = frm_Indent_Items.dTable_POItems.NewRow
 
 
-            ds = Obj.Fill_DataSet("SELECT ITEM_ID, ITEM_CODE, ITEM_NAME, UM_Name, UNIT_MASTER.UM_ID  FROM item_master" & _
-                                    " INNER JOIN dbo.UNIT_MASTER ON dbo.UNIT_MASTER .UM_ID =dbo.ITEM_MASTER .UM_ID" & _
+            ds = Obj.Fill_DataSet("SELECT ITEM_ID, ITEM_CODE, ITEM_NAME, UM_Name, UNIT_MASTER.UM_ID, ISNULL(pk_CessId_num,0) AS Cess_Id, ISNULL(CessName_vch,'0%') + ' CESS'  AS Cess_Name, ISNULL(CessPercentage_num,0.00) AS Cess_Per  FROM item_master" &
+                                    " INNER JOIN dbo.UNIT_MASTER ON dbo.UNIT_MASTER .UM_ID =dbo.ITEM_MASTER .UM_ID Left JOIN dbo.CessMaster ON dbo.CessMaster.pk_CessId_num = dbo.ITEM_MASTER.fk_CessId_num " &
                                     " WHERE ITEM_ID=" & Convert.ToInt32(frm_Show_search.search_result) & "")
 
             Dim dv_Items As DataView
@@ -902,6 +919,9 @@ restart:
             dr("Item_Code") = ds.Tables(0).Rows(0)("ITEM_CODE").ToString
             dr("Item_Name") = ds.Tables(0).Rows(0)("ITEM_NAME").ToString
             dr("UM_Name") = ds.Tables(0).Rows(0)("UM_Name").ToString
+            dr("Cess_Id") = ds.Tables(0).Rows(0)("Cess_Id")
+            dr("Cess_Name") = ds.Tables(0).Rows(0)("Cess_Name")
+            dr("Cess_Per") = ds.Tables(0).Rows(0)("Cess_Per")
             'dr("UM_Id") = ds.Tables(0).Rows(0)("UM_ID").ToString
             ds = Obj.Fill_DataSet("DECLARE @rate NUMERIC (18,2);SELECT @rate=SUPPLIER_RATE_LIST_DETAIL.ITEM_RATE FROM SUPPLIER_RATE_LIST INNER JOIN SUPPLIER_RATE_LIST_DETAIL ON SUPPLIER_RATE_LIST.SRL_ID = SUPPLIER_RATE_LIST_DETAIL.SRL_ID WHERE (SUPPLIER_RATE_LIST_DETAIL.ITEM_ID = " & Convert.ToInt32(frm_Show_search.search_result) & " ) AND (SUPPLIER_RATE_LIST.SUPP_ID = " & Convert.ToInt32(cmbSupplier.SelectedValue) & ") AND (SUPPLIER_RATE_LIST.ACTIVE = 1);SELECT ISNULL(@rate,0);SELECT     ITEM_DETAIL.PURCHASE_VAT_ID as PURCHASE_VAT_ID, VAT_MASTER.VAT_PERCENTAGE, VAT_MASTER.VAT_NAME FROM ITEM_DETAIL INNER JOIN VAT_MASTER ON ITEM_DETAIL.PURCHASE_VAT_ID = VAT_MASTER.VAT_ID WHERE (ITEM_DETAIL.ITEM_ID = " & Convert.ToInt32(frm_Show_search.search_result) & " )")
             dr("Item_Rate") = ds.Tables(0).Rows(0)(0)
@@ -913,7 +933,7 @@ restart:
             dr("Disc") = 0.0
             'dr("Exice_Per") = 0
             dr("Vat_per") = ds.Tables(1).Rows(0)("VAT_PERCENTAGE")
-            dr("Item_value") = (dr("PO_Qty") * dr("Item_Rate")) + ((dr("PO_Qty") * dr("Item_Rate") * dr("Vat_Per")) / 100)
+            dr("Item_value") = (dr("PO_Qty") * dr("Item_Rate")) + ((dr("PO_Qty") * dr("Item_Rate") * dr("Vat_Per")) / 100).ToString("#0.00")
             dr("Indent_Id") = -1
 
             frm_Indent_Items.dTable_POItems.Rows.Add(dr)
@@ -934,8 +954,8 @@ restart:
         dr = frm_Indent_Items.dTable_POItems.NewRow
 
 
-        ds = Obj.Fill_DataSet("SELECT ITEM_ID, ITEM_CODE, ITEM_NAME, UM_Name, UNIT_MASTER.UM_ID  FROM item_master" & _
-                                " INNER JOIN dbo.UNIT_MASTER ON dbo.UNIT_MASTER .UM_ID =dbo.ITEM_MASTER .UM_ID" & _
+        ds = Obj.Fill_DataSet("SELECT ITEM_ID, ITEM_CODE, ITEM_NAME, UM_Name, UNIT_MASTER.UM_ID, ISNULL(pk_CessId_num,0) AS Cess_Id, ISNULL(CessName_vch,'0%') + ' CESS'  AS Cess_Name, ISNULL(CessPercentage_num,0.00) AS Cess_Per  FROM item_master" &
+                                " INNER JOIN dbo.UNIT_MASTER ON dbo.UNIT_MASTER .UM_ID =dbo.ITEM_MASTER .UM_ID Left JOIN dbo.CessMaster ON dbo.CessMaster.pk_CessId_num = dbo.ITEM_MASTER.fk_CessId_num " &
                                 " WHERE ITEM_ID=" & Convert.ToInt32(item_id) & "")
 
         Dim dv_Items As DataView
@@ -959,6 +979,9 @@ restart:
         dr("Item_Code") = ds.Tables(0).Rows(0)("ITEM_CODE").ToString
         dr("Item_Name") = ds.Tables(0).Rows(0)("ITEM_NAME").ToString
         dr("UM_Name") = ds.Tables(0).Rows(0)("UM_Name").ToString
+        dr("Cess_Id") = ds.Tables(0).Rows(0)("Cess_Id")
+        dr("Cess_Name") = ds.Tables(0).Rows(0)("Cess_Name")
+        dr("Cess_Per") = ds.Tables(0).Rows(0)("Cess_Per")
         'dr("UM_Id") = ds.Tables(0).Rows(0)("UM_ID").ToString
         ds = Obj.Fill_DataSet("DECLARE @rate NUMERIC (18,2);SELECT @rate=SUPPLIER_RATE_LIST_DETAIL.ITEM_RATE FROM SUPPLIER_RATE_LIST INNER JOIN SUPPLIER_RATE_LIST_DETAIL ON SUPPLIER_RATE_LIST.SRL_ID = SUPPLIER_RATE_LIST_DETAIL.SRL_ID WHERE (SUPPLIER_RATE_LIST_DETAIL.ITEM_ID = " & Convert.ToInt32(item_id) & " ) AND (SUPPLIER_RATE_LIST.SUPP_ID = " & Convert.ToInt32(cmbSupplier.SelectedValue) & ") AND (SUPPLIER_RATE_LIST.ACTIVE = 1);SELECT ISNULL(@rate,0);SELECT     ITEM_DETAIL.PURCHASE_VAT_ID as PURCHASE_VAT_ID, VAT_MASTER.VAT_PERCENTAGE, VAT_MASTER.VAT_NAME FROM ITEM_DETAIL INNER JOIN VAT_MASTER ON ITEM_DETAIL.PURCHASE_VAT_ID = VAT_MASTER.VAT_ID WHERE (ITEM_DETAIL.ITEM_ID = " & Convert.ToInt32(item_id) & " )")
         dr("Item_Rate") = ds.Tables(0).Rows(0)(0)
@@ -984,7 +1007,6 @@ restart:
         CalculateAmount()
     End Sub
 
-
     Private Sub txtBarcodeSearch_KeyDown(sender As Object, e As KeyEventArgs) Handles txtBarcodeSearch.KeyDown
         If e.KeyCode = Keys.Enter Then
             If Not String.IsNullOrEmpty(txtBarcodeSearch.Text) Then
@@ -993,7 +1015,7 @@ restart:
                 Dim id As Int32 = clsObj.ExecuteScalar(qry)
 
                 If id > 0 Then
-                 
+
 
                     'If Not check_item_exist(id) Then
                     get_row(id)
@@ -1004,4 +1026,5 @@ restart:
             End If
         End If
     End Sub
+
 End Class

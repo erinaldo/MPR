@@ -58,6 +58,8 @@ Partial Class frm_CreditNote
         Me.lblSelectMRNNO = New System.Windows.Forms.Label()
         Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
         Me.C1FlexGrid1 = New C1.Win.C1FlexGrid.C1FlexGrid()
+        Me.lblCessAmount = New System.Windows.Forms.Label()
+        Me.Label8 = New System.Windows.Forms.Label()
         Me.TbRMRN.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
@@ -174,6 +176,8 @@ Partial Class frm_CreditNote
         '
         'GroupBox2
         '
+        Me.GroupBox2.Controls.Add(Me.lblCessAmount)
+        Me.GroupBox2.Controls.Add(Me.Label8)
         Me.GroupBox2.Controls.Add(Me.lblCredit)
         Me.GroupBox2.Controls.Add(Me.Label6)
         Me.GroupBox2.Controls.Add(Me.lblVatAmount)
@@ -195,7 +199,7 @@ Partial Class frm_CreditNote
         Me.lblCredit.AutoSize = True
         Me.lblCredit.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblCredit.ForeColor = System.Drawing.Color.Orange
-        Me.lblCredit.Location = New System.Drawing.Point(812, 362)
+        Me.lblCredit.Location = New System.Drawing.Point(826, 361)
         Me.lblCredit.Name = "lblCredit"
         Me.lblCredit.Size = New System.Drawing.Size(36, 17)
         Me.lblCredit.TabIndex = 14
@@ -206,7 +210,7 @@ Partial Class frm_CreditNote
         '
         Me.Label6.AutoSize = True
         Me.Label6.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label6.Location = New System.Drawing.Point(676, 364)
+        Me.Label6.Location = New System.Drawing.Point(690, 363)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(119, 15)
         Me.Label6.TabIndex = 15
@@ -217,7 +221,7 @@ Partial Class frm_CreditNote
         Me.lblVatAmount.AutoSize = True
         Me.lblVatAmount.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblVatAmount.ForeColor = System.Drawing.Color.Orange
-        Me.lblVatAmount.Location = New System.Drawing.Point(594, 362)
+        Me.lblVatAmount.Location = New System.Drawing.Point(466, 362)
         Me.lblVatAmount.Name = "lblVatAmount"
         Me.lblVatAmount.Size = New System.Drawing.Size(36, 17)
         Me.lblVatAmount.TabIndex = 12
@@ -228,7 +232,7 @@ Partial Class frm_CreditNote
         '
         Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(498, 364)
+        Me.Label4.Location = New System.Drawing.Point(377, 364)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(78, 15)
         Me.Label4.TabIndex = 13
@@ -238,7 +242,7 @@ Partial Class frm_CreditNote
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(312, 362)
+        Me.Label3.Location = New System.Drawing.Point(219, 362)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(99, 15)
         Me.Label3.TabIndex = 11
@@ -249,7 +253,7 @@ Partial Class frm_CreditNote
         Me.lblAmount.AutoSize = True
         Me.lblAmount.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblAmount.ForeColor = System.Drawing.Color.Orange
-        Me.lblAmount.Location = New System.Drawing.Point(417, 362)
+        Me.lblAmount.Location = New System.Drawing.Point(324, 362)
         Me.lblAmount.Name = "lblAmount"
         Me.lblAmount.Size = New System.Drawing.Size(36, 17)
         Me.lblAmount.TabIndex = 10
@@ -503,6 +507,28 @@ Partial Class frm_CreditNote
         Me.C1FlexGrid1.Styles = New C1.Win.C1FlexGrid.CellStyleCollection(resources.GetString("C1FlexGrid1.Styles"))
         Me.C1FlexGrid1.TabIndex = 0
         '
+        'lblCessAmount
+        '
+        Me.lblCessAmount.AutoSize = True
+        Me.lblCessAmount.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblCessAmount.ForeColor = System.Drawing.Color.Orange
+        Me.lblCessAmount.Location = New System.Drawing.Point(627, 362)
+        Me.lblCessAmount.Name = "lblCessAmount"
+        Me.lblCessAmount.Size = New System.Drawing.Size(36, 17)
+        Me.lblCessAmount.TabIndex = 16
+        Me.lblCessAmount.Text = "0.00"
+        Me.lblCessAmount.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'Label8
+        '
+        Me.Label8.AutoSize = True
+        Me.Label8.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label8.Location = New System.Drawing.Point(531, 364)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(90, 15)
+        Me.Label8.TabIndex = 17
+        Me.Label8.Text = "Cess  Amount :"
+        '
         'frm_CreditNote
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -564,4 +590,6 @@ Partial Class frm_CreditNote
     Friend WithEvents Label7 As System.Windows.Forms.Label
     Friend WithEvents lblInvNo As System.Windows.Forms.Label
     Friend WithEvents Label9 As System.Windows.Forms.Label
+    Friend WithEvents lblCessAmount As Label
+    Friend WithEvents Label8 As Label
 End Class

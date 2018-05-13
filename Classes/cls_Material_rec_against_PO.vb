@@ -35,6 +35,7 @@ Namespace material_rec_against_PO
         Dim _Discount_amt As Double
         Dim _GROSS_AMOUNT As Double
         Dim _GST_AMOUNT As Double
+        Dim _CESS_AMOUNT As Double
         Dim _NET_AMOUNT As Double
         Dim _MRN_TYPE As Int32
         Dim _VAT_ON_EXICE As Int32
@@ -293,6 +294,16 @@ Namespace material_rec_against_PO
                 _GST_AMOUNT = value
             End Set
         End Property
+
+        Public Property CESS_AMOUNT() As Double
+            Get
+                CESS_AMOUNT = _CESS_AMOUNT
+            End Get
+            Set(ByVal value As Double)
+                _CESS_AMOUNT = value
+            End Set
+        End Property
+
         Public Property NET_AMOUNT() As Double
             Get
                 NET_AMOUNT = _NET_AMOUNT
@@ -376,6 +387,7 @@ Namespace material_rec_against_PO
             cmd.Parameters.AddWithValue("@V_PROC_TYPE", 1)
             cmd.Parameters.AddWithValue("@v_GROSS_AMOUNT", clsObj.GROSS_AMOUNT)
             cmd.Parameters.AddWithValue("@v_GST_AMOUNT", clsObj.GST_AMOUNT)
+            cmd.Parameters.AddWithValue("@v_CESS_AMOUNT", clsObj.CESS_AMOUNT)
             cmd.Parameters.AddWithValue("@v_NET_AMOUNT", clsObj.NET_AMOUNT)
             cmd.Parameters.AddWithValue("@V_MRN_TYPE", clsObj.MRN_TYPE)
             cmd.Parameters.AddWithValue("@V_CUST_ID", clsObj.CUST_ID)
@@ -411,6 +423,7 @@ Namespace material_rec_against_PO
                     cmd.Parameters.AddWithValue("@v_Creation_Date", clsObj.Creation_Date)
                     cmd.Parameters.AddWithValue("@v_Item_Qty", FlexGrid.Rows(iRow)("BATCH_QTY"))
                     cmd.Parameters.AddWithValue("@v_Item_vat_per", FlexGrid.Rows(iRow)("Vat_Per"))
+                    cmd.Parameters.AddWithValue("@v_Item_cess_per", FlexGrid.Rows(iRow)("Cess_Per"))
                     cmd.Parameters.AddWithValue("@v_Item_Exice_per", FlexGrid.Rows(iRow)("EXICE_Per"))
                     cmd.Parameters.AddWithValue("@V_Trans_Type", Transaction_Type.MaterialRecievedAgainstPO)
                     cmd.Parameters.AddWithValue("@V_PROC_TYPE", 1)

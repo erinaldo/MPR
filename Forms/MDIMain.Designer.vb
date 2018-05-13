@@ -67,6 +67,7 @@ Partial Class MDIMain
         Me.frm_Customer_Rate_List_Master = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_OpenSale_Invoice = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_Sale_Invoice = New System.Windows.Forms.ToolStripMenuItem()
+        Me.frm_BillBook = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_CreditNote = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_GatePass = New System.Windows.Forms.ToolStripMenuItem()
         Me.UserManagmentToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -165,6 +166,9 @@ Partial Class MDIMain
         Me.TabControl2 = New System.Windows.Forms.TabControl()
         Me.frm_open_invoice = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_EwayBill = New System.Windows.Forms.ToolStripMenuItem()
+        Me.frmBrandWiseSale = New System.Windows.Forms.ToolStripMenuItem()
+        Me.frm_PurchaseTaxRegister = New System.Windows.Forms.ToolStripMenuItem()
+        Me.frm_SaleTaxRegister = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.toolbar.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
@@ -179,7 +183,7 @@ Partial Class MDIMain
         Me.MenuStrip1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
         Me.MenuStrip1.Dock = System.Windows.Forms.DockStyle.Left
         Me.MenuStrip1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.logo, Me.Home, Me.MasterSetupToolStripMenuItem, Me.PurchaseToolStripMenuItem, Me.StockINToolStripMenuItem, Me.ReportsToolStripMenuItem, Me.frmsaleinvoice, Me.UserManagmentToolStripMenuItem, Me.Recipe, Me.Reports, Me.TerminateToolStripMenuItem})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.logo, Me.Home, Me.MasterSetupToolStripMenuItem, Me.PurchaseToolStripMenuItem, Me.StockINToolStripMenuItem, Me.ReportsToolStripMenuItem, Me.frmsaleinvoice, Me.UserManagmentToolStripMenuItem, Me.Reports, Me.Recipe, Me.TerminateToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional
@@ -608,7 +612,7 @@ Partial Class MDIMain
         '
         Me.frmsaleinvoice.AutoSize = False
         Me.frmsaleinvoice.BackColor = System.Drawing.Color.FromArgb(CType(CType(66, Byte), Integer), CType(CType(66, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.frmsaleinvoice.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.frm_Customer_Rate_List_Master, Me.frm_OpenSale_Invoice, Me.frm_Sale_Invoice, Me.frm_CreditNote, Me.frm_GatePass})
+        Me.frmsaleinvoice.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.frm_Customer_Rate_List_Master, Me.frm_OpenSale_Invoice, Me.frm_Sale_Invoice, Me.frm_BillBook, Me.frm_CreditNote, Me.frm_GatePass})
         Me.frmsaleinvoice.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Bold)
         Me.frmsaleinvoice.ForeColor = System.Drawing.Color.White
         Me.frmsaleinvoice.Image = Global.MMSPlus.My.Resources.Resources.Client_list_text
@@ -644,6 +648,15 @@ Partial Class MDIMain
         Me.frm_Sale_Invoice.Name = "frm_Sale_Invoice"
         Me.frm_Sale_Invoice.Size = New System.Drawing.Size(181, 22)
         Me.frm_Sale_Invoice.Text = "Sale Invoice"
+        '
+        'frm_BillBook
+        '
+        Me.frm_BillBook.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.frm_BillBook.ForeColor = System.Drawing.Color.White
+        Me.frm_BillBook.Image = Global.MMSPlus.My.Resources.Resources.Approve_PO
+        Me.frm_BillBook.Name = "frm_BillBook"
+        Me.frm_BillBook.Size = New System.Drawing.Size(181, 22)
+        Me.frm_BillBook.Text = "Bill Book"
         '
         'frm_CreditNote
         '
@@ -1285,7 +1298,7 @@ Partial Class MDIMain
         'frm_rpt_SaleInvoice
         '
         Me.frm_rpt_SaleInvoice.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.frm_rpt_SaleInvoice.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.frmsaleInvoicesummary, Me.frmSaleInvoiceDetail})
+        Me.frm_rpt_SaleInvoice.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.frmsaleInvoicesummary, Me.frmSaleInvoiceDetail, Me.frmBrandWiseSale})
         Me.frm_rpt_SaleInvoice.ForeColor = System.Drawing.Color.White
         Me.frm_rpt_SaleInvoice.Image = Global.MMSPlus.My.Resources.Resources.Reports
         Me.frm_rpt_SaleInvoice.Name = "frm_rpt_SaleInvoice"
@@ -1583,12 +1596,32 @@ Partial Class MDIMain
         Me.frm_open_invoice.Name = "frm_open_invoice"
         Me.frm_open_invoice.Size = New System.Drawing.Size(181, 22)
         Me.frm_open_invoice.Text = "Opne Invoice"
+       '
+        'frm_PurchaseTaxRegister
         '
+        Me.frm_PurchaseTaxRegister.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.frm_PurchaseTaxRegister.ForeColor = System.Drawing.Color.White
+        Me.frm_PurchaseTaxRegister.Image = Global.MMSPlus.My.Resources.Resources.Items_recent_list_to_do_formatting
+        Me.frm_PurchaseTaxRegister.Name = "frm_PurchaseTaxRegister"
+        Me.frm_PurchaseTaxRegister.Size = New System.Drawing.Size(201, 22)
+        Me.frm_PurchaseTaxRegister.Text = "GST Purchase Register"
+         '
         'frm_EwayBill
         '
         Me.frm_EwayBill.Name = "frm_EwayBill"
         Me.frm_EwayBill.Size = New System.Drawing.Size(213, 22)
         Me.frm_EwayBill.Text = "frm"
+        '
+        'frmBrandWiseSale       
+         '
+
+        '
+        Me.frmBrandWiseSale.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.frmBrandWiseSale.ForeColor = System.Drawing.Color.White
+        Me.frmBrandWiseSale.Image = Global.MMSPlus.My.Resources.Resources.Reports
+        Me.frmBrandWiseSale.Name = "frmBrandWiseSale"
+        Me.frmBrandWiseSale.Size = New System.Drawing.Size(202, 22)
+        Me.frmBrandWiseSale.Text = "Brand Wise Sale"
         '
         'MDIMain
         '
@@ -1762,4 +1795,6 @@ Partial Class MDIMain
     Friend WithEvents frm_PurchaseTaxRegister As ToolStripMenuItem
     Friend WithEvents frm_SaleTaxRegister As ToolStripMenuItem
     Friend WithEvents frm_EwayBill As ToolStripMenuItem
+    Friend WithEvents frm_BillBook As ToolStripMenuItem
+    Friend WithEvents frmBrandWiseSale As ToolStripMenuItem
 End Class

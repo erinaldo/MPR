@@ -1,11 +1,11 @@
-Imports MMSPlus.Adjustment_master
+Imports MMSPlus.frm_MRN_Print_Barcode
 Imports System.Data.SqlClient
 Imports System.IO
 
 Imports System.Data
 Imports C1.Win.C1FlexGrid
 
-Public Class frm_Print_Barcode
+Public Class frm_MRN_Print_Barcode
     Implements IForm
     Dim _user_role As String
     Dim obj As New CommonClass
@@ -20,10 +20,14 @@ Public Class frm_Print_Barcode
     Dim iAdjustmentId As Int32
     Dim objComm As New CommonClass
     Dim _rights As Form_Rights
+    ' Public MRNID As Int32 = 0
 
-    Public Sub New(ByVal rights As Form_Rights)
-        _rights = rights
+    Public Sub New(MRNID)
+        ' _rights = rights
         InitializeComponent()
+        obj.ComboBind(cmbMrn, "SELECT Received_ID, (MRN_PREFIX+CAST( MRN_NO AS VARCHAR)) AS MRN_PREFIX FROM dbo.MATERIAL_RECIEVED_WITHOUT_PO_MASTER ", "MRN_PREFIX", "Received_ID")
+        cmbMrn.SelectedValue = MRNID
+        SearchItem()
     End Sub
 
     Public Sub CloseClick(ByVal sender As Object, ByVal e As System.EventArgs) Implements IForm.CloseClick
@@ -31,6 +35,10 @@ Public Class frm_Print_Barcode
     End Sub
 
     Public Sub DeleteClick(ByVal sender As Object, ByVal e As System.EventArgs) Implements IForm.DeleteClick
+
+    End Sub
+
+    Private Sub frm_MRN_Print_Barcode_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
     End Sub
 
@@ -45,15 +53,21 @@ Public Class frm_Print_Barcode
         dgvPrintBarcode.DataSource = Nothing
 
         Dim Query As String
-        Query = "SELECT top 250  ROW_NUMBER() OVER ( ORDER BY ITEM_ID ) AS SNO ," &
-            " Item_Code ," &
-            " Item_Name, BarCode_vch," &
-            " MRP_num as MRP ," &
-            " sale_rate," &
-            " 0 AS [Current Stock]" &
-            " From dbo.Item_Master mm" &
-            " where 1=1 "
+        Query = "SELECT  ROW_NUMBER() OVER ( ORDER BY mm.ITEM_ID ) AS SNO ,
+        ITEM_CODE ,
+        ITEM_NAME ,
+        BarCode_vch ,
+        MRP_num AS MRP ,
+        sale_rate ,
+        0 AS [Current Stock] ,
+        CAST(ISNULL(Item_Qty, 0) AS NUMERIC(18, 0)) AS Item_Qty
+FROM    dbo.ITEM_MASTER mm
+        JOIN dbo.MATERIAL_RECEIVED_WITHOUT_PO_DETAIL MRWPD ON MRWPD.Item_ID = mm.ITEM_ID
+WHERE   1 = 1 "
 
+        If Not String.IsNullOrEmpty(cmbMrn.SelectedValue) Then
+            Query += " and MRWPD.Received_ID = " & cmbMrn.SelectedValue & ""
+        End If
         If Not String.IsNullOrEmpty(txtItemCode.Text.Trim) Then
             Query += " and Item_Code Like '%" & txtItemCode.Text & "%'"
         End If
@@ -65,6 +79,7 @@ Public Class frm_Print_Barcode
         End If
 
         Dim itemDetailTable As DataTable = obj.FillDataSet(Query).Tables(0)
+
 
         dgvPrintBarcode.DataSource = Nothing
         dgvPrintBarcode.RowCount = 0
@@ -85,7 +100,7 @@ Public Class frm_Print_Barcode
             dgvPrintBarcode.Rows(index).Cells(3).Value = row("MRP")
             dgvPrintBarcode.Rows(index).Cells(4).Value = row("BarCode_vch")
             dgvPrintBarcode.Rows(index).Cells(5).Value = row("sale_rate")
-            dgvPrintBarcode.Rows(index).Cells(6).Value = ""
+            dgvPrintBarcode.Rows(index).Cells(6).Value = row("item_qty")
         Next
     End Sub
     Public Sub SaveClick(ByVal sender As Object, ByVal e As System.EventArgs) Implements IForm.SaveClick
@@ -98,13 +113,12 @@ Public Class frm_Print_Barcode
 
     End Sub
     Private Sub new_initilization()
-
     End Sub
     Private Sub dgvPrintBarcode_SelectionChanged(sender As Object, e As EventArgs) Handles dgvPrintBarcode.SelectionChanged
         If dgvPrintBarcode.SelectedRows.Count > 0 Then
-            Dim cell As DataGridViewCell = dgvPrintBarcode.SelectedRows(0).Cells(6)
-            dgvPrintBarcode.CurrentCell = cell
-            dgvPrintBarcode.BeginEdit(True)
+            ' Dim cell As DataGridViewCell = dgvPrintBarcode.SelectedRows(0).Cells(6)
+            'dgvPrintBarcode.CurrentCell = cell
+            'dgvPrintBarcode.BeginEdit(True)
         End If
     End Sub
 
@@ -199,5 +213,21 @@ Public Class frm_Print_Barcode
                 File.Delete(path)
             Next
         End If
+    End Sub
+
+    Private Sub BtnPrintAll_Click(sender As Object, e As EventArgs) Handles BtnPrintAll.Click
+
+        For Each row As DataGridViewRow In dgvPrintBarcode.Rows
+            If dgvPrintBarcode.Rows(row.Index).Cells(6).Value > 0 Then
+                PrintBarcode(row.Index)
+            End If
+            dgvPrintBarcode.Rows(row.Index).Cells(6).Value = ""
+
+        Next
+
+    End Sub
+
+    Private Sub btnClose_Click(sender As Object, e As EventArgs) Handles btnClose.Click
+        Me.Close()
     End Sub
 End Class
