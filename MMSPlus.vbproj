@@ -116,6 +116,10 @@
     <Reference Include="MTGCCombobox, Version=1.0.0.0, Culture=neutral">
       <HintPath>DLL\MTGCCombobox.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
@@ -173,6 +177,7 @@
     <Compile Include="ClassesRecipe\Cls_Semi_Finished_Item_Master.vb" />
     <Compile Include="Classes\cls_Debit_note.vb" />
     <Compile Include="Classes\cls_Division_Settings.vb" />
+    <Compile Include="Classes\cls_EwayBill.vb" />
     <Compile Include="Classes\cls_GatePass.vb" />
     <Compile Include="Classes\cls_Invoice_Settlement.vb" />
     <Compile Include="Classes\cls_Material_Received_Without_PO.vb">
@@ -273,6 +278,12 @@
       <DependentUpon>BackupDB.vb</DependentUpon>
     </Compile>
     <Compile Include="Forms\BackupDB.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\frm_EwayBill.Designer.vb">
+      <DependentUpon>frm_EwayBill.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frm_EwayBill.vb">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Forms\frm_Print_Barcode.Designer.vb">
@@ -1426,6 +1437,9 @@
     <EmbeddedResource Include="Forms\BackupDB.resx">
       <DependentUpon>BackupDB.vb</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frm_EwayBill.resx">
+      <DependentUpon>frm_EwayBill.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frm_Print_Barcode.resx">
       <DependentUpon>frm_Print_Barcode.vb</DependentUpon>
