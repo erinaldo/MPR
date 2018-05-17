@@ -12,7 +12,7 @@ Public Class frm_EwayBill
     End Sub
 
     Private Sub frm_EwayBill_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        fill_grid()
+        fill_grid(dpBillDate.Value)
     End Sub
 
     Private Sub fill_grid(Optional ByVal condition As String = "")
@@ -25,7 +25,7 @@ Public Class frm_EwayBill
             " dbo.fn_Format(dbo.SALE_INVOICE_MASTER.CREATION_DATE) AS [INV DATE]," &
             " NET_AMOUNT AS Amount,ACC_NAME Customer,CASE WHEN INVOICE_STATUS =1 THEN 'Fresh'  WHEN INVOICE_STATUS =2 THEN 'Pending' WHEN INVOICE_STATUS =3 THEN 'Clear'  WHEN INVOICE_STATUS =4 THEN 'Cancel' END AS Status FROM dbo.SALE_INVOICE_MASTER " &
             "JOIN dbo.ACCOUNT_MASTER ON ACCOUNT_MASTER.ACC_ID=dbo.SALE_INVOICE_MASTER.CUST_ID WHERE INVOICE_STATUS <> 4 and FLAG=0)tb " &
-            "WHERE  (CAST(SI_ID AS varchar) +InvNo+[DC NO]+[INV DATE]+ CAST(tb.Amount AS VARCHAR)+tb.Customer+tb.Status) LIKE '%" & condition & "%'  order by 1"
+            "WHERE  (CAST(SI_ID AS varchar) ='" & condition & "'  order by 1"
 
             Dim dt As DataTable = obj.Fill_DataSet(strsql).Tables(0)
 

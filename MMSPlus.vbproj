@@ -117,8 +117,8 @@
       <HintPath>DLL\MTGCCombobox.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\Newtonsoft.Json.dll</HintPath>
+      <HintPath>packages\Newtonsoft.Json.11.0.2\lib\net20\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -280,7 +280,7 @@
     <Compile Include="Forms\BackupDB.vb">
       <SubType>UserControl</SubType>
     </Compile>
-<Compile Include="Forms\frm_EwayBill.Designer.vb">
+    <Compile Include="Forms\frm_EwayBill.Designer.vb">
       <DependentUpon>frm_EwayBill.vb</DependentUpon>
     </Compile>
     <Compile Include="Forms\frm_EwayBill.vb">
@@ -2274,6 +2274,7 @@
     <Content Include="Images and Icons\report.jpg" />
     <Content Include="Images and Icons\report1-sym.jpg" />
     <BaseApplicationManifest Include="My Project\app.manifest" />
+    <None Include="packages.config" />
     <None Include="Resources\Indent.gif" />
     <None Include="Resources\Rev-Wastage.gif" />
     <None Include="Resources\Rev-Wastage1.gif" />
