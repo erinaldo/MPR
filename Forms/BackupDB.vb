@@ -26,7 +26,7 @@ Public Class BackupDB
     Dim FTPBackupFolder As String = String.Empty
     Dim ftpPath As String = "ftp://syncsolz.com/CLIENT_BACKUP/"
     Dim ftpRequest As FtpWebRequest
-    Dim credential As NetworkCredential = New NetworkCredential("syncsolz@junifilms.com", "$ync$olz@123")
+    Dim credential As NetworkCredential = New NetworkCredential("syncsolz@syncsolz.com", "syncsolz@123")
     Const success As String = "Success"
     Dim worker As BackgroundWorker = New BackgroundWorker
 

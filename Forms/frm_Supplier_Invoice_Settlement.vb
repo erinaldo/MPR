@@ -36,6 +36,7 @@ Public Class frm_Supplier_Invoice_Settlement
                           "ACC_NAME", "ACC_ID", True)
         GetPMCode()
         fill_ListPaymentgrid()
+        ClearControls()
 
     End Sub
 
@@ -44,11 +45,11 @@ Public Class frm_Supplier_Invoice_Settlement
 
             Dim strsql As String
 
-            strsql = "SELECT * FROM (SELECT  pt.PaymentTransactionId as PaymentID ,PaymentTransactionNo AS PaymentCode ,CONVERT(VARCHAR(20), PaymentDate, 106) AS PaymentDate, " & _
-            " AM.ACC_NAME AS Account ,ChequeDraftNo AS ChequeNo,CONVERT(VARCHAR(20), ChequeDraftDate, 106) AS ChequeDate ,BK.ACC_NAME AS Bank, " & _
-            " TotalAmountReceived AS Amount,CASE WHEN StatusId =1 THEN 'InProcess'  WHEN StatusId =2 THEN 'Approved' WHEN StatusId =3 THEN 'Cancelled'  WHEN StatusId =4 THEN 'Bounced' END AS Status,ptm.PaymentTypeName AS PaymentType" & _
-            " FROM    dbo.PaymentTransaction PT JOIN dbo.ACCOUNT_MASTER AM ON pt.AccountId = AM.ACC_ID JOIN dbo.PaymentTypeMaster PTM ON PTM.PaymentTypeId = PT.PaymentTypeId " & _
-            " JOIN dbo.ACCOUNT_MASTER BK ON BK.ACC_ID= PT.BankId and PM_Type=" & PaymentType.Payment & ")tb WHERE   PaymentCode + PaymentDate + Account + ChequeNo " & _
+            strsql = "SELECT * FROM (SELECT  pt.PaymentTransactionId as PaymentID ,PaymentTransactionNo AS PaymentCode ,CONVERT(VARCHAR(20), PaymentDate, 106) AS PaymentDate, " &
+            " AM.ACC_NAME AS Account ,ChequeDraftNo AS ChequeNo,CONVERT(VARCHAR(20), ChequeDraftDate, 106) AS ChequeDate ,BK.ACC_NAME AS Bank, " &
+            " TotalAmountReceived AS Amount,CASE WHEN StatusId =1 THEN 'InProcess'  WHEN StatusId =2 THEN 'Approved' WHEN StatusId =3 THEN 'Cancelled'  WHEN StatusId =4 THEN 'Bounced' END AS Status,ptm.PaymentTypeName AS PaymentType,  PT.StatusId" &
+            " FROM    dbo.PaymentTransaction PT JOIN dbo.ACCOUNT_MASTER AM ON pt.AccountId = AM.ACC_ID JOIN dbo.PaymentTypeMaster PTM ON PTM.PaymentTypeId = PT.PaymentTypeId " &
+            " JOIN dbo.ACCOUNT_MASTER BK ON BK.ACC_ID= PT.BankId and PM_Type=" & PaymentType.Payment & ")tb Where tb.StatusId <> 3 and  PaymentCode + PaymentDate + Account + ChequeNo " &
             "+ ChequeDate + Bank +CAST(Amount AS VARCHAR(50))+ PaymentType+Status LIKE '%" & condition & "%' order by 1"
 
             Dim dt As DataTable = clsObj.Fill_DataSet(strsql).Tables(0)
@@ -59,13 +60,14 @@ Public Class frm_Supplier_Invoice_Settlement
             flxList.Columns(0).Visible = False
             flxList.Columns(1).Width = 120
             flxList.Columns(2).Width = 70
-            flxList.Columns(3).Width = 230
+            flxList.Columns(3).Width = 220
             flxList.Columns(4).Width = 70
             flxList.Columns(5).Width = 70
             flxList.Columns(6).Width = 70
             flxList.Columns(7).Width = 70
             flxList.Columns(8).Width = 60
             flxList.Columns(9).Width = 115
+            flxList.Columns(10).Visible = False
 
         Catch ex As Exception
             MsgBox(gblMessageHeading_Error & vbCrLf & gblMessage_ContactInfo & vbCrLf & ex.Message, MsgBoxStyle.Critical, gblMessageHeading)
@@ -85,6 +87,7 @@ Public Class frm_Supplier_Invoice_Settlement
         dtpBankDate.Value = DateTime.Now
         txtAmount.Text = ""
         txtRemarks.Text = ""
+        flag = "save"
     End Sub
 
     Private Sub cmbPaymentType_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbPaymentType.SelectedIndexChanged
@@ -129,7 +132,6 @@ Public Class frm_Supplier_Invoice_Settlement
 
     End Sub
 
-
     Public Sub CloseClick(ByVal sender As Object, ByVal e As System.EventArgs) Implements IForm.CloseClick
 
     End Sub
@@ -159,6 +161,7 @@ Public Class frm_Supplier_Invoice_Settlement
             End If
 
             prpty = New cls_Invoice_Settlement_prop
+            prpty.PaymentTransactionId = PaymentId
             prpty.PaymentTransactionCode = PM_Code & PM_No
             prpty.PaymentTypeId = cmbPaymentType.SelectedValue
             prpty.AccountId = cmbCustomer.SelectedValue
@@ -177,8 +180,22 @@ Public Class frm_Supplier_Invoice_Settlement
             prpty.PM_Type = PaymentType.Payment
             prpty.DivisionId = v_the_current_division_id
 
+            If (flag = "save") Then
+                prpty.Proctype = 1
+            Else
+                prpty.Proctype = 2
+            End If
+
+            prpty.TransactionId = Transaction_Type.Supplier_Invoice_Settlement
+
             clsObj.insert_Invoice_Settlement(prpty)
-            MsgBox("Payment released sucessfully!!", MsgBoxStyle.Information + MsgBoxStyle.OkOnly, gblMessageHeading)
+
+            If flag = "save" Then
+                MsgBox("Payment released sucessfully!!", MsgBoxStyle.Information + MsgBoxStyle.OkOnly, gblMessageHeading)
+            Else
+                MsgBox("Payment released updated sucessfully!!", MsgBoxStyle.Information + MsgBoxStyle.OkOnly, gblMessageHeading)
+            End If
+
 
             If chkBoxDistributeAmount.Checked And chkBoxDistributeAmount.Enabled Then
                 cmbCustomerSettleInvoice.SelectedValue = cmbCustomer.SelectedValue
@@ -319,6 +336,8 @@ Public Class frm_Supplier_Invoice_Settlement
         prpty.StatusId = _paymentApprovalStatus
         prpty.CancellationCharges = txtCancellationCharges.Text
         prpty.PM_Type = PaymentType.Payment
+        prpty.TransactionId = Transaction_Type.Supplier_Invoice_Settlement
+
         clsObj.Update_Payment_Status(prpty)
 
         MsgBox("Payment status has been updated.", MsgBoxStyle.Information + MsgBoxStyle.OkOnly, gblMessageHeading)
@@ -565,8 +584,6 @@ Public Class frm_Supplier_Invoice_Settlement
         fill_ListPaymentgrid(txtSearch.Text)
     End Sub
 
-
-
     Private Sub cmbCustomer_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbCustomer.SelectedIndexChanged
         Dim query As String = "DECLARE @AmountInHand DECIMAL(18,2) DECLARE @UndistributedAmount DECIMAL(18,2) SELECT @AmountInHand= isnull( sum(AmountInHand),0) FROM dbo.LedgerMaster WHERE AccountId=" & cmbCustomer.SelectedValue & _
        " SELECT  @UndistributedAmount=isnull(SUM(UndistributedAmount), 0) FROM dbo.PaymentTransaction WHERE StatusId =2 AND AccountId=" & cmbCustomer.SelectedValue & _
@@ -590,5 +607,51 @@ Public Class frm_Supplier_Invoice_Settlement
 
 
     End Sub
+
+    Private Sub flxList_DoubleClick(sender As Object, e As EventArgs) Handles flxList.DoubleClick
+        flag = "update"
+        PaymentId = Convert.ToInt32(flxList("PaymentId", flxList.CurrentCell.RowIndex).Value())
+        FillPaymentDetails(PaymentId)
+    End Sub
+
+    Public Sub FillPaymentDetails(PaymentId As Int16)
+        Dim dt As DataTable
+        dt = clsObj.fill_Data_set("Proc_GETPaymentDetailByID_Edit", "@PaymentId", PaymentId).Tables(0)
+        If dt.Rows.Count > 0 Then
+            Dim dr As DataRow = dt.Rows(0)
+            TabControl1.SelectedIndex = 1
+            cmbCustomer.SelectedValue = dr("AccountId")
+            cmbPaymentType.SelectedValue = dr("PaymentTypeId")
+            txtReferenceNo.Text = dr("ChequeDraftNo")
+            cmbBank.SelectedValue = dr("BankId")
+            txtAmount.Text = dr("TotalAmountReceived")
+            txtRemarks.Text = dr("Remarks")
+            dtpPaymentDate.Value = dr("PaymentDate")
+            dtpBankDate.Value = dr("BankDate")
+            dtpReferenceDate.Value = dr("ChequeDraftDate")
+
+        End If
+    End Sub
+
+    Private Sub BtnCancelInv_Click(sender As Object, e As EventArgs) Handles BtnCancelInv.Click
+        Dim result As Integer = MessageBox.Show("Are you sure you want to cancel this Voucher ?", "Cancel Voucher", MessageBoxButtons.YesNo)
+        If result = DialogResult.Yes Then
+
+            Dim Status As String
+            Status = flxList.SelectedRows(0).Cells("Status").Value
+            If Status = "Cancelled" Then
+                MessageBox.Show("This payment is already cancelled")
+                Return
+            End If
+
+            clsObj.Cancel_PaymentEntries(Convert.ToInt32(flxList("PaymentId", flxList.SelectedRows(0).Index).Value()), PaymentStatus.Cancelled, 0, PaymentType.Payment, Transaction_Type.Supplier_Invoice_Settlement)
+            MsgBox("Payment status has been updated.", MsgBoxStyle.Information + MsgBoxStyle.OkOnly, gblMessageHeading)
+            fill_ListPaymentgrid()
+
+        End If
+
+    End Sub
+
+
 
 End Class

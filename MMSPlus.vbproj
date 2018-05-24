@@ -876,12 +876,6 @@
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Reports\PaymentDetailCrReport.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>PaymentDetailCrReport.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Reports\PaymentVoucher.vb">
       <DependentUpon>PaymentVoucher.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -1816,10 +1810,6 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>cry_Brand_Wise_Sale.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Reports\PaymentDetailCrReport.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>PaymentDetailCrReport.vb</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Include="Reports\PaymentVoucher.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>PaymentVoucher.vb</LastGenOutput>
@@ -2221,6 +2211,7 @@
     <Content Include="Scripts\2018Update\0010_03_May_2018_CessUpdationSalePurchase.sql" />
     <Content Include="Scripts\2018Update\0009_18_Apr_2018_StockUpdate.sql" />
     <Content Include="Scripts\2018Update\0011_08_May_2018_BillBook.sql" />
+    <Content Include="Scripts\2018Update\0013_24_May_2018_EditFormsFunctionality.sql" />
     <Content Include="Scripts\2018Update\0012_11_May_2018_ACESS.sql" />
     <Content Include="Scripts\Updates\00001_29_Dec_Add_Duty_And_Taxes.sql" />
     <Content Include="Scripts\Updates\0001_04_Jan_2018_Stock_Transfer.sql" />
