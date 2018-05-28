@@ -82,6 +82,11 @@ Public Class frm_Sale_Invoice
     End Sub
 
     Public Sub SaveClick(ByVal sender As Object, ByVal e As System.EventArgs) Implements IForm.SaveClick
+        If _rights.allow_trans = "N" Then
+            RightsMsg()
+            Exit Sub
+        End If
+
         CalculateAmount()
         Dim cmd As SqlCommand
         Try
@@ -90,10 +95,7 @@ Public Class frm_Sale_Invoice
                 Exit Sub
             End If
 
-            If _rights.allow_trans = "N" Then
-                RightsMsg()
-                Exit Sub
-            End If
+
 
             prpty = New cls_Sale_Invoice_prop
 
