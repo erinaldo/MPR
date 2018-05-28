@@ -130,6 +130,7 @@ Partial Class frm_OpeningBalance
         Me.grdOpeningBalance.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.White
         Me.grdOpeningBalance.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.DarkOrange
         Me.grdOpeningBalance.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black
+        Me.grdOpeningBalance.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.grdOpeningBalance.Size = New System.Drawing.Size(839, 466)
         Me.grdOpeningBalance.TabIndex = 14
         '

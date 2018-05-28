@@ -4,9 +4,10 @@ Imports System.Data
 Imports C1.Win.C1FlexGrid
 
 Public Class frm_DebitNote
-
     Implements IForm
+
     Dim obj As New CommonClass
+    Dim DebitNoteId As Int16
     Dim flag As String
     '  Dim group_id As Integer
     Dim dtable_Item_List As DataTable
@@ -15,18 +16,16 @@ Public Class frm_DebitNote
     ' Dim grdMaterial_Rowindex As Int16
     ' Dim RMRSID As Int16
     Dim FLXGRD_PO_Items_Rowindex As Int16
-    '  Dim intColumnIndex As Integer
-
+    'Dim intColumnIndex As Integer
     Dim rights As Form_Rights
     Dim Pre As String
-
     Dim DN_Code As String
     Dim DN_No As Integer
     Dim DN_Id As Integer
     Dim clsObj As New DebitNote.cls_DebitNote_Master
     Dim prpty As New DebitNote.cls_DebitNote_Prop
-
     Dim _rights As Form_Rights
+
     Public Sub New(ByVal rights As Form_Rights)
         _rights = rights
         InitializeComponent()
@@ -115,7 +114,7 @@ Public Class frm_DebitNote
 
     Private Sub FillGrid(Optional ByVal condition As String = "")
         Try
-            obj.GridBind(dgvList, "SELECT * FROM ( SELECT DebitNote_Id,DebitNote_Code + CAST(DebitNote_No AS VARCHAR(10)) AS DebitNote_No ,dbo.fn_format(DebitNote_Date) AS DebitNote_Date ,MRNId ,MM.MRN_PREFIX + CAST(MM.MRN_NO AS VARCHAR(10)) AS MRNNo ,DN_Amount ,ACC_NAME,DM.Remarks,DM.Created_by FROM DebitNote_Master Dm INNER JOIN MATERIAL_RECEIVED_AGAINST_PO_MASTER MM ON DM.MRNId = MM.MRN_NO INNER JOIN dbo.ACCOUNT_MASTER AM ON am.ACC_ID=dm.DN_CustId UNION ALL SELECT    DebitNote_Id ,DebitNote_Code + CAST(DebitNote_No AS VARCHAR(10)) AS DebitNote_No ,dbo.fn_format(DebitNote_Date) AS DebitNote_Date ,MRNId ,MM.MRN_PREFIX + CAST(MM.MRN_NO AS VARCHAR(10)) AS MRNNo ,DN_Amount ,ACC_NAME ,DM.Remarks ,DM.Created_by FROM      DebitNote_Master Dm INNER JOIN dbo.MATERIAL_RECIEVED_WITHOUT_PO_MASTER MM ON DM.MRNId = MM.MRN_NO INNER JOIN dbo.ACCOUNT_MASTER AM ON am.ACC_ID = dm.DN_CustId) tb  WHERE (tb.DebitNote_No+tb.DebitNote_Date+MRNNo+tb.Remarks+tb.Created_by+ACC_NAME + CAST(DN_Amount as varchar(50)) + tb.ACC_NAME + tb.Created_by)  LIKE '%" & condition & "%'")
+            obj.GridBind(dgvList, "SELECT * FROM ( SELECT DebitNote_Id, DebitNote_Code + CAST(DebitNote_No AS VARCHAR(10)) AS DebitNote_No ,dbo.fn_format(DebitNote_Date) AS DebitNote_Date ,MRNId ,MM.MRN_PREFIX + CAST(MM.MRN_NO AS VARCHAR(10)) AS MRNNo ,DN_Amount ,ACC_NAME,DM.Remarks,DM.Created_by FROM DebitNote_Master Dm INNER JOIN MATERIAL_RECEIVED_AGAINST_PO_MASTER MM ON DM.MRNId = MM.MRN_NO INNER JOIN dbo.ACCOUNT_MASTER AM ON am.ACC_ID=dm.DN_CustId UNION ALL SELECT    DebitNote_Id ,DebitNote_Code + CAST(DebitNote_No AS VARCHAR(10)) AS DebitNote_No ,dbo.fn_format(DebitNote_Date) AS DebitNote_Date ,MRNId ,MM.MRN_PREFIX + CAST(MM.MRN_NO AS VARCHAR(10)) AS MRNNo ,DN_Amount ,ACC_NAME ,DM.Remarks ,DM.Created_by FROM      DebitNote_Master Dm INNER JOIN dbo.MATERIAL_RECIEVED_WITHOUT_PO_MASTER MM ON DM.MRNId = MM.MRN_NO INNER JOIN dbo.ACCOUNT_MASTER AM ON am.ACC_ID = dm.DN_CustId) tb  WHERE (tb.DebitNote_No+tb.DebitNote_Date+MRNNo+tb.Remarks+tb.Created_by+ACC_NAME + CAST(DN_Amount as varchar(50)) + tb.ACC_NAME + tb.Created_by)  LIKE '%" & condition & "%'")
             dgvList.Width = 100
             dgvList.Columns(0).Visible = False 'Reverse_ID
             dgvList.Columns(0).Width = 100
@@ -140,6 +139,7 @@ Public Class frm_DebitNote
             MsgBox(gblMessageHeading_Error & vbCrLf & gblMessage_ContactInfo & vbCrLf & ex.Message, MsgBoxStyle.Critical, gblMessageHeading)
         End Try
     End Sub
+
     Public Sub RefreshClick(ByVal sender As Object, ByVal e As System.EventArgs) Implements IForm.RefreshClick
         FillGrid()
         TbRMRN.SelectTab(0)
@@ -219,6 +219,7 @@ Public Class frm_DebitNote
                 prpty.DN_Type = ""
                 prpty.Ref_No = ""
                 prpty.Ref_Date = NULL_DATE
+                prpty.Proctype = 1
 
                 clsObj.insert_DebitNote_MASTER(prpty, cmd)
 
@@ -230,7 +231,6 @@ Public Class frm_DebitNote
                     If FLXGRD_MaterialItem.Item(iRow, "Item_Qty") > 0 Then
                         prpty.DebitNote_ID = Convert.ToInt32(DN_Id)
                         prpty.Item_ID = FLXGRD_MaterialItem.Item(iRow, "Item_Id")
-
                         prpty.Item_Qty = Convert.ToDouble(FLXGRD_MaterialItem.Item(iRow, "Item_Qty")).ToString()
                         prpty.Item_Rate = Convert.ToDouble(FLXGRD_MaterialItem.Item(iRow, "Item_rate")).ToString()
                         prpty.Item_Tax = Convert.ToDouble(FLXGRD_MaterialItem.Item(iRow, "Vat_Per")).ToString()
@@ -241,6 +241,7 @@ Public Class frm_DebitNote
                         prpty.Modified_By = v_the_current_logged_in_user_name
                         prpty.Modification_Date = NULL_DATE
                         prpty.Division_ID = v_the_current_division_id
+                        prpty.Proctype = 1
                         clsObj.insert_DebitNote_DETAIL(prpty, cmd)
                         'End If
                     End If
@@ -257,7 +258,78 @@ Public Class frm_DebitNote
                 End If
 
                 set_new_initilize()
+                cmbsupplier.SelectedValue = 0
+                cmbMRNNo.SelectedValue = 0
 
+            ElseIf flag = "update" And validate_data() Then
+                cmd = obj.MyCon_BeginTransaction
+                Dim ds As New DataSet()
+                ds = clsObj.fill_Data_set("GET_DebitNoteCodeByID", "@DebitNoteId", DebitNoteId)
+                If ds.Tables(0).Rows.Count > 0 Then
+                    DN_Code = ds.Tables(0).Rows(0)(0).ToString()
+                    DN_No = Convert.ToDecimal(ds.Tables(0).Rows(0)(1).ToString())
+                    ds.Dispose()
+                End If
+                prpty.DebitNote_ID = Convert.ToInt32(DebitNoteId)
+                prpty.DebitNote_Code = DN_Code ' GetDebitNoteCode()
+                prpty.DebitNote_No = DN_No ' Convert.ToInt32(DebitNoteID)
+                prpty.DebitNote_Date = lbl_DNDate.Text 'Convert.ToDateTime(lbl_PODate.Text).ToString()
+                prpty.MRN_ID = cmbMRNNo.SelectedValue
+                prpty.Remarks = txtRemarks.Text
+                prpty.Created_By = v_the_current_logged_in_user_name
+                prpty.Creation_Date = NULL_DATE
+                prpty.Modified_By = v_the_current_logged_in_user_name
+                prpty.Modification_Date = Now
+                prpty.Division_ID = v_the_current_division_id
+                prpty.Dn_Amount = lblDebit.Text
+                prpty.DN_CustId = cmbsupplier.SelectedValue
+                prpty.INV_No = txt_INVNo.Text
+                prpty.INV_Date = txt_INVDate.Text
+                prpty.DN_ItemValue = lblAmount.Text
+                prpty.DN_ItemTax = lblVatAmount.Text
+                prpty.DN_ItemCess = lblCessAmount.Text
+                prpty.DN_Type = ""
+                prpty.Ref_No = ""
+                prpty.Ref_Date = NULL_DATE
+                prpty.Proctype = 2
+
+                clsObj.insert_DebitNote_MASTER(prpty, cmd)
+
+                Dim iRowCount As Int32
+                Dim iRow As Int32
+                iRowCount = FLXGRD_MaterialItem.Rows.Count - 1
+
+                For iRow = 1 To iRowCount
+                    If FLXGRD_MaterialItem.Item(iRow, "Item_Qty") > 0 Then
+                        prpty.DebitNote_ID = Convert.ToInt32(DebitNoteId)
+                        prpty.Item_ID = FLXGRD_MaterialItem.Item(iRow, "Item_Id")
+                        prpty.Item_Qty = Convert.ToDouble(FLXGRD_MaterialItem.Item(iRow, "Item_Qty")).ToString()
+                        prpty.Item_Rate = Convert.ToDouble(FLXGRD_MaterialItem.Item(iRow, "Item_rate")).ToString()
+                        prpty.Item_Tax = Convert.ToDouble(FLXGRD_MaterialItem.Item(iRow, "Vat_Per")).ToString()
+                        prpty.Item_Cess = Convert.ToDouble(FLXGRD_MaterialItem.Item(iRow, "Cess_Per")).ToString()
+                        prpty.Stock_Detail_ID = Convert.ToDouble(FLXGRD_MaterialItem.Item(iRow, "Stock_Detail_Id")).ToString()
+                        prpty.Created_By = v_the_current_logged_in_user_name
+                        prpty.Creation_Date = Now
+                        prpty.Modified_By = v_the_current_logged_in_user_name
+                        prpty.Modification_Date = NULL_DATE
+                        prpty.Division_ID = v_the_current_division_id
+                        prpty.Proctype = 2
+                        clsObj.insert_DebitNote_DETAIL(prpty, cmd)
+                        'End If
+                    End If
+                Next iRow
+
+                MsgBox("Debit note updated with No. " & DN_Code & DN_No, MsgBoxStyle.Information, gblMessageHeading)
+                obj.MyCon_CommitTransaction(cmd)
+
+                If flag = "update" Then
+                    If MsgBox(vbCrLf & "Do You Want to Print Preview.", MsgBoxStyle.Question + MsgBoxStyle.YesNo, gblMessageHeading) = MsgBoxResult.Yes Then
+                        obj.RptShow(enmReportName.RptDebitNotePrint, "DN_ID", CStr(prpty.DebitNote_ID), CStr(enmDataType.D_int))
+                    End If
+                Else
+                End If
+
+                set_new_initilize()
                 cmbsupplier.SelectedValue = 0
                 cmbMRNNo.SelectedValue = 0
             End If
@@ -408,50 +480,44 @@ Public Class frm_DebitNote
 
     End Sub
 
-    Private Sub dgvList_DoubleClick(ByVal sender As System.Object, ByVal e As System.EventArgs)
-
-    End Sub
-
-    Private Sub dgvList_CellDoubleClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs)
-
-    End Sub
-
     Private Sub getMRNDetail(ByVal Receive_ID As Integer)
 
 
     End Sub
 
     Private Sub cmbMRNNo_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmbMRNNo.SelectedIndexChanged
+        If (DebitNoteId < 1) Then
+            Try
+                set_new_initilize()
+                Dim ds As DataSet
+                Dim ds1 As DataSet
+                Dim MRNNo As Int32
+                MRNNo = Convert.ToInt32(cmbMRNNo.SelectedValue)
+                ds = clsObj.fill_Data_set("Get_MRN_Details_DebitNote", "@V_MRN_NO", MRNNo)
+                If ds.Tables(0).Rows.Count > 0 Then
+                    dtable_Item_List = ds.Tables(0).Copy
+                    FLXGRD_MaterialItem.DataSource = dtable_Item_List
+                    SetGridSettingValues()
+                End If
 
-        Try
-            set_new_initilize()
-            Dim ds As DataSet
-            Dim ds1 As DataSet
-            Dim MRNNo As Int32
-            MRNNo = Convert.ToInt32(cmbMRNNo.SelectedValue)
-            ds = clsObj.fill_Data_set("Get_MRN_Details_DebitNote", "@V_MRN_NO", MRNNo)
-            If ds.Tables(0).Rows.Count > 0 Then
-                dtable_Item_List = ds.Tables(0).Copy
-                FLXGRD_MaterialItem.DataSource = dtable_Item_List
-                SetGridSettingValues()
-            End If
-
-            Dim Query As String = " SELECT Invoice_No ,CONVERT(VARCHAR (20),Invoice_date,106)AS Invoice_date FROM dbo.MATERIAL_RECEIVED_AGAINST_PO_MASTER WHERE MRN_NO=" & MRNNo & " AND Division_ID =   " & v_the_current_division_id & _
-           "UNION ALL SELECT Invoice_No ,CONVERT(VARCHAR (20),Invoice_date,106)AS Invoice_date FROM dbo.MATERIAL_RECIEVED_WITHOUT_PO_MASTER WHERE MRN_NO=" & MRNNo
+                Dim Query As String = " SELECT Invoice_No ,CONVERT(VARCHAR (20),Invoice_date,106)AS Invoice_date FROM dbo.MATERIAL_RECEIVED_AGAINST_PO_MASTER WHERE MRN_NO=" & MRNNo & " AND Division_ID =   " & v_the_current_division_id &
+               "UNION ALL SELECT Invoice_No ,CONVERT(VARCHAR (20),Invoice_date,106)AS Invoice_date FROM dbo.MATERIAL_RECIEVED_WITHOUT_PO_MASTER WHERE MRN_NO=" & MRNNo
 
 
-            ds1 = clsObj.FillDataSet(Query)
-            If ds1.Tables(0).Rows.Count > 0 Then
-                txt_INVNo.Text = ds1.Tables(0).Rows(0)(0)
-                txt_INVDate.Text = ds1.Tables(0).Rows(0)(1)
-            End If
-            TbRMRN.SelectTab(1)
-        Catch ex As Exception
-            MsgBox(gblMessageHeading_Error & vbCrLf & gblMessage_ContactInfo & vbCrLf & ex.Message, MsgBoxStyle.Critical, gblMessageHeading)
-        End Try
-        lblAmount.Text = 0
-        lblVatAmount.Text = 0
-        lblDebit.Text = 0
+                ds1 = clsObj.FillDataSet(Query)
+                If ds1.Tables(0).Rows.Count > 0 Then
+                    txt_INVNo.Text = ds1.Tables(0).Rows(0)(0)
+                    txt_INVDate.Text = ds1.Tables(0).Rows(0)(1)
+                End If
+                TbRMRN.SelectTab(1)
+            Catch ex As Exception
+                MsgBox(gblMessageHeading_Error & vbCrLf & gblMessage_ContactInfo & vbCrLf & ex.Message, MsgBoxStyle.Critical, gblMessageHeading)
+            End Try
+            lblAmount.Text = 0
+            lblVatAmount.Text = 0
+            lblDebit.Text = 0
+
+        End If
 
     End Sub
 
@@ -469,7 +535,7 @@ Public Class frm_DebitNote
         Dim Query As String
         Dim Dt As DataTable
         Dim Dtrow As DataRow
-        Query = " SELECT MRN_NO AS MRN_ID,MRN_PREFIX+CAST(MRN_NO AS VARCHAR(20))AS MRN_NO FROM dbo.MATERIAL_RECEIVED_AGAINST_PO_MASTER WHERE PO_ID IN (SELECT PO_ID FROM dbo.PO_MASTER WHERE PO_SUPP_ID=" & cmbsupplier.SelectedValue & ") AND Division_ID =   " & v_the_current_division_id & _
+        Query = " SELECT MRN_NO AS MRN_ID,MRN_PREFIX+CAST(MRN_NO AS VARCHAR(20))AS MRN_NO FROM dbo.MATERIAL_RECEIVED_AGAINST_PO_MASTER WHERE PO_ID IN (SELECT PO_ID FROM dbo.PO_MASTER WHERE PO_SUPP_ID=" & cmbsupplier.SelectedValue & ") AND Division_ID =   " & v_the_current_division_id &
             "UNION ALL SELECT MRN_NO AS MRN_ID , MRN_PREFIX + CAST(MRN_NO AS VARCHAR(20)) AS MRN_NO FROM dbo.MATERIAL_RECIEVED_WITHOUT_PO_MASTER WHERE Vendor_ID=" & cmbsupplier.SelectedValue & " ORDER BY MRN_id"
         Dt = clsObj.Fill_DataSet(Query).Tables(0)
         Dtrow = Dt.NewRow
@@ -536,9 +602,37 @@ Public Class frm_DebitNote
 
     End Function
 
-    Private Sub Label2_Click(sender As Object, e As EventArgs) Handles Label2.Click
-
+    Private Sub dgvList_DoubleClick(sender As Object, e As EventArgs) Handles dgvList.DoubleClick
+        flag = "update"
+        DebitNoteId = Convert.ToInt32(dgvList("DebitNote_Id", dgvList.CurrentCell.RowIndex).Value())
+        FillPaymentDetails(DebitNoteId)
     End Sub
 
+    Public Sub FillPaymentDetails(DebitNoteId As Int16)
+        Dim dt As DataTable
+        dt = clsObj.fill_Data_set("Proc_GETDebitNoteDetailsByID_Edit", "@DebitNoteId", DebitNoteId).Tables(0)
+        If dt.Rows.Count > 0 Then
+            Dim dr As DataRow = dt.Rows(0)
+            TbRMRN.SelectTab(1)
+            lblDN_Code.Text = dr("DebitNoteNumber")
+            lbl_DNDate.Text = dr("DebitNote_Date")
+            cmbsupplier.SelectedValue = dr("DN_CustId")
+            BindMRNCombo()
+            cmbMRNNo.SelectedValue = dr("MRNo").ToString
+            txt_INVNo.Text = dr("InvoiceNo")
+            txt_INVDate.Text = dr("InvoiceDate")
+            txtRemarks.Text = dr("Remarks")
+
+            Dim ds As DataSet
+            ds = clsObj.fill_Data_set("GetDebitNoteDetails", "@DebitNoteId", DebitNoteId)
+            If ds.Tables(0).Rows.Count > 0 Then
+                dtable_Item_List = ds.Tables(0).Copy
+                FLXGRD_MaterialItem.DataSource = dtable_Item_List
+                SetGridSettingValues()
+                CalculateAmount()
+            End If
+
+        End If
+    End Sub
 
 End Class
