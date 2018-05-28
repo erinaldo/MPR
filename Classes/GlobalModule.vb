@@ -241,6 +241,9 @@ Module GlobalModule
         Supplier_Invoice_Settlement = 19
         Opening_Balance = 20
         Depreciation = 25
+        Journal = 21
+        Contra = 22
+        Expense = 23
 
     End Enum
 
@@ -277,7 +280,6 @@ Module GlobalModule
         D_String = 1
         D_Date = 3
     End Enum
-
 
     Public Function Encrypt(ByVal sSTR As System.String) As String
         Dim sTmp As System.String

@@ -37,6 +37,16 @@ Namespace DebitNote
         Dim _RefDate_dt As DateTime
         Dim _Tax_num As Double
 
+        Dim _Proctype As Integer
+        Public Property Proctype() As Integer
+            Get
+                Proctype = _Proctype
+            End Get
+            Set(ByVal value As Integer)
+                _Proctype = value
+            End Set
+        End Property
+
         Public Property DebitNote_ID() As Integer
             Get
                 DebitNote_ID = _DebitNote_ID
@@ -218,7 +228,6 @@ Namespace DebitNote
             End Set
         End Property
 
-
         Public Property INV_Date() As DateTime
             Get
                 INV_Date = _INV_Date
@@ -324,7 +333,8 @@ Namespace DebitNote
             cmd.Parameters.AddWithValue("@v_DebitNote_Type", clsObj.DN_Type)
             cmd.Parameters.AddWithValue("@v_RefNo", clsObj.Ref_No)
             cmd.Parameters.AddWithValue("@v_RefDate_dt", clsObj.Ref_Date)
-            cmd.Parameters.AddWithValue("@V_PROC_TYPE", 1)
+            cmd.Parameters.AddWithValue("@V_Trans_Type", Transaction_Type.DebitNote)
+            cmd.Parameters.AddWithValue("@V_PROC_TYPE", clsObj.Proctype)
             cmd.ExecuteNonQuery()
             cmd.Dispose()
 
@@ -348,7 +358,7 @@ Namespace DebitNote
             cmd.Parameters.AddWithValue("@v_Item_Tax", clsObj.Item_Tax)
             cmd.Parameters.AddWithValue("@v_Item_Cess", clsObj.Item_Cess)
             cmd.Parameters.AddWithValue("@V_Trans_Type", Transaction_Type.DebitNote)
-            cmd.Parameters.AddWithValue("@V_PROC_TYPE", 1)
+            cmd.Parameters.AddWithValue("@V_PROC_TYPE", clsObj.Proctype)
             cmd.ExecuteNonQuery()
             cmd.Dispose()
 

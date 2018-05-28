@@ -1,4 +1,6 @@
-﻿Public Class cls_Invoice_Settlement_prop
+﻿
+Imports System.Data.SqlClient
+Public Class cls_Invoice_Settlement_prop
     Public PaymentTransactionId As Int32
     Public PaymentTransactionCode As String
     Public PaymentTypeId As Int32
@@ -20,6 +22,8 @@
     ''''''''''''''''''''''''''''''''''''''
     Public PaymentId As Int32
     Public InvoiceId As Int32
+    Public Proctype As Int32
+    Public TransactionId As Int32
     Public AmountSettled As Decimal
 End Class
 
@@ -60,6 +64,8 @@ Public Class cls_Invoice_Settlement
         cmd.Parameters.AddWithValue("@DivisionId", clsObj.DivisionId)
         cmd.Parameters.AddWithValue("@StatusId", clsObj.StatusId)
         cmd.Parameters.AddWithValue("@PM_TYPE", clsObj.PM_Type)
+        cmd.Parameters.AddWithValue("@Proctype", clsObj.Proctype)
+        cmd.Parameters.AddWithValue("@TransactionId", clsObj.TransactionId)
 
         cmd.Parameters.AddWithValue("@ProcedureStatus", 0)
 
@@ -81,7 +87,7 @@ Public Class cls_Invoice_Settlement
         cmd.Parameters.AddWithValue("@CancellationCharges", clsObj.CancellationCharges)
         cmd.Parameters.AddWithValue("@StatusId", clsObj.StatusId)
         cmd.Parameters.AddWithValue("@PM_TYPE", clsObj.PM_Type)
-        'prpty.PM_Type = PaymentType.Receipt
+        cmd.Parameters.AddWithValue("@TransactionId", clsObj.TransactionId)
 
         cmd.ExecuteNonQuery()
         cmd.Dispose()
@@ -106,6 +112,26 @@ Public Class cls_Invoice_Settlement
 
         cmd.ExecuteNonQuery()
         cmd.Dispose()
+    End Sub
+
+    Public Sub Cancel_PaymentEntries(PaymentId As Integer, Status As Integer, Charges As Decimal, PaymentType As String, TransactionId As Integer)
+        Try
+            If con.State = ConnectionState.Closed Then con.Open()
+            cmd = New SqlCommand
+            cmd.Connection = con
+            cmd.CommandType = CommandType.StoredProcedure
+            cmd.CommandText = "Proc_UpdatePaymentStauts"
+            cmd.Parameters.AddWithValue("@PaymentTransactionId", PaymentId)
+            cmd.Parameters.AddWithValue("@StatusId", Status)
+            cmd.Parameters.AddWithValue("@CancellationCharges", Charges)
+            cmd.Parameters.AddWithValue("@PM_Type", PaymentType)
+            cmd.Parameters.AddWithValue("@TransactionId", TransactionId)
+            cmd.ExecuteNonQuery()
+            cmd.Dispose()
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+
     End Sub
 
 End Class

@@ -2,12 +2,7 @@ Imports System
 Imports System.Data
 Imports System.Data.SqlClient
 
-
-
-
 Namespace CreditNote
-
-
     Public Class cls_Credit_note_Prop
 
         Dim _CreditNote_ID As Double
@@ -38,6 +33,15 @@ Namespace CreditNote
         Dim _RefNo As String
         Dim _RefDate_dt As DateTime
         Dim _Tax_Amt As Double
+        Dim _Proctype As Integer
+        Public Property Proctype() As Integer
+            Get
+                Proctype = _Proctype
+            End Get
+            Set(ByVal value As Integer)
+                _Proctype = value
+            End Set
+        End Property
 
         Public Property CreditNote_ID() As Integer
             Get
@@ -273,7 +277,6 @@ Namespace CreditNote
             End Set
         End Property
 
-
         Public Property Ref_Date() As DateTime
             Get
                 Ref_Date = _RefDate_dt
@@ -296,6 +299,7 @@ Namespace CreditNote
 
     Public Class cls_Credit_note_Master
         Inherits CommonClass
+
         Public Sub insert_CreditNote_MASTER(ByVal clsObj As cls_Credit_note_Prop, ByVal cmd As SqlCommand)
 
             cmd.Parameters.Clear()
@@ -323,13 +327,15 @@ Namespace CreditNote
             cmd.Parameters.AddWithValue("@v_CreditNote_Type", clsObj.CN_Type)
             cmd.Parameters.AddWithValue("@v_RefNo", clsObj.Ref_No)
             cmd.Parameters.AddWithValue("@v_RefDate_dt", clsObj.Ref_Date)
-            cmd.Parameters.AddWithValue("@V_PROC_TYPE", 1)
+            cmd.Parameters.AddWithValue("@V_Trans_Type", Transaction_Type.CreditNote)
+            cmd.Parameters.AddWithValue("@V_PROC_TYPE", clsObj.Proctype)
 
             cmd.ExecuteNonQuery()
             cmd.Dispose()
 
 
         End Sub
+
         Public Sub insert_CreditNote_DETAIL(ByVal clsObj As cls_Credit_note_Prop, ByVal cmd As SqlCommand)
             cmd.Parameters.Clear()
             cmd.CommandType = CommandType.StoredProcedure
@@ -348,11 +354,12 @@ Namespace CreditNote
             cmd.Parameters.AddWithValue("@V_Division_Id", clsObj.Division_ID)
             cmd.Parameters.AddWithValue("@v_Stock_Detail_Id", clsObj.Stock_Detail_ID)
             cmd.Parameters.AddWithValue("@V_Trans_Type", Transaction_Type.CreditNote)
-            cmd.Parameters.AddWithValue("@V_PROC_TYPE", 1)
+            cmd.Parameters.AddWithValue("@V_PROC_TYPE", clsObj.Proctype)
             cmd.ExecuteNonQuery()
             cmd.Dispose()
 
         End Sub
+
         Public Sub insert_CreditNote_WO_Items_DETAIL(ByVal clsObj As cls_Credit_note_Prop, ByVal cmd As SqlCommand)
             cmd.Parameters.Clear()
             cmd.CommandType = CommandType.StoredProcedure
@@ -435,4 +442,5 @@ Namespace CreditNote
         End Sub
 
     End Class
+
 End Namespace

@@ -27,7 +27,8 @@ Public Class frm_Account_Payment
         If entryType = PaymentType.Contra Then
             query += " where AG_ID = " + Convert.ToString(AccountGroups.Bank_Accounts)
         ElseIf entryType = PaymentType.Expense Then
-            query += " where AG_ID = " + Convert.ToString(AccountGroups.Bank_Accounts)
+            'query += " where AG_ID = " + Convert.ToString(AccountGroups.Bank_Accounts)
+            query += " where AG_ID in (" + Convert.ToString(AccountGroups.Expenses_Direct_Mfg) + ", " + Convert.ToString(AccountGroups.Expenses_Indirect_Admn) + ")"
         End If
         query += " Order by ACC_NAME"
         clsObj.ComboBind(cmbAccountToDebit, query, "ACC_NAME", "ACC_ID", True)
@@ -36,6 +37,7 @@ Public Class frm_Account_Payment
         clsObj.ComboBind(cmbPaymentType, query, "PaymentTypeName", "PaymentTypeId", True)
 
         fill_ListPaymentgrid()
+        ClearControls()
     End Sub
 
     Private Sub cmbAccountToDebit_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbAccountToDebit.SelectedIndexChanged
@@ -58,6 +60,7 @@ Public Class frm_Account_Payment
         dtpBankDate.Value = DateTime.Now
         txtAmount.Text = ""
         txtRemarks.Text = ""
+        flag = "save"
     End Sub
 
     Public Sub NewClick(ByVal sender As Object, ByVal e As System.EventArgs) Implements IForm.NewClick
@@ -77,6 +80,7 @@ Public Class frm_Account_Payment
             End If
 
             prpty = New cls_Invoice_Settlement_prop
+            prpty.PaymentTransactionId = PaymentId
             prpty.PaymentTransactionCode = PM_Code & PM_No
             prpty.PaymentTypeId = cmbPaymentType.SelectedValue
             prpty.AccountId = cmbAccountToDebit.SelectedValue
@@ -94,8 +98,29 @@ Public Class frm_Account_Payment
             prpty.CreatedBy = v_the_current_logged_in_user_name
             prpty.DivisionId = v_the_current_division_id
             prpty.PM_Type = entryType
+
+            If (flag = "save") Then
+                prpty.Proctype = 1
+            Else
+                prpty.Proctype = 2
+            End If
+
+            If (entryTypeName = "Journal") Then
+                prpty.TransactionId = Transaction_Type.Journal
+            ElseIf (entryTypeName = "Contra") Then
+                prpty.TransactionId = Transaction_Type.Contra
+            ElseIf (entryTypeName = "Expense") Then
+                prpty.TransactionId = Transaction_Type.Expense
+            End If
+
+
             clsObj.insert_Invoice_Settlement(prpty)
-            MsgBox(entryTypeName + " has been Saved.", MsgBoxStyle.Information + MsgBoxStyle.OkOnly, gblMessageHeading)
+
+            If flag = "save" Then
+                MsgBox(entryTypeName + " has been Saved.", MsgBoxStyle.Information + MsgBoxStyle.OkOnly, gblMessageHeading)
+            Else
+                MsgBox(entryTypeName + " has been Updated.", MsgBoxStyle.Information + MsgBoxStyle.OkOnly, gblMessageHeading)
+            End If
 
             ClearControls()
             fill_ListPaymentgrid()
@@ -195,11 +220,11 @@ Public Class frm_Account_Payment
 
             Dim strsql As String
 
-            strsql = "SELECT * FROM (SELECT  pt.PaymentTransactionId as PaymentID ,PaymentTransactionNo AS PaymentCode ,CONVERT(VARCHAR(20), PaymentDate, 106) AS PaymentDate, " &
+            strsql = "SELECT * FROM (SELECT  pt.PaymentTransactionId as PaymentID , PaymentTransactionNo AS PaymentCode ,CONVERT(VARCHAR(20), PaymentDate, 106) AS PaymentDate, " &
             " AM.ACC_NAME AS Account ,ChequeDraftNo AS ChequeNo,CONVERT(VARCHAR(20), ChequeDraftDate, 106) AS ChequeDate ,BK.ACC_NAME AS Bank, " &
-            " TotalAmountReceived AS Amount,CASE WHEN StatusId =1 THEN 'InProcess'  WHEN StatusId =2 THEN 'Approved' WHEN StatusId =3 THEN 'Cancelled'  WHEN StatusId =4 THEN 'Bounced' END AS Status,ptm.PaymentTypeName AS PaymentType" &
+            " TotalAmountReceived AS Amount,CASE WHEN StatusId =1 THEN 'InProcess'  WHEN StatusId =2 THEN 'Approved' WHEN StatusId =3 THEN 'Cancelled'  WHEN StatusId = 4 THEN 'Bounced' END AS Status,ptm.PaymentTypeName AS PaymentType,  PT.StatusId " &
             " FROM    dbo.PaymentTransaction PT JOIN dbo.ACCOUNT_MASTER AM ON pt.AccountId = AM.ACC_ID JOIN dbo.PaymentTypeMaster PTM ON PTM.PaymentTypeId = PT.PaymentTypeId " &
-            " JOIN dbo.ACCOUNT_MASTER BK ON BK.ACC_ID= PT.BankId and PM_Type=" & entryType & ")tb WHERE   PaymentCode + PaymentDate + Account + ChequeNo " &
+            " JOIN dbo.ACCOUNT_MASTER BK ON BK.ACC_ID= PT.BankId and PM_Type=" & entryType & ")tb Where tb.StatusId <> 3 and  PaymentCode + PaymentDate + Account + ChequeNo " &
             "+ ChequeDate + Bank +CAST(Amount AS VARCHAR(50))+ PaymentType+Status LIKE '%" & condition & "%' order by 1"
 
             Dim dt As DataTable = clsObj.Fill_DataSet(strsql).Tables(0)
@@ -209,20 +234,20 @@ Public Class frm_Account_Payment
             flxList.Columns(0).Visible = False
             flxList.Columns(1).Width = 120
             flxList.Columns(2).Width = 70
-            flxList.Columns(3).Width = 230
+            flxList.Columns(3).Width = 220
             flxList.Columns(4).Width = 70
             flxList.Columns(5).Width = 70
             flxList.Columns(6).Width = 70
             flxList.Columns(7).Width = 70
             flxList.Columns(8).Width = 60
             flxList.Columns(9).Width = 115
+            flxList.Columns(10).Visible = False
 
         Catch ex As Exception
             MsgBox(gblMessageHeading_Error & vbCrLf & gblMessage_ContactInfo & vbCrLf & ex.Message, MsgBoxStyle.Critical, gblMessageHeading)
         End Try
 
     End Sub
-
 
     Public Sub CloseClick(sender As Object, e As EventArgs) Implements IForm.CloseClick
 
@@ -250,6 +275,59 @@ Public Class frm_Account_Payment
 
     Public Sub RefreshClick(sender As Object, e As EventArgs) Implements IForm.RefreshClick
 
+    End Sub
+
+    Private Sub flxList_DoubleClick(sender As Object, e As EventArgs) Handles flxList.DoubleClick
+        flag = "update"
+        PaymentId = Convert.ToInt32(flxList("PaymentId", flxList.CurrentCell.RowIndex).Value())
+        FillPaymentDetails(PaymentId)
+    End Sub
+
+    Public Sub FillPaymentDetails(PaymentId As Int16)
+        Dim dt As DataTable
+        dt = clsObj.fill_Data_set("Proc_GETPaymentDetailByID_Edit", "@PaymentId", PaymentId).Tables(0)
+        If dt.Rows.Count > 0 Then
+            Dim dr As DataRow = dt.Rows(0)
+            TabControl1.SelectedIndex = 1
+            cmbAccountToDebit.SelectedValue = dr("AccountId")
+            cmbPaymentType.SelectedValue = dr("PaymentTypeId")
+            txtReferenceNo.Text = dr("ChequeDraftNo")
+            cmbAccountToCredit.SelectedValue = dr("BankId")
+            txtAmount.Text = dr("TotalAmountReceived")
+            txtRemarks.Text = dr("Remarks")
+            dtpPaymentDate.Value = dr("PaymentDate")
+            dtpBankDate.Value = dr("BankDate")
+            dtpReferenceDate.Value = dr("ChequeDraftDate")
+
+        End If
+    End Sub
+
+    Private Sub BtnCancelInv_Click(sender As Object, e As EventArgs) Handles BtnCancelInv.Click
+        Dim result As Integer = MessageBox.Show("Are you sure you want to cancel this Voucher ?", "Cancel Voucher", MessageBoxButtons.YesNo)
+        If result = DialogResult.Yes Then
+
+            Dim Status As String
+            Status = flxList.SelectedRows(0).Cells("Status").Value
+            If Status = "Cancelled" Then
+                MessageBox.Show("This entry is already cancelled")
+                Return
+            End If
+
+            Dim transtype As Int32
+
+            If (entryTypeName = "Journal") Then
+                transtype = Transaction_Type.Journal
+            ElseIf (entryTypeName = "Contra") Then
+                transtype = Transaction_Type.Contra
+            ElseIf (entryTypeName = "Expense") Then
+                transtype = Transaction_Type.Expense
+            End If
+
+            clsObj.Cancel_PaymentEntries(Convert.ToInt32(flxList("PaymentId", flxList.SelectedRows(0).Index).Value()), PaymentStatus.Cancelled, 0, entryType, transtype)
+            MsgBox("Selected entry cancelled successfully.", MsgBoxStyle.Information + MsgBoxStyle.OkOnly, gblMessageHeading)
+            fill_ListPaymentgrid()
+
+        End If
     End Sub
 
 End Class

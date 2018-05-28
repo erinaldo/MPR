@@ -94,14 +94,6 @@ Partial Class frm_Supplier_Invoice_Settlement
         Me.btnClear = New System.Windows.Forms.Button()
         Me.btnSettleInvoice = New System.Windows.Forms.Button()
         Me.dgvInvoiceToSettle = New System.Windows.Forms.DataGridView()
-        Me.GroupBox3 = New System.Windows.Forms.GroupBox()
-        Me.lblUndistributedAmount = New System.Windows.Forms.Label()
-        Me.Label24 = New System.Windows.Forms.Label()
-        Me.btnDistributeAmount = New System.Windows.Forms.Button()
-        Me.cmbCustomerSettleInvoice = New System.Windows.Forms.ComboBox()
-        Me.Label44 = New System.Windows.Forms.Label()
-        Me.lblFormHeading = New System.Windows.Forms.Label()
-        Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
         Me.MrnId = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.MrnNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.InvoiceNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -111,6 +103,15 @@ Partial Class frm_Supplier_Invoice_Settlement
         Me.DebitedAmount = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.PendingAmount = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.AmountToReceive = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.lblUndistributedAmount = New System.Windows.Forms.Label()
+        Me.Label24 = New System.Windows.Forms.Label()
+        Me.btnDistributeAmount = New System.Windows.Forms.Button()
+        Me.cmbCustomerSettleInvoice = New System.Windows.Forms.ComboBox()
+        Me.Label44 = New System.Windows.Forms.Label()
+        Me.lblFormHeading = New System.Windows.Forms.Label()
+        Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
+        Me.BtnCancelInv = New System.Windows.Forms.Button()
         Me.TabControl1.SuspendLayout()
         Me.List.SuspendLayout()
         Me.GBMRSDetail.SuspendLayout()
@@ -143,6 +144,7 @@ Partial Class frm_Supplier_Invoice_Settlement
         'List
         '
         Me.List.BackColor = System.Drawing.Color.DimGray
+        Me.List.Controls.Add(Me.BtnCancelInv)
         Me.List.Controls.Add(Me.GBMRSDetail)
         Me.List.Controls.Add(Me.GroupBox2)
         Me.List.ForeColor = System.Drawing.Color.White
@@ -158,7 +160,7 @@ Partial Class frm_Supplier_Invoice_Settlement
         Me.GBMRSDetail.Controls.Add(Me.flxList)
         Me.GBMRSDetail.Location = New System.Drawing.Point(19, 91)
         Me.GBMRSDetail.Name = "GBMRSDetail"
-        Me.GBMRSDetail.Size = New System.Drawing.Size(877, 493)
+        Me.GBMRSDetail.Size = New System.Drawing.Size(877, 449)
         Me.GBMRSDetail.TabIndex = 6
         Me.GBMRSDetail.TabStop = False
         '
@@ -177,7 +179,7 @@ Partial Class frm_Supplier_Invoice_Settlement
         DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black
         Me.flxList.RowsDefaultCellStyle = DataGridViewCellStyle1
         Me.flxList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.flxList.Size = New System.Drawing.Size(871, 474)
+        Me.flxList.Size = New System.Drawing.Size(871, 430)
         Me.flxList.TabIndex = 3
         '
         'GroupBox2
@@ -960,6 +962,65 @@ Partial Class frm_Supplier_Invoice_Settlement
         Me.dgvInvoiceToSettle.Size = New System.Drawing.Size(819, 363)
         Me.dgvInvoiceToSettle.TabIndex = 4
         '
+        'MrnId
+        '
+        Me.MrnId.HeaderText = "MrnId"
+        Me.MrnId.Name = "MrnId"
+        Me.MrnId.ReadOnly = True
+        Me.MrnId.Visible = False
+        '
+        'MrnNo
+        '
+        Me.MrnNo.HeaderText = "MrnNo"
+        Me.MrnNo.Name = "MrnNo"
+        Me.MrnNo.ReadOnly = True
+        Me.MrnNo.Width = 120
+        '
+        'InvoiceNo
+        '
+        Me.InvoiceNo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.InvoiceNo.HeaderText = "Invoice No"
+        Me.InvoiceNo.Name = "InvoiceNo"
+        Me.InvoiceNo.ReadOnly = True
+        '
+        'MRNDate
+        '
+        Me.MRNDate.HeaderText = "Mrn Date"
+        Me.MRNDate.Name = "MRNDate"
+        Me.MRNDate.ReadOnly = True
+        '
+        'InvoiceAmount
+        '
+        Me.InvoiceAmount.HeaderText = "Invoice Amount"
+        Me.InvoiceAmount.Name = "InvoiceAmount"
+        Me.InvoiceAmount.ReadOnly = True
+        '
+        'ReceivedAmount
+        '
+        Me.ReceivedAmount.HeaderText = "Released Amount"
+        Me.ReceivedAmount.Name = "ReceivedAmount"
+        Me.ReceivedAmount.ReadOnly = True
+        Me.ReceivedAmount.Width = 80
+        '
+        'DebitedAmount
+        '
+        Me.DebitedAmount.HeaderText = "Debited Amount"
+        Me.DebitedAmount.Name = "DebitedAmount"
+        Me.DebitedAmount.ReadOnly = True
+        Me.DebitedAmount.Width = 80
+        '
+        'PendingAmount
+        '
+        Me.PendingAmount.HeaderText = "Pending Amount"
+        Me.PendingAmount.Name = "PendingAmount"
+        Me.PendingAmount.ReadOnly = True
+        Me.PendingAmount.Width = 80
+        '
+        'AmountToReceive
+        '
+        Me.AmountToReceive.HeaderText = "Amount To Release"
+        Me.AmountToReceive.Name = "AmountToReceive"
+        '
         'GroupBox3
         '
         Me.GroupBox3.Controls.Add(Me.lblUndistributedAmount)
@@ -1047,64 +1108,15 @@ Partial Class frm_Supplier_Invoice_Settlement
         Me.ImageList1.Images.SetKeyName(0, "Zoom_search_find_magnifying_glass.png")
         Me.ImageList1.Images.SetKeyName(1, "Inventory_box_shipment_product.png")
         '
-        'MrnId
+        'BtnCancelInv
         '
-        Me.MrnId.HeaderText = "MrnId"
-        Me.MrnId.Name = "MrnId"
-        Me.MrnId.ReadOnly = True
-        Me.MrnId.Visible = False
-        '
-        'MrnNo
-        '
-        Me.MrnNo.HeaderText = "MrnNo"
-        Me.MrnNo.Name = "MrnNo"
-        Me.MrnNo.ReadOnly = True
-        Me.MrnNo.Width = 120
-        '
-        'InvoiceNo
-        '
-        Me.InvoiceNo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.InvoiceNo.HeaderText = "Invoice No"
-        Me.InvoiceNo.Name = "InvoiceNo"
-        Me.InvoiceNo.ReadOnly = True
-        '
-        'MRNDate
-        '
-        Me.MRNDate.HeaderText = "Mrn Date"
-        Me.MRNDate.Name = "MRNDate"
-        Me.MRNDate.ReadOnly = True
-        '
-        'InvoiceAmount
-        '
-        Me.InvoiceAmount.HeaderText = "Invoice Amount"
-        Me.InvoiceAmount.Name = "InvoiceAmount"
-        Me.InvoiceAmount.ReadOnly = True
-        '
-        'ReceivedAmount
-        '
-        Me.ReceivedAmount.HeaderText = "Released Amount"
-        Me.ReceivedAmount.Name = "ReceivedAmount"
-        Me.ReceivedAmount.ReadOnly = True
-        Me.ReceivedAmount.Width = 80
-        '
-        'DebitedAmount
-        '
-        Me.DebitedAmount.HeaderText = "Debited Amount"
-        Me.DebitedAmount.Name = "DebitedAmount"
-        Me.DebitedAmount.ReadOnly = True
-        Me.DebitedAmount.Width = 80
-        '
-        'PendingAmount
-        '
-        Me.PendingAmount.HeaderText = "Pending Amount"
-        Me.PendingAmount.Name = "PendingAmount"
-        Me.PendingAmount.ReadOnly = True
-        Me.PendingAmount.Width = 80
-        '
-        'AmountToReceive
-        '
-        Me.AmountToReceive.HeaderText = "Amount To Release"
-        Me.AmountToReceive.Name = "AmountToReceive"
+        Me.BtnCancelInv.BackColor = System.Drawing.Color.LightSalmon
+        Me.BtnCancelInv.Location = New System.Drawing.Point(755, 564)
+        Me.BtnCancelInv.Name = "BtnCancelInv"
+        Me.BtnCancelInv.Size = New System.Drawing.Size(141, 30)
+        Me.BtnCancelInv.TabIndex = 12
+        Me.BtnCancelInv.Text = "Cancel "
+        Me.BtnCancelInv.UseVisualStyleBackColor = False
         '
         'frm_Supplier_Invoice_Settlement
         '
@@ -1224,4 +1236,5 @@ Partial Class frm_Supplier_Invoice_Settlement
     Friend WithEvents DebitedAmount As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents PendingAmount As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents AmountToReceive As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents BtnCancelInv As Button
 End Class

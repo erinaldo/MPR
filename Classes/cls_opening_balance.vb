@@ -2,12 +2,15 @@
 
 Public Class cls_opening_balance_prop
 
+    Public OpeningBalanceId As Int32
     Public AccountId As Int32
     Public OpeningDate As DateTime
     Public Amount As Decimal
     Public DivisionId As Int32
     Public CreatedBy As String
     Public Type As Int32
+    Public Proctype As Int32
+    Public TransactionId As Int32
 
 End Class
 Public Class cls_opening_balance
@@ -28,12 +31,17 @@ Public Class cls_opening_balance
             cmd.CommandType = CommandType.StoredProcedure
             cmd.Transaction = trans
             cmd.CommandText = "Proc_AddOpeningBalance"
+
+            cmd.Parameters.AddWithValue("@OpeningBalanceId", clsobj.OpeningBalanceId)
             cmd.Parameters.AddWithValue("@AccountId", clsobj.AccountId)
             cmd.Parameters.AddWithValue("@Amount", clsobj.Amount)
             cmd.Parameters.AddWithValue("@DivisionId", clsobj.DivisionId)
             cmd.Parameters.AddWithValue("@CreatedBy", clsobj.CreatedBy)
             cmd.Parameters.AddWithValue("@OpeningDate", clsobj.OpeningDate)
             cmd.Parameters.AddWithValue("@Type", clsobj.Type)
+            cmd.Parameters.AddWithValue("@Proctype", clsobj.Proctype)
+            cmd.Parameters.AddWithValue("@TransactionId", clsobj.TransactionId)
+
             cmd.ExecuteNonQuery()
             cmd.Dispose()
 
@@ -73,4 +81,5 @@ Public Class cls_opening_balance
         End Try
 
     End Sub
+
 End Class

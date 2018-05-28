@@ -19,19 +19,20 @@ Partial Class frm_EwayBill
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
-        Me.flxList = New System.Windows.Forms.DataGridView()
         Me.btnGenerate = New System.Windows.Forms.Button()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.dpBillDate = New System.Windows.Forms.DateTimePicker()
+        Me.DateTimePicker2 = New System.Windows.Forms.DateTimePicker()
+        Me.DateTimePicker1 = New System.Windows.Forms.DateTimePicker()
         Me.lblSelectDate = New System.Windows.Forms.Label()
         Me.lblFormHeading = New System.Windows.Forms.Label()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
+        Me.flxList = New System.Windows.Forms.DataGridView()
         Me.TabPage1.SuspendLayout()
-        CType(Me.flxList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
         Me.TabControl1.SuspendLayout()
+        CType(Me.flxList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'TabPage1
@@ -47,23 +48,6 @@ Partial Class frm_EwayBill
         Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
         Me.TabPage1.Size = New System.Drawing.Size(902, 601)
         Me.TabPage1.TabIndex = 0
-        '
-        'flxList
-        '
-        Me.flxList.AllowUserToAddRows = False
-        Me.flxList.AllowUserToDeleteRows = False
-        Me.flxList.Location = New System.Drawing.Point(11, 119)
-        Me.flxList.Name = "flxList"
-        Me.flxList.RowHeadersVisible = False
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black
-        Me.flxList.RowsDefaultCellStyle = DataGridViewCellStyle1
-        Me.flxList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.flxList.Size = New System.Drawing.Size(878, 422)
-        Me.flxList.TabIndex = 166
         '
         'btnGenerate
         '
@@ -83,7 +67,8 @@ Partial Class frm_EwayBill
         '
         'GroupBox1
         '
-        Me.GroupBox1.Controls.Add(Me.dpBillDate)
+        Me.GroupBox1.Controls.Add(Me.DateTimePicker2)
+        Me.GroupBox1.Controls.Add(Me.DateTimePicker1)
         Me.GroupBox1.Controls.Add(Me.lblSelectDate)
         Me.GroupBox1.Controls.Add(Me.lblFormHeading)
         Me.GroupBox1.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -94,13 +79,21 @@ Partial Class frm_EwayBill
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         '
-        'dpBillDate
+        'DateTimePicker2
         '
-        Me.dpBillDate.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dpBillDate.Location = New System.Drawing.Point(22, 43)
-        Me.dpBillDate.Name = "dpBillDate"
-        Me.dpBillDate.Size = New System.Drawing.Size(181, 21)
-        Me.dpBillDate.TabIndex = 32
+        Me.DateTimePicker2.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.DateTimePicker2.Location = New System.Drawing.Point(22, 70)
+        Me.DateTimePicker2.Name = "DateTimePicker2"
+        Me.DateTimePicker2.Size = New System.Drawing.Size(116, 21)
+        Me.DateTimePicker2.TabIndex = 33
+        '
+        'DateTimePicker1
+        '
+        Me.DateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.DateTimePicker1.Location = New System.Drawing.Point(22, 43)
+        Me.DateTimePicker1.Name = "DateTimePicker1"
+        Me.DateTimePicker1.Size = New System.Drawing.Size(116, 21)
+        Me.DateTimePicker1.TabIndex = 32
         '
         'lblSelectDate
         '
@@ -137,6 +130,23 @@ Partial Class frm_EwayBill
         Me.TabControl1.Size = New System.Drawing.Size(910, 630)
         Me.TabControl1.TabIndex = 1
         '
+        'flxList
+        '
+        Me.flxList.AllowUserToAddRows = False
+        Me.flxList.AllowUserToDeleteRows = False
+        Me.flxList.Location = New System.Drawing.Point(11, 119)
+        Me.flxList.Name = "flxList"
+        Me.flxList.RowHeadersVisible = False
+        DataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle3.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black
+        Me.flxList.RowsDefaultCellStyle = DataGridViewCellStyle3
+        Me.flxList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.flxList.Size = New System.Drawing.Size(878, 422)
+        Me.flxList.TabIndex = 166
+        '
         'frm_EwayBill
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -146,10 +156,10 @@ Partial Class frm_EwayBill
         Me.Name = "frm_EwayBill"
         Me.Size = New System.Drawing.Size(910, 630)
         Me.TabPage1.ResumeLayout(False)
-        CType(Me.flxList, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.TabControl1.ResumeLayout(False)
+        CType(Me.flxList, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -159,6 +169,7 @@ Partial Class frm_EwayBill
     Friend WithEvents TabControl1 As TabControl
     Friend WithEvents lblSelectDate As Label
     Friend WithEvents btnGenerate As Button
-    Friend WithEvents dpBillDate As DateTimePicker
+    Friend WithEvents DateTimePicker2 As DateTimePicker
+    Friend WithEvents DateTimePicker1 As DateTimePicker
     Friend WithEvents flxList As DataGridView
 End Class

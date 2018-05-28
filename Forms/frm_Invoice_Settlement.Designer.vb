@@ -110,6 +110,7 @@ Partial Class frm_Invoice_Settlement
         Me.Label44 = New System.Windows.Forms.Label()
         Me.lblFormHeading = New System.Windows.Forms.Label()
         Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
+        Me.BtnCancelInv = New System.Windows.Forms.Button()
         Me.TabControl1.SuspendLayout()
         Me.List.SuspendLayout()
         Me.GBMRSDetail.SuspendLayout()
@@ -142,6 +143,7 @@ Partial Class frm_Invoice_Settlement
         'List
         '
         Me.List.BackColor = System.Drawing.Color.DimGray
+        Me.List.Controls.Add(Me.BtnCancelInv)
         Me.List.Controls.Add(Me.GBMRSDetail)
         Me.List.Controls.Add(Me.GroupBox2)
         Me.List.ForeColor = System.Drawing.Color.White
@@ -157,7 +159,7 @@ Partial Class frm_Invoice_Settlement
         Me.GBMRSDetail.Controls.Add(Me.flxList)
         Me.GBMRSDetail.Location = New System.Drawing.Point(19, 91)
         Me.GBMRSDetail.Name = "GBMRSDetail"
-        Me.GBMRSDetail.Size = New System.Drawing.Size(877, 493)
+        Me.GBMRSDetail.Size = New System.Drawing.Size(877, 437)
         Me.GBMRSDetail.TabIndex = 6
         Me.GBMRSDetail.TabStop = False
         '
@@ -176,7 +178,7 @@ Partial Class frm_Invoice_Settlement
         DataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black
         Me.flxList.RowsDefaultCellStyle = DataGridViewCellStyle3
         Me.flxList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.flxList.Size = New System.Drawing.Size(871, 474)
+        Me.flxList.Size = New System.Drawing.Size(871, 418)
         Me.flxList.TabIndex = 3
         '
         'GroupBox2
@@ -1095,6 +1097,16 @@ Partial Class frm_Invoice_Settlement
         Me.ImageList1.Images.SetKeyName(0, "Zoom_search_find_magnifying_glass.png")
         Me.ImageList1.Images.SetKeyName(1, "Inventory_box_shipment_product.png")
         '
+        'BtnCancelInv
+        '
+        Me.BtnCancelInv.BackColor = System.Drawing.Color.LightSalmon
+        Me.BtnCancelInv.Location = New System.Drawing.Point(752, 546)
+        Me.BtnCancelInv.Name = "BtnCancelInv"
+        Me.BtnCancelInv.Size = New System.Drawing.Size(141, 30)
+        Me.BtnCancelInv.TabIndex = 11
+        Me.BtnCancelInv.Text = "Cancel "
+        Me.BtnCancelInv.UseVisualStyleBackColor = False
+        '
         'frm_Invoice_Settlement
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1212,4 +1224,5 @@ Partial Class frm_Invoice_Settlement
     Friend WithEvents ImageList1 As System.Windows.Forms.ImageList
     Friend WithEvents lblUnDistributeAmount As System.Windows.Forms.Label
     Friend WithEvents Label25 As System.Windows.Forms.Label
+    Friend WithEvents BtnCancelInv As Button
 End Class
