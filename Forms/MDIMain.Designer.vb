@@ -167,8 +167,6 @@ Partial Class MDIMain
         Me.frm_open_invoice = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_EwayBill = New System.Windows.Forms.ToolStripMenuItem()
         Me.frmBrandWiseSale = New System.Windows.Forms.ToolStripMenuItem()
-        Me.frm_PurchaseTaxRegister = New System.Windows.Forms.ToolStripMenuItem()
-        Me.frm_SaleTaxRegister = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.toolbar.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()

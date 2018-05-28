@@ -14,9 +14,7 @@ Public Class frm_PurchaseTaxRegister
         InitializeComponent()
     End Sub
 
-    Private Sub frm_GSTR_1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-    End Sub
 
     Private Sub BindData()
 
