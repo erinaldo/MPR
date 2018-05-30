@@ -42,9 +42,17 @@ Public Class frm_GSTR_1
             Exit Sub
         End If
 
-        Dim xlApp As Excel.Application
-        Dim xlWorkBook As Excel.Workbook
-        xlApp = New Excel.ApplicationClass
+        'Dim xlApp As Excel.Application
+        'Dim xlWorkBook As Excel.Workbook
+
+        Dim xlApp As Object 'Excel.Application
+        Dim xlWorkBook As Object 'Excel.Workbook
+
+        xlApp = CreateObject("Excel.Application")
+
+        ' xlApp = New Excel.ApplicationClass
+
+
         xlWorkBook = xlApp.Workbooks.Open(path)
 
         Try
@@ -67,13 +75,16 @@ Public Class frm_GSTR_1
         End Try
     End Sub
 
-    Private Sub WriteB2BData(xlWorkBook As Excel.Workbook)
+    Private Sub WriteB2BData(xlWorkBook As Object)
         If b2bTable.Rows.Count = 0 Then
             Exit Sub
         End If
 
         Dim rowIndex As Int32 = 5
-        Dim xlWorkSheet As Excel.Worksheet = xlWorkBook.Worksheets("b2b")
+        ' Dim xlWorkSheet As Excel.Worksheet = xlWorkBook.Worksheets("b2b")
+
+        Dim xlWorkSheet As Object = xlWorkBook.Worksheets("b2b")
+
         For Each row As DataRow In b2bTable.Rows
             Dim state As String = row("STATE_CODE") + "-" + row("STATE_NAME")
             Dim invoiceNo As String = row("SI_CODE") + row("SI_NO").ToString()
@@ -112,13 +123,16 @@ Public Class frm_GSTR_1
         End Set
     End Property
 
-    Private Sub WriteB2CLData(xlWorkBook As Excel.Workbook)
+    Private Sub WriteB2CLData(xlWorkBook As Object)
         If b2clTable.Rows.Count = 0 Then
             Exit Sub
         End If
 
         Dim rowIndex As Int32 = 5
-        Dim xlWorkSheet As Excel.Worksheet = xlWorkBook.Worksheets("b2cl")
+
+        ' Dim xlWorkSheet As Excel.Worksheet = xlWorkBook.Worksheets("b2cl")
+        Dim xlWorkSheet As Object = xlWorkBook.Worksheets("b2cl")
+
         For Each row As DataRow In b2clTable.Rows
             Dim invoiceNo As String = row("SI_CODE") + row("SI_NO").ToString()
             Dim state As String = row("STATE_CODE") + "-" + row("STATE_NAME")
@@ -141,9 +155,11 @@ Public Class frm_GSTR_1
         xlWorkSheet.Cells(3, 3) = sumOfInvoices
     End Sub
 
-    Private Sub WriteB2CSData(xlWorkBook As Excel.Workbook)
+    Private Sub WriteB2CSData(xlWorkBook As Object)
         Dim rowIndex As Int32 = 5
-        Dim xlWorkSheet As Excel.Worksheet = xlWorkBook.Worksheets("b2cs")
+        'Dim xlWorkSheet As Excel.Worksheet = xlWorkBook.Worksheets("b2cs")
+        Dim xlWorkSheet As Object = xlWorkBook.Worksheets("b2cs")
+
         For Each row As DataRow In b2csTable.Rows
             Dim state As String = row("STATE_CODE") + "-" + row("STATE_NAME")
             xlWorkSheet.Cells(rowIndex, 1) = "OE"
@@ -156,13 +172,16 @@ Public Class frm_GSTR_1
         Next
     End Sub
 
-    Private Sub WriteHsnData(xlWorkBook As Excel.Workbook)
+    Private Sub WriteHsnData(xlWorkBook As Object)
         If hsnTable.Rows.Count = 0 Then
             Exit Sub
         End If
 
         Dim rowIndex As Int32 = 5
-        Dim xlWorkSheet As Excel.Worksheet = xlWorkBook.Worksheets("hsn")
+        '  Dim xlWorkSheet As Excel.Worksheet = xlWorkBook.Worksheets("hsn")
+
+        Dim xlWorkSheet As Object = xlWorkBook.Worksheets("hsn")
+
         For Each row As DataRow In hsnTable.Rows
             xlWorkSheet.Cells(rowIndex, 1) = row("HsnCode_vch")
             'xlWorkSheet.Cells(rowIndex, 2) = row("ITEM_NAME")
@@ -183,13 +202,16 @@ Public Class frm_GSTR_1
         xlWorkSheet.Cells(3, 1) = noOfHSNC
     End Sub
 
-    Private Sub WriteCDNRData(xlWorkBook As Excel.Workbook)
+    Private Sub WriteCDNRData(xlWorkBook As Object)
         If cdnrTable.Rows.Count = 0 Then
             Exit Sub
         End If
 
         Dim rowIndex As Int32 = 5
-        Dim xlWorkSheet As Excel.Worksheet = xlWorkBook.Worksheets("cdnr")
+        'Dim xlWorkSheet As Excel.Worksheet = xlWorkBook.Worksheets("cdnr")
+
+        Dim xlWorkSheet As Object = xlWorkBook.Worksheets("cdnr")
+
         For Each row As DataRow In cdnrTable.Rows
             colIndex = 0
             xlWorkSheet.Cells(rowIndex, colIndex) = row("VAT_NO")
@@ -221,13 +243,16 @@ Public Class frm_GSTR_1
         xlWorkSheet.Cells(3, 10) = sumOfVouchers
     End Sub
 
-    Private Sub WriteCDNURData(xlWorkBook As Excel.Workbook)
+    Private Sub WriteCDNURData(xlWorkBook As Object)
         If cdnurTable.Rows.Count = 0 Then
             Exit Sub
         End If
 
         Dim rowIndex As Int32 = 5
-        Dim xlWorkSheet As Excel.Worksheet = xlWorkBook.Worksheets("cdnur")
+        ' Dim xlWorkSheet As Excel.Worksheet = xlWorkBook.Worksheets("cdnur")
+
+        Dim xlWorkSheet As Object = xlWorkBook.Worksheets("cdnur")
+
         For Each row As DataRow In cdnurTable.Rows
             colIndex = 0
             xlWorkSheet.Cells(rowIndex, colIndex) = "B2CL"
@@ -259,13 +284,14 @@ Public Class frm_GSTR_1
         xlWorkSheet.Cells(3, 9) = sumOfVouchers
     End Sub
 
-    Private Sub WriteEXEMPData(xlWorkBook As Excel.Workbook)
+    Private Sub WriteEXEMPData(xlWorkBook As Object)
         If exempTable.Rows.Count = 0 Then
             Exit Sub
         End If
 
         'Dim rowIndex As Int32 = 5
-        Dim xlWorkSheet As Excel.Worksheet = xlWorkBook.Worksheets("exemp")
+        'Dim xlWorkSheet As Excel.Worksheet = xlWorkBook.Worksheets("exemp")
+        Dim xlWorkSheet As Object = xlWorkBook.Worksheets("exemp")
         'For Each row As DataRow In exempTable.Rows
         '    colIndex = 1
         '    xlWorkSheet.Cells(rowIndex, colIndex) = "B2CL"
@@ -319,7 +345,7 @@ Public Class frm_GSTR_1
         xlWorkSheet.Cells(8, 2) = intraStateURVouchers
     End Sub
 
-    Private Sub WriteDocsData(xlWorkBook As Excel.Workbook)
+    Private Sub WriteDocsData(xlWorkBook As Object)
         If docsTable.Rows.Count = 0 Then
             Exit Sub
         End If
@@ -328,8 +354,8 @@ Public Class frm_GSTR_1
         Dim dataViewOutwardSupply As DataView = docsTable.DefaultView
         dataViewOutwardSupply.RowFilter = "Description = 'Invoice for outward supply'"
 
-        Dim xlWorkSheet As Excel.Worksheet = xlWorkBook.Worksheets("docs")
-
+        ' Dim xlWorkSheet As Excel.Worksheet = xlWorkBook.Worksheets("docs")
+        Dim xlWorkSheet As Object = xlWorkBook.Worksheets("docs")
         Dim rowIndex As Int32 = 5
         For Each row As DataRow In dataViewOutwardSupply.ToTable.Rows
             colIndex = 1

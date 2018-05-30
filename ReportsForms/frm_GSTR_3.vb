@@ -1,5 +1,5 @@
 ﻿Imports Microsoft.Office.Interop
-Imports Microsoft.Office.Interop.Excel
+'Imports Microsoft.Office.Interop.Excel
 Imports System.Windows.Forms
 
 Public Class frm_GSTR_3
@@ -33,9 +33,15 @@ Public Class frm_GSTR_3
             Exit Sub
         End If
 
-        Dim xlApp As Excel.Application
-        Dim xlWorkBook As Excel.Workbook
-        xlApp = New Excel.ApplicationClass
+        'Dim xlApp As Excel.Application
+        'Dim xlWorkBook As Excel.Workbook
+        'xlApp = New Excel.ApplicationClass
+
+        Dim xlApp As Object 'Excel.Application
+        Dim xlWorkBook As Object 'Excel.Workbook
+
+        xlApp = CreateObject("Excel.Application")
+
         xlWorkBook = xlApp.Workbooks.Open(path)
 
         Try
@@ -50,8 +56,9 @@ Public Class frm_GSTR_3
         End Try
     End Sub
 
-    Private Sub WriteData(xlWorkBook As Excel.Workbook)
-        Dim xlWorkSheet As Excel.Worksheet = xlWorkBook.Worksheets("GSTR3")
+    Private Sub WriteData(xlWorkBook As Object)
+        ' Dim xlWorkSheet As Excel.Worksheet = xlWorkBook.Worksheets("GSTR3")
+        Dim xlWorkSheet As Object = xlWorkBook.Worksheets("GSTR3")
 
         xlWorkSheet = AddBasicData(xlWorkSheet)
         xlWorkSheet = Add3_1SectionData(xlWorkSheet)
@@ -60,7 +67,7 @@ Public Class frm_GSTR_3
         xlWorkSheet = Add5SectionData(xlWorkSheet)
     End Sub
 
-    Private Function AddBasicData(xlWorkSheet As Excel.Worksheet) As Excel.Worksheet
+    Private Function AddBasicData(xlWorkSheet As Object) As Object
         row = GetBasicData()
         xlWorkSheet.Cells(4, 15) = txtFromDate.Value.ToString("yyyy")
         xlWorkSheet.Cells(5, 15) = txtFromDate.Value.ToString("MMMM")
@@ -73,7 +80,7 @@ Public Class frm_GSTR_3
         Return xlWorkSheet
     End Function
 
-    Private Function Add3_1SectionData(xlWorkSheet As Excel.Worksheet) As Excel.Worksheet
+    Private Function Add3_1SectionData(xlWorkSheet As Object) As Object
         row = Get3_1_SectionData("  AND (invd.VAT_PER)>0")
         xlWorkSheet.Cells(11, 2) = row("Taxable_Value")
         xlWorkSheet.Cells(11, 5) = row("integrated_tax")
@@ -105,14 +112,14 @@ Public Class frm_GSTR_3
     End Function
 
     Dim noOfRowsInserted As Int32 = 0
-    Private Function Add3_2SectionData(xlWorkSheet As Excel.Worksheet) As Excel.Worksheet
+    Private Function Add3_2SectionData(xlWorkSheet As Object) As Object
         Dim table As System.Data.DataTable = Get3_2_SectionData()
         Dim rowIndex As Int16 = 21
         If table.Rows.Count > 0 Then
             noOfRowsInserted = table.Rows.Count
             For Each row As DataRow In table.Rows
                 'CType(xlWorkSheet.Rows(20), Range).Select()
-                CType(xlWorkSheet.Rows(rowIndex), Range).Insert(XlInsertShiftDirection.xlShiftDown, True)
+                ' CType(xlWorkSheet.Rows(rowIndex), Range).Insert(XlInsertShiftDirection.xlShiftDown, True)
                 xlWorkSheet.Range("B" & rowIndex.ToString & ":F" & rowIndex.ToString).MergeCells = True
                 xlWorkSheet.Range("G" & rowIndex.ToString & ":K" & rowIndex.ToString).MergeCells = True
                 xlWorkSheet.Range("L" & rowIndex.ToString & ":P" & rowIndex.ToString).MergeCells = True
@@ -128,7 +135,7 @@ Public Class frm_GSTR_3
     End Function
 
     Dim rowIndex As Int16 = 34
-    Private Function Add4SectionData(xlWorkSheet As Excel.Worksheet) As Excel.Worksheet
+    Private Function Add4SectionData(xlWorkSheet As Object) As Object
         rowIndex = 34 + noOfRowsInserted
         row = Get4_SectionDataForPurchase()
         Dim drrow As DataRow = Get4_SectionDataForPurchaseReturn()
@@ -148,7 +155,7 @@ Public Class frm_GSTR_3
         Return xlWorkSheet
     End Function
 
-    Private Function Add5SectionData(xlWorkSheet As Worksheet) As Worksheet
+    Private Function Add5SectionData(xlWorkSheet As Object) As Object
         rowIndex = 45 + noOfRowsInserted
         row = Get5SectionData()
         xlWorkSheet.Cells(rowIndex, 5) = row("InterState_TaxableValue")
