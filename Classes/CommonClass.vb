@@ -1648,9 +1648,16 @@ again:
         End If
 
 
-        Dim APP As New Excel.Application
-        Dim worksheet As Excel.Worksheet
-        Dim workbook As Excel.Workbook
+        'Dim APP As New Excel.Application
+        'Dim worksheet As Excel.Worksheet
+        'Dim workbook As Excel.Workbook
+
+        Dim APP As Object 'Excel.Application
+        Dim worksheet As Object 'Excel.Workbook
+        Dim workbook As Object 'Excel.Workbook
+
+        APP = CreateObject("Excel.Application")
+
         Dim excelLocation As String = sfd.FileName
 
         workbook = APP.Workbooks.Add(System.Reflection.Missing.Value)
