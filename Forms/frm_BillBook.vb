@@ -119,7 +119,7 @@ Public Class frm_BillBook
 
             Dim qry As String = "SELECT  CURRENT_USED+1 FROM BillBook_Series WHERE (CURRENT_USED+1)<=END_NO and PREFIX = '" + cmbBillBook.Text + "'"
             Dim id As Int32 = clsObj.ExecuteScalar(qry)
-            prpty.SI_CODE = cmbBillBook.SelectedText
+            prpty.SI_CODE = cmbBillBook.Text
             prpty.SI_NO = id.ToString
 
             'Dim ds As New DataSet()

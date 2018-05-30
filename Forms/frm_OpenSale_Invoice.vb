@@ -17,11 +17,11 @@ Public Class frm_openSale_Invoice
     Dim gstnoRegex As New Regex("^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$")
     Dim mobileRegex As New Regex("^\d{10}$")
     Dim _rights As Form_Rights
+
     Public Sub New(ByVal rights As Form_Rights)
         _rights = rights
         InitializeComponent()
     End Sub
-
 
     Private Sub fill_grid(Optional ByVal condition As String = "")
         Try
@@ -69,12 +69,15 @@ Public Class frm_openSale_Invoice
             MsgBox(ex.Message, MsgBoxStyle.Critical, gblMessageHeading_Error)
         End Try
     End Sub
+
     Public Sub CustomerBind()
         clsObj.ComboBind(cmbSupplier, "Select ACC_ID,ACC_NAME from ACCOUNT_MASTER WHERE AG_ID=" & AccountGroups.Sundry_Debtors & " Order by ACC_NAME", "ACC_NAME", "ACC_ID", True)
     End Sub
+
     Public Sub CityBind()
         clsObj.ComboBind(cmbCity, "Select CITY_ID,CITY_NAME from CITY_MASTER Order by CITY_NAME", "CITY_NAME", "CITY_ID", True)
     End Sub
+
     Public Sub CloseClick(ByVal sender As Object, ByVal e As System.EventArgs) Implements IForm.CloseClick
 
     End Sub
@@ -286,6 +289,7 @@ Public Class frm_openSale_Invoice
         '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         flag = "save"
     End Sub
+
     Private Function Validation() As Boolean
 
         If cmbSupplier.SelectedIndex = 0 And NEWCUST = 0 Then
@@ -344,7 +348,6 @@ again:
         Return True
     End Function
 
-
     Private Sub table_style()
         Try
             If Not dtable_Item_List Is Nothing Then dtable_Item_List.Dispose()
@@ -380,7 +383,6 @@ again:
             MsgBox(gblMessageHeading_Error & vbCrLf & gblMessage_ContactInfo & vbCrLf & ex.Message, MsgBoxStyle.Critical, gblMessageHeading)
         End Try
     End Sub
-
 
     Private Sub format_grid()
 
@@ -466,10 +468,10 @@ again:
 
     End Sub
 
-
     Private Sub flxItems_AfterDataRefresh(ByVal sender As System.Object, ByVal e As System.ComponentModel.ListChangedEventArgs) Handles flxItems.AfterDataRefresh
         'generate_tree()
     End Sub
+
     Private Sub generate_tree()
         flxItems.DataSource = Nothing
         flxItems.DataSource = dtable_Item_List
@@ -822,7 +824,6 @@ restart:
         End If
     End Sub
 
-
     Private Function CalculateAmount() As String
         Try
 
@@ -1032,6 +1033,7 @@ restart:
 
 
     End Sub
+
     Private Sub txtBarcodeSearch_KeyDown(sender As Object, e As KeyEventArgs) Handles txtBarcodeSearch.KeyDown
         If e.KeyCode = Keys.Enter Then
             If Not String.IsNullOrEmpty(txtBarcodeSearch.Text) Then

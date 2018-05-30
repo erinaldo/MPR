@@ -9,8 +9,8 @@ Public Class frm_ReportInput
     Dim objCommFunction As New CommonClass
     Dim _call_type As Integer
     Dim _report_name As String
-
     Dim _form_rights As Form_Rights
+
     Public Sub New(ByVal call_type As Integer, ByVal rights As Form_Rights)
         InitializeComponent()
         _call_type = call_type
@@ -595,20 +595,12 @@ Public Class frm_ReportInput
                 filepath = ReportFilePath & "cryListofMRNDetail(against_po).rpt"
             ElseIf _call_type = enmReportName.RptItemWiseMRNWithPO Then
                 filepath = ReportFilePath & "cryItemWiseMRN(against_po).rpt"
-
-
             ElseIf _call_type = enmReportName.RptSalesummary Then
                 filepath = ReportFilePath & "cry_Sale_Invoice_Summary.rpt"
-
-
             ElseIf _call_type = enmReportName.RptSalesummaryList Then
                 filepath = ReportFilePath & "crySaleInvoiceList.rpt"
-
             ElseIf _call_type = enmReportName.RptBrandWiseSale Then
                 filepath = ReportFilePath & "cry_Brand_Wise_Sale.rpt"
-
-
-
             ElseIf _call_type = enmReportName.RptListofMRNWithOutPO_ItemWiseSuppliers Then
                 filepath = ReportFilePath & "cryListofMRN(without_po_ItemWise).rpt"
                 '''''''''''''''''''''
@@ -660,10 +652,6 @@ Public Class frm_ReportInput
             'rep.SetDatabaseLogon("sa", "DataBase", "inderjeet\sql2005", "afbl_mms")
 
 
-
-
-
-
             If _call_type = enmReportName.RptMrsItemList Or _call_type = enmReportName.RptMrsdetailList Then
                 If rBtnMRS.Checked = True Then
                     rep.RecordSelectionFormula = "{mrs.MRS_DATE}>=#" & dtp_FromDate.Value.Date & "# and {mrs.MRS_DATE}<=#" & dtp_ToDate.Value.Date & "# and {mrs.MRS_Status}=" & cmbstatus.SelectedValue & " and {mrs.CostCenter_Id}=" & v_the_current_Selected_CostCenter_id
@@ -678,9 +666,6 @@ Public Class frm_ReportInput
                 Else
                     rep.RecordSelectionFormula = "{mrs.REQ_DATE}>=#" & dtp_FromDate.Value.Date & "# and {mrs.REQ_DATE}<=#" & dtp_ToDate.Value.Date & "# and {mrs.CostCenter_Id}=" & v_the_current_Selected_CostCenter_id
                 End If
-
-
-
 
 
             ElseIf _call_type = enmReportName.RptWastageDetail_ItemWise_cc Then
@@ -1211,7 +1196,6 @@ Public Class frm_ReportInput
 
     End Sub
 
-
     Private Sub AssignTableConnection(ByVal table As CrystalDecisions.CrystalReports.Engine.Table, ByVal connection As ConnectionInfo)
         ' Cache the logon info block
         Dim logOnInfo As TableLogOnInfo = table.LogOnInfo
@@ -1230,8 +1214,6 @@ Public Class frm_ReportInput
         table.LogOnInfo.ConnectionInfo.Type = connection.Type
         table.ApplyLogOnInfo(logOnInfo)
     End Sub
-
-
 
     Private Sub cmbCategoryHead_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmbCategoryHead.SelectedIndexChanged
         Dim Cat_head_id As String

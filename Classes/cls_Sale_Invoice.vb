@@ -361,8 +361,6 @@ Namespace Sale_Invoice
                 Try
 
 
-
-
                     'For j As Integer = 0 To dt.Rows.Count
 again:
                     For i As Integer = 0 To clsobj.dtable_Item_List.Rows.Count - 1

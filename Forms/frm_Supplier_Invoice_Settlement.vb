@@ -49,7 +49,7 @@ Public Class frm_Supplier_Invoice_Settlement
             " AM.ACC_NAME AS Account ,ChequeDraftNo AS ChequeNo,CONVERT(VARCHAR(20), ChequeDraftDate, 106) AS ChequeDate ,BK.ACC_NAME AS Bank, " &
             " TotalAmountReceived AS Amount,CASE WHEN StatusId =1 THEN 'InProcess'  WHEN StatusId =2 THEN 'Approved' WHEN StatusId =3 THEN 'Cancelled'  WHEN StatusId =4 THEN 'Bounced' END AS Status,ptm.PaymentTypeName AS PaymentType,  PT.StatusId" &
             " FROM    dbo.PaymentTransaction PT JOIN dbo.ACCOUNT_MASTER AM ON pt.AccountId = AM.ACC_ID JOIN dbo.PaymentTypeMaster PTM ON PTM.PaymentTypeId = PT.PaymentTypeId " &
-            " JOIN dbo.ACCOUNT_MASTER BK ON BK.ACC_ID= PT.BankId and PM_Type=" & PaymentType.Payment & ")tb Where tb.StatusId <> 3 and  PaymentCode + PaymentDate + Account + ChequeNo " &
+            " JOIN dbo.ACCOUNT_MASTER BK ON BK.ACC_ID= PT.BankId and PM_Type=" & PaymentType.Payment & ")tb Where PaymentCode + PaymentDate + Account + ChequeNo " &
             "+ ChequeDate + Bank +CAST(Amount AS VARCHAR(50))+ PaymentType+Status LIKE '%" & condition & "%' order by 1"
 
             Dim dt As DataTable = clsObj.Fill_DataSet(strsql).Tables(0)
@@ -619,6 +619,13 @@ Public Class frm_Supplier_Invoice_Settlement
         dt = clsObj.fill_Data_set("Proc_GETPaymentDetailByID_Edit", "@PaymentId", PaymentId).Tables(0)
         If dt.Rows.Count > 0 Then
             Dim dr As DataRow = dt.Rows(0)
+            Dim Status As String
+            Status = dr("StatusId")
+            If Status = "3" Then
+                MessageBox.Show("Cancelled voucher can't be edited.")
+                Return
+            End If
+
             TabControl1.SelectedIndex = 1
             cmbCustomer.SelectedValue = dr("AccountId")
             cmbPaymentType.SelectedValue = dr("PaymentTypeId")
@@ -651,7 +658,5 @@ Public Class frm_Supplier_Invoice_Settlement
         End If
 
     End Sub
-
-
 
 End Class
