@@ -616,7 +616,6 @@ Public Class MDIMain
         End Try
     End Sub
 
-
     Private Sub TabControl2_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TabControl2.SelectedIndexChanged
         Try
             TabControl2_Click(sender, e)
@@ -624,7 +623,6 @@ Public Class MDIMain
             MsgBox(gblMessageHeading_Error & vbCrLf & gblMessage_ContactInfo & vbCrLf & ex.Message, MsgBoxStyle.Critical, gblMessageHeading)
         End Try
     End Sub
-
 
     Private Sub LogOffToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles LogOffToolStripMenuItem.Click
         If MsgBox("Are you sure to logoff from MMS", MsgBoxStyle.YesNo + MsgBoxStyle.Question, gblMessageHeading) = MsgBoxResult.Yes Then
@@ -694,7 +692,6 @@ Public Class MDIMain
         End If
     End Sub
 
-
     Private Sub TransferDataBetweenDatesToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TransferDataBetweenDatesToolStripMenuItem.Click
         Dim menuItem As New ToolStripMenuItem
         If TypeOf sender Is ToolStripMenuItem Then
@@ -709,11 +706,12 @@ Public Class MDIMain
         End If
     End Sub
 
-
     Private Sub Home_Click(sender As Object, e As EventArgs) Handles Home.Click
         CloseAllTab()
         picLogo.Visible = True
         TabControl2.SendToBack()
         toolbar.Visible = False
     End Sub
+
+
 End Class

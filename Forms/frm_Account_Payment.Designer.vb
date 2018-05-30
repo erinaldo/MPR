@@ -20,10 +20,11 @@ Partial Class frm_Account_Payment
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frm_Account_Payment))
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.List = New System.Windows.Forms.TabPage()
+        Me.BtnCancelInv = New System.Windows.Forms.Button()
         Me.GBMRSDetail = New System.Windows.Forms.GroupBox()
         Me.flxList = New System.Windows.Forms.DataGridView()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
@@ -53,7 +54,6 @@ Partial Class frm_Account_Payment
         Me.lblCap1 = New System.Windows.Forms.Label()
         Me.lblFormHeading = New System.Windows.Forms.Label()
         Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
-        Me.BtnCancelInv = New System.Windows.Forms.Button()
         Me.TabControl1.SuspendLayout()
         Me.List.SuspendLayout()
         Me.GBMRSDetail.SuspendLayout()
@@ -90,6 +90,16 @@ Partial Class frm_Account_Payment
         Me.List.Size = New System.Drawing.Size(902, 600)
         Me.List.TabIndex = 0
         '
+        'BtnCancelInv
+        '
+        Me.BtnCancelInv.BackColor = System.Drawing.Color.RosyBrown
+        Me.BtnCancelInv.Location = New System.Drawing.Point(752, 544)
+        Me.BtnCancelInv.Name = "BtnCancelInv"
+        Me.BtnCancelInv.Size = New System.Drawing.Size(141, 30)
+        Me.BtnCancelInv.TabIndex = 10
+        Me.BtnCancelInv.Text = "Cancel "
+        Me.BtnCancelInv.UseVisualStyleBackColor = False
+        '
         'GBMRSDetail
         '
         Me.GBMRSDetail.Controls.Add(Me.flxList)
@@ -107,12 +117,12 @@ Partial Class frm_Account_Payment
         Me.flxList.Location = New System.Drawing.Point(3, 16)
         Me.flxList.Name = "flxList"
         Me.flxList.RowHeadersVisible = False
-        DataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black
-        Me.flxList.RowsDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black
+        Me.flxList.RowsDefaultCellStyle = DataGridViewCellStyle1
         Me.flxList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.flxList.Size = New System.Drawing.Size(871, 418)
         Me.flxList.TabIndex = 3
@@ -426,16 +436,6 @@ Partial Class frm_Account_Payment
         Me.ImageList1.TransparentColor = System.Drawing.Color.Transparent
         Me.ImageList1.Images.SetKeyName(0, "Zoom_search_find_magnifying_glass.png")
         Me.ImageList1.Images.SetKeyName(1, "Inventory_box_shipment_product.png")
-        '
-        'BtnCancelInv
-        '
-        Me.BtnCancelInv.BackColor = System.Drawing.Color.LightSalmon
-        Me.BtnCancelInv.Location = New System.Drawing.Point(752, 544)
-        Me.BtnCancelInv.Name = "BtnCancelInv"
-        Me.BtnCancelInv.Size = New System.Drawing.Size(141, 30)
-        Me.BtnCancelInv.TabIndex = 10
-        Me.BtnCancelInv.Text = "Cancel "
-        Me.BtnCancelInv.UseVisualStyleBackColor = False
         '
         'frm_Account_Payment
         '

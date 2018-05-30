@@ -30,6 +30,8 @@ Namespace material_recieved_without_po_master
         Dim _Item_Vat As Double
         Dim _DType As String
         Dim _DISC As Double
+        Dim _DISC1 As Double
+        Dim _GPaid As String
         Dim _Item_Exice As Double
         Dim _Batch_no As String
         Dim _Expiry_Date As Date
@@ -40,6 +42,7 @@ Namespace material_recieved_without_po_master
         Dim _MRNCompanies_ID As String
         Dim _other_charges As Double
         Dim _Discount_amt As Double
+        Dim _CashDiscount_amt As Double
         Dim _VAT_ON_EXICE As Int32
         Dim _Isprinted As Int32
         Dim _MRNType As Int32
@@ -251,6 +254,16 @@ Namespace material_recieved_without_po_master
                 _Discount_amt = value
             End Set
         End Property
+
+        Public Property CashDiscount_amt() As Double
+            Get
+                CashDiscount_amt = _CashDiscount_amt
+            End Get
+            Set(ByVal value As Double)
+                _CashDiscount_amt = value
+            End Set
+        End Property
+
         Public Property freight_type() As String
             Get
                 freight_type = _freight_type
@@ -300,6 +313,24 @@ Namespace material_recieved_without_po_master
             End Get
             Set(ByVal value As Double)
                 _DISC = value
+            End Set
+        End Property
+
+        Public Property DISC1() As Double
+            Get
+                DISC1 = _DISC1
+            End Get
+            Set(ByVal value As Double)
+                _DISC1 = value
+            End Set
+        End Property
+
+        Public Property GPaid() As String
+            Get
+                GPaid = _GPaid
+            End Get
+            Set(ByVal value As String)
+                _GPaid = value
             End Set
         End Property
 
@@ -474,6 +505,7 @@ Namespace material_recieved_without_po_master
             cmd.Parameters.AddWithValue("@v_MRNCompanies_ID", clsObj.MRNCompanies_ID)
             cmd.Parameters.AddWithValue("@v_other_charges", clsObj.Other_Charges)
             cmd.Parameters.AddWithValue("@v_Discount_amt", clsObj.Discount_amt)
+            cmd.Parameters.AddWithValue("@v_CashDiscount_amt", clsObj.CashDiscount_amt)
             cmd.Parameters.AddWithValue("@V_VAT_ON_EXICE", clsObj.VAT_ON_EXICE)
             cmd.Parameters.AddWithValue("@V_PROC_TYPE", 1)
             cmd.Parameters.AddWithValue("@v_GROSS_AMOUNT", clsObj.GROSS_AMOUNT)
@@ -518,6 +550,8 @@ Namespace material_recieved_without_po_master
             cmd.Parameters.AddWithValue("@V_PROC_TYPE", 1)
             cmd.Parameters.AddWithValue("@v_DType", clsObj.DType)
             cmd.Parameters.AddWithValue("@v_DiscountValue", clsObj.DISC)
+            cmd.Parameters.AddWithValue("@v_DiscountValue1", clsObj.DISC1)
+            cmd.Parameters.AddWithValue("@v_GSTPaid", clsObj.GPaid)
             cmd.ExecuteNonQuery()
             cmd.Dispose()
 
@@ -553,6 +587,8 @@ Namespace material_recieved_without_po_master
             cmd.Parameters.AddWithValue("@V_PROC_TYPE", 2)
             cmd.Parameters.AddWithValue("@v_DType", clsObj.DType)
             cmd.Parameters.AddWithValue("@v_DiscountValue", clsObj.DISC)
+            cmd.Parameters.AddWithValue("@v_DiscountValue1", clsObj.DISC1)
+            cmd.Parameters.AddWithValue("@v_GSTPaid", clsObj.GPaid)
             cmd.ExecuteNonQuery()
             cmd.Dispose()
 
@@ -593,6 +629,7 @@ Namespace material_recieved_without_po_master
             cmd.Parameters.AddWithValue("@v_MRNCompanies_ID", clsObj.MRNCompanies_ID)
             cmd.Parameters.AddWithValue("@v_other_charges", clsObj.Other_Charges)
             cmd.Parameters.AddWithValue("@v_Discount_amt", clsObj.Discount_amt)
+            cmd.Parameters.AddWithValue("@v_CashDiscount_amt", clsObj.CashDiscount_amt)
             cmd.Parameters.AddWithValue("@V_VAT_ON_EXICE", clsObj.VAT_ON_EXICE)
             cmd.Parameters.AddWithValue("@V_PROC_TYPE", 2)
             cmd.Parameters.AddWithValue("@v_GROSS_AMOUNT", clsObj.GROSS_AMOUNT)
@@ -691,6 +728,8 @@ Namespace material_recieved_without_po_master
             cmd.Parameters.AddWithValue("@v_Item_Rate", clsObj.Item_Rate)
             cmd.Parameters.AddWithValue("@v_DType", clsObj.DType)
             cmd.Parameters.AddWithValue("@v_DiscountValue", clsObj.DISC)
+            cmd.Parameters.AddWithValue("@v_DiscountValue1", clsObj.DISC1)
+            cmd.Parameters.AddWithValue("@v_GSTPaid", clsObj.GPaid)
             cmd.ExecuteNonQuery()
             cmd.Dispose()
         End Sub
@@ -698,4 +737,3 @@ Namespace material_recieved_without_po_master
     End Class
 
 End Namespace
-

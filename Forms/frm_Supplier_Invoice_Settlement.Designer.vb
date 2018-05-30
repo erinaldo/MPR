@@ -25,6 +25,7 @@ Partial Class frm_Supplier_Invoice_Settlement
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frm_Supplier_Invoice_Settlement))
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.List = New System.Windows.Forms.TabPage()
+        Me.BtnCancelInv = New System.Windows.Forms.Button()
         Me.GBMRSDetail = New System.Windows.Forms.GroupBox()
         Me.flxList = New System.Windows.Forms.DataGridView()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
@@ -111,7 +112,6 @@ Partial Class frm_Supplier_Invoice_Settlement
         Me.Label44 = New System.Windows.Forms.Label()
         Me.lblFormHeading = New System.Windows.Forms.Label()
         Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
-        Me.BtnCancelInv = New System.Windows.Forms.Button()
         Me.TabControl1.SuspendLayout()
         Me.List.SuspendLayout()
         Me.GBMRSDetail.SuspendLayout()
@@ -154,6 +154,16 @@ Partial Class frm_Supplier_Invoice_Settlement
         Me.List.Padding = New System.Windows.Forms.Padding(3)
         Me.List.Size = New System.Drawing.Size(902, 600)
         Me.List.TabIndex = 0
+        '
+        'BtnCancelInv
+        '
+        Me.BtnCancelInv.BackColor = System.Drawing.Color.RosyBrown
+        Me.BtnCancelInv.Location = New System.Drawing.Point(755, 564)
+        Me.BtnCancelInv.Name = "BtnCancelInv"
+        Me.BtnCancelInv.Size = New System.Drawing.Size(141, 30)
+        Me.BtnCancelInv.TabIndex = 12
+        Me.BtnCancelInv.Text = "Cancel "
+        Me.BtnCancelInv.UseVisualStyleBackColor = False
         '
         'GBMRSDetail
         '
@@ -1107,16 +1117,6 @@ Partial Class frm_Supplier_Invoice_Settlement
         Me.ImageList1.TransparentColor = System.Drawing.Color.Transparent
         Me.ImageList1.Images.SetKeyName(0, "Zoom_search_find_magnifying_glass.png")
         Me.ImageList1.Images.SetKeyName(1, "Inventory_box_shipment_product.png")
-        '
-        'BtnCancelInv
-        '
-        Me.BtnCancelInv.BackColor = System.Drawing.Color.LightSalmon
-        Me.BtnCancelInv.Location = New System.Drawing.Point(755, 564)
-        Me.BtnCancelInv.Name = "BtnCancelInv"
-        Me.BtnCancelInv.Size = New System.Drawing.Size(141, 30)
-        Me.BtnCancelInv.TabIndex = 12
-        Me.BtnCancelInv.Text = "Cancel "
-        Me.BtnCancelInv.UseVisualStyleBackColor = False
         '
         'frm_Supplier_Invoice_Settlement
         '

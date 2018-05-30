@@ -3,8 +3,6 @@ Imports System.Data
 
 Imports C1.Win.C1FlexGrid
 
-
-
 Public Class frm_Material_Received_Without_PO_Master
 
     Implements IForm
@@ -102,9 +100,10 @@ Public Class frm_Material_Received_Without_PO_Master
     Private Sub new_initilization()
         TbPO.SelectTab(1)
         FLXGRD_MaterialItem.DataSource = Nothing
-        cmb_MRNAgainst.SelectedValue = "1"
+        'cmb_MRNAgainst.SelectedItem = 1
         Grid_styles()
         txtdiscount.Text = "0.0"
+        txtCashDiscount.Text = "0.0"
         lblgrossamt.Text = "0.0"
         lblvatamt.Text = "0.0"
         lblcessamt.Text = "0.0"
@@ -311,6 +310,7 @@ Public Class frm_Material_Received_Without_PO_Master
                 prpty.Division_ID = v_the_current_division_id
                 prpty.Other_Charges = Convert.ToDouble(txtotherchrgs.Text)
                 prpty.Discount_amt = Convert.ToDouble(txtdiscount.Text)
+                prpty.CashDiscount_amt = Convert.ToDouble(txtCashDiscount.Text)
                 prpty.GROSS_AMOUNT = Convert.ToDouble(lblgrossamt.Text)
                 prpty.GST_AMOUNT = Convert.ToDouble(lblvatamt.Text)
                 prpty.ACESS_AMOUNT = Convert.ToDouble(lblAcess.Text)
@@ -348,11 +348,12 @@ Public Class frm_Material_Received_Without_PO_Master
                     If Convert.ToDouble(FLXGRD_MaterialItem.Item(iRow, "Batch_Qty")) > 0 Then
                         prpty.Po_ID = RECEIVEDID
                         prpty.Item_ID = FLXGRD_MaterialItem.Item(iRow, "Item_Id")
-
                         prpty.Item_Qty = Convert.ToDouble(FLXGRD_MaterialItem.Item(iRow, "Batch_Qty")).ToString()
                         prpty.Item_Rate = Convert.ToDouble(FLXGRD_MaterialItem.Item(iRow, "Item_Rate"))
                         prpty.DType = FLXGRD_MaterialItem.Item(iRow, "DType")
                         prpty.DISC = Convert.ToDouble(FLXGRD_MaterialItem.Item(iRow, "DISC"))
+                        prpty.DISC1 = Convert.ToDouble(FLXGRD_MaterialItem.Item(iRow, "DISC1"))
+                        prpty.GPaid = FLXGRD_MaterialItem.Item(iRow, "GPaid")
 
                         If Convert.ToString(FLXGRD_MaterialItem.Item(iRow, "VAT_Per")) = "" Then
                             prpty.Item_vat = 0
@@ -460,7 +461,8 @@ Public Class frm_Material_Received_Without_PO_Master
                         End If
                         prpty.DType = dt.Rows(i)("DType")
                         prpty.DISC = Convert.ToDouble(dt.Rows(i)("DISC"))
-
+                        prpty.DISC1 = Convert.ToDouble(dt.Rows(i)("DISC1"))
+                        prpty.GPaid = dt.Rows(i)("GPaid")
 
                         '' ''prpty.Item_exice = Convert.ToDouble(dt.Rows(i)("Batch_Qty").ToString())
                         '' ''prpty.Item_vat = Convert.ToDouble(dt.Rows(i)("Batch_Qty").ToString())
@@ -664,7 +666,7 @@ Public Class frm_Material_Received_Without_PO_Master
         FLXGRD_MaterialItem.Cols("BATCH_QTY").AllowEditing = True
 
         FLXGRD_MaterialItem.Cols("Item_Code").Width = 2
-        FLXGRD_MaterialItem.Cols("Item_Name").Width = 270
+        FLXGRD_MaterialItem.Cols("Item_Name").Width = 300
         FLXGRD_MaterialItem.Cols("UM_Name").Width = 40
         FLXGRD_MaterialItem.Cols("Item_Rate").Width = 70
         FLXGRD_MaterialItem.Cols("DType").Width = 45
@@ -673,7 +675,7 @@ Public Class frm_Material_Received_Without_PO_Master
         FLXGRD_MaterialItem.Cols("GPAID").Width = 60
         FLXGRD_MaterialItem.Cols("Vat_Per").Width = 50
         FLXGRD_MaterialItem.Cols("Cess_Per").Width = 60
-        FLXGRD_MaterialItem.Cols("ACess").Width = 50
+        FLXGRD_MaterialItem.Cols("ACess").Width = 55
         FLXGRD_MaterialItem.Cols("exe_Per").Width = 55
         'FLXGRD_MaterialItem.Cols("BATCH_NO").Width = 60
         FLXGRD_MaterialItem.Cols("EXPIRY_DATE").Width = 80
@@ -683,7 +685,7 @@ Public Class frm_Material_Received_Without_PO_Master
         FLXGRD_MaterialItem.Cols("Item_Code").Visible = False
         FLXGRD_MaterialItem.Cols("EXPIRY_DATE").Visible = False
         FLXGRD_MaterialItem.Cols("BATCH_NO").Visible = False
-        FLXGRD_MaterialItem.Cols("DType").Visible = False
+        'FLXGRD_MaterialItem.Cols("DType").Visible = False
         'FLXGRD_MaterialItem.Cols(11).Width = 120
 
         ''**************************************************************
@@ -712,7 +714,7 @@ Public Class frm_Material_Received_Without_PO_Master
         FLXGRD_MatItem_NonStockable.Cols("exe_Per").Caption = "EXICE%"
         FLXGRD_MatItem_NonStockable.Cols("exe_Per").Visible = False
         FLXGRD_MatItem_NonStockable.Cols("BATCH_NO").Visible = False
-        FLXGRD_MatItem_NonStockable.Cols("DType").Visible = False
+        'FLXGRD_MatItem_NonStockable.Cols("DType").Visible = False
 
         FLXGRD_MatItem_NonStockable.Cols("BATCH_NO").Caption = "Batch No."
         FLXGRD_MatItem_NonStockable.Cols("EXPIRY_DATE").Caption = "Expiry Date"
@@ -741,7 +743,7 @@ Public Class frm_Material_Received_Without_PO_Master
         FLXGRD_MatItem_NonStockable.Cols("BATCH_QTY").AllowEditing = True
 
         ' FLXGRD_MatItem_NonStockable.Cols("Item_Code").Width = 65
-        FLXGRD_MatItem_NonStockable.Cols("Item_Name").Width = 215
+        FLXGRD_MatItem_NonStockable.Cols("Item_Name").Width = 235
         FLXGRD_MatItem_NonStockable.Cols("UM_Name").Width = 40
         FLXGRD_MatItem_NonStockable.Cols("Item_Rate").Width = 60
         FLXGRD_MatItem_NonStockable.Cols("DType").Width = 45
@@ -749,7 +751,7 @@ Public Class frm_Material_Received_Without_PO_Master
 
         FLXGRD_MatItem_NonStockable.Cols("Vat_Per").Width = 50
         FLXGRD_MatItem_NonStockable.Cols("Cess_Per").Width = 50
-        FLXGRD_MatItem_NonStockable.Cols("ACess").Width = 50
+        FLXGRD_MatItem_NonStockable.Cols("ACess").Width = 55
         FLXGRD_MatItem_NonStockable.Cols("exe_Per").Width = 30
         FLXGRD_MatItem_NonStockable.Cols("BATCH_NO").Width = 65
         FLXGRD_MatItem_NonStockable.Cols("EXPIRY_DATE").Width = 70
@@ -1046,7 +1048,6 @@ restart:
     End Sub
 
     Private Sub dgvList_DoubleClick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles dgvList.DoubleClick
-
         'MsgBox("You can't Edit this MRN." & vbCrLf & "To view this MRN Click on ""Print""")
         'Dim receive_Id As Integer
         Dim dtMRN As New DataTable
@@ -1054,15 +1055,13 @@ restart:
         Dim dtMRNDetail_NonStockableItems As New DataTable
         Dim ds As New DataSet
 
+        'cmb_MRNAgainst.SelectedItem = 1
         'receive_Id = Convert.ToInt32(dgvList.SelectedRows.Item(0).Cells(0).Value)
         receive_Id = Convert.ToInt32(dgvList.CurrentRow.Cells(0).Value)
         flag = "update"
         ds = obj.fill_Data_set("Get_MRN_WithOutPO_Detail", "@V_Receive_ID", receive_Id)
-
         If ds.Tables.Count > 0 Then
-
             dtMRN = ds.Tables(0)
-
             cmbPurchaseType.SelectedValue = dtMRN.Rows(0)("Purchase_Type")
             cmb_MRNAgainst.SelectedValue = dtMRN.Rows(0)("MRNCompanies_ID")
             If dtMRN.Rows(0)("Purchase_Type") = 2 Then
@@ -1080,6 +1079,7 @@ restart:
             txt_Amount.Text = Convert.ToString(dtMRN.Rows(0)("freight"))
             txtotherchrgs.Text = Convert.ToString(dtMRN.Rows(0)("Other_charges"))
             txtdiscount.Text = Convert.ToString(dtMRN.Rows(0)("Discount_amt"))
+            txtCashDiscount.Text = Convert.ToString(dtMRN.Rows(0)("CashDiscount_amt"))
             dt_Invoice_Date.Value = dtMRN.Rows(0)("Invoice_Date")
             txt_Invoice_No.Text = dtMRN.Rows(0)("Invoice_No")
             ' Grid_styles()
@@ -1474,6 +1474,7 @@ restart:
                         discamt = discamt + Math.Round((total_amt * dt.Rows(i)("DISC1") / 100), 2)
                     Else
                         discamt = Math.Round(dt.Rows(i)("DISC"), 2)
+                        total_amt = total_amt - discamt
                         discamt = discamt + Math.Round(dt.Rows(i)("DISC1"), 2)
                     End If
 
@@ -1574,7 +1575,7 @@ restart:
         lblAcess.Text = tot_Acess_amt.ToString("0.00")
         lblexciseamt.Text = tot_exice_amt.ToString("0.00")
 
-        Net_amt = (gross_amt + tot_vat_amt + tot_cess_amt + tot_Acess_amt + tot_exice_amt + Convert.ToDouble(IIf(IsNumeric(txt_Amount.Text), txt_Amount.Text, 0)) + Convert.ToDouble(IIf(IsNumeric(txtotherchrgs.Text), txtotherchrgs.Text, 0))) ' - Convert.ToDouble(IIf(IsNumeric(txtdiscount.Text), txtdiscount.Text, 0))
+        Net_amt = (gross_amt + tot_vat_amt + tot_cess_amt + tot_Acess_amt + tot_exice_amt + Convert.ToDouble(IIf(IsNumeric(txt_Amount.Text), txt_Amount.Text, 0)) + Convert.ToDouble(IIf(IsNumeric(txtotherchrgs.Text), txtotherchrgs.Text, 0))) '- Convert.ToDouble(IIf(IsNumeric(txtCashDiscount.Text), txtCashDiscount.Text, 0))
         lblnetamt.Text = Net_amt.ToString("0.00")
 
     End Sub
@@ -1584,10 +1585,6 @@ restart:
     End Sub
 
     Private Sub txtotherchrgs_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtotherchrgs.TextChanged
-        Calculate_Amount()
-    End Sub
-
-    Private Sub txtdiscount_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtdiscount.TextChanged
         Calculate_Amount()
     End Sub
 
@@ -1656,6 +1653,10 @@ restart:
         Dim MRNID As Int32 = (dgvList.SelectedRows(0).Cells("Received_ID").Value)
         Dim PritBarcodeMrn As New frm_MRN_Print_Barcode(MRNID)
         PritBarcodeMrn.ShowDialog()
+    End Sub
+
+    Private Sub txtCashDiscount_KeyDown(sender As Object, e As KeyEventArgs) Handles txtCashDiscount.KeyDown
+        Calculate_Amount()
     End Sub
 
 End Class
