@@ -20,7 +20,7 @@ Partial Class frm_Account_Payment
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frm_Account_Payment))
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.List = New System.Windows.Forms.TabPage()
@@ -53,6 +53,7 @@ Partial Class frm_Account_Payment
         Me.lblCap1 = New System.Windows.Forms.Label()
         Me.lblFormHeading = New System.Windows.Forms.Label()
         Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
+        Me.BtnCancelInv = New System.Windows.Forms.Button()
         Me.TabControl1.SuspendLayout()
         Me.List.SuspendLayout()
         Me.GBMRSDetail.SuspendLayout()
@@ -78,6 +79,7 @@ Partial Class frm_Account_Payment
         'List
         '
         Me.List.BackColor = System.Drawing.Color.DimGray
+        Me.List.Controls.Add(Me.BtnCancelInv)
         Me.List.Controls.Add(Me.GBMRSDetail)
         Me.List.Controls.Add(Me.GroupBox2)
         Me.List.ForeColor = System.Drawing.Color.White
@@ -93,7 +95,7 @@ Partial Class frm_Account_Payment
         Me.GBMRSDetail.Controls.Add(Me.flxList)
         Me.GBMRSDetail.Location = New System.Drawing.Point(19, 91)
         Me.GBMRSDetail.Name = "GBMRSDetail"
-        Me.GBMRSDetail.Size = New System.Drawing.Size(877, 493)
+        Me.GBMRSDetail.Size = New System.Drawing.Size(877, 437)
         Me.GBMRSDetail.TabIndex = 6
         Me.GBMRSDetail.TabStop = False
         '
@@ -105,14 +107,14 @@ Partial Class frm_Account_Payment
         Me.flxList.Location = New System.Drawing.Point(3, 16)
         Me.flxList.Name = "flxList"
         Me.flxList.RowHeadersVisible = False
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black
-        Me.flxList.RowsDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle3.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black
+        Me.flxList.RowsDefaultCellStyle = DataGridViewCellStyle3
         Me.flxList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.flxList.Size = New System.Drawing.Size(871, 474)
+        Me.flxList.Size = New System.Drawing.Size(871, 418)
         Me.flxList.TabIndex = 3
         '
         'GroupBox2
@@ -121,7 +123,7 @@ Partial Class frm_Account_Payment
         Me.GroupBox2.Controls.Add(Me.Label1)
         Me.GroupBox2.Location = New System.Drawing.Point(19, 9)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(864, 76)
+        Me.GroupBox2.Size = New System.Drawing.Size(874, 76)
         Me.GroupBox2.TabIndex = 7
         Me.GroupBox2.TabStop = False
         '
@@ -425,6 +427,16 @@ Partial Class frm_Account_Payment
         Me.ImageList1.Images.SetKeyName(0, "Zoom_search_find_magnifying_glass.png")
         Me.ImageList1.Images.SetKeyName(1, "Inventory_box_shipment_product.png")
         '
+        'BtnCancelInv
+        '
+        Me.BtnCancelInv.BackColor = System.Drawing.Color.LightSalmon
+        Me.BtnCancelInv.Location = New System.Drawing.Point(752, 544)
+        Me.BtnCancelInv.Name = "BtnCancelInv"
+        Me.BtnCancelInv.Size = New System.Drawing.Size(141, 30)
+        Me.BtnCancelInv.TabIndex = 10
+        Me.BtnCancelInv.Text = "Cancel "
+        Me.BtnCancelInv.UseVisualStyleBackColor = False
+        '
         'frm_Account_Payment
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -477,4 +489,5 @@ Partial Class frm_Account_Payment
     Friend WithEvents lblPendingAmount As Label
     Friend WithEvents lblAdvanceAmount As Label
     Friend WithEvents ImageList1 As System.Windows.Forms.ImageList
+    Friend WithEvents BtnCancelInv As Button
 End Class

@@ -7,6 +7,7 @@ Public Class frm_CreditNote
 
     Implements IForm
     Dim obj As New CommonClass
+    Dim CreditNoteId As Int16
     Dim flag As String
     Dim dtable_Item_List As DataTable
     Dim dtable As DataTable
@@ -48,14 +49,16 @@ Public Class frm_CreditNote
         TbRMRN.SelectTab(1)
         ' intColumnIndex = -1
         FillGrid()
-        lblAddress.Text = ""
-        lblInvdate.Text = "#0000"
-        lblInvNo.Text = "#0000"
-        flag = "save"
+        'lblAddress.Text = ""
+        txt_INVDate.Text = ""
+        txt_INVNo.Text = ""
         lblAmount.Text = 0
         lblVatAmount.Text = 0
         lblCessAmount.Text = 0
         lblCredit.Text = 0
+
+        flag = "save"
+
     End Sub
 
     Private Sub GetCNCode()
@@ -136,6 +139,7 @@ Public Class frm_CreditNote
             MsgBox(gblMessageHeading_Error & vbCrLf & gblMessage_ContactInfo & vbCrLf & ex.Message, MsgBoxStyle.Critical, gblMessageHeading)
         End Try
     End Sub
+
     Public Sub RefreshClick(ByVal sender As Object, ByVal e As System.EventArgs) Implements IForm.RefreshClick
         FillGrid()
         TbRMRN.SelectTab(0)
@@ -180,13 +184,12 @@ Public Class frm_CreditNote
     End Function
 
     Public Sub SaveClick(ByVal sender As Object, ByVal e As System.EventArgs) Implements IForm.SaveClick
+        CalculateAmount()
         Dim cmd As SqlCommand
         txtRemarks.Focus()
         Try
             If flag = "save" And validate_data() Then
                 cmd = obj.MyCon_BeginTransaction
-                CalculateAmount()
-
                 GetCNCode()
                 CN_Id = Convert.ToInt32(obj.getMaxValue("CreditNote_ID", "CreditNote_MASTER"))
                 prpty.CreditNote_ID = Convert.ToInt32(CN_Id)
@@ -202,14 +205,15 @@ Public Class frm_CreditNote
                 prpty.Division_ID = v_the_current_division_id
                 prpty.Cn_Amount = lblCredit.Text
                 prpty.CN_CustId = cmbCustomer.SelectedValue
-                prpty.INV_No = lblInvNo.Text
-                prpty.INV_Date = lblInvdate.Text
+                prpty.INV_No = txt_INVNo.Text
+                prpty.INV_Date = txt_INVDate.Text
                 prpty.CN_ItemValue = lblAmount.Text
                 prpty.CN_ItemTax = lblVatAmount.Text
                 prpty.CN_ItemCess = lblCessAmount.Text
                 prpty.CN_Type = ""
                 prpty.Ref_No = ""
                 prpty.Ref_Date = NULL_DATE
+                prpty.Proctype = 1
 
                 clsObj.insert_CreditNote_MASTER(prpty, cmd)
 
@@ -221,7 +225,6 @@ Public Class frm_CreditNote
                     If FLXGRD_MaterialItem.Item(iRow, "Item_Qty") > 0 Then
                         prpty.CreditNote_ID = Convert.ToInt32(CN_Id)
                         prpty.Item_ID = FLXGRD_MaterialItem.Item(iRow, "Item_Id")
-
                         prpty.Item_Qty = Convert.ToDouble(FLXGRD_MaterialItem.Item(iRow, "Item_Qty")).ToString()
                         prpty.Item_Rate = Convert.ToDouble(FLXGRD_MaterialItem.Item(iRow, "Item_rate")).ToString()
                         prpty.Item_Tax = Convert.ToDouble(FLXGRD_MaterialItem.Item(iRow, "Vat_Per")).ToString()
@@ -232,6 +235,7 @@ Public Class frm_CreditNote
                         prpty.Modified_By = v_the_current_logged_in_user_name
                         prpty.Modification_Date = NULL_DATE
                         prpty.Division_ID = v_the_current_division_id
+                        prpty.Proctype = 1
                         clsObj.insert_CreditNote_DETAIL(prpty, cmd)
                         'End If
                     End If
@@ -241,6 +245,78 @@ Public Class frm_CreditNote
                 obj.MyCon_CommitTransaction(cmd)
 
                 If flag = "save" Then
+                    If MsgBox(vbCrLf & "Do You Want to Print Preview.", MsgBoxStyle.Question + MsgBoxStyle.YesNo, gblMessageHeading) = MsgBoxResult.Yes Then
+                        obj.RptShow(enmReportName.RptCreditNotePrint, "CN_ID", CStr(prpty.CreditNote_ID), CStr(enmDataType.D_int))
+                    End If
+                Else
+                End If
+
+                set_new_initilize()
+                cmbCustomer.SelectedValue = 0
+                cmbINVNo.SelectedValue = 0
+
+            ElseIf flag = "update" And validate_data() Then
+                cmd = obj.MyCon_BeginTransaction
+                Dim ds As New DataSet()
+                ds = clsObj.fill_Data_set("GET_CreditNoteCodeByID", "@CreditNoteId", CreditNoteId)
+                If ds.Tables(0).Rows.Count > 0 Then
+                    CN_Code = ds.Tables(0).Rows(0)(0).ToString()
+                    CN_No = Convert.ToDecimal(ds.Tables(0).Rows(0)(1).ToString())
+                    ds.Dispose()
+                End If
+                prpty.CreditNote_ID = Convert.ToInt32(CreditNoteId)
+                prpty.CreditNote_Code = CN_Code
+                prpty.CreditNote_No = CN_No
+                prpty.CreditNote_Date = lbl_CNDate.Text
+                prpty.INV_ID = cmbINVNo.SelectedValue
+                prpty.Remarks = txtRemarks.Text
+                prpty.Created_By = v_the_current_logged_in_user_name
+                prpty.Creation_Date = NULL_DATE
+                prpty.Modified_By = v_the_current_logged_in_user_name
+                prpty.Modification_Date = Now
+                prpty.Division_ID = v_the_current_division_id
+                prpty.Cn_Amount = lblCredit.Text
+                prpty.CN_CustId = cmbCustomer.SelectedValue
+                prpty.INV_No = txt_INVNo.Text
+                prpty.INV_Date = txt_INVDate.Text
+                prpty.CN_ItemValue = lblAmount.Text
+                prpty.CN_ItemTax = lblVatAmount.Text
+                prpty.CN_ItemCess = lblCessAmount.Text
+                prpty.CN_Type = ""
+                prpty.Ref_No = ""
+                prpty.Ref_Date = NULL_DATE
+                prpty.Proctype = 2
+
+                clsObj.insert_CreditNote_MASTER(prpty, cmd)
+
+                Dim iRowCount As Int32
+                Dim iRow As Int32
+                iRowCount = FLXGRD_MaterialItem.Rows.Count - 1
+
+                For iRow = 1 To iRowCount
+                    If FLXGRD_MaterialItem.Item(iRow, "Item_Qty") > 0 Then
+                        prpty.CreditNote_ID = Convert.ToInt32(CreditNoteId)
+                        prpty.Item_ID = FLXGRD_MaterialItem.Item(iRow, "Item_Id")
+                        prpty.Item_Qty = Convert.ToDouble(FLXGRD_MaterialItem.Item(iRow, "Item_Qty")).ToString()
+                        prpty.Item_Rate = Convert.ToDouble(FLXGRD_MaterialItem.Item(iRow, "Item_rate")).ToString()
+                        prpty.Item_Tax = Convert.ToDouble(FLXGRD_MaterialItem.Item(iRow, "Vat_Per")).ToString()
+                        prpty.Item_Cess = Convert.ToDouble(FLXGRD_MaterialItem.Item(iRow, "Cess_Per")).ToString()
+                        prpty.Stock_Detail_ID = Convert.ToDouble(FLXGRD_MaterialItem.Item(iRow, "Stock_Detail_Id")).ToString()
+                        prpty.Created_By = v_the_current_logged_in_user_name
+                        prpty.Creation_Date = Now
+                        prpty.Modified_By = v_the_current_logged_in_user_name
+                        prpty.Modification_Date = NULL_DATE
+                        prpty.Division_ID = v_the_current_division_id
+                        prpty.Proctype = 2
+                        clsObj.insert_CreditNote_DETAIL(prpty, cmd)
+                        'End If
+                    End If
+                Next iRow
+
+                MsgBox("Credit note updated with No. " & CN_Code & CN_No, MsgBoxStyle.Information, gblMessageHeading)
+                obj.MyCon_CommitTransaction(cmd)
+
+                If flag = "update" Then
                     If MsgBox(vbCrLf & "Do You Want to Print Preview.", MsgBoxStyle.Question + MsgBoxStyle.YesNo, gblMessageHeading) = MsgBoxResult.Yes Then
                         obj.RptShow(enmReportName.RptCreditNotePrint, "CN_ID", CStr(prpty.CreditNote_ID), CStr(enmDataType.D_int))
                     End If
@@ -395,36 +471,30 @@ Public Class frm_CreditNote
 
     End Sub
 
-    Private Sub dgvList_DoubleClick(ByVal sender As System.Object, ByVal e As System.EventArgs)
-
-    End Sub
-
-    Private Sub dgvList_CellDoubleClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs)
-
-    End Sub
-
     Private Sub getMRNDetail(ByVal Receive_ID As Integer)
 
     End Sub
 
     Private Sub cmbINV_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmbINVNo.SelectedIndexChanged
-        Try
-            set_new_initilize()
-            Dim ds As DataSet
-            Dim INVNo As Int32
-            INVNo = Convert.ToInt32(cmbINVNo.SelectedValue)
-            ds = clsObj.fill_Data_set("Get_INV_Details_CreditNote", "@Si_ID", INVNo)
-            If ds.Tables(0).Rows.Count > 0 Then
-                dtable_Item_List = ds.Tables(0).Copy
-                FLXGRD_MaterialItem.DataSource = dtable_Item_List
-                lblInvdate.Text = ds.Tables(0).Rows(0)("INvDate")
-                lblInvNo.Text = ds.Tables(0).Rows(0)("SiNo")
-                SetGridSettingValues()
-            End If
-            TbRMRN.SelectTab(1)
-        Catch ex As Exception
-            MsgBox(gblMessageHeading_Error & vbCrLf & gblMessage_ContactInfo & vbCrLf & ex.Message, MsgBoxStyle.Critical, gblMessageHeading)
-        End Try
+        If (CreditNoteId < 1) Then
+            Try
+                set_new_initilize()
+                Dim ds As DataSet
+                Dim INVNo As Int32
+                INVNo = Convert.ToInt32(cmbINVNo.SelectedValue)
+                ds = clsObj.fill_Data_set("Get_INV_Details_CreditNote", "@Si_ID", INVNo)
+                If ds.Tables(0).Rows.Count > 0 Then
+                    dtable_Item_List = ds.Tables(0).Copy
+                    FLXGRD_MaterialItem.DataSource = dtable_Item_List
+                    txt_INVDate.Text = ds.Tables(0).Rows(0)("INvDate")
+                    txt_INVNo.Text = ds.Tables(0).Rows(0)("SiNo")
+                    SetGridSettingValues()
+                End If
+                TbRMRN.SelectTab(1)
+            Catch ex As Exception
+                MsgBox(gblMessageHeading_Error & vbCrLf & gblMessage_ContactInfo & vbCrLf & ex.Message, MsgBoxStyle.Critical, gblMessageHeading)
+            End Try
+        End If
     End Sub
 
     Private Sub frm_DebitNote_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
@@ -446,11 +516,10 @@ Public Class frm_CreditNote
         Dim Dtrow As DataRow
         Dim ds As DataSet
 
-        ds = clsObj.FillDataSet("SELECT Isnull(ADDRESS_PRIM +ADDRESS_SEC,'') AS Address FROM dbo.ACCOUNT_MASTER WHERE ACC_ID=" & cmbCustomer.SelectedValue)
-        If ds.Tables(0).Rows.Count > 0 Then
-            lblAddress.Text = ds.Tables(0).Rows(0)(0)
-
-        End If
+        'ds = clsObj.FillDataSet("SELECT Isnull(ADDRESS_PRIM +ADDRESS_SEC,'') AS Address FROM dbo.ACCOUNT_MASTER WHERE ACC_ID=" & cmbCustomer.SelectedValue)
+        'If ds.Tables(0).Rows.Count > 0 Then
+        '    lblAddress.Text = ds.Tables(0).Rows(0)(0)
+        'End If
 
         Query = "  SELECT SI_ID,SI_CODE+CAST(SI_NO as varchar(20)) AS SiNo FROM dbo.SALE_INVOICE_MASTER WHERE CUST_ID=" & cmbCustomer.SelectedValue & " and DIVISION_ID = " & v_the_current_division_id
         Dt = clsObj.Fill_DataSet(Query).Tables(0)
@@ -507,6 +576,39 @@ Public Class frm_CreditNote
 
     Private Sub lnkCalculateDebitAmt_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lnkCalculateDebitAmt.LinkClicked
         CalculateAmount()
+    End Sub
+
+    Private Sub dgvList_DoubleClick(sender As Object, e As EventArgs) Handles dgvList.DoubleClick
+        flag = "update"
+        CreditNoteId = Convert.ToInt32(dgvList("CreditNote_Id", dgvList.CurrentCell.RowIndex).Value())
+        FillPaymentDetails(CreditNoteId)
+    End Sub
+
+    Public Sub FillPaymentDetails(CreditNoteId As Int16)
+        Dim dt As DataTable
+        dt = clsObj.fill_Data_set("Proc_GETCreditNoteDetailsByID_Edit", "@CreditNoteId", CreditNoteId).Tables(0)
+        If dt.Rows.Count > 0 Then
+            Dim dr As DataRow = dt.Rows(0)
+            TbRMRN.SelectTab(1)
+            lblCN_Code.Text = dr("CreditNoteNumber")
+            lbl_CNDate.Text = dr("CreditNote_Date")
+            cmbCustomer.SelectedValue = dr("CN_CustId")
+            BindINVCombo()
+            cmbINVNo.SelectedValue = dr("Invid").ToString
+            txt_INVNo.Text = dr("InvoiceNo")
+            txt_INVDate.Text = dr("InvoiceDate")
+            txtRemarks.Text = dr("Remarks")
+
+            Dim ds As DataSet
+            ds = clsObj.fill_Data_set("GetCreditNoteDetails", "@CreditNoteId", CreditNoteId)
+            If ds.Tables(0).Rows.Count > 0 Then
+                dtable_Item_List = ds.Tables(0).Copy
+                FLXGRD_MaterialItem.DataSource = dtable_Item_List
+                SetGridSettingValues()
+                CalculateAmount()
+            End If
+
+        End If
     End Sub
 
 End Class

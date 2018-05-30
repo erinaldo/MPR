@@ -30,6 +30,8 @@ Partial Class frm_DebitNote
         Me.dgvList = New System.Windows.Forms.DataGridView()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.lblCessAmount = New System.Windows.Forms.Label()
+        Me.Label5 = New System.Windows.Forms.Label()
         Me.lblDebit = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.lblVatAmount = New System.Windows.Forms.Label()
@@ -56,8 +58,6 @@ Partial Class frm_DebitNote
         Me.lblSelectMRNNO = New System.Windows.Forms.Label()
         Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
         Me.C1FlexGrid1 = New C1.Win.C1FlexGrid.C1FlexGrid()
-        Me.lblCessAmount = New System.Windows.Forms.Label()
-        Me.Label5 = New System.Windows.Forms.Label()
         Me.TbRMRN.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
@@ -192,6 +192,28 @@ Partial Class frm_DebitNote
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Items List"
         '
+        'lblCessAmount
+        '
+        Me.lblCessAmount.AutoSize = True
+        Me.lblCessAmount.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblCessAmount.ForeColor = System.Drawing.Color.Orange
+        Me.lblCessAmount.Location = New System.Drawing.Point(608, 393)
+        Me.lblCessAmount.Name = "lblCessAmount"
+        Me.lblCessAmount.Size = New System.Drawing.Size(36, 17)
+        Me.lblCessAmount.TabIndex = 18
+        Me.lblCessAmount.Text = "0.00"
+        Me.lblCessAmount.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label5.Location = New System.Drawing.Point(507, 395)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(90, 15)
+        Me.Label5.TabIndex = 19
+        Me.Label5.Text = "Cess  Amount :"
+        '
         'lblDebit
         '
         Me.lblDebit.AutoSize = True
@@ -313,11 +335,11 @@ Partial Class frm_DebitNote
         Me.txt_INVDate.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txt_INVDate.Font = New System.Drawing.Font("Arial Narrow", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txt_INVDate.ForeColor = System.Drawing.Color.White
-        Me.txt_INVDate.Location = New System.Drawing.Point(636, 71)
+        Me.txt_INVDate.Location = New System.Drawing.Point(580, 73)
         Me.txt_INVDate.MaxLength = 0
         Me.txt_INVDate.Name = "txt_INVDate"
         Me.txt_INVDate.ReadOnly = True
-        Me.txt_INVDate.Size = New System.Drawing.Size(81, 19)
+        Me.txt_INVDate.Size = New System.Drawing.Size(137, 19)
         Me.txt_INVDate.TabIndex = 49
         '
         'txt_INVNo
@@ -326,18 +348,18 @@ Partial Class frm_DebitNote
         Me.txt_INVNo.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txt_INVNo.Font = New System.Drawing.Font("Arial Narrow", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txt_INVNo.ForeColor = System.Drawing.Color.White
-        Me.txt_INVNo.Location = New System.Drawing.Point(419, 70)
+        Me.txt_INVNo.Location = New System.Drawing.Point(400, 74)
         Me.txt_INVNo.MaxLength = 0
         Me.txt_INVNo.Name = "txt_INVNo"
         Me.txt_INVNo.ReadOnly = True
-        Me.txt_INVNo.Size = New System.Drawing.Size(84, 19)
+        Me.txt_INVNo.Size = New System.Drawing.Size(94, 19)
         Me.txt_INVNo.TabIndex = 48
         '
         'Label8
         '
         Me.Label8.AutoSize = True
         Me.Label8.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label8.Location = New System.Drawing.Point(362, 74)
+        Me.Label8.Location = New System.Drawing.Point(343, 76)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(51, 15)
         Me.Label8.TabIndex = 30
@@ -347,7 +369,7 @@ Partial Class frm_DebitNote
         '
         Me.Label9.AutoSize = True
         Me.Label9.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label9.Location = New System.Drawing.Point(542, 70)
+        Me.Label9.Location = New System.Drawing.Point(516, 74)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(58, 15)
         Me.Label9.TabIndex = 29
@@ -488,28 +510,6 @@ Partial Class frm_DebitNote
         Me.C1FlexGrid1.Size = New System.Drawing.Size(0, 0)
         Me.C1FlexGrid1.Styles = New C1.Win.C1FlexGrid.CellStyleCollection(resources.GetString("C1FlexGrid1.Styles"))
         Me.C1FlexGrid1.TabIndex = 0
-        '
-        'lblCessAmount
-        '
-        Me.lblCessAmount.AutoSize = True
-        Me.lblCessAmount.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblCessAmount.ForeColor = System.Drawing.Color.Orange
-        Me.lblCessAmount.Location = New System.Drawing.Point(608, 393)
-        Me.lblCessAmount.Name = "lblCessAmount"
-        Me.lblCessAmount.Size = New System.Drawing.Size(36, 17)
-        Me.lblCessAmount.TabIndex = 18
-        Me.lblCessAmount.Text = "0.00"
-        Me.lblCessAmount.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'Label5
-        '
-        Me.Label5.AutoSize = True
-        Me.Label5.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label5.Location = New System.Drawing.Point(507, 395)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(90, 15)
-        Me.Label5.TabIndex = 19
-        Me.Label5.Text = "Cess  Amount :"
         '
         'frm_DebitNote
         '

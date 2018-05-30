@@ -55,11 +55,11 @@ Public Class LoginForm
                         MDICostCenter.MDICostCenter_Load(Nothing, Nothing)
                         MDICostCenter.Show()
                     Else
-                        'MDIMain.MDIMain_Load(Nothing, Nothing)
-                        'MDIMain.Show()
+                        MDIMain.MDIMain_Load(Nothing, Nothing)
+                        MDIMain.Show()
 
-                        MDI_Warehouse.MDIMain_Load(Nothing, Nothing)
-                        MDI_Warehouse.Show()
+                        'MDI_Warehouse.MDIMain_Load(Nothing, Nothing)
+                        'MDI_Warehouse.Show()
                     End If
                     Me.Hide()
                 Else

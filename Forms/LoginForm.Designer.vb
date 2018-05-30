@@ -98,9 +98,9 @@ Partial Class LoginForm
         Me.cmbCostCenter.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmbCostCenter.Font = New System.Drawing.Font("Arial", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmbCostCenter.ForeColor = System.Drawing.SystemColors.ControlLight
-        Me.cmbCostCenter.Location = New System.Drawing.Point(274, 308)
+        Me.cmbCostCenter.Location = New System.Drawing.Point(476, 238)
         Me.cmbCostCenter.Name = "cmbCostCenter"
-        Me.cmbCostCenter.Size = New System.Drawing.Size(485, 35)
+        Me.cmbCostCenter.Size = New System.Drawing.Size(282, 35)
         Me.cmbCostCenter.TabIndex = 10
         Me.cmbCostCenter.Visible = False
         '
@@ -173,7 +173,7 @@ Partial Class LoginForm
         Me.lbl.BackColor = System.Drawing.Color.Transparent
         Me.lbl.Font = New System.Drawing.Font("Arial", 16.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl.ForeColor = System.Drawing.Color.Silver
-        Me.lbl.Location = New System.Drawing.Point(270, 266)
+        Me.lbl.Location = New System.Drawing.Point(268, 235)
         Me.lbl.Name = "lbl"
         Me.lbl.Size = New System.Drawing.Size(141, 23)
         Me.lbl.TabIndex = 7
