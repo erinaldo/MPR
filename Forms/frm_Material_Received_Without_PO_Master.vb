@@ -107,6 +107,7 @@ Public Class frm_Material_Received_Without_PO_Master
         lblgrossamt.Text = "0.0"
         lblvatamt.Text = "0.0"
         lblcessamt.Text = "0.0"
+        lblAcess.Text = "0.0"
         lblexciseamt.Text = "0.0"
         lblnetamt.Text = "0.0"
         ' DGVIndentItem.Rows.Add()
