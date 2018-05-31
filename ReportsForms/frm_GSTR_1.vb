@@ -187,7 +187,7 @@ Public Class frm_GSTR_1
             'xlWorkSheet.Cells(rowIndex, 2) = row("ITEM_NAME")
             'xlWorkSheet.Cells(rowIndex, 3) = row("UM_Name") + "-" + row("UM_DESC")
             xlWorkSheet.Cells(rowIndex, 4) = row("Qty")
-            xlWorkSheet.Cells(rowIndex, 5) = row("Taxable_Value") + row("Cess_Amount") + row("non_integrated_tax") + row("integrated_tax")
+            xlWorkSheet.Cells(rowIndex, 5) = Convert.ToDecimal(row("Taxable_Value")) + Convert.ToDecimal(row("Cess_Amount")) + Convert.ToDecimal(row("non_integrated_tax")) + Convert.ToDecimal(row("integrated_tax"))
             xlWorkSheet.Cells(rowIndex, 6) = row("Taxable_Value")
             xlWorkSheet.Cells(rowIndex, 7) = row("integrated_tax")
             xlWorkSheet.Cells(rowIndex, 8) = row("non_integrated_tax") / 2
@@ -422,7 +422,7 @@ FROM    ( SELECT    inv.NET_AMOUNT ,
                                                * DISCOUNT_VALUE ) / 100
                                         ELSE DISCOUNT_VALUE
                                    END, 0) )) AS Taxable_Value ,
-                    SUM(invd.CessAmount_num) Cess_Amount ,
+                    SUM(invd.CessAmount_num) + SUM(invd.ACessAmount) As Cess_Amount ,
                     SUM(invd.VAT_AMOUNT) AS VAT_AMOUNT ,
                     DISCOUNT_TYPE ,
                     DISCOUNT_VALUE ,
@@ -578,7 +578,7 @@ FROM    ( SELECT    STATE_CODE ,
                                                               / 100
                                                               ELSE DISCOUNT_VALUE
                                                            END, 0) )) AS Taxable_Value ,
-                                            SUM(invd.CessAmount_num) Cess_Amount ,
+                                            SUM(invd.CessAmount_num) + SUM(invd.ACessAmount) Cess_Amount ,
                                             GSTPaid
                                   FROM      dbo.SALE_INVOICE_MASTER inv
                                             INNER JOIN dbo.SALE_INVOICE_DETAIL invd ON invd.SI_ID = inv.SI_ID
@@ -664,7 +664,7 @@ FROM    ( SELECT    STATE_CODE ,
                                                               / 100
                                                               ELSE DISCOUNT_VALUE
                                                            END, 0) )) AS Taxable_Value ,
-                                            SUM(invd.CessAmount_num) Cess_Amount ,
+                                            SUM(invd.CessAmount_num) + SUM(invd.ACessAmount) Cess_Amount ,
                                             GSTPaid
                                   FROM      dbo.SALE_INVOICE_MASTER inv
                                             INNER JOIN dbo.SALE_INVOICE_DETAIL invd ON invd.SI_ID = inv.SI_ID
@@ -755,7 +755,7 @@ SELECT HsnCode_vch ,
                                                * DISCOUNT_VALUE ) / 100
                                         ELSE DISCOUNT_VALUE
                                    END, 0) )) AS Taxable_Value ,
-                    SUM(invd.CessAmount_num) Cess_Amount ,
+                    SUM(invd.CessAmount_num) + SUM(invd.ACessAmount) Cess_Amount ,
                     SUM(CASE WHEN inv.INV_TYPE <> 'I' THEN invd.VAT_AMOUNT
                              ELSE 0
                         END) AS non_integrated_tax ,

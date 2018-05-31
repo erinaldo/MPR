@@ -165,70 +165,286 @@ Public Class frm_GSTR_3
 
     Private Function Get5SectionData() As DataRow
 
+        '        Qry = "SELECT  SUM(ISNULL(IntraState_TaxableValue, 0)) AS IntraState_TaxableValue ,
+        '        SUM(ISNULL(InterState_TaxableValue, 0)) AS InterState_TaxableValue
+        'FROM    ( SELECT    SUM(CASE WHEN MRWPM.MRN_TYPE <> 2
+        '                             THEN ( ( Item_Qty * Item_Rate )
+        '                                    - ISNULL(CASE WHEN DTYPE = 'P'
+        '                                                  THEN ( ( Item_Qty
+        '                                                           * Item_Rate )
+        '                                                         * DiscountValue )
+        '                                                       / 100
+        '                                                  ELSE DiscountValue
+        '                                             END, 0) )
+        '                             ELSE 0
+        '                        END) AS IntraState_TaxableValue ,
+        '                    SUM(CASE WHEN MRWPM.MRN_TYPE = 2
+        '                             THEN ( ( Item_Qty * Item_Rate )
+        '                                    - ISNULL(CASE WHEN DTYPE = 'P'
+        '                                                  THEN ( ( Item_Qty
+        '                                                           * Item_Rate )
+        '                                                         * DiscountValue )
+        '                                                       / 100
+        '                                                  ELSE DiscountValue
+        '                                             END, 0) )
+        '                             ELSE 0
+        '                        END) AS InterState_TaxableValue
+        '          FROM      dbo.MATERIAL_RECIEVED_WITHOUT_PO_MASTER MRWPM
+        '                    JOIN dbo.MATERIAL_RECEIVED_WITHOUT_PO_DETAIL MRWPD ON MRWPD.Received_ID = MRWPM.Received_ID
+        '                    INNER JOIN dbo.ACCOUNT_MASTER am ON am.ACC_ID = MRWPM.Vendor_ID
+        '                    INNER JOIN dbo.CITY_MASTER cm ON cm.CITY_ID = am.CITY_ID
+        '                    INNER JOIN dbo.STATE_MASTER sm ON sm.STATE_ID = cm.STATE_ID
+        '          WHERE     MRWPD.Item_vat = 0
+        '                    AND MONTH(RECEIVED_DATE) = " & txtFromDate.Value.Month &
+        '                   " And Year(RECEIVED_DATE) = " & txtFromDate.Value.Year &
+        '          "UNION ALL
+        '          SELECT    SUM(CASE WHEN MRAPM.MRN_TYPE <> 2
+        '                             THEN ( ( Item_Qty * Item_Rate )
+        '                                    - ISNULL(CASE WHEN DTYPE = 'P'
+        '                                                  THEN ( ( Item_Qty
+        '                                                           * Item_Rate )
+        '                                                         * DiscountValue )
+        '                                                       / 100
+        '                                                  ELSE DiscountValue
+        '                                             END, 0) )
+        '                             ELSE 0
+        '                        END) AS IntraState_TaxableValue ,
+        '                    SUM(CASE WHEN MRAPM.MRN_TYPE = 2
+        '                             THEN ( ( Item_Qty * Item_Rate )
+        '                                    - ISNULL(CASE WHEN DTYPE = 'P'
+        '                                                  THEN ( ( Item_Qty
+        '                                                           * Item_Rate )
+        '                                                         * DiscountValue )
+        '                                                       / 100
+        '                                                  ELSE DiscountValue
+        '                                             END, 0) )
+        '                             ELSE 0
+        '                        END) AS InterState_TaxableValue
+        '          FROM      dbo.MATERIAL_RECEIVED_AGAINST_PO_MASTER MRAPM
+        '                    JOIN dbo.MATERIAL_RECEIVED_AGAINST_PO_DETAIL MRAPD ON MRAPD.Receipt_ID = MRAPM.Receipt_ID
+        '                    INNER JOIN dbo.ACCOUNT_MASTER am ON am.ACC_ID = MRAPM.CUST_ID
+        '                    INNER JOIN dbo.CITY_MASTER cm ON cm.CITY_ID = am.CITY_ID
+        '                    INNER JOIN dbo.STATE_MASTER sm ON sm.STATE_ID = cm.STATE_ID
+        '          WHERE     MRAPD.Vat_Per = 0
+        '                    AND MONTH(Receipt_DATE) = " & txtFromDate.Value.Month &
+        '                   " AND YEAR(Receipt_DATE) = " & txtFromDate.Value.Year &
+        '          "UNION ALL
+        '          SELECT    SUM(IntraState_TaxableValue) AS IntraState_TaxableValue ,
+        '                    SUM(InterState_TaxableValue) AS InterState_TaxableValue
+        '          FROM      ( SELECT    ISNULL(SUM(CASE WHEN MRN_TYPE <> 2
+        '                                                THEN CAST(( d.Item_Qty
+        '                                                            * d.Item_Rate ) AS NUMERIC(18,
+        '                                                              2))
+        '                                                ELSE 0
+        '                                           END), 0) * -1 AS IntraState_TaxableValue ,
+        '                                ISNULL(SUM(CASE WHEN MRN_TYPE = 2
+        '                                                THEN CAST(( d.Item_Qty
+        '                                                            * d.Item_Rate ) AS NUMERIC(18,
+        '                                                              2))
+        '                                                ELSE 0
+        '                                           END), 0) * -1 AS InterState_TaxableValue
+        '                      FROM      dbo.MATERIAL_RECIEVED_WITHOUT_PO_MASTER MRWPM
+        '                                JOIN dbo.DebitNote_Master M ON M.MRNId = MRWPM.MRN_NO
+        '                                JOIN dbo.DebitNote_DETAIL D ON M.DebitNote_Id = D.DebitNote_Id
+        '                      WHERE     MONTH(DebitNote_Date) = " & txtFromDate.Value.Month &
+        '                               " AND YEAR(DebitNote_Date) = " & txtFromDate.Value.Year &
+        '                                "AND Item_Tax = 0
+        '                      UNION ALL
+        '                      SELECT    ISNULL(SUM(CASE WHEN MRN_TYPE <> 2
+        '                                                THEN CAST(( d.Item_Qty
+        '                                                            * d.Item_Rate ) AS NUMERIC(18,
+        '                                                              2))
+        '                                                ELSE 0
+        '                                           END), 0) * -1 AS IntraState_TaxableValue ,
+        '                                ISNULL(SUM(CASE WHEN MRN_TYPE = 2
+        '                                                THEN CAST(( d.Item_Qty
+        '                                                            * d.Item_Rate ) AS NUMERIC(18,
+        '                                                              2))
+        '                                                ELSE 0
+        '                                           END), 0) * -1 AS InterState_TaxableValue
+        '                      FROM      dbo.MATERIAL_RECEIVED_AGAINST_PO_MASTER MRAPM
+        '                                JOIN dbo.DebitNote_Master M ON M.MRNId = MRAPM.MRN_NO
+        '                                JOIN dbo.DebitNote_DETAIL D ON M.DebitNote_Id = D.DebitNote_Id
+        '                      WHERE     MONTH(DebitNote_Date) = " & txtFromDate.Value.Month &
+        '                                "AND YEAR(DebitNote_Date) = " & txtFromDate.Value.Year &
+        '                                "AND Item_Tax = 0
+        '                    ) tb
+        '        ) TB"
+
+
         Qry = "SELECT  SUM(ISNULL(IntraState_TaxableValue, 0)) AS IntraState_TaxableValue ,
         SUM(ISNULL(InterState_TaxableValue, 0)) AS InterState_TaxableValue
-FROM    ( SELECT    SUM(CASE WHEN MRWPM.MRN_TYPE <> 2
-                             THEN ( ( Item_Qty * Item_Rate )
-                                    - ISNULL(CASE WHEN DTYPE = 'P'
-                                                  THEN ( ( Item_Qty
-                                                           * Item_Rate )
-                                                         * DiscountValue )
-                                                       / 100
-                                                  ELSE DiscountValue
-                                             END, 0) )
-                             ELSE 0
-                        END) AS IntraState_TaxableValue ,
-                    SUM(CASE WHEN MRWPM.MRN_TYPE = 2
-                             THEN ( ( Item_Qty * Item_Rate )
-                                    - ISNULL(CASE WHEN DTYPE = 'P'
-                                                  THEN ( ( Item_Qty
-                                                           * Item_Rate )
-                                                         * DiscountValue )
-                                                       / 100
-                                                  ELSE DiscountValue
-                                             END, 0) )
-                             ELSE 0
-                        END) AS InterState_TaxableValue
-          FROM      dbo.MATERIAL_RECIEVED_WITHOUT_PO_MASTER MRWPM
-                    JOIN dbo.MATERIAL_RECEIVED_WITHOUT_PO_DETAIL MRWPD ON MRWPD.Received_ID = MRWPM.Received_ID
-                    INNER JOIN dbo.ACCOUNT_MASTER am ON am.ACC_ID = MRWPM.Vendor_ID
-                    INNER JOIN dbo.CITY_MASTER cm ON cm.CITY_ID = am.CITY_ID
-                    INNER JOIN dbo.STATE_MASTER sm ON sm.STATE_ID = cm.STATE_ID
-          WHERE     MRWPD.Item_vat = 0
-                    AND MONTH(RECEIVED_DATE) = " & txtFromDate.Value.Month &
-                   " And Year(RECEIVED_DATE) = " & txtFromDate.Value.Year &
-          "UNION ALL
-          SELECT    SUM(CASE WHEN MRAPM.MRN_TYPE <> 2
-                             THEN ( ( Item_Qty * Item_Rate )
-                                    - ISNULL(CASE WHEN DTYPE = 'P'
-                                                  THEN ( ( Item_Qty
-                                                           * Item_Rate )
-                                                         * DiscountValue )
-                                                       / 100
-                                                  ELSE DiscountValue
-                                             END, 0) )
-                             ELSE 0
-                        END) AS IntraState_TaxableValue ,
-                    SUM(CASE WHEN MRAPM.MRN_TYPE = 2
-                             THEN ( ( Item_Qty * Item_Rate )
-                                    - ISNULL(CASE WHEN DTYPE = 'P'
-                                                  THEN ( ( Item_Qty
-                                                           * Item_Rate )
-                                                         * DiscountValue )
-                                                       / 100
-                                                  ELSE DiscountValue
-                                             END, 0) )
-                             ELSE 0
-                        END) AS InterState_TaxableValue
-          FROM      dbo.MATERIAL_RECEIVED_AGAINST_PO_MASTER MRAPM
-                    JOIN dbo.MATERIAL_RECEIVED_AGAINST_PO_DETAIL MRAPD ON MRAPD.Receipt_ID = MRAPM.Receipt_ID
-                    INNER JOIN dbo.ACCOUNT_MASTER am ON am.ACC_ID = MRAPM.CUST_ID
-                    INNER JOIN dbo.CITY_MASTER cm ON cm.CITY_ID = am.CITY_ID
-                    INNER JOIN dbo.STATE_MASTER sm ON sm.STATE_ID = cm.STATE_ID
-          WHERE     MRAPD.Vat_Per = 0
-                    AND MONTH(Receipt_DATE) = " & txtFromDate.Value.Month &
-                   " AND YEAR(Receipt_DATE) = " & txtFromDate.Value.Year &
-          "UNION ALL
+FROM    ( SELECT    SUM(ISNULL(IntraState_TaxableValue, 0)) AS IntraState_TaxableValue ,
+                    SUM(ISNULL(InterState_TaxableValue, 0)) AS InterState_TaxableValue
+          FROM      ( SELECT    CASE WHEN MRN_TYPE <> 2
+                                     THEN ROUND(( ( totalamt - ( discountamt
+                                                              + gpaid ) )
+                                                  * Bal_Item_Vat / 100 ), 2)
+                                     ELSE 0
+                                END AS IntraState_TaxableValue ,
+                                CASE WHEN MRN_TYPE = 2
+                                     THEN ROUND(( ( totalamt - ( discountamt
+                                                              + gpaid ) )
+                                                  * Bal_Item_Vat / 100 ), 2)
+                                     ELSE 0
+                                END AS InterState_TaxableValue ,
+                                totalamt ,
+                                discountamt ,
+                                gpaid ,
+                                Bal_Item_Vat ,
+                                MRN_TYPE
+                      FROM      ( SELECT    MRWPM.MRN_TYPE ,
+                                            MRWPD.Bal_Item_Vat ,
+                                            ROUND(MRWPD.Bal_Item_Rate
+                                                  * MRWPD.Bal_Item_Qty, 2) AS totalamt ,
+                                            CASE WHEN MRWPD.Dtype = 'P'
+                                                 THEN ROUND(( MRWPD.Bal_Item_Rate
+                                                              * MRWPD.Bal_Item_Qty
+                                                              * MRWPD.DiscountValue )
+                                                            / 100, 2)
+                                                      + ( ( ROUND(MRWPD.Bal_Item_Rate
+                                                              * MRWPD.Bal_Item_Qty,
+                                                              2)
+                                                            - ROUND(( MRWPD.Bal_Item_Rate
+                                                              * MRWPD.Bal_Item_Qty
+                                                              * MRWPD.DiscountValue )
+                                                              / 100, 2) )
+                                                          * MRWPD.DiscountValue1
+                                                          / 100 )
+                                                 WHEN MRWPD.Dtype = 'A'
+                                                 THEN ROUND(MRWPD.DiscountValue,
+                                                            2)
+                                                      + ROUND(MRWPD.DiscountValue1,
+                                                              2)
+                                            END AS discountamt ,
+                                            CASE WHEN MRWPD.Dtype = 'P'
+                                                 THEN ROUND(MRWPD.Bal_Item_Rate
+                                                            * MRWPD.Bal_Item_Qty,
+                                                            2)
+                                                      - ( ROUND(( MRWPD.Bal_Item_Rate
+                                                              * MRWPD.Bal_Item_Qty
+                                                              * MRWPD.DiscountValue )
+                                                              / 100, 2)
+                                                          + ( ( ROUND(MRWPD.Bal_Item_Rate
+                                                              * MRWPD.Bal_Item_Qty,
+                                                              2)
+                                                              - ROUND(( MRWPD.Bal_Item_Rate
+                                                              * MRWPD.Bal_Item_Qty
+                                                              * MRWPD.DiscountValue )
+                                                              / 100, 2) )
+                                                              * MRWPD.DiscountValue1
+                                                              / 100 ) )
+                                                 WHEN MRWPD.Dtype = 'A'
+                                                 THEN ROUND(MRWPD.Bal_Item_Rate
+                                                            * MRWPD.Bal_Item_Qty,
+                                                            2)
+                                                      - ( ROUND(MRWPD.DiscountValue,
+                                                              2)
+                                                          + ROUND(MRWPD.DiscountValue1,
+                                                              2) )
+                                            END AS itemvalue ,
+                                            CASE WHEN MRWPD.GSTPAID = 'Y'
+                                                 THEN CASE WHEN MRWPD.Dtype = 'P'
+                                                           THEN ( ( ROUND(MRWPD.Bal_Item_Rate
+                                                              * MRWPD.Bal_Item_Qty,
+                                                              2)
+                                                              - ( ROUND(( MRWPD.Bal_Item_Rate
+                                                              * MRWPD.Bal_Item_Qty
+                                                              * MRWPD.DiscountValue )
+                                                              / 100, 2)
+                                                              + ( ( ROUND(MRWPD.Bal_Item_Rate
+                                                              * MRWPD.Bal_Item_Qty,
+                                                              2)
+                                                              - ROUND(( MRWPD.Bal_Item_Rate
+                                                              * MRWPD.Bal_Item_Qty
+                                                              * MRWPD.DiscountValue )
+                                                              / 100, 2) )
+                                                              * MRWPD.DiscountValue1
+                                                              / 100 ) ) )
+                                                              - ( ( ROUND(MRWPD.Bal_Item_Rate
+                                                              * MRWPD.Bal_Item_Qty,
+                                                              2)
+                                                              - ( ROUND(( MRWPD.Bal_Item_Rate
+                                                              * MRWPD.Bal_Item_Qty
+                                                              * MRWPD.DiscountValue )
+                                                              / 100, 2)
+                                                              + ( ( ROUND(MRWPD.Bal_Item_Rate
+                                                              * MRWPD.Bal_Item_Qty,
+                                                              2)
+                                                              - ROUND(( MRWPD.Bal_Item_Rate
+                                                              * MRWPD.Bal_Item_Qty
+                                                              * MRWPD.DiscountValue )
+                                                              / 100, 2) )
+                                                              * MRWPD.DiscountValue1
+                                                              / 100 ) ) )
+                                                              / ( 1
+                                                              + ( MRWPD.Bal_Item_Vat
+                                                              / 100 ) ) ) )
+                                                           WHEN MRWPD.Dtype = 'A'
+                                                           THEN ( ( ROUND(MRWPD.Bal_Item_Rate
+                                                              * MRWPD.Bal_Item_Qty,
+                                                              2)
+                                                              - ( ROUND(MRWPD.DiscountValue,
+                                                              2)
+                                                              + ROUND(MRWPD.DiscountValue1,
+                                                              2) ) )
+                                                              - ( ( ROUND(MRWPD.Bal_Item_Rate
+                                                              * MRWPD.Bal_Item_Qty,
+                                                              2)
+                                                              - ( ROUND(MRWPD.DiscountValue,
+                                                              2)
+                                                              + ROUND(MRWPD.DiscountValue1,
+                                                              2) ) ) / ( 1
+                                                              + ( MRWPD.Bal_Item_Vat
+                                                              / 100 ) ) ) )
+                                                      END
+                                                 ELSE 0.00
+                                            END AS gpaid
+                                  FROM      dbo.MATERIAL_RECIEVED_WITHOUT_PO_MASTER MRWPM
+                                            JOIN dbo.MATERIAL_RECEIVED_WITHOUT_PO_Detail MRWPD ON MRWPD.Received_ID = MRWPM.Received_ID
+                                            INNER JOIN dbo.ACCOUNT_MASTER am ON am.ACC_ID = MRWPM.Vendor_ID
+                                            INNER JOIN dbo.CITY_MASTER cm ON cm.CITY_ID = am.CITY_ID
+                                            INNER JOIN dbo.STATE_MASTER sm ON sm.STATE_ID = cm.STATE_ID
+                                  WHERE     MRWPD.Item_vat = 0
+                                            AND MONTH(RECEIVED_DATE) = " & txtFromDate.Value.Month & "
+                                            AND YEAR(RECEIVED_DATE) = " & txtFromDate.Value.Year & "
+                                ) purchase
+                    ) main
+          UNION ALL
+          SELECT    SUM(ISNULL(IntraState_TaxableValue, 0)) AS IntraState_TaxableValue ,
+                    SUM(ISNULL(InterState_TaxableValue, 0)) AS InterState_TaxableValue
+          FROM      ( SELECT    SUM(CASE WHEN MRAPM.MRN_TYPE <> 2
+                                         THEN ( ( Item_Qty * Item_Rate )
+                                                - ISNULL(CASE WHEN DTYPE = 'P'
+                                                              THEN ( ( Item_Qty
+                                                              * Item_Rate )
+                                                              * DiscountValue )
+                                                              / 100
+                                                              ELSE DiscountValue
+                                                         END, 0) )
+                                         ELSE 0
+                                    END) AS IntraState_TaxableValue ,
+                                SUM(CASE WHEN MRAPM.MRN_TYPE = 2
+                                         THEN ( ( Item_Qty * Item_Rate )
+                                                - ISNULL(CASE WHEN DTYPE = 'P'
+                                                              THEN ( ( Item_Qty
+                                                              * Item_Rate )
+                                                              * DiscountValue )
+                                                              / 100
+                                                              ELSE DiscountValue
+                                                         END, 0) )
+                                         ELSE 0
+                                    END) AS InterState_TaxableValue
+                      FROM      dbo.MATERIAL_RECEIVED_AGAINST_PO_MASTER MRAPM
+                                JOIN dbo.MATERIAL_RECEIVED_AGAINST_PO_Detail MRAPD ON MRAPD.Receipt_ID = MRAPM.Receipt_ID
+                                INNER JOIN dbo.ACCOUNT_MASTER am ON am.ACC_ID = MRAPM.CUST_ID
+                                INNER JOIN dbo.CITY_MASTER cm ON cm.CITY_ID = am.CITY_ID
+                                INNER JOIN dbo.STATE_MASTER sm ON sm.STATE_ID = cm.STATE_ID
+                      WHERE     MRAPD.Vat_Per = 0
+                                AND MONTH(Receipt_DATE) = " & txtFromDate.Value.Month & "
+                                AND YEAR(Receipt_DATE) = " & txtFromDate.Value.Year & "
+                    ) main1
+          UNION ALL
           SELECT    SUM(IntraState_TaxableValue) AS IntraState_TaxableValue ,
                     SUM(InterState_TaxableValue) AS InterState_TaxableValue
           FROM      ( SELECT    ISNULL(SUM(CASE WHEN MRN_TYPE <> 2
@@ -245,10 +461,10 @@ FROM    ( SELECT    SUM(CASE WHEN MRWPM.MRN_TYPE <> 2
                                            END), 0) * -1 AS InterState_TaxableValue
                       FROM      dbo.MATERIAL_RECIEVED_WITHOUT_PO_MASTER MRWPM
                                 JOIN dbo.DebitNote_Master M ON M.MRNId = MRWPM.MRN_NO
-                                JOIN dbo.DebitNote_DETAIL D ON M.DebitNote_Id = D.DebitNote_Id
-                      WHERE     MONTH(DebitNote_Date) = " & txtFromDate.Value.Month &
-                               " AND YEAR(DebitNote_Date) = " & txtFromDate.Value.Year &
-                                "AND Item_Tax = 0
+                                JOIN dbo.DebitNote_Detail D ON M.DebitNote_Id = D.DebitNote_Id
+                      WHERE     MONTH(DebitNote_Date) = " & txtFromDate.Value.Month & "
+                                AND YEAR(DebitNote_Date) = " & txtFromDate.Value.Year & "
+                                AND Item_Tax = 0
                       UNION ALL
                       SELECT    ISNULL(SUM(CASE WHEN MRN_TYPE <> 2
                                                 THEN CAST(( d.Item_Qty
@@ -264,10 +480,10 @@ FROM    ( SELECT    SUM(CASE WHEN MRWPM.MRN_TYPE <> 2
                                            END), 0) * -1 AS InterState_TaxableValue
                       FROM      dbo.MATERIAL_RECEIVED_AGAINST_PO_MASTER MRAPM
                                 JOIN dbo.DebitNote_Master M ON M.MRNId = MRAPM.MRN_NO
-                                JOIN dbo.DebitNote_DETAIL D ON M.DebitNote_Id = D.DebitNote_Id
-                      WHERE     MONTH(DebitNote_Date) = " & txtFromDate.Value.Month &
-                                "AND YEAR(DebitNote_Date) = " & txtFromDate.Value.Year &
-                                "AND Item_Tax = 0
+                                JOIN dbo.DebitNote_Detail D ON M.DebitNote_Id = D.DebitNote_Id
+                      WHERE     MONTH(DebitNote_Date) = " & txtFromDate.Value.Month & "
+                                AND YEAR(DebitNote_Date) = " & txtFromDate.Value.Year & "
+                                AND Item_Tax = 0
                     ) tb
         ) TB"
 
@@ -436,7 +652,7 @@ GROUP BY STATE_CODE ,
                                                       * DISCOUNT_VALUE ) / 100
                                                ELSE DISCOUNT_VALUE
                                           END, 0) )), 0) AS Taxable_Value ,
-                    SUM(invd.CessAmount_num) As Cess_Amount ,
+                    SUM(invd.CessAmount_num) + SUM(invd.ACessAmount) As Cess_Amount ,
                     ISNULL(SUM(CASE WHEN inv.INV_TYPE <> 'I'
                                     THEN invd.VAT_AMOUNT
                                     ELSE 0
