@@ -104,8 +104,21 @@
     <Reference Include="CrystalDecisions.ReportSource, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.Shared, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.Windows.Forms, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="Ionic.Zip, Version=1.9.1.8, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\PPR\bin\Debug\Ionic.Zip.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\..\SYNC\POSPlus_Retail\bin\dlls\Microsoft.Office.Interop.Excel.dll</HintPath>
+    </Reference>
     <Reference Include="MTGCCombobox, Version=1.0.0.0, Culture=neutral">
       <HintPath>DLL\MTGCCombobox.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.11.0.2\lib\net20\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -164,12 +177,14 @@
     <Compile Include="ClassesRecipe\Cls_Semi_Finished_Item_Master.vb" />
     <Compile Include="Classes\cls_Debit_note.vb" />
     <Compile Include="Classes\cls_Division_Settings.vb" />
+    <Compile Include="Classes\cls_EwayBill.vb" />
     <Compile Include="Classes\cls_GatePass.vb" />
     <Compile Include="Classes\cls_Invoice_Settlement.vb" />
     <Compile Include="Classes\cls_Material_Received_Without_PO.vb">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Classes\cls_Material_rec_against_PO.vb" />
+    <Compile Include="Classes\cls_opening_balance.vb" />
     <Compile Include="Classes\cls_ReverseMaterial_Issue_To_Cost_Center.vb" />
     <Compile Include="Classes\cls_ReverseMaterial_Received_Against_PO_Master.vb" />
     <Compile Include="Classes\cls_ReverseMaterial_Recieved_Without_Po_Master.vb" />
@@ -233,6 +248,84 @@
       <DependentUpon>frm_Wastage Master_cc.vb</DependentUpon>
     </Compile>
     <Compile Include="CostCenterForms\frm_Wastage Master_cc.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\frm_Account_Payment.Designer.vb">
+      <DependentUpon>frm_Account_Payment.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frm_Account_Payment.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\frm_CreditNote_WO_Items.Designer.vb">
+      <DependentUpon>frm_CreditNote_WO_Items.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frm_CreditNote_WO_Items.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\frm_DebitNote_WO_Items.Designer.vb">
+      <DependentUpon>frm_DebitNote_WO_Items.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frm_DebitNote_WO_Items.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\frm_Depreciation_Cal.Designer.vb">
+      <DependentUpon>frm_Depreciation_Cal.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frm_Depreciation_Cal.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\BackupDB.Designer.vb">
+      <DependentUpon>BackupDB.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\BackupDB.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\frm_EwayBill.Designer.vb">
+      <DependentUpon>frm_EwayBill.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frm_EwayBill.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\frm_BillBook.Designer.vb">
+      <DependentUpon>frm_BillBook.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frm_BillBook.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\frm_Print_Barcode.Designer.vb">
+      <DependentUpon>frm_Print_Barcode.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frm_Print_Barcode.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ReportsForms\frm_MRN_Print_Barcode.Designer.vb">
+      <DependentUpon>frm_MRN_Print_Barcode.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ReportsForms\frm_MRN_Print_Barcode.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReportsForms\frm_SaleTaxRegister.Designer.vb">
+      <DependentUpon>frm_SaleTaxRegister.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ReportsForms\frm_SaleTaxRegister.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ReportsForms\frm_PurchaseTaxRegister.Designer.vb">
+      <DependentUpon>frm_PurchaseTaxRegister.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ReportsForms\frm_PurchaseTaxRegister.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ReportsForms\frm_GSTR_1.Designer.vb">
+      <DependentUpon>frm_GSTR_1.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ReportsForms\frm_GSTR_1.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\frm_OpeningBalance.Designer.vb">
+      <DependentUpon>frm_OpeningBalance.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frm_OpeningBalance.vb">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Forms\frm_Supplier_Invoice_Settlement.Designer.vb">
@@ -456,6 +549,24 @@
     <Compile Include="RecipeForms\frm_Semi_Finished_Recipe_Master.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="ReportsForms\frm_CreditorsLedger.Designer.vb">
+      <DependentUpon>frm_CreditorsLedger.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ReportsForms\frm_CreditorsLedger.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ReportsForms\frm_DebtorsLedger.Designer.vb">
+      <DependentUpon>frm_DebtorsLedger.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ReportsForms\frm_DebtorsLedger.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ReportsForms\frm_CreditorsOS.Designer.vb">
+      <DependentUpon>frm_CreditorsOS.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ReportsForms\frm_CreditorsOS.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="ReportsForms\frmStockValue.Designer.vb">
       <DependentUpon>frmStockValue.vb</DependentUpon>
     </Compile>
@@ -466,6 +577,12 @@
       <DependentUpon>frm_DebtorsOS.vb</DependentUpon>
     </Compile>
     <Compile Include="ReportsForms\frm_DebtorsOS.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ReportsForms\frm_GSTR_3.Designer.vb">
+      <DependentUpon>frm_GSTR_3.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ReportsForms\frm_GSTR_3.vb">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="ReportsForms\Frm_IndentPrint.Designer.vb">
@@ -681,6 +798,12 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Reports\AccountPayment1.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AccountPayment.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Reports\Copy of cryMrsDetail.vb">
       <DependentUpon>cryMrsDetailMStore.rpt</DependentUpon>
       <SubType>Component</SubType>
@@ -693,8 +816,68 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
+    <Compile Include="Reports\CryCreditorsLedger.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CryCreditorsLedger.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\CryCustomerrateList1.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CryCustomerrateList.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\cryStockValueBrandWise.vb">
+      <DependentUpon>cryStockValueBrandWise.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Reports\cry_CreditorOutstanding.vb">
       <DependentUpon>cry_CreditorOutstanding.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reports\Cry_Credit_Note_WO_Item.vb">
+      <DependentUpon>Cry_Credit_Note_WO_Item.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reports\Cry_Debit_Note_WO_Item.vb">
+      <DependentUpon>Cry_Debit_Note_WO_Item.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reports\Cry_DeliveryNote.vb">
+      <DependentUpon>Cry_DeliveryNote.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reports\cry_DebtorOutstanding.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>cry_DebtorOutstanding.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\crySaleInvoiceList.vb">
+      <DependentUpon>crySaleInvoiceList.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reports\cry_Brand_Wise_Sale.vb">
+      <DependentUpon>cry_Brand_Wise_Sale.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reports\PaymentVoucher.vb">
+      <DependentUpon>PaymentVoucher.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
@@ -717,8 +900,8 @@
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Reports\CryCustomerrateList.vb">
-      <DependentUpon>CryCustomerrateList.rpt</DependentUpon>
+    <Compile Include="Reports\CryDebtorsLedger.vb">
+      <DependentUpon>CryDebtorsLedger.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
@@ -1035,12 +1218,6 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Include="Reports\crySaleInvoiceList.vb">
-      <DependentUpon>crySaleInvoiceList.rpt</DependentUpon>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
     <Compile Include="Reports\cryStockAcceptCCPrint.vb">
       <DependentUpon>cryStockAcceptCCPrint.rpt</DependentUpon>
       <SubType>Component</SubType>
@@ -1143,22 +1320,13 @@
       <DependentUpon>Cry_Debit_Note.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-<<<<<<< HEAD
-=======
-    <Compile Include="Reports\cry_DebtorOutstanding.vb">
-      <DependentUpon>cry_DebtorOutstanding.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-    </Compile>
->>>>>>> d73419f4acb2d293ead292a19b0e39a62da11c50
     <Compile Include="Reports\cry_Sale_Invoice.vb">
       <DependentUpon>cry_Sale_Invoice.rpt</DependentUpon>
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Include="Reports\cry_Sale_Invoice_Summary1.vb">
+    <Compile Include="Reports\cry_Sale_Invoice_Summary.vb">
       <DependentUpon>cry_Sale_Invoice_Summary.rpt</DependentUpon>
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
@@ -1218,12 +1386,6 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Include="Reports\PaymentDetailCrReport.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>PaymentDetailCrReport.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Reports\tcryMaterialRecAgainstPOPrint.vb">
       <DependentUpon>tcryMaterialRecAgainstPOPrint.rpt</DependentUpon>
       <SubType>Component</SubType>
@@ -1269,6 +1431,38 @@
     <EmbeddedResource Include="CostCenterForms\frm_Wastage Master_cc.resx">
       <DependentUpon>frm_Wastage Master_cc.vb</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frm_Account_Payment.resx">
+      <DependentUpon>frm_Account_Payment.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frm_CreditNote_WO_Items.resx">
+      <DependentUpon>frm_CreditNote_WO_Items.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frm_DebitNote_WO_Items.resx">
+      <DependentUpon>frm_DebitNote_WO_Items.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frm_Depreciation_Cal.resx">
+      <DependentUpon>frm_Depreciation_Cal.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\BackupDB.resx">
+      <DependentUpon>BackupDB.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frm_EwayBill.resx">
+      <DependentUpon>frm_EwayBill.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frm_BillBook.resx">
+      <DependentUpon>frm_BillBook.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frm_Print_Barcode.resx">
+      <DependentUpon>frm_Print_Barcode.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frm_OpeningBalance.resx">
+      <DependentUpon>frm_OpeningBalance.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frm_Supplier_Invoice_Settlement.resx">
       <DependentUpon>frm_Supplier_Invoice_Settlement.vb</DependentUpon>
@@ -1390,6 +1584,7 @@
       <SubType>Designer</SubType>
       <DependentUpon>SplashScreen.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="My Project\licenses.licx" />
     <EmbeddedResource Include="My Project\Resources.resx">
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
@@ -1415,12 +1610,37 @@
       <DependentUpon>frm_Semi_Finished_Recipe_Master.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="ReportsForms\frm_CreditorsLedger.resx">
+      <DependentUpon>frm_CreditorsLedger.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportsForms\frm_DebtorsLedger.resx">
+      <DependentUpon>frm_DebtorsLedger.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportsForms\frm_CreditorsOS.resx">
+      <DependentUpon>frm_CreditorsOS.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ReportsForms\frmStockValue.resx">
       <SubType>Designer</SubType>
       <DependentUpon>frmStockValue.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ReportsForms\frm_DebtorsOS.resx">
       <DependentUpon>frm_DebtorsOS.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportsForms\frm_MRN_Print_Barcode.resx">
+      <DependentUpon>frm_MRN_Print_Barcode.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportsForms\frm_SaleTaxRegister.resx">
+      <DependentUpon>frm_SaleTaxRegister.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportsForms\frm_PurchaseTaxRegister.resx">
+      <DependentUpon>frm_PurchaseTaxRegister.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportsForms\frm_GSTR_1.resx">
+      <DependentUpon>frm_GSTR_1.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportsForms\frm_GSTR_3.resx">
+      <DependentUpon>frm_GSTR_3.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ReportsForms\Frm_IndentPrint.resx">
       <DependentUpon>Frm_IndentPrint.vb</DependentUpon>
@@ -1546,10 +1766,53 @@
       <SubType>Designer</SubType>
       <DependentUpon>MDIMain.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="My Project\licenses.licx" />
+    <EmbeddedResource Include="Reports\AccountPayment.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>AccountPayment1.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\CryCreditorsLedger.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CryCreditorsLedger.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\CryCustomerrateList.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CryCustomerrateList1.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\cryStockValueBrandWise.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cryStockValueBrandWise.vb</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reports\cry_CreditorOutstanding.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>cry_CreditorOutstanding.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Cry_Credit_Note_WO_Item.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Cry_Credit_Note_WO_Item.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Cry_Debit_Note_WO_Item.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Cry_Debit_Note_WO_Item.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Cry_DeliveryNote.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Cry_DeliveryNote.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\cry_DebtorOutstanding.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cry_DebtorOutstanding.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\crySaleInvoiceList.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crySaleInvoiceList.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\cry_Brand_Wise_Sale.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cry_Brand_Wise_Sale.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\PaymentVoucher.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>PaymentVoucher.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\SuppPaymentDetailCrReport.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
@@ -1563,9 +1826,9 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>Cry_Credit_Note.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Reports\CryCustomerrateList.rpt">
+    <EmbeddedResource Include="Reports\CryDebtorsLedger.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CryCustomerrateList.vb</LastGenOutput>
+      <LastGenOutput>CryDebtorsLedger.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\cryAdjustmentPrint.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
@@ -1783,10 +2046,6 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>cryRevWastagePrint.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Reports\crySaleInvoiceList.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>crySaleInvoiceList.vb</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Include="Reports\cryStockAcceptCCPrint.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>cryStockAcceptCCPrint.vb</LastGenOutput>
@@ -1855,20 +2114,13 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>Cry_Debit_Note.vb</LastGenOutput>
     </EmbeddedResource>
-<<<<<<< HEAD
-=======
-    <EmbeddedResource Include="Reports\cry_DebtorOutstanding.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>cry_DebtorOutstanding.vb</LastGenOutput>
-    </EmbeddedResource>
->>>>>>> d73419f4acb2d293ead292a19b0e39a62da11c50
     <EmbeddedResource Include="Reports\cry_Sale_Invoice.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>cry_Sale_Invoice.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\cry_Sale_Invoice_Summary.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>cry_Sale_Invoice_Summary1.vb</LastGenOutput>
+      <LastGenOutput>cry_Sale_Invoice_Summary.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\CyItemWiseIndentsCategoryHeadWise.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
@@ -1906,10 +2158,6 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>NonMovingItems.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Reports\PaymentDetailCrReport.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>PaymentDetailCrReport.vb</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Include="Reports\tcryMaterialRecAgainstPOPrint.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>tcryMaterialRecAgainstPOPrint.vb</LastGenOutput>
@@ -1931,6 +2179,13 @@
     <None Include="afbl_mmsDataSet.xss">
       <DependentUpon>afbl_mmsDataSet.xsd</DependentUpon>
     </None>
+    <None Include="ClassDiagram2.cd" />
+    <None Include="ExcelTemplate\GSTR1_Template.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ExcelTemplate\GSTR3_Template.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
@@ -1942,22 +2197,60 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="bin\Debug\connection.xml">
-      <SubType>Designer</SubType>
-    </Content>
+    <Content Include="bin\Debug\connection.xml" />
+    <Content Include="bin\Debug\Ionic.Zip.dll" />
+    <Content Include="Scripts\2018Update\0001_26_Jan_2018_POEDIT.sql" />
+    <Content Include="Scripts\2018Update\0003_05_Feb_2018_Update_Stock_Adjustment.sql" />
+    <Content Include="Scripts\2018Update\0006_21_Mar_2018_CreditNote_WO_Items.sql" />
+    <Content Include="Scripts\2018Update\0005_10_Mar_2018_DebitNote_WO_Items.sql" />
+    <Content Include="Scripts\2018Update\0004_27_Feb_2018_DBbackup.sql" />
+    <Content Include="Scripts\2018Update\0007_05_Apr_2018_MMSLedgerUpdations.sql" />
+    <Content Include="Scripts\2018Update\0008_11_Apr_2018_editinvoice.sql" />
+    <Content Include="Scripts\2018Update\0011_05_May_2018_PaymentTransactionProcedureCorrection.sql" />
+    <Content Include="Scripts\2018Update\0010_04_May_2018_CessUpdationDebitCreditNote.sql" />
+    <Content Include="Scripts\2018Update\0010_03_May_2018_CessUpdationSalePurchase.sql" />
+    <Content Include="Scripts\2018Update\0009_18_Apr_2018_StockUpdate.sql" />
+    <Content Include="Scripts\2018Update\0011_08_May_2018_BillBook.sql" />
+<<<<<<< HEAD
+    <Content Include="Scripts\2018Update\0015_30_May_2018_AccountBugFixing.sql" />
+=======
+    <Content Include="Scripts\2018Update\0014_29_May_2018_DiscountModificationInPurchase.sql" />
+>>>>>>> 20fba96c4a6511c705e17085bba15f5f55a321e9
+    <Content Include="Scripts\2018Update\0013_24_May_2018_EditFormsFunctionality.sql" />
+    <Content Include="Scripts\2018Update\0012_11_May_2018_ACESS.sql" />
+    <Content Include="Scripts\Updates\00001_29_Dec_Add_Duty_And_Taxes.sql" />
+    <Content Include="Scripts\Updates\0001_04_Jan_2018_Stock_Transfer.sql" />
+    <Content Include="Scripts\Updates\0001_16_JAN_2018.sql" />
+    <Content Include="Scripts\Updates\0005_depreciation_16_Dec_2017 .sql" />
+    <Content Include="Scripts\Updates\00001_08_Dec_2017.sql" />
+    <Content Include="Scripts\Updates\00001_10_Dec_2017_Updatepayment.sql" />
     <Content Include="Scripts\Updates\0001_09_oct_2017.sql">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Scripts\Updates\0001_11_Dec_2017.sql" />
     <Content Include="Scripts\Updates\0001_11_Nov_2017.sql" />
+    <Content Include="Scripts\Updates\0001_12_Nov_2017.sql" />
     <Content Include="Scripts\Updates\0002_Invoice_14_oct_2017.sql" />
     <Content Include="Scripts\Updates\20171016.sql" />
     <Content Include="Scripts\Updates\0001_28_oct_2017.sql">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Scripts\Updates\0001_02_Dec_2017_AccountPayment.sql" />
+    <Content Include="Scripts\Updates\0001_03_Dec_2017_AccountPayment.sql" />
+    <Content Include="Scripts\Updates\0001_06_Dec_2017OpeningBalance.sql" />
+    <Content Include="Scripts\Updates\CreditorsLedger.sql" />
+    <Content Include="Scripts\Updates\DebtorsLedger.sql" />
     <Content Include="Scripts\Updates\DivisionSettings_23_oct_2017.sql" />
     <Content Include="Scripts\Updates\GatePass_23_oct_2017.sql" />
+    <Content Include="Scripts\Updates\GSTPaid31122017.sql" />
+    <Content Include="Scripts\Updates\MRN_APO_071217.sql" />
     <Content Include="Scripts\Updates\MRN_PO_281017.sql" />
+    <Content Include="Scripts\Updates\Payment_09122017.sql" />
     <Content Include="Scripts\Updates\PODetail_271017.sql" />
+    <Content Include="Scripts\Updates\0001_18_Nov_2017.sql" />
+    <Content Include="Scripts\Updates\0001_01_Dec_2017.sql" />
+    <Content Include="Scripts\Updates\0001_01_JAN_2018.sql" />
+    <Content Include="Scripts\2018Update\0002_27_Jan_2018_MRN_WITHOUTPO_EDIT.sql" />
     <None Include="app.config" />
     <None Include="ClassDiagram1.cd" />
     <None Include="Images and Icons\Report.ico" />
@@ -1977,6 +2270,7 @@
     <Content Include="Images and Icons\report.jpg" />
     <Content Include="Images and Icons\report1-sym.jpg" />
     <BaseApplicationManifest Include="My Project\app.manifest" />
+    <None Include="packages.config" />
     <None Include="Resources\Indent.gif" />
     <None Include="Resources\Rev-Wastage.gif" />
     <None Include="Resources\Rev-Wastage1.gif" />
@@ -2091,6 +2385,28 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>7</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <Private>True</Private>
+    </COMReference>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

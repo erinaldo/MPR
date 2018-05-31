@@ -13,7 +13,7 @@ Public Class frm_DebitNote
     Dim dtable_Item_List As DataTable
     Dim dtable As DataTable
     ' Dim dTable_IndentItems As DataTable
-    ' Dim grdMaterial_Rowindex As Int16
+    ' Dim grdMaterial_Rowindex As Int16save
     ' Dim RMRSID As Int16
     Dim FLXGRD_PO_Items_Rowindex As Int16
     'Dim intColumnIndex As Integer
@@ -184,6 +184,12 @@ Public Class frm_DebitNote
     End Function
 
     Public Sub SaveClick(ByVal sender As Object, ByVal e As System.EventArgs) Implements IForm.SaveClick
+
+        If _rights.allow_trans = "N" Then
+            RightsMsg()
+            Exit Sub
+        End If
+
         CalculateAmount()
         Dim cmd As SqlCommand
 
