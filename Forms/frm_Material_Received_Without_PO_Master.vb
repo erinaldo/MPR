@@ -1479,14 +1479,12 @@ restart:
                         discamt = discamt + Math.Round(dt.Rows(i)("DISC1"), 2)
                     End If
 
-
                     item_value = (Convert.ToDouble(IIf((dt.Rows(i)("Item_Rate")) Is DBNull.Value, 0, dt.Rows(i)("Item_Rate"))) * Convert.ToDouble(IIf((dt.Rows(i)("Batch_qty")) Is DBNull.Value, 0, dt.Rows(i)("Batch_qty"))) - discamt)
 
                     If (dt.Rows(i).Item("GPAID")) = "Y" Then
                         Gpaid = (item_value - (item_value / (1 + (dt.Rows(i).Item("vat_per") / 100))))
                         discamt = discamt + Gpaid
                     End If
-
 
                     gross_amt = gross_amt + item_value - Gpaid
                     totdiscamt = totdiscamt + discamt
