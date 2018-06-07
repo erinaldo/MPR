@@ -184,6 +184,11 @@ Public Class frm_CreditNote
     End Function
 
     Public Sub SaveClick(ByVal sender As Object, ByVal e As System.EventArgs) Implements IForm.SaveClick
+
+        If _rights.allow_trans = "N" Then
+            RightsMsg()
+            Exit Sub
+        End If
         CalculateAmount()
         Dim cmd As SqlCommand
         txtRemarks.Focus()

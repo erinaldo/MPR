@@ -3,7 +3,7 @@ INSERT  INTO dbo.DBScriptUpdateLog
         ( LogFileName ,
           ExecuteDateTime
         )
-VALUES  ( '0014_30_May_2018_AccountBugFixing' ,
+VALUES  ( '0015_30_May_2018_AccountBugFixing' ,
           GETDATE()
         )
 Go
