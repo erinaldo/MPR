@@ -36,6 +36,7 @@ Partial Class MDICostCenter
         Me.frm_Closing_Stock_CC = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_Freeze_ClosingStock = New System.Windows.Forms.ToolStripMenuItem()
         Me.Wastage_Master = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.ReportsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_stock_value = New System.Windows.Forms.ToolStripMenuItem()
         Me.Mrs_item = New System.Windows.Forms.ToolStripMenuItem()
@@ -75,7 +76,7 @@ Partial Class MDICostCenter
         Me.MenuStrip1.BackColor = System.Drawing.Color.OrangeRed
         Me.MenuStrip1.Dock = System.Windows.Forms.DockStyle.Left
         Me.MenuStrip1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.logo, Me.Home, Me.MasterSetupToolStripMenuItem, Me.StockOutToolStripMenuItem, Me.ReportsToolStripMenuItem, Me.UserManagmentToolStripMenuItem, Me.TerminateToolStripMenuItem})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.logo, Me.Home, Me.MasterSetupToolStripMenuItem, Me.StockOutToolStripMenuItem, Me.ToolStripMenuItem1, Me.ReportsToolStripMenuItem, Me.UserManagmentToolStripMenuItem, Me.TerminateToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Size = New System.Drawing.Size(105, 686)
@@ -236,6 +237,19 @@ Partial Class MDICostCenter
         Me.Wastage_Master.Size = New System.Drawing.Size(235, 22)
         Me.Wastage_Master.Text = "Wastage Master"
         '
+        'ToolStripMenuItem1
+        '
+        Me.ToolStripMenuItem1.AutoSize = False
+        Me.ToolStripMenuItem1.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        Me.ToolStripMenuItem1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ToolStripMenuItem1.ForeColor = System.Drawing.SystemColors.ControlLightLight
+        Me.ToolStripMenuItem1.Image = Global.MMSPlus.My.Resources.Resources.Client_list_text
+        Me.ToolStripMenuItem1.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
+        Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(98, 60)
+        Me.ToolStripMenuItem1.Text = "Store"
+        Me.ToolStripMenuItem1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
+        '
         'ReportsToolStripMenuItem
         '
         Me.ReportsToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(44, Byte), Integer), CType(CType(44, Byte), Integer))
@@ -382,7 +396,7 @@ Partial Class MDICostCenter
         Me.LogOffToolStripMenuItem.ForeColor = System.Drawing.Color.White
         Me.LogOffToolStripMenuItem.Image = Global.MMSPlus.My.Resources.Resources.User_logout_man3
         Me.LogOffToolStripMenuItem.Name = "LogOffToolStripMenuItem"
-        Me.LogOffToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.LogOffToolStripMenuItem.Size = New System.Drawing.Size(113, 22)
         Me.LogOffToolStripMenuItem.Text = "Log off"
         '
         'ExitToolStripMenuItem
@@ -391,7 +405,7 @@ Partial Class MDICostCenter
         Me.ExitToolStripMenuItem.ForeColor = System.Drawing.Color.White
         Me.ExitToolStripMenuItem.Image = Global.MMSPlus.My.Resources.Resources.Logout_user_login_account2
         Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
-        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(113, 22)
         Me.ExitToolStripMenuItem.Text = "Exit"
         '
         'TabControl2
@@ -602,4 +616,5 @@ Partial Class MDICostCenter
     Friend WithEvents TerminateToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents LogOffToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ExitToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ToolStripMenuItem1 As ToolStripMenuItem
 End Class

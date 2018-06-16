@@ -70,6 +70,12 @@ Partial Class MDIMain
         Me.frm_BillBook = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_CreditNote = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_GatePass = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Recipe = New System.Windows.Forms.ToolStripMenuItem()
+        Me.frm_menu_item_recipe = New System.Windows.Forms.ToolStripMenuItem()
+        Me.frm_Recipe_Master = New System.Windows.Forms.ToolStripMenuItem()
+        Me.frm_Semi_Finished_Recipe_Master = New System.Windows.Forms.ToolStripMenuItem()
+        Me.frm_define_recipe = New System.Windows.Forms.ToolStripMenuItem()
+        Me.frm_Define_SemiFinished_Recipe = New System.Windows.Forms.ToolStripMenuItem()
         Me.UserManagmentToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.tsmAccount = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_user_master = New System.Windows.Forms.ToolStripMenuItem()
@@ -93,12 +99,7 @@ Partial Class MDIMain
         Me.GSTSummaryToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_PurchaseTaxRegister = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_SaleTaxRegister = New System.Windows.Forms.ToolStripMenuItem()
-        Me.Recipe = New System.Windows.Forms.ToolStripMenuItem()
-        Me.frm_menu_item_recipe = New System.Windows.Forms.ToolStripMenuItem()
-        Me.frm_Recipe_Master = New System.Windows.Forms.ToolStripMenuItem()
-        Me.frm_Semi_Finished_Recipe_Master = New System.Windows.Forms.ToolStripMenuItem()
-        Me.frm_define_recipe = New System.Windows.Forms.ToolStripMenuItem()
-        Me.frm_Define_SemiFinished_Recipe = New System.Windows.Forms.ToolStripMenuItem()
+        Me.frm_EwayBill = New System.Windows.Forms.ToolStripMenuItem()
         Me.Reports = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_Stock = New System.Windows.Forms.ToolStripMenuItem()
         Me.frmStockValue = New System.Windows.Forms.ToolStripMenuItem()
@@ -139,6 +140,7 @@ Partial Class MDIMain
         Me.frm_rpt_SaleInvoice = New System.Windows.Forms.ToolStripMenuItem()
         Me.frmsaleInvoicesummary = New System.Windows.Forms.ToolStripMenuItem()
         Me.frmSaleInvoiceDetail = New System.Windows.Forms.ToolStripMenuItem()
+        Me.frmBrandWiseSale = New System.Windows.Forms.ToolStripMenuItem()
         Me.LastPurchaseratelist = New System.Windows.Forms.ToolStripMenuItem()
         Me.AllPurchaseRate = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_IssueDetail = New System.Windows.Forms.ToolStripMenuItem()
@@ -165,8 +167,6 @@ Partial Class MDIMain
         Me.picLogo = New System.Windows.Forms.PictureBox()
         Me.TabControl2 = New System.Windows.Forms.TabControl()
         Me.frm_open_invoice = New System.Windows.Forms.ToolStripMenuItem()
-        Me.frm_EwayBill = New System.Windows.Forms.ToolStripMenuItem()
-        Me.frmBrandWiseSale = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.toolbar.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
@@ -181,7 +181,7 @@ Partial Class MDIMain
         Me.MenuStrip1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
         Me.MenuStrip1.Dock = System.Windows.Forms.DockStyle.Left
         Me.MenuStrip1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.logo, Me.Home, Me.MasterSetupToolStripMenuItem, Me.PurchaseToolStripMenuItem, Me.StockINToolStripMenuItem, Me.ReportsToolStripMenuItem, Me.frmsaleinvoice, Me.UserManagmentToolStripMenuItem, Me.Reports, Me.Recipe, Me.TerminateToolStripMenuItem})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.logo, Me.Home, Me.MasterSetupToolStripMenuItem, Me.PurchaseToolStripMenuItem, Me.StockINToolStripMenuItem, Me.ReportsToolStripMenuItem, Me.frmsaleinvoice, Me.Recipe, Me.UserManagmentToolStripMenuItem, Me.Reports, Me.TerminateToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional
@@ -496,7 +496,6 @@ Partial Class MDIMain
         Me.frm_ReverseMaterial_Issue_To_Cost_Center_Master.Name = "frm_ReverseMaterial_Issue_To_Cost_Center_Master"
         Me.frm_ReverseMaterial_Issue_To_Cost_Center_Master.Size = New System.Drawing.Size(285, 22)
         Me.frm_ReverseMaterial_Issue_To_Cost_Center_Master.Text = "Reverse Material Issue to Cost Center"
-        Me.frm_ReverseMaterial_Issue_To_Cost_Center_Master.Visible = False
         '
         'MaterialReturnfromCostCenterToolStripMenuItem
         '
@@ -557,7 +556,6 @@ Partial Class MDIMain
         Me.frm_Material_Issue_To_Cost_Center_Master.Name = "frm_Material_Issue_To_Cost_Center_Master"
         Me.frm_Material_Issue_To_Cost_Center_Master.Size = New System.Drawing.Size(283, 22)
         Me.frm_Material_Issue_To_Cost_Center_Master.Text = "Material Issue To Cost Center"
-        Me.frm_Material_Issue_To_Cost_Center_Master.Visible = False
         '
         'frm_Wastage_Master
         '
@@ -673,6 +671,65 @@ Partial Class MDIMain
         Me.frm_GatePass.Name = "frm_GatePass"
         Me.frm_GatePass.Size = New System.Drawing.Size(181, 22)
         Me.frm_GatePass.Text = "Gate Pass"
+        '
+        'Recipe
+        '
+        Me.Recipe.BackColor = System.Drawing.Color.FromArgb(CType(CType(66, Byte), Integer), CType(CType(66, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.Recipe.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.frm_menu_item_recipe, Me.frm_Recipe_Master, Me.frm_Semi_Finished_Recipe_Master, Me.frm_define_recipe, Me.frm_Define_SemiFinished_Recipe})
+        Me.Recipe.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Recipe.ForeColor = System.Drawing.Color.White
+        Me.Recipe.Image = Global.MMSPlus.My.Resources.Resources.Chef_Food_2_48
+        Me.Recipe.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
+        Me.Recipe.Name = "Recipe"
+        Me.Recipe.Size = New System.Drawing.Size(98, 66)
+        Me.Recipe.Text = "Recipe"
+        Me.Recipe.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
+        Me.Recipe.Visible = False
+        '
+        'frm_menu_item_recipe
+        '
+        Me.frm_menu_item_recipe.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.frm_menu_item_recipe.ForeColor = System.Drawing.Color.White
+        Me.frm_menu_item_recipe.Image = Global.MMSPlus.My.Resources.Resources.Pad_note_paper_game_document
+        Me.frm_menu_item_recipe.Name = "frm_menu_item_recipe"
+        Me.frm_menu_item_recipe.Size = New System.Drawing.Size(254, 22)
+        Me.frm_menu_item_recipe.Text = "Menu Item Recipe"
+        '
+        'frm_Recipe_Master
+        '
+        Me.frm_Recipe_Master.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.frm_Recipe_Master.ForeColor = System.Drawing.Color.White
+        Me.frm_Recipe_Master.Image = Global.MMSPlus.My.Resources.Resources.Items_recent_list_to_do_formatting1
+        Me.frm_Recipe_Master.Name = "frm_Recipe_Master"
+        Me.frm_Recipe_Master.Size = New System.Drawing.Size(254, 22)
+        Me.frm_Recipe_Master.Text = "IKT Recipe Master"
+        '
+        'frm_Semi_Finished_Recipe_Master
+        '
+        Me.frm_Semi_Finished_Recipe_Master.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.frm_Semi_Finished_Recipe_Master.ForeColor = System.Drawing.Color.White
+        Me.frm_Semi_Finished_Recipe_Master.Image = Global.MMSPlus.My.Resources.Resources.Items_recent_list_to_do_formatting1
+        Me.frm_Semi_Finished_Recipe_Master.Name = "frm_Semi_Finished_Recipe_Master"
+        Me.frm_Semi_Finished_Recipe_Master.Size = New System.Drawing.Size(254, 22)
+        Me.frm_Semi_Finished_Recipe_Master.Text = "IKT Semi Finished Recipe Master"
+        '
+        'frm_define_recipe
+        '
+        Me.frm_define_recipe.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.frm_define_recipe.ForeColor = System.Drawing.Color.White
+        Me.frm_define_recipe.Image = Global.MMSPlus.My.Resources.Resources.Client_list_text
+        Me.frm_define_recipe.Name = "frm_define_recipe"
+        Me.frm_define_recipe.Size = New System.Drawing.Size(254, 22)
+        Me.frm_define_recipe.Text = "Recipe Master"
+        '
+        'frm_Define_SemiFinished_Recipe
+        '
+        Me.frm_Define_SemiFinished_Recipe.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.frm_Define_SemiFinished_Recipe.ForeColor = System.Drawing.Color.White
+        Me.frm_Define_SemiFinished_Recipe.Image = Global.MMSPlus.My.Resources.Resources.Page_preview
+        Me.frm_Define_SemiFinished_Recipe.Name = "frm_Define_SemiFinished_Recipe"
+        Me.frm_Define_SemiFinished_Recipe.Size = New System.Drawing.Size(254, 22)
+        Me.frm_Define_SemiFinished_Recipe.Text = "Semi Finished Recipe Master"
         '
         'UserManagmentToolStripMenuItem
         '
@@ -888,64 +945,11 @@ Partial Class MDIMain
         Me.frm_SaleTaxRegister.Size = New System.Drawing.Size(201, 22)
         Me.frm_SaleTaxRegister.Text = "GST Sale Register"
         '
-        'Recipe
+        'frm_EwayBill
         '
-        Me.Recipe.BackColor = System.Drawing.Color.FromArgb(CType(CType(66, Byte), Integer), CType(CType(66, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.Recipe.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.frm_menu_item_recipe, Me.frm_Recipe_Master, Me.frm_Semi_Finished_Recipe_Master, Me.frm_define_recipe, Me.frm_Define_SemiFinished_Recipe})
-        Me.Recipe.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Recipe.ForeColor = System.Drawing.Color.White
-        Me.Recipe.Image = Global.MMSPlus.My.Resources.Resources.Chef_Food_2_48
-        Me.Recipe.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
-        Me.Recipe.Name = "Recipe"
-        Me.Recipe.Size = New System.Drawing.Size(98, 66)
-        Me.Recipe.Text = "Recipe"
-        Me.Recipe.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
-        Me.Recipe.Visible = False
-        '
-        'frm_menu_item_recipe
-        '
-        Me.frm_menu_item_recipe.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.frm_menu_item_recipe.ForeColor = System.Drawing.Color.White
-        Me.frm_menu_item_recipe.Image = Global.MMSPlus.My.Resources.Resources.Pad_note_paper_game_document
-        Me.frm_menu_item_recipe.Name = "frm_menu_item_recipe"
-        Me.frm_menu_item_recipe.Size = New System.Drawing.Size(254, 22)
-        Me.frm_menu_item_recipe.Text = "Menu Item Recipe"
-        '
-        'frm_Recipe_Master
-        '
-        Me.frm_Recipe_Master.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.frm_Recipe_Master.ForeColor = System.Drawing.Color.White
-        Me.frm_Recipe_Master.Image = Global.MMSPlus.My.Resources.Resources.Items_recent_list_to_do_formatting1
-        Me.frm_Recipe_Master.Name = "frm_Recipe_Master"
-        Me.frm_Recipe_Master.Size = New System.Drawing.Size(254, 22)
-        Me.frm_Recipe_Master.Text = "IKT Recipe Master"
-        '
-        'frm_Semi_Finished_Recipe_Master
-        '
-        Me.frm_Semi_Finished_Recipe_Master.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.frm_Semi_Finished_Recipe_Master.ForeColor = System.Drawing.Color.White
-        Me.frm_Semi_Finished_Recipe_Master.Image = Global.MMSPlus.My.Resources.Resources.Items_recent_list_to_do_formatting1
-        Me.frm_Semi_Finished_Recipe_Master.Name = "frm_Semi_Finished_Recipe_Master"
-        Me.frm_Semi_Finished_Recipe_Master.Size = New System.Drawing.Size(254, 22)
-        Me.frm_Semi_Finished_Recipe_Master.Text = "IKT Semi Finished Recipe Master"
-        '
-        'frm_define_recipe
-        '
-        Me.frm_define_recipe.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.frm_define_recipe.ForeColor = System.Drawing.Color.White
-        Me.frm_define_recipe.Image = Global.MMSPlus.My.Resources.Resources.Client_list_text
-        Me.frm_define_recipe.Name = "frm_define_recipe"
-        Me.frm_define_recipe.Size = New System.Drawing.Size(254, 22)
-        Me.frm_define_recipe.Text = "Recipe Master"
-        '
-        'frm_Define_SemiFinished_Recipe
-        '
-        Me.frm_Define_SemiFinished_Recipe.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.frm_Define_SemiFinished_Recipe.ForeColor = System.Drawing.Color.White
-        Me.frm_Define_SemiFinished_Recipe.Image = Global.MMSPlus.My.Resources.Resources.Page_preview
-        Me.frm_Define_SemiFinished_Recipe.Name = "frm_Define_SemiFinished_Recipe"
-        Me.frm_Define_SemiFinished_Recipe.Size = New System.Drawing.Size(254, 22)
-        Me.frm_Define_SemiFinished_Recipe.Text = "Semi Finished Recipe Master"
+        Me.frm_EwayBill.Name = "frm_EwayBill"
+        Me.frm_EwayBill.Size = New System.Drawing.Size(213, 22)
+        Me.frm_EwayBill.Text = "frm"
         '
         'Reports
         '
@@ -1321,6 +1325,15 @@ Partial Class MDIMain
         Me.frmSaleInvoiceDetail.Size = New System.Drawing.Size(202, 22)
         Me.frmSaleInvoiceDetail.Text = "Sales Invoice Detail"
         '
+        'frmBrandWiseSale
+        '
+        Me.frmBrandWiseSale.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.frmBrandWiseSale.ForeColor = System.Drawing.Color.White
+        Me.frmBrandWiseSale.Image = Global.MMSPlus.My.Resources.Resources.Reports
+        Me.frmBrandWiseSale.Name = "frmBrandWiseSale"
+        Me.frmBrandWiseSale.Size = New System.Drawing.Size(202, 22)
+        Me.frmBrandWiseSale.Text = "Brand Wise Sale"
+        '
         'LastPurchaseratelist
         '
         Me.LastPurchaseratelist.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
@@ -1594,33 +1607,7 @@ Partial Class MDIMain
         Me.frm_open_invoice.Name = "frm_open_invoice"
         Me.frm_open_invoice.Size = New System.Drawing.Size(181, 22)
         Me.frm_open_invoice.Text = "Opne Invoice"
-       '
-        'frmBrandWiseSale
         '
-        Me.frmBrandWiseSale.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.frmBrandWiseSale.ForeColor = System.Drawing.Color.White
-        Me.frmBrandWiseSale.Image = Global.MMSPlus.My.Resources.Resources.Reports
-        Me.frmBrandWiseSale.Name = "frmBrandWiseSale"
-        Me.frmBrandWiseSale.Size = New System.Drawing.Size(202, 22)
-        Me.frmBrandWiseSale.Text = "Brand Wise Sale"
-        '
-        'frm_SaleTaxRegister
-        '
-        Me.frm_SaleTaxRegister.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.frm_SaleTaxRegister.ForeColor = System.Drawing.Color.White
-        Me.frm_SaleTaxRegister.Image = Global.MMSPlus.My.Resources.Resources.Items_recent_list_to_do_formatting
-        Me.frm_SaleTaxRegister.Name = "frm_SaleTaxRegister"
-        Me.frm_SaleTaxRegister.Size = New System.Drawing.Size(201, 22)
-        Me.frm_SaleTaxRegister.Text = "GST Sale Register"
-
-          '
-        'frm_EwayBill
-        '
-
-         Me.frm_EwayBill.Name = "frm_EwayBill"
-        Me.frm_EwayBill.Size = New System.Drawing.Size(213, 22)
-        Me.frm_EwayBill.Text = "frm"
-    
         'MDIMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
