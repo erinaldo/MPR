@@ -9,6 +9,11 @@ Public Class frm_Synchronization
     Dim con As SqlConnection
     Dim cmd As SqlCommand
 
+    'Protected con As SqlConnection
+    'Protected cmd As SqlCommand
+
+    Dim clsCommonClass As New CommonClass
+
     Dim _rights As Form_Rights
     Public Sub New(ByVal rights As Form_Rights)
         _rights = rights
@@ -65,4 +70,51 @@ Public Class frm_Synchronization
         Me.Close()
 
     End Sub
+
+    Private Sub btnQuickSync_Click(sender As Object, e As EventArgs) Handles btnQuickSync.Click
+        Application.DoEvents()
+        Timer1.Enabled = True
+        lblProgressDetail.Text = ""
+
+        If Not IsNothing(PbarDataTransfer) Then
+            PbarDataTransfer.Value = 0
+            PbarDataTransfer.Minimum = 0
+            PbarDataTransfer.Maximum = 34
+
+        End If
+
+
+        Try
+            Dim tran As SqlTransaction
+            con = New SqlConnection(DNS)
+            If con.State = ConnectionState.Open Then con.Close()
+            con.Open()
+
+
+            tran = con.BeginTransaction()
+            cmd = New SqlCommand
+            cmd.Connection = con
+            cmd.Transaction = tran
+            cmd.CommandType = CommandType.StoredProcedure
+            cmd.CommandText = "proc_SyncMMSData"
+            cmd.Parameters.AddWithValue("@OutletId", outlet_id)
+            cmd.Parameters.AddWithValue("@NewOutlet", False)
+            cmd.ExecuteNonQuery()
+            cmd.Dispose()
+            tran.Commit()
+
+            If Not IsNothing(PbarDataTransfer) Then
+                PbarDataTransfer.Value = PbarDataTransfer.Maximum
+            End If
+
+        Catch ex As Exception
+            obj.MyCon_RollBackTransaction(cmd)
+            MsgBox(gblMessageHeading_Error & vbCrLf & gblMessage_ContactInfo & vbCrLf & ex.Message, MsgBoxStyle.Critical, gblMessageHeading)
+        End Try
+
+        Timer1.Enabled = False
+
+        MsgBox("Synchronization Completed Successfully.")
+    End Sub
+
 End Class

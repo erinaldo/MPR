@@ -27,13 +27,14 @@ Partial Class frm_Synchronization
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.PbarDataTransfer = New System.Windows.Forms.ProgressBar()
         Me.btn_Cancel = New System.Windows.Forms.Button()
+        Me.btnQuickSync = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'btnSynchronize
         '
         Me.btnSynchronize.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnSynchronize.ForeColor = System.Drawing.Color.White
-        Me.btnSynchronize.Location = New System.Drawing.Point(12, 21)
+        Me.btnSynchronize.Location = New System.Drawing.Point(12, 82)
         Me.btnSynchronize.Name = "btnSynchronize"
         Me.btnSynchronize.Size = New System.Drawing.Size(309, 50)
         Me.btnSynchronize.TabIndex = 0
@@ -59,7 +60,7 @@ Partial Class frm_Synchronization
         '
         'PbarDataTransfer
         '
-        Me.PbarDataTransfer.Location = New System.Drawing.Point(12, 91)
+        Me.PbarDataTransfer.Location = New System.Drawing.Point(12, 154)
         Me.PbarDataTransfer.Name = "PbarDataTransfer"
         Me.PbarDataTransfer.Size = New System.Drawing.Size(309, 38)
         Me.PbarDataTransfer.TabIndex = 2
@@ -76,6 +77,17 @@ Partial Class frm_Synchronization
         Me.btn_Cancel.Text = "Close"
         Me.btn_Cancel.UseVisualStyleBackColor = True
         '
+        'btnQuickSync
+        '
+        Me.btnQuickSync.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnQuickSync.ForeColor = System.Drawing.Color.White
+        Me.btnQuickSync.Location = New System.Drawing.Point(12, 12)
+        Me.btnQuickSync.Name = "btnQuickSync"
+        Me.btnQuickSync.Size = New System.Drawing.Size(309, 50)
+        Me.btnQuickSync.TabIndex = 6
+        Me.btnQuickSync.Text = "Quick Synchronize..."
+        Me.btnQuickSync.UseVisualStyleBackColor = True
+        '
         'frm_Synchronization
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -83,6 +95,7 @@ Partial Class frm_Synchronization
         Me.BackColor = System.Drawing.Color.DimGray
         Me.ClientSize = New System.Drawing.Size(333, 357)
         Me.ControlBox = False
+        Me.Controls.Add(Me.btnQuickSync)
         Me.Controls.Add(Me.btn_Cancel)
         Me.Controls.Add(Me.PbarDataTransfer)
         Me.Controls.Add(Me.lblProgressDetail)
@@ -103,4 +116,5 @@ Partial Class frm_Synchronization
     Friend WithEvents Timer1 As System.Windows.Forms.Timer
     Friend WithEvents PbarDataTransfer As System.Windows.Forms.ProgressBar
     Friend WithEvents btn_Cancel As Button
+    Friend WithEvents btnQuickSync As Button
 End Class

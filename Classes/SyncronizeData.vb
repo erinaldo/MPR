@@ -285,9 +285,6 @@ Module SyncronizeData
 
             ''Synchronize data
 
-
-
-
             cmd = New SqlCommand("delete from ACCOUNT_GROUPS")
             cmd.Transaction = tran
             cmd.Connection = con
@@ -478,7 +475,7 @@ Module SyncronizeData
                 BulkCopy.DestinationTableName = Table1.TableName
                 BulkCopy.WriteToServer(Table1)
                 If Not IsNothing(lblStatus) Then
-                    lblStatus.Text += Environment.NewLine & "Transferring Table " & _
+                    lblStatus.Text += Environment.NewLine & "Transferring Table " &
                     Table1.TableName & "....."
                     lblStatus.Text += "Done"
                     pbardatatransfer.Value += 1
@@ -500,10 +497,10 @@ Module SyncronizeData
 
             ''********************************************************************''  
 
-
         Catch ex As Exception
             tran.Rollback()
             MsgBox(ex.Message & vbCrLf & Table1.TableName)
         End Try
     End Sub
+
 End Module
