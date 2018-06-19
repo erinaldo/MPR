@@ -52,13 +52,13 @@ Module SyncronizeData
 
 
         ''7) DELIVERY_RATING_MASTER
-        Query = "Select * from DELIVERY_RATING_MASTER"
-        Table = Get_Remote_DataSet(Query).Tables(0)
-        Table.TableName = "DELIVERY_RATING_MASTER"
-        GlobalTables.Tables.Add(Table.Copy())
+        'Query = "Select * from DELIVERY_RATING_MASTER"
+        'Table = Get_Remote_DataSet(Query).Tables(0)
+        'Table.TableName = "DELIVERY_RATING_MASTER"
+        'GlobalTables.Tables.Add(Table.Copy())
 
 
-        ''8) EXCISE_MASTER
+        '8) EXCISE_MASTER
         Query = "Select * from EXCISE_MASTER"
         Table = Get_Remote_DataSet(Query).Tables(0)
         Table.TableName = "EXCISE_MASTER"
@@ -90,10 +90,10 @@ Module SyncronizeData
         GlobalTables.Tables.Add(Table.Copy())
 
         ''18) QUALITY_RATING_MASTER
-        Query = "Select * from QUALITY_RATING_MASTER"
-        Table = Get_Remote_DataSet(Query).Tables(0)
-        Table.TableName = "QUALITY_RATING_MASTER"
-        GlobalTables.Tables.Add(Table.Copy())
+        'Query = "Select * from QUALITY_RATING_MASTER"
+        'Table = Get_Remote_DataSet(Query).Tables(0)
+        'Table.TableName = "QUALITY_RATING_MASTER"
+        'GlobalTables.Tables.Add(Table.Copy())
 
         ''19) UNIT_MASTER
         Query = "Select * from UNIT_MASTER"
@@ -126,16 +126,16 @@ Module SyncronizeData
         GlobalTables.Tables.Add(Table.Copy())
 
         ''24)
-        Query = "select * from MenuMaster"
-        Table = Get_Remote_DataSet(Query).Tables(0)
-        Table.TableName = "MenuMaster"
-        GlobalTables.Tables.Add(Table.Copy())
+        'Query = "select * from MenuMaster"
+        'Table = Get_Remote_DataSet(Query).Tables(0)
+        'Table.TableName = "MenuMaster"
+        'GlobalTables.Tables.Add(Table.Copy())
 
         ''24)
-        Query = "select * from MenuMapping"
-        Table = Get_Remote_DataSet(Query).Tables(0)
-        Table.TableName = "MenuMapping"
-        GlobalTables.Tables.Add(Table.Copy())
+        'Query = "select * from MenuMapping"
+        'Table = Get_Remote_DataSet(Query).Tables(0)
+        'Table.TableName = "MenuMapping"
+        'GlobalTables.Tables.Add(Table.Copy())
 
         ''24)
         Query = "select * from OutletMaster"
@@ -246,6 +246,7 @@ Module SyncronizeData
             MsgBox(ex.Message, MsgBoxStyle.Critical, "Error --> Class Connection")
         End Try
         cmd.Connection = con
+        'cmd.CommandTimeout = 200
         'cmd.CommandText = "SELECT *,CityMaster.CityName_vch FROM OutletMaster INNER JOIN outletSettings ON OutletMaster.Pk_OutletId_num = outletSettings.Outlet_id INNER JOIN dbo.CityMaster ON OutletMaster.fk_CityId_num = dbo.CityMaster.pk_CityId_num WHERE outletSettings.Outlet_id = " + outlet_id.ToString()
         cmd.CommandText = qry
         cmd.CommandType = CommandType.Text
@@ -322,10 +323,10 @@ Module SyncronizeData
             'cmd.Connection = con
             'cmd.ExecuteNonQuery()
 
-            cmd = New SqlCommand("delete from DELIVERY_RATING_MASTER")
-            cmd.Transaction = tran
-            cmd.Connection = con
-            cmd.ExecuteNonQuery()
+            'cmd = New SqlCommand("delete from DELIVERY_RATING_MASTER")
+            'cmd.Transaction = tran
+            'cmd.Connection = con
+            'cmd.ExecuteNonQuery()
 
             'cmd = New SqlCommand("delete from DIVISION_SETTINGS")
             'cmd.Connection = con
@@ -412,15 +413,15 @@ Module SyncronizeData
             cmd.Connection = con
             cmd.ExecuteNonQuery()
 
-            cmd = New SqlCommand("delete from MenuMaster")
-            cmd.Transaction = tran
-            cmd.Connection = con
-            cmd.ExecuteNonQuery()
+            'cmd = New SqlCommand("delete from MenuMaster")
+            'cmd.Transaction = tran
+            'cmd.Connection = con
+            'cmd.ExecuteNonQuery()
 
-            cmd = New SqlCommand("delete from MenuMapping")
-            cmd.Transaction = tran
-            cmd.Connection = con
-            cmd.ExecuteNonQuery()
+            'cmd = New SqlCommand("delete from MenuMapping")
+            'cmd.Transaction = tran
+            'cmd.Connection = con
+            'cmd.ExecuteNonQuery()
 
             cmd = New SqlCommand("delete from OutletMaster")
             cmd.Transaction = tran
@@ -459,6 +460,9 @@ Module SyncronizeData
             cmd.ExecuteNonQuery()
 
             Dim BulkCopy As New SqlBulkCopy(con, SqlBulkCopyOptions.Default, tran)
+
+            BulkCopy.BulkCopyTimeout = 500
+            'BulkCopy.BatchSize = 30000
 
             'AddHandler BulkCopy.SqlRowsCopied, AddressOf BulkCopy_SqlRowsCopied
             'BulkCopy.NotifyAfter = 100
