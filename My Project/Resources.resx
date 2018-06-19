@@ -117,7 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="Client_list_text" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Client_list_text.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -133,8 +133,14 @@
   <data name="How_to_add_archive_files" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\How_to_add_archive_files.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="User_logout_man2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\User_logout_man.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Purchase" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\purchase.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mms+3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\mms+.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Close_delete_remove_exit_cross1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Close_delete_remove_exit_cross.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -175,9 +181,6 @@
   <data name="Save_all_download" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Save_all_download.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Client_list_text1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Client_list_text.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Flow_block_grid" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Flow_block_grid.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -196,8 +199,8 @@
   <data name="Cancel_Indent" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\images and icons\cancel indent.jpg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="box_download" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\box_download.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="home1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\home.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Pad_note_paper_game_document" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Pad_note_paper_game_document.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -208,8 +211,8 @@
   <data name="4-128" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\4-128.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Unloading_web_vector_uploading1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Unloading_web_vector_uploading.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="transfer" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\transfer.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="receive" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\receive.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -235,9 +238,6 @@
   <data name="Printer_print_3d_vector_symbol" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Printer_print_3d_vector_symbol.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="login" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\login.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Psichologist_doctor_psychologist2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Psichologist_doctor_psychologist.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -259,23 +259,26 @@
   <data name="User_logout_man" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\User_logout_man.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="crystal_reports" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images and icons\crystal-reports.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Approve_PO" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\images and icons\approve po.jpg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="crystal_reports" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\images and icons\crystal-reports.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Items_recent_list_to_do_formatting1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Items_recent_list_to_do_formatting.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Abort_stop_cancel_terminate" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Abort_stop_cancel_terminate.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Unloading_web_vector_uploading1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Unloading_web_vector_uploading.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Flow_block_grid1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Flow_block_grid.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Wastage" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\wastage.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="transfer" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\transfer.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mms+1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\mms+.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="MMS-Login-background" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\MMS-Login-background.jpg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -286,6 +289,9 @@
   <data name="SignOff" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\SignOff.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Open-Purchase-Order" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Open-Purchase-Order.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="MMS-Login-New_17" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\MMS-Login-New_17.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -295,7 +301,7 @@
   <data name="Logout_user_login_account2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Logout_user_login_account.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="User_logout_man2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="User_logout_man3" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\User_logout_man.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Chef_Food-2-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -310,14 +316,14 @@
   <data name="Loading_throbber_time_loader1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Loading_throbber_time_loader.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="smserver" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\smserver.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="User_logout_man1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\User_logout_man.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="go-home2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\go-home.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="23-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\23-48.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Setup_page_document_settings" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Setup_page_document_settings.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -325,11 +331,11 @@
   <data name="Psichologist_doctor_psychologist" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Psichologist_doctor_psychologist.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="whicon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\whicon.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Inventory_box_shipment_product" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Inventory_box_shipment_product.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Market_report" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Market_report.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="mms+" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\mms+.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -355,11 +361,11 @@
   <data name="Paste_clipboard_edit_document" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Paste_clipboard_edit_document.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Abort_stop_cancel_terminate" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Abort_stop_cancel_terminate.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Client_list_text1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Client_list_text.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Items_recent_list_to_do_formatting1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Items_recent_list_to_do_formatting.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Market_report" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Market_report.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="M_M" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\images and icons\m_m.jpg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -367,8 +373,8 @@
   <data name="go-home" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\go-home.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Open-Purchase-Order" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Open-Purchase-Order.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="mms+1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\mms+.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Rev_Wastage1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\rev-wastage1.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -388,9 +394,6 @@
   <data name="box_download1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\box_download.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="User Card1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\User Card.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Stock_In" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\images and icons\stock in.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -406,10 +409,10 @@
   <data name="warehouse" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\warehouse.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="User_logout_man3" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\User_logout_man.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="box_download" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\box_download.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="User Card" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="User Card1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\User Card.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Cancel_PO" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -418,8 +421,8 @@
   <data name="Purchase_Order" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\purchase-order.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="home1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\home.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="login" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\login.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Psichologist_doctor_psychologist1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Psichologist_doctor_psychologist.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -430,16 +433,17 @@
   <data name="Zoom_search_find_magnifying_glass" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Zoom_search_find_magnifying_glass.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="smserver" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\smserver.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="User Card" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\User Card.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="whicon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\whicon.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="23-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\23-48.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="whicon1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\whicon.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="mms+3" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\mms+.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="Chef_Food-2-481" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Chef_Food-2-48.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

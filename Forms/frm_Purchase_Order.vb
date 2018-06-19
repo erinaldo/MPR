@@ -933,7 +933,7 @@ restart:
             dr("Disc") = 0.0
             'dr("Exice_Per") = 0
             dr("Vat_per") = ds.Tables(1).Rows(0)("VAT_PERCENTAGE")
-            dr("Item_value") = (dr("PO_Qty") * dr("Item_Rate")) + ((dr("PO_Qty") * dr("Item_Rate") * dr("Vat_Per")) / 100).ToString("#0.00")
+            dr("Item_value") = (dr("PO_Qty") * dr("Item_Rate")) + ((dr("PO_Qty") * dr("Item_Rate") * dr("Vat_Per")) / 100)
             dr("Indent_Id") = -1
 
             frm_Indent_Items.dTable_POItems.Rows.Add(dr)
