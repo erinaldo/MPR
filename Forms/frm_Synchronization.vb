@@ -76,6 +76,8 @@ Public Class frm_Synchronization
         Timer1.Enabled = True
         lblProgressDetail.Text = ""
 
+
+
         If Not IsNothing(PbarDataTransfer) Then
             PbarDataTransfer.Value = 0
             PbarDataTransfer.Minimum = 0
@@ -98,6 +100,8 @@ Public Class frm_Synchronization
             cmd.CommandType = CommandType.StoredProcedure
             cmd.CommandText = "proc_SyncMMSData"
             cmd.Parameters.AddWithValue("@OutletId", outlet_id)
+            cmd.Parameters.AddWithValue("@destDB", gblDataBase_Name)
+            cmd.Parameters.AddWithValue("@sourceDB", gblCentraliseDataBase_Name)
             cmd.Parameters.AddWithValue("@NewOutlet", False)
             cmd.ExecuteNonQuery()
             cmd.Dispose()
