@@ -1013,6 +1013,8 @@ Public MustInherit Class Connection
                         gblDNS_Online = "Server =" & xmlRdr.GetAttribute("ServerName") & ";Database =" & _
                                                     xmlRdr.GetAttribute("DataBase") & ";User ID =" & xmlRdr.GetAttribute("UserName") & ";Password =" & _
                                                     Decrypt(xmlRdr.GetAttribute("Password")) & ";Connection Timeout =" & xmlRdr.GetAttribute("Timeout")
+
+                        gblCentraliseDataBase_Name = xmlRdr.GetAttribute("DataBase")
                     ElseIf xmlRdr.NodeType = XmlNodeType.Element And xmlRdr.Name = "ConnectionStrings" Then
                         If xmlRdr.GetAttribute("DivisionType").ToUpper = "WAREHOUSE" Then
                             v_division_type = division_type.Warehouse

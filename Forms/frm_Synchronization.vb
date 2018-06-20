@@ -76,8 +76,6 @@ Public Class frm_Synchronization
         Timer1.Enabled = True
         lblProgressDetail.Text = ""
 
-
-
         If Not IsNothing(PbarDataTransfer) Then
             PbarDataTransfer.Value = 0
             PbarDataTransfer.Minimum = 0
