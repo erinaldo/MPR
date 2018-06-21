@@ -49,7 +49,8 @@ Public Class frm_Synchronization
         Application.DoEvents()
         Timer1.Enabled = True
         lblProgressDetail.Text = ""
-        CollectData(v_the_current_division_id, False, lblProgressDetail, PbarDataTransfer)
+        'CollectData(v_the_current_division_id, False, lblProgressDetail, PbarDataTransfer)
+        CollectData(v_the_current_division_id, False, txtBxProgressDetail, PbarDataTransfer)
         Timer1.Enabled = False
     End Sub
 
