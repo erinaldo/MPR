@@ -9,7 +9,12 @@ VALUES  ( '0016_20_June_2018_SynchronizationDynamicQuery' ,
 Go
 
 -----------------------------------------------------------------------------------------------------------------------------------------
- 
+ --- To add any server As  Linked Server -----
+
+EXEC sp_addlinkedserver @server='MyLinkedServer'
+EXEC sp_addlinkedsrvlogin 'MyLinkedServer', 'false', NULL, 'MyUserName', 'MyPassword'
+
+Go
 
  --proc_SyncMMSData '1','MMSPLUS','ADMINPLUS'   
       
