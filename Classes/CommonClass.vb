@@ -1014,7 +1014,9 @@ Public MustInherit Class Connection
                                                     xmlRdr.GetAttribute("DataBase") & ";User ID =" & xmlRdr.GetAttribute("UserName") & ";Password =" & _
                                                     Decrypt(xmlRdr.GetAttribute("Password")) & ";Connection Timeout =" & xmlRdr.GetAttribute("Timeout")
 
+                        gblCentraliseServer_Name = xmlRdr.GetAttribute("ServerName")
                         gblCentraliseDataBase_Name = xmlRdr.GetAttribute("DataBase")
+
                     ElseIf xmlRdr.NodeType = XmlNodeType.Element And xmlRdr.Name = "ConnectionStrings" Then
                         If xmlRdr.GetAttribute("DivisionType").ToUpper = "WAREHOUSE" Then
                             v_division_type = division_type.Warehouse
