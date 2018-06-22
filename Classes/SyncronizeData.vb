@@ -6,7 +6,8 @@ Module SyncronizeData
     Dim con As SqlConnection
     Dim cmd As SqlCommand
 
-    Public Sub CollectData(ByVal outlet_id As Integer, Optional ByVal NEW_OUTLET As Boolean = False, Optional ByVal lblStatus As Label = Nothing, Optional ByVal pbardatatransfer As ProgressBar = Nothing)
+    'Public Sub CollectData(ByVal outlet_id As Integer, Optional ByVal NEW_OUTLET As Boolean = False, Optional ByVal lblStatus As Label = Nothing, Optional ByVal pbardatatransfer As ProgressBar = Nothing)
+    Public Sub CollectData(ByVal outlet_id As Integer, Optional ByVal NEW_OUTLET As Boolean = False, Optional ByVal lblStatus As TextBox = Nothing, Optional ByVal pbardatatransfer As ProgressBar = Nothing)
 
         GlobalTables = New DataSet
         GlobalTables.Tables.Clear()
@@ -257,7 +258,8 @@ Module SyncronizeData
         Return ds_new
     End Function
 
-    Public Sub Bulk_Copy(ByVal _Table As DataSet, Optional ByVal lblStatus As Label = Nothing, Optional ByVal pbardatatransfer As ProgressBar = Nothing)
+    'Public Sub Bulk_Copy(ByVal _Table As DataSet, Optional ByVal lblStatus As Label = Nothing, Optional ByVal pbardatatransfer As ProgressBar = Nothing)
+    Public Sub Bulk_Copy(ByVal _Table As DataSet, Optional ByVal lblStatus As TextBox = Nothing, Optional ByVal pbardatatransfer As ProgressBar = Nothing)
 
         Dim Table1 As DataTable = Nothing
 

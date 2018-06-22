@@ -28,6 +28,9 @@ Module GlobalModule
     Public gblDataBase_UserName As String = ""
     Public gblDataBase_Password As String = ""
     Public gblDataBase_Name As String = ""
+    Public gblCentraliseDataBase_Name As String = ""
+    Public gblCentraliseServer_Name As String = ""
+
 
     Public v_division_type As division_type
 

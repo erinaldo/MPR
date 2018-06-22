@@ -235,16 +235,16 @@ Public Class frm_Material_Received_Without_PO_Master
             If validate_data() Then
                 Dim RECEIVEDID As Integer
 
-                If flag = "save" Then
+                If cmbMRNType.SelectedIndex <= 0 Then
+                    MsgBox("Please Select MRN Type first.")
+                    Exit Sub
+                End If
+                If txt_Invoice_No.Text = Nothing Then
+                    MsgBox("Please Enter Invoice No. first.")
+                    Exit Sub
+                End If
 
-                    If cmbMRNType.SelectedIndex <= 0 Then
-                        MsgBox("Please Select MRN Type first.")
-                        Exit Sub
-                    End If
-                    If txt_Invoice_No.Text = Nothing Then
-                        MsgBox("Please Enter Invoice No. first.")
-                        Exit Sub
-                    End If
+                If flag = "save" Then
 
                     If txt_Invoice_No.Text <> "" Then
                         Dim invoicecount = Convert.ToInt32(obj.ExecuteScalar("SELECT COUNT(Received_ID) FROM dbo.MATERIAL_RECIEVED_WITHOUT_PO_MASTER WHERE Vendor_ID=" & cmbVendor.SelectedValue & " AND Invoice_No='" & txt_Invoice_No.Text & "'"))
@@ -276,7 +276,6 @@ Public Class frm_Material_Received_Without_PO_Master
                         End If
                     End If
 
-
                     RECEIVEDID = Convert.ToInt32(obj.getMaxValue(" RECEIVED_ID", "MATERIAL_RECIEVED_WITHOUT_PO_MASTER"))
                     prpty.Received_ID = Convert.ToInt32(RECEIVEDID)
                     prpty.Received_Code = MRN_Code ' GetReceivedCode()
@@ -289,7 +288,6 @@ Public Class frm_Material_Received_Without_PO_Master
                     prpty.Received_Date = Now
                     MRN_Code = ""
                 End If
-
 
                 prpty.Purchase_Type = Convert.ToInt32(cmbPurchaseType.SelectedValue)
                 prpty.Invoice_Date = Convert.ToDateTime(dt_Invoice_Date.Value)
@@ -333,17 +331,29 @@ Public Class frm_Material_Received_Without_PO_Master
                     prpty.freight = Convert.ToDecimal(txt_Percentage.Text)
                 End If
                 prpty.MRNCompanies_ID = Convert.ToInt16(cmb_MRNAgainst.SelectedValue)
-                'SAVE MASTER ENTERY
-                If flag = "save" Then
-                    clsObj.insert_MATERIAL_RECIEVED_WITHOUT_PO_MASTER(prpty, cmd)
-                Else
-                    clsObj.update_MATERIAL_RECIEVED_WITHOUT_PO_MASTER(prpty)
-                End If
+
 
 
                 Dim iRowCount As Int32
                 Dim iRow As Int32
                 iRowCount = FLXGRD_MaterialItem.Rows.Count
+
+                'SAVE MASTER ENTERY
+                If flag = "save" Then
+                    If (iRowCount = 1) Then
+                        MsgBox("Please select atleast one item to save the record")
+                        Exit Sub
+                    Else
+                        clsObj.insert_MATERIAL_RECIEVED_WITHOUT_PO_MASTER(prpty, cmd)
+                    End If
+                Else
+                    If (iRowCount = 1) Then
+                        MsgBox("Please select atleast one item to update the record")
+                        Exit Sub
+                    Else
+                        clsObj.update_MATERIAL_RECIEVED_WITHOUT_PO_MASTER(prpty)
+                    End If
+                End If
 
                 For iRow = 1 To iRowCount - 1
                     If Convert.ToDouble(FLXGRD_MaterialItem.Item(iRow, "Batch_Qty")) > 0 Then

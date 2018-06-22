@@ -49,7 +49,8 @@ Public Class frm_Synchronization
         Application.DoEvents()
         Timer1.Enabled = True
         lblProgressDetail.Text = ""
-        CollectData(v_the_current_division_id, False, lblProgressDetail, PbarDataTransfer)
+        'CollectData(v_the_current_division_id, False, lblProgressDetail, PbarDataTransfer)
+        CollectData(v_the_current_division_id, False, txtBxProgressDetail, PbarDataTransfer)
         Timer1.Enabled = False
     End Sub
 
@@ -93,11 +94,14 @@ Public Class frm_Synchronization
 
             tran = con.BeginTransaction()
             cmd = New SqlCommand
+            cmd.CommandTimeout = 0
             cmd.Connection = con
             cmd.Transaction = tran
             cmd.CommandType = CommandType.StoredProcedure
             cmd.CommandText = "proc_SyncMMSData"
             cmd.Parameters.AddWithValue("@OutletId", outlet_id)
+            cmd.Parameters.AddWithValue("@destDB", gblDataBase_Name)
+            cmd.Parameters.AddWithValue("@sourceDB", gblCentraliseServer_Name + "].[" + gblCentraliseDataBase_Name)
             cmd.Parameters.AddWithValue("@NewOutlet", False)
             cmd.ExecuteNonQuery()
             cmd.Dispose()

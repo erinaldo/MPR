@@ -28,6 +28,7 @@ Partial Class frm_Synchronization
         Me.PbarDataTransfer = New System.Windows.Forms.ProgressBar()
         Me.btn_Cancel = New System.Windows.Forms.Button()
         Me.btnQuickSync = New System.Windows.Forms.Button()
+        Me.txtBxProgressDetail = New System.Windows.Forms.TextBox()
         Me.SuspendLayout()
         '
         'btnSynchronize
@@ -91,6 +92,15 @@ Partial Class frm_Synchronization
         Me.btnQuickSync.Text = "Quick Synchronize..."
         Me.btnQuickSync.UseVisualStyleBackColor = False
         '
+        'txtBxProgressDetail
+        '
+        Me.txtBxProgressDetail.Location = New System.Drawing.Point(12, 216)
+        Me.txtBxProgressDetail.Multiline = True
+        Me.txtBxProgressDetail.Name = "txtBxProgressDetail"
+        Me.txtBxProgressDetail.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
+        Me.txtBxProgressDetail.Size = New System.Drawing.Size(309, 100)
+        Me.txtBxProgressDetail.TabIndex = 7
+        '
         'frm_Synchronization
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -98,6 +108,7 @@ Partial Class frm_Synchronization
         Me.BackColor = System.Drawing.Color.DimGray
         Me.ClientSize = New System.Drawing.Size(333, 357)
         Me.ControlBox = False
+        Me.Controls.Add(Me.txtBxProgressDetail)
         Me.Controls.Add(Me.btnQuickSync)
         Me.Controls.Add(Me.btn_Cancel)
         Me.Controls.Add(Me.PbarDataTransfer)
@@ -120,4 +131,5 @@ Partial Class frm_Synchronization
     Friend WithEvents PbarDataTransfer As System.Windows.Forms.ProgressBar
     Friend WithEvents btn_Cancel As Button
     Friend WithEvents btnQuickSync As Button
+    Friend WithEvents txtBxProgressDetail As TextBox
 End Class
