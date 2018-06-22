@@ -33,14 +33,15 @@ Partial Class frm_Synchronization
         '
         'btnSynchronize
         '
-        Me.btnSynchronize.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnSynchronize.BackColor = System.Drawing.Color.ForestGreen
+        Me.btnSynchronize.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnSynchronize.ForeColor = System.Drawing.Color.White
         Me.btnSynchronize.Location = New System.Drawing.Point(12, 82)
         Me.btnSynchronize.Name = "btnSynchronize"
         Me.btnSynchronize.Size = New System.Drawing.Size(309, 50)
         Me.btnSynchronize.TabIndex = 0
-        Me.btnSynchronize.Text = "Synchronize..."
-        Me.btnSynchronize.UseVisualStyleBackColor = True
+        Me.btnSynchronize.Text = "Synchronize All..."
+        Me.btnSynchronize.UseVisualStyleBackColor = False
         '
         'lblProgressDetail
         '
@@ -61,33 +62,35 @@ Partial Class frm_Synchronization
         '
         'PbarDataTransfer
         '
-        Me.PbarDataTransfer.Location = New System.Drawing.Point(12, 154)
+        Me.PbarDataTransfer.Location = New System.Drawing.Point(12, 176)
         Me.PbarDataTransfer.Name = "PbarDataTransfer"
         Me.PbarDataTransfer.Size = New System.Drawing.Size(309, 38)
         Me.PbarDataTransfer.TabIndex = 2
         '
         'btn_Cancel
         '
+        Me.btn_Cancel.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.btn_Cancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btn_Cancel.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btn_Cancel.ForeColor = System.Drawing.Color.White
-        Me.btn_Cancel.Location = New System.Drawing.Point(255, 322)
+        Me.btn_Cancel.Location = New System.Drawing.Point(235, 320)
         Me.btn_Cancel.Name = "btn_Cancel"
-        Me.btn_Cancel.Size = New System.Drawing.Size(75, 23)
+        Me.btn_Cancel.Size = New System.Drawing.Size(86, 25)
         Me.btn_Cancel.TabIndex = 5
         Me.btn_Cancel.Text = "Close"
-        Me.btn_Cancel.UseVisualStyleBackColor = True
+        Me.btn_Cancel.UseVisualStyleBackColor = False
         '
         'btnQuickSync
         '
-        Me.btnQuickSync.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnQuickSync.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.btnQuickSync.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnQuickSync.ForeColor = System.Drawing.Color.White
         Me.btnQuickSync.Location = New System.Drawing.Point(12, 12)
         Me.btnQuickSync.Name = "btnQuickSync"
         Me.btnQuickSync.Size = New System.Drawing.Size(309, 50)
         Me.btnQuickSync.TabIndex = 6
         Me.btnQuickSync.Text = "Quick Synchronize..."
-        Me.btnQuickSync.UseVisualStyleBackColor = True
+        Me.btnQuickSync.UseVisualStyleBackColor = False
         '
         'txtBxProgressDetail
         '
