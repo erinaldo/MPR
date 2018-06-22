@@ -264,13 +264,13 @@ Public Class frm_Item_Master
                 Dim drv As DataRowView
                 drv = ds.Tables(0).DefaultView(0)
                 txtOpeningStock.Text = drv("OPENING_STOCK").ToString()
-                If Convert.ToDouble(drv("Issue_Qty")) <> 0 Then
-                    txtOpeningStock.ReadOnly = True
-                    txt_OpeningRate.ReadOnly = True
-                Else
-                    txtOpeningStock.ReadOnly = False
-                    txt_OpeningRate.ReadOnly = False
-                End If
+                'If Convert.ToDouble(drv("Issue_Qty")) <> 0 Then
+                '    txtOpeningStock.ReadOnly = True
+                '    txt_OpeningRate.ReadOnly = True
+                'Else
+                '    txtOpeningStock.ReadOnly = False
+                '    txt_OpeningRate.ReadOnly = False
+                'End If
                 txtBatchNo.Text = drv("Batch_no").ToString()
                 dtpExpiryOpening.Checked = True
                 dtpExpiryOpening.Value = drv("Expiry_date").ToString()
