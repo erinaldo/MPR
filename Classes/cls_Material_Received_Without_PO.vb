@@ -595,52 +595,58 @@ Namespace material_recieved_without_po_master
         End Sub
 
         Public Sub update_MATERIAL_RECIEVED_WITHOUT_PO_MASTER(ByVal clsObj As cls_material_recieved_without_po_master_prop)
+            Try
 
-            cmd = New SqlClient.SqlCommand
 
-            If con.State = ConnectionState.Closed Then
-                con.Open()
-            End If
+                cmd = New SqlClient.SqlCommand
 
-            cmd.Connection = con
-            cmd.CommandType = CommandType.StoredProcedure
-            cmd.CommandText = "PROC_MATERIAL_RECIEVED_WITHOUT_PO_MASTER"
+                If con.State = ConnectionState.Closed Then
+                    con.Open()
+                End If
 
-            cmd.Parameters.AddWithValue("@V_Received_ID", clsObj.Received_ID)
-            cmd.Parameters.AddWithValue("@V_Received_Code", clsObj.Received_Code)
-            cmd.Parameters.AddWithValue("@V_Received_No", clsObj.Received_No)
-            cmd.Parameters.AddWithValue("@V_Received_Date", clsObj.Received_Date)
-            cmd.Parameters.AddWithValue("@V_Purchase_Type", clsObj.Purchase_Type)
-            cmd.Parameters.AddWithValue("@V_Vendor_ID", clsObj.Vendor_ID)
-            cmd.Parameters.AddWithValue("@V_Remarks", clsObj.Remarks)
-            cmd.Parameters.AddWithValue("@V_Po_ID", clsObj.Po_ID)
-            cmd.Parameters.AddWithValue("@V_MRN_PREFIX", clsObj.MRN_PREFIX)
-            cmd.Parameters.AddWithValue("@V_MRN_NO", clsObj.MRN_NO)
-            cmd.Parameters.AddWithValue("@V_Created_By", clsObj.Created_By)
-            cmd.Parameters.AddWithValue("@V_Creation_Date", clsObj.Creation_Date)
-            cmd.Parameters.AddWithValue("@V_Modified_By", clsObj.Modified_By)
-            cmd.Parameters.AddWithValue("@V_Modification_Date", clsObj.Modification_Date)
-            cmd.Parameters.AddWithValue("@v_Invoice_No", clsObj.Invoice_No)
-            cmd.Parameters.AddWithValue("@v_Invoice_Date", clsObj.Invoice_Date)
-            cmd.Parameters.AddWithValue("@V_Division_ID", clsObj.Division_ID)
-            cmd.Parameters.AddWithValue("@V_mrn_status", clsObj.mrn_status)
-            cmd.Parameters.AddWithValue("@V_freight", clsObj.freight)
-            cmd.Parameters.AddWithValue("@V_freight_type", clsObj.freight_type)
-            cmd.Parameters.AddWithValue("@v_MRNCompanies_ID", clsObj.MRNCompanies_ID)
-            cmd.Parameters.AddWithValue("@v_other_charges", clsObj.Other_Charges)
-            cmd.Parameters.AddWithValue("@v_Discount_amt", clsObj.Discount_amt)
-            cmd.Parameters.AddWithValue("@v_CashDiscount_amt", clsObj.CashDiscount_amt)
-            cmd.Parameters.AddWithValue("@V_VAT_ON_EXICE", clsObj.VAT_ON_EXICE)
-            cmd.Parameters.AddWithValue("@V_PROC_TYPE", 2)
-            cmd.Parameters.AddWithValue("@v_GROSS_AMOUNT", clsObj.GROSS_AMOUNT)
-            cmd.Parameters.AddWithValue("@v_GST_AMOUNT", clsObj.GST_AMOUNT)
-            cmd.Parameters.AddWithValue("@v_CESS_AMOUNT", clsObj.CESS_AMOUNT)
-            cmd.Parameters.AddWithValue("@v_ACESS_AMOUNT", clsObj.ACESS_AMOUNT)
-            cmd.Parameters.AddWithValue("@v_NET_AMOUNT", clsObj.NET_AMOUNT)
-            cmd.Parameters.AddWithValue("@V_MRN_TYPE", clsObj.MRNType)
+                cmd.Connection = con
+                cmd.CommandType = CommandType.StoredProcedure
+                cmd.CommandText = "PROC_MATERIAL_RECIEVED_WITHOUT_PO_MASTER"
 
-            cmd.ExecuteNonQuery()
-            cmd.Dispose()
+                cmd.Parameters.AddWithValue("@V_Received_ID", clsObj.Received_ID)
+                cmd.Parameters.AddWithValue("@V_Received_Code", clsObj.Received_Code)
+                cmd.Parameters.AddWithValue("@V_Received_No", clsObj.Received_No)
+                cmd.Parameters.AddWithValue("@V_Received_Date", clsObj.Received_Date)
+                cmd.Parameters.AddWithValue("@V_Purchase_Type", clsObj.Purchase_Type)
+                cmd.Parameters.AddWithValue("@V_Vendor_ID", clsObj.Vendor_ID)
+                cmd.Parameters.AddWithValue("@V_Remarks", clsObj.Remarks)
+                cmd.Parameters.AddWithValue("@V_Po_ID", clsObj.Po_ID)
+                cmd.Parameters.AddWithValue("@V_MRN_PREFIX", clsObj.MRN_PREFIX)
+                cmd.Parameters.AddWithValue("@V_MRN_NO", clsObj.MRN_NO)
+                cmd.Parameters.AddWithValue("@V_Created_By", clsObj.Created_By)
+                cmd.Parameters.AddWithValue("@V_Creation_Date", clsObj.Creation_Date)
+                cmd.Parameters.AddWithValue("@V_Modified_By", clsObj.Modified_By)
+                cmd.Parameters.AddWithValue("@V_Modification_Date", clsObj.Modification_Date)
+                cmd.Parameters.AddWithValue("@v_Invoice_No", clsObj.Invoice_No)
+                cmd.Parameters.AddWithValue("@v_Invoice_Date", clsObj.Invoice_Date)
+                cmd.Parameters.AddWithValue("@V_Division_ID", clsObj.Division_ID)
+                cmd.Parameters.AddWithValue("@V_mrn_status", clsObj.mrn_status)
+                cmd.Parameters.AddWithValue("@V_freight", clsObj.freight)
+                cmd.Parameters.AddWithValue("@V_freight_type", clsObj.freight_type)
+                cmd.Parameters.AddWithValue("@v_MRNCompanies_ID", clsObj.MRNCompanies_ID)
+                cmd.Parameters.AddWithValue("@v_other_charges", clsObj.Other_Charges)
+                cmd.Parameters.AddWithValue("@v_Discount_amt", clsObj.Discount_amt)
+                cmd.Parameters.AddWithValue("@v_CashDiscount_amt", clsObj.CashDiscount_amt)
+                cmd.Parameters.AddWithValue("@V_VAT_ON_EXICE", clsObj.VAT_ON_EXICE)
+                cmd.Parameters.AddWithValue("@V_PROC_TYPE", 2)
+                cmd.Parameters.AddWithValue("@v_GROSS_AMOUNT", clsObj.GROSS_AMOUNT)
+                cmd.Parameters.AddWithValue("@v_GST_AMOUNT", clsObj.GST_AMOUNT)
+                cmd.Parameters.AddWithValue("@v_CESS_AMOUNT", clsObj.CESS_AMOUNT)
+                cmd.Parameters.AddWithValue("@v_ACESS_AMOUNT", clsObj.ACESS_AMOUNT)
+                cmd.Parameters.AddWithValue("@v_NET_AMOUNT", clsObj.NET_AMOUNT)
+                cmd.Parameters.AddWithValue("@V_MRN_TYPE", clsObj.MRNType)
+
+                cmd.ExecuteNonQuery()
+                cmd.Dispose()
+
+            Catch ex As Exception
+                MsgBox(gblMessageHeading_Error & vbCrLf & gblMessage_ContactInfo & vbCrLf & ex.Message, MsgBoxStyle.Critical, gblMessageHeading)
+            End Try
 
         End Sub
 
