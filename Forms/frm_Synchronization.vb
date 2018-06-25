@@ -84,13 +84,11 @@ Public Class frm_Synchronization
 
         End If
 
-
         Try
             Dim tran As SqlTransaction
             con = New SqlConnection(DNS)
             If con.State = ConnectionState.Open Then con.Close()
             con.Open()
-
 
             tran = con.BeginTransaction()
             cmd = New SqlCommand

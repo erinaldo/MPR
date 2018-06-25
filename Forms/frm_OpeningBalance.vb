@@ -163,7 +163,10 @@ Public Class frm_OpeningBalance
     Private Sub grdOpeningBalance_DoubleClick(sender As Object, e As EventArgs) Handles grdOpeningBalance.DoubleClick
         flag = "update"
         OpeningBalanceId = Convert.ToInt32(grdOpeningBalance("OpeningBalanceId", grdOpeningBalance.CurrentCell.RowIndex).Value())
-        FillPaymentDetails(OpeningBalanceId)
+        Dim result As Integer = MessageBox.Show("Are you sure you want to edit this Opening Balance ?", "Edit Opening Balance", MessageBoxButtons.YesNo)
+        If result = DialogResult.Yes Then
+            FillPaymentDetails(OpeningBalanceId)
+        End If
     End Sub
 
     Public Sub FillPaymentDetails(OpeningBalanceId As Int16)

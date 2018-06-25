@@ -31,7 +31,6 @@ Public Class CommonClass
         grdcmb.DataSource = dt
     End Sub
 
-
     ' Dim DR As Odbc.OdbcDataReader
     Public Function FillDataSet(ByVal qry As String) As DataSet
         '' Common Function to open a DataSet
@@ -291,6 +290,9 @@ Public Class CommonClass
             ds1 = FillDataSet(qry)
             cnt.ValueMember = value
             cnt.DisplayMember = text
+            'cnt.DropDownStyle = ComboBoxStyle.DropDown
+            'cnt.AutoCompleteMode = AutoCompleteMode.Suggest
+            'cnt.AutoCompleteSource = AutoCompleteSource.ListItems
             Dim dr As DataRow
             If ds1.Tables(0).Rows.Count > 0 Then
                 If use_select Then
@@ -307,6 +309,37 @@ Public Class CommonClass
             End If
             cnt.DataSource = ds1.Tables(0)
 
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "Error ComboBind")
+        End Try
+    End Sub
+
+    Public Sub ComboBindForPayment(ByVal cnt As System.Windows.Forms.ComboBox, ByVal qry As String, ByVal text As String, ByVal value As String, Optional ByVal use_select As Boolean = False)
+        '' Common Function to Bind a Combo Box
+        Try
+            Dim ds1 As DataSet
+            ds1 = FillDataSet(qry)
+            cnt.ValueMember = value
+            cnt.DisplayMember = text
+            cnt.DropDownStyle = ComboBoxStyle.DropDown
+            cnt.AutoCompleteMode = AutoCompleteMode.Suggest
+            cnt.AutoCompleteSource = AutoCompleteSource.ListItems
+            Dim dr As DataRow
+            If ds1.Tables(0).Rows.Count > 0 Then
+                If use_select Then
+                    dr = ds1.Tables(0).NewRow
+                    dr(value) = -1
+                    dr(text) = "--Select--"
+                    ds1.Tables(0).Rows.InsertAt(dr, 0)
+                End If
+            Else
+                dr = ds1.Tables(0).NewRow
+                dr(value) = 0
+                dr(text) = "--No Data Found--"
+                ds1.Tables(0).Rows.Add(dr)
+            End If
+            cnt.DataSource = ds1.Tables(0)
 
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "Error ComboBind")
@@ -490,7 +523,6 @@ Public Class CommonClass
         conObject.Close()
         Return obj
     End Function
-
 
     Public Function ExecuteScalarTrans(ByVal qry As String, ByVal cmd As SqlCommand) As Object
         'cmd = New SqlCommand(qry)
@@ -1215,6 +1247,7 @@ Public MustInherit Class Connection
         End Select
     End Function
 
+
     ''' <summary>
     ''' Function To Check Null Values
     ''' </summary>
@@ -1322,7 +1355,7 @@ Public MustInherit Class Connection
     ''' <param name="values"></param>
     ''' <param name="DType"></param>
     ''' <remarks></remarks>
-
+    ''' 
 
     Public Sub RptShow(ByVal RptNo As Integer, ByVal Parameters As String, ByVal values As String, ByVal DType As String)
         Try
@@ -1643,6 +1676,7 @@ again:
         cmb.Items.Clear()
         cmb.DataSource = Values1
     End Sub
+
     Public Sub ExportGridToExcel(dgv As DataGridView)
 
         Dim sfd As New SaveFileDialog
@@ -1695,4 +1729,5 @@ again:
         APP.Workbooks.Open(excelLocation)
         APP.Visible = True
     End Sub
+
 End Class

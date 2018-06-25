@@ -31,7 +31,7 @@ Public Class frm_Account_Payment
             query += " where AG_ID in (" + Convert.ToString(AccountGroups.Expenses_Direct_Mfg) + ", " + Convert.ToString(AccountGroups.Expenses_Indirect_Admn) + ")"
         End If
         query += " Order by ACC_NAME"
-        clsObj.ComboBind(cmbAccountToDebit, query, "ACC_NAME", "ACC_ID", True)
+        clsObj.ComboBindForPayment(cmbAccountToDebit, query, "ACC_NAME", "ACC_ID", True)
 
         query = "Select [PaymentTypeId], PaymentTypeName from [PaymentTypeMaster] WHERE [IsActive_bit] = 1 and IsApprovalRequired_bit=0"
         clsObj.ComboBind(cmbPaymentType, query, "PaymentTypeName", "PaymentTypeId", True)
@@ -48,7 +48,7 @@ Public Class frm_Account_Payment
             query += " and AG_ID in (" + Convert.ToString(AccountGroups.Expenses_Direct_Mfg) + ", " + Convert.ToString(AccountGroups.Expenses_Indirect_Admn) + ")"
         End If
         query += " Order by ACC_NAME"
-        clsObj.ComboBind(cmbAccountToCredit, query, "ACC_NAME", "ACC_ID", True)
+        clsObj.ComboBindForPayment(cmbAccountToCredit, query, "ACC_NAME", "ACC_ID", True)
     End Sub
 
     Private Sub ClearControls()
@@ -280,7 +280,10 @@ Public Class frm_Account_Payment
     Private Sub flxList_DoubleClick(sender As Object, e As EventArgs) Handles flxList.DoubleClick
         flag = "update"
         PaymentId = Convert.ToInt32(flxList("PaymentId", flxList.CurrentCell.RowIndex).Value())
-        FillPaymentDetails(PaymentId)
+        Dim result As Integer = MessageBox.Show("Are you sure you want to edit this Voucher ?", "Edit Voucher", MessageBoxButtons.YesNo)
+        If result = DialogResult.Yes Then
+            FillPaymentDetails(PaymentId)
+        End If
     End Sub
 
     Public Sub FillPaymentDetails(PaymentId As Int16)

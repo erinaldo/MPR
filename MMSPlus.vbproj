@@ -1584,7 +1584,6 @@
       <SubType>Designer</SubType>
       <DependentUpon>SplashScreen.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="My Project\licenses.licx" />
     <EmbeddedResource Include="My Project\Resources.resx">
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
@@ -2197,7 +2196,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="bin\Debug\connection.xml" />
+    <Content Include="bin\Debug\connection.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="bin\Debug\Ionic.Zip.dll" />
     <Content Include="Scripts\2018Update\0001_26_Jan_2018_POEDIT.sql" />
     <Content Include="Scripts\2018Update\0003_05_Feb_2018_Update_Stock_Adjustment.sql" />
@@ -2215,6 +2216,7 @@
     <Content Include="Scripts\2018Update\0014_29_May_2018_DiscountModificationInPurchase.sql" />
     <Content Include="Scripts\2018Update\0013_24_May_2018_EditFormsFunctionality.sql" />
     <Content Include="Scripts\2018Update\0012_11_May_2018_ACESS.sql" />
+    <Content Include="Scripts\2018Update\0017_25_June_2018_PaymentTransactionCorrection.sql" />
     <Content Include="Scripts\2018Update\0016_20_June_2018_SynchronizationDynamicQuery.sql" />
     <Content Include="Scripts\2018Update\0015_30_May_2018_AccountBugFixing.sql" />
     <Content Include="Scripts\Updates\00001_29_Dec_Add_Duty_And_Taxes.sql" />

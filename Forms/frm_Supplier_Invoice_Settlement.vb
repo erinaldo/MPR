@@ -19,13 +19,13 @@ Public Class frm_Supplier_Invoice_Settlement
     Dim _paymentStatus As PaymentStatus
 
     Private Sub InitializeControls()
-        clsObj.ComboBind(cmbCustomer, "Select ACC_ID,ACC_NAME from ACCOUNT_MASTER WHERE AG_ID=" &
+        clsObj.ComboBindForPayment(cmbCustomer, "Select ACC_ID,ACC_NAME from ACCOUNT_MASTER WHERE AG_ID=" &
                  AccountGroups.Sundry_Creditors & " Order by ACC_NAME", "ACC_NAME", "ACC_ID", True)
 
-        clsObj.ComboBind(cmbCustomerApprovePayment, "Select ACC_ID,ACC_NAME from ACCOUNT_MASTER WHERE AG_ID=" &
+        clsObj.ComboBindForPayment(cmbCustomerApprovePayment, "Select ACC_ID,ACC_NAME from ACCOUNT_MASTER WHERE AG_ID=" &
                  AccountGroups.Sundry_Creditors & " Order by ACC_NAME", "ACC_NAME", "ACC_ID", True)
 
-        clsObj.ComboBind(cmbCustomerSettleInvoice, "Select ACC_ID,ACC_NAME from ACCOUNT_MASTER WHERE AG_ID=" &
+        clsObj.ComboBindForPayment(cmbCustomerSettleInvoice, "Select ACC_ID,ACC_NAME from ACCOUNT_MASTER WHERE AG_ID=" &
                  AccountGroups.Sundry_Creditors & " Order by ACC_NAME", "ACC_NAME", "ACC_ID", True)
 
         clsObj.ComboBind(cmbPaymentType, "Select [PaymentTypeId], [PaymentTypeName] + CASE WHEN IsApprovalRequired_bit=1" &
@@ -611,7 +611,10 @@ Public Class frm_Supplier_Invoice_Settlement
     Private Sub flxList_DoubleClick(sender As Object, e As EventArgs) Handles flxList.DoubleClick
         flag = "update"
         PaymentId = Convert.ToInt32(flxList("PaymentId", flxList.CurrentCell.RowIndex).Value())
-        FillPaymentDetails(PaymentId)
+        Dim result As Integer = MessageBox.Show("Are you sure you want to edit this Voucher ?", "Edit Voucher", MessageBoxButtons.YesNo)
+        If result = DialogResult.Yes Then
+            FillPaymentDetails(PaymentId)
+        End If
     End Sub
 
     Public Sub FillPaymentDetails(PaymentId As Int16)
