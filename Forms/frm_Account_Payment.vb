@@ -14,6 +14,7 @@ Public Class frm_Account_Payment
     Public Sub New(ByVal rights As Form_Rights)
         _rights = rights
         InitializeComponent()
+
     End Sub
 
     Private Sub frm_Account_Payment_Load(sender As Object, e As EventArgs) Handles MyBase.Load
