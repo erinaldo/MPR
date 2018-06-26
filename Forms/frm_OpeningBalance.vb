@@ -19,7 +19,7 @@ Public Class frm_OpeningBalance
     End Sub
 
     Private Sub frm_OpeningBalance_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        clsObj.ComboBind(cmbAccountGroup, "select 0 as AG_ID,'--Select--' as AG_NAME union Select AG_ID,AG_NAME from ACCOUNT_GROUPS Order by AG_NAME ", "AG_NAME", "AG_ID")
+        clsObj.ComboBindForPayment(cmbAccountGroup, "select 0 as AG_ID,'--Select--' as AG_NAME union Select AG_ID,AG_NAME from ACCOUNT_GROUPS Order by AG_NAME ", "AG_NAME", "AG_ID")
         BindCustomerCombo()
         cmbopbaltype.Text = "Dr."
         FillGrid()
@@ -53,7 +53,7 @@ Public Class frm_OpeningBalance
 
     Private Sub BindCustomerCombo()
 
-        clsObj.ComboBind(cmbCustomer, "select 0 as ACC_ID,'--Select--' as ACC_NAME union Select ACC_ID,ACC_NAME from ACCOUNT_MASTER WHERE AG_ID=" & cmbAccountGroup.SelectedValue & " Order by ACC_NAME ", "ACC_NAME", "ACC_ID")
+        clsObj.ComboBindForPayment(cmbCustomer, "select 0 as ACC_ID,'--Select--' as ACC_NAME union Select ACC_ID,ACC_NAME from ACCOUNT_MASTER WHERE AG_ID=" & cmbAccountGroup.SelectedValue & " Order by ACC_NAME ", "ACC_NAME", "ACC_ID")
 
     End Sub
 

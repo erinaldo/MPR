@@ -204,158 +204,157 @@ Public Class frm_transferData_btwn_dates
         con = New SqlConnection(gblDNS_Online)
         ''set variables
         ''Indent_ID
-        Query = " declare @ret varchar(max);set @ret='0';" & _
-            " select @ret= @ret + ',' +  cast(indent_id as varchar) from INDENT_MASTER" & _
-            " where Division_id = " & v_the_current_division_id & "" & _
-            " and convert(varchar,indent_date,101) between '" & _
-            dtpfrmdate.Value.Date.ToString("MM/dd/yyyy") & "' and '" & dtptodate.Value.Date.ToString("MM/dd/yyyy") & "'" & _
+        Query = " declare @ret varchar(max);set @ret='0';" &
+            " select @ret= @ret + ',' +  cast(indent_id as varchar) from INDENT_MASTER" &
+            " where Division_id = " & v_the_current_division_id & "" &
+            " and convert(varchar,indent_date,101) between '" &
+            dtpfrmdate.Value.Date.ToString("MM/dd/yyyy") & "' and '" & dtptodate.Value.Date.ToString("MM/dd/yyyy") & "'" &
             ";select '(' + @ret + ')';"
         indentIdsInQuery = obj.ExecuteScalar(Query, con)
 
         ''MIO _ID
-        Query = " declare @ret varchar(max);set @ret='0';" & _
-            " select @ret= @ret + ',' +  cast(MIO_ID as varchar) from MATERIAL_ISSUE_TO_COST_CENTER_MASTER" & _
-            " where Division_id = " & v_the_current_division_id & "" & _
-            " and convert(varchar,mio_date,101) between '" & _
-            dtpfrmdate.Value.Date.ToString("MM/dd/yyyy") & "' and '" & dtptodate.Value.Date.ToString("MM/dd/yyyy") & "'" & _
+        Query = " declare @ret varchar(max);set @ret='0';" &
+            " select @ret= @ret + ',' +  cast(MIO_ID as varchar) from MATERIAL_ISSUE_TO_COST_CENTER_MASTER" &
+            " where Division_id = " & v_the_current_division_id & "" &
+            " and convert(varchar,mio_date,101) between '" &
+            dtpfrmdate.Value.Date.ToString("MM/dd/yyyy") & "' and '" & dtptodate.Value.Date.ToString("MM/dd/yyyy") & "'" &
             ";select '(' + @ret + ')';"
         MIOIdsInQuery = obj.ExecuteScalar(Query, con)
 
         ''Receipt_ID
-        Query = " declare @ret varchar(max);set @ret='0';" & _
-            " select @ret= @ret + ',' +  cast(receipt_Id as varchar) from MATERIAL_RECEIVED_AGAINST_PO_MASTER" & _
-             " where Division_id = " & v_the_current_division_id & "" & _
-            " and convert(varchar,receipt_date,101) between '" & _
-            dtpfrmdate.Value.Date.ToString("MM/dd/yyyy") & "' and '" & dtptodate.Value.Date.ToString("MM/dd/yyyy") & "'" & _
+        Query = " declare @ret varchar(max);set @ret='0';" &
+            " select @ret= @ret + ',' +  cast(receipt_Id as varchar) from MATERIAL_RECEIVED_AGAINST_PO_MASTER" &
+             " where Division_id = " & v_the_current_division_id & "" &
+            " and convert(varchar,receipt_date,101) between '" &
+            dtpfrmdate.Value.Date.ToString("MM/dd/yyyy") & "' and '" & dtptodate.Value.Date.ToString("MM/dd/yyyy") & "'" &
             ";select '(' + @ret + ')';"
         ReceiptIdsInQuery = obj.ExecuteScalar(Query, con)
 
         ''received_id
-        Query = " declare @ret varchar(max);set @ret='0';" & _
-            " select @ret= @ret + ',' +  cast(received_id as varchar) from MATERIAL_RECIEVED_WITHOUT_PO_MASTER" & _
-              " where Division_id = " & v_the_current_division_id & "" & _
-            " and convert(varchar,received_date,101) between '" & _
-            dtpfrmdate.Value.Date.ToString("MM/dd/yyyy") & "' and '" & dtptodate.Value.Date.ToString("MM/dd/yyyy") & "'" & _
+        Query = " declare @ret varchar(max);set @ret='0';" &
+            " select @ret= @ret + ',' +  cast(received_id as varchar) from MATERIAL_RECIEVED_WITHOUT_PO_MASTER" &
+              " where Division_id = " & v_the_current_division_id & "" &
+            " and convert(varchar,received_date,101) between '" &
+            dtpfrmdate.Value.Date.ToString("MM/dd/yyyy") & "' and '" & dtptodate.Value.Date.ToString("MM/dd/yyyy") & "'" &
             ";select '(' + @ret + ')';"
         ReceivedIdsInQuery = obj.ExecuteScalar(Query, con)
 
         ''MRS_DATE
-        Query = " declare @ret varchar(max);set @ret='0';" & _
-           " select @ret= @ret + ',' +  cast(MRS_ID as varchar) from MRS_MAIN_STORE_MASTER" & _
-           " where Division_id = " & v_the_current_division_id & "" & _
-            " and convert(varchar,MRS_DATE,101) between '" & _
-            dtpfrmdate.Value.Date.ToString("MM/dd/yyyy") & "' and '" & dtptodate.Value.Date.ToString("MM/dd/yyyy") & "'" & _
+        Query = " declare @ret varchar(max);set @ret='0';" &
+           " select @ret= @ret + ',' +  cast(MRS_ID as varchar) from MRS_MAIN_STORE_MASTER" &
+           " where Division_id = " & v_the_current_division_id & "" &
+            " and convert(varchar,MRS_DATE,101) between '" &
+            dtpfrmdate.Value.Date.ToString("MM/dd/yyyy") & "' and '" & dtptodate.Value.Date.ToString("MM/dd/yyyy") & "'" &
             ";select '(' + @ret + ')';"
         MRSIdsInQuery = obj.ExecuteScalar(Query, con)
 
         ''OPEN---PO_ID
-        Query = " declare @ret varchar(max);set @ret='0';" & _
-            " select @ret= @ret + ',' +  cast(PO_ID as varchar) from OPEN_PO_MASTER" & _
-            " where Division_id = " & v_the_current_division_id & "" & _
-            " and convert(varchar,PO_DATE,101) between '" & _
-            dtpfrmdate.Value.Date.ToString("MM/dd/yyyy") & "' and '" & dtptodate.Value.Date.ToString("MM/dd/yyyy") & "'" & _
+        Query = " declare @ret varchar(max);set @ret='0';" &
+            " select @ret= @ret + ',' +  cast(PO_ID as varchar) from OPEN_PO_MASTER" &
+            " where Division_id = " & v_the_current_division_id & "" &
+            " and convert(varchar,PO_DATE,101) between '" &
+            dtpfrmdate.Value.Date.ToString("MM/dd/yyyy") & "' and '" & dtptodate.Value.Date.ToString("MM/dd/yyyy") & "'" &
             ";select '(' + @ret + ')';"
         OpenPoIdsInQuery = obj.ExecuteScalar(Query, con)
 
         ''PO_ID
-        Query = " declare @ret varchar(max);set @ret='0';" & _
-            " select @ret= @ret + ',' +  cast(PO_ID as varchar) from PO_MASTER" & _
-            " where Division_id = " & v_the_current_division_id & "" & _
-            " and convert(varchar,PO_DATE,101) between '" & _
-            dtpfrmdate.Value.Date.ToString("MM/dd/yyyy") & "' and '" & dtptodate.Value.Date.ToString("MM/dd/yyyy") & "'" & _
+        Query = " declare @ret varchar(max);set @ret='0';" &
+            " select @ret= @ret + ',' +  cast(PO_ID as varchar) from PO_MASTER" &
+            " where Division_id = " & v_the_current_division_id & "" &
+            " and convert(varchar,PO_DATE,101) between '" &
+            dtpfrmdate.Value.Date.ToString("MM/dd/yyyy") & "' and '" & dtptodate.Value.Date.ToString("MM/dd/yyyy") & "'" &
             ";select '(' + @ret + ')';"
         PoIdsInQuery = obj.ExecuteScalar(Query, con)
 
         ''RMIO_ID
-        Query = " declare @ret varchar(max);set @ret='0';" & _
-            " select @ret= @ret + ',' +  cast(RMIO_ID as varchar) from ReverseMaterial_Issue_To_Cost_Center_Master" & _
-            " where Division_id = " & v_the_current_division_id & "" & _
-            " and convert(varchar,RMIO_DATE,101) between '" & _
-            dtpfrmdate.Value.Date.ToString("MM/dd/yyyy") & "' and '" & dtptodate.Value.Date.ToString("MM/dd/yyyy") & "'" & _
+        Query = " declare @ret varchar(max);set @ret='0';" &
+            " select @ret= @ret + ',' +  cast(RMIO_ID as varchar) from ReverseMaterial_Issue_To_Cost_Center_Master" &
+            " where Division_id = " & v_the_current_division_id & "" &
+            " and convert(varchar,RMIO_DATE,101) between '" &
+            dtpfrmdate.Value.Date.ToString("MM/dd/yyyy") & "' and '" & dtptodate.Value.Date.ToString("MM/dd/yyyy") & "'" &
             ";select '(' + @ret + ')';"
         RmioIdsInQuery = obj.ExecuteScalar(Query, con)
 
         ''ReverseMATERIAL_RECIEVED_Against_PO_MASTER------Reverse_ID
-        Query = " declare @ret varchar(max);set @ret='0';" & _
-            " select @ret= @ret + ',' +  cast(Reverse_ID as varchar) from ReverseMATERIAL_RECIEVED_Against_PO_MASTER" & _
-            " where Division_id = " & v_the_current_division_id & "" & _
-            " and convert(varchar,Reverse_Date,101) between '" & _
-            dtpfrmdate.Value.Date.ToString("MM/dd/yyyy") & "' and '" & dtptodate.Value.Date.ToString("MM/dd/yyyy") & "'" & _
+        Query = " declare @ret varchar(max);set @ret='0';" &
+            " select @ret= @ret + ',' +  cast(Reverse_ID as varchar) from ReverseMATERIAL_RECIEVED_Against_PO_MASTER" &
+            " where Division_id = " & v_the_current_division_id & "" &
+            " and convert(varchar,Reverse_Date,101) between '" &
+            dtpfrmdate.Value.Date.ToString("MM/dd/yyyy") & "' and '" & dtptodate.Value.Date.ToString("MM/dd/yyyy") & "'" &
             ";select '(' + @ret + ')';"
         ReverseAgainstIdsInQuery = obj.ExecuteScalar(Query, con)
 
         ''ReverseMATERIAL_RECIEVED_WITHOUT_PO_MASTER------Reverse_ID
-        Query = " declare @ret varchar(max);set @ret='0';" & _
-            " select @ret= @ret + ',' +  cast(Reverse_ID as varchar) from ReverseMATERIAL_RECIEVED_WITHOUT_PO_MASTER" & _
-            " where Division_id = " & v_the_current_division_id & "" & _
-            " and convert(varchar,Reverse_Date,101) between '" & _
-            dtpfrmdate.Value.Date.ToString("MM/dd/yyyy") & "' and '" & dtptodate.Value.Date.ToString("MM/dd/yyyy") & "'" & _
+        Query = " declare @ret varchar(max);set @ret='0';" &
+            " select @ret= @ret + ',' +  cast(Reverse_ID as varchar) from ReverseMATERIAL_RECIEVED_WITHOUT_PO_MASTER" &
+            " where Division_id = " & v_the_current_division_id & "" &
+            " and convert(varchar,Reverse_Date,101) between '" &
+            dtpfrmdate.Value.Date.ToString("MM/dd/yyyy") & "' and '" & dtptodate.Value.Date.ToString("MM/dd/yyyy") & "'" &
             ";select '(' + @ret + ')';"
         ReverseWithoutIdsInQuery = obj.ExecuteScalar(Query, con)
 
         ''ReverseWastage_ID
-        Query = " declare @ret varchar(max);set @ret='0';" & _
-            " select @ret= @ret + ',' +  cast(ReverseWastage_ID as varchar) from ReverseWASTAGE_MASTER" & _
-            " where Division_id = " & v_the_current_division_id & "" & _
-            " and convert(varchar,ReverseWastage_Date,101) between '" & _
-            dtpfrmdate.Value.Date.ToString("MM/dd/yyyy") & "' and '" & dtptodate.Value.Date.ToString("MM/dd/yyyy") & "'" & _
+        Query = " declare @ret varchar(max);set @ret='0';" &
+            " select @ret= @ret + ',' +  cast(ReverseWastage_ID as varchar) from ReverseWASTAGE_MASTER" &
+            " where Division_id = " & v_the_current_division_id & "" &
+            " and convert(varchar,ReverseWastage_Date,101) between '" &
+            dtpfrmdate.Value.Date.ToString("MM/dd/yyyy") & "' and '" & dtptodate.Value.Date.ToString("MM/dd/yyyy") & "'" &
             ";select '(' + @ret + ')';"
         ReverseWastageIdsInQuery = obj.ExecuteScalar(Query, con)
 
 
         ''SRL_ID
-        Query = " declare @ret varchar(max);set @ret='0';" & _
-            " select @ret= @ret + ',' +  cast(SRL_ID as varchar) from SUPPLIER_RATE_LIST" & _
-             " where Division_id = " & v_the_current_division_id & "" & _
-            " and convert(varchar,SRL_Date,101) between '" & _
-            dtpfrmdate.Value.Date.ToString("MM/dd/yyyy") & "' and '" & dtptodate.Value.Date.ToString("MM/dd/yyyy") & "'" & _
+        Query = " declare @ret varchar(max);set @ret='0';" &
+            " select @ret= @ret + ',' +  cast(SRL_ID as varchar) from SUPPLIER_RATE_LIST" &
+             " where Division_id = " & v_the_current_division_id & "" &
+            " and convert(varchar,SRL_Date,101) between '" &
+            dtpfrmdate.Value.Date.ToString("MM/dd/yyyy") & "' and '" & dtptodate.Value.Date.ToString("MM/dd/yyyy") & "'" &
             ";select '(' + @ret + ')';"
         SrlIdsInQuery = obj.ExecuteScalar(Query, con)
 
         ''Wastage_ID
-        Query = " declare @ret varchar(max);set @ret='0';" & _
-            " select @ret= @ret + ',' +  cast(Wastage_ID as varchar) from WASTAGE_MASTER" & _
-              " where Division_id = " & v_the_current_division_id & "" & _
-            " and convert(varchar,wastage_Date,101) between '" & _
-            dtpfrmdate.Value.Date.ToString("MM/dd/yyyy") & "' and '" & dtptodate.Value.Date.ToString("MM/dd/yyyy") & "'" & _
+        Query = " declare @ret varchar(max);set @ret='0';" &
+            " select @ret= @ret + ',' +  cast(Wastage_ID as varchar) from WASTAGE_MASTER" &
+              " where Division_id = " & v_the_current_division_id & "" &
+            " and convert(varchar,wastage_Date,101) between '" &
+            dtpfrmdate.Value.Date.ToString("MM/dd/yyyy") & "' and '" & dtptodate.Value.Date.ToString("MM/dd/yyyy") & "'" &
             ";select '(' + @ret + ')';"
         WastageIdsInQuery = obj.ExecuteScalar(Query, con)
 
 
         ''AdjustmentIds
-        Query = " declare @ret varchar(max);set @ret='0';" & _
-            " select @ret= @ret + ',' +  cast(Adjustment_ID as varchar) from ADJUSTMENT_MASTER" & _
-            " where Division_id = " & v_the_current_division_id & "" & _
-            " and convert(varchar,Adjustment_Date,101) between '" & _
-            dtpfrmdate.Value.Date.ToString("MM/dd/yyyy") & "' and '" & dtptodate.Value.Date.ToString("MM/dd/yyyy") & "'" & _
+        Query = " declare @ret varchar(max);set @ret='0';" &
+            " select @ret= @ret + ',' +  cast(Adjustment_ID as varchar) from ADJUSTMENT_MASTER" &
+            " where Division_id = " & v_the_current_division_id & "" &
+            " and convert(varchar,Adjustment_Date,101) between '" &
+            dtpfrmdate.Value.Date.ToString("MM/dd/yyyy") & "' and '" & dtptodate.Value.Date.ToString("MM/dd/yyyy") & "'" &
             ";select '(' + @ret + ')';"
         AdjustmentIdsInQuery = obj.ExecuteScalar(Query)
 
         ''Stock_transfer_cc
-        Query = " declare @ret varchar(max);set @ret='0';" & _
-            " select @ret= @ret + ',' +  cast(TRANSFER_ID as varchar) from STOCK_TRANSFER_OUTLET_TO_OUTLET_MASTER" & _
-            " where convert(varchar,TRANSFER_DATE,101) between '" & _
-            dtpfrmdate.Value.Date.ToString("MM/dd/yyyy") & "' and '" & dtptodate.Value.Date.ToString("MM/dd/yyyy") & "' and Division_id = " & v_the_current_division_id & ";" & _
+        Query = " declare @ret varchar(max);set @ret='0';" &
+            " select @ret= @ret + ',' +  cast(TRANSFER_ID as varchar) from STOCK_TRANSFER_OUTLET_TO_OUTLET_MASTER" &
+            " where convert(varchar,TRANSFER_DATE,101) between '" &
+            dtpfrmdate.Value.Date.ToString("MM/dd/yyyy") & "' and '" & dtptodate.Value.Date.ToString("MM/dd/yyyy") & "' and Division_id = " & v_the_current_division_id & ";" &
             " select '(' + @ret + ')';"
         StocktransferccInQuery = obj.ExecuteScalar(Query)
 
         ''Wastage_cc
-        Query = " declare @ret varchar(max);set @ret='0';" & _
-            " select @ret= @ret + ',' +  cast(Wastage_ID as varchar) from WASTAGE_MASTER_CC" & _
-            " where convert(varchar,wastage_Date,101) between '" & _
-            dtpfrmdate.Value.Date.ToString("MM/dd/yyyy") & "' and '" & dtptodate.Value.Date.ToString("MM/dd/yyyy") & "' and Division_id = " & v_the_current_division_id & ";" & _
+        Query = " declare @ret varchar(max);set @ret='0';" &
+            " select @ret= @ret + ',' +  cast(Wastage_ID as varchar) from WASTAGE_MASTER_CC" &
+            " where convert(varchar,wastage_Date,101) between '" &
+            dtpfrmdate.Value.Date.ToString("MM/dd/yyyy") & "' and '" & dtptodate.Value.Date.ToString("MM/dd/yyyy") & "' and Division_id = " & v_the_current_division_id & ";" &
             " select '(' + @ret + ')';"
         WastageIdsInQuerycc = obj.ExecuteScalar(Query, con)
 
         ''Closing_cc_master
-        Query = " declare @ret varchar(max);set @ret='0';" & _
-            " select @ret= @ret + ',' +  cast(Closing_id as varchar) from CLOSING_CC_MASTER" & _
-            " where convert(varchar,CLOSING_DATE,101) between '" & _
-            dtpfrmdate.Value.Date.ToString("MM/dd/yyyy") & "' and '" & dtptodate.Value.Date.ToString("MM/dd/yyyy") & "' and Division_id = " & v_the_current_division_id & ";" & _
+        Query = " declare @ret varchar(max);set @ret='0';" &
+            " select @ret= @ret + ',' +  cast(Closing_id as varchar) from CLOSING_CC_MASTER" &
+            " where convert(varchar,CLOSING_DATE,101) between '" &
+            dtpfrmdate.Value.Date.ToString("MM/dd/yyyy") & "' and '" & dtptodate.Value.Date.ToString("MM/dd/yyyy") & "' and Division_id = " & v_the_current_division_id & ";" &
             " select '(' + @ret + ')';"
         Closingidscc = obj.ExecuteScalar(Query)
     End Sub
-
 
     Private Sub FillTables()
 
@@ -923,6 +922,7 @@ Public Class frm_transferData_btwn_dates
 
             tran.Commit()
             con.Close()
+
             Dim res As Int32 = MsgBox("Data Transfer Successfully Completed", MsgBoxStyle.OkOnly, "Data Transfer")
             If (res = 1) Then
                 con = New SqlConnection(DNS)
@@ -999,4 +999,141 @@ Public Class frm_transferData_btwn_dates
     Private Sub btn_Cancel_Click(sender As Object, e As EventArgs) Handles btn_Cancel.Click
         Me.Close()
     End Sub
+
+    Private Sub btnQuickDataTransfer_Click(sender As Object, e As EventArgs) Handles btnQuickDataTransfer.Click
+        Query = " Select isnull(CONVERT(VARCHAR,max(datatransferDate_dt),101),'01/01/1900') as Lasttransfer from Datatransfer"
+
+        pbardatatransfer.Value = 0
+        pbardatatransfer.Minimum = 0
+
+        Dim LastDate As Date = Convert.ToString(obj.ExecuteScalar(Query))
+        If (LastDate = "01/01/1900") Then
+            Try
+                'Dim tran1 As SqlTransaction
+                con = New SqlConnection(DNS)
+                If con.State = ConnectionState.Open Then con.Close()
+                con.Open()
+
+                'pbardatatransfer.Value += 1
+                'System.Windows.Forms.Application.DoEvents()
+
+                'tran1 = con.BeginTransaction()
+                cmd = New SqlCommand
+                cmd.CommandTimeout = 0
+                cmd.Connection = con
+                'cmd.Transaction = tran1
+                cmd.CommandType = CommandType.StoredProcedure
+                cmd.CommandText = "proc_TransferMMSData"
+                cmd.Parameters.AddWithValue("@DivisionId", v_the_current_division_id)
+                cmd.Parameters.AddWithValue("@destDB", gblCentraliseServer_Name + "].[" + gblCentraliseDataBase_Name)
+                cmd.Parameters.AddWithValue("@sourceDB", gblDataBase_Name)
+                cmd.Parameters.AddWithValue("@fromdate", dtpfrmdate.Value.ToString("yyyy-MM-dd"))
+                cmd.Parameters.AddWithValue("@todate", dtptodate.Value.ToString("yyyy-MM-dd"))
+                cmd.ExecuteNonQuery()
+                cmd.Dispose()
+                'tran1.Commit()
+                'con.Close()
+
+                If Not IsNothing(pbardatatransfer) Then
+                    pbardatatransfer.Value = 44
+                End If
+
+                'Dim res As Int32 = MsgBox("Data Transfer Successfully Completed", MsgBoxStyle.OkOnly, "Data Transfer")
+                'If (res = 1) Then
+                '    con = New SqlConnection(DNS)
+                '    If con.State = ConnectionState.Open Then con.Close()
+                '    con.Open()
+
+                '    Dim congbl As SqlConnection = New SqlConnection(gblDNS_Online)
+                '    If congbl.State = ConnectionState.Open Then congbl.Close()
+                '    congbl.Open()
+
+                '    Dim frmdate As DateTime = dtpfrmdate.Value.Date
+                '    While frmdate <= dtptodate.Value.Date
+                '        Query = "select isnull(max(DataTransferId_num),0)+1 from DataTransfer"
+                '        Dim TransferId As Int32 = obj.ExecuteScalar(Query)
+                '        cmd = New SqlCommand("insert into DataTransfer(DataTransferId_num,DataTransferDate_dt,IsCompleted_bit,fk_CreatedBy_num,CreatedDate_dt,fk_ModifiedBy_num,ModifiedDate_dt) values (" & TransferId & ",'" & frmdate.ToString() & "',1,1,GETDATE(),1,GETDATE())")
+                '        'cmd.Transaction = tran
+                '        cmd.Connection = con
+                '        cmd.ExecuteNonQuery()
+
+                '        cmd = New SqlCommand("insert into DataTransfer(DataTransferId_num,DataTransferDate_dt,IsCompleted_bit,fk_CreatedBy_num,CreatedDate_dt,fk_ModifiedBy_num,ModifiedDate_dt,division_id) values (" & TransferId & ",'" & frmdate.ToString() & "',1,1,GETDATE(),1,GETDATE()," & v_the_current_division_id & ")")
+                '        cmd.Connection = congbl
+                '        cmd.ExecuteNonQuery()
+                '        frmdate = frmdate.AddDays(1)
+                '    End While
+                'End If
+
+            Catch ex As Exception
+                obj.MyCon_RollBackTransaction(cmd)
+                MsgBox(gblMessageHeading_Error & vbCrLf & gblMessage_ContactInfo & vbCrLf & ex.Message, MsgBoxStyle.Critical, gblMessageHeading)
+            End Try
+        ElseIf (Convert.ToInt32(dtpfrmdate.Value.Date.Subtract(LastDate).TotalDays) > 1) Then
+            MsgBox("Please Transfer Yesterday's Data", MsgBoxStyle.OkOnly, "Alert?")
+            Exit Sub
+        Else
+            Try
+                'Dim tran2 As SqlTransaction
+                con = New SqlConnection(DNS)
+                If con.State = ConnectionState.Open Then con.Close()
+                con.Open()
+
+
+                'tran2 = con.BeginTransaction()
+
+
+                cmd = New SqlCommand
+                cmd.CommandTimeout = 0
+                cmd.Connection = con
+                'cmd.Transaction = tran2
+                cmd.CommandType = CommandType.StoredProcedure
+                cmd.CommandText = "proc_TransferMMSData"
+                cmd.Parameters.AddWithValue("@DivisionId", v_the_current_division_id)
+                cmd.Parameters.AddWithValue("@destDB", gblCentraliseServer_Name + "].[" + gblCentraliseDataBase_Name)
+                cmd.Parameters.AddWithValue("@sourceDB", gblDataBase_Name)
+                cmd.Parameters.AddWithValue("@fromdate", dtpfrmdate.Value.ToString("yyyy-MM-dd"))
+                cmd.Parameters.AddWithValue("@todate", dtptodate.Value.ToString("yyyy-MM-dd"))
+                cmd.ExecuteNonQuery()
+                cmd.Dispose()
+
+                'tran2.Commit()
+                con.Close()
+
+                If Not IsNothing(pbardatatransfer) Then
+                    pbardatatransfer.Value = 44
+                End If
+
+                'Dim res As Int32 = MsgBox("Data Transfer Successfully Completed", MsgBoxStyle.OkOnly, "Data Transfer")
+                'If (res = 1) Then
+                '    con = New SqlConnection(DNS)
+                '    If con.State = ConnectionState.Open Then con.Close()
+                '    con.Open()
+
+                '    Dim congbl As SqlConnection = New SqlConnection(gblDNS_Online)
+                '    If congbl.State = ConnectionState.Open Then congbl.Close()
+                '    congbl.Open()
+
+                '    Dim frmdate As DateTime = dtpfrmdate.Value.Date
+                '    While frmdate <= dtptodate.Value.Date
+                '        Query = "select isnull(max(DataTransferId_num),0)+1 from DataTransfer"
+                '        Dim TransferId As Int32 = obj.ExecuteScalar(Query)
+                '        cmd = New SqlCommand("insert into DataTransfer(DataTransferId_num,DataTransferDate_dt,IsCompleted_bit,fk_CreatedBy_num,CreatedDate_dt,fk_ModifiedBy_num,ModifiedDate_dt) values (" & TransferId & ",'" & frmdate.ToString() & "',1,1,GETDATE(),1,GETDATE())")
+                '        'cmd.Transaction = tran
+                '        cmd.Connection = con
+                '        cmd.ExecuteNonQuery()
+
+                '        cmd = New SqlCommand("insert into DataTransfer(DataTransferId_num,DataTransferDate_dt,IsCompleted_bit,fk_CreatedBy_num,CreatedDate_dt,fk_ModifiedBy_num,ModifiedDate_dt,division_id) values (" & TransferId & ",'" & frmdate.ToString() & "',1,1,GETDATE(),1,GETDATE()," & v_the_current_division_id & ")")
+                '        cmd.Connection = congbl
+                '        cmd.ExecuteNonQuery()
+                '        frmdate = frmdate.AddDays(1)
+                '    End While
+                'End If
+
+            Catch ex As Exception
+                obj.MyCon_RollBackTransaction(cmd)
+                MsgBox(gblMessageHeading_Error & vbCrLf & gblMessage_ContactInfo & vbCrLf & ex.Message, MsgBoxStyle.Critical, gblMessageHeading)
+            End Try
+        End If
+    End Sub
+
 End Class

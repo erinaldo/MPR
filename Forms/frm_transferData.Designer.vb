@@ -1,9 +1,9 @@
-<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class frm_transferData
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         If disposing AndAlso components IsNot Nothing Then
             components.Dispose()
@@ -17,7 +17,7 @@ Partial Class frm_transferData
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frm_transferData))
         Me.btnDataTransfer = New System.Windows.Forms.Button()
@@ -34,7 +34,7 @@ Partial Class frm_transferData
         '
         Me.btnDataTransfer.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnDataTransfer.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnDataTransfer.Location = New System.Drawing.Point(322, 263)
+        Me.btnDataTransfer.Location = New System.Drawing.Point(322, 272)
         Me.btnDataTransfer.Name = "btnDataTransfer"
         Me.btnDataTransfer.Size = New System.Drawing.Size(93, 31)
         Me.btnDataTransfer.TabIndex = 1
@@ -46,7 +46,7 @@ Partial Class frm_transferData
         Me.GroupBox1.Controls.Add(Me.lstTablesName)
         Me.GroupBox1.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GroupBox1.ForeColor = System.Drawing.Color.White
-        Me.GroupBox1.Location = New System.Drawing.Point(25, 62)
+        Me.GroupBox1.Location = New System.Drawing.Point(25, 61)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(390, 151)
         Me.GroupBox1.TabIndex = 2
@@ -69,7 +69,7 @@ Partial Class frm_transferData
         '
         'pbardatatransfer
         '
-        Me.pbardatatransfer.Location = New System.Drawing.Point(25, 223)
+        Me.pbardatatransfer.Location = New System.Drawing.Point(25, 222)
         Me.pbardatatransfer.Name = "pbardatatransfer"
         Me.pbardatatransfer.Size = New System.Drawing.Size(390, 23)
         Me.pbardatatransfer.TabIndex = 3
@@ -78,7 +78,7 @@ Partial Class frm_transferData
         '
         Me.lblDate.AutoSize = True
         Me.lblDate.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblDate.Location = New System.Drawing.Point(70, 30)
+        Me.lblDate.Location = New System.Drawing.Point(25, 31)
         Me.lblDate.Name = "lblDate"
         Me.lblDate.Size = New System.Drawing.Size(70, 15)
         Me.lblDate.TabIndex = 4
@@ -88,7 +88,7 @@ Partial Class frm_transferData
         '
         Me.dtpDate.CalendarForeColor = System.Drawing.Color.White
         Me.dtpDate.CalendarMonthBackground = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.dtpDate.Location = New System.Drawing.Point(159, 26)
+        Me.dtpDate.Location = New System.Drawing.Point(136, 26)
         Me.dtpDate.Name = "dtpDate"
         Me.dtpDate.Size = New System.Drawing.Size(200, 20)
         Me.dtpDate.TabIndex = 5
@@ -98,7 +98,7 @@ Partial Class frm_transferData
         Me.btn_Cancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btn_Cancel.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btn_Cancel.ForeColor = System.Drawing.Color.White
-        Me.btn_Cancel.Location = New System.Drawing.Point(241, 263)
+        Me.btn_Cancel.Location = New System.Drawing.Point(241, 272)
         Me.btn_Cancel.Name = "btn_Cancel"
         Me.btn_Cancel.Size = New System.Drawing.Size(75, 31)
         Me.btn_Cancel.TabIndex = 6
@@ -110,7 +110,7 @@ Partial Class frm_transferData
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.DimGray
-        Me.ClientSize = New System.Drawing.Size(441, 310)
+        Me.ClientSize = New System.Drawing.Size(441, 320)
         Me.ControlBox = False
         Me.Controls.Add(Me.btn_Cancel)
         Me.Controls.Add(Me.dtpDate)

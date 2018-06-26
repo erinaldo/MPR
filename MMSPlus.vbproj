@@ -1584,6 +1584,7 @@
       <SubType>Designer</SubType>
       <DependentUpon>SplashScreen.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="My Project\licenses.licx" />
     <EmbeddedResource Include="My Project\Resources.resx">
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
@@ -2216,6 +2217,7 @@
     <Content Include="Scripts\2018Update\0014_29_May_2018_DiscountModificationInPurchase.sql" />
     <Content Include="Scripts\2018Update\0013_24_May_2018_EditFormsFunctionality.sql" />
     <Content Include="Scripts\2018Update\0012_11_May_2018_ACESS.sql" />
+    <Content Include="Scripts\2018Update\0018_26_June_2018_DataTransferLinkedServer.sql" />
     <Content Include="Scripts\2018Update\0017_25_June_2018_PaymentTransactionCorrection.sql" />
     <Content Include="Scripts\2018Update\0016_20_June_2018_SynchronizationDynamicQuery.sql" />
     <Content Include="Scripts\2018Update\0015_30_May_2018_AccountBugFixing.sql" />

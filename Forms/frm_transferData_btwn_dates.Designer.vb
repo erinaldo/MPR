@@ -29,6 +29,7 @@ Partial Class frm_transferData_btwn_dates
         Me.lbltodate = New System.Windows.Forms.Label()
         Me.dtptodate = New System.Windows.Forms.DateTimePicker()
         Me.btn_Cancel = New System.Windows.Forms.Button()
+        Me.btnQuickDataTransfer = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -36,7 +37,7 @@ Partial Class frm_transferData_btwn_dates
         '
         Me.btnDataTransfer.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnDataTransfer.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnDataTransfer.Location = New System.Drawing.Point(408, 277)
+        Me.btnDataTransfer.Location = New System.Drawing.Point(272, 276)
         Me.btnDataTransfer.Name = "btnDataTransfer"
         Me.btnDataTransfer.Size = New System.Drawing.Size(93, 31)
         Me.btnDataTransfer.TabIndex = 1
@@ -119,12 +120,23 @@ Partial Class frm_transferData_btwn_dates
         Me.btn_Cancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btn_Cancel.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btn_Cancel.ForeColor = System.Drawing.Color.White
-        Me.btn_Cancel.Location = New System.Drawing.Point(327, 276)
+        Me.btn_Cancel.Location = New System.Drawing.Point(191, 276)
         Me.btn_Cancel.Name = "btn_Cancel"
         Me.btn_Cancel.Size = New System.Drawing.Size(75, 31)
         Me.btn_Cancel.TabIndex = 7
         Me.btn_Cancel.Text = "Cancel"
         Me.btn_Cancel.UseVisualStyleBackColor = True
+        '
+        'btnQuickDataTransfer
+        '
+        Me.btnQuickDataTransfer.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnQuickDataTransfer.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnQuickDataTransfer.Location = New System.Drawing.Point(368, 276)
+        Me.btnQuickDataTransfer.Name = "btnQuickDataTransfer"
+        Me.btnQuickDataTransfer.Size = New System.Drawing.Size(133, 31)
+        Me.btnQuickDataTransfer.TabIndex = 8
+        Me.btnQuickDataTransfer.Text = "Quick Data Transfer"
+        Me.btnQuickDataTransfer.UseVisualStyleBackColor = True
         '
         'frm_transferData_btwn_dates
         '
@@ -133,6 +145,7 @@ Partial Class frm_transferData_btwn_dates
         Me.BackColor = System.Drawing.Color.DimGray
         Me.ClientSize = New System.Drawing.Size(514, 319)
         Me.ControlBox = False
+        Me.Controls.Add(Me.btnQuickDataTransfer)
         Me.Controls.Add(Me.btn_Cancel)
         Me.Controls.Add(Me.dtptodate)
         Me.Controls.Add(Me.lbltodate)
@@ -160,4 +173,5 @@ Partial Class frm_transferData_btwn_dates
     Friend WithEvents lbltodate As System.Windows.Forms.Label
     Friend WithEvents dtptodate As System.Windows.Forms.DateTimePicker
     Friend WithEvents btn_Cancel As Button
+    Friend WithEvents btnQuickDataTransfer As Button
 End Class
