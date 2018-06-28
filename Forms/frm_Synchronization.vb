@@ -115,8 +115,8 @@ Public Class frm_Synchronization
         End Try
 
         Timer1.Enabled = False
-
         MsgBox("Synchronization Completed Successfully.")
+
     End Sub
 
 End Class

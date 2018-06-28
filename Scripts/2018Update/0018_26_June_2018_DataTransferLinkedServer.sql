@@ -83,6 +83,14 @@ Alter table NON_STOCKABLE_ITEMS_MAT_REC_WO_PO add GSTPAID varchar(5)
 
 GO
 
+Alter table NON_STOCKABLE_ITEMS_MAT_REC_WO_PO add Item_cess numeric(18, 2)
+
+GO
+
+Alter table NON_STOCKABLE_ITEMS_MAT_REC_WO_PO add Acess numeric(18, 2)
+
+GO
+
 Alter table SALE_INVOICE_STOCK_DETAIL add DIVISION_ID int
 
 Go

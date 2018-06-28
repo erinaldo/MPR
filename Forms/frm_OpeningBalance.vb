@@ -83,6 +83,14 @@ Public Class frm_OpeningBalance
             Exit Sub
         End If
 
+        Dim ds As New DataSet()
+        ds = clsObj.fill_Data_set("Proc_CheckOpeningBalance", "@AccountId", Convert.ToDouble(cmbCustomer.SelectedValue))
+        If ds.Tables(0).Rows.Count > 0 And flag = "save" Then
+            MsgBox("Account Opening Balance already exists !!!", MsgBoxStyle.Critical + MsgBoxStyle.OkOnly, gblMessageHeading)
+            ds.Dispose()
+            Exit Sub
+        End If
+
         prpty = New cls_opening_balance_prop
 
         'Dim ds As DataSet = obj.FillDataSet("SELECT COUNT(*) FROM OPENINGBALANCE WHERE fkAccountId=" & cmbCustomer.SelectedValue)
