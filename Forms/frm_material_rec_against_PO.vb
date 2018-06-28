@@ -632,9 +632,9 @@ Public Class frm_material_rec_against_PO
         FLXGRD_PO_Items.Cols("item_name").AllowEditing = False
         FLXGRD_PO_Items.Cols("um_name").AllowEditing = False
         FLXGRD_PO_Items.Cols("PO_QTY").AllowEditing = False
-        FLXGRD_PO_Items.Cols("item_rate").AllowEditing = False
+        FLXGRD_PO_Items.Cols("item_rate").AllowEditing = True
         FLXGRD_PO_Items.Cols("DType").AllowEditing = False
-        FLXGRD_PO_Items.Cols("DISC").AllowEditing = False
+        FLXGRD_PO_Items.Cols("DISC").AllowEditing = True
         FLXGRD_PO_Items.Cols("VAT_PER").AllowEditing = False
         FLXGRD_PO_Items.Cols("CESS_PER").AllowEditing = False
         FLXGRD_PO_Items.Cols("exice_per").AllowEditing = True
@@ -779,12 +779,26 @@ Public Class frm_material_rec_against_PO
         cs3.BackColor = Color.Gold
         cs3.Border.Style = BorderStyleEnum.Raised
 
+        Dim cs4 As C1.Win.C1FlexGrid.CellStyle
+        cs4 = Me.FLXGRD_PO_Items.Styles.Add("item_rate")
+        'cs3.ForeColor = Color.White
+        cs4.BackColor = Color.Gold
+        cs4.Border.Style = BorderStyleEnum.Raised
+
+        Dim cs5 As C1.Win.C1FlexGrid.CellStyle
+        cs5 = Me.FLXGRD_PO_Items.Styles.Add("DISC")
+        'cs3.ForeColor = Color.White
+        cs5.BackColor = Color.Gold
+        cs5.Border.Style = BorderStyleEnum.Raised
+
         Dim i As Integer
         For i = 1 To FLXGRD_PO_Items.Rows.Count - 1
             If Not FLXGRD_PO_Items.Rows(i).IsNode Then
                 FLXGRD_PO_Items.SetCellStyle(i, FLXGRD_PO_Items.Cols("BATCH_QTY").SafeIndex, cs)
                 FLXGRD_PO_Items.SetCellStyle(i, FLXGRD_PO_Items.Cols("BATCH_NO").SafeIndex, cs2)
                 FLXGRD_PO_Items.SetCellStyle(i, FLXGRD_PO_Items.Cols("expiry_date").SafeIndex, cs3)
+                FLXGRD_PO_Items.SetCellStyle(i, FLXGRD_PO_Items.Cols("item_rate").SafeIndex, cs4)
+                FLXGRD_PO_Items.SetCellStyle(i, FLXGRD_PO_Items.Cols("disc").SafeIndex, cs5)
             End If
         Next
 
