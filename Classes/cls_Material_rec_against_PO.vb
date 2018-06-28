@@ -358,15 +358,8 @@ Namespace material_rec_against_PO
         Public Sub insert_MATERIAL_RECIEVED_AGAINST_PO_MASTER(ByVal clsObj As cls_Material_rec_Against_PO_Prop, ByVal cmd As SqlCommand, ByVal FlexGrid As DataTable, ByVal FlexGrid_NonStockableItems As DataTable)
             cmd.Parameters.Clear()
             cmd.CommandType = CommandType.StoredProcedure
-            If con.State = ConnectionState.Closed Then
-                con.Open()
-            End If
-
-            cmd.Connection = con
-
 
             cmd.CommandText = "PROC_MATERIAL_RECIEVED_AGAINST_PO_MASTER"
-
             cmd.Parameters.AddWithValue("@v_Receipt_ID", clsObj.Receipt_ID)
             cmd.Parameters.AddWithValue("@v_Receipt_No", clsObj.Receipt_No)
             cmd.Parameters.AddWithValue("@v_Receipt_Code", clsObj.Receipt_Code)
