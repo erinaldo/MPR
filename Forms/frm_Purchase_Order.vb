@@ -198,7 +198,7 @@ Public Class frm_Purchase_Order
         blnRecExist = False
         txtPORemarks.Focus()
 
-        For iRow = 1 To flxItemList.Rows.Count - 2
+        For iRow = 1 To flxItemList.Rows.Count - 1
             If Convert.ToDecimal(flxItemList.Item(iRow, ("Po_Qty"))) > 0 Then
                 blnRecExist = True
                 Exit For
