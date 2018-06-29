@@ -847,12 +847,12 @@ Public Class frm_material_rec_against_PO
                 Dim minrate As Double
                 Dim maxrate As Double
 
-                ds = obj.Fill_DataSet("SELECT  dbo.PO_DETAIL.ITEM_RATE, " & _
-                                     "dbo.DIVISION_SETTINGS.item_rate_min_per AS minper, " & _
-                                    "dbo.DIVISION_SETTINGS.item_rate_max_per AS maxper " & _
-                                    "FROM dbo.PO_MASTER " & _
-                                    "INNER JOIN dbo.PO_DETAIL ON dbo.PO_MASTER.PO_ID = dbo.PO_DETAIL.PO_ID " & _
-                                    "INNER JOIN dbo.DIVISION_SETTINGS ON dbo.PO_MASTER.DIVISION_ID = dbo.DIVISION_SETTINGS.DIV_ID " & _
+                ds = obj.Fill_DataSet("SELECT  dbo.PO_DETAIL.ITEM_RATE, " &
+                                     "dbo.DIVISION_SETTINGS.item_rate_min_per AS minper, " &
+                                    "dbo.DIVISION_SETTINGS.item_rate_max_per AS maxper " &
+                                    "FROM dbo.PO_MASTER " &
+                                    "INNER JOIN dbo.PO_DETAIL ON dbo.PO_MASTER.PO_ID = dbo.PO_DETAIL.PO_ID " &
+                                    "INNER JOIN dbo.DIVISION_SETTINGS ON dbo.PO_MASTER.DIVISION_ID = dbo.DIVISION_SETTINGS.DIV_ID " &
                                     "WHERE dbo.PO_MASTER.po_id = " & cmbPurchaseOrders.SelectedValue & " AND ITEM_ID = " & FLXGRD_PO_Items.Item(FLXGRD_PO_Items.RowSel, "item_id") & "")
                 minrate = Convert.ToDouble(ds.Tables(0).Rows(0)("item_rate")) - (Convert.ToDouble(ds.Tables(0).Rows(0)("item_rate")) * Convert.ToDouble(ds.Tables(0).Rows(0)("minper"))) / 100
                 maxrate = Convert.ToDouble(ds.Tables(0).Rows(0)("item_rate")) + (Convert.ToDouble(ds.Tables(0).Rows(0)("item_rate")) * Convert.ToDouble(ds.Tables(0).Rows(0)("maxper"))) / 100
@@ -890,23 +890,23 @@ Public Class frm_material_rec_against_PO
         Try
             Dim qry As String
 
-            qry = " SELECT  MATERIAL_RECEIVED_AGAINST_PO_MASTER.Receipt_ID," & _
-                    "         MATERIAL_RECEIVED_AGAINST_PO_MASTER.MRN_PREFIX" & _
-                    "         + CAST(MATERIAL_RECEIVED_AGAINST_PO_MASTER.MRN_NO AS VARCHAR(20)) AS [MRN No]," & _
-                    "         dbo.fn_Format(MATERIAL_RECEIVED_AGAINST_PO_MASTER.Receipt_Date) AS [MRN Date]," & _
-                    "         PO_MASTER.PO_CODE + CAST(PO_MASTER.PO_NO AS VARCHAR) AS [PO No]," & _
-                    "         dbo.fn_Format(PO_MASTER.PO_DATE) AS [PO Date]," & _
-                    "         ACCOUNT_MASTER.ACC_NAME AS [Supplier]," & _
-                    "         CASE WHEN mrn_status = 1 THEN 'NORMAL'" & _
-                    "              WHEN mrn_status = 3 THEN 'CLEAR'" & _
-                    "              ELSE 'CANCEL'" & _
-                    "         END AS MRNStatus, PO_MASTER.OPEN_PO_QTY" & _
-                    " FROM    MATERIAL_RECEIVED_AGAINST_PO_MASTER" & _
-                    "         INNER JOIN PO_MASTER ON MATERIAL_RECEIVED_AGAINST_PO_MASTER.PO_ID = PO_MASTER.PO_ID" & _
-                    "         INNER JOIN ACCOUNT_MASTER ON PO_MASTER.PO_SUPP_ID = ACCOUNT_MASTER.ACC_ID" & _
-                    " WHERE   cast(dbo.fn_format(Receipt_Date) as datetime) >= '" & dtpFrom.Value.Date & "'" & _
-                    "        AND cast(dbo.fn_format(Receipt_Date) as datetime)<= '" & dtpTo.Value.Date & "'" & _
-                    " and (MATERIAL_RECEIVED_AGAINST_PO_MASTER.Receipt_Code + CAST(MATERIAL_RECEIVED_AGAINST_PO_MASTER.Receipt_No AS VARCHAR(20)) +dbo.fn_Format(MATERIAL_RECEIVED_AGAINST_PO_MASTER.Receipt_Date) +PO_MASTER.PO_CODE + CAST(PO_MASTER.PO_NO AS VARCHAR) +dbo.fn_Format(PO_MASTER.PO_DATE) + ACCOUNT_MASTER.ACC_NAME) like '%" & txtSearch.Text.Replace(" ", "%") & "%' " & _
+            qry = " SELECT  MATERIAL_RECEIVED_AGAINST_PO_MASTER.Receipt_ID," &
+                    "         MATERIAL_RECEIVED_AGAINST_PO_MASTER.MRN_PREFIX" &
+                    "         + CAST(MATERIAL_RECEIVED_AGAINST_PO_MASTER.MRN_NO AS VARCHAR(20)) AS [MRN No]," &
+                    "         dbo.fn_Format(MATERIAL_RECEIVED_AGAINST_PO_MASTER.Receipt_Date) AS [MRN Date]," &
+                    "         PO_MASTER.PO_CODE + CAST(PO_MASTER.PO_NO AS VARCHAR) AS [PO No]," &
+                    "         dbo.fn_Format(PO_MASTER.PO_DATE) AS [PO Date]," &
+                    "         ACCOUNT_MASTER.ACC_NAME AS [Supplier]," &
+                    "         CASE WHEN mrn_status = 1 THEN 'NORMAL'" &
+                    "              WHEN mrn_status = 3 THEN 'CLEAR'" &
+                    "              ELSE 'CANCEL'" &
+                    "         END AS MRNStatus, PO_MASTER.OPEN_PO_QTY" &
+                    " FROM    MATERIAL_RECEIVED_AGAINST_PO_MASTER" &
+                    "         INNER JOIN PO_MASTER ON MATERIAL_RECEIVED_AGAINST_PO_MASTER.PO_ID = PO_MASTER.PO_ID" &
+                    "         INNER JOIN ACCOUNT_MASTER ON PO_MASTER.PO_SUPP_ID = ACCOUNT_MASTER.ACC_ID" &
+                    " WHERE   cast(dbo.fn_format(Receipt_Date) as datetime) >= '" & dtpFrom.Value.Date & "'" &
+                    "        AND cast(dbo.fn_format(Receipt_Date) as datetime)<= '" & dtpTo.Value.Date & "'" &
+                    " and (MATERIAL_RECEIVED_AGAINST_PO_MASTER.Receipt_Code + CAST(MATERIAL_RECEIVED_AGAINST_PO_MASTER.Receipt_No AS VARCHAR(20)) +dbo.fn_Format(MATERIAL_RECEIVED_AGAINST_PO_MASTER.Receipt_Date) +PO_MASTER.PO_CODE + CAST(PO_MASTER.PO_NO AS VARCHAR) +dbo.fn_Format(PO_MASTER.PO_DATE) + ACCOUNT_MASTER.ACC_NAME) like '%" & txtSearch.Text.Replace(" ", "%") & "%' " &
                     " ORDER BY MATERIAL_RECEIVED_AGAINST_PO_MASTER.Receipt_ID"
 
             'dgvList.DataSource = obj.fill_Data_set("FILL_MATERIAL_Rec_Against_PO_LIST", "@FromDate,@Todate", dtpFrom.Value.Date & "," & dtpTo.Value.Date).Tables(0)
@@ -985,7 +985,7 @@ Public Class frm_material_rec_against_PO
 
     End Sub
 
-  
+
     Private Sub FLXGRD_PO_NON_STOCKABLEITEMS_AfterEdit(ByVal sender As System.Object, ByVal e As C1.Win.C1FlexGrid.RowColEventArgs) Handles FLXGRD_PO_NON_STOCKABLEITEMS.AfterEdit
         Dim dt As DataTable
         dt = FLXGRD_PO_NON_STOCKABLEITEMS.DataSource
@@ -998,12 +998,12 @@ Public Class frm_material_rec_against_PO
 
             For irow As Integer = 0 To dt.Rows.Count - 1
 
-                ds = obj.Fill_DataSet("SELECT  dbo.PO_DETAIL.ITEM_RATE, " & _
-                                     "dbo.DIVISION_SETTINGS.item_rate_min_per AS minper, " & _
-                                    "dbo.DIVISION_SETTINGS.item_rate_max_per AS maxper " & _
-                                    "FROM dbo.PO_MASTER " & _
-                                    "INNER JOIN dbo.PO_DETAIL ON dbo.PO_MASTER.PO_ID = dbo.PO_DETAIL.PO_ID " & _
-                                    "INNER JOIN dbo.DIVISION_SETTINGS ON dbo.PO_MASTER.DIVISION_ID = dbo.DIVISION_SETTINGS.DIV_ID " & _
+                ds = obj.Fill_DataSet("SELECT  dbo.PO_DETAIL.ITEM_RATE, " &
+                                     "dbo.DIVISION_SETTINGS.item_rate_min_per AS minper, " &
+                                    "dbo.DIVISION_SETTINGS.item_rate_max_per AS maxper " &
+                                    "FROM dbo.PO_MASTER " &
+                                    "INNER JOIN dbo.PO_DETAIL ON dbo.PO_MASTER.PO_ID = dbo.PO_DETAIL.PO_ID " &
+                                    "INNER JOIN dbo.DIVISION_SETTINGS ON dbo.PO_MASTER.DIVISION_ID = dbo.DIVISION_SETTINGS.DIV_ID " &
                                     "WHERE dbo.PO_MASTER.po_id = " & cmbPurchaseOrders.SelectedValue & " AND ITEM_ID = " & dt.Rows(irow)("item_id") & "")
                 minrate = Convert.ToDouble(ds.Tables(0).Rows(0)("item_rate")) - (Convert.ToDouble(ds.Tables(0).Rows(0)("item_rate")) * Convert.ToDouble(ds.Tables(0).Rows(0)("minper"))) / 100
                 maxrate = Convert.ToDouble(ds.Tables(0).Rows(0)("item_rate")) + (Convert.ToDouble(ds.Tables(0).Rows(0)("item_rate")) * Convert.ToDouble(ds.Tables(0).Rows(0)("maxper"))) / 100
@@ -1169,11 +1169,11 @@ Public Class frm_material_rec_against_PO
     End Sub
 
     Private Sub FLXGRD_PO_Items_BeforeEdit(ByVal sender As System.Object, ByVal e As C1.Win.C1FlexGrid.RowColEventArgs) Handles FLXGRD_PO_Items.BeforeEdit
-       
+
     End Sub
 
     Private Sub FLXGRD_PO_NON_STOCKABLEITEMS_BeforeEdit(ByVal sender As System.Object, ByVal e As C1.Win.C1FlexGrid.RowColEventArgs) Handles FLXGRD_PO_NON_STOCKABLEITEMS.BeforeEdit
-    
+
     End Sub
 
     Private Sub chk_VatCal_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chk_VatCal.CheckedChanged
@@ -1184,4 +1184,29 @@ Public Class frm_material_rec_against_PO
 
     End Sub
 
+    Private Sub FLXGRD_PO_Items_KeyDown(sender As Object, e As KeyEventArgs) Handles FLXGRD_PO_Items.KeyDown
+        If e.KeyCode = Keys.Delete Then
+
+            Dim result As Integer
+            Dim item_code As String
+            result = MsgBox("Do you want to remove """ & FLXGRD_PO_Items.Rows(FLXGRD_PO_Items.CursorCell.r1).Item(5) & """ from the list?", MsgBoxStyle.YesNo + MsgBoxStyle.Question)
+            item_code = FLXGRD_PO_Items.Rows(FLXGRD_PO_Items.CursorCell.r1).Item("item_code")
+            If result = MsgBoxResult.Yes Then
+restart:
+                Dim dt As DataTable
+                dt = TryCast(FLXGRD_PO_Items.DataSource, DataTable)
+                If Not dt Is Nothing Then
+                    For Each dr As DataRow In dt.Rows
+                        If Convert.ToString(dr("item_code")) = item_code Then
+                            dr.Delete()
+                            dt.AcceptChanges()
+                            GoTo restart
+                        End If
+                    Next
+
+                End If
+            End If
+            Calculate_Amount()
+        End If
+    End Sub
 End Class

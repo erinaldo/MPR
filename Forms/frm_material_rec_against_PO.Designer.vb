@@ -653,9 +653,9 @@ Partial Class frm_material_rec_against_PO
         Me.GroupBox5.BackColor = System.Drawing.Color.Transparent
         Me.GroupBox5.Controls.Add(Me.FLXGRD_PO_NON_STOCKABLEITEMS)
         Me.GroupBox5.ForeColor = System.Drawing.Color.White
-        Me.GroupBox5.Location = New System.Drawing.Point(3, 244)
+        Me.GroupBox5.Location = New System.Drawing.Point(3, 388)
         Me.GroupBox5.Name = "GroupBox5"
-        Me.GroupBox5.Size = New System.Drawing.Size(896, 155)
+        Me.GroupBox5.Size = New System.Drawing.Size(896, 11)
         Me.GroupBox5.TabIndex = 3
         Me.GroupBox5.TabStop = False
         Me.GroupBox5.Text = "Non Stockable Items"
@@ -670,7 +670,7 @@ Partial Class frm_material_rec_against_PO
         Me.FLXGRD_PO_NON_STOCKABLEITEMS.Location = New System.Drawing.Point(3, 16)
         Me.FLXGRD_PO_NON_STOCKABLEITEMS.Name = "FLXGRD_PO_NON_STOCKABLEITEMS"
         Me.FLXGRD_PO_NON_STOCKABLEITEMS.Rows.DefaultSize = 17
-        Me.FLXGRD_PO_NON_STOCKABLEITEMS.Size = New System.Drawing.Size(890, 136)
+        Me.FLXGRD_PO_NON_STOCKABLEITEMS.Size = New System.Drawing.Size(890, 0)
         Me.FLXGRD_PO_NON_STOCKABLEITEMS.Styles = New C1.Win.C1FlexGrid.CellStyleCollection(resources.GetString("FLXGRD_PO_NON_STOCKABLEITEMS.Styles"))
         Me.FLXGRD_PO_NON_STOCKABLEITEMS.TabIndex = 2
         '
@@ -694,7 +694,7 @@ Partial Class frm_material_rec_against_PO
         Me.GroupBox2.ForeColor = System.Drawing.Color.White
         Me.GroupBox2.Location = New System.Drawing.Point(6, 92)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(893, 151)
+        Me.GroupBox2.Size = New System.Drawing.Size(893, 290)
         Me.GroupBox2.TabIndex = 2
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Stockable Items"
@@ -708,7 +708,7 @@ Partial Class frm_material_rec_against_PO
         Me.FLXGRD_PO_Items.Name = "FLXGRD_PO_Items"
         Me.FLXGRD_PO_Items.Rows.Count = 1
         Me.FLXGRD_PO_Items.Rows.DefaultSize = 17
-        Me.FLXGRD_PO_Items.Size = New System.Drawing.Size(887, 132)
+        Me.FLXGRD_PO_Items.Size = New System.Drawing.Size(887, 271)
         Me.FLXGRD_PO_Items.Styles = New C1.Win.C1FlexGrid.CellStyleCollection(resources.GetString("FLXGRD_PO_Items.Styles"))
         Me.FLXGRD_PO_Items.TabIndex = 0
         '

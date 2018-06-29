@@ -2213,10 +2213,12 @@
     <Content Include="Scripts\2018Update\0010_03_May_2018_CessUpdationSalePurchase.sql" />
     <Content Include="Scripts\2018Update\0009_18_Apr_2018_StockUpdate.sql" />
     <Content Include="Scripts\2018Update\0011_08_May_2018_BillBook.sql" />
+    <Content Include="Scripts\2018Update\0013_17_May_2018.sql" />
     <Content Include="Scripts\2018Update\0014_29_May_2018_DiscountModificationInPurchase - Copy.sql" />
     <Content Include="Scripts\2018Update\0014_29_May_2018_DiscountModificationInPurchase.sql" />
     <Content Include="Scripts\2018Update\0013_24_May_2018_EditFormsFunctionality.sql" />
     <Content Include="Scripts\2018Update\0012_11_May_2018_ACESS.sql" />
+    <Content Include="Scripts\2018Update\0015_19_June_2018_SynchronizationCorrection.sql" />
     <Content Include="Scripts\2018Update\0019_28_June_2018_AccountOpeningBalanceCorrection.sql" />
     <Content Include="Scripts\2018Update\0018_26_June_2018_DataTransferLinkedServer.sql" />
     <Content Include="Scripts\2018Update\0017_25_June_2018_PaymentTransactionCorrection.sql" />
