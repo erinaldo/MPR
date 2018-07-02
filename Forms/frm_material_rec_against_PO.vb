@@ -72,7 +72,7 @@ Public Class frm_material_rec_against_PO
     Public Sub SaveClick(ByVal sender As Object, ByVal e As System.EventArgs) Implements IForm.SaveClick
         FLXGRD_PO_Items.FinishEditing()
         Dim cmd As SqlCommand
-        cmd = obj.MyCon_BeginTransaction
+
 
         prop = New material_rec_against_PO.cls_Material_rec_Against_PO_Prop
         Master = New material_rec_against_PO.cls_material_recieved_against_po_master
@@ -160,7 +160,7 @@ Public Class frm_material_rec_against_PO
                 End If
 
 
-
+                cmd = obj.MyCon_BeginTransaction
                 Dim RECEIPT_ID As Integer
                 RECEIPT_ID = Convert.ToInt32(obj.getMaxValue("RECEIPT_ID", "MATERIAL_RECEIVED_AGAINST_PO_MASTER"))
                 prop.Receipt_ID = RECEIPT_ID
