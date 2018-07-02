@@ -354,14 +354,44 @@ Public Class frm_define_recipe
 
                     If cmbmenuitems.SelectedIndex > 0 Then
                         iRowindex = DGVrecipedetail.CurrentRow.Index
-                        frm_Show_search.qry = "Select Item_master.ITEM_ID,Item_master.ITEM_CODE as [Item Code],Item_master.ITEM_NAME  as [Item Name] from Item_master inner join item_detail on item_master.item_id = item_detail.item_id "
+
+                        'frm_Show_search.qry = "Select Item_master.ITEM_ID,Item_master.ITEM_CODE as [Item Code],Item_master.ITEM_NAME  as [Item Name] from Item_master inner join item_detail on item_master.item_id = item_detail.item_id "
+                        'frm_Show_search.extra_condition = ""
+                        'frm_Show_search.ret_column = "Item_ID"
+                        'frm_Show_search.column_name = "ITEM_NAME"
+                        'frm_Show_search.item_rate_column = ""
+                        'frm_Show_search.cols_width = "80,300"
+                        'frm_Show_search.cols_no_for_width = "1,2"
+                        'frm_Show_search.ShowDialog()
+
+                        frm_Show_search.qry = " SELECT  im.ITEM_ID ,
+		                                ISNULL(im.BarCode_vch, '') AS BARCODE,
+                                        im.ITEM_NAME AS [ITEM NAME],
+                                        im.MRP_Num AS MRP,
+                                        cast(im.sale_rate AS numeric(18,2)) AS RATE,
+                                        litems.LabelItemName_vch AS BRAND,
+                                        ic.ITEM_CAT_NAME AS CATEGORY
+                                        FROM    Item_master im
+                                        INNER JOIN item_detail id ON im.item_id = id.item_id
+                                        INNER JOIN dbo.ITEM_CATEGORY ic ON im.ITEM_CATEGORY_ID = ic.ITEM_CAT_ID
+                                        LEFT JOIN dbo.LabelItem_Mapping lim ON lim.Fk_ItemId_Num = im.ITEM_ID
+                                        inner JOIN dbo.Label_Items litems ON lim.Fk_LabelDetailId = litems.Pk_LabelDetailId_Num
+                                        WHERE   id.Is_active = 1 "
+
+
+                        frm_Show_search.column_name = "BARCODE_VCH"
+                        frm_Show_search.column_name1 = "ITEM_NAME"
+                        frm_Show_search.column_name2 = "MRP_Num"
+                        frm_Show_search.column_name3 = "SALE_RATE"
+                        frm_Show_search.column_name4 = "LABELITEMNAME_VCH"
+                        frm_Show_search.column_name5 = "ITEM_CAT_NAME"
+                        frm_Show_search.cols_no_for_width = "1,2,3,4,5,6"
+                        frm_Show_search.cols_width = "100,350,60,60,100,100"
                         frm_Show_search.extra_condition = ""
-                        frm_Show_search.ret_column = "Item_ID"
-                        frm_Show_search.column_name = "ITEM_NAME"
+                        frm_Show_search.ret_column = "ITEM_ID"
                         frm_Show_search.item_rate_column = ""
-                        frm_Show_search.cols_width = "80,300"
-                        frm_Show_search.cols_no_for_width = "1,2"
                         frm_Show_search.ShowDialog()
+
                         get_row(frm_Show_search.search_result)
                     Else
                         MsgBox("Please select Menu Item.", MsgBoxStyle.Information, gblMessageHeading)
@@ -535,7 +565,7 @@ Public Class frm_define_recipe
     End Sub
 
     Private Sub cmb_OutletName_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmb_OutletName.SelectedIndexChanged
-        obj.ComboBind(cmbmenuitems, "SELECT  pk_itemid_num,Itemname_vch FROM dbo.MenuMaster INNER JOIN dbo.MenuMapping ON dbo.MenuMaster.pk_itemid_num=dbo.MenuMapping.fk_ItemId_num WHERE dbo.MenuMapping.fk_Outletid_num= " & cmb_OutletName.SelectedValue & " AND dbo.MenuMaster.fk_categoryid_num= " & cmbmenuheads.SelectedValue & " and (dinein_ch=1 or TakeAway_ch=1) order by Itemname_vch", "Itemname_vch", "pk_itemid_num", True)
+        obj.ComboBind(cmbmenuitems, "SELECT  pk_itemid_num,Itemname_vch FROM dbo.MenuMaster INNER JOIN dbo.MenuMapping ON dbo.MenuMaster.pk_itemid_num=dbo.MenuMapping.fk_ItemId_num WHERE dbo.MenuMapping.fk_Outletid_num= " & cmb_OutletName.SelectedValue & " AND dbo.MenuMaster.fk_categoryid_num= " & cmbmenuheads.SelectedValue & " and (dinein_ch = '1' or TakeAway_ch='1') order by Itemname_vch", "Itemname_vch", "pk_itemid_num", True)
     End Sub
 
     Private Sub DGVSemiFinisheditems_CellClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles DGVSemiFinisheditems.CellClick
