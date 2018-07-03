@@ -27,7 +27,6 @@ Public Class frm_transferData_btwn_dates
     Dim WastageIdsInQuerycc As String
     Dim Closingidscc As String
     Dim _rights As Form_Rights
-
     Dim fromdate As String
     Dim todate As String
 

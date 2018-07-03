@@ -303,7 +303,7 @@ restart:
                     'frm_Show_search.cols_no_for_width = "1,2"
                     'frm_Show_search.ShowDialog()
 
-                    frm_Show_search.qry = " SELECT  im.ITEM_ID ,
+                    frm_Show_search.qry = " SELECT top 100 im.ITEM_ID ,
 		                                ISNULL(im.BarCode_vch, '') AS BARCODE,
                                         im.ITEM_NAME AS [ITEM NAME],
                                         im.MRP_Num AS MRP,
@@ -420,9 +420,6 @@ restart:
             MsgBox(gblMessageHeading_Error & vbCrLf & gblMessage_ContactInfo & vbCrLf & ex.Message, MsgBoxStyle.Critical, gblMessageHeading)
         End Try
     End Sub
-
-
-
 
     Private Sub grdWastageItem_AfterEdit(ByVal sender As System.Object, ByVal e As C1.Win.C1FlexGrid.RowColEventArgs)
         'If grdWastageItem.Rows(e.Row).IsNode Then Exit Sub

@@ -274,7 +274,7 @@ Public Class frm_Stock_Transfer_CC_To_CC
                     'frm_Show_search.cols_no_for_width = "1,2"
                     'frm_Show_search.ShowDialog()
 
-                    frm_Show_search.qry = " SELECT  im.ITEM_ID ,
+                    frm_Show_search.qry = " SELECT top 100 im.ITEM_ID ,
 		                                ISNULL(im.BarCode_vch, '') AS BARCODE,
                                         im.ITEM_NAME AS [ITEM NAME],
                                         im.MRP_Num AS MRP,
