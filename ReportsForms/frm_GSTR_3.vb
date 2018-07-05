@@ -119,7 +119,7 @@ Public Class frm_GSTR_3
             noOfRowsInserted = table.Rows.Count
             For Each row As DataRow In table.Rows
                 'CType(xlWorkSheet.Rows(20), Range).Select()
-                ' CType(xlWorkSheet.Rows(rowIndex), Range).Insert(XlInsertShiftDirection.xlShiftDown, True)
+                CType(xlWorkSheet.Rows(rowIndex), Excel.Range).Insert(Excel.XlInsertShiftDirection.xlShiftDown, True)
                 xlWorkSheet.Range("B" & rowIndex.ToString & ":F" & rowIndex.ToString).MergeCells = True
                 xlWorkSheet.Range("G" & rowIndex.ToString & ":K" & rowIndex.ToString).MergeCells = True
                 xlWorkSheet.Range("L" & rowIndex.ToString & ":P" & rowIndex.ToString).MergeCells = True
