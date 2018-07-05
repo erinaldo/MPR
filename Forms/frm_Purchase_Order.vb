@@ -881,7 +881,7 @@ restart:
             'frm_Show_search.cols_width = "60,350,50"
             '' frm_Show_search.ret_column = "division_id"
 
-            frm_Show_search.qry = " SELECT  im.ITEM_ID ,
+            frm_Show_search.qry = " SELECT top 100 im.ITEM_ID ,
 		                                ISNULL(im.BarCode_vch, '') AS BARCODE,
                                         im.ITEM_NAME AS [ITEM NAME],
                                         im.MRP_Num AS MRP,

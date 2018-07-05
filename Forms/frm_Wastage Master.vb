@@ -101,8 +101,6 @@ Public Class frm_Wastage_Master
 
     End Sub
 
-
-
     Public Sub ViewClick(ByVal sender As Object, ByVal e As System.EventArgs) Implements IForm.ViewClick
         Try
             If TBCWastageMaster.SelectedIndex = 0 Then
@@ -264,7 +262,7 @@ restart:
                     'frm_Show_search.item_rate_column = ""
                     'frm_Show_search.ShowDialog()
 
-                    frm_Show_search.qry = " SELECT  im.ITEM_ID ,
+                    frm_Show_search.qry = " SELECT top 100 im.ITEM_ID ,
 		                                ISNULL(im.BarCode_vch, '') AS BARCODE,
                                         im.ITEM_NAME AS [ITEM NAME],
                                         im.MRP_Num AS MRP,
@@ -380,8 +378,9 @@ restart:
             grdWastageItem.Rows(e.Row)("wastage_qty") = 0.0
         End If
     End Sub
+
     Private Sub table_style()
-      
+
         If Not dtWastageItem Is Nothing Then dtWastageItem.Dispose()
         dtWastageItem = New DataTable()
         dtWastageItem.Columns.Add("Item_Id", GetType(System.Double))
@@ -439,9 +438,11 @@ restart:
 
         grdWastageItem.Cols("Stock_Detail_Id").Visible = False
     End Sub
+
     Private Sub grdWastageItem_AfterDataRefresh(ByVal sender As System.Object, ByVal e As System.ComponentModel.ListChangedEventArgs) Handles grdWastageItem.AfterDataRefresh
         generate_tree()
     End Sub
+
     Private Sub generate_tree()
         If grdWastageItem.Rows.Count > 1 Then
             grdWastageItem.Tree.Style = TreeStyleFlags.CompleteLeaf
@@ -472,8 +473,6 @@ restart:
         e.Handled = grdWastageItem.Rows(grdWastageItem.CursorCell.r1).IsNode
     End Sub
 
- 
-
     Private Sub txtSearch_TextChanged_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtSearch.TextChanged
         Try
             clsObj.GridBind(DGVWastageMaster, "SELECT  Wastage_ID," & _
@@ -488,4 +487,5 @@ restart:
             MsgBox(ex.Message, MsgBoxStyle.Critical, "Error --> FillGrid")
         End Try
     End Sub
+
 End Class

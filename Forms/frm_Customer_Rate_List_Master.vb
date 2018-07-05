@@ -626,7 +626,7 @@ Public Class frm_Customer_Rate_List_Master
                     'frm_Show_search.cols_width = "60,350,50"
                     'frm_Show_search.ShowDialog()
 
-                    frm_Show_search.qry = " SELECT  im.ITEM_ID ,
+                    frm_Show_search.qry = " SELECT top 100 im.ITEM_ID ,
 		                                ISNULL(im.BarCode_vch, '') AS BARCODE,
                                         im.ITEM_NAME AS [ITEM NAME],
                                         im.MRP_Num AS MRP,

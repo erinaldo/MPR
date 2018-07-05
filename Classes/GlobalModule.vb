@@ -39,6 +39,7 @@ Module GlobalModule
     'Public gblCostCenter_ROLE As String = "CC"
     Public gblDNS_Online As String '= "Data Source=republicofchicken.com\sql2005;Initial Catalog=AFBL_CentralizePos;User Id=afbl_cp; Password=afbl_cp; Connection Timeout = 100"
     '*****Ajinder
+    Public gblDNS_OnlineMMS As String
     Public gblSelectedReportName As Integer
     Public Const gblMaxValue = 999999999.999999
     Public G_MyConTransaction As Boolean

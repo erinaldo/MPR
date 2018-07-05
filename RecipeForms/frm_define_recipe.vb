@@ -158,7 +158,6 @@ Public Class frm_define_recipe
         End Try
     End Sub
 
-
     Public Sub DGVrecipedetail_Style()
         Try
             DGVrecipedetail.Columns.Clear()
@@ -364,7 +363,7 @@ Public Class frm_define_recipe
                         'frm_Show_search.cols_no_for_width = "1,2"
                         'frm_Show_search.ShowDialog()
 
-                        frm_Show_search.qry = " SELECT  im.ITEM_ID ,
+                        frm_Show_search.qry = " SELECT top 100 im.ITEM_ID ,
 		                                ISNULL(im.BarCode_vch, '') AS BARCODE,
                                         im.ITEM_NAME AS [ITEM NAME],
                                         im.MRP_Num AS MRP,
@@ -516,7 +515,6 @@ Public Class frm_define_recipe
         End If
     End Sub
 
-
     Public Sub fillRecipedetail(ByVal menuid As Integer)
         Dim ds As New DataSet()
         ds = obj.fill_Data_set("Pro_Get_Recipe_Items", "@menu_id", Convert.ToString(menuid))
@@ -636,4 +634,5 @@ Public Class frm_define_recipe
             End If
         End If
     End Sub
+
 End Class

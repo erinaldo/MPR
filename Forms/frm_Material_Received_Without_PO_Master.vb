@@ -808,7 +808,7 @@ Public Class frm_Material_Received_Without_PO_Master
                 'frm_Show_search.ShowDialog()
 
 
-                frm_Show_search.qry = " SELECT  im.ITEM_ID ,
+                frm_Show_search.qry = " SELECT  top 100 im.ITEM_ID ,
 		                                ISNULL(im.BarCode_vch, '') AS BARCODE,
                                         im.ITEM_NAME AS [ITEM NAME],
                                         im.MRP_Num AS MRP,
@@ -890,7 +890,7 @@ restart:
                 Dim iRow As Int32
                 iRowCount = FLXGRD_MaterialItem.Rows.Count
                 IsInsert = True
-                For iRow = 1 To iRowCount - 2
+                For iRow = 1 To iRowCount - 1
                     If FLXGRD_MaterialItem.Item(iRow, 1) = Convert.ToInt32(ds.Tables(0).Rows(0)(0)) Then
                         MsgBox("Item Already Exist", MsgBoxStyle.Exclamation, gblMessageHeading)
                         IsInsert = False
@@ -946,8 +946,6 @@ restart:
         'Dim dTable_OpenPoItem As New DataTable
         Try
             If item_id <> -1 Then
-
-
 
                 ds = obj.fill_Data_set("GET_ITEM_BY_ID", "@V_ITEM_ID", item_id)
                 ds_CC = obj.Fill_DataSet("Select * FROM dbo.COST_CENTER_MASTER where display_at_mrn = 1")

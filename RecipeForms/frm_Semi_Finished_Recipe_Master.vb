@@ -495,7 +495,7 @@ Public Class frm_Semi_Finished_Recipe_Master
                         'frm_Show_search.ret_column = "Item_ID"
                         'frm_Show_search.ShowDialog()
 
-                        frm_Show_search.qry = " SELECT  im.ITEM_ID ,
+                        frm_Show_search.qry = " SELECT top 100 im.ITEM_ID ,
 		                                ISNULL(im.BarCode_vch, '') AS BARCODE,
                                         im.ITEM_NAME AS [ITEM NAME],
                                         im.MRP_Num AS MRP,
