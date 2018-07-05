@@ -16,9 +16,10 @@ Public Class frm_PurchaseTaxRegister
 
     Private Sub BindData()
 
-        Qry = "SELECT ROW_NUMBER()OVER(ORDER BY [Received Date])AS SrNo, * FROM dbo.VWPurchaseRegister
-                WHERE  MONTH([Received Date])= " + txtFromDate.Value.Month.ToString() & "
-                And Year([Received Date]) = " + txtFromDate.Value.Year.ToString()
+        Qry = "SELECT ROW_NUMBER()OVER(ORDER BY [Bill Date])AS SrNo, * FROM dbo.VWPurchaseRegister
+                WHERE  MONTH([Bill Date])= " + txtFromDate.Value.Month.ToString() & "
+                And Year([Bill Date]) = " + txtFromDate.Value.Year.ToString() &
+                " Order by [Bill Date]"
 
         Dim dt As DataTable = objCommFunction.Fill_DataSet(Qry).Tables(0)
 
