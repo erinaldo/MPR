@@ -20,8 +20,8 @@ Public Class frm_Closing_Stock_CC
     Dim iclosingid As Integer
     Dim ds1 As DataSet
     Dim DtItem As New DataTable
-
     Dim _rights As Form_Rights
+
     Public Sub New(ByVal rights As Form_Rights)
         _rights = rights
         InitializeComponent()
@@ -48,6 +48,7 @@ Public Class frm_Closing_Stock_CC
     Public Sub CloseClick(ByVal sender As Object, ByVal e As System.EventArgs) Implements IForm.CloseClick
 
     End Sub
+
     Public Sub DeleteClick(ByVal sender As Object, ByVal e As System.EventArgs) Implements IForm.DeleteClick
 
     End Sub
@@ -56,9 +57,7 @@ Public Class frm_Closing_Stock_CC
         Try
             flag = "save"
             new_initilization()
-            
 
-           
             TBCWastageMaster.SelectTab(1)
 
             iclosingid = Convert.ToInt32(obj.getMaxValue("Closing_ID", "Closing_CC_Master"))
@@ -78,7 +77,7 @@ Public Class frm_Closing_Stock_CC
     End Sub
 
     Public Sub SaveClick(ByVal sender As Object, ByVal e As System.EventArgs) Implements IForm.SaveClick
-       
+
         'DGVClstkitems.EndEdit()
 
         Dim val As String = TryCast(DGVClstkitems.Rows(0)("item_code"), String)
@@ -190,10 +189,7 @@ Public Class frm_Closing_Stock_CC
             MsgBox(gblMessageHeading_Error & vbCrLf & gblMessage_ContactInfo & vbCrLf & ex.Message, MsgBoxStyle.Critical, gblMessageHeading)
         End Try
 
-
     End Sub
-
-
 
     Public Sub ViewClick(ByVal sender As Object, ByVal e As System.EventArgs) Implements IForm.ViewClick
         Try
@@ -208,7 +204,6 @@ Public Class frm_Closing_Stock_CC
             MsgBox(ex.Message)
         End Try
     End Sub
-
 
     Public Sub get_row(ByVal item_id As String)
         'Dim drv As DataRowView
@@ -231,8 +226,8 @@ Public Class frm_Closing_Stock_CC
         datatbl = ds.Tables(0)
         'DGVClstkitems.DataSource
 
-        Dim trans_date = obj.ExecuteScalar("select dbo.fn_format(trans_date) from vw_itemrecieveissue_details_cc" & _
-                                        " where item_id=" & item_id & " and" & _
+        Dim trans_date = obj.ExecuteScalar("select dbo.fn_format(trans_date) from vw_itemrecieveissue_details_cc" &
+                                        " where item_id=" & item_id & " and" &
                                     " cast(dbo.fn_format(trans_date) as datetime) > cast(dbo.fn_format('" & dtpClosingdt.Value.Date & "') as datetime) and entrytype='I' and cs_id=" & v_the_current_Selected_CostCenter_id)
 
         If Not trans_date Is Nothing Then
@@ -269,8 +264,6 @@ Public Class frm_Closing_Stock_CC
         'ds = obj.
     End Sub
 
-
-
     Public Function GetClosingCode() As String
         ' Try
         Dim Pre As String
@@ -284,7 +277,6 @@ Public Class frm_Closing_Stock_CC
         '    MsgBox(ex.Message, MsgBoxStyle.Critical, "Error --> Form Load")
         'End Try
     End Function
-
 
     Private Sub FillGridMaster()
         Try
@@ -303,7 +295,6 @@ Public Class frm_Closing_Stock_CC
             MsgBox(gblMessageHeading_Error & vbCrLf & gblMessage_ContactInfo & vbCrLf & ex.Message, MsgBoxStyle.Critical, gblMessageHeading)
         End Try
     End Sub
-
 
     Public Sub clear_all()
         lbl_Closing_code.Text = ""
@@ -336,7 +327,6 @@ Public Class frm_Closing_Stock_CC
         'DGVClstkitems.ReadOnly = False
         dtpClosingdt.Enabled = True
     End Sub
-
 
     Public Sub DGVClstkitems_Style()
         Try
@@ -585,10 +575,7 @@ Public Class frm_Closing_Stock_CC
 
     Private Sub DGVClstkitems_CellValueChanged(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs)
 
-       
-
     End Sub
-
 
     Private Sub txtSearch_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtSearch.TextChanged
         Dim qry As String = ""
@@ -606,6 +593,7 @@ Public Class frm_Closing_Stock_CC
 
         obj.GridBind(DGVMasters, qry)
     End Sub
+
     Private Sub ddl_category_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ddl_category.SelectedIndexChanged
 
         If ddl_category.SelectedIndex > 0 Then
@@ -646,8 +634,6 @@ Public Class frm_Closing_Stock_CC
     Private Sub DGVClstkitems_KeyPress(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyPressEventArgs)
 
     End Sub
-
-
 
     Private Sub CreateTable()
      
@@ -730,6 +716,4 @@ Public Class frm_Closing_Stock_CC
 
     End Sub
 
-
-   
 End Class

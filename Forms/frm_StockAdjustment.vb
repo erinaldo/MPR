@@ -259,26 +259,57 @@ restart:
     End Sub
 
     Private Sub AddItem()
-        frm_Show_search.qry = " SELECT " &
-                                               " ITEM_MASTER.ITEM_ID,   " &
-                                               " ITEM_MASTER.ITEM_CODE, " &
-                                               " ITEM_MASTER.ITEM_NAME, " &
-                                               " ITEM_MASTER.ITEM_DESC, " &
-                                               " UNIT_MASTER.UM_Name,   " &
-                                               " ITEM_CATEGORY.ITEM_CAT_NAME, " &
-                                               " ITEM_MASTER.IS_STOCKABLE, Barcode_vch " &
-                                       " FROM " &
-                                               " ITEM_MASTER " &
-                                               " INNER JOIN UNIT_MASTER ON ITEM_MASTER.UM_ID = UNIT_MASTER.UM_ID " &
-                                               " INNER JOIN ITEM_CATEGORY ON ITEM_MASTER.ITEM_CATEGORY_ID = ITEM_CATEGORY.ITEM_CAT_ID " &
-                                                "INNER JOIN ITEM_DETAIL ON ITEM_MASTER.ITEM_ID = ITEM_DETAIL.ITEM_ID "
 
-        frm_Show_search.txtSearch.Text = ""
+        'frm_Show_search.qry = " SELECT " &
+        '                                       " ITEM_MASTER.ITEM_ID,   " &
+        '                                       " ITEM_MASTER.ITEM_CODE, " &
+        '                                       " ITEM_MASTER.ITEM_NAME, " &
+        '                                       " ITEM_MASTER.ITEM_DESC, " &
+        '                                       " UNIT_MASTER.UM_Name,   " &
+        '                                       " ITEM_CATEGORY.ITEM_CAT_NAME, " &
+        '                                       " ITEM_MASTER.IS_STOCKABLE, Barcode_vch " &
+        '                               " FROM " &
+        '                                       " ITEM_MASTER " &
+        '                                       " INNER JOIN UNIT_MASTER ON ITEM_MASTER.UM_ID = UNIT_MASTER.UM_ID " &
+        '                                       " INNER JOIN ITEM_CATEGORY ON ITEM_MASTER.ITEM_CATEGORY_ID = ITEM_CATEGORY.ITEM_CAT_ID " &
+        '                                        "INNER JOIN ITEM_DETAIL ON ITEM_MASTER.ITEM_ID = ITEM_DETAIL.ITEM_ID "
+
+        'frm_Show_search.txtSearch.Text = ""
+        'frm_Show_search.column_name = "(Item_Name + isnull(Barcode_vch,''))"
+        'frm_Show_search.extra_condition = ""
+        'frm_Show_search.item_rate_column = ""
+        'frm_Show_search.ret_column = "Item_ID"
+        'frm_Show_search.ShowDialog()
+
+        frm_Show_search.qry = " SELECT top 100 im.ITEM_ID ,
+		                                ISNULL(im.BarCode_vch, '') AS BARCODE,
+                                        im.ITEM_NAME AS [ITEM NAME],
+                                        im.MRP_Num AS MRP,
+                                        cast(im.sale_rate AS numeric(18,2)) AS RATE,
+                                        litems.LabelItemName_vch AS BRAND,
+                                        ic.ITEM_CAT_NAME AS CATEGORY
+                                        FROM    Item_master im
+                                        INNER JOIN item_detail id ON im.item_id = id.item_id
+                                        INNER JOIN dbo.ITEM_CATEGORY ic ON im.ITEM_CATEGORY_ID = ic.ITEM_CAT_ID
+                                        LEFT JOIN dbo.LabelItem_Mapping lim ON lim.Fk_ItemId_Num = im.ITEM_ID
+                                        inner JOIN dbo.Label_Items litems ON lim.Fk_LabelDetailId = litems.Pk_LabelDetailId_Num
+                                        WHERE   id.Is_active = 1 "
+
+
         frm_Show_search.column_name = "(Item_Name + isnull(Barcode_vch,''))"
+        frm_Show_search.column_name1 = "ITEM_NAME"
+        frm_Show_search.column_name2 = "MRP_Num"
+        frm_Show_search.column_name3 = "SALE_RATE"
+        frm_Show_search.column_name4 = "LABELITEMNAME_VCH"
+        frm_Show_search.column_name5 = "ITEM_CAT_NAME"
+        frm_Show_search.cols_no_for_width = "1,2,3,4,5,6"
+        frm_Show_search.cols_width = "100,350,60,60,100,100"
         frm_Show_search.extra_condition = ""
+        frm_Show_search.ret_column = "ITEM_ID"
         frm_Show_search.item_rate_column = ""
-        frm_Show_search.ret_column = "Item_ID"
+        frm_Show_search.txtSearch.Text = ""
         frm_Show_search.ShowDialog()
+
         If Not check_item_exist(frm_Show_search.search_result) Then
             get_row(frm_Show_search.search_result, 0)
         End If
@@ -305,23 +336,23 @@ restart:
         Try
             Dim ds As DataSet
             Dim sqlqry As String
-            sqlqry = "SELECT  " & _
-                                        " IM.ITEM_ID , " & _
-                                        " IM.ITEM_CODE , " & _
-                                        " IM.ITEM_NAME , " & _
-                                        " UM.UM_Name , " & _
-                                        " SD.Batch_no , " & _
-                                        " dbo.fn_Format(SD.Expiry_date) AS Expiry_Date, " & _
-                                        " dbo.Get_Average_Rate_as_on_date(IM.ITEM_ID,'" & Now.ToString("dd-MMM-yyyy") & "'," & v_the_current_division_id & ",0) as Item_Rate," & _
-                                        " SD.Balance_Qty, " & _
-                                        " 0.00  as adjustment_qty, " & _
-                                        " SD.STOCK_DETAIL_ID  " & _
-                                " FROM " & _
-                                        " ITEM_MASTER  IM " & _
-                                        " INNER JOIN ITEM_DETAIL ID ON IM.ITEM_ID = ID.ITEM_ID " & _
-                                        " INNER JOIN STOCK_DETAIL SD ON ID.ITEM_ID = SD.Item_id " & _
-                                        " INNER JOIN UNIT_MASTER UM ON IM.UM_ID = UM.UM_ID" & _
-                                " where " & _
+            sqlqry = "SELECT  " &
+                                        " IM.ITEM_ID , " &
+                                        " IM.ITEM_CODE , " &
+                                        " IM.ITEM_NAME , " &
+                                        " UM.UM_Name , " &
+                                        " SD.Batch_no , " &
+                                        " dbo.fn_Format(SD.Expiry_date) AS Expiry_Date, " &
+                                        " dbo.Get_Average_Rate_as_on_date(IM.ITEM_ID,'" & Now.ToString("dd-MMM-yyyy") & "'," & v_the_current_division_id & ",0) as Item_Rate," &
+                                        " SD.Balance_Qty, " &
+                                        " 0.00  as adjustment_qty, " &
+                                        " SD.STOCK_DETAIL_ID  " &
+                                " FROM " &
+                                        " ITEM_MASTER  IM " &
+                                        " INNER JOIN ITEM_DETAIL ID ON IM.ITEM_ID = ID.ITEM_ID " &
+                                        " INNER JOIN STOCK_DETAIL SD ON ID.ITEM_ID = SD.Item_id " &
+                                        " INNER JOIN UNIT_MASTER UM ON IM.UM_ID = UM.UM_ID" &
+                                " where " &
             " IM.ITEM_ID = " & item_id & ""
             '" IM.ITEM_ID = " & item_id & " and SD.Balance_Qty > 0"
             ds = clsObj.Fill_DataSet(sqlqry)
@@ -357,9 +388,6 @@ restart:
             MsgBox(gblMessageHeading_Error & vbCrLf & gblMessage_ContactInfo & vbCrLf & ex.Message, MsgBoxStyle.Critical, gblMessageHeading)
         End Try
     End Sub
-
-
-
 
     Private Sub grdWastageItem_AfterEdit(ByVal sender As System.Object, ByVal e As C1.Win.C1FlexGrid.RowColEventArgs) Handles grdAdjustmentItem.AfterEdit
         If grdAdjustmentItem.Rows(e.Row).IsNode Then Exit Sub

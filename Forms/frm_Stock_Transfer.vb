@@ -395,26 +395,55 @@ again:
                 If e.KeyCode = Keys.Space Then
                     iRowindex = flxItems.Row
 
-                    frm_Show_search.qry = " SELECT " &
-                                       " ITEM_MASTER.ITEM_ID,   " &
-                                       " ITEM_MASTER.ITEM_CODE, " &
-                                       " ITEM_MASTER.ITEM_NAME, " &
-                                       " ITEM_MASTER.ITEM_DESC, " &
-                                       " UNIT_MASTER.UM_Name,   " &
-                                       " ITEM_CATEGORY.ITEM_CAT_NAME, " &
-                                       " ITEM_MASTER.IS_STOCKABLE " &
-                               " FROM " &
-                                       " ITEM_MASTER " &
-                                       " INNER JOIN UNIT_MASTER ON ITEM_MASTER.UM_ID = UNIT_MASTER.UM_ID " &
-                                       " INNER JOIN ITEM_CATEGORY ON ITEM_MASTER.ITEM_CATEGORY_ID = ITEM_CATEGORY.ITEM_CAT_ID " &
-                                        "INNER JOIN ITEM_DETAIL ON ITEM_MASTER.ITEM_ID = ITEM_DETAIL.ITEM_ID "
+                    'frm_Show_search.qry = " SELECT " &
+                    '                   " ITEM_MASTER.ITEM_ID,   " &
+                    '                   " ITEM_MASTER.ITEM_CODE, " &
+                    '                   " ITEM_MASTER.ITEM_NAME, " &
+                    '                   " ITEM_MASTER.ITEM_DESC, " &
+                    '                   " UNIT_MASTER.UM_Name,   " &
+                    '                   " ITEM_CATEGORY.ITEM_CAT_NAME, " &
+                    '                   " ITEM_MASTER.IS_STOCKABLE " &
+                    '           " FROM " &
+                    '                   " ITEM_MASTER " &
+                    '                   " INNER JOIN UNIT_MASTER ON ITEM_MASTER.UM_ID = UNIT_MASTER.UM_ID " &
+                    '                   " INNER JOIN ITEM_CATEGORY ON ITEM_MASTER.ITEM_CATEGORY_ID = ITEM_CATEGORY.ITEM_CAT_ID " &
+                    '                    "INNER JOIN ITEM_DETAIL ON ITEM_MASTER.ITEM_ID = ITEM_DETAIL.ITEM_ID "
 
 
-                    frm_Show_search.column_name = "Item_Name"
+                    'frm_Show_search.column_name = "Item_Name"
+                    'frm_Show_search.extra_condition = ""
+                    'frm_Show_search.ret_column = "Item_ID"
+                    'frm_Show_search.item_rate_column = ""
+                    'frm_Show_search.ShowDialog()
+
+                    frm_Show_search.qry = " SELECT top 100 im.ITEM_ID ,
+		                                ISNULL(im.BarCode_vch, '') AS BARCODE,
+                                        im.ITEM_NAME AS [ITEM NAME],
+                                        im.MRP_Num AS MRP,
+                                        cast(im.sale_rate AS numeric(18,2)) AS RATE,
+                                        litems.LabelItemName_vch AS BRAND,
+                                        ic.ITEM_CAT_NAME AS CATEGORY
+                                        FROM    Item_master im
+                                        INNER JOIN item_detail id ON im.item_id = id.item_id
+                                        INNER JOIN dbo.ITEM_CATEGORY ic ON im.ITEM_CATEGORY_ID = ic.ITEM_CAT_ID
+                                        LEFT JOIN dbo.LabelItem_Mapping lim ON lim.Fk_ItemId_Num = im.ITEM_ID
+                                        inner JOIN dbo.Label_Items litems ON lim.Fk_LabelDetailId = litems.Pk_LabelDetailId_Num
+                                        WHERE   id.Is_active = 1 "
+
+
+                    frm_Show_search.column_name = "BARCODE_VCH"
+                    frm_Show_search.column_name1 = "ITEM_NAME"
+                    frm_Show_search.column_name2 = "MRP_Num"
+                    frm_Show_search.column_name3 = "SALE_RATE"
+                    frm_Show_search.column_name4 = "LABELITEMNAME_VCH"
+                    frm_Show_search.column_name5 = "ITEM_CAT_NAME"
+                    frm_Show_search.cols_no_for_width = "1,2,3,4,5,6"
+                    frm_Show_search.cols_width = "100,350,60,60,100,100"
                     frm_Show_search.extra_condition = ""
-                    frm_Show_search.ret_column = "Item_ID"
+                    frm_Show_search.ret_column = "ITEM_ID"
                     frm_Show_search.item_rate_column = ""
                     frm_Show_search.ShowDialog()
+
                     If Not check_item_exist(frm_Show_search.search_result) Then
                         get_row(frm_Show_search.search_result, 0)
                     End If

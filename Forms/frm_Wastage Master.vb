@@ -101,8 +101,6 @@ Public Class frm_Wastage_Master
 
     End Sub
 
-
-
     Public Sub ViewClick(ByVal sender As Object, ByVal e As System.EventArgs) Implements IForm.ViewClick
         Try
             If TBCWastageMaster.SelectedIndex = 0 Then
@@ -256,12 +254,42 @@ restart:
             ElseIf flag = "save" Then
                 If e.KeyCode = Keys.Space Then
                     iRowindex = grdWastageItem.Row
-                    frm_Show_search.qry = "Select * from Item_master inner join item_detail on item_master.item_id = item_detail.item_id " 'where item_detail.div_id = '" + Convert.ToString(v_the_current_logged_in_user_id) + "'"
+
+                    'frm_Show_search.qry = "Select * from Item_master inner join item_detail on item_master.item_id = item_detail.item_id " 'where item_detail.div_id = '" + Convert.ToString(v_the_current_logged_in_user_id) + "'"
+                    'frm_Show_search.extra_condition = ""
+                    'frm_Show_search.ret_column = "Item_ID"
+                    'frm_Show_search.column_name = "Item_name"
+                    'frm_Show_search.item_rate_column = ""
+                    'frm_Show_search.ShowDialog()
+
+                    frm_Show_search.qry = " SELECT top 100 im.ITEM_ID ,
+		                                ISNULL(im.BarCode_vch, '') AS BARCODE,
+                                        im.ITEM_NAME AS [ITEM NAME],
+                                        im.MRP_Num AS MRP,
+                                        cast(im.sale_rate AS numeric(18,2)) AS RATE,
+                                        litems.LabelItemName_vch AS BRAND,
+                                        ic.ITEM_CAT_NAME AS CATEGORY
+                                        FROM    Item_master im
+                                        INNER JOIN item_detail id ON im.item_id = id.item_id
+                                        INNER JOIN dbo.ITEM_CATEGORY ic ON im.ITEM_CATEGORY_ID = ic.ITEM_CAT_ID
+                                        LEFT JOIN dbo.LabelItem_Mapping lim ON lim.Fk_ItemId_Num = im.ITEM_ID
+                                        inner JOIN dbo.Label_Items litems ON lim.Fk_LabelDetailId = litems.Pk_LabelDetailId_Num
+                                        WHERE   id.Is_active = 1 "
+
+
+                    frm_Show_search.column_name = "BARCODE_VCH"
+                    frm_Show_search.column_name1 = "ITEM_NAME"
+                    frm_Show_search.column_name2 = "MRP_Num"
+                    frm_Show_search.column_name3 = "SALE_RATE"
+                    frm_Show_search.column_name4 = "LABELITEMNAME_VCH"
+                    frm_Show_search.column_name5 = "ITEM_CAT_NAME"
+                    frm_Show_search.cols_no_for_width = "1,2,3,4,5,6"
+                    frm_Show_search.cols_width = "100,350,60,60,100,100"
                     frm_Show_search.extra_condition = ""
-                    frm_Show_search.ret_column = "Item_ID"
-                    frm_Show_search.column_name = "Item_name"
+                    frm_Show_search.ret_column = "ITEM_ID"
                     frm_Show_search.item_rate_column = ""
                     frm_Show_search.ShowDialog()
+
                     If Not check_item_exist(frm_Show_search.search_result) Then
                         get_row(frm_Show_search.search_result, 0)
                     End If
@@ -344,17 +372,15 @@ restart:
         End Try
     End Sub
 
-   
-
-
     Private Sub grdWastageItem_AfterEdit(ByVal sender As System.Object, ByVal e As C1.Win.C1FlexGrid.RowColEventArgs) Handles grdWastageItem.AfterEdit
         If grdWastageItem.Rows(e.Row).IsNode Then Exit Sub
         If Convert.ToDecimal(grdWastageItem.Rows(e.Row)("wastage_qty")) > Convert.ToDecimal(grdWastageItem.Rows(e.Row)("Batch_Qty")) Then
             grdWastageItem.Rows(e.Row)("wastage_qty") = 0.0
         End If
     End Sub
+
     Private Sub table_style()
-      
+
         If Not dtWastageItem Is Nothing Then dtWastageItem.Dispose()
         dtWastageItem = New DataTable()
         dtWastageItem.Columns.Add("Item_Id", GetType(System.Double))
@@ -412,9 +438,11 @@ restart:
 
         grdWastageItem.Cols("Stock_Detail_Id").Visible = False
     End Sub
+
     Private Sub grdWastageItem_AfterDataRefresh(ByVal sender As System.Object, ByVal e As System.ComponentModel.ListChangedEventArgs) Handles grdWastageItem.AfterDataRefresh
         generate_tree()
     End Sub
+
     Private Sub generate_tree()
         If grdWastageItem.Rows.Count > 1 Then
             grdWastageItem.Tree.Style = TreeStyleFlags.CompleteLeaf
@@ -445,8 +473,6 @@ restart:
         e.Handled = grdWastageItem.Rows(grdWastageItem.CursorCell.r1).IsNode
     End Sub
 
- 
-
     Private Sub txtSearch_TextChanged_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtSearch.TextChanged
         Try
             clsObj.GridBind(DGVWastageMaster, "SELECT  Wastage_ID," & _
@@ -461,4 +487,5 @@ restart:
             MsgBox(ex.Message, MsgBoxStyle.Critical, "Error --> FillGrid")
         End Try
     End Sub
+
 End Class

@@ -1034,8 +1034,8 @@ Public MustInherit Class Connection
 
                 While xmlRdr.Read
                     If xmlRdr.NodeType = XmlNodeType.Element And xmlRdr.Name = "LocalConnection" Then
-                        DNS = "Server =" & xmlRdr.GetAttribute("ServerName") & ";Database =" & _
-                            xmlRdr.GetAttribute("DataBase") & ";User ID =" & xmlRdr.GetAttribute("UserName") & ";Password =" & _
+                        DNS = "Server =" & xmlRdr.GetAttribute("ServerName") & ";Database =" &
+                            xmlRdr.GetAttribute("DataBase") & ";User ID =" & xmlRdr.GetAttribute("UserName") & ";Password =" &
                             Decrypt(xmlRdr.GetAttribute("Password")) & ";Connection Timeout =" & xmlRdr.GetAttribute("Timeout")
 
 
@@ -1044,12 +1044,17 @@ Public MustInherit Class Connection
                         gblDataBase_Name = xmlRdr.GetAttribute("DataBase")
 
                     ElseIf xmlRdr.NodeType = XmlNodeType.Element And xmlRdr.Name = "CentraliseConnection" Then
-                        gblDNS_Online = "Server =" & xmlRdr.GetAttribute("ServerName") & ";Database =" & _
-                                                    xmlRdr.GetAttribute("DataBase") & ";User ID =" & xmlRdr.GetAttribute("UserName") & ";Password =" & _
+                        gblDNS_Online = "Server =" & xmlRdr.GetAttribute("ServerName") & ";Database =" &
+                                                    xmlRdr.GetAttribute("DataBase") & ";User ID =" & xmlRdr.GetAttribute("UserName") & ";Password =" &
                                                     Decrypt(xmlRdr.GetAttribute("Password")) & ";Connection Timeout =" & xmlRdr.GetAttribute("Timeout")
 
                         gblCentraliseServer_Name = xmlRdr.GetAttribute("ServerName")
                         gblCentraliseDataBase_Name = xmlRdr.GetAttribute("DataBase")
+
+                    ElseIf xmlRdr.NodeType = XmlNodeType.Element And xmlRdr.Name = "CentraliseConnectionMMS" Then
+                        gblDNS_OnlineMMS = "Server =" & xmlRdr.GetAttribute("ServerName") & ";Database =" &
+                                                    xmlRdr.GetAttribute("DataBase") & ";User ID =" & xmlRdr.GetAttribute("UserName") & ";Password =" &
+                                                    Decrypt(xmlRdr.GetAttribute("Password")) & ";Connection Timeout =" & xmlRdr.GetAttribute("Timeout")
 
                     ElseIf xmlRdr.NodeType = XmlNodeType.Element And xmlRdr.Name = "ConnectionStrings" Then
                         If xmlRdr.GetAttribute("DivisionType").ToUpper = "WAREHOUSE" Then

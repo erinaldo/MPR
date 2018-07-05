@@ -119,7 +119,7 @@ Public Class frm_GSTR_3
             noOfRowsInserted = table.Rows.Count
             For Each row As DataRow In table.Rows
                 'CType(xlWorkSheet.Rows(20), Range).Select()
-                ' CType(xlWorkSheet.Rows(rowIndex), Range).Insert(XlInsertShiftDirection.xlShiftDown, True)
+                CType(xlWorkSheet.Rows(rowIndex), Excel.Range).Insert(Excel.XlInsertShiftDirection.xlShiftDown, True)
                 xlWorkSheet.Range("B" & rowIndex.ToString & ":F" & rowIndex.ToString).MergeCells = True
                 xlWorkSheet.Range("G" & rowIndex.ToString & ":K" & rowIndex.ToString).MergeCells = True
                 xlWorkSheet.Range("L" & rowIndex.ToString & ":P" & rowIndex.ToString).MergeCells = True
@@ -528,8 +528,8 @@ FROM    ( SELECT    SUM(ISNULL(IntraState_TaxableValue, 0)) AS IntraState_Taxabl
             " FROM dbo.MATERIAL_RECIEVED_WITHOUT_PO_MASTER  AS mrn " &
             " INNER JOIN dbo.ACCOUNT_MASTER am ON mrn.Vendor_ID = am.ACC_ID" &
             " INNER JOIN dbo.CITY_MASTER cm ON cm.CITY_ID = am.CITY_ID" &
-            " WHERE MRN_STATUS <> 2 and MONTH(Received_Date) =  " & txtFromDate.Value.Month &
-            " And YEAR(Received_Date)=  " & txtFromDate.Value.Year &
+            " WHERE MRN_STATUS <> 2 and MONTH(Invoice_date) =  " & txtFromDate.Value.Month &
+            " And YEAR(Invoice_date)=  " & txtFromDate.Value.Year &
             " union" &
             " SELECT  SUM(CASE WHEN mrn.MRN_TYPE <> 2 THEN mrn.GST_AMOUNT ELSE 0 END) AS non_integrated_tax," &
             "         SUM(CASE WHEN mrn.MRN_TYPE = 2 THEN mrn.GST_AMOUNT ELSE 0 END) AS integrated_tax, " &
@@ -537,8 +537,8 @@ FROM    ( SELECT    SUM(ISNULL(IntraState_TaxableValue, 0)) AS IntraState_Taxabl
             " FROM dbo.MATERIAL_RECEIVED_AGAINST_PO_MASTER AS mrn " &
             " INNER JOIN dbo.ACCOUNT_MASTER am ON mrn.CUST_ID = am.ACC_ID" &
             " INNER JOIN dbo.CITY_MASTER cm ON cm.CITY_ID = am.CITY_ID" &
-            " WHERE MRN_STATUS <> 2 and MONTH(Receipt_Date) =  " & txtFromDate.Value.Month &
-            " And YEAR(Receipt_Date)=  " & txtFromDate.Value.Year &
+            " WHERE MRN_STATUS <> 2 and MONTH(Invoice_date) =  " & txtFromDate.Value.Month &
+            " And YEAR(Invoice_date)=  " & txtFromDate.Value.Year &
             " ) AS temp"
         Return objCommFunction.Fill_DataSet(Qry).Tables(0).Rows(0)
     End Function

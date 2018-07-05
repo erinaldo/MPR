@@ -15,9 +15,8 @@ Public Class frm_MRS_MainStore
     Dim txtQutity As TextBox
     Dim iMRSId As Int32
     Dim DGVMRSItem_Rowindex As Int16
-
-
     Dim _rights As Form_Rights
+
     Public Sub New(ByVal rights As Form_Rights)
         _rights = rights
         InitializeComponent()
@@ -250,7 +249,6 @@ Public Class frm_MRS_MainStore
             'obj.FormatGrid(DGVMRSItem)
             'obj.FormatGrid(DGVMRSMaster)
 
-
             FillGridMRSMaster()
             DGVMRSItem_style()
             new_initilization()
@@ -271,7 +269,6 @@ Public Class frm_MRS_MainStore
         TBC_MRS_Master.SelectTab(1)
         flag = "save"
     End Sub
-
 
     Private Sub DGVMRSItem_style()
         Try
@@ -376,7 +373,6 @@ Public Class frm_MRS_MainStore
         '    MsgBox(ex.Message, MsgBoxStyle.Critical, "Error --> Form Load")
         'End Try
     End Function
-
 
     Private Sub DGVMRSItem_DataError(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewDataErrorEventArgs) Handles DGVMRSItem.DataError
 
@@ -571,8 +567,6 @@ Public Class frm_MRS_MainStore
         End Select
     End Sub
 
-
-
     Private Sub OpenConnectionFile()
         Try
             Dim sr As System.IO.StreamReader
@@ -618,14 +612,42 @@ Public Class frm_MRS_MainStore
             If flag = "save" Then
                 If e.KeyCode = Keys.Space Then
                     iRowindex = DGVMRSItem.CurrentRow.Index
-                    frm_Show_search.qry = "Select Item_master.ITEM_ID,Item_master.ITEM_CODE as [Item Code],Item_master.ITEM_NAME  as [Item Name] from Item_master inner join item_detail on item_master.item_id = item_detail.item_id where item_detail.Is_active=1 " 'where item_detail.div_id = '" + Convert.ToString(v_the_curre) + "'"
+                    'frm_Show_search.qry = "Select Item_master.ITEM_ID,Item_master.ITEM_CODE as [Item Code],Item_master.ITEM_NAME  as [Item Name] from Item_master inner join item_detail on item_master.item_id = item_detail.item_id where item_detail.Is_active=1 " 'where item_detail.div_id = '" + Convert.ToString(v_the_curre) + "'"
+                    'frm_Show_search.extra_condition = ""
+                    'frm_Show_search.ret_column = "Item_ID"
+                    'frm_Show_search.column_name = "ITEM_NAME"
+                    'frm_Show_search.cols_width = "80,300"
+                    'frm_Show_search.cols_no_for_width = "1,2"
+                    'frm_Show_search.item_rate_column = ""
+                    'frm_Show_search.ShowDialog()
+                    frm_Show_search.qry = " SELECT top 100 im.ITEM_ID ,
+		                                ISNULL(im.BarCode_vch, '') AS BARCODE,
+                                        im.ITEM_NAME AS [ITEM NAME],
+                                        im.MRP_Num AS MRP,
+                                        cast(im.sale_rate AS numeric(18,2)) AS RATE,
+                                        litems.LabelItemName_vch AS BRAND,
+                                        ic.ITEM_CAT_NAME AS CATEGORY
+                                        FROM    Item_master im
+                                        INNER JOIN item_detail id ON im.item_id = id.item_id
+                                        INNER JOIN dbo.ITEM_CATEGORY ic ON im.ITEM_CATEGORY_ID = ic.ITEM_CAT_ID
+                                        LEFT JOIN dbo.LabelItem_Mapping lim ON lim.Fk_ItemId_Num = im.ITEM_ID
+                                        inner JOIN dbo.Label_Items litems ON lim.Fk_LabelDetailId = litems.Pk_LabelDetailId_Num
+                                        WHERE   id.Is_active = 1 "
+
+
+                    frm_Show_search.column_name = "BARCODE_VCH"
+                    frm_Show_search.column_name1 = "ITEM_NAME"
+                    frm_Show_search.column_name2 = "MRP_Num"
+                    frm_Show_search.column_name3 = "SALE_RATE"
+                    frm_Show_search.column_name4 = "LABELITEMNAME_VCH"
+                    frm_Show_search.column_name5 = "ITEM_CAT_NAME"
+                    frm_Show_search.cols_no_for_width = "1,2,3,4,5,6"
+                    frm_Show_search.cols_width = "100,350,60,60,100,100"
                     frm_Show_search.extra_condition = ""
-                    frm_Show_search.ret_column = "Item_ID"
-                    frm_Show_search.column_name = "ITEM_NAME"
-                    frm_Show_search.cols_width = "80,300"
-                    frm_Show_search.cols_no_for_width = "1,2"
+                    frm_Show_search.ret_column = "ITEM_ID"
                     frm_Show_search.item_rate_column = ""
                     frm_Show_search.ShowDialog()
+
                     get_row(frm_Show_search.search_result)
                 End If
             End If
@@ -633,29 +655,28 @@ Public Class frm_MRS_MainStore
         End Try
     End Sub
 
-
-
     Private Sub txtSearch_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtSearch.TextChanged
         Dim qry As String = ""
 
-        qry = "SELECT  MRS_ID,  " & _
-                " MRS_CODE + CAST(MRS_NO AS VARCHAR) AS MRS_CODE,  " & _
-                " REPLACE(CONVERT(VARCHAR, MRS_DATE, 106), ' ', '-') AS MRS_DATE,  " & _
-                " REPLACE(CONVERT(VARCHAR, REQ_DATE, 106), ' ', '-') AS REQ_DATE,  " & _
-                " MRS_REMARKS,  " & _
-                " CASE WHEN MRS_STATUS = 1 THEN 'Fresh'  " & _
-                     " WHEN MRS_STATUS = 2 THEN 'Pending'  " & _
-                     " WHEN MRS_STATUS = 3 THEN 'Clear'  " & _
-                     " WHEN MRS_STATUS = 4 THEN 'Cancel'  " & _
-                " END AS MRS_STATUS,  " & _
-                " DIVISION_ID,  " & _
-        " CC_ID" & _
-        " FROM mrs_main_store_master" & _
-        " WHERE  ((MRS_CODE + CAST(MRS_NO AS VARCHAR)) + cast(dbo.fn_Format(MRS_DATE) as varchar) +  cast(dbo.fn_Format(REQ_DATE) as varchar) + MRS_REMARKS +  cast(MRS_STATUS as VARCHAR)) like '%" & txtSearch.Text & "%'" & _
+        qry = "SELECT  MRS_ID,  " &
+                " MRS_CODE + CAST(MRS_NO AS VARCHAR) AS MRS_CODE,  " &
+                " REPLACE(CONVERT(VARCHAR, MRS_DATE, 106), ' ', '-') AS MRS_DATE,  " &
+                " REPLACE(CONVERT(VARCHAR, REQ_DATE, 106), ' ', '-') AS REQ_DATE,  " &
+                " MRS_REMARKS,  " &
+                " CASE WHEN MRS_STATUS = 1 THEN 'Fresh'  " &
+                     " WHEN MRS_STATUS = 2 THEN 'Pending'  " &
+                     " WHEN MRS_STATUS = 3 THEN 'Clear'  " &
+                     " WHEN MRS_STATUS = 4 THEN 'Cancel'  " &
+                " END AS MRS_STATUS,  " &
+                " DIVISION_ID,  " &
+        " CC_ID" &
+        " FROM mrs_main_store_master" &
+        " WHERE  ((MRS_CODE + CAST(MRS_NO AS VARCHAR)) + cast(dbo.fn_Format(MRS_DATE) as varchar) +  cast(dbo.fn_Format(REQ_DATE) as varchar) + MRS_REMARKS +  cast(MRS_STATUS as VARCHAR)) like '%" & txtSearch.Text & "%'" &
         " and CC_ID =" & v_the_current_Selected_CostCenter_id & ""
 
 
         obj.GridBind(DGVMRSMaster, qry)
 
     End Sub
+
 End Class
