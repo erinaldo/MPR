@@ -729,7 +729,7 @@ GROUP BY main.STATE_CODE ,
         Qry = " SELECT CAST(HsnCode_vch AS INT) AS HsnCode_vch ,
         SUM(Qty) AS Qty ,
         SUM(Taxable_Value)  AS Taxable_Value ,
-        SUM(Cess_Amount)  AS Cess_Amount ,
+        Isnull(SUM(Cess_Amount),0.00)  AS Cess_Amount ,
         SUM(non_integrated_tax) AS non_integrated_tax ,
         SUM(integrated_tax)  AS integrated_tax 
  FROM (
