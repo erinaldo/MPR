@@ -626,36 +626,36 @@ Public Class frm_Customer_Rate_List_Master
                     'frm_Show_search.cols_width = "60,350,50"
                     'frm_Show_search.ShowDialog()
 
-                    frm_Show_search.qry = " SELECT top 100 im.ITEM_ID ,
-		                                ISNULL(im.BarCode_vch, '') AS BARCODE,
-                                        im.ITEM_NAME AS [ITEM NAME],
-                                        im.MRP_Num AS MRP,
-                                        cast(im.sale_rate AS numeric(18,2)) AS RATE,
-                                        litems.LabelItemName_vch AS BRAND,
+                    frm_Show_Search_RateList.qry = " SELECT  top 50 im.ITEM_ID ,
+		                                ISNULL(im.BarCode_vch, '') AS BARCODE ,
+                                        im.ITEM_NAME AS [ITEM NAME] ,
+                                        im.MRP_Num AS MRP ,
+                                        CAST(im.sale_rate AS NUMERIC(18, 2)) AS RATE ,
+                                        ISNULL(litems.LabelItemName_vch, '') AS BRAND ,
                                         ic.ITEM_CAT_NAME AS CATEGORY
-                                        FROM    Item_master im
-                                        INNER JOIN item_detail id ON im.item_id = id.item_id
-                                        INNER JOIN dbo.ITEM_CATEGORY ic ON im.ITEM_CATEGORY_ID = ic.ITEM_CAT_ID
-                                        LEFT JOIN dbo.LabelItem_Mapping lim ON lim.Fk_ItemId_Num = im.ITEM_ID
-                                        inner JOIN dbo.Label_Items litems ON lim.Fk_LabelDetailId = litems.Pk_LabelDetailId_Num
-                                        WHERE id.Is_active = 1 "
+                                        FROM      Item_master im
+                                        LEFT OUTER JOIN item_detail id ON im.item_id = id.item_id
+                                        LEFT OUTER JOIN dbo.ITEM_CATEGORY ic ON im.ITEM_CATEGORY_ID = ic.ITEM_CAT_ID
+                                        LEFT OUTER JOIN dbo.LabelItem_Mapping lim ON lim.Fk_ItemId_Num = im.ITEM_ID
+                                        LEFT OUTER JOIN dbo.Label_Items litems ON lim.Fk_LabelDetailId = litems.Pk_LabelDetailId_Num
+                                        WHERE   id.Is_active = 1 "
 
 
-                    frm_Show_search.column_name = "ITEM_NAME"
-                    frm_Show_search.column_name1 = "BARCODE_VCH"
-                    frm_Show_search.column_name2 = "MRP_Num"
-                    frm_Show_search.column_name3 = "SALE_RATE"
-                    frm_Show_search.column_name4 = "LABELITEMNAME_VCH"
-                    frm_Show_search.column_name5 = "ITEM_CAT_NAME"
-                    frm_Show_search.cols_no_for_width = "1,2,3,4,5,6"
-                    frm_Show_search.cols_width = "100,350,60,60,100,100"
-                    frm_Show_search.extra_condition = ""
-                    frm_Show_search.ret_column = "ITEM_ID"
-                    frm_Show_search.item_rate_column = ""
-                    frm_Show_search.ShowDialog()
+                    frm_Show_Search_RateList.column_name = "ITEM_NAME"
+                    frm_Show_Search_RateList.column_name1 = "BARCODE_VCH"
+                    frm_Show_Search_RateList.column_name2 = "MRP_Num"
+                    frm_Show_Search_RateList.column_name3 = "SALE_RATE"
+                    frm_Show_Search_RateList.column_name4 = "LABELITEMNAME_VCH"
+                    frm_Show_Search_RateList.column_name5 = "ITEM_CAT_NAME"
+                    frm_Show_Search_RateList.cols_no_for_width = "1,2,3,4,5,6"
+                    frm_Show_Search_RateList.cols_width = "100,350,60,60,100,100"
+                    frm_Show_Search_RateList.extra_condition = ""
+                    frm_Show_Search_RateList.ret_column = "ITEM_ID"
+                    frm_Show_Search_RateList.item_rate_column = ""
+                    frm_Show_Search_RateList.ShowDialog()
 
-                    get_row(frm_Show_search.search_result)
-                    frm_Show_search.Close()
+                    get_row(frm_Show_Search_RateList.search_result)
+                    frm_Show_Search_RateList.Close()
                 End If
             End If
         Catch ex As Exception
@@ -743,4 +743,5 @@ Public Class frm_Customer_Rate_List_Master
             grdSupplier.Rows(e.RowIndex).Cells("rate").Value = Math.Round(sellingPrice / (1 + (gst / 100)), 2)
         End If
     End Sub
+
 End Class

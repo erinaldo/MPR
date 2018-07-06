@@ -1,7 +1,7 @@
 Imports System.Data.SqlClient
 Imports MMSPlus.CommonClass
 
-Public Class frm_Show_search
+Public Class frm_Show_Search_RateList
     Inherits System.Windows.Forms.Form
 
     'Dim frm_MRS_MainStore_Obj As New frm_MRS_MainStore
@@ -581,5 +581,33 @@ Public Class frm_Show_search
 
         End Try
     End Sub
+
+    'Private Sub HeaderCheckBox_Clicked(ByVal sender As Object, ByVal e As EventArgs)
+    '    'Necessary to end the edit mode of the Cell.
+    '    grdSearch.EndEdit()
+
+    '    'Loop and check and uncheck all row CheckBoxes based on Header Cell CheckBox.
+    '    For Each row As DataGridViewRow In grdSearch.Rows
+    '        Dim checkBox As DataGridViewCheckBoxCell = (TryCast(row.Cells("checkBoxColumn"), DataGridViewCheckBoxCell))
+    '        checkBox.Value = headerCheckBox.Checked
+    '    Next
+    'End Sub
+
+    'Private Sub DataGridView_CellClick(ByVal sender As Object, ByVal e As DataGridViewCellEventArgs)
+    '    'Check to ensure that the row CheckBox is clicked.
+    '    If e.RowIndex >= 0 AndAlso e.ColumnIndex = 0 Then
+
+    '        'Loop to verify whether all row CheckBoxes are checked or not.
+    '        Dim isChecked As Boolean = True
+    '        For Each row As DataGridViewRow In grdSearch.Rows
+    '            If Convert.ToBoolean(row.Cells("checkBoxColumn").EditedFormattedValue) = False Then
+    '                isChecked = False
+    '                Exit For
+    '            End If
+    '        Next
+
+    '        headerCheckBox.Checked = isChecked
+    '    End If
+    'End Sub
 
 End Class

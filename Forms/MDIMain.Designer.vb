@@ -99,7 +99,6 @@ Partial Class MDIMain
         Me.GSTSummaryToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_PurchaseTaxRegister = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_SaleTaxRegister = New System.Windows.Forms.ToolStripMenuItem()
-        Me.frm_EwayBill = New System.Windows.Forms.ToolStripMenuItem()
         Me.Reports = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_Stock = New System.Windows.Forms.ToolStripMenuItem()
         Me.frmStockValue = New System.Windows.Forms.ToolStripMenuItem()
@@ -167,6 +166,7 @@ Partial Class MDIMain
         Me.picLogo = New System.Windows.Forms.PictureBox()
         Me.TabControl2 = New System.Windows.Forms.TabControl()
         Me.frm_open_invoice = New System.Windows.Forms.ToolStripMenuItem()
+        Me.frm_EwayBill = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.toolbar.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
@@ -187,6 +187,7 @@ Partial Class MDIMain
         Me.MenuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional
         Me.MenuStrip1.Size = New System.Drawing.Size(105, 686)
         Me.MenuStrip1.TabIndex = 0
+        Me.MenuStrip1.TabStop = True
         Me.MenuStrip1.Text = "MenuStrip1"
         '
         'logo
@@ -218,7 +219,7 @@ Partial Class MDIMain
         'MasterSetupToolStripMenuItem
         '
         Me.MasterSetupToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(22, Byte), Integer), CType(CType(22, Byte), Integer), CType(CType(22, Byte), Integer))
-        Me.MasterSetupToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Synchronization, Me.frm_Item_Master, Me.frm_StockAdjustment, Me.frm_Print_Barcode, Me.frm_Cost_Center, Me.TransferDataToolStripMenuItem, Me.TransferDataBetweenDatesToolStripMenuItem, Me.BackupDB, Me.frm_Division_Settings, Me.frm_Item_rate_list, Me.frm_Change_Password, Me.frm_user_rights})
+        Me.MasterSetupToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Synchronization, Me.frm_Item_Master, Me.frm_StockAdjustment, Me.frm_Print_Barcode, Me.TransferDataToolStripMenuItem, Me.TransferDataBetweenDatesToolStripMenuItem, Me.BackupDB, Me.frm_Division_Settings, Me.frm_Item_rate_list, Me.frm_Change_Password, Me.frm_user_rights, Me.frm_Cost_Center})
         Me.MasterSetupToolStripMenuItem.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.MasterSetupToolStripMenuItem.ForeColor = System.Drawing.Color.White
         Me.MasterSetupToolStripMenuItem.Image = Global.MMSPlus.My.Resources.Resources.smserver
@@ -450,7 +451,7 @@ Partial Class MDIMain
         'StockINToolStripMenuItem
         '
         Me.StockINToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(44, Byte), Integer), CType(CType(44, Byte), Integer))
-        Me.StockINToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.frm_Material_Received_Without_PO_Master, Me.frm_material_rec_against_PO, Me.frm_Reverse_Wastage_Master, Me.frm_ReverseMaterial_Issue_To_Cost_Center_Master, Me.MaterialReturnfromCostCenterToolStripMenuItem, Me.frm_DebitNote, Me.frm_Accept_Stock_transfer, Me.frm_Stock_Transfer})
+        Me.StockINToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.frm_Material_Received_Without_PO_Master, Me.frm_material_rec_against_PO, Me.frm_Reverse_Wastage_Master, Me.frm_ReverseMaterial_Issue_To_Cost_Center_Master, Me.frm_DebitNote, Me.frm_Accept_Stock_transfer, Me.frm_Stock_Transfer, Me.MaterialReturnfromCostCenterToolStripMenuItem})
         Me.StockINToolStripMenuItem.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.StockINToolStripMenuItem.ForeColor = System.Drawing.Color.White
         Me.StockINToolStripMenuItem.Image = Global.MMSPlus.My.Resources.Resources.receive
@@ -538,7 +539,7 @@ Partial Class MDIMain
         'ReportsToolStripMenuItem
         '
         Me.ReportsToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(55, Byte), Integer), CType(CType(55, Byte), Integer), CType(CType(55, Byte), Integer))
-        Me.ReportsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.frm_Material_Issue_To_Cost_Center_Master, Me.frm_Wastage_Master, Me.frm_ReverseMaterial_Received_Against_PO_Master, Me.frm_ReverseMaterial_Received_Without_PO_Master, Me.BatchMasterToolStripMenuItem, Me.IssueToProcessToolStripMenuItem})
+        Me.ReportsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.frm_Material_Issue_To_Cost_Center_Master, Me.frm_Wastage_Master, Me.BatchMasterToolStripMenuItem, Me.IssueToProcessToolStripMenuItem, Me.frm_ReverseMaterial_Received_Without_PO_Master, Me.frm_ReverseMaterial_Received_Against_PO_Master})
         Me.ReportsToolStripMenuItem.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ReportsToolStripMenuItem.ForeColor = System.Drawing.Color.White
         Me.ReportsToolStripMenuItem.Image = Global.MMSPlus.My.Resources.Resources.Unloading_web_vector_uploading2
@@ -608,7 +609,7 @@ Partial Class MDIMain
         '
         Me.frmsaleinvoice.AutoSize = False
         Me.frmsaleinvoice.BackColor = System.Drawing.Color.FromArgb(CType(CType(66, Byte), Integer), CType(CType(66, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.frmsaleinvoice.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.frm_Customer_Rate_List_Master, Me.frm_OpenSale_Invoice, Me.frm_Sale_Invoice, Me.frm_BillBook, Me.frm_CreditNote, Me.frm_GatePass})
+        Me.frmsaleinvoice.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.frm_Customer_Rate_List_Master, Me.frm_OpenSale_Invoice, Me.frm_Sale_Invoice, Me.frm_BillBook, Me.frm_EwayBill, Me.frm_CreditNote, Me.frm_GatePass})
         Me.frmsaleinvoice.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Bold)
         Me.frmsaleinvoice.ForeColor = System.Drawing.Color.White
         Me.frmsaleinvoice.Image = Global.MMSPlus.My.Resources.Resources.Client_list_text
@@ -734,7 +735,7 @@ Partial Class MDIMain
         'UserManagmentToolStripMenuItem
         '
         Me.UserManagmentToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(77, Byte), Integer), CType(CType(77, Byte), Integer), CType(CType(77, Byte), Integer))
-        Me.UserManagmentToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsmAccount, Me.frm_user_master, Me.frm_OpeningBalance, Me.frm_Supplier_Invoice_Settlement, Me.frm_Invoice_Settlement, Me.frm_Journal_Entry, Me.frm_Contra_Entry, Me.frm_Expense_Entry, Me.frm_DebitNote_WO_Items, Me.frm_CreditNote_WO_Items, Me.frm_DebtorsOS, Me.frm_DebtorsLedger, Me.frm_CreditorsOS, Me.frm_CreditorsLedger, Me.frm_depreciation_cal, Me.GSTRegitorToolStripMenuItem, Me.frm_EwayBill})
+        Me.UserManagmentToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsmAccount, Me.frm_OpeningBalance, Me.frm_Supplier_Invoice_Settlement, Me.frm_Invoice_Settlement, Me.frm_Journal_Entry, Me.frm_Contra_Entry, Me.frm_Expense_Entry, Me.frm_DebitNote_WO_Items, Me.frm_CreditNote_WO_Items, Me.frm_DebtorsOS, Me.frm_DebtorsLedger, Me.frm_CreditorsOS, Me.frm_CreditorsLedger, Me.frm_depreciation_cal, Me.GSTRegitorToolStripMenuItem, Me.frm_user_master})
         Me.UserManagmentToolStripMenuItem.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.UserManagmentToolStripMenuItem.ForeColor = System.Drawing.Color.White
         Me.UserManagmentToolStripMenuItem.Image = Global.MMSPlus.My.Resources.Resources.Financier_tycoon_stockbroker
@@ -944,12 +945,6 @@ Partial Class MDIMain
         Me.frm_SaleTaxRegister.Name = "frm_SaleTaxRegister"
         Me.frm_SaleTaxRegister.Size = New System.Drawing.Size(201, 22)
         Me.frm_SaleTaxRegister.Text = "GST Sale Register"
-        '
-        'frm_EwayBill
-        '
-        Me.frm_EwayBill.Name = "frm_EwayBill"
-        Me.frm_EwayBill.Size = New System.Drawing.Size(213, 22)
-        Me.frm_EwayBill.Text = "frm"
         '
         'Reports
         '
@@ -1608,6 +1603,15 @@ Partial Class MDIMain
         Me.frm_open_invoice.Size = New System.Drawing.Size(181, 22)
         Me.frm_open_invoice.Text = "Opne Invoice"
         '
+        'frm_EwayBill
+        '
+        Me.frm_EwayBill.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.frm_EwayBill.ForeColor = System.Drawing.Color.White
+        Me.frm_EwayBill.Image = Global.MMSPlus.My.Resources.Resources.Approve_PO
+        Me.frm_EwayBill.Name = "frm_EwayBill"
+        Me.frm_EwayBill.Size = New System.Drawing.Size(181, 22)
+        Me.frm_EwayBill.Text = "Eway Bill"
+        '
         'MDIMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1779,7 +1783,7 @@ Partial Class MDIMain
     Friend WithEvents frm_GSTR2 As ToolStripMenuItem
     Friend WithEvents frm_PurchaseTaxRegister As ToolStripMenuItem
     Friend WithEvents frm_SaleTaxRegister As ToolStripMenuItem
-    Friend WithEvents frm_EwayBill As ToolStripMenuItem
     Friend WithEvents frm_BillBook As ToolStripMenuItem
     Friend WithEvents frmBrandWiseSale As ToolStripMenuItem
+    Friend WithEvents frm_EwayBill As ToolStripMenuItem
 End Class

@@ -433,6 +433,7 @@ Public Class CommonClass
             Dim ds1 As DataSet
             ds1 = FillDataSet(qry)
             cnt.DataSource = ds1.Tables(0)
+
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "Error GridBind")
         End Try

@@ -580,18 +580,18 @@ again:
                         'frm_Show_search.item_rate_column = "Rate"
                         'frm_Show_search.ShowDialog()
 
-                        frm_Show_search.qry = " SELECT top 100 im.ITEM_ID ,
-		                                ISNULL(im.BarCode_vch, '') AS BARCODE,
-                                        im.ITEM_NAME AS [ITEM NAME],
-                                        im.MRP_Num AS MRP,
-                                        cast(im.sale_rate AS numeric(18,2)) AS RATE,
-                                        litems.LabelItemName_vch AS BRAND,
+                        frm_Show_search.qry = " SELECT  top 50 im.ITEM_ID ,
+		                                ISNULL(im.BarCode_vch, '') AS BARCODE ,
+                                        im.ITEM_NAME AS [ITEM NAME] ,
+                                        im.MRP_Num AS MRP ,
+                                        CAST(im.sale_rate AS NUMERIC(18, 2)) AS RATE ,
+                                        ISNULL(litems.LabelItemName_vch, '') AS BRAND ,
                                         ic.ITEM_CAT_NAME AS CATEGORY
-                                        FROM    Item_master im
-                                        INNER JOIN item_detail id ON im.item_id = id.item_id
-                                        INNER JOIN dbo.ITEM_CATEGORY ic ON im.ITEM_CATEGORY_ID = ic.ITEM_CAT_ID
-                                        LEFT JOIN dbo.LabelItem_Mapping lim ON lim.Fk_ItemId_Num = im.ITEM_ID
-                                        inner JOIN dbo.Label_Items litems ON lim.Fk_LabelDetailId = litems.Pk_LabelDetailId_Num
+                                        FROM      Item_master im
+                                        LEFT OUTER JOIN item_detail id ON im.item_id = id.item_id
+                                        LEFT OUTER JOIN dbo.ITEM_CATEGORY ic ON im.ITEM_CATEGORY_ID = ic.ITEM_CAT_ID
+                                        LEFT OUTER JOIN dbo.LabelItem_Mapping lim ON lim.Fk_ItemId_Num = im.ITEM_ID
+                                        LEFT OUTER JOIN dbo.Label_Items litems ON lim.Fk_LabelDetailId = litems.Pk_LabelDetailId_Num
                                         WHERE   id.Is_active = 1 "
 
 
@@ -895,7 +895,12 @@ restart:
                 If (flxItems.Rows(i).Item("DType")) IsNot Nothing Then
 
                     If (flxItems.Rows(i).Item("GPAID")) = "Y" Then
-                        Gpaid = ((flxItems.Rows(i).Item("Amount") - (flxItems.Rows(i).Item("Amount") * flxItems.Rows(i).Item("DISC") / 100))) - ((flxItems.Rows(i).Item("Amount") - (flxItems.Rows(i).Item("Amount") * flxItems.Rows(i).Item("DISC") / 100))) / (1 + (flxItems.Rows(i).Item("GST") / 100))
+                        'Gpaid = ((flxItems.Rows(i).Item("Amount") - (flxItems.Rows(i).Item("Amount") * flxItems.Rows(i).Item("DISC") / 100))) - ((flxItems.Rows(i).Item("Amount") - (flxItems.Rows(i).Item("Amount") * flxItems.Rows(i).Item("DISC") / 100))) / (1 + (flxItems.Rows(i).Item("GST") / 100))
+                        If (flxItems.Rows(i).Item("DType")) = "P" Then
+                            Gpaid = ((flxItems.Rows(i).Item("Amount") - (flxItems.Rows(i).Item("Amount") * flxItems.Rows(i).Item("DISC") / 100))) - (((flxItems.Rows(i).Item("Amount") - (flxItems.Rows(i).Item("Amount") * flxItems.Rows(i).Item("DISC") / 100))) / (1 + (flxItems.Rows(i).Item("GST") / 100)))
+                        Else
+                            Gpaid = (flxItems.Rows(i).Item("Amount") - flxItems.Rows(i).Item("DISC")) - ((flxItems.Rows(i).Item("Amount") - flxItems.Rows(i).Item("DISC")) / (1 + (flxItems.Rows(i).Item("GST") / 100)))
+                        End If
                     End If
 
 

@@ -198,6 +198,9 @@
     <Compile Include="Classes\cls_Sale_Invoice.vb" />
     <Compile Include="Classes\cls_Credit_note.vb" />
     <Compile Include="Classes\cls_Supplier_Invoice_Settlement.vb" />
+    <Compile Include="Classes\MyMenuStrip.vb">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Classes\MyReportDocument.vb">
       <SubType>Component</SubType>
     </Compile>
@@ -297,6 +300,12 @@
     </Compile>
     <Compile Include="Forms\frm_Print_Barcode.vb">
       <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\frm_Show_Search_RateList.Designer.vb">
+      <DependentUpon>frm_Show_Search_RateList.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frm_Show_Search_RateList.vb">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="ReportsForms\frm_MRN_Print_Barcode.Designer.vb">
       <DependentUpon>frm_MRN_Print_Barcode.vb</DependentUpon>
@@ -1464,6 +1473,10 @@
     <EmbeddedResource Include="Forms\frm_OpeningBalance.resx">
       <DependentUpon>frm_OpeningBalance.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frm_Show_Search_RateList.resx">
+      <DependentUpon>frm_Show_Search_RateList.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\frm_Supplier_Invoice_Settlement.resx">
       <DependentUpon>frm_Supplier_Invoice_Settlement.vb</DependentUpon>
     </EmbeddedResource>
@@ -2219,7 +2232,8 @@
     <Content Include="Scripts\2018Update\0013_24_May_2018_EditFormsFunctionality.sql" />
     <Content Include="Scripts\2018Update\0012_11_May_2018_ACESS.sql" />
     <Content Include="Scripts\2018Update\0015_19_June_2018_SynchronizationCorrection.sql" />
-    <Content Include="Scripts\2018Update\0020_03_July_2018_DrCrReportsCorrection.sql" />
+    <Content Include="Scripts\2018Update\0020_03_July_2018_DrCrReportsCorrection - Copy.sql" />
+    <Content Include="Scripts\2018Update\0021_05_July_2018_InvoiceDateCorrectionInPurchase.sql" />
     <Content Include="Scripts\2018Update\0019_28_June_2018_AccountOpeningBalanceCorrection.sql" />
     <Content Include="Scripts\2018Update\0018_26_June_2018_DataTransferLinkedServer.sql" />
     <Content Include="Scripts\2018Update\0017_25_June_2018_PaymentTransactionCorrection.sql" />

@@ -10,6 +10,7 @@ Public Class LoginForm
     ' Subsequently, My.User will return identity information encapsulated in the CustomPrincipal object
     ' such as the username, display name, etc.
     '
+
     Public Sub New()
 
         Dim command_line_argument() As String
@@ -218,4 +219,5 @@ Public Class LoginForm
         clsStream.Close()
         clsStream.Dispose()
     End Sub
+
 End Class
