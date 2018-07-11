@@ -2232,7 +2232,7 @@
     <Content Include="Scripts\2018Update\0013_24_May_2018_EditFormsFunctionality.sql" />
     <Content Include="Scripts\2018Update\0012_11_May_2018_ACESS.sql" />
     <Content Include="Scripts\2018Update\0015_19_June_2018_SynchronizationCorrection.sql" />
-    <Content Include="Scripts\2018Update\0020_03_July_2018_DrCrReportsCorrection - Copy.sql" />
+    <Content Include="Scripts\2018Update\0020_03_July_2018_DrCrReportsCorrection .sql" />
     <Content Include="Scripts\2018Update\0021_05_July_2018_InvoiceDateCorrectionInPurchase.sql" />
     <Content Include="Scripts\2018Update\0019_28_June_2018_AccountOpeningBalanceCorrection.sql" />
     <Content Include="Scripts\2018Update\0018_26_June_2018_DataTransferLinkedServer.sql" />
@@ -2408,16 +2408,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <COMReference Include="Microsoft.Office.Core">
-      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
-      <VersionMajor>2</VersionMajor>
-      <VersionMinor>7</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>primary</WrapperTool>
-      <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-      <Private>True</Private>
-    </COMReference>
     <COMReference Include="VBIDE">
       <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
       <VersionMajor>5</VersionMajor>

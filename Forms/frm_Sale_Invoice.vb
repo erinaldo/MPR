@@ -626,6 +626,7 @@ restart:
                 Dim ds As DataSet
                 Dim ds2 As DataSet
                 Dim ds3 As DataSet
+                Dim dsrate As DataSet
                 Dim sqlqry As String
                 sqlqry = "SELECT  " &
                                             " IM.ITEM_ID , " &
@@ -664,7 +665,16 @@ restart:
                         ' dr("Item_Rate") = ds.Tables(0).Rows(0)("Item_Rate")
 
                         ds2 = obj.Fill_DataSet("SELECT VAT_MASTER.VAT_PERCENTAGE FROM ITEM_DETAIL INNER JOIN VAT_MASTER ON ITEM_DETAIL.PURCHASE_VAT_ID = VAT_MASTER.VAT_ID WHERE (ITEM_DETAIL.ITEM_ID = " & Convert.ToInt32(item_id) & " )")
-                        dr("Item_Rate") = itemRate.ToString("#0.00")
+
+                        dsrate = obj.Fill_DataSet("DECLARE @rate NUMERIC(18,2) SELECT  @rate= SUPPLIER_RATE_LIST_DETAIL.ITEM_RATE
+FROM    SUPPLIER_RATE_LIST
+        INNER JOIN SUPPLIER_RATE_LIST_DETAIL ON SUPPLIER_RATE_LIST.SRL_ID = SUPPLIER_RATE_LIST_DETAIL.SRL_ID
+        INNER JOIN dbo.CUSTOMER_RATE_LIST_MAPPING AS RLM ON RLM.SRL_ID=SUPPLIER_RATE_LIST.SRL_ID 
+WHERE   ( SUPPLIER_RATE_LIST_DETAIL.ITEM_ID =" & Convert.ToInt32(item_id) & " )
+        AND ( RLM.SUPP_ID = " & Convert.ToInt32(cmbSupplier.SelectedValue) & " )
+        AND ( SUPPLIER_RATE_LIST.ACTIVE = 1 )  SELECT isnull(@rate,0.00)")
+
+                        dr("Item_Rate") = dsrate.Tables(0).Rows(0)(0)
                         dr("MRP") = ds.Tables(0).Rows(0)("MRP_Num")
                         dr("Amount") = 0.0
                         dr("DISC") = 0.0

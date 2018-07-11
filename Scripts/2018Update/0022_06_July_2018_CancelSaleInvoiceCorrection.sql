@@ -51,10 +51,10 @@ AS
         SET @CInputID = 10017   
             
         SELECT  @V_CUST_ID = CUST_ID ,  
-                @V_NET_AMOUNT = NET_AMOUNT ,  
-                @V_GROSS_AMOUNT = GROSS_AMOUNT ,  
-                @v_CESS_AMOUNT = CESS_AMOUNT ,  
-                @V_VAT_AMOUNT = sim.VAT_AMOUNT ,  
+                @V_NET_AMOUNT = ISNULL(NET_AMOUNT, 0) ,  
+                @V_GROSS_AMOUNT = ISNULL(GROSS_AMOUNT, 0) ,  
+                @v_CESS_AMOUNT = ISNULL(CESS_AMOUNT, 0) ,  
+                @V_VAT_AMOUNT = ISNULL(sim.VAT_AMOUNT, 0) ,  
                 @v_INV_TYPE = INV_TYPE ,  
                 @V_Division_ID = sim.DIVISION_ID ,  
                 @V_Created_BY = sim.CREATED_BY ,  
@@ -63,7 +63,7 @@ AS
         FROM    dbo.SALE_INVOICE_MASTER sim   
         WHERE   sim.SI_ID = @SI_ID  
           
-        SELECT @v_Add_CESS_AMOUNT = SUM(sidd.ACessAmount) FROM dbo.SALE_INVOICE_DETAIL sidd WHERE  sidd.SI_ID = @SI_ID  
+       SELECT  @v_Add_CESS_AMOUNT = SUM(ISNULL(sidd.ACessAmount, 0))FROM    dbo.SALE_INVOICE_DETAIL sidd WHERE   sidd.SI_ID = @SI_ID   
             
           
         SET @CGST_Amount = @V_VAT_AMOUNT / 2  
