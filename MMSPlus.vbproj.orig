@@ -903,8 +903,8 @@
     <Compile Include="Reports\CryDebtorsLedger.vb">
       <DependentUpon>CryDebtorsLedger.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\cryAdjustmentPrint.vb">
       <DependentUpon>cryAdjustmentPrint.rpt</DependentUpon>
@@ -2197,7 +2197,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="bin\Debug\connection.xml" />
+    <Content Include="bin\Debug\connection.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="bin\Debug\Ionic.Zip.dll" />
     <Content Include="Scripts\2018Update\0001_26_Jan_2018_POEDIT.sql" />
     <Content Include="Scripts\2018Update\0003_05_Feb_2018_Update_Stock_Adjustment.sql" />
@@ -2211,11 +2213,22 @@
     <Content Include="Scripts\2018Update\0010_03_May_2018_CessUpdationSalePurchase.sql" />
     <Content Include="Scripts\2018Update\0009_18_Apr_2018_StockUpdate.sql" />
     <Content Include="Scripts\2018Update\0011_08_May_2018_BillBook.sql" />
+    <Content Include="Scripts\2018Update\0013_17_May_2018.sql" />
     <Content Include="Scripts\2018Update\0014_29_May_2018_DiscountModificationInPurchase - Copy.sql" />
     <Content Include="Scripts\2018Update\0014_29_May_2018_DiscountModificationInPurchase.sql" />
     <Content Include="Scripts\2018Update\0013_24_May_2018_EditFormsFunctionality.sql" />
     <Content Include="Scripts\2018Update\0012_11_May_2018_ACESS.sql" />
+    <Content Include="Scripts\2018Update\0015_19_June_2018_SynchronizationCorrection.sql" />
+<<<<<<< HEAD
+=======
+    <Content Include="Scripts\2018Update\0020_03_July_2018_DrCrReportsCorrection.sql" />
+>>>>>>> d4e7cadedbf00c80d5834ff52b0df553cddf201f
+    <Content Include="Scripts\2018Update\0019_28_June_2018_AccountOpeningBalanceCorrection.sql" />
+    <Content Include="Scripts\2018Update\0018_26_June_2018_DataTransferLinkedServer.sql" />
+    <Content Include="Scripts\2018Update\0017_25_June_2018_PaymentTransactionCorrection.sql" />
+    <Content Include="Scripts\2018Update\0016_20_June_2018_SynchronizationDynamicQuery.sql" />
     <Content Include="Scripts\2018Update\0015_30_May_2018_AccountBugFixing.sql" />
+    <Content Include="Scripts\2018Update\0020_05_July_2018_PurcgaseRegisterModified.sql" />
     <Content Include="Scripts\Updates\00001_29_Dec_Add_Duty_And_Taxes.sql" />
     <Content Include="Scripts\Updates\0001_04_Jan_2018_Stock_Transfer.sql" />
     <Content Include="Scripts\Updates\0001_16_JAN_2018.sql" />

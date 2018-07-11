@@ -119,35 +119,42 @@ Public Class frm_Material_Received_Without_PO_Master
             qry = "SELECT  MM.Received_ID," &
                     " MM.Received_Code + CAST(MM.Received_No AS VARCHAR(20)) AS MRNNo," &
                     "dbo.fn_Format(MM.Received_Date) AS Received_Date," &
-                    "MM.Purchase_Type," &
+                    "MM.Invoice_No as BillNo," &
+                    "dbo.fn_Format(MM.Invoice_Date) as BillDate," &
+                    "MM.NET_AMOUNT, MM.Purchase_Type," &
                     "ISNULL(ACCOUNT_MASTER.ACC_NAME, '--DIRECT PURCHASE--') ACC_NAME, " &
                     "PM.PurchaseType," &
                     "CASE WHEN MM.mrn_status = 1 THEN 'NORMAL'" &
                     "     WHEN MM.mrn_status = 3 THEN 'CLEAR'" &
                     "     ELSE 'CANCEL'" &
                     "END AS MRNStatus " &
-            "FROM    MATERIAL_RECIEVED_WITHOUT_PO_MASTER AS MM" &
+            "FROM MATERIAL_RECIEVED_WITHOUT_PO_MASTER AS MM" &
                     " INNER JOIN PurchaseType_Master AS PM ON MM.Purchase_Type = PM.pk_PurchaseTypeId" &
                     " LEFT OUTER JOIN ACCOUNT_MASTER ON MM.Vendor_ID = ACCOUNT_MASTER.ACC_ID " & condition
 
             obj.GridBind(dgvList, qry)
             dgvList.Width = 890
-            dgvList.Columns(0).Visible = False 'receiveid
-            dgvList.Columns(0).Width = 300
-            dgvList.Columns(0).HeaderText = "Receive_ID"
-            dgvList.Columns(1).Width = 180
+            'dgvList.Columns(0).Visible = False 'receiveid
+            dgvList.Columns(0).Width = 40
+            dgvList.Columns(0).HeaderText = "SrNo"
+            dgvList.Columns(1).Width = 110
             dgvList.Columns(1).HeaderText = "MRN No"
-            dgvList.Columns(2).HeaderText = "Receive Date"
-            dgvList.Columns(2).Width = 120
-            dgvList.Columns(3).Width = 170
-            dgvList.Columns(3).HeaderText = "Purchase Id"
-            dgvList.Columns(3).Visible = False
-            dgvList.Columns(4).HeaderText = "Purchase Type"
-            dgvList.Columns(4).Width = 320
-            dgvList.Columns(5).Width = 150
-            dgvList.Columns(5).HeaderText = "Status"
-            'dgvList.Columns(6).Visible = False
-            'dgvList.Columns(6).HeaderText = "ACC ID"
+            dgvList.Columns(2).HeaderText = "Rec.Date"
+            dgvList.Columns(2).Width = 80
+            dgvList.Columns(3).HeaderText = "BillNo"
+            dgvList.Columns(3).Width = 90
+            dgvList.Columns(4).HeaderText = "BillDate"
+            dgvList.Columns(4).Width = 80
+            dgvList.Columns(5).Width = 90
+            dgvList.Columns(5).HeaderText = "BillAmt"
+            'dgvList.Columns(5).Width = 10
+            'dgvList.Columns(5).HeaderText = "Purchase Id"
+            dgvList.Columns(6).Visible = False
+            dgvList.Columns(7).HeaderText = "Party Name"
+            dgvList.Columns(7).Width = 330
+            dgvList.Columns(8).Visible = False
+            dgvList.Columns(9).Width = 50
+            dgvList.Columns(9).HeaderText = "Status"
         Catch ex As Exception
             MsgBox(gblMessageHeading_Error & vbCrLf & gblMessage_ContactInfo & vbCrLf & ex.Message, MsgBoxStyle.Critical, gblMessageHeading)
         End Try
@@ -1339,7 +1346,7 @@ restart:
             'grdItemMaster.Columns(4).HeaderText = "Item Category Name"
             'grdItemMaster.Columns(4).Width = 207
             Dim condition As String
-            condition = "WHERE ISNULL((MM.MRN_PREFIX + ISNULL(CAST(mm.MRN_NO AS VARCHAR(10)),'')) + PM.PurchaseType + dbo.fn_format(MM.Received_Date) + ISNULL(ACCOUNT_MASTER.ACC_NAME, '--DIRECT PURCHASE--'),'') like '%" & txtSearch.Text.Replace(" ", "%") & "%' or dbo.fn_format(MM.Received_Date) like '%" & txtSearch.Text.Replace(" ", "%") & "%' or ISNULL(ACCOUNT_MASTER.ACC_NAME, '--DIRECT PURCHASE--')  like '%" & txtSearch.Text.Replace(" ", "%") & "%'"
+            condition = "WHERE ISNULL((MM.MRN_PREFIX + ISNULL(CAST(mm.MRN_NO AS VARCHAR(10)),''))+ MM.Invoice_No + dbo.fn_format(MM.Invoice_Date) + PM.PurchaseType + dbo.fn_format(MM.Received_Date) + ISNULL(ACCOUNT_MASTER.ACC_NAME, '--DIRECT PURCHASE--'),'') like '%" & txtSearch.Text.Replace(" ", "%") & "%' or dbo.fn_format(MM.Received_Date) like '%" & txtSearch.Text.Replace(" ", "%") & "%' or ISNULL(ACCOUNT_MASTER.ACC_NAME, '--DIRECT PURCHASE--')  like '%" & txtSearch.Text.Replace(" ", "%") & "%'"
             condition.Replace(" ", "%")
             FillGrid(condition)
         Catch ex As Exception
