@@ -32,7 +32,6 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.BtnActualMRN = New System.Windows.Forms.Button()
         Me.dgvList = New System.Windows.Forms.DataGridView()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
-        Me.lblCESSAmount = New System.Windows.Forms.Label()
         Me.lblGSTDetail = New System.Windows.Forms.Label()
         Me.lblGST28 = New System.Windows.Forms.Label()
         Me.lblGST18 = New System.Windows.Forms.Label()
@@ -57,7 +56,6 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.FLXGRD_MatItem_NonStockable = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.FLXGRD_MaterialItem = New C1.Win.C1FlexGrid.C1FlexGrid()
-        Me.Panel16 = New System.Windows.Forms.Panel()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.Panel17 = New System.Windows.Forms.Panel()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
@@ -93,7 +91,6 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.Label53 = New System.Windows.Forms.Label()
         Me.lblgrossamt = New System.Windows.Forms.Label()
         Me.Label55 = New System.Windows.Forms.Label()
-        Me.Label56 = New System.Windows.Forms.Label()
         Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
         Me.C1FlexGrid1 = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.Panel6 = New System.Windows.Forms.Panel()
@@ -204,6 +201,10 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.Label46 = New System.Windows.Forms.Label()
         Me.Label47 = New System.Windows.Forms.Label()
         Me.Label48 = New System.Windows.Forms.Label()
+        Me.lblGST3 = New System.Windows.Forms.Label()
+        Me.Label56 = New System.Windows.Forms.Label()
+        Me.Panel13 = New System.Windows.Forms.Panel()
+        Me.Panel15 = New System.Windows.Forms.Panel()
         Me.TbPO.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.GroupBox5.SuspendLayout()
@@ -347,7 +348,9 @@ Partial Class frm_Material_Received_Without_PO_Master
         'TabPage2
         '
         Me.TabPage2.BackColor = System.Drawing.Color.DimGray
-        Me.TabPage2.Controls.Add(Me.lblCESSAmount)
+        Me.TabPage2.Controls.Add(Me.Panel15)
+        Me.TabPage2.Controls.Add(Me.Panel13)
+        Me.TabPage2.Controls.Add(Me.lblGST3)
         Me.TabPage2.Controls.Add(Me.lblGSTDetail)
         Me.TabPage2.Controls.Add(Me.lblGST28)
         Me.TabPage2.Controls.Add(Me.lblGST18)
@@ -368,9 +371,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.TabPage2.Controls.Add(Me.Label9)
         Me.TabPage2.Controls.Add(Me.cmb_MRNAgainst)
         Me.TabPage2.Controls.Add(Me.Panel14)
-        Me.TabPage2.Controls.Add(Me.GroupBox4)
         Me.TabPage2.Controls.Add(Me.GroupBox2)
-        Me.TabPage2.Controls.Add(Me.Panel16)
         Me.TabPage2.Controls.Add(Me.Label10)
         Me.TabPage2.Controls.Add(Me.Panel17)
         Me.TabPage2.Controls.Add(Me.GroupBox1)
@@ -389,6 +390,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.TabPage2.Controls.Add(Me.lblgrossamt)
         Me.TabPage2.Controls.Add(Me.Label55)
         Me.TabPage2.Controls.Add(Me.Label56)
+        Me.TabPage2.Controls.Add(Me.GroupBox4)
         Me.TabPage2.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TabPage2.ImageIndex = 1
         Me.TabPage2.Location = New System.Drawing.Point(4, 26)
@@ -396,16 +398,6 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
         Me.TabPage2.Size = New System.Drawing.Size(902, 600)
         Me.TabPage2.TabIndex = 1
-        '
-        'lblCESSAmount
-        '
-        Me.lblCESSAmount.Font = New System.Drawing.Font("Verdana", 8.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblCESSAmount.ForeColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.lblCESSAmount.Location = New System.Drawing.Point(469, 446)
-        Me.lblCESSAmount.Name = "lblCESSAmount"
-        Me.lblCESSAmount.Size = New System.Drawing.Size(182, 18)
-        Me.lblCESSAmount.TabIndex = 266
-        Me.lblCESSAmount.Text = "CESS - 0.00"
         '
         'lblGSTDetail
         '
@@ -422,8 +414,8 @@ Partial Class frm_Material_Received_Without_PO_Master
         '
         Me.lblGST28.AutoSize = True
         Me.lblGST28.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblGST28.ForeColor = System.Drawing.Color.Gold
-        Me.lblGST28.Location = New System.Drawing.Point(469, 569)
+        Me.lblGST28.ForeColor = System.Drawing.Color.White
+        Me.lblGST28.Location = New System.Drawing.Point(438, 569)
         Me.lblGST28.Name = "lblGST28"
         Me.lblGST28.Size = New System.Drawing.Size(115, 14)
         Me.lblGST28.TabIndex = 264
@@ -433,8 +425,8 @@ Partial Class frm_Material_Received_Without_PO_Master
         '
         Me.lblGST18.AutoSize = True
         Me.lblGST18.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblGST18.ForeColor = System.Drawing.Color.Gold
-        Me.lblGST18.Location = New System.Drawing.Point(469, 550)
+        Me.lblGST18.ForeColor = System.Drawing.Color.White
+        Me.lblGST18.Location = New System.Drawing.Point(438, 550)
         Me.lblGST18.Name = "lblGST18"
         Me.lblGST18.Size = New System.Drawing.Size(115, 14)
         Me.lblGST18.TabIndex = 263
@@ -444,8 +436,8 @@ Partial Class frm_Material_Received_Without_PO_Master
         '
         Me.lblGST12.AutoSize = True
         Me.lblGST12.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblGST12.ForeColor = System.Drawing.Color.Gold
-        Me.lblGST12.Location = New System.Drawing.Point(469, 530)
+        Me.lblGST12.ForeColor = System.Drawing.Color.White
+        Me.lblGST12.Location = New System.Drawing.Point(438, 530)
         Me.lblGST12.Name = "lblGST12"
         Me.lblGST12.Size = New System.Drawing.Size(115, 14)
         Me.lblGST12.TabIndex = 262
@@ -455,8 +447,8 @@ Partial Class frm_Material_Received_Without_PO_Master
         '
         Me.lblGST5.AutoSize = True
         Me.lblGST5.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblGST5.ForeColor = System.Drawing.Color.Gold
-        Me.lblGST5.Location = New System.Drawing.Point(470, 512)
+        Me.lblGST5.ForeColor = System.Drawing.Color.White
+        Me.lblGST5.Location = New System.Drawing.Point(439, 512)
         Me.lblGST5.Name = "lblGST5"
         Me.lblGST5.Size = New System.Drawing.Size(107, 14)
         Me.lblGST5.TabIndex = 261
@@ -466,8 +458,8 @@ Partial Class frm_Material_Received_Without_PO_Master
         '
         Me.lblGST0.AutoSize = True
         Me.lblGST0.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblGST0.ForeColor = System.Drawing.Color.Gold
-        Me.lblGST0.Location = New System.Drawing.Point(470, 493)
+        Me.lblGST0.ForeColor = System.Drawing.Color.White
+        Me.lblGST0.Location = New System.Drawing.Point(439, 476)
         Me.lblGST0.Name = "lblGST0"
         Me.lblGST0.Size = New System.Drawing.Size(107, 14)
         Me.lblGST0.TabIndex = 260
@@ -477,12 +469,12 @@ Partial Class frm_Material_Received_Without_PO_Master
         '
         Me.lblGSTHeader.AutoSize = True
         Me.lblGSTHeader.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblGSTHeader.ForeColor = System.Drawing.Color.Gold
-        Me.lblGSTHeader.Location = New System.Drawing.Point(469, 475)
+        Me.lblGSTHeader.ForeColor = System.Drawing.Color.White
+        Me.lblGSTHeader.Location = New System.Drawing.Point(438, 456)
         Me.lblGSTHeader.Name = "lblGSTHeader"
-        Me.lblGSTHeader.Size = New System.Drawing.Size(133, 14)
+        Me.lblGSTHeader.Size = New System.Drawing.Size(116, 14)
         Me.lblGSTHeader.TabIndex = 259
-        Me.lblGSTHeader.Text = "GST% - Amt @ Tax"
+        Me.lblGSTHeader.Text = "GST Summary :-"
         '
         'txtCashDiscount
         '
@@ -491,7 +483,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.txtCashDiscount.Enabled = False
         Me.txtCashDiscount.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtCashDiscount.ForeColor = System.Drawing.Color.White
-        Me.txtCashDiscount.Location = New System.Drawing.Point(437, 411)
+        Me.txtCashDiscount.Location = New System.Drawing.Point(290, 435)
         Me.txtCashDiscount.Name = "txtCashDiscount"
         Me.txtCashDiscount.ReadOnly = True
         Me.txtCashDiscount.Size = New System.Drawing.Size(118, 18)
@@ -507,10 +499,10 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.txt_Amount.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txt_Amount.Enabled = False
         Me.txt_Amount.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txt_Amount.ForeColor = System.Drawing.Color.White
-        Me.txt_Amount.Location = New System.Drawing.Point(773, 520)
+        Me.txt_Amount.ForeColor = System.Drawing.Color.Orange
+        Me.txt_Amount.Location = New System.Drawing.Point(781, 520)
         Me.txt_Amount.Name = "txt_Amount"
-        Me.txt_Amount.Size = New System.Drawing.Size(118, 18)
+        Me.txt_Amount.Size = New System.Drawing.Size(110, 18)
         Me.txt_Amount.TabIndex = 8
         Me.txt_Amount.Tag = ""
         Me.txt_Amount.Text = "0.00"
@@ -530,11 +522,11 @@ Partial Class frm_Material_Received_Without_PO_Master
         'Label58
         '
         Me.Label58.AutoSize = True
-        Me.Label58.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label58.Font = New System.Drawing.Font("Verdana", 9.0!)
         Me.Label58.ForeColor = System.Drawing.Color.White
-        Me.Label58.Location = New System.Drawing.Point(662, 503)
+        Me.Label58.Location = New System.Drawing.Point(674, 503)
         Me.Label58.Name = "Label58"
-        Me.Label58.Size = New System.Drawing.Size(97, 15)
+        Me.Label58.Size = New System.Drawing.Size(109, 14)
         Me.Label58.TabIndex = 54
         Me.Label58.Text = "ACESS Amount :"
         '
@@ -564,11 +556,11 @@ Partial Class frm_Material_Received_Without_PO_Master
         'Label57
         '
         Me.Label57.AutoSize = True
-        Me.Label57.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label57.Font = New System.Drawing.Font("Verdana", 9.0!)
         Me.Label57.ForeColor = System.Drawing.Color.White
-        Me.Label57.Location = New System.Drawing.Point(662, 483)
+        Me.Label57.Location = New System.Drawing.Point(674, 483)
         Me.Label57.Name = "Label57"
-        Me.Label57.Size = New System.Drawing.Size(90, 15)
+        Me.Label57.Size = New System.Drawing.Size(101, 14)
         Me.Label57.TabIndex = 20
         Me.Label57.Text = "CESS Amount :"
         '
@@ -594,26 +586,30 @@ Partial Class frm_Material_Received_Without_PO_Master
         '
         'lnkCalculateAmount
         '
-        Me.lnkCalculateAmount.ActiveLinkColor = System.Drawing.Color.DarkOrange
-        Me.lnkCalculateAmount.AutoSize = True
-        Me.lnkCalculateAmount.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lnkCalculateAmount.ForeColor = System.Drawing.Color.DarkOrange
-        Me.lnkCalculateAmount.LinkColor = System.Drawing.Color.DarkOrange
-        Me.lnkCalculateAmount.Location = New System.Drawing.Point(295, 438)
+        Me.lnkCalculateAmount.ActiveLinkColor = System.Drawing.Color.Lime
+        Me.lnkCalculateAmount.BackColor = System.Drawing.Color.Silver
+        Me.lnkCalculateAmount.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.lnkCalculateAmount.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lnkCalculateAmount.ForeColor = System.Drawing.Color.OrangeRed
+        Me.lnkCalculateAmount.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline
+        Me.lnkCalculateAmount.LinkColor = System.Drawing.Color.OrangeRed
+        Me.lnkCalculateAmount.Location = New System.Drawing.Point(441, 412)
         Me.lnkCalculateAmount.Name = "lnkCalculateAmount"
-        Me.lnkCalculateAmount.Size = New System.Drawing.Size(106, 13)
+        Me.lnkCalculateAmount.Size = New System.Drawing.Size(204, 25)
         Me.lnkCalculateAmount.TabIndex = 7
         Me.lnkCalculateAmount.TabStop = True
-        Me.lnkCalculateAmount.Text = "Calculate Amount"
+        Me.lnkCalculateAmount.Text = "Calculate All"
+        Me.lnkCalculateAmount.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.lnkCalculateAmount.VisitedLinkColor = System.Drawing.Color.Lime
         '
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label9.Font = New System.Drawing.Font("Verdana", 9.0!)
         Me.Label9.ForeColor = System.Drawing.Color.White
-        Me.Label9.Location = New System.Drawing.Point(662, 522)
+        Me.Label9.Location = New System.Drawing.Point(674, 522)
         Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(51, 15)
+        Me.Label9.Size = New System.Drawing.Size(60, 14)
         Me.Label9.TabIndex = 46
         Me.Label9.Text = "Frieght :"
         '
@@ -624,7 +620,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.cmb_MRNAgainst.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.cmb_MRNAgainst.ForeColor = System.Drawing.Color.White
         Me.cmb_MRNAgainst.FormattingEnabled = True
-        Me.cmb_MRNAgainst.Location = New System.Drawing.Point(15, 432)
+        Me.cmb_MRNAgainst.Location = New System.Drawing.Point(15, 427)
         Me.cmb_MRNAgainst.Name = "cmb_MRNAgainst"
         Me.cmb_MRNAgainst.Size = New System.Drawing.Size(263, 23)
         Me.cmb_MRNAgainst.TabIndex = 6
@@ -642,7 +638,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         '
         Me.GroupBox4.Controls.Add(Me.FLXGRD_MatItem_NonStockable)
         Me.GroupBox4.ForeColor = System.Drawing.Color.White
-        Me.GroupBox4.Location = New System.Drawing.Point(6, 401)
+        Me.GroupBox4.Location = New System.Drawing.Point(6, 381)
         Me.GroupBox4.Name = "GroupBox4"
         Me.GroupBox4.Size = New System.Drawing.Size(890, 10)
         Me.GroupBox4.TabIndex = 2
@@ -671,9 +667,9 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.GroupBox2.Controls.Add(Me.FLXGRD_MaterialItem)
         Me.GroupBox2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GroupBox2.ForeColor = System.Drawing.Color.White
-        Me.GroupBox2.Location = New System.Drawing.Point(6, 118)
+        Me.GroupBox2.Location = New System.Drawing.Point(6, 116)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(890, 291)
+        Me.GroupBox2.Size = New System.Drawing.Size(890, 289)
         Me.GroupBox2.TabIndex = 1
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Stockable Items"
@@ -692,24 +688,16 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.FLXGRD_MaterialItem.Rows.DefaultSize = 17
         Me.FLXGRD_MaterialItem.SelectionMode = C1.Win.C1FlexGrid.SelectionModeEnum.Cell
         Me.FLXGRD_MaterialItem.ShowCursor = True
-        Me.FLXGRD_MaterialItem.Size = New System.Drawing.Size(884, 272)
+        Me.FLXGRD_MaterialItem.Size = New System.Drawing.Size(884, 270)
         Me.FLXGRD_MaterialItem.Styles = New C1.Win.C1FlexGrid.CellStyleCollection(resources.GetString("FLXGRD_MaterialItem.Styles"))
         Me.FLXGRD_MaterialItem.TabIndex = 5
-        '
-        'Panel16
-        '
-        Me.Panel16.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel16.Location = New System.Drawing.Point(750, 414)
-        Me.Panel16.Name = "Panel16"
-        Me.Panel16.Size = New System.Drawing.Size(117, 1)
-        Me.Panel16.TabIndex = 27
         '
         'Label10
         '
         Me.Label10.AutoSize = True
         Me.Label10.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label10.ForeColor = System.Drawing.Color.White
-        Me.Label10.Location = New System.Drawing.Point(13, 415)
+        Me.Label10.Location = New System.Drawing.Point(13, 410)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(83, 15)
         Me.Label10.TabIndex = 43
@@ -961,10 +949,10 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.txtotherchrgs.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.txtotherchrgs.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtotherchrgs.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtotherchrgs.ForeColor = System.Drawing.Color.White
-        Me.txtotherchrgs.Location = New System.Drawing.Point(773, 540)
+        Me.txtotherchrgs.ForeColor = System.Drawing.Color.Orange
+        Me.txtotherchrgs.Location = New System.Drawing.Point(781, 540)
         Me.txtotherchrgs.Name = "txtotherchrgs"
-        Me.txtotherchrgs.Size = New System.Drawing.Size(118, 18)
+        Me.txtotherchrgs.Size = New System.Drawing.Size(110, 18)
         Me.txtotherchrgs.TabIndex = 9
         Me.txtotherchrgs.Tag = ""
         Me.txtotherchrgs.Text = "0.00"
@@ -986,11 +974,11 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.txtdiscount.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.txtdiscount.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtdiscount.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtdiscount.ForeColor = System.Drawing.Color.White
-        Me.txtdiscount.Location = New System.Drawing.Point(773, 560)
+        Me.txtdiscount.ForeColor = System.Drawing.Color.Orange
+        Me.txtdiscount.Location = New System.Drawing.Point(781, 560)
         Me.txtdiscount.Name = "txtdiscount"
         Me.txtdiscount.ReadOnly = True
-        Me.txtdiscount.Size = New System.Drawing.Size(118, 18)
+        Me.txtdiscount.Size = New System.Drawing.Size(110, 18)
         Me.txtdiscount.TabIndex = 10
         Me.txtdiscount.Text = "0.00"
         Me.txtdiscount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
@@ -998,7 +986,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         'lblnetamt
         '
         Me.lblnetamt.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblnetamt.ForeColor = System.Drawing.Color.Chartreuse
+        Me.lblnetamt.ForeColor = System.Drawing.Color.Lime
         Me.lblnetamt.Location = New System.Drawing.Point(778, 578)
         Me.lblnetamt.Name = "lblnetamt"
         Me.lblnetamt.Size = New System.Drawing.Size(118, 20)
@@ -1022,11 +1010,11 @@ Partial Class frm_Material_Received_Without_PO_Master
         'Label50
         '
         Me.Label50.AutoSize = True
-        Me.Label50.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label50.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Bold)
         Me.Label50.ForeColor = System.Drawing.Color.White
-        Me.Label50.Location = New System.Drawing.Point(662, 580)
+        Me.Label50.Location = New System.Drawing.Point(674, 580)
         Me.Label50.Name = "Label50"
-        Me.Label50.Size = New System.Drawing.Size(76, 15)
+        Me.Label50.Size = New System.Drawing.Size(93, 14)
         Me.Label50.TabIndex = 15
         Me.Label50.Text = "Net Amount :"
         '
@@ -1041,18 +1029,18 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.txtMrnRemarks.Multiline = True
         Me.txtMrnRemarks.Name = "txtMrnRemarks"
         Me.txtMrnRemarks.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtMrnRemarks.Size = New System.Drawing.Size(440, 104)
+        Me.txtMrnRemarks.Size = New System.Drawing.Size(401, 104)
         Me.txtMrnRemarks.TabIndex = 11
         Me.txtMrnRemarks.Tag = ""
         '
         'Label51
         '
         Me.Label51.AutoSize = True
-        Me.Label51.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label51.Font = New System.Drawing.Font("Verdana", 9.0!)
         Me.Label51.ForeColor = System.Drawing.Color.White
-        Me.Label51.Location = New System.Drawing.Point(662, 561)
+        Me.Label51.Location = New System.Drawing.Point(674, 561)
         Me.Label51.Name = "Label51"
-        Me.Label51.Size = New System.Drawing.Size(85, 15)
+        Me.Label51.Size = New System.Drawing.Size(98, 14)
         Me.Label51.TabIndex = 14
         Me.Label51.Text = "Discount Amt :"
         '
@@ -1099,19 +1087,19 @@ Partial Class frm_Material_Received_Without_PO_Master
         'Label53
         '
         Me.Label53.AutoSize = True
-        Me.Label53.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label53.Font = New System.Drawing.Font("Verdana", 9.0!)
         Me.Label53.ForeColor = System.Drawing.Color.White
-        Me.Label53.Location = New System.Drawing.Point(662, 542)
+        Me.Label53.Location = New System.Drawing.Point(674, 542)
         Me.Label53.Name = "Label53"
-        Me.Label53.Size = New System.Drawing.Size(94, 15)
+        Me.Label53.Size = New System.Drawing.Size(109, 14)
         Me.Label53.TabIndex = 20
         Me.Label53.Text = "Other Charges :"
         '
         'lblgrossamt
         '
-        Me.lblgrossamt.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblgrossamt.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblgrossamt.ForeColor = System.Drawing.Color.Orange
-        Me.lblgrossamt.Location = New System.Drawing.Point(778, 410)
+        Me.lblgrossamt.Location = New System.Drawing.Point(778, 409)
         Me.lblgrossamt.Name = "lblgrossamt"
         Me.lblgrossamt.Size = New System.Drawing.Size(118, 20)
         Me.lblgrossamt.TabIndex = 19
@@ -1121,24 +1109,13 @@ Partial Class frm_Material_Received_Without_PO_Master
         'Label55
         '
         Me.Label55.AutoSize = True
-        Me.Label55.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label55.Font = New System.Drawing.Font("Verdana", 9.0!)
         Me.Label55.ForeColor = System.Drawing.Color.White
-        Me.Label55.Location = New System.Drawing.Point(662, 432)
+        Me.Label55.Location = New System.Drawing.Point(674, 432)
         Me.Label55.Name = "Label55"
-        Me.Label55.Size = New System.Drawing.Size(81, 15)
+        Me.Label55.Size = New System.Drawing.Size(92, 14)
         Me.Label55.TabIndex = 18
         Me.Label55.Text = "GST Amount :"
-        '
-        'Label56
-        '
-        Me.Label56.AutoSize = True
-        Me.Label56.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label56.ForeColor = System.Drawing.Color.White
-        Me.Label56.Location = New System.Drawing.Point(662, 412)
-        Me.Label56.Name = "Label56"
-        Me.Label56.Size = New System.Drawing.Size(99, 15)
-        Me.Label56.TabIndex = 16
-        Me.Label56.Text = "Total Item Value :"
         '
         'ImageList1
         '
@@ -2255,6 +2232,44 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.Label48.TabIndex = 0
         Me.Label48.Text = "Delivery Rate :"
         '
+        'lblGST3
+        '
+        Me.lblGST3.AutoSize = True
+        Me.lblGST3.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblGST3.ForeColor = System.Drawing.Color.White
+        Me.lblGST3.Location = New System.Drawing.Point(439, 494)
+        Me.lblGST3.Name = "lblGST3"
+        Me.lblGST3.Size = New System.Drawing.Size(107, 14)
+        Me.lblGST3.TabIndex = 266
+        Me.lblGST3.Text = "3% - Amt @ Tax"
+        '
+        'Label56
+        '
+        Me.Label56.AutoSize = True
+        Me.Label56.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.Label56.ForeColor = System.Drawing.Color.White
+        Me.Label56.Location = New System.Drawing.Point(673, 411)
+        Me.Label56.Name = "Label56"
+        Me.Label56.Size = New System.Drawing.Size(103, 14)
+        Me.Label56.TabIndex = 16
+        Me.Label56.Text = "Total Amount :"
+        '
+        'Panel13
+        '
+        Me.Panel13.BackColor = System.Drawing.Color.Silver
+        Me.Panel13.Location = New System.Drawing.Point(653, 412)
+        Me.Panel13.Name = "Panel13"
+        Me.Panel13.Size = New System.Drawing.Size(1, 182)
+        Me.Panel13.TabIndex = 267
+        '
+        'Panel15
+        '
+        Me.Panel15.BackColor = System.Drawing.Color.Silver
+        Me.Panel15.Location = New System.Drawing.Point(433, 413)
+        Me.Panel15.Name = "Panel15"
+        Me.Panel15.Size = New System.Drawing.Size(1, 182)
+        Me.Panel15.TabIndex = 268
+        '
         'frm_Material_Received_Without_PO_Master
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -2436,7 +2451,6 @@ Partial Class frm_Material_Received_Without_PO_Master
     Friend WithEvents Label47 As System.Windows.Forms.Label
     Friend WithEvents Label48 As System.Windows.Forms.Label
     Friend WithEvents Panel14 As System.Windows.Forms.Panel
-    Friend WithEvents Panel16 As System.Windows.Forms.Panel
     Friend WithEvents Panel17 As System.Windows.Forms.Panel
     Friend WithEvents txtotherchrgs As System.Windows.Forms.TextBox
     Friend WithEvents txtdiscount As System.Windows.Forms.TextBox
@@ -2447,7 +2461,6 @@ Partial Class frm_Material_Received_Without_PO_Master
     Friend WithEvents Label53 As System.Windows.Forms.Label
     Friend WithEvents lblgrossamt As System.Windows.Forms.Label
     Friend WithEvents Label55 As System.Windows.Forms.Label
-    Friend WithEvents Label56 As System.Windows.Forms.Label
     Friend WithEvents Label9 As System.Windows.Forms.Label
     Friend WithEvents lnkCalculateAmount As System.Windows.Forms.LinkLabel
     Friend WithEvents Panel19 As System.Windows.Forms.Panel
@@ -2466,7 +2479,6 @@ Partial Class frm_Material_Received_Without_PO_Master
     Friend WithEvents lblAcess As Label
     Friend WithEvents Label58 As Label
     Friend WithEvents txtCashDiscount As TextBox
-    Friend WithEvents lblCESSAmount As Label
     Friend WithEvents lblGSTDetail As Label
     Friend WithEvents lblGST28 As Label
     Friend WithEvents lblGST18 As Label
@@ -2474,4 +2486,8 @@ Partial Class frm_Material_Received_Without_PO_Master
     Friend WithEvents lblGST5 As Label
     Friend WithEvents lblGST0 As Label
     Friend WithEvents lblGSTHeader As Label
+    Friend WithEvents lblGST3 As Label
+    Friend WithEvents Label56 As Label
+    Friend WithEvents Panel13 As Panel
+    Friend WithEvents Panel15 As Panel
 End Class
