@@ -945,7 +945,6 @@ restart:
             End If
             generate_tree()
 
-
         Catch ex As Exception
             MsgBox(gblMessageHeading_Error & vbCrLf & gblMessage_ContactInfo & vbCrLf & ex.Message, MsgBoxStyle.Critical, gblMessageHeading)
         End Try
@@ -1714,5 +1713,6 @@ restart:
     Private Sub txtCashDiscount_KeyDown(sender As Object, e As KeyEventArgs) Handles txtCashDiscount.KeyDown
         Calculate_Amount()
     End Sub
+
 
 End Class
