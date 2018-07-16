@@ -70,7 +70,7 @@ Public Class frm_Material_Received_Without_PO_Master
         End If
         cmbPurchaseType.SelectedIndex = 0
         cmbMRNType.SelectedIndex = 0
-        cmbVendor.Enabled = False
+        'cmbVendor.Enabled = False
         If flag = "save" Then
             lbl_PODate.Text = Now.ToString("dd/MMM/yyyy")
             lblMrnStatus.Text = "FRESH"
@@ -107,6 +107,7 @@ Public Class frm_Material_Received_Without_PO_Master
         lblAcess.Text = "0.0"
         lblexciseamt.Text = "0.0"
         lblnetamt.Text = "0.0"
+        txtOtherCharges.Text = "0.0"
         ' DGVIndentItem.Rows.Add()
         FillGrid()
         flag = "save"
@@ -591,6 +592,7 @@ Public Class frm_Material_Received_Without_PO_Master
         dtable_Item_List.Columns.Add("Vat_Per", GetType(System.Double))
         dtable_Item_List.Columns.Add("Cess_Per", GetType(System.Double))
         dtable_Item_List.Columns.Add("ACess", GetType(System.Double))
+        dtable_Item_List.Columns.Add("Amount", GetType(System.Double))
         dtable_Item_List.Columns.Add("exe_Per", GetType(System.Double))
         dtable_Item_List.Columns.Add("BATCH_NO", GetType(System.String))
         dtable_Item_List.Columns.Add("EXPIRY_DATE", GetType(System.DateTime))
@@ -615,6 +617,7 @@ Public Class frm_Material_Received_Without_PO_Master
         dtable_Item_List_Stockable.Columns.Add("Vat_Per", GetType(System.Double))
         dtable_Item_List_Stockable.Columns.Add("Cess_Per", GetType(System.Double))
         dtable_Item_List_Stockable.Columns.Add("ACess", GetType(System.Double))
+        dtable_Item_List_Stockable.Columns.Add("Amount", GetType(System.Double))
         dtable_Item_List_Stockable.Columns.Add("exe_Per", GetType(System.Double))
         dtable_Item_List_Stockable.Columns.Add("BATCH_NO", GetType(System.String))
         dtable_Item_List_Stockable.Columns.Add("EXPIRY_DATE", GetType(System.DateTime))
@@ -652,6 +655,7 @@ Public Class frm_Material_Received_Without_PO_Master
         FLXGRD_MaterialItem.Cols("Vat_Per").Caption = "GST%"
         FLXGRD_MaterialItem.Cols("Cess_Per").Caption = "CESS%"
         FLXGRD_MaterialItem.Cols("ACess").Caption = "ACESS"
+        FLXGRD_MaterialItem.Cols("Amount").Caption = "Amount"
         FLXGRD_MaterialItem.Cols("exe_Per").Caption = "EXICE%"
 
         FLXGRD_MaterialItem.Cols("BATCH_NO").Caption = "Batch No."
@@ -675,15 +679,16 @@ Public Class frm_Material_Received_Without_PO_Master
         'FLXGRD_MaterialItem.Cols("Vat_Per").ComboList = "0|3|5|12|18|28"
         FLXGRD_MaterialItem.Cols("Cess_Per").AllowEditing = True
         FLXGRD_MaterialItem.Cols("ACess").AllowEditing = True
+        FLXGRD_MaterialItem.Cols("Amount").AllowEditing = False
         FLXGRD_MaterialItem.Cols("exe_Per").AllowEditing = True
         FLXGRD_MaterialItem.Cols("BATCH_NO").AllowEditing = True
         FLXGRD_MaterialItem.Cols("EXPIRY_DATE").AllowEditing = True
         FLXGRD_MaterialItem.Cols("BATCH_QTY").AllowEditing = True
 
         FLXGRD_MaterialItem.Cols("Item_Code").Width = 2
-        FLXGRD_MaterialItem.Cols("Item_Name").Width = 300
+        FLXGRD_MaterialItem.Cols("Item_Name").Width = 250
         FLXGRD_MaterialItem.Cols("UM_Name").Width = 40
-        FLXGRD_MaterialItem.Cols("Item_Rate").Width = 70
+        FLXGRD_MaterialItem.Cols("Item_Rate").Width = 60
         FLXGRD_MaterialItem.Cols("DType").Width = 45
         FLXGRD_MaterialItem.Cols("DISC").Width = 50
         FLXGRD_MaterialItem.Cols("DISC1").Width = 60
@@ -691,10 +696,11 @@ Public Class frm_Material_Received_Without_PO_Master
         FLXGRD_MaterialItem.Cols("Vat_Per").Width = 50
         FLXGRD_MaterialItem.Cols("Cess_Per").Width = 60
         FLXGRD_MaterialItem.Cols("ACess").Width = 55
+        FLXGRD_MaterialItem.Cols("Amount").Width = 70
         FLXGRD_MaterialItem.Cols("exe_Per").Width = 55
         'FLXGRD_MaterialItem.Cols("BATCH_NO").Width = 60
         FLXGRD_MaterialItem.Cols("EXPIRY_DATE").Width = 80
-        FLXGRD_MaterialItem.Cols("BATCH_QTY").Width = 80
+        FLXGRD_MaterialItem.Cols("BATCH_QTY").Width = 70
 
         FLXGRD_MaterialItem.Cols("exe_Per").Visible = False
         FLXGRD_MaterialItem.Cols("Item_Code").Visible = False
@@ -725,7 +731,7 @@ Public Class frm_Material_Received_Without_PO_Master
         FLXGRD_MatItem_NonStockable.Cols("Vat_Per").Caption = "GST%"
         FLXGRD_MatItem_NonStockable.Cols("Cess_Per").Caption = "CESS%"
         FLXGRD_MatItem_NonStockable.Cols("ACess").Caption = "ACESS"
-
+        FLXGRD_MatItem_NonStockable.Cols("Amount").Caption = "Amount"
         FLXGRD_MatItem_NonStockable.Cols("exe_Per").Caption = "EXICE%"
         FLXGRD_MatItem_NonStockable.Cols("exe_Per").Visible = False
         FLXGRD_MatItem_NonStockable.Cols("BATCH_NO").Visible = False
@@ -752,6 +758,7 @@ Public Class frm_Material_Received_Without_PO_Master
         'FLXGRD_MatItem_NonStockable.Cols("Vat_Per").ComboList = "0|3|5|12|18|28"
         FLXGRD_MatItem_NonStockable.Cols("Cess_Per").AllowEditing = True
         FLXGRD_MatItem_NonStockable.Cols("ACess").AllowEditing = True
+        FLXGRD_MatItem_NonStockable.Cols("Amount").AllowEditing = True
         FLXGRD_MatItem_NonStockable.Cols("exe_Per").AllowEditing = True
         FLXGRD_MatItem_NonStockable.Cols("BATCH_NO").AllowEditing = True
         FLXGRD_MatItem_NonStockable.Cols("EXPIRY_DATE").AllowEditing = True
@@ -767,13 +774,12 @@ Public Class frm_Material_Received_Without_PO_Master
         FLXGRD_MatItem_NonStockable.Cols("Vat_Per").Width = 50
         FLXGRD_MatItem_NonStockable.Cols("Cess_Per").Width = 50
         FLXGRD_MatItem_NonStockable.Cols("ACess").Width = 55
+        FLXGRD_MatItem_NonStockable.Cols("Amount").Width = 55
         FLXGRD_MatItem_NonStockable.Cols("exe_Per").Width = 30
         FLXGRD_MatItem_NonStockable.Cols("BATCH_NO").Width = 65
         FLXGRD_MatItem_NonStockable.Cols("EXPIRY_DATE").Width = 70
         FLXGRD_MatItem_NonStockable.Cols("BATCH_QTY").Width = 60
         'FLXGRD_MatItem_NonStockable.Cols(11).Width = 120
-
-
 
     End Sub
 
@@ -923,6 +929,7 @@ restart:
                     drItem("Vat_Per") = ds.Tables(0).Rows(0)("VAT_PERCENTAGE")
                     drItem("Cess_Per") = ds.Tables(0).Rows(0)("CessPercentage_num")
                     drItem("ACess") = ds.Tables(0).Rows(0)("ACess")
+                    drItem("Amount") = 0.0
                     dtable_Item_List.Rows.Add(drItem)
                     ' dtable_Item_List.Rows.Add(dtable_Item_List.NewRow)
 
@@ -937,6 +944,8 @@ restart:
                 End If
             End If
             generate_tree()
+
+
         Catch ex As Exception
             MsgBox(gblMessageHeading_Error & vbCrLf & gblMessage_ContactInfo & vbCrLf & ex.Message, MsgBoxStyle.Critical, gblMessageHeading)
         End Try
@@ -1004,6 +1013,7 @@ restart:
                         drItem("Vat_Per") = ds.Tables(0).Rows(0)("VAT_PERCENTAGE")
                         drItem("Cess_Per") = ds.Tables(0).Rows(0)("CessPercentage_num")
                         drItem("ACess") = ds.Tables(0).Rows(0)("ACess")
+                        drItem("Amount") = 0.0
                         drItem("CostCenter_Id") = ds_CC.Tables(0).Rows(i)("CostCenter_Id").ToString()
                         drItem("CostCenter_Code") = ds_CC.Tables(0).Rows(i)("CostCenter_Code").ToString()
                         drItem("CostCenter_Name") = ds_CC.Tables(0).Rows(i)("CostCenter_Name").ToString()
@@ -1488,6 +1498,7 @@ restart:
     Private Sub Calculate_Amount()
         Dim dt As DataTable
         Dim item_value As Double = 0
+        Dim LandingAmt As Double = 0
         Dim gross_amt As Double = 0
         Dim tot_vat_amt As Double = 0
         Dim tot_cess_amt As Double = 0
@@ -1535,6 +1546,9 @@ restart:
                     tot_vat_amt = tot_vat_amt + ((((dt.Rows(i)("Batch_qty") * dt.Rows(i)("Item_Rate")) - discamt) * dt.Rows(i)("vat_per")) / 100)
                     tot_cess_amt = tot_cess_amt + ((((dt.Rows(i)("Batch_qty") * dt.Rows(i)("Item_Rate")) - discamt) * dt.Rows(i)("cess_per")) / 100)
                     tot_Acess_amt = tot_Acess_amt + (dt.Rows(i)("Batch_qty") * dt.Rows(i)("Acess"))
+                    LandingAmt = (item_value - Gpaid) + ((((dt.Rows(i)("Batch_qty") * dt.Rows(i)("Item_Rate")) - discamt) * dt.Rows(i)("vat_per")) / 100) + ((((dt.Rows(i)("Batch_qty") * dt.Rows(i)("Item_Rate")) - discamt) * dt.Rows(i)("cess_per")) / 100) + (dt.Rows(i)("Batch_qty") * dt.Rows(i)("Acess"))
+                    dt.Rows(i).Item("Amount") = Math.Round(LandingAmt, 2)
+
                     'item_value = (Convert.ToDouble(IIf((dt.Rows(i)("Item_Rate")) Is DBNull.Value, 0, dt.Rows(i)("Item_Rate"))) * Convert.ToDouble(IIf((dt.Rows(i)("Batch_qty")) Is DBNull.Value, 0, dt.Rows(i)("Batch_qty"))))
                     'gross_amt = gross_amt + item_value
                     'exice_per = IIf((dt.Rows(i)("Exe_Per")) Is DBNull.Value, 0, dt.Rows(i)("Exe_Per"))
@@ -1585,6 +1599,8 @@ restart:
                     tot_vat_amt = tot_vat_amt + ((((dt.Rows(i)("Batch_qty") * dt.Rows(i)("Item_Rate")) - discamt) * dt.Rows(i)("vat_per")) / 100)
                     tot_cess_amt = tot_cess_amt + ((((dt.Rows(i)("Batch_qty") * dt.Rows(i)("Item_Rate")) - discamt) * dt.Rows(i)("cess_per")) / 100)
                     tot_Acess_amt = tot_Acess_amt + (dt.Rows(i)("Batch_qty") * dt.Rows(i)("Acess"))
+                    LandingAmt = (item_value - Gpaid) + ((((dt.Rows(i)("Batch_qty") * dt.Rows(i)("Item_Rate")) - discamt) * dt.Rows(i)("vat_per")) / 100) + ((((dt.Rows(i)("Batch_qty") * dt.Rows(i)("Item_Rate")) - discamt) * dt.Rows(i)("cess_per")) / 100) + (dt.Rows(i)("Batch_qty") * dt.Rows(i)("Acess"))
+                    dt.Rows(i).Item("Amount") = Math.Round(LandingAmt, 2)
 
                     'item_value = (Convert.ToDouble(IIf((dt.Rows(i)("Item_Rate")) Is DBNull.Value, 0, dt.Rows(i)("Item_Rate"))) * Convert.ToDouble(IIf((dt.Rows(i)("Batch_qty")) Is DBNull.Value, 0, dt.Rows(i)("Batch_qty"))))
                     'gross_amt = gross_amt + item_value

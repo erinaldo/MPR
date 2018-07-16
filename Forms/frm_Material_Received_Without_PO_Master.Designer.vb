@@ -1,9 +1,9 @@
-<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class frm_Material_Received_Without_PO_Master
     Inherits System.Windows.Forms.UserControl
 
     'UserControl overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         If disposing AndAlso components IsNot Nothing Then
             components.Dispose()
@@ -17,7 +17,7 @@ Partial Class frm_Material_Received_Without_PO_Master
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frm_Material_Received_Without_PO_Master))
@@ -32,6 +32,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.BtnActualMRN = New System.Windows.Forms.Button()
         Me.dgvList = New System.Windows.Forms.DataGridView()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
+        Me.txtCashDiscount = New System.Windows.Forms.TextBox()
         Me.txt_Amount = New System.Windows.Forms.TextBox()
         Me.lblAcess = New System.Windows.Forms.Label()
         Me.Label58 = New System.Windows.Forms.Label()
@@ -195,8 +196,6 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.Label46 = New System.Windows.Forms.Label()
         Me.Label47 = New System.Windows.Forms.Label()
         Me.Label48 = New System.Windows.Forms.Label()
-        Me.txtCashDiscount = New System.Windows.Forms.TextBox()
-        Me.Label54 = New System.Windows.Forms.Label()
         Me.TbPO.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.GroupBox5.SuspendLayout()
@@ -341,7 +340,6 @@ Partial Class frm_Material_Received_Without_PO_Master
         '
         Me.TabPage2.BackColor = System.Drawing.Color.DimGray
         Me.TabPage2.Controls.Add(Me.txtCashDiscount)
-        Me.TabPage2.Controls.Add(Me.Label54)
         Me.TabPage2.Controls.Add(Me.txt_Amount)
         Me.TabPage2.Controls.Add(Me.lblAcess)
         Me.TabPage2.Controls.Add(Me.Label58)
@@ -383,6 +381,23 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.TabPage2.Size = New System.Drawing.Size(902, 600)
         Me.TabPage2.TabIndex = 1
         '
+        'txtCashDiscount
+        '
+        Me.txtCashDiscount.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.txtCashDiscount.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.txtCashDiscount.Enabled = False
+        Me.txtCashDiscount.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtCashDiscount.ForeColor = System.Drawing.Color.White
+        Me.txtCashDiscount.Location = New System.Drawing.Point(773, 559)
+        Me.txtCashDiscount.Name = "txtCashDiscount"
+        Me.txtCashDiscount.ReadOnly = True
+        Me.txtCashDiscount.Size = New System.Drawing.Size(118, 18)
+        Me.txtCashDiscount.TabIndex = 20
+        Me.txtCashDiscount.Tag = ""
+        Me.txtCashDiscount.Text = "0.00"
+        Me.txtCashDiscount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtCashDiscount.Visible = False
+        '
         'txt_Amount
         '
         Me.txt_Amount.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
@@ -390,10 +405,11 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.txt_Amount.Enabled = False
         Me.txt_Amount.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txt_Amount.ForeColor = System.Drawing.Color.White
-        Me.txt_Amount.Location = New System.Drawing.Point(802, 515)
+        Me.txt_Amount.Location = New System.Drawing.Point(773, 515)
         Me.txt_Amount.Name = "txt_Amount"
-        Me.txt_Amount.Size = New System.Drawing.Size(89, 18)
-        Me.txt_Amount.TabIndex = 55
+        Me.txt_Amount.Size = New System.Drawing.Size(118, 18)
+        Me.txt_Amount.TabIndex = 8
+        Me.txt_Amount.Tag = ""
         Me.txt_Amount.Text = "0.00"
         Me.txt_Amount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
@@ -480,10 +496,10 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.lnkCalculateAmount.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lnkCalculateAmount.ForeColor = System.Drawing.Color.DarkOrange
         Me.lnkCalculateAmount.LinkColor = System.Drawing.Color.DarkOrange
-        Me.lnkCalculateAmount.Location = New System.Drawing.Point(508, 436)
+        Me.lnkCalculateAmount.Location = New System.Drawing.Point(508, 425)
         Me.lnkCalculateAmount.Name = "lnkCalculateAmount"
         Me.lnkCalculateAmount.Size = New System.Drawing.Size(106, 13)
-        Me.lnkCalculateAmount.TabIndex = 47
+        Me.lnkCalculateAmount.TabIndex = 7
         Me.lnkCalculateAmount.TabStop = True
         Me.lnkCalculateAmount.Text = "Calculate Amount"
         '
@@ -500,14 +516,16 @@ Partial Class frm_Material_Received_Without_PO_Master
         '
         'cmb_MRNAgainst
         '
+        Me.cmb_MRNAgainst.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cmb_MRNAgainst.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmb_MRNAgainst.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.cmb_MRNAgainst.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmb_MRNAgainst.ForeColor = System.Drawing.Color.White
         Me.cmb_MRNAgainst.FormattingEnabled = True
         Me.cmb_MRNAgainst.Location = New System.Drawing.Point(15, 432)
         Me.cmb_MRNAgainst.Name = "cmb_MRNAgainst"
         Me.cmb_MRNAgainst.Size = New System.Drawing.Size(263, 23)
-        Me.cmb_MRNAgainst.TabIndex = 44
+        Me.cmb_MRNAgainst.TabIndex = 6
+        Me.cmb_MRNAgainst.Tag = ""
         '
         'Panel14
         '
@@ -569,9 +587,11 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.FLXGRD_MaterialItem.Name = "FLXGRD_MaterialItem"
         Me.FLXGRD_MaterialItem.Rows.Count = 1
         Me.FLXGRD_MaterialItem.Rows.DefaultSize = 17
+        Me.FLXGRD_MaterialItem.SelectionMode = C1.Win.C1FlexGrid.SelectionModeEnum.Cell
+        Me.FLXGRD_MaterialItem.ShowCursor = True
         Me.FLXGRD_MaterialItem.Size = New System.Drawing.Size(884, 272)
         Me.FLXGRD_MaterialItem.Styles = New C1.Win.C1FlexGrid.CellStyleCollection(resources.GetString("FLXGRD_MaterialItem.Styles"))
-        Me.FLXGRD_MaterialItem.TabIndex = 0
+        Me.FLXGRD_MaterialItem.TabIndex = 5
         '
         'Panel16
         '
@@ -611,8 +631,6 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.GroupBox1.Controls.Add(Me.dt_Invoice_Date)
         Me.GroupBox1.Controls.Add(Me.Label6)
         Me.GroupBox1.Controls.Add(Me.lbl_PODate)
-        Me.GroupBox1.Controls.Add(Me.lblMrnStatus)
-        Me.GroupBox1.Controls.Add(Me.Label5)
         Me.GroupBox1.Controls.Add(Me.Label3)
         Me.GroupBox1.Controls.Add(Me.lblFormHeading)
         Me.GroupBox1.Controls.Add(Me.cmbVendor)
@@ -620,6 +638,8 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.GroupBox1.Controls.Add(Me.cmbPurchaseType)
         Me.GroupBox1.Controls.Add(Me.Label1)
         Me.GroupBox1.Controls.Add(Me.chk_VatCal)
+        Me.GroupBox1.Controls.Add(Me.lblMrnStatus)
+        Me.GroupBox1.Controls.Add(Me.Label5)
         Me.GroupBox1.Location = New System.Drawing.Point(6, -2)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(890, 114)
@@ -637,7 +657,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.txtBarcodeSearch.Name = "txtBarcodeSearch"
         Me.txtBarcodeSearch.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.txtBarcodeSearch.Size = New System.Drawing.Size(552, 19)
-        Me.txtBarcodeSearch.TabIndex = 36
+        Me.txtBarcodeSearch.TabIndex = 4
         '
         'Label52
         '
@@ -654,6 +674,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         '
         Me.cmbMRNType.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.cmbMRNType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbMRNType.Enabled = False
         Me.cmbMRNType.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmbMRNType.ForeColor = System.Drawing.Color.White
         Me.cmbMRNType.FormattingEnabled = True
@@ -693,7 +714,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.txt_Invoice_No.Location = New System.Drawing.Point(113, 70)
         Me.txt_Invoice_No.Name = "txt_Invoice_No"
         Me.txt_Invoice_No.Size = New System.Drawing.Size(177, 18)
-        Me.txt_Invoice_No.TabIndex = 29
+        Me.txt_Invoice_No.TabIndex = 2
         '
         'dt_Invoice_Date
         '
@@ -702,7 +723,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.dt_Invoice_Date.Location = New System.Drawing.Point(402, 69)
         Me.dt_Invoice_Date.Name = "dt_Invoice_Date"
         Me.dt_Invoice_Date.Size = New System.Drawing.Size(262, 21)
-        Me.dt_Invoice_Date.TabIndex = 28
+        Me.dt_Invoice_Date.TabIndex = 3
         '
         'Label6
         '
@@ -731,7 +752,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.lblMrnStatus.AutoSize = True
         Me.lblMrnStatus.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblMrnStatus.ForeColor = System.Drawing.Color.Orange
-        Me.lblMrnStatus.Location = New System.Drawing.Point(557, 44)
+        Me.lblMrnStatus.Location = New System.Drawing.Point(838, 42)
         Me.lblMrnStatus.Name = "lblMrnStatus"
         Me.lblMrnStatus.Size = New System.Drawing.Size(45, 15)
         Me.lblMrnStatus.TabIndex = 16
@@ -742,7 +763,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.Label5.AutoSize = True
         Me.Label5.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label5.ForeColor = System.Drawing.Color.White
-        Me.Label5.Location = New System.Drawing.Point(476, 44)
+        Me.Label5.Location = New System.Drawing.Point(757, 42)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(78, 15)
         Me.Label5.TabIndex = 15
@@ -764,7 +785,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.lblFormHeading.AutoSize = True
         Me.lblFormHeading.Font = New System.Drawing.Font("Verdana", 15.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblFormHeading.ForeColor = System.Drawing.Color.White
-        Me.lblFormHeading.Location = New System.Drawing.Point(670, 1)
+        Me.lblFormHeading.Location = New System.Drawing.Point(665, 10)
         Me.lblFormHeading.Name = "lblFormHeading"
         Me.lblFormHeading.Size = New System.Drawing.Size(218, 75)
         Me.lblFormHeading.TabIndex = 10
@@ -773,14 +794,15 @@ Partial Class frm_Material_Received_Without_PO_Master
         '
         'cmbVendor
         '
+        Me.cmbVendor.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cmbVendor.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmbVendor.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.cmbVendor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbVendor.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmbVendor.ForeColor = System.Drawing.Color.White
         Me.cmbVendor.FormattingEnabled = True
         Me.cmbVendor.Location = New System.Drawing.Point(112, 42)
         Me.cmbVendor.Name = "cmbVendor"
-        Me.cmbVendor.Size = New System.Drawing.Size(352, 23)
+        Me.cmbVendor.Size = New System.Drawing.Size(552, 23)
         Me.cmbVendor.TabIndex = 1
         '
         'Label2
@@ -796,8 +818,9 @@ Partial Class frm_Material_Received_Without_PO_Master
         '
         'cmbPurchaseType
         '
+        Me.cmbPurchaseType.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cmbPurchaseType.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmbPurchaseType.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.cmbPurchaseType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbPurchaseType.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmbPurchaseType.ForeColor = System.Drawing.Color.White
         Me.cmbPurchaseType.FormattingEnabled = True
@@ -822,7 +845,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.chk_VatCal.AutoSize = True
         Me.chk_VatCal.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.chk_VatCal.ForeColor = System.Drawing.Color.White
-        Me.chk_VatCal.Location = New System.Drawing.Point(734, 79)
+        Me.chk_VatCal.Location = New System.Drawing.Point(734, 89)
         Me.chk_VatCal.Name = "chk_VatCal"
         Me.chk_VatCal.Size = New System.Drawing.Size(153, 19)
         Me.chk_VatCal.TabIndex = 32
@@ -839,7 +862,8 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.txtotherchrgs.Location = New System.Drawing.Point(773, 537)
         Me.txtotherchrgs.Name = "txtotherchrgs"
         Me.txtotherchrgs.Size = New System.Drawing.Size(118, 18)
-        Me.txtotherchrgs.TabIndex = 22
+        Me.txtotherchrgs.TabIndex = 9
+        Me.txtotherchrgs.Tag = ""
         Me.txtotherchrgs.Text = "0.00"
         Me.txtotherchrgs.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
@@ -864,7 +888,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.txtdiscount.Name = "txtdiscount"
         Me.txtdiscount.ReadOnly = True
         Me.txtdiscount.Size = New System.Drawing.Size(118, 18)
-        Me.txtdiscount.TabIndex = 23
+        Me.txtdiscount.TabIndex = 10
         Me.txtdiscount.Text = "0.00"
         Me.txtdiscount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
@@ -914,8 +938,9 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.txtMrnRemarks.Multiline = True
         Me.txtMrnRemarks.Name = "txtMrnRemarks"
         Me.txtMrnRemarks.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtMrnRemarks.Size = New System.Drawing.Size(561, 104)
-        Me.txtMrnRemarks.TabIndex = 2
+        Me.txtMrnRemarks.Size = New System.Drawing.Size(440, 104)
+        Me.txtMrnRemarks.TabIndex = 11
+        Me.txtMrnRemarks.Tag = ""
         '
         'Label51
         '
@@ -2127,35 +2152,6 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.Label48.TabIndex = 0
         Me.Label48.Text = "Delivery Rate :"
         '
-        'txtCashDiscount
-        '
-        Me.txtCashDiscount.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.txtCashDiscount.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.txtCashDiscount.Enabled = False
-        Me.txtCashDiscount.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtCashDiscount.ForeColor = System.Drawing.Color.White
-        Me.txtCashDiscount.Location = New System.Drawing.Point(773, 559)
-        Me.txtCashDiscount.Name = "txtCashDiscount"
-        Me.txtCashDiscount.ReadOnly = True
-        Me.txtCashDiscount.Size = New System.Drawing.Size(118, 18)
-        Me.txtCashDiscount.TabIndex = 57
-        Me.txtCashDiscount.Text = "0.00"
-        Me.txtCashDiscount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.txtCashDiscount.Visible = False
-        '
-        'Label54
-        '
-        Me.Label54.AutoSize = True
-        Me.Label54.Enabled = False
-        Me.Label54.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label54.ForeColor = System.Drawing.Color.White
-        Me.Label54.Location = New System.Drawing.Point(646, 562)
-        Me.Label54.Name = "Label54"
-        Me.Label54.Size = New System.Drawing.Size(37, 15)
-        Me.Label54.TabIndex = 56
-        Me.Label54.Text = "C.D. :"
-        Me.Label54.Visible = False
-        '
         'frm_Material_Received_Without_PO_Master
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -2367,5 +2363,4 @@ Partial Class frm_Material_Received_Without_PO_Master
     Friend WithEvents lblAcess As Label
     Friend WithEvents Label58 As Label
     Friend WithEvents txtCashDiscount As TextBox
-    Friend WithEvents Label54 As Label
 End Class
