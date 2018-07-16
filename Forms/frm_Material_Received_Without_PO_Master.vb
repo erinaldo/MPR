@@ -944,6 +944,11 @@ restart:
                 End If
             End If
             generate_tree()
+            Dim Index As Int32 = FLXGRD_MaterialItem.Rows.Count - 1
+            FLXGRD_MaterialItem.Row = Index
+            FLXGRD_MaterialItem.RowSel = Index
+            FLXGRD_MaterialItem.Col = 5
+            FLXGRD_MaterialItem.ColSel = 5
 
         Catch ex As Exception
             MsgBox(gblMessageHeading_Error & vbCrLf & gblMessage_ContactInfo & vbCrLf & ex.Message, MsgBoxStyle.Critical, gblMessageHeading)
@@ -1564,6 +1569,7 @@ restart:
             Next
         End If
 
+        FLXGRD_MaterialItem.DataSource = dt
 
         dt = FLXGRD_MatItem_NonStockable.DataSource
         If Not dt Is Nothing Then
