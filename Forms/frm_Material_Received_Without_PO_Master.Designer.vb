@@ -32,6 +32,9 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.BtnActualMRN = New System.Windows.Forms.Button()
         Me.dgvList = New System.Windows.Forms.DataGridView()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
+        Me.Panel15 = New System.Windows.Forms.Panel()
+        Me.Panel13 = New System.Windows.Forms.Panel()
+        Me.lblGST3 = New System.Windows.Forms.Label()
         Me.lblGSTDetail = New System.Windows.Forms.Label()
         Me.lblGST28 = New System.Windows.Forms.Label()
         Me.lblGST18 = New System.Windows.Forms.Label()
@@ -52,8 +55,6 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.Label9 = New System.Windows.Forms.Label()
         Me.cmb_MRNAgainst = New System.Windows.Forms.ComboBox()
         Me.Panel14 = New System.Windows.Forms.Panel()
-        Me.GroupBox4 = New System.Windows.Forms.GroupBox()
-        Me.FLXGRD_MatItem_NonStockable = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.FLXGRD_MaterialItem = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.Label10 = New System.Windows.Forms.Label()
@@ -91,6 +92,9 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.Label53 = New System.Windows.Forms.Label()
         Me.lblgrossamt = New System.Windows.Forms.Label()
         Me.Label55 = New System.Windows.Forms.Label()
+        Me.Label56 = New System.Windows.Forms.Label()
+        Me.GroupBox4 = New System.Windows.Forms.GroupBox()
+        Me.FLXGRD_MatItem_NonStockable = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
         Me.C1FlexGrid1 = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.Panel6 = New System.Windows.Forms.Panel()
@@ -201,21 +205,17 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.Label46 = New System.Windows.Forms.Label()
         Me.Label47 = New System.Windows.Forms.Label()
         Me.Label48 = New System.Windows.Forms.Label()
-        Me.lblGST3 = New System.Windows.Forms.Label()
-        Me.Label56 = New System.Windows.Forms.Label()
-        Me.Panel13 = New System.Windows.Forms.Panel()
-        Me.Panel15 = New System.Windows.Forms.Panel()
         Me.TbPO.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.GroupBox5.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
         CType(Me.dgvList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabPage2.SuspendLayout()
-        Me.GroupBox4.SuspendLayout()
-        CType(Me.FLXGRD_MatItem_NonStockable, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox2.SuspendLayout()
         CType(Me.FLXGRD_MaterialItem, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
+        Me.GroupBox4.SuspendLayout()
+        CType(Me.FLXGRD_MatItem_NonStockable, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.C1FlexGrid1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox6.SuspendLayout()
         CType(Me.flxItemList, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -398,6 +398,33 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
         Me.TabPage2.Size = New System.Drawing.Size(902, 600)
         Me.TabPage2.TabIndex = 1
+        '
+        'Panel15
+        '
+        Me.Panel15.BackColor = System.Drawing.Color.Silver
+        Me.Panel15.Location = New System.Drawing.Point(433, 413)
+        Me.Panel15.Name = "Panel15"
+        Me.Panel15.Size = New System.Drawing.Size(1, 182)
+        Me.Panel15.TabIndex = 268
+        '
+        'Panel13
+        '
+        Me.Panel13.BackColor = System.Drawing.Color.Silver
+        Me.Panel13.Location = New System.Drawing.Point(653, 412)
+        Me.Panel13.Name = "Panel13"
+        Me.Panel13.Size = New System.Drawing.Size(1, 182)
+        Me.Panel13.TabIndex = 267
+        '
+        'lblGST3
+        '
+        Me.lblGST3.AutoSize = True
+        Me.lblGST3.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblGST3.ForeColor = System.Drawing.Color.White
+        Me.lblGST3.Location = New System.Drawing.Point(439, 494)
+        Me.lblGST3.Name = "lblGST3"
+        Me.lblGST3.Size = New System.Drawing.Size(107, 14)
+        Me.lblGST3.TabIndex = 266
+        Me.lblGST3.Text = "3% - Amt @ Tax"
         '
         'lblGSTDetail
         '
@@ -633,34 +660,6 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.Panel14.Name = "Panel14"
         Me.Panel14.Size = New System.Drawing.Size(117, 1)
         Me.Panel14.TabIndex = 24
-        '
-        'GroupBox4
-        '
-        Me.GroupBox4.Controls.Add(Me.FLXGRD_MatItem_NonStockable)
-        Me.GroupBox4.ForeColor = System.Drawing.Color.White
-        Me.GroupBox4.Location = New System.Drawing.Point(6, 381)
-        Me.GroupBox4.Name = "GroupBox4"
-        Me.GroupBox4.Size = New System.Drawing.Size(890, 10)
-        Me.GroupBox4.TabIndex = 2
-        Me.GroupBox4.TabStop = False
-        Me.GroupBox4.Text = "Non Stockable Items"
-        Me.GroupBox4.Visible = False
-        '
-        'FLXGRD_MatItem_NonStockable
-        '
-        Me.FLXGRD_MatItem_NonStockable.AllowSorting = C1.Win.C1FlexGrid.AllowSortingEnum.None
-        Me.FLXGRD_MatItem_NonStockable.AutoSearch = C1.Win.C1FlexGrid.AutoSearchEnum.FromTop
-        Me.FLXGRD_MatItem_NonStockable.BackColor = System.Drawing.Color.Silver
-        Me.FLXGRD_MatItem_NonStockable.ColumnInfo = "10,1,0,0,0,90,Columns:"
-        Me.FLXGRD_MatItem_NonStockable.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.FLXGRD_MatItem_NonStockable.Location = New System.Drawing.Point(3, 17)
-        Me.FLXGRD_MatItem_NonStockable.Name = "FLXGRD_MatItem_NonStockable"
-        Me.FLXGRD_MatItem_NonStockable.Rows.Count = 1
-        Me.FLXGRD_MatItem_NonStockable.Rows.DefaultSize = 18
-        Me.FLXGRD_MatItem_NonStockable.Size = New System.Drawing.Size(884, 0)
-        Me.FLXGRD_MatItem_NonStockable.Styles = New C1.Win.C1FlexGrid.CellStyleCollection(resources.GetString("FLXGRD_MatItem_NonStockable.Styles"))
-        Me.FLXGRD_MatItem_NonStockable.TabIndex = 0
-        Me.FLXGRD_MatItem_NonStockable.Visible = False
         '
         'GroupBox2
         '
@@ -971,7 +970,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         '
         'txtdiscount
         '
-        Me.txtdiscount.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.txtdiscount.BackColor = System.Drawing.Color.DimGray
         Me.txtdiscount.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtdiscount.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtdiscount.ForeColor = System.Drawing.Color.Orange
@@ -979,7 +978,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.txtdiscount.Name = "txtdiscount"
         Me.txtdiscount.ReadOnly = True
         Me.txtdiscount.Size = New System.Drawing.Size(110, 18)
-        Me.txtdiscount.TabIndex = 10
+        Me.txtdiscount.TabIndex = 13
         Me.txtdiscount.Text = "0.00"
         Me.txtdiscount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
@@ -1030,7 +1029,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.txtMrnRemarks.Name = "txtMrnRemarks"
         Me.txtMrnRemarks.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.txtMrnRemarks.Size = New System.Drawing.Size(401, 104)
-        Me.txtMrnRemarks.TabIndex = 11
+        Me.txtMrnRemarks.TabIndex = 10
         Me.txtMrnRemarks.Tag = ""
         '
         'Label51
@@ -1116,6 +1115,45 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.Label55.Size = New System.Drawing.Size(92, 14)
         Me.Label55.TabIndex = 18
         Me.Label55.Text = "GST Amount :"
+        '
+        'Label56
+        '
+        Me.Label56.AutoSize = True
+        Me.Label56.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.Label56.ForeColor = System.Drawing.Color.White
+        Me.Label56.Location = New System.Drawing.Point(673, 411)
+        Me.Label56.Name = "Label56"
+        Me.Label56.Size = New System.Drawing.Size(103, 14)
+        Me.Label56.TabIndex = 16
+        Me.Label56.Text = "Total Amount :"
+        '
+        'GroupBox4
+        '
+        Me.GroupBox4.Controls.Add(Me.FLXGRD_MatItem_NonStockable)
+        Me.GroupBox4.ForeColor = System.Drawing.Color.White
+        Me.GroupBox4.Location = New System.Drawing.Point(6, 381)
+        Me.GroupBox4.Name = "GroupBox4"
+        Me.GroupBox4.Size = New System.Drawing.Size(890, 10)
+        Me.GroupBox4.TabIndex = 2
+        Me.GroupBox4.TabStop = False
+        Me.GroupBox4.Text = "Non Stockable Items"
+        Me.GroupBox4.Visible = False
+        '
+        'FLXGRD_MatItem_NonStockable
+        '
+        Me.FLXGRD_MatItem_NonStockable.AllowSorting = C1.Win.C1FlexGrid.AllowSortingEnum.None
+        Me.FLXGRD_MatItem_NonStockable.AutoSearch = C1.Win.C1FlexGrid.AutoSearchEnum.FromTop
+        Me.FLXGRD_MatItem_NonStockable.BackColor = System.Drawing.Color.Silver
+        Me.FLXGRD_MatItem_NonStockable.ColumnInfo = "10,1,0,0,0,90,Columns:"
+        Me.FLXGRD_MatItem_NonStockable.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.FLXGRD_MatItem_NonStockable.Location = New System.Drawing.Point(3, 17)
+        Me.FLXGRD_MatItem_NonStockable.Name = "FLXGRD_MatItem_NonStockable"
+        Me.FLXGRD_MatItem_NonStockable.Rows.Count = 1
+        Me.FLXGRD_MatItem_NonStockable.Rows.DefaultSize = 18
+        Me.FLXGRD_MatItem_NonStockable.Size = New System.Drawing.Size(884, 0)
+        Me.FLXGRD_MatItem_NonStockable.Styles = New C1.Win.C1FlexGrid.CellStyleCollection(resources.GetString("FLXGRD_MatItem_NonStockable.Styles"))
+        Me.FLXGRD_MatItem_NonStockable.TabIndex = 0
+        Me.FLXGRD_MatItem_NonStockable.Visible = False
         '
         'ImageList1
         '
@@ -2232,44 +2270,6 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.Label48.TabIndex = 0
         Me.Label48.Text = "Delivery Rate :"
         '
-        'lblGST3
-        '
-        Me.lblGST3.AutoSize = True
-        Me.lblGST3.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblGST3.ForeColor = System.Drawing.Color.White
-        Me.lblGST3.Location = New System.Drawing.Point(439, 494)
-        Me.lblGST3.Name = "lblGST3"
-        Me.lblGST3.Size = New System.Drawing.Size(107, 14)
-        Me.lblGST3.TabIndex = 266
-        Me.lblGST3.Text = "3% - Amt @ Tax"
-        '
-        'Label56
-        '
-        Me.Label56.AutoSize = True
-        Me.Label56.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.Label56.ForeColor = System.Drawing.Color.White
-        Me.Label56.Location = New System.Drawing.Point(673, 411)
-        Me.Label56.Name = "Label56"
-        Me.Label56.Size = New System.Drawing.Size(103, 14)
-        Me.Label56.TabIndex = 16
-        Me.Label56.Text = "Total Amount :"
-        '
-        'Panel13
-        '
-        Me.Panel13.BackColor = System.Drawing.Color.Silver
-        Me.Panel13.Location = New System.Drawing.Point(653, 412)
-        Me.Panel13.Name = "Panel13"
-        Me.Panel13.Size = New System.Drawing.Size(1, 182)
-        Me.Panel13.TabIndex = 267
-        '
-        'Panel15
-        '
-        Me.Panel15.BackColor = System.Drawing.Color.Silver
-        Me.Panel15.Location = New System.Drawing.Point(433, 413)
-        Me.Panel15.Name = "Panel15"
-        Me.Panel15.Size = New System.Drawing.Size(1, 182)
-        Me.Panel15.TabIndex = 268
-        '
         'frm_Material_Received_Without_PO_Master
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -2286,12 +2286,12 @@ Partial Class frm_Material_Received_Without_PO_Master
         CType(Me.dgvList, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabPage2.ResumeLayout(False)
         Me.TabPage2.PerformLayout()
-        Me.GroupBox4.ResumeLayout(False)
-        CType(Me.FLXGRD_MatItem_NonStockable, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox2.ResumeLayout(False)
         CType(Me.FLXGRD_MaterialItem, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
+        Me.GroupBox4.ResumeLayout(False)
+        CType(Me.FLXGRD_MatItem_NonStockable, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.C1FlexGrid1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox6.ResumeLayout(False)
         Me.GroupBox6.PerformLayout()

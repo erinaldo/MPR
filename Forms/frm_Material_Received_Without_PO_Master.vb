@@ -1116,61 +1116,66 @@ restart:
         'receive_Id = Convert.ToInt32(dgvList.SelectedRows.Item(0).Cells(0).Value)
         receive_Id = Convert.ToInt32(dgvList.CurrentRow.Cells(0).Value)
         flag = "update"
+
+        'Try
         ds = obj.fill_Data_set("Get_MRN_WithOutPO_Detail", "@V_Receive_ID", receive_Id)
-        If ds.Tables.Count > 0 Then
-            dtMRN = ds.Tables(0)
-            cmbPurchaseType.SelectedValue = dtMRN.Rows(0)("Purchase_Type")
-            cmb_MRNAgainst.SelectedValue = dtMRN.Rows(0)("MRNCompanies_ID")
+            If ds.Tables.Count > 0 Then
+                dtMRN = ds.Tables(0)
+                cmbPurchaseType.SelectedValue = dtMRN.Rows(0)("Purchase_Type")
+                cmb_MRNAgainst.SelectedValue = dtMRN.Rows(0)("MRNCompanies_ID")
             If dtMRN.Rows(0)("Purchase_Type") = 2 Then
                 cmbVendor.SelectedValue = dtMRN.Rows(0)("Vendor_Id")
             End If
             lbl_PODate.Text = dtMRN.Rows(0)("Received_Date")
-            txtMrnRemarks.Text = dtMRN.Rows(0)("Remarks")
-            If dtMRN.Rows(0)("MRN_Status") = MRNStatus.cancel Then
-                lblMrnStatus.Text = "Cancel"
-            ElseIf dtMRN.Rows(0)("MRN_Status") = MRNStatus.clear Then
-                lblMrnStatus.Text = "Clear"
-            ElseIf dtMRN.Rows(0)("MRN_Status") = MRNStatus.normal Then
-                lblMrnStatus.Text = "Normal"
+                txtMrnRemarks.Text = dtMRN.Rows(0)("Remarks")
+                If dtMRN.Rows(0)("MRN_Status") = MRNStatus.cancel Then
+                    lblMrnStatus.Text = "Cancel"
+                ElseIf dtMRN.Rows(0)("MRN_Status") = MRNStatus.clear Then
+                    lblMrnStatus.Text = "Clear"
+                ElseIf dtMRN.Rows(0)("MRN_Status") = MRNStatus.normal Then
+                    lblMrnStatus.Text = "Normal"
+                End If
+                txt_Amount.Text = Convert.ToString(dtMRN.Rows(0)("freight"))
+                txtotherchrgs.Text = Convert.ToString(dtMRN.Rows(0)("Other_charges"))
+                txtdiscount.Text = Convert.ToString(dtMRN.Rows(0)("Discount_amt"))
+                txtCashDiscount.Text = Convert.ToString(dtMRN.Rows(0)("CashDiscount_amt"))
+                dt_Invoice_Date.Value = dtMRN.Rows(0)("Invoice_Date")
+                txt_Invoice_No.Text = dtMRN.Rows(0)("Invoice_No")
+                ' Grid_styles()
+                'dtable_Item_List = ds.Tables(1).Copy
+
+                dtable_Item_List = ds.Tables(1).Copy
+                ' dtable_Item_List.Rows.Add(dtable_Item_List.NewRow)
+                FLXGRD_MaterialItem.DataSource = dtable_Item_List
+
+                dtMRNDetail_NonStockableItems = ds.Tables(2).Copy
+                FLXGRD_MatItem_NonStockable.DataSource = dtMRNDetail_NonStockableItems
+                SetGridSettingValues()
+                'FLXGRD_MaterialItem.DataSource = ds.Tables(1)
+                'Dim iRowCount As Int32
+                'Dim iRow As Int32
+                'iRowCount = dtMRNDetail.Rows.Count
+                'For iRow = 0 To iRowCount - 1
+                '    If dtMRNDetail.Rows.Count > 0 Then
+                '        Dim rowindex As Integer = dgvList.Rows.Add()
+                '        dgvList.Rows(rowindex).Cells("Sup_Id").Value = Convert.ToInt32(dtMRNDetail.Rows(iRow)("SUPP_ID"))
+                '        dgvList.Rows(rowindex).Cells("Item_Id").Value = Convert.ToString(dtMRNDetail.Rows(iRow)("Item_Id"))
+                '        dgvList.Rows(rowindex).Cells("Item_Code").Value = Convert.ToString(dtMRNDetail.Rows(iRow)("Item_Code"))
+                '        dgvList.Rows(rowindex).Cells("Item_Name").Value = Convert.ToString(dtMRNDetail.Rows(iRow)("Item_Name"))
+                '        dgvList.Rows(rowindex).Cells("UOM").Value = Convert.ToString(dtMRNDetail.Rows(iRow)("UM_Name"))
+                '        dgvList.Rows(rowindex).Cells("Rate").Value = Convert.ToDouble(dtMRNDetail.Rows(iRow)("ITEM_RATE"))
+                '        dgvList.Rows(rowindex).Cells("Del_Qty").Value = Convert.ToDouble(dtMRNDetail.Rows(iRow)("DEL_QTY"))
+                '        dgvList.Rows(rowindex).Cells("Del_Days").Value = Convert.ToString(dtMRNDetail.Rows(iRow)("DEL_DAYS"))
+                '    End If
+                'Next iRow
+                Calculate_Amount()
+                TbPO.SelectTab(1)
+
+                ds.Dispose()
             End If
-            txt_Amount.Text = Convert.ToString(dtMRN.Rows(0)("freight"))
-            txtotherchrgs.Text = Convert.ToString(dtMRN.Rows(0)("Other_charges"))
-            txtdiscount.Text = Convert.ToString(dtMRN.Rows(0)("Discount_amt"))
-            txtCashDiscount.Text = Convert.ToString(dtMRN.Rows(0)("CashDiscount_amt"))
-            dt_Invoice_Date.Value = dtMRN.Rows(0)("Invoice_Date")
-            txt_Invoice_No.Text = dtMRN.Rows(0)("Invoice_No")
-            ' Grid_styles()
-            'dtable_Item_List = ds.Tables(1).Copy
+        'Catch ex As Exception
 
-            dtable_Item_List = ds.Tables(1).Copy
-            ' dtable_Item_List.Rows.Add(dtable_Item_List.NewRow)
-            FLXGRD_MaterialItem.DataSource = dtable_Item_List
-
-            dtMRNDetail_NonStockableItems = ds.Tables(2).Copy
-            FLXGRD_MatItem_NonStockable.DataSource = dtMRNDetail_NonStockableItems
-            SetGridSettingValues()
-            'FLXGRD_MaterialItem.DataSource = ds.Tables(1)
-            'Dim iRowCount As Int32
-            'Dim iRow As Int32
-            'iRowCount = dtMRNDetail.Rows.Count
-            'For iRow = 0 To iRowCount - 1
-            '    If dtMRNDetail.Rows.Count > 0 Then
-            '        Dim rowindex As Integer = dgvList.Rows.Add()
-            '        dgvList.Rows(rowindex).Cells("Sup_Id").Value = Convert.ToInt32(dtMRNDetail.Rows(iRow)("SUPP_ID"))
-            '        dgvList.Rows(rowindex).Cells("Item_Id").Value = Convert.ToString(dtMRNDetail.Rows(iRow)("Item_Id"))
-            '        dgvList.Rows(rowindex).Cells("Item_Code").Value = Convert.ToString(dtMRNDetail.Rows(iRow)("Item_Code"))
-            '        dgvList.Rows(rowindex).Cells("Item_Name").Value = Convert.ToString(dtMRNDetail.Rows(iRow)("Item_Name"))
-            '        dgvList.Rows(rowindex).Cells("UOM").Value = Convert.ToString(dtMRNDetail.Rows(iRow)("UM_Name"))
-            '        dgvList.Rows(rowindex).Cells("Rate").Value = Convert.ToDouble(dtMRNDetail.Rows(iRow)("ITEM_RATE"))
-            '        dgvList.Rows(rowindex).Cells("Del_Qty").Value = Convert.ToDouble(dtMRNDetail.Rows(iRow)("DEL_QTY"))
-            '        dgvList.Rows(rowindex).Cells("Del_Days").Value = Convert.ToString(dtMRNDetail.Rows(iRow)("DEL_DAYS"))
-            '    End If
-            'Next iRow
-            Calculate_Amount()
-            TbPO.SelectTab(1)
-
-            ds.Dispose()
-        End If
+        'End Try
     End Sub
 
     Private Sub FLXGRD_MatItem_NonStockable_KeyDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles FLXGRD_MatItem_NonStockable.KeyDown
@@ -1747,23 +1752,28 @@ restart:
     Private Sub cmbVendor_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbVendor.SelectedIndexChanged
         Dim NewstrSql As String
         Dim dsdata As DataSet
-        NewstrSql = "SELECT STATE_ID,isUT_bit FROM dbo.STATE_MASTER WHERE STATE_ID IN(SELECT STATE_ID FROM dbo.CITY_MASTER WHERE CITY_ID IN(SELECT CITY_ID FROM dbo.DIVISION_SETTINGS))"
-        NewstrSql = NewstrSql & " SELECT STATE_ID,isUT_bit FROM dbo.STATE_MASTER WHERE STATE_ID IN(SELECT STATE_ID FROM dbo.CITY_MASTER WHERE CITY_ID IN(SELECT CITY_ID FROM dbo.ACCOUNT_MASTER WHERE ACC_ID=" & cmbVendor.SelectedValue & "))"
-        dsdata = clsObj.Fill_DataSet(NewstrSql)
-        'SCGST
-        'IGST
-        'UGST
-        If cmbVendor.SelectedValue > 0 Then
-            If dsdata.Tables(0).Rows(0)(0) <> dsdata.Tables(1).Rows(0)(0) Then
-                cmbMRNType.Text = "IGST"
-            Else
-                If dsdata.Tables(0).Rows(0)(1) = True Then
-                    cmbMRNType.Text = "UGST"
+        Try
+            NewstrSql = "SELECT STATE_ID,isUT_bit FROM dbo.STATE_MASTER WHERE STATE_ID IN(SELECT STATE_ID FROM dbo.CITY_MASTER WHERE CITY_ID IN(SELECT CITY_ID FROM dbo.DIVISION_SETTINGS))"
+            NewstrSql = NewstrSql & " SELECT STATE_ID,isUT_bit FROM dbo.STATE_MASTER WHERE STATE_ID IN(SELECT STATE_ID FROM dbo.CITY_MASTER WHERE CITY_ID IN(SELECT CITY_ID FROM dbo.ACCOUNT_MASTER WHERE ACC_ID=" & cmbVendor.SelectedValue & "))"
+
+            dsdata = clsObj.Fill_DataSet(NewstrSql)
+            'SCGST
+            'IGST
+            'UGST
+            If cmbVendor.SelectedValue > 0 Then
+                If dsdata.Tables(0).Rows(0)(0) <> dsdata.Tables(1).Rows(0)(0) Then
+                    cmbMRNType.Text = "IGST"
                 Else
-                    cmbMRNType.Text = "SGST"
+                    If dsdata.Tables(0).Rows(0)(1) = True Then
+                        cmbMRNType.Text = "UGST"
+                    Else
+                        cmbMRNType.Text = "SGST"
+                    End If
                 End If
             End If
-        End If
+        Catch ex As Exception
+
+        End Try
         SetGstLabels()
     End Sub
 

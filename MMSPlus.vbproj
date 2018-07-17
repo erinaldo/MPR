@@ -2240,6 +2240,8 @@
     <Content Include="Scripts\2018Update\0016_20_June_2018_SynchronizationDynamicQuery.sql" />
     <Content Include="Scripts\2018Update\0015_30_May_2018_AccountBugFixing.sql" />
     <Content Include="Scripts\2018Update\0020_05_July_2018_PurcgaseRegisterModified.sql" />
+    <Content Include="Scripts\2018Update\0022_06_July_2018_CancelSaleInvoiceCorrection.sql" />
+    <Content Include="Scripts\2018Update\0023_17_July_2018_MRN_WPO_LANDING_AMOUNT.sql" />
     <Content Include="Scripts\Updates\00001_29_Dec_Add_Duty_And_Taxes.sql" />
     <Content Include="Scripts\Updates\0001_04_Jan_2018_Stock_Transfer.sql" />
     <Content Include="Scripts\Updates\0001_16_JAN_2018.sql" />
