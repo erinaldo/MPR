@@ -857,8 +857,6 @@ restart:
 
     Private Sub lnkSelectItemswithoutIndent_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lnkSelectItemswithoutIndent.LinkClicked
         If cmbSupplier.SelectedIndex > 0 Then
-            Dim dr As DataRow
-            Dim ds As DataSet
 
             'frm_Show_search.qry = "SELECT IM.ITEM_ID,IM.ITEM_CODE," & _
             '                   " IM.ITEM_NAME,UM.UM_Name,CM.ITEM_CAT_NAME," & _
@@ -881,7 +879,7 @@ restart:
             'frm_Show_search.cols_width = "60,350,50"
             '' frm_Show_search.ret_column = "division_id"
 
-            frm_Show_search.qry = " SELECT  top 50 im.ITEM_ID ,
+            frm_Show_Search_RateList.qry = " SELECT  top 50 im.ITEM_ID ,
 		                                ISNULL(im.BarCode_vch, '') AS BARCODE ,
                                         im.ITEM_NAME AS [ITEM NAME] ,
                                         im.MRP_Num AS MRP ,
@@ -893,81 +891,96 @@ restart:
                                         LEFT OUTER JOIN dbo.ITEM_CATEGORY ic ON im.ITEM_CATEGORY_ID = ic.ITEM_CAT_ID
                                         LEFT OUTER JOIN dbo.LabelItem_Mapping lim ON lim.Fk_ItemId_Num = im.ITEM_ID
                                         LEFT OUTER JOIN dbo.Label_Items litems ON lim.Fk_LabelDetailId = litems.Pk_LabelDetailId_Num
-                                        WHERE   id.Is_active = 1 "
+                                        INNER JOIN dbo.SUPPLIER_RATE_LIST_DETAIL As SRLD On SRLD.ITEM_ID = IM.ITEM_ID
+                                        INNER JOIN dbo.SUPPLIER_RATE_LIST As SRL On SRL.SRL_ID=SRLD.SRL_ID 
+                                        where srl.supp_id = " & cmbSupplier.SelectedValue & " And srl.active = 1 and  id.Is_active = 1 "
+
 
             frm_Indent_Items.dTable_POItems = flxItemList.DataSource
-            frm_Show_search.column_name = "BARCODE_VCH"
-            frm_Show_search.column_name1 = "ITEM_NAME"
-            frm_Show_search.column_name2 = "MRP_Num"
-            frm_Show_search.column_name3 = "SALE_RATE"
-            frm_Show_search.column_name4 = "LABELITEMNAME_VCH"
-            frm_Show_search.column_name5 = "ITEM_CAT_NAME"
-            frm_Show_search.cols_no_for_width = "1,2,3,4,5,6"
-            frm_Show_search.cols_width = "100,350,60,60,100,100"
-            frm_Show_search.extra_condition = ""
-            frm_Show_search.ret_column = "ITEM_ID"
-            frm_Show_search.item_rate_column = ""
+            frm_Show_Search_RateList.column_name = "BARCODE_VCH"
+            frm_Show_Search_RateList.column_name1 = "ITEM_NAME"
+            frm_Show_Search_RateList.column_name2 = "MRP_Num"
+            frm_Show_Search_RateList.column_name3 = "SALE_RATE"
+            frm_Show_Search_RateList.column_name4 = "LABELITEMNAME_VCH"
+            frm_Show_Search_RateList.column_name5 = "ITEM_CAT_NAME"
+            frm_Show_Search_RateList.cols_no_for_width = "1,2,3,4,5,6"
+            frm_Show_Search_RateList.cols_width = "100,350,60,60,100,100"
+            frm_Show_Search_RateList.extra_condition = ""
+            frm_Show_Search_RateList.ret_column = "ITEM_ID"
+            frm_Show_Search_RateList.item_rate_column = ""
             'frm_Show_search.ShowDialog()
 
             RemoveHandler flxItemList.AfterDataRefresh, AddressOf flxItemList_AfterDataRefresh
 
-            frm_Show_search.ShowDialog()
+            frm_Show_Search_RateList.ShowDialog()
             'MsgBox(frm_Show_search.search_result)
 
-            If frm_Show_search.search_result = -1 Then
+            If frm_Show_Search_RateList.search_result = -1 Then
                 Exit Sub
             End If
 
-            dr = frm_Indent_Items.dTable_POItems.NewRow
 
+            If frm_Show_Search_RateList.search_result <> -1 Then
 
-            ds = Obj.Fill_DataSet("SELECT ITEM_ID, ITEM_CODE, ITEM_NAME, UM_Name, UNIT_MASTER.UM_ID, ISNULL(pk_CessId_num,0) AS Cess_Id, ISNULL(CessName_vch,'0%') + ' CESS'  AS Cess_Name, ISNULL(CessPercentage_num,0.00) AS Cess_Per  FROM item_master" &
+                Dim stringSeparators() As String = {","}
+                Dim result() As String
+                result = frm_Show_Search_RateList.search_result.Split(stringSeparators, StringSplitOptions.RemoveEmptyEntries)
+
+                For Each element As String In result
+                    Dim dr As DataRow
+                    dr = frm_Indent_Items.dTable_POItems.NewRow
+                    Dim ds As New DataSet
+                    ds = Obj.Fill_DataSet("SELECT ITEM_ID, ITEM_CODE, ITEM_NAME, UM_Name, UNIT_MASTER.UM_ID, ISNULL(pk_CessId_num,0) AS Cess_Id, ISNULL(CessName_vch,'0%') + ' CESS'  AS Cess_Name, ISNULL(CessPercentage_num,0.00) AS Cess_Per  FROM item_master" &
                                     " INNER JOIN dbo.UNIT_MASTER ON dbo.UNIT_MASTER .UM_ID =dbo.ITEM_MASTER .UM_ID Left JOIN dbo.CessMaster ON dbo.CessMaster.pk_CessId_num = dbo.ITEM_MASTER.fk_CessId_num " &
-                                    " WHERE ITEM_ID=" & Convert.ToInt32(frm_Show_search.search_result) & "")
+                                    " WHERE ITEM_ID=" & Convert.ToInt32(element) & "")
 
-            Dim dv_Items As DataView
-            Dim tempdt As DataTable
-            tempdt = frm_Indent_Items.dTable_POItems.Copy
-            dv_Items = tempdt.DefaultView
+                    Dim dv_Items As DataView
+                    Dim tempdt As DataTable
+                    tempdt = frm_Indent_Items.dTable_POItems.Copy
+                    dv_Items = tempdt.DefaultView
 
 
-            dv_Items.RowFilter = "item_id=" & ds.Tables(0).Rows(0)("item_id").ToString() & ""
+                    dv_Items.RowFilter = "item_id=" & ds.Tables(0).Rows(0)("item_id").ToString() & ""
 
-            tempdt = dv_Items.ToTable()
+                    tempdt = dv_Items.ToTable()
 
-            For i As Integer = 0 To frm_Indent_Items.dTable_POItems.Rows.Count - 1
-                If tempdt.Rows.Count() > 0 Then
-                    MsgBox("Item already exists.")
-                    Exit Sub
-                End If
-            Next
+                    For i As Integer = 0 To frm_Indent_Items.dTable_POItems.Rows.Count - 1
+                        If tempdt.Rows.Count() > 0 Then
+                            MsgBox("Item already exists.")
+                            Exit Sub
+                        End If
+                    Next
 
-            dr("Item_id") = ds.Tables(0).Rows(0)("ITEM_ID").ToString
-            dr("Item_Code") = ds.Tables(0).Rows(0)("ITEM_CODE").ToString
-            dr("Item_Name") = ds.Tables(0).Rows(0)("ITEM_NAME").ToString
-            dr("UM_Name") = ds.Tables(0).Rows(0)("UM_Name").ToString
-            dr("Cess_Id") = ds.Tables(0).Rows(0)("Cess_Id")
-            dr("Cess_Name") = ds.Tables(0).Rows(0)("Cess_Name")
-            dr("Cess_Per") = ds.Tables(0).Rows(0)("Cess_Per")
-            'dr("UM_Id") = ds.Tables(0).Rows(0)("UM_ID").ToString
-            ds = Obj.Fill_DataSet("DECLARE @rate NUMERIC (18,2);SELECT @rate=SUPPLIER_RATE_LIST_DETAIL.ITEM_RATE FROM SUPPLIER_RATE_LIST INNER JOIN SUPPLIER_RATE_LIST_DETAIL ON SUPPLIER_RATE_LIST.SRL_ID = SUPPLIER_RATE_LIST_DETAIL.SRL_ID WHERE (SUPPLIER_RATE_LIST_DETAIL.ITEM_ID = " & Convert.ToInt32(frm_Show_search.search_result) & " ) AND (SUPPLIER_RATE_LIST.SUPP_ID = " & Convert.ToInt32(cmbSupplier.SelectedValue) & ") AND (SUPPLIER_RATE_LIST.ACTIVE = 1);SELECT ISNULL(@rate,0);SELECT     ITEM_DETAIL.PURCHASE_VAT_ID as PURCHASE_VAT_ID, VAT_MASTER.VAT_PERCENTAGE, VAT_MASTER.VAT_NAME FROM ITEM_DETAIL INNER JOIN VAT_MASTER ON ITEM_DETAIL.PURCHASE_VAT_ID = VAT_MASTER.VAT_ID WHERE (ITEM_DETAIL.ITEM_ID = " & Convert.ToInt32(frm_Show_search.search_result) & " )")
-            dr("Item_Rate") = ds.Tables(0).Rows(0)(0)
-            dr("Vat_Id") = ds.Tables(1).Rows(0)("PURCHASE_VAT_ID")
-            dr("Vat_Name") = ds.Tables(1).Rows(0)("VAT_NAME")
-            dr("Req_Qty") = 0.0
-            dr("Po_Qty") = 0.0
-            dr("DType") = "P"
-            dr("Disc") = 0.0
-            'dr("Exice_Per") = 0
-            dr("Vat_per") = ds.Tables(1).Rows(0)("VAT_PERCENTAGE")
-            dr("Item_value") = (dr("PO_Qty") * dr("Item_Rate")) + ((dr("PO_Qty") * dr("Item_Rate") * dr("Vat_Per")) / 100)
-            dr("Indent_Id") = -1
+                    dr("Item_id") = ds.Tables(0).Rows(0)("ITEM_ID").ToString
+                    dr("Item_Code") = ds.Tables(0).Rows(0)("ITEM_CODE").ToString
+                    dr("Item_Name") = ds.Tables(0).Rows(0)("ITEM_NAME").ToString
+                    dr("UM_Name") = ds.Tables(0).Rows(0)("UM_Name").ToString
+                    dr("Cess_Id") = ds.Tables(0).Rows(0)("Cess_Id")
+                    dr("Cess_Name") = ds.Tables(0).Rows(0)("Cess_Name")
+                    dr("Cess_Per") = ds.Tables(0).Rows(0)("Cess_Per")
+                    'dr("UM_Id") = ds.Tables(0).Rows(0)("UM_ID").ToString
+                    ds = Obj.Fill_DataSet("DECLARE @rate NUMERIC (18,2);SELECT @rate=SUPPLIER_RATE_LIST_DETAIL.ITEM_RATE FROM SUPPLIER_RATE_LIST INNER JOIN SUPPLIER_RATE_LIST_DETAIL ON SUPPLIER_RATE_LIST.SRL_ID = SUPPLIER_RATE_LIST_DETAIL.SRL_ID WHERE (SUPPLIER_RATE_LIST_DETAIL.ITEM_ID = " & Convert.ToInt32(element) & " ) AND (SUPPLIER_RATE_LIST.SUPP_ID = " & Convert.ToInt32(cmbSupplier.SelectedValue) & ") AND (SUPPLIER_RATE_LIST.ACTIVE = 1);SELECT ISNULL(@rate,0);SELECT     ITEM_DETAIL.PURCHASE_VAT_ID as PURCHASE_VAT_ID, VAT_MASTER.VAT_PERCENTAGE, VAT_MASTER.VAT_NAME FROM ITEM_DETAIL INNER JOIN VAT_MASTER ON ITEM_DETAIL.PURCHASE_VAT_ID = VAT_MASTER.VAT_ID WHERE (ITEM_DETAIL.ITEM_ID = " & Convert.ToInt32(element) & " )")
+                    dr("Item_Rate") = ds.Tables(0).Rows(0)(0)
+                    dr("Vat_Id") = ds.Tables(1).Rows(0)("PURCHASE_VAT_ID")
+                    dr("Vat_Name") = ds.Tables(1).Rows(0)("VAT_NAME")
+                    dr("Req_Qty") = 0.0
+                    dr("Po_Qty") = 0.0
+                    dr("DType") = "P"
+                    dr("Disc") = 0.0
+                    'dr("Exice_Per") = 0
+                    dr("Vat_per") = ds.Tables(1).Rows(0)("VAT_PERCENTAGE")
+                    dr("Item_value") = (dr("PO_Qty") * dr("Item_Rate")) + ((dr("PO_Qty") * dr("Item_Rate") * dr("Vat_Per")) / 100)
+                    dr("Indent_Id") = -1
 
-            frm_Indent_Items.dTable_POItems.Rows.Add(dr)
-            generate_tree()
-            AddHandler flxItemList.AfterDataRefresh, AddressOf flxItemList_AfterDataRefresh
+                    frm_Indent_Items.dTable_POItems.Rows.Add(dr)
 
-            frm_Show_search.Close()
+
+                Next
+
+                generate_tree()
+                AddHandler flxItemList.AfterDataRefresh, AddressOf flxItemList_AfterDataRefresh
+                frm_Show_Search_RateList.Close()
+            End If
         Else
             erp.SetError(cmbSupplier, "Please select supplier first.")
         End If

@@ -4,12 +4,10 @@ Imports MMSPlus.CommonClass
 Public Class frm_Show_Search_RateList
     Inherits System.Windows.Forms.Form
 
-    'Dim frm_MRS_MainStore_Obj As New frm_MRS_MainStore
-    '
-
     Dim comFun As New CommonClass
     Public qry As String
     Public extra_condition As String = ""
+    Public checkbox_column_name As String
     Public column_name As String
     Public column_name1 As String
     Public column_name2 As String
@@ -24,8 +22,16 @@ Public Class frm_Show_Search_RateList
     Public cols_width As String = ""
     Public cols_no_for_width As String = ""
 
+
+    Dim TotalCheckBoxes As Integer = 0
+    Dim TotalCheckedCheckBoxes As Integer = 0
+    Dim HeaderCheckBox As CheckBox = Nothing
+    Dim IsHeaderCheckBoxClicked As Boolean = False
+
     Private Sub frm_Show_search_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Try
+
+
 
             Dim BrandQuery As String
             Dim Dt As DataTable
@@ -67,8 +73,17 @@ Public Class frm_Show_Search_RateList
             'GroupBox1.Width = Me.Width - 20
             grdSearch.Width = 794
             grdSearch.ScrollBars = ScrollBars.Vertical
-            comFun.FormatGrid(grdSearch)
-            comFun.GridBind(grdSearch, qry + extra_condition)
+            FormatGrid(grdSearch)
+            'comFun.GridBind(grdSearch, qry + extra_condition)
+
+            AddHeaderCheckBox()
+
+
+            'AddHandler HeaderCheckBox.KeyUp, AddressOf HeaderCheckBox_KeyUp
+            AddHandler HeaderCheckBox.MouseClick, AddressOf HeaderCheckBox_MouseClick
+            AddHandler HeaderCheckBox.Click, AddressOf HeaderCheckBox_Clicked
+
+            GridBindCheckBox(grdSearch, qry + extra_condition)
             grdSearch.Columns(ret_column).Visible = False
 
             Dim i As Integer
@@ -91,10 +106,134 @@ Public Class frm_Show_Search_RateList
                 End If
             End If
 
-            txtSearch.Focus()
+            'txtSearch.Focus()
         Catch ex As Exception
             MsgBox(gblMessageHeading_Error & vbCrLf & gblMessage_ContactInfo & vbCrLf & ex.Message, MsgBoxStyle.Critical, gblMessageHeading)
         End Try
+    End Sub
+
+    Private Sub AddHeaderCheckBox()
+        HeaderCheckBox = New CheckBox()
+        HeaderCheckBox.Size = New Size(15, 15)
+        grdSearch.Controls.Add(HeaderCheckBox)
+        ResetHeaderCheckBoxLocation(0, -1)
+    End Sub
+
+    Private Sub HeaderCheckBox_Clicked(ByVal sender As Object, ByVal e As EventArgs)
+        'Necessary to end the edit mode of the Cell.
+        grdSearch.EndEdit()
+
+        'Loop and check and uncheck all row CheckBoxes based on Header Cell CheckBox.
+        For Each row As DataGridViewRow In grdSearch.Rows
+            Dim checkBox As DataGridViewCheckBoxCell = (TryCast(row.Cells("chkBxSelect"), DataGridViewCheckBoxCell))
+            checkBox.Value = HeaderCheckBox.Checked
+        Next
+    End Sub
+
+    Public Sub GridBindCheckBox(ByVal cnt As DataGridView, ByVal qry As String)
+        '' Common Function to Bind a DataGrid
+        Try
+            Dim ds1 As DataSet
+            ds1 = comFun.FillDataSet(qry)
+            'GetDataSource(ds1.Tables(0))
+            cnt.DataSource = ds1.Tables(0)
+            'cnt.DataSource = GetDataSource(ds1)
+
+            TotalCheckBoxes = cnt.RowCount
+            TotalCheckedCheckBoxes = 0
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "Error GridBind")
+        End Try
+    End Sub
+
+    Private Function GetDataSource(ds1 As DataSet) As DataTable
+        Dim dTable As DataTable = New DataTable()
+        Dim dRow As DataRow = Nothing
+        Dim rnd As Random = New Random()
+        dTable.Columns.Add("IsChecked", System.Type.[GetType]("System.Boolean"))
+        dTable.Columns.Add("BARCODE")
+        dTable.Columns.Add("ITEM NAME")
+        dTable.Columns.Add("MRP")
+        dTable.Columns.Add("RATE")
+        dTable.Columns.Add("BRAND")
+        dTable.Columns.Add("CATEGORY")
+
+        For n As Integer = 0 To ds1.Tables(0).Rows.Count - 1
+            dRow = dTable.NewRow()
+            dRow("IsChecked") = "false"
+            dRow("BARCODE") = ds1.Tables(0).Rows(n)("BARCODE")
+            dRow("ITEM NAME") = ds1.Tables(0).Rows(n)("ITEM NAME")
+            dRow("MRP") = ds1.Tables(0).Rows(n)("MRP")
+            dRow("RATE") = ds1.Tables(0).Rows(n)("RATE")
+            dRow("BRAND") = ds1.Tables(0).Rows(n)("BRAND")
+            dRow("CATEGORY") = ds1.Tables(0).Rows(n)("CATEGORY")
+            dTable.Rows.Add(dRow)
+            dTable.AcceptChanges()
+        Next
+
+        Return dTable
+    End Function
+
+    Private Sub HeaderCheckBox_MouseClick(ByVal sender As Object, ByVal e As MouseEventArgs)
+        HeaderCheckBoxClick(CType(sender, CheckBox))
+    End Sub
+
+    Private Sub HeaderCheckBox_KeyUp(ByVal sender As Object, ByVal e As KeyEventArgs)
+        If e.KeyCode = Keys.Space Then HeaderCheckBoxClick(CType(sender, CheckBox))
+    End Sub
+
+    Private Sub HeaderCheckBoxClick(ByVal HCheckBox As CheckBox)
+        IsHeaderCheckBoxClicked = True
+
+        For Each Row As DataGridViewRow In grdSearch.Rows
+            CType(Row.Cells("chkBxSelect"), DataGridViewCheckBoxCell).Value = HCheckBox.Checked
+        Next
+
+        grdSearch.RefreshEdit()
+        TotalCheckedCheckBoxes = If(HCheckBox.Checked, TotalCheckBoxes, 0)
+        IsHeaderCheckBoxClicked = False
+    End Sub
+
+    Private Sub grdSearch_CellClick(ByVal sender As Object, ByVal e As DataGridViewCellEventArgs) Handles grdSearch.CellClick
+        'grdSearch.EditMode = True
+
+        'Check to ensure that the row CheckBox is clicked.
+        If e.RowIndex >= 0 AndAlso e.ColumnIndex = 0 Then
+            RowCheckBoxClick(CType(grdSearch(e.ColumnIndex, e.RowIndex), DataGridViewCheckBoxCell))
+
+            'Loop to verify whether all row CheckBoxes are checked or not.
+            'Dim isChecked As Boolean = False
+            'For Each row As DataGridViewRow In grdSearch.Rows
+            '    If Convert.ToBoolean(row.Cells("chkBxSelect").Value) = True Then
+            '        If (TotalCheckedCheckBoxes <> grdSearch.Rows.Count) Then
+            '            RowCheckBoxClick(CType(grdSearch(e.ColumnIndex, e.RowIndex), DataGridViewCheckBoxCell))
+            '        End If
+            '        Exit For
+            '    ElseIf Convert.ToBoolean(row.Cells("chkBxSelect").Value) = False Then
+            '        RowCheckBoxClick(CType(grdSearch(e.ColumnIndex, e.RowIndex), DataGridViewCheckBoxCell))
+            '        Exit For
+            '    End If
+            'Next
+            'HeaderCheckBox.Checked = isChecked
+        End If
+        'grdSearch.EditMode = False
+
+    End Sub
+
+    Public Sub FormatGrid(ByVal grd As DataGridView)
+        grd.BackgroundColor = Color.White
+        grd.RowsDefaultCellStyle.SelectionBackColor = Color.LightGray
+        grd.RowsDefaultCellStyle.SelectionForeColor = Color.Blue
+        grd.RowHeadersDefaultCellStyle.SelectionBackColor = Color.LightGray
+        grd.RowHeadersDefaultCellStyle.BackColor = Color.LightSteelBlue
+        grd.RowHeadersDefaultCellStyle.SelectionForeColor = Color.Black
+        grd.RowHeadersWidth = 20
+        grd.ColumnHeadersHeight = 20
+        grd.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing
+        grd.ColumnHeadersDefaultCellStyle.BackColor = Color.LightSteelBlue
+        grd.AllowUserToResizeColumns = False
+        grd.SelectionMode = DataGridViewSelectionMode.FullRowSelect
+        grd.MultiSelect = True
     End Sub
 
     Private Sub txtSearch_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles txtSearch.KeyDown
@@ -110,14 +249,16 @@ Public Class frm_Show_Search_RateList
     End Sub
 
     Private Sub SelectItemAndCloseForm()
-        If grdSearch.SelectedRows.Count > 0 Then
-            search_result = grdSearch.SelectedRows.Item(0).Cells(ret_column).Value
-            If Not String.IsNullOrEmpty(item_rate_column) Then
-                item_rate = grdSearch.SelectedRows.Item(0).Cells(item_rate_column).Value
-            Else
-                item_rate = 0
+        For Each Row As DataGridViewRow In grdSearch.Rows
+            If CType(Row.Cells("chkBxSelect"), DataGridViewCheckBoxCell).Value = True Then
+                search_result = search_result & Row.Cells(ret_column).Value & ","
+                If Not String.IsNullOrEmpty(item_rate_column) Then
+                    item_rate = Row.Cells(item_rate_column).Value
+                Else
+                    item_rate = 0
+                End If
             End If
-        End If
+        Next
 
         Me.Close()
     End Sub
@@ -129,7 +270,6 @@ Public Class frm_Show_Search_RateList
                 grdSearch.Focus()
             End If
         Catch ex As Exception
-
         End Try
     End Sub
 
@@ -197,7 +337,8 @@ Public Class frm_Show_Search_RateList
                 End If
 
             End If
-            comFun.GridBind(grdSearch, search_qry)
+            GridBindCheckBox(grdSearch, search_qry)
+            'comFun.GridBind(grdSearch, search_qry)
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "Error --> frmCommon_Search_Load")
 
@@ -210,7 +351,6 @@ Public Class frm_Show_Search_RateList
             search_result = -1
             Me.Close()
         Catch ex As Exception
-
         End Try
     End Sub
 
@@ -230,15 +370,27 @@ Public Class frm_Show_Search_RateList
                 SelectItemAndCloseForm()
             End If
         Catch ex As Exception
-
+            MessageBox.Show(ex.Message())
         End Try
     End Sub
 
     Private Sub grdSearch_DoubleClick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles grdSearch.DoubleClick
         Try
-            SelectItemAndCloseForm()
-        Catch ex As Exception
+            'SelectItemAndCloseForm()
+            If grdSearch.SelectedRows.Count > 0 Then
+                search_result = grdSearch.SelectedRows.Item(0).Cells(ret_column).Value
+                If Not String.IsNullOrEmpty(item_rate_column) Then
+                    item_rate = grdSearch.SelectedRows.Item(0).Cells(item_rate_column).Value
+                Else
+                    item_rate = 0
+                End If
+                Me.Close()
+            Else
+                search_result = -1
+                Me.Close()
+            End If
 
+        Catch ex As Exception
         End Try
     End Sub
 
@@ -249,7 +401,6 @@ Public Class frm_Show_Search_RateList
                 Me.Close()
             End If
         Catch ex As Exception
-
         End Try
     End Sub
 
@@ -337,7 +488,8 @@ Public Class frm_Show_Search_RateList
                 End If
 
             End If
-            comFun.GridBind(grdSearch, search_qry)
+            GridBindCheckBox(grdSearch, search_qry)
+            'comFun.GridBind(grdSearch, search_qry)
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "Error --> frmCommon_Search_Load")
 
@@ -419,7 +571,8 @@ Public Class frm_Show_Search_RateList
                 End If
 
             End If
-            comFun.GridBind(grdSearch, search_qry)
+            GridBindCheckBox(grdSearch, search_qry)
+            'comFun.GridBind(grdSearch, search_qry)
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "Error --> frmCommon_Search_Load")
 
@@ -497,7 +650,8 @@ Public Class frm_Show_Search_RateList
                 End If
 
             End If
-            comFun.GridBind(grdSearch, search_qry)
+            GridBindCheckBox(grdSearch, search_qry)
+            'comFun.GridBind(grdSearch, search_qry)
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "Error --> frmCommon_Search_Load")
 
@@ -575,39 +729,50 @@ Public Class frm_Show_Search_RateList
                 End If
 
             End If
-            comFun.GridBind(grdSearch, search_qry)
+            GridBindCheckBox(grdSearch, search_qry)
+            'comFun.GridBind(grdSearch, search_qry)
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "Error --> frmCommon_Search_Load")
 
         End Try
     End Sub
 
-    'Private Sub HeaderCheckBox_Clicked(ByVal sender As Object, ByVal e As EventArgs)
-    '    'Necessary to end the edit mode of the Cell.
-    '    grdSearch.EndEdit()
+    Private Sub grdSearch_CellValueChanged(sender As Object, e As DataGridViewCellEventArgs) Handles grdSearch.CellValueChanged
+        'If Not IsHeaderCheckBoxClicked Then RowCheckBoxClick(CType(grdSearch(e.ColumnIndex, e.RowIndex), DataGridViewCheckBoxCell))
+    End Sub
 
-    '    'Loop and check and uncheck all row CheckBoxes based on Header Cell CheckBox.
-    '    For Each row As DataGridViewRow In grdSearch.Rows
-    '        Dim checkBox As DataGridViewCheckBoxCell = (TryCast(row.Cells("checkBoxColumn"), DataGridViewCheckBoxCell))
-    '        checkBox.Value = headerCheckBox.Checked
-    '    Next
-    'End Sub
+    Private Sub grdSearch_CurrentCellDirtyStateChanged(sender As Object, e As EventArgs) Handles grdSearch.CurrentCellDirtyStateChanged
+        If TypeOf grdSearch.CurrentCell Is DataGridViewCheckBoxCell Then grdSearch.CommitEdit(DataGridViewDataErrorContexts.Commit)
+    End Sub
 
-    'Private Sub DataGridView_CellClick(ByVal sender As Object, ByVal e As DataGridViewCellEventArgs)
-    '    'Check to ensure that the row CheckBox is clicked.
-    '    If e.RowIndex >= 0 AndAlso e.ColumnIndex = 0 Then
+    Private Sub grdSearch_CellPainting(sender As Object, e As DataGridViewCellPaintingEventArgs) Handles grdSearch.CellPainting
+        If e.RowIndex = -1 AndAlso e.ColumnIndex = 0 Then ResetHeaderCheckBoxLocation(e.ColumnIndex, e.RowIndex)
+    End Sub
 
-    '        'Loop to verify whether all row CheckBoxes are checked or not.
-    '        Dim isChecked As Boolean = True
-    '        For Each row As DataGridViewRow In grdSearch.Rows
-    '            If Convert.ToBoolean(row.Cells("checkBoxColumn").EditedFormattedValue) = False Then
-    '                isChecked = False
-    '                Exit For
-    '            End If
-    '        Next
+    Private Sub ResetHeaderCheckBoxLocation(ByVal ColumnIndex As Integer, ByVal RowIndex As Integer)
+        Dim oRectangle As Rectangle = grdSearch.GetCellDisplayRectangle(ColumnIndex, RowIndex, True)
+        Dim oPoint As Point = New Point()
+        oPoint.X = oRectangle.Location.X + (oRectangle.Width - HeaderCheckBox.Width) / 2 + 1
+        oPoint.Y = oRectangle.Location.Y + (oRectangle.Height - HeaderCheckBox.Height) / 2 + 1
+        HeaderCheckBox.Location = oPoint
+    End Sub
 
-    '        headerCheckBox.Checked = isChecked
-    '    End If
-    'End Sub
+    Private Sub RowCheckBoxClick(ByVal RCheckBox As DataGridViewCheckBoxCell)
+        If RCheckBox IsNot Nothing Then
+            If CBool(RCheckBox.Value) AndAlso TotalCheckedCheckBoxes < TotalCheckBoxes Then
+                TotalCheckedCheckBoxes += 1
+            ElseIf CBool(RCheckBox.Value) = False AndAlso TotalCheckedCheckBoxes < TotalCheckBoxes Then
+                TotalCheckedCheckBoxes -= 1
+            ElseIf TotalCheckedCheckBoxes > 0 Then
+                TotalCheckedCheckBoxes -= 1
+            End If
+
+            If TotalCheckedCheckBoxes < TotalCheckBoxes Then
+                HeaderCheckBox.Checked = False
+            ElseIf TotalCheckedCheckBoxes = TotalCheckBoxes Then
+                HeaderCheckBox.Checked = True
+            End If
+        End If
+    End Sub
 
 End Class
