@@ -798,15 +798,26 @@ Public Class frm_Show_Search_RateList
         End If
     End Sub
 
-    Private Sub grdSearch_KeyPress(sender As Object, e As KeyPressEventArgs) Handles grdSearch.KeyPress
-        Try
-            If e.KeyChar = Microsoft.VisualBasic.ChrW(Keys.Return) Then
-                SendKeys.Send("{TAB}")
-                e.Handled = True
+    'Private Sub grdSearch_KeyPress(sender As Object, e As KeyPressEventArgs) Handles grdSearch.KeyPress
+    '    Try
+    '        If e.KeyChar = Microsoft.VisualBasic.ChrW(Keys.Return) Then
+    '            SendKeys.Send("{TAB}")
+    '            e.Handled = True
+    '        End If
+    '    Catch ex As Exception
+    '        MessageBox.Show(ex.Message())
+    '    End Try
+    'End Sub
+
+    Private Sub grdSearch_KeyPress(ByVal sender As Object, ByVal e As KeyPressEventArgs)
+        If e.KeyChar = Microsoft.VisualBasic.ChrW(Keys.Return) Then
+            Dim index As Integer = grdSearch.CurrentRow.Index
+            If index < grdSearch.Rows.Count - 1 Then
+                grdSearch.CurrentCell = grdSearch.Rows(index + 1).Cells(0)
+            Else
+                grdSearch.CurrentCell = grdSearch.Rows(0).Cells(0)
             End If
-        Catch ex As Exception
-            MessageBox.Show(ex.Message())
-        End Try
+        End If
     End Sub
 
 End Class
