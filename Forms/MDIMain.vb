@@ -67,7 +67,7 @@ Public Class MDIMain
                             startInfo.Arguments = "header.h"
                             Process.Start(startInfo)
                         Catch ex As Exception
-                            MsgBox("First Configure Account Modul.", MsgBoxStyle.Information Or MsgBoxStyle.OkOnly, gblMessageHeading)
+                            MsgBox("First Configure Account Module.", MsgBoxStyle.Information Or MsgBoxStyle.OkOnly, gblMessageHeading)
                         End Try
                     Case UCase("BackupDB")
                         tbp.Text = "System Backup"

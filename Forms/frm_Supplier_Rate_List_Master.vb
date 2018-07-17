@@ -19,8 +19,8 @@ Public Class frm_Supplier_Rate_List_Master
     Dim int_ColumnIndex As Integer
     Dim txtQuanity As TextBox
     Dim int_RowIndex As Integer
-
     Dim _rights As Form_Rights
+
     Public Sub New(ByVal rights As Form_Rights)
         _rights = rights
         InitializeComponent()
@@ -78,6 +78,7 @@ Public Class frm_Supplier_Rate_List_Master
             MsgBox(ex.Message, MsgBoxStyle.Critical, "Error refreshClick --> frm_Supplier_master")
         End Try
     End Sub
+
     Private Function Validation() As Boolean
         Validation = True
         If Trim(txtSupName.Text) = "" Then
@@ -101,6 +102,7 @@ Public Class frm_Supplier_Rate_List_Master
             Exit Function
         End If
     End Function
+
     Private Function Chk_DuplicateRateListName() As Boolean
         Dim qry As String
         Chk_DuplicateRateListName = True
@@ -417,6 +419,7 @@ Public Class frm_Supplier_Rate_List_Master
     Private Sub txtQuanity_KeyDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs)
 
     End Sub
+
     Private Sub cmbItems_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Dim drv As DataRowView
         Dim IsInsert As Boolean
@@ -548,6 +551,7 @@ Public Class frm_Supplier_Rate_List_Master
     Private Sub grdSupplier_DataError(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewDataErrorEventArgs) Handles grdSupplier.DataError
         e.ThrowException = False
     End Sub
+
     Sub NumericValuegrd_supplier(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyPressEventArgs)
 
         Dim colindex As Decimal = grdSupplier.CurrentCell.ColumnIndex
@@ -611,21 +615,23 @@ Public Class frm_Supplier_Rate_List_Master
 
                     'frm_Show_search.ShowDialog()
 
-                    frm_Show_Search_RateList.qry = " SELECT  top 50 im.ITEM_ID ,
-		                                ISNULL(im.BarCode_vch, '') AS BARCODE ,
+
+                    frm_Show_Search_RateList.qry = " SELECT  top 50                                         
+                                        ISNULL(im.BarCode_vch, '') AS BARCODE ,
                                         im.ITEM_NAME AS [ITEM NAME] ,
                                         im.MRP_Num AS MRP ,
                                         CAST(im.sale_rate AS NUMERIC(18, 2)) AS RATE ,
                                         ISNULL(litems.LabelItemName_vch, '') AS BRAND ,
-                                        ic.ITEM_CAT_NAME AS CATEGORY
-                                        FROM      Item_master im
+                                        ic.ITEM_CAT_NAME AS CATEGORY,
+                                        im.ITEM_ID
+                                        FROM  Item_master im
                                         LEFT OUTER JOIN item_detail id ON im.item_id = id.item_id
                                         LEFT OUTER JOIN dbo.ITEM_CATEGORY ic ON im.ITEM_CATEGORY_ID = ic.ITEM_CAT_ID
                                         LEFT OUTER JOIN dbo.LabelItem_Mapping lim ON lim.Fk_ItemId_Num = im.ITEM_ID
                                         LEFT OUTER JOIN dbo.Label_Items litems ON lim.Fk_LabelDetailId = litems.Pk_LabelDetailId_Num
-                                        WHERE   id.Is_active = 1 "
+                                        WHERE id.Is_active = 1 "
 
-
+                    'frm_Show_Search_RateList.checkbox_column_name = "chkBxSelect"
                     frm_Show_Search_RateList.column_name = "BARCODE_VCH"
                     frm_Show_Search_RateList.column_name1 = "ITEM_NAME"
                     frm_Show_Search_RateList.column_name2 = "MRP_Num"
@@ -645,66 +651,64 @@ Public Class frm_Supplier_Rate_List_Master
                 End If
             End If
         Catch ex As Exception
-
+            MessageBox.Show(ex.Message())
         End Try
     End Sub
 
     Public Sub get_row(ByVal item_id As String)
 
-        Dim IsInsert As Boolean
-        Dim ds As DataSet
+        'Dim result() As String = Split(item_id, ",")
         If item_id <> -1 Then
-            ds = obj.fill_Data_set("GET_ITEM_BY_ID", "@V_ITEM_ID", item_id)
-            Dim iRowCount As Int32
-            Dim iRow As Int32
-            iRowCount = grdSupplier.RowCount
-            IsInsert = True
+            Dim stringSeparators() As String = {","}
+            Dim result() As String
+            result = item_id.Split(stringSeparators, StringSplitOptions.RemoveEmptyEntries)
 
-            For iRow = 0 To iRowCount - 2
+            Dim IsInsert As Boolean
+            Dim ds As DataSet
 
-                If Trim(grdSupplier.Item("Item_Code", iRow).Value) = Trim(ds.Tables(0).Rows(0)(1)) Then
-                    MsgBox("Item Already Exist", MsgBoxStyle.Exclamation, gblMessageHeading)
-                    IsInsert = False
-                    Exit For
+            For Each element As String In result
+                ds = obj.fill_Data_set("GET_ITEM_BY_ID", "@V_ITEM_ID", element)
+                Dim iRowCount As Int32
+                Dim iRow As Int32
+                iRowCount = grdSupplier.RowCount
+                IsInsert = True
+
+                For iRow = 0 To iRowCount - 2
+
+                    If Trim(grdSupplier.Item("Item_Code", iRow).Value) = Trim(ds.Tables(0).Rows(0)(1)) Then
+                        MsgBox("Item Already Exist", MsgBoxStyle.Exclamation, gblMessageHeading)
+                        IsInsert = False
+                        Exit For
+                    End If
+                Next iRow
+                Dim datatbl As New DataTable
+                datatbl = ds.Tables(0)
+
+
+                If IsInsert = True Then
+                    Dim introw As Integer
+
+                    introw = grdSupplier.Rows.Count - 1
+                    grdSupplier.Rows.Insert(introw)
+                    grdSupplier.Rows(introw).Cells("Item_ID").Value = ds.Tables(0).Rows(0)(0)
+                    grdSupplier.Rows(introw).Cells("Item_CODE").Value = ds.Tables(0).Rows(0)("item_Code").ToString()
+                    grdSupplier.Rows(introw).Cells("Item_Name").Value = ds.Tables(0).Rows(0)("item_Name").ToString()
+
+                    grdSupplier.Rows(introw).Cells("UOM").Value = ds.Tables(0).Rows(0)("UM_NAME").ToString()
+                    grdSupplier.Rows(introw).Cells("gst").Value = ds.Tables(0).Rows(0)("VAT_PERCENTAGE").ToString()
+                    grdSupplier.Rows(introw).Cells("rate").Value = 0
+                    grdSupplier.Rows(introw).Cells("Selling_Rate").Value = ""
+
+
                 End If
-            Next iRow
-            Dim datatbl As New DataTable
-            datatbl = ds.Tables(0)
+            Next
 
-
-            If IsInsert = True Then
-                Dim introw As Integer
-
-                introw = grdSupplier.Rows.Count - 1
-                grdSupplier.Rows.Insert(introw)
-                grdSupplier.Rows(introw).Cells("Item_ID").Value = ds.Tables(0).Rows(0)(0)
-                grdSupplier.Rows(introw).Cells("Item_CODE").Value = ds.Tables(0).Rows(0)("item_Code").ToString()
-                grdSupplier.Rows(introw).Cells("Item_Name").Value = ds.Tables(0).Rows(0)("item_Name").ToString()
-
-                grdSupplier.Rows(introw).Cells("UOM").Value = ds.Tables(0).Rows(0)("UM_NAME").ToString()
-                grdSupplier.Rows(introw).Cells("gst").Value = ds.Tables(0).Rows(0)("VAT_PERCENTAGE").ToString()
-                grdSupplier.Rows(introw).Cells("rate").Value = 0
-                grdSupplier.Rows(introw).Cells("Selling_Rate").Value = ""
-
-
-            End If
         End If
-        'ds = obj.
+
     End Sub
 
     Private Sub grdSupplier_CellEnter(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles grdSupplier.CellEnter
         int_ColumnIndex = e.ColumnIndex
-    End Sub
-
-    Private Sub grdSupplierList_CellDoubleClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles grdSupplierList.CellDoubleClick
-        If e.RowIndex <> -1 Then
-            SRL_ID = grdSupplierList.Rows(e.RowIndex).Cells("SRL_ID").Value
-            getSupplierDetail(SRL_ID)
-            TabControl1.SelectTab(1)
-
-        Else
-            SRL_ID = 0
-        End If
     End Sub
 
     Private Sub txtSearch_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtSearch.TextChanged

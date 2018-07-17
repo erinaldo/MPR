@@ -665,42 +665,49 @@ Public Class frm_Customer_Rate_List_Master
 
     Public Sub get_row(ByVal item_id As String)
 
-        Dim IsInsert As Boolean
-        Dim ds As DataSet
         If item_id <> -1 Then
-            ds = obj.fill_Data_set("GET_ITEM_BY_ID", "@V_ITEM_ID", item_id)
-            Dim iRowCount As Int32
-            Dim iRow As Int32
-            iRowCount = grdSupplier.RowCount
-            IsInsert = True
+            Dim stringSeparators() As String = {","}
+            Dim result() As String
+            result = item_id.Split(stringSeparators, StringSplitOptions.RemoveEmptyEntries)
 
-            For iRow = 0 To iRowCount - 2
+            Dim IsInsert As Boolean
+            Dim ds As DataSet
+            'If item_id <> -1 Then
+            For Each element As String In result
+                ds = obj.fill_Data_set("GET_ITEM_BY_ID", "@V_ITEM_ID", element)
+                Dim iRowCount As Int32
+                Dim iRow As Int32
+                iRowCount = grdSupplier.RowCount
+                IsInsert = True
 
-                If Trim(grdSupplier.Item("Item_Code", iRow).Value) = Trim(ds.Tables(0).Rows(0)(1)) Then
-                    MsgBox("Item Already Exist", MsgBoxStyle.Exclamation, gblMessageHeading)
-                    IsInsert = False
-                    Exit For
+                For iRow = 0 To iRowCount - 2
+
+                    If Trim(grdSupplier.Item("Item_Code", iRow).Value) = Trim(ds.Tables(0).Rows(0)(1)) Then
+                        MsgBox("Item Already Exist", MsgBoxStyle.Exclamation, gblMessageHeading)
+                        IsInsert = False
+                        Exit For
+                    End If
+                Next iRow
+                Dim datatbl As New DataTable
+                datatbl = ds.Tables(0)
+
+
+                If IsInsert = True Then
+                    Dim introw As Integer
+
+                    introw = grdSupplier.Rows.Count - 1
+                    grdSupplier.Rows.Insert(introw)
+                    grdSupplier.Rows(introw).Cells("Item_ID").Value = ds.Tables(0).Rows(0)(0)
+                    grdSupplier.Rows(introw).Cells("Item_CODE").Value = ds.Tables(0).Rows(0)("item_Code").ToString()
+                    grdSupplier.Rows(introw).Cells("Item_Name").Value = ds.Tables(0).Rows(0)("item_Name").ToString()
+
+                    grdSupplier.Rows(introw).Cells("UOM").Value = ds.Tables(0).Rows(0)("UM_NAME").ToString()
+                    grdSupplier.Rows(introw).Cells("gst").Value = ds.Tables(0).Rows(0)("VAT_PERCENTAGE").ToString()
+                    grdSupplier.Rows(introw).Cells("rate").Value = 0
+                    grdSupplier.Rows(introw).Cells("Selling_Rate").Value = ""
+
                 End If
-            Next iRow
-            Dim datatbl As New DataTable
-            datatbl = ds.Tables(0)
-
-
-            If IsInsert = True Then
-                Dim introw As Integer
-
-                introw = grdSupplier.Rows.Count - 1
-                grdSupplier.Rows.Insert(introw)
-                grdSupplier.Rows(introw).Cells("Item_ID").Value = ds.Tables(0).Rows(0)(0)
-                grdSupplier.Rows(introw).Cells("Item_CODE").Value = ds.Tables(0).Rows(0)("item_Code").ToString()
-                grdSupplier.Rows(introw).Cells("Item_Name").Value = ds.Tables(0).Rows(0)("item_Name").ToString()
-
-                grdSupplier.Rows(introw).Cells("UOM").Value = ds.Tables(0).Rows(0)("UM_NAME").ToString()
-                grdSupplier.Rows(introw).Cells("gst").Value = ds.Tables(0).Rows(0)("VAT_PERCENTAGE").ToString()
-                grdSupplier.Rows(introw).Cells("rate").Value = 0
-                grdSupplier.Rows(introw).Cells("Selling_Rate").Value = ""
-
-            End If
+            Next
         End If
         'ds = obj.
     End Sub
