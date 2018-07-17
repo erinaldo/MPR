@@ -301,12 +301,13 @@ Partial Class frm_Material_Received_Without_PO_Master
         '
         'btnPrintBarCode
         '
-        Me.btnPrintBarCode.Location = New System.Drawing.Point(746, 481)
+        Me.btnPrintBarCode.BackColor = System.Drawing.Color.IndianRed
+        Me.btnPrintBarCode.Location = New System.Drawing.Point(750, 481)
         Me.btnPrintBarCode.Name = "btnPrintBarCode"
         Me.btnPrintBarCode.Size = New System.Drawing.Size(128, 30)
         Me.btnPrintBarCode.TabIndex = 3
         Me.btnPrintBarCode.Text = "Print MRN Bar Code"
-        Me.btnPrintBarCode.UseVisualStyleBackColor = True
+        Me.btnPrintBarCode.UseVisualStyleBackColor = False
         '
         'BtnRevisedMRN
         '
