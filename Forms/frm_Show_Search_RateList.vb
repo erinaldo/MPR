@@ -22,6 +22,7 @@ Public Class frm_Show_Search_RateList
     Public cols_width As String = ""
     Public cols_no_for_width As String = ""
 
+
     Dim TotalCheckBoxes As Integer = 0
     Dim TotalCheckedCheckBoxes As Integer = 0
     Dim HeaderCheckBox As CheckBox = Nothing
