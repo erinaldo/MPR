@@ -247,6 +247,7 @@ Public Class frm_Show_Search_RateList
     End Sub
 
     Private Sub SelectItemAndCloseForm()
+
         For Each Row As DataGridViewRow In grdSearch.Rows
             If CType(Row.Cells("chkBxSelect"), DataGridViewCheckBoxCell).Value = True Then
                 search_result = search_result & Row.Cells(ret_column).Value & ","
@@ -258,7 +259,23 @@ Public Class frm_Show_Search_RateList
             End If
         Next
 
-        Me.Close()
+        If String.IsNullOrEmpty(search_result) Then
+            If grdSearch.SelectedRows.Count > 0 Then
+                search_result = grdSearch.SelectedRows.Item(0).Cells(ret_column).Value
+                If Not String.IsNullOrEmpty(item_rate_column) Then
+                    item_rate = grdSearch.SelectedRows.Item(0).Cells(item_rate_column).Value
+                Else
+                    item_rate = 0
+                End If
+                Me.Close()
+            Else
+                search_result = -1
+                Me.Close()
+            End If
+        Else
+            Me.Close()
+        End If
+
     End Sub
 
     Private Sub txtSearch_KeyUp(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles txtSearch.KeyUp
@@ -354,7 +371,9 @@ Public Class frm_Show_Search_RateList
 
     Private Sub grdSearch_KeyUp(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles grdSearch.KeyUp
         Try
-            If e.KeyCode = Keys.Enter Then
+            If e.KeyCode = Keys.Enter AndAlso TotalCheckedCheckBoxes = grdSearch.RowCount Then
+                SelectItemAndCloseForm()
+            Else
                 SelectItemAndCloseForm()
             End If
         Catch ex As Exception
@@ -364,7 +383,13 @@ Public Class frm_Show_Search_RateList
 
     Private Sub grdSearch_KeyDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles grdSearch.KeyDown
         Try
-            If e.KeyCode = Keys.Enter Then
+            If e.KeyCode = Keys.Enter AndAlso TotalCheckedCheckBoxes = grdSearch.RowCount Then
+                'Dim abc As Integer = grdSearch.Rows.Count - 1
+                'grdSearch.Rows(abc).Cells(0).Selected = True
+                'grdSearch.Select()
+
+                SelectItemAndCloseForm()
+            Else
                 SelectItemAndCloseForm()
             End If
         Catch ex As Exception
@@ -771,6 +796,17 @@ Public Class frm_Show_Search_RateList
                 HeaderCheckBox.Checked = True
             End If
         End If
+    End Sub
+
+    Private Sub grdSearch_KeyPress(sender As Object, e As KeyPressEventArgs) Handles grdSearch.KeyPress
+        Try
+            If e.KeyChar = Microsoft.VisualBasic.ChrW(Keys.Return) Then
+                SendKeys.Send("{TAB}")
+                e.Handled = True
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message())
+        End Try
     End Sub
 
 End Class

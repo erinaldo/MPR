@@ -715,7 +715,7 @@ Public Class frm_Supplier_Rate_List_Master
         obj.GridBind(grdSupplierList, "SELECT SUPPLIER_RATE_LIST.SRL_ID,SUPPLIER_RATE_LIST.SRL_NAME,SUPPLIER_RATE_LIST.SRL_DATE,SUPPLIER_RATE_LIST.SRL_DESC,SUPPLIER_RATE_LIST.ACTIVE,ACCOUNT_MASTER.ACC_NAME,ACCOUNT_MASTER.ACC_ID FROM SUPPLIER_RATE_LIST INNER JOIN ACCOUNT_MASTER ON SUPPLIER_RATE_LIST.SUPP_ID = ACCOUNT_MASTER.ACC_ID WHERE AG_ID=2 and (dbo.SUPPLIER_RATE_LIST.SRL_NAME + CONVERT(VARCHAR,SUPPLIER_RATE_LIST.SRL_DATE,101) + dbo.SUPPLIER_RATE_LIST.SRL_DESC + dbo.ACCOUNT_MASTER.ACC_NAME) LIKE '%" & Trim(txtSearch.Text) & "%'")
     End Sub
 
-    Private Sub grdSupplier_CellEndEdit(sender As Object, e As DataGridViewCellEventArgs) Handles grdSupplier.CellEndEdit
+    Private Sub grdSupplier_CellEndEdit(sender As Object, e As DataGridViewCellEventArgs) Handles grdSupplier.CellEndEdit, grdSupplierList.CellEndEdit
         Dim value As String = grdSupplier.Rows(e.RowIndex).Cells(e.ColumnIndex).Value
         If Not String.IsNullOrEmpty(value) Then
             Dim sellingPrice As Decimal = value
@@ -727,5 +727,16 @@ Public Class frm_Supplier_Rate_List_Master
     Private Sub grdSupplierList_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles grdSupplierList.CellContentClick
 
     End Sub
+
+    Private Sub grdSupplierList_CellDoubleClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles grdSupplierList.CellDoubleClick
+        If e.RowIndex <> -1 Then
+            SRL_ID = grdSupplierList.Rows(e.RowIndex).Cells("SRL_ID").Value
+            getSupplierDetail(SRL_ID)
+            TabControl1.SelectTab(1)
+        Else
+            SRL_ID = 0
+        End If
+    End Sub
+
 
 End Class

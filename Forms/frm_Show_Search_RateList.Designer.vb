@@ -24,6 +24,7 @@ Partial Class frm_Show_Search_RateList
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frm_Show_Search_RateList))
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.grdSearch = New System.Windows.Forms.DataGridView()
+        Me.chkBxSelect = New System.Windows.Forms.DataGridViewCheckBoxColumn()
         Me.gpAdvanceSearch = New System.Windows.Forms.GroupBox()
         Me.btnExit = New System.Windows.Forms.Button()
         Me.lblItem = New System.Windows.Forms.Label()
@@ -36,7 +37,6 @@ Partial Class frm_Show_Search_RateList
         Me.cmbCategory = New System.Windows.Forms.ComboBox()
         Me.lblBrand = New System.Windows.Forms.Label()
         Me.cmbBrand = New System.Windows.Forms.ComboBox()
-        Me.chkBxSelect = New System.Windows.Forms.DataGridViewCheckBoxColumn()
         Me.Panel1.SuspendLayout()
         CType(Me.grdSearch, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.gpAdvanceSearch.SuspendLayout()
@@ -81,6 +81,16 @@ Partial Class frm_Show_Search_RateList
         Me.grdSearch.ScrollBars = System.Windows.Forms.ScrollBars.None
         Me.grdSearch.Size = New System.Drawing.Size(790, 237)
         Me.grdSearch.TabIndex = 5
+        '
+        'chkBxSelect
+        '
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.NullValue = False
+        Me.chkBxSelect.DefaultCellStyle = DataGridViewCellStyle2
+        Me.chkBxSelect.Frozen = True
+        Me.chkBxSelect.HeaderText = ""
+        Me.chkBxSelect.Name = "chkBxSelect"
+        Me.chkBxSelect.Width = 20
         '
         'gpAdvanceSearch
         '
@@ -217,16 +227,6 @@ Partial Class frm_Show_Search_RateList
         Me.cmbBrand.Name = "cmbBrand"
         Me.cmbBrand.Size = New System.Drawing.Size(329, 21)
         Me.cmbBrand.TabIndex = 0
-        '
-        'chkBxSelect
-        '
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.NullValue = False
-        Me.chkBxSelect.DefaultCellStyle = DataGridViewCellStyle2
-        Me.chkBxSelect.Frozen = True
-        Me.chkBxSelect.HeaderText = ""
-        Me.chkBxSelect.Name = "chkBxSelect"
-        Me.chkBxSelect.Width = 20
         '
         'frm_Show_Search_RateList
         '
