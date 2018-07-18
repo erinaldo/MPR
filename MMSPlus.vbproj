@@ -307,6 +307,18 @@
     <Compile Include="Forms\frm_Show_Search_RateList.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="ReportsForms\frm_CashBook.Designer.vb">
+      <DependentUpon>frm_CashBook.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ReportsForms\frm_CashBook.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ReportsForms\frm_DayBook.Designer.vb">
+      <DependentUpon>frm_DayBook.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ReportsForms\frm_DayBook.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="ReportsForms\frm_MRN_Print_Barcode.Designer.vb">
       <DependentUpon>frm_MRN_Print_Barcode.vb</DependentUpon>
     </Compile>
@@ -824,6 +836,18 @@
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\CryCashBook.vb">
+      <DependentUpon>CryCashBook.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reports\CryDayBook.vb">
+      <DependentUpon>CryDayBook.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Reports\CryCreditorsLedger.vb">
       <AutoGen>True</AutoGen>
@@ -1626,6 +1650,12 @@
     <EmbeddedResource Include="ReportsForms\frm_CreditorsLedger.resx">
       <DependentUpon>frm_CreditorsLedger.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ReportsForms\frm_CashBook.resx">
+      <DependentUpon>frm_CashBook.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportsForms\frm_DayBook.resx">
+      <DependentUpon>frm_DayBook.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ReportsForms\frm_DebtorsLedger.resx">
       <DependentUpon>frm_DebtorsLedger.vb</DependentUpon>
     </EmbeddedResource>
@@ -1782,6 +1812,14 @@
     <EmbeddedResource Include="Reports\AccountPayment.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>AccountPayment1.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\CryCashBook.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CryCashBook.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\CryDayBook.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CryDayBook.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\CryCreditorsLedger.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

@@ -40,7 +40,7 @@ Public Class MDIMain
         End If
     End Sub
 
-    Private Sub Menu_Item_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles frm_Item_Master.Click, frm_Cost_Center.Click, frm_user_master.Click, frm_user_rights.Click, frm_Approve_Indent.Click, frm_Cancel_Indent.Click, frm_Purchase_Order.Click, frm_Supplier_Rate_List_Master.Click, frm_Open_PO_Master.Click, frm_Material_Issue_To_Cost_Center_Master.Click, frm_LedgerSummary.Click, frm_MRNDetails.Click, frm_IssueDetail.Click, frm_Approve_PO.Click, frm_Cancel_PO.Click, frm_Approve_Open_PO.Click, frm_Cancel_Open_PO.Click, frm_Indent_Master.Click, frm_Wastage_Master.Click, frm_Material_Received_Without_PO_Master.Click, frm_material_rec_against_PO.Click, frm_Reverse_Wastage_Master.Click, frm_ReverseMaterial_Issue_To_Cost_Center_Master.Click, frm_ReverseMaterial_Received_Without_PO_Master.Click, frm_LedgerSummary.Click, frm_DebitNote.Click, frm_ReverseMaterial_Received_Against_PO_Master.Click, frm_ReverseMaterial.Click, ItemWiseMaterialIssueToCostCenterToolStripMenuItem.Click, CostofIssueReport.Click, ItemWiseMaterialIssueToCostCenterCatHeadWiseToolStripMenuItem.Click, frm_Item_Ledger.Click, frm_StockAdjustment.Click, frm_Item_rate_list.Click, Purchase_rpt.Click, frm_Semi_Finished_Recipe_Master.Click, frm_Recipe_Master.Click, frm_menu_item_recipe.Click, frm_define_recipe.Click, frm_Define_SemiFinished_Recipe.Click, LastPurchaseratelist.Click, frm_ListIndents.Click, ItemWiseIndentbetweenDatesCategoryHeadWiseToolStripMenuItem.Click, frm_ListIndentDetail.Click, frm_ItemWiseIndent.Click, ItemWiseMRSBetweenDatesCategoryHeadWiseToolStripMenuItem.Click, frm_MRSListMStore.Click, frm_MRSDetailMStore.Click, frm_ItemWiseMRSMStore.Click, ItemWiseWastagebetweenDatesCategoryHeadWiseToolStripMenuItem.Click, frm_WastageItemWise.Click, frm_WastageItemDetail.Click, frm_mrnItemWiseSupplier.Click, frm_ListMRNDetail.Click, frm_ListMRN_supplierwise.Click, frm_ListMRN.Click, frm_ItemWiseMRN.Click, StockValueCategoryWise.Click, frmStockValueBatchWise.Click, frmStockValue.Click, frm_MRNWithPOSUPWISEe.Click, frm_mrnPOItemWiseSupplier.Click, cmd_ListMRNwithPO.Click, cmd_ItemWiseMRNwithPO.Click, cmd_DetailMRNwithPO.Click, AllPurchaseRate.Click, NonMovingItemList.Click, frm_Sale_Invoice.Click, frmsaleInvoicesummary.Click, frmSaleInvoiceDetail.Click, frm_CreditNote.Click, frm_Customer_Rate_List_Master.Click, frm_open_invoice.Click, frm_Invoice_Settlement.Click, frm_OpenSale_Invoice.Click, frm_GatePass.Click, frm_Supplier_Invoice_Settlement.Click, frm_DebtorsOS.Click, frm_CreditorsOS.Click, frm_DebtorsLedger.Click, frm_CreditorsLedger.Click, frm_OpeningBalance.Click, frm_Journal_Entry.Click, frm_Contra_Entry.Click, frm_Expense_Entry.Click, frm_depreciation_cal.Click, frm_Accept_Stock_transfer.Click, frm_Stock_Transfer.Click, frm_GSTR1.Click, StockValueBrandWise.Click, frm_Print_Barcode.Click, BackupDB.Click, tsmAccount.Click, frm_DebitNote_WO_Items.Click, frm_CreditNote_WO_Items.Click, frm_GSTR3.Click, frm_SaleTaxRegister.Click, frm_PurchaseTaxRegister.Click, frm_BillBook.Click, frmBrandWiseSale.Click, frm_EwayBill.Click
+    Private Sub Menu_Item_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles frm_Item_Master.Click, frm_Cost_Center.Click, frm_user_master.Click, frm_user_rights.Click, frm_Approve_Indent.Click, frm_Cancel_Indent.Click, frm_Purchase_Order.Click, frm_Supplier_Rate_List_Master.Click, frm_Open_PO_Master.Click, frm_Material_Issue_To_Cost_Center_Master.Click, frm_LedgerSummary.Click, frm_MRNDetails.Click, frm_IssueDetail.Click, frm_Approve_PO.Click, frm_Cancel_PO.Click, frm_Approve_Open_PO.Click, frm_Cancel_Open_PO.Click, frm_Indent_Master.Click, frm_Wastage_Master.Click, frm_Material_Received_Without_PO_Master.Click, frm_material_rec_against_PO.Click, frm_Reverse_Wastage_Master.Click, frm_ReverseMaterial_Issue_To_Cost_Center_Master.Click, frm_ReverseMaterial_Received_Without_PO_Master.Click, frm_LedgerSummary.Click, frm_DebitNote.Click, frm_ReverseMaterial_Received_Against_PO_Master.Click, frm_ReverseMaterial.Click, ItemWiseMaterialIssueToCostCenterToolStripMenuItem.Click, CostofIssueReport.Click, ItemWiseMaterialIssueToCostCenterCatHeadWiseToolStripMenuItem.Click, frm_Item_Ledger.Click, frm_StockAdjustment.Click, frm_Item_rate_list.Click, Purchase_rpt.Click, frm_Semi_Finished_Recipe_Master.Click, frm_Recipe_Master.Click, frm_menu_item_recipe.Click, frm_define_recipe.Click, frm_Define_SemiFinished_Recipe.Click, LastPurchaseratelist.Click, frm_ListIndents.Click, ItemWiseIndentbetweenDatesCategoryHeadWiseToolStripMenuItem.Click, frm_ListIndentDetail.Click, frm_ItemWiseIndent.Click, ItemWiseMRSBetweenDatesCategoryHeadWiseToolStripMenuItem.Click, frm_MRSListMStore.Click, frm_MRSDetailMStore.Click, frm_ItemWiseMRSMStore.Click, ItemWiseWastagebetweenDatesCategoryHeadWiseToolStripMenuItem.Click, frm_WastageItemWise.Click, frm_WastageItemDetail.Click, frm_mrnItemWiseSupplier.Click, frm_ListMRNDetail.Click, frm_ListMRN_supplierwise.Click, frm_ListMRN.Click, frm_ItemWiseMRN.Click, StockValueCategoryWise.Click, frmStockValueBatchWise.Click, frmStockValue.Click, frm_MRNWithPOSUPWISEe.Click, frm_mrnPOItemWiseSupplier.Click, cmd_ListMRNwithPO.Click, cmd_ItemWiseMRNwithPO.Click, cmd_DetailMRNwithPO.Click, AllPurchaseRate.Click, NonMovingItemList.Click, frm_Sale_Invoice.Click, frmsaleInvoicesummary.Click, frmSaleInvoiceDetail.Click, frm_CreditNote.Click, frm_Customer_Rate_List_Master.Click, frm_open_invoice.Click, frm_Invoice_Settlement.Click, frm_OpenSale_Invoice.Click, frm_GatePass.Click, frm_Supplier_Invoice_Settlement.Click, OutStandingToolStripMenuItem.Click, frm_DayBook.Click, frm_DebtorsLedger1.Click, frm_CashBook.Click, frm_OpeningBalance.Click, frm_Journal_Entry.Click, frm_Contra_Entry.Click, frm_Expense_Entry.Click, frm_depreciation_cal.Click, frm_Accept_Stock_transfer.Click, frm_Stock_Transfer.Click, frm_GSTR1.Click, StockValueBrandWise.Click, frm_Print_Barcode.Click, BackupDB.Click, tsmAccount.Click, frm_DebitNote_WO_Items.Click, frm_CreditNote_WO_Items.Click, frm_GSTR3.Click, frm_SaleTaxRegister.Click, frm_PurchaseTaxRegister.Click, frm_BillBook.Click, frmBrandWiseSale.Click, frm_EwayBill.Click, frm_DebtorsOS.Click, frm_CreditorsOS.Click, frm_DebtorsLedger.Click, frm_CreditorsLedger.Click
         Dim menuItem As New ToolStripMenuItem
 
         If TypeOf sender Is ToolStripMenuItem Then
@@ -237,6 +237,14 @@ Public Class MDIMain
                         tbp.Text = "Creditors Ledger"
                         tbp.Controls.Add(New frm_CreditorsLedger(prpty_form_rights))
 
+                    Case UCase("frm_DayBook")
+                        tbp.Text = "Day Book"
+                        tbp.Controls.Add(New frm_DayBook(prpty_form_rights))
+
+                    Case UCase("frm_CashBook")
+                        tbp.Text = "Cash Book"
+                        tbp.Controls.Add(New frm_CashBook(prpty_form_rights))
+
                     Case UCase("frm_Accept_Stock_transfer")
                         tbp.Text = "Stock In D.N."
                         tbp.Controls.Add(New frm_Accept_stock_transfer(prpty_form_rights))
@@ -248,26 +256,32 @@ Public Class MDIMain
                     Case UCase("frm_Material_Received_Without_PO_Master")
                         tbp.Text = "MRN Without P.O."
                         tbp.Controls.Add(New frm_Material_Received_Without_PO_Master(prpty_form_rights))
+
                     Case UCase("frm_LedgerSummary")
                         tbp.Text = "Item Ledger Summary"
                         gblSelectedReportName = enmReportName.RptItemLedgerSummary
                         tbp.Controls.Add(New frm_LedgerSummary(enmReportName.RptItemLedgerSummary, prpty_form_rights))
+
                     Case UCase("frm_MRNDetails")
                         tbp.Text = "MRN Details"
                         gblSelectedReportName = enmReportName.RptMrnDetail
                         tbp.Controls.Add(New frm_MRNDetails(prpty_form_rights))
+
                     Case UCase("frm_IssueDetail")
                         tbp.Text = "Issue Details"
                         gblSelectedReportName = enmReportName.RptIssueDetail
                         tbp.Controls.Add(New frm_IssueDetail(prpty_form_rights))
+
                     Case UCase("frm_ListIndentDetail")
                         tbp.Text = "Indent Details"
                         gblSelectedReportName = enmReportName.RptIndentDetail
                         tbp.Controls.Add(New frm_LedgerSummary(enmReportName.RptIndentDetail, prpty_form_rights))
+
                     Case UCase("Frm_IndentPrintRpt")
                         tbp.Text = "Indent Print Details"
                         gblSelectedReportName = enmReportName.RptIndentPrintDetail
                         tbp.Controls.Add(New frm_LedgerSummary(enmReportName.RptIndentPrintDetail, prpty_form_rights))
+
                     Case UCase("frm_material_rec_against_PO")
                         tbp.Text = "MRN Against P.O."
                         tbp.Controls.Add(New frm_material_rec_against_PO(prpty_form_rights))
@@ -314,27 +328,35 @@ Public Class MDIMain
                     Case UCase("LastPurchaseratelist")
                         tbp.Text = "Last Purchase Rate List"
                         tbp.Controls.Add(New frmStockValue(enmReportName.RptLastpurchaserate, prpty_form_rights))
+
                     Case UCase("NonMovingItemList")
                         tbp.Text = "Non Moving Item List"
                         tbp.Controls.Add(New frm_ReportInput(enmReportName.RptNonMovingItemList, prpty_form_rights))
+
                     Case UCase("AllPurchaseRate")
                         tbp.Text = "All Items Purchase Rate List"
                         tbp.Controls.Add(New frmStockValue(enmReportName.RptAllPurchaseRate, prpty_form_rights))
+
                     Case UCase("frm_ItemWiseMRSMStore")
                         tbp.Text = "Item Wise MRS"
                         tbp.Controls.Add(New frm_ReportInput(enmReportName.RptItemwiseMrsMstore, prpty_form_rights))
+
                     Case UCase("ItemWiseMRSBetweenDatesCategoryHeadWiseToolStripMenuItem")
                         tbp.Text = "Item Wise MRS Detail Category Head Wise."
                         tbp.Controls.Add(New frm_ReportInput(enmReportName.RptMrsItemListMStoreCategoryHeadWisePrint, prpty_form_rights))
+
                     Case UCase("frm_WastageItemDetail")
                         tbp.Text = "Wastage Items Detail"
                         tbp.Controls.Add(New frm_ReportInput(enmReportName.RptWastageDetailList, prpty_form_rights))
+
                     Case UCase("frm_WastageItemWise")
                         tbp.Text = "Item Wise Wastage Detail"
                         tbp.Controls.Add(New frm_ReportInput(enmReportName.RptItemwiseWastage, prpty_form_rights))
+
                     Case UCase("ItemWiseWastagebetweenDatesCategoryHeadWiseToolStripMenuItem")
                         tbp.Text = "Item Wise Wastage Detail Category Head Wise."
                         tbp.Controls.Add(New frm_ReportInput(enmReportName.RptItemwiseWastageCategoryHeadWisePrint, prpty_form_rights))
+
                         ''''''''Wastage Detail Reports''''''''''''''''''''''''''''''''''''''''''
                     Case UCase("StockValueCategoryWise")
                         tbp.Text = "Stock Value Category Wise"
@@ -349,12 +371,15 @@ Public Class MDIMain
                     Case UCase("frm_Reverse_Wastage_Master")
                         tbp.Text = "Reverse Wastage"
                         tbp.Controls.Add(New frm_Reverse_Wastage_Master(prpty_form_rights))
+
                     Case UCase("frm_ReverseMaterial_Issue_To_Cost_Center_Master")
                         tbp.Text = " Reverse Material Issue To Cost Center"
                         tbp.Controls.Add(New frm_ReverseMaterial_Issue_To_Cost_Center_Master(prpty_form_rights))
+
                     Case UCase("frm_ReverseMaterial_Received_Without_PO_Master")
                         tbp.Text = " Reverse Material Receive Without PO"
                         tbp.Controls.Add(New frm_ReverseMaterial_Received_Without_PO_Master(prpty_form_rights))
+
                     Case UCase("frm_ReverseMaterial_Received_Against_PO_Master")
                         tbp.Text = " Reverse Material Receive Against PO"
                         tbp.Controls.Add(New frm_ReverseMaterial_Received_Against_PO_Master(prpty_form_rights))
