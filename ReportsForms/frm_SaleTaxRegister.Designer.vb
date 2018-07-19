@@ -27,12 +27,14 @@ Partial Class frm_SaleTaxRegister
         Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.GroupBox6 = New System.Windows.Forms.GroupBox()
         Me.btnGenerate = New System.Windows.Forms.Button()
-        Me.txtFromDate = New System.Windows.Forms.DateTimePicker()
-        Me.Label1 = New System.Windows.Forms.Label()
         Me.lblFormHeading = New System.Windows.Forms.Label()
         Me.btnShow = New System.Windows.Forms.Button()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.grdTaxReport = New System.Windows.Forms.DataGridView()
+        Me.txtToDate = New System.Windows.Forms.DateTimePicker()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.txtFromDate = New System.Windows.Forms.DateTimePicker()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.GroupBox6.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         CType(Me.grdTaxReport, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -40,9 +42,11 @@ Partial Class frm_SaleTaxRegister
         '
         'GroupBox6
         '
-        Me.GroupBox6.Controls.Add(Me.btnGenerate)
+        Me.GroupBox6.Controls.Add(Me.txtToDate)
+        Me.GroupBox6.Controls.Add(Me.Label2)
         Me.GroupBox6.Controls.Add(Me.txtFromDate)
         Me.GroupBox6.Controls.Add(Me.Label1)
+        Me.GroupBox6.Controls.Add(Me.btnGenerate)
         Me.GroupBox6.Controls.Add(Me.lblFormHeading)
         Me.GroupBox6.Controls.Add(Me.btnShow)
         Me.GroupBox6.ForeColor = System.Drawing.Color.White
@@ -64,28 +68,6 @@ Partial Class frm_SaleTaxRegister
         Me.btnGenerate.TabIndex = 18
         Me.btnGenerate.Text = "Generate"
         Me.btnGenerate.UseVisualStyleBackColor = False
-        '
-        'txtFromDate
-        '
-        Me.txtFromDate.CalendarForeColor = System.Drawing.Color.White
-        Me.txtFromDate.CalendarMonthBackground = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.txtFromDate.CustomFormat = "MMM-yyyy"
-        Me.txtFromDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.txtFromDate.Location = New System.Drawing.Point(274, 65)
-        Me.txtFromDate.MaxDate = New Date(2999, 12, 31, 0, 0, 0, 0)
-        Me.txtFromDate.Name = "txtFromDate"
-        Me.txtFromDate.Size = New System.Drawing.Size(142, 20)
-        Me.txtFromDate.TabIndex = 45
-        '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(165, 65)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(77, 15)
-        Me.Label1.TabIndex = 44
-        Me.Label1.Text = "Select Month"
         '
         'lblFormHeading
         '
@@ -164,6 +146,50 @@ Partial Class frm_SaleTaxRegister
         Me.grdTaxReport.Size = New System.Drawing.Size(884, 471)
         Me.grdTaxReport.TabIndex = 14
         '
+        'txtToDate
+        '
+        Me.txtToDate.CalendarForeColor = System.Drawing.Color.White
+        Me.txtToDate.CalendarMonthBackground = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.txtToDate.CustomFormat = "MMM-yyyy"
+        Me.txtToDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.txtToDate.Location = New System.Drawing.Point(411, 67)
+        Me.txtToDate.MaxDate = New Date(2999, 12, 31, 0, 0, 0, 0)
+        Me.txtToDate.Name = "txtToDate"
+        Me.txtToDate.Size = New System.Drawing.Size(142, 20)
+        Me.txtToDate.TabIndex = 55
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.Location = New System.Drawing.Point(303, 72)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(93, 15)
+        Me.Label2.TabIndex = 54
+        Me.Label2.Text = "Select To Month"
+        '
+        'txtFromDate
+        '
+        Me.txtFromDate.CalendarForeColor = System.Drawing.Color.White
+        Me.txtFromDate.CalendarMonthBackground = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.txtFromDate.CustomFormat = "MMM-yyyy"
+        Me.txtFromDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.txtFromDate.Location = New System.Drawing.Point(141, 67)
+        Me.txtFromDate.MaxDate = New Date(2999, 12, 31, 0, 0, 0, 0)
+        Me.txtFromDate.Name = "txtFromDate"
+        Me.txtFromDate.Size = New System.Drawing.Size(142, 20)
+        Me.txtFromDate.TabIndex = 53
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.Location = New System.Drawing.Point(18, 72)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(109, 15)
+        Me.Label1.TabIndex = 52
+        Me.Label1.Text = "Select From Month"
+        '
         'frm_SaleTaxRegister
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -184,9 +210,11 @@ Partial Class frm_SaleTaxRegister
     Friend WithEvents GroupBox6 As GroupBox
     Friend WithEvents btnShow As Button
     Friend WithEvents lblFormHeading As Label
-    Friend WithEvents Label1 As System.Windows.Forms.Label
-    Friend WithEvents txtFromDate As DateTimePicker
     Friend WithEvents btnGenerate As Button
     Friend WithEvents GroupBox2 As GroupBox
     Friend WithEvents grdTaxReport As DataGridView
+    Friend WithEvents txtToDate As DateTimePicker
+    Friend WithEvents Label2 As Label
+    Friend WithEvents txtFromDate As DateTimePicker
+    Friend WithEvents Label1 As Label
 End Class

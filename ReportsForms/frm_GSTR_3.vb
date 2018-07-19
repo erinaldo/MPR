@@ -69,8 +69,18 @@ Public Class frm_GSTR_3
 
     Private Function AddBasicData(xlWorkSheet As Object) As Object
         row = GetBasicData()
-        xlWorkSheet.Cells(4, 15) = txtFromDate.Value.ToString("yyyy")
-        xlWorkSheet.Cells(5, 15) = txtFromDate.Value.ToString("MMMM")
+        If (txtFromDate.Value.ToString("yyyy") = txtToDate.Value.ToString("yyyy")) Then
+            xlWorkSheet.Cells(4, 15) = txtFromDate.Value.ToString("yyyy")
+        Else
+            xlWorkSheet.Cells(4, 15) = txtFromDate.Value.ToString("yyyy") & "-" & txtToDate.Value.ToString("yyyy")
+        End If
+
+        If (txtFromDate.Value.ToString("MMMM") = txtToDate.Value.ToString("MMMM")) Then
+            xlWorkSheet.Cells(5, 15) = txtFromDate.Value.ToString("MMMM")
+        Else
+            xlWorkSheet.Cells(5, 15) = txtFromDate.Value.ToString("MMMM") & "-" & txtToDate.Value.ToString("MMMM")
+        End If
+
         Dim colIndex As Int16 = 2
         For Each ch As Char In row("TIN_NO").ToString
             xlWorkSheet.Cells(6, colIndex) = ch.ToString
@@ -406,8 +416,7 @@ FROM    ( SELECT    SUM(ISNULL(IntraState_TaxableValue, 0)) AS IntraState_Taxabl
                                             INNER JOIN dbo.CITY_MASTER cm ON cm.CITY_ID = am.CITY_ID
                                             INNER JOIN dbo.STATE_MASTER sm ON sm.STATE_ID = cm.STATE_ID
                                   WHERE     MRWPD.Item_vat = 0
-                                            AND MONTH(RECEIVED_DATE) = " & txtFromDate.Value.Month & "
-                                            AND YEAR(RECEIVED_DATE) = " & txtFromDate.Value.Year & "
+                                            AND cast(RECEIVED_DATE AS date) between CAST('" & txtFromDate.Value.ToString("dd-MMM-yyyy") & "' AS date) AND CAST('" & txtToDate.Value.ToString("dd-MMM-yyyy") & "' AS date) " & "
                                 ) purchase
                     ) main
           UNION ALL
@@ -441,8 +450,7 @@ FROM    ( SELECT    SUM(ISNULL(IntraState_TaxableValue, 0)) AS IntraState_Taxabl
                                 INNER JOIN dbo.CITY_MASTER cm ON cm.CITY_ID = am.CITY_ID
                                 INNER JOIN dbo.STATE_MASTER sm ON sm.STATE_ID = cm.STATE_ID
                       WHERE     MRAPD.Vat_Per = 0
-                                AND MONTH(Receipt_DATE) = " & txtFromDate.Value.Month & "
-                                AND YEAR(Receipt_DATE) = " & txtFromDate.Value.Year & "
+                                AND cast(RECEIPT_DATE AS date) between CAST('" & txtFromDate.Value.ToString("dd-MMM-yyyy") & "' AS date) AND CAST('" & txtToDate.Value.ToString("dd-MMM-yyyy") & "' AS date) " & "
                     ) main1
           UNION ALL
           SELECT    SUM(IntraState_TaxableValue) AS IntraState_TaxableValue ,
@@ -462,8 +470,7 @@ FROM    ( SELECT    SUM(ISNULL(IntraState_TaxableValue, 0)) AS IntraState_Taxabl
                       FROM      dbo.MATERIAL_RECIEVED_WITHOUT_PO_MASTER MRWPM
                                 JOIN dbo.DebitNote_Master M ON M.MRNId = MRWPM.MRN_NO
                                 JOIN dbo.DebitNote_Detail D ON M.DebitNote_Id = D.DebitNote_Id
-                      WHERE     MONTH(DebitNote_Date) = " & txtFromDate.Value.Month & "
-                                AND YEAR(DebitNote_Date) = " & txtFromDate.Value.Year & "
+                      WHERE     cast(DebitNote_Date AS date) between CAST('" & txtFromDate.Value.ToString("dd-MMM-yyyy") & "' AS date) AND CAST('" & txtToDate.Value.ToString("dd-MMM-yyyy") & "' AS date) " & "
                                 AND Item_Tax = 0
                       UNION ALL
                       SELECT    ISNULL(SUM(CASE WHEN MRN_TYPE <> 2
@@ -481,8 +488,7 @@ FROM    ( SELECT    SUM(ISNULL(IntraState_TaxableValue, 0)) AS IntraState_Taxabl
                       FROM      dbo.MATERIAL_RECEIVED_AGAINST_PO_MASTER MRAPM
                                 JOIN dbo.DebitNote_Master M ON M.MRNId = MRAPM.MRN_NO
                                 JOIN dbo.DebitNote_Detail D ON M.DebitNote_Id = D.DebitNote_Id
-                      WHERE     MONTH(DebitNote_Date) = " & txtFromDate.Value.Month & "
-                                AND YEAR(DebitNote_Date) = " & txtFromDate.Value.Year & "
+                      WHERE     cast(DebitNote_Date AS date) between CAST('" & txtFromDate.Value.ToString("dd-MMM-yyyy") & "' AS date) AND CAST('" & txtToDate.Value.ToString("dd-MMM-yyyy") & "' AS date) " & "
                                 AND Item_Tax = 0
                     ) tb
         ) TB"
@@ -511,8 +517,7 @@ FROM    ( SELECT    SUM(ISNULL(IntraState_TaxableValue, 0)) AS IntraState_Taxabl
                     INNER JOIN dbo.ACCOUNT_MASTER am ON ACC_ID = dnm.DN_CustId
                     INNER JOIN dbo.CITY_MASTER cm ON cm.CITY_ID = am.CITY_ID
                     INNER JOIN dbo.STATE_MASTER sm ON sm.STATE_ID = cm.STATE_ID
-          WHERE     MONTH(dnm.Creation_Date) =" & txtFromDate.Value.Month & "
-                    AND YEAR(dnm.Creation_Date) = " & txtFromDate.Value.Year & "
+          WHERE     cast(dnm.Creation_date AS date) between CAST('" & txtFromDate.Value.ToString("dd-MMM-yyyy") & "' AS date) AND CAST('" & txtToDate.Value.ToString("dd-MMM-yyyy") & "' AS date) " & "
           ) tb"
 
 
@@ -528,8 +533,7 @@ FROM    ( SELECT    SUM(ISNULL(IntraState_TaxableValue, 0)) AS IntraState_Taxabl
             " FROM dbo.MATERIAL_RECIEVED_WITHOUT_PO_MASTER  AS mrn " &
             " INNER JOIN dbo.ACCOUNT_MASTER am ON mrn.Vendor_ID = am.ACC_ID" &
             " INNER JOIN dbo.CITY_MASTER cm ON cm.CITY_ID = am.CITY_ID" &
-            " WHERE MRN_STATUS <> 2 and MONTH(Invoice_date) =  " & txtFromDate.Value.Month &
-            " And YEAR(Invoice_date)=  " & txtFromDate.Value.Year &
+            " WHERE MRN_STATUS <> 2 and cast(Invoice_date AS date) between CAST('" & txtFromDate.Value.ToString("dd-MMM-yyyy") & "' AS date) AND CAST('" & txtToDate.Value.ToString("dd-MMM-yyyy") & "' AS date) " &
             " union" &
             " SELECT  SUM(CASE WHEN mrn.MRN_TYPE <> 2 THEN mrn.GST_AMOUNT ELSE 0 END) AS non_integrated_tax," &
             "         SUM(CASE WHEN mrn.MRN_TYPE = 2 THEN mrn.GST_AMOUNT ELSE 0 END) AS integrated_tax, " &
@@ -537,8 +541,7 @@ FROM    ( SELECT    SUM(ISNULL(IntraState_TaxableValue, 0)) AS IntraState_Taxabl
             " FROM dbo.MATERIAL_RECEIVED_AGAINST_PO_MASTER AS mrn " &
             " INNER JOIN dbo.ACCOUNT_MASTER am ON mrn.CUST_ID = am.ACC_ID" &
             " INNER JOIN dbo.CITY_MASTER cm ON cm.CITY_ID = am.CITY_ID" &
-            " WHERE MRN_STATUS <> 2 and MONTH(Invoice_date) =  " & txtFromDate.Value.Month &
-            " And YEAR(Invoice_date)=  " & txtFromDate.Value.Year &
+            " WHERE MRN_STATUS <> 2 and cast(Invoice_date AS date) between CAST('" & txtFromDate.Value.ToString("dd-MMM-yyyy") & "' AS date) AND CAST('" & txtToDate.Value.ToString("dd-MMM-yyyy") & "' AS date) " &
             " ) AS temp"
         Return objCommFunction.Fill_DataSet(Qry).Tables(0).Rows(0)
     End Function
@@ -578,8 +581,7 @@ FROM    ( SELECT    STATE_CODE ,
                                 INNER JOIN dbo.CITY_MASTER cm ON cm.CITY_ID = am.CITY_ID
                                 INNER JOIN dbo.STATE_MASTER sm ON sm.STATE_ID = cm.STATE_ID
                       WHERE     INV.INVOICE_STATUS <> 4
-                                 AND MONTH(SI_DATE) = " & txtFromDate.Value.Month &
-                                " AND YEAR(SI_DATE) = " & txtFromDate.Value.Year &
+                                 AND cast(SI_DATE AS date) between CAST('" & txtFromDate.Value.ToString("dd-MMM-yyyy") & "' AS date) AND CAST('" & txtToDate.Value.ToString("dd-MMM-yyyy") & "' AS date) " &
                                 " AND inv.INV_TYPE = 'I'
                                 AND LEN(ISNULL(VAT_NO, '')) = 0
                       GROUP BY  STATE_CODE ,
@@ -605,8 +607,7 @@ FROM    ( SELECT    STATE_CODE ,
                     INNER JOIN dbo.ACCOUNT_MASTER am ON am.ACC_ID = inv.CUST_ID
                     INNER JOIN dbo.CITY_MASTER cm ON cm.CITY_ID = am.CITY_ID
                     INNER JOIN dbo.STATE_MASTER sm ON sm.STATE_ID = cm.STATE_ID
-          WHERE     MONTH(CreditNote_Date) =" & txtFromDate.Value.Month &
-                    " AND YEAR(CreditNote_Date) =" & txtFromDate.Value.Year &
+          WHERE     cast(CreditNote_Date AS date) between CAST('" & txtFromDate.Value.ToString("dd-MMM-yyyy") & "' AS date) AND CAST('" & txtToDate.Value.ToString("dd-MMM-yyyy") & "' AS date) " &
                     " AND INV_TYPE = 'I'
                      AND LEN(ISNULL(VAT_NO, '')) = 0
           GROUP BY  STATE_CODE ,
@@ -668,8 +669,8 @@ GROUP BY STATE_CODE ,
                     INNER JOIN dbo.ACCOUNT_MASTER am ON am.ACC_ID = inv.CUST_ID
                     INNER JOIN dbo.CITY_MASTER cm ON cm.CITY_ID = am.CITY_ID
                     INNER JOIN dbo.STATE_MASTER sm ON sm.STATE_ID = cm.STATE_ID
-          WHERE     INV.INVOICE_STATUS <> 4 AND MONTH(SI_DATE) = " & txtFromDate.Value.Month &
-                    " AND YEAR(SI_DATE) =" & txtFromDate.Value.Year
+          WHERE     INV.INVOICE_STATUS <> 4 
+                    AND cast(SI_DATE AS date) between CAST('" & txtFromDate.Value.ToString("dd-MMM-yyyy") & "' AS date) AND CAST('" & txtToDate.Value.ToString("dd-MMM-yyyy") & "' AS date) "
 
         ''Qry = " SELECT " &
         ''     " isnull(SUM(((BAL_ITEM_QTY * BAL_ITEM_RATE) - ISNULL(ITEM_DISCOUNT,0))),0) As Taxable_Value, SUM(0) Cess_Amount, " &
@@ -700,8 +701,9 @@ GROUP BY STATE_CODE ,
           FROM      dbo.SALE_INVOICE_MASTER
                     JOIN dbo.CreditNote_Master M ON M.INVId = dbo.SALE_INVOICE_MASTER.SI_ID
                     JOIN dbo.CreditNote_DETAIL D ON M.CreditNote_Id = D.CreditNote_Id
-          WHERE     MONTH(CreditNote_Date) =" & txtFromDate.Value.Month &
-                    "AND YEAR(CreditNote_Date) = " & txtFromDate.Value.Year
+          WHERE     cast(CreditNote_Date AS date) between CAST('" & txtFromDate.Value.ToString("dd-MMM-yyyy") & "' AS date) AND CAST('" & txtToDate.Value.ToString("dd-MMM-yyyy") & "' AS date) "
+
+
         If condition = "  AND (invd.VAT_PER)>0" Then
             Qry = Qry + " AND ITEM_TAX > 0 "
 

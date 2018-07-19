@@ -304,6 +304,8 @@ Public Class frm_Supplier_Rate_List_Master
             .ReadOnly = True
             .Visible = False
             .Width = 100
+            .DefaultCellStyle.SelectionBackColor = Color.Orange
+            .DefaultCellStyle.SelectionForeColor = Color.Black
         End With
         grdSupplier.Columns.Add(txbCol)
 
@@ -315,6 +317,8 @@ Public Class frm_Supplier_Rate_List_Master
             .ReadOnly = True
             .Visible = False
             .Width = 100
+            .DefaultCellStyle.SelectionBackColor = Color.Orange
+            .DefaultCellStyle.SelectionForeColor = Color.Black
         End With
         grdSupplier.Columns.Add(txbCol)
 
@@ -327,6 +331,8 @@ Public Class frm_Supplier_Rate_List_Master
             .ReadOnly = True
             .Visible = True
             .Width = 100
+            .DefaultCellStyle.SelectionBackColor = Color.Orange
+            .DefaultCellStyle.SelectionForeColor = Color.Black
         End With
 
         grdSupplier.Columns.Add(txbCol)
@@ -339,6 +345,8 @@ Public Class frm_Supplier_Rate_List_Master
             .ReadOnly = True
             .Visible = True
             .Width = 350
+            .DefaultCellStyle.SelectionBackColor = Color.Orange
+            .DefaultCellStyle.SelectionForeColor = Color.Black
         End With
         grdSupplier.Columns.Add(txbCol)
 
@@ -351,6 +359,8 @@ Public Class frm_Supplier_Rate_List_Master
             .ReadOnly = True
             .Visible = True
             .Width = 90
+            .DefaultCellStyle.SelectionBackColor = Color.Orange
+            .DefaultCellStyle.SelectionForeColor = Color.Black
         End With
         grdSupplier.Columns.Add(txbCol)
 
@@ -362,6 +372,8 @@ Public Class frm_Supplier_Rate_List_Master
             .ReadOnly = True
             .Visible = True
             .Width = 80
+            .DefaultCellStyle.SelectionBackColor = Color.Orange
+            .DefaultCellStyle.SelectionForeColor = Color.Black
         End With
         grdSupplier.Columns.Add(txbCol)
 
@@ -372,19 +384,25 @@ Public Class frm_Supplier_Rate_List_Master
             .ReadOnly = True
             .Visible = True
             .Width = 100
+            .DefaultCellStyle.SelectionBackColor = Color.Orange
+            .DefaultCellStyle.SelectionForeColor = Color.Black
         End With
         grdSupplier.Columns.Add(txbCol)
 
 
         txbCol = New DataGridViewTextBoxColumn
         With txbCol
-            .HeaderText = "Sale Rate"
+            .HeaderText = "Rate"
             .Name = "Selling_Rate"
             .ReadOnly = False
             .Visible = True
             .Width = 90
+            .DefaultCellStyle.SelectionBackColor = Color.Gold
+            .DefaultCellStyle.SelectionForeColor = Color.Black
         End With
         grdSupplier.Columns.Add(txbCol)
+
+
 
 
         Dim cRate As DataGridViewTextBoxColumn = TryCast(Me.grdSupplier.Columns("Rate"), DataGridViewTextBoxColumn)
@@ -396,6 +414,7 @@ Public Class frm_Supplier_Rate_List_Master
     Private Sub grdSupplier_EditingControlShowing(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewEditingControlShowingEventArgs) Handles grdSupplier.EditingControlShowing
         Try
 
+            'grdSupplier.CurrentCell = grdSupplier.Item("Selling_Rate", grdSupplier_Rowindex)
 
             If int_ColumnIndex = enmGrdSupplier.Rate Or int_ColumnIndex = enmGrdSupplier.DelQty Or int_ColumnIndex = enmGrdSupplier.DelDays Then
                 AddHandler e.Control.KeyPress, AddressOf obj.Valid_NumberGrid

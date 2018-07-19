@@ -259,7 +259,8 @@ Public Class frm_Show_Search_RateList
             End If
         Next
 
-        If String.IsNullOrEmpty(search_result) Then
+        'If String.IsNullOrEmpty(search_result) Then
+        If String.IsNullOrEmpty(search_result) Or search_result = "-1" Or search_result Is Nothing Then
             If grdSearch.SelectedRows.Count > 0 Then
                 search_result = grdSearch.SelectedRows.Item(0).Cells(ret_column).Value
                 If Not String.IsNullOrEmpty(item_rate_column) Then
@@ -371,10 +372,10 @@ Public Class frm_Show_Search_RateList
 
     Private Sub grdSearch_KeyUp(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles grdSearch.KeyUp
         Try
-            If e.KeyCode = Keys.Enter AndAlso TotalCheckedCheckBoxes = grdSearch.RowCount Then
+            If e.KeyCode = Keys.Enter Then 'AndAlso TotalCheckedCheckBoxes = grdSearch.RowCount Then
                 SelectItemAndCloseForm()
-            Else
-                SelectItemAndCloseForm()
+                'Else
+                '    SelectItemAndCloseForm()
             End If
         Catch ex As Exception
 
@@ -383,13 +384,10 @@ Public Class frm_Show_Search_RateList
 
     Private Sub grdSearch_KeyDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles grdSearch.KeyDown
         Try
-            If e.KeyCode = Keys.Enter AndAlso TotalCheckedCheckBoxes = grdSearch.RowCount Then
+            If e.KeyCode = Keys.Enter Then 'AndAlso TotalCheckedCheckBoxes = grdSearch.RowCount Then
                 'Dim abc As Integer = grdSearch.Rows.Count - 1
                 'grdSearch.Rows(abc).Cells(0).Selected = True
                 'grdSearch.Select()
-
-                SelectItemAndCloseForm()
-            Else
                 SelectItemAndCloseForm()
             End If
         Catch ex As Exception

@@ -302,7 +302,7 @@ Public Class frm_Customer_Rate_List_Master
         Dim txbCol As DataGridViewTextBoxColumn
         Dim cmbCol As New DataGridViewComboBoxColumn
         grdSupplier.MultiSelect = False
-        grdSupplier.SelectionMode = DataGridViewSelectionMode.CellSelect
+        grdSupplier.SelectionMode = DataGridViewSelectionMode.FullRowSelect
         grdSupplier.EditMode = DataGridViewEditMode.EditOnEnter
         grdSupplier.Columns.Clear()
 
@@ -313,6 +313,8 @@ Public Class frm_Customer_Rate_List_Master
             .ReadOnly = True
             .Visible = False
             .Width = 100
+            .DefaultCellStyle.SelectionBackColor = Color.Orange
+            .DefaultCellStyle.SelectionForeColor = Color.Black
         End With
         grdSupplier.Columns.Add(txbCol)
 
@@ -324,6 +326,8 @@ Public Class frm_Customer_Rate_List_Master
             .ReadOnly = True
             .Visible = False
             .Width = 100
+            .DefaultCellStyle.SelectionBackColor = Color.Orange
+            .DefaultCellStyle.SelectionForeColor = Color.Black
         End With
         grdSupplier.Columns.Add(txbCol)
 
@@ -336,6 +340,8 @@ Public Class frm_Customer_Rate_List_Master
             .ReadOnly = True
             .Visible = True
             .Width = 100
+            .DefaultCellStyle.SelectionBackColor = Color.Orange
+            .DefaultCellStyle.SelectionForeColor = Color.Black
         End With
 
         grdSupplier.Columns.Add(txbCol)
@@ -348,6 +354,8 @@ Public Class frm_Customer_Rate_List_Master
             .ReadOnly = True
             .Visible = True
             .Width = 350
+            .DefaultCellStyle.SelectionBackColor = Color.Orange
+            .DefaultCellStyle.SelectionForeColor = Color.Black
         End With
         grdSupplier.Columns.Add(txbCol)
 
@@ -360,6 +368,8 @@ Public Class frm_Customer_Rate_List_Master
             .ReadOnly = True
             .Visible = True
             .Width = 90
+            .DefaultCellStyle.SelectionBackColor = Color.Orange
+            .DefaultCellStyle.SelectionForeColor = Color.Black
         End With
         grdSupplier.Columns.Add(txbCol)
 
@@ -370,6 +380,8 @@ Public Class frm_Customer_Rate_List_Master
             .ReadOnly = True
             .Visible = True
             .Width = 80
+            .DefaultCellStyle.SelectionBackColor = Color.Orange
+            .DefaultCellStyle.SelectionForeColor = Color.Black
         End With
         grdSupplier.Columns.Add(txbCol)
 
@@ -380,17 +392,21 @@ Public Class frm_Customer_Rate_List_Master
             .ReadOnly = True
             .Visible = True
             .Width = 100
+            .DefaultCellStyle.SelectionBackColor = Color.Orange
+            .DefaultCellStyle.SelectionForeColor = Color.Black
         End With
         grdSupplier.Columns.Add(txbCol)
 
 
         txbCol = New DataGridViewTextBoxColumn
         With txbCol
-            .HeaderText = "Sale Rate"
+            .HeaderText = "Rate"
             .Name = "Selling_Rate"
             .ReadOnly = False
             .Visible = True
             .Width = 90
+            .DefaultCellStyle.SelectionBackColor = Color.Gold
+            .DefaultCellStyle.SelectionForeColor = Color.Black
         End With
         grdSupplier.Columns.Add(txbCol)
 

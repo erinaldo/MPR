@@ -313,6 +313,12 @@
     <Compile Include="ReportsForms\frm_CashBook.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="ReportsForms\frm_GeneralLedger.Designer.vb">
+      <DependentUpon>frm_GeneralLedger.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ReportsForms\frm_GeneralLedger.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="ReportsForms\frm_DayBook.Designer.vb">
       <DependentUpon>frm_DayBook.vb</DependentUpon>
     </Compile>
@@ -839,6 +845,12 @@
     </Compile>
     <Compile Include="Reports\CryCashBook.vb">
       <DependentUpon>CryCashBook.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reports\CryGeneralLedger.vb">
+      <DependentUpon>CryGeneralLedger.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
@@ -1647,6 +1659,9 @@
       <DependentUpon>frm_Semi_Finished_Recipe_Master.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="ReportsForms\frm_GeneralLedger.resx">
+      <DependentUpon>frm_GeneralLedger.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ReportsForms\frm_CreditorsLedger.resx">
       <DependentUpon>frm_CreditorsLedger.vb</DependentUpon>
     </EmbeddedResource>
@@ -1816,6 +1831,10 @@
     <EmbeddedResource Include="Reports\CryCashBook.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>CryCashBook.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\CryGeneralLedger.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CryGeneralLedger.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\CryDayBook.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

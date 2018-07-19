@@ -249,8 +249,8 @@ Partial Class frm_Customer_Rate_List_Master
         Me.grdSupplier.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.grdSupplier.RowTemplate.DefaultCellStyle.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grdSupplier.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.White
-        Me.grdSupplier.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.Orange
-        Me.grdSupplier.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black
+        'Me.grdSupplier.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.Orange
+        'Me.grdSupplier.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black
         Me.grdSupplier.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.grdSupplier.Size = New System.Drawing.Size(845, 374)
         Me.grdSupplier.TabIndex = 0
