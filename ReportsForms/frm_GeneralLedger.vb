@@ -72,6 +72,7 @@ Public Class frm_GeneralLedger
         table.LogOnInfo.ConnectionInfo.Type = connection.Type
         table.ApplyLogOnInfo(logOnInfo)
     End Sub
+
     Public Sub CloseClick(ByVal sender As Object, ByVal e As System.EventArgs) Implements IForm.CloseClick
 
     End Sub
@@ -108,7 +109,7 @@ Public Class frm_GeneralLedger
     Private Sub btnShow_Click(sender As Object, e As EventArgs) Handles btnShow.Click
         Try
             If cmbSupplier.SelectedIndex <= 0 Then
-                MsgBox("Please select Supplier.", MsgBoxStyle.Information, gblMessageHeading)
+                MsgBox("Please select Account.", MsgBoxStyle.Information, gblMessageHeading)
                 Exit Sub
             End If
             ReportOS()

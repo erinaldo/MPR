@@ -112,6 +112,10 @@ Public Class frm_CashBook
 
     Private Sub btnShow_Click(sender As Object, e As EventArgs) Handles btnShow.Click
         Try
+            If cmbSupplier.SelectedIndex <= 0 Then
+                MsgBox("Please select Account.", MsgBoxStyle.Information, gblMessageHeading)
+                Exit Sub
+            End If
             ReportOS()
         Catch ex As Exception
             MsgBox(ex.Message)
