@@ -18,6 +18,7 @@ Public Class frm_Item_Master
     End Sub
 
     Private Sub frm_Item_Master_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        txtSearch.Focus()
         Try
             Call ComboBind()
             Flag = "save"
@@ -451,11 +452,8 @@ Public Class frm_Item_Master
         frm_Show_search.ret_column = "ITEM_ID"
         frm_Show_search.item_rate_column = ""
         frm_Show_search.ShowDialog()
-
         get_row(frm_Show_search.search_result)
         frm_Show_search.Close()
-
-
 
     End Sub
 
@@ -465,6 +463,12 @@ Public Class frm_Item_Master
             ItemId = Convert.ToInt32(item_id)
             Call geItemDetail(ItemId)
             TabControl1.SelectTab(1)
+        End If
+    End Sub
+
+    Private Sub grdItemMaster_KeyDown(sender As Object, e As KeyEventArgs) Handles grdItemMaster.KeyDown
+        If e.KeyCode = Keys.Enter Then
+            EditItem()
         End If
     End Sub
 
