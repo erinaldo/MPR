@@ -1180,7 +1180,7 @@ Public Class frm_material_rec_against_PO
         Calculate_Amount()
     End Sub
 
-    Private Sub Panel14_Paint(sender As Object, e As PaintEventArgs) Handles Panel14.Paint
+    Private Sub Panel14_Paint(sender As Object, e As PaintEventArgs)
 
     End Sub
 

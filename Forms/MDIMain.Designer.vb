@@ -32,10 +32,10 @@ Partial Class MDIMain
         Me.TransferDataBetweenDatesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.BackupDB = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_Division_Settings = New System.Windows.Forms.ToolStripMenuItem()
-        Me.frm_Item_rate_list = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_Change_Password = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_user_rights = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_Cost_Center = New System.Windows.Forms.ToolStripMenuItem()
+        Me.frm_Item_rate_list = New System.Windows.Forms.ToolStripMenuItem()
         Me.PurchaseToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_Supplier_Rate_List_Master = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_Indent_Master = New System.Windows.Forms.ToolStripMenuItem()
@@ -307,16 +307,6 @@ Partial Class MDIMain
         Me.frm_Division_Settings.Size = New System.Drawing.Size(233, 22)
         Me.frm_Division_Settings.Text = "Division Settings"
         '
-        'frm_Item_rate_list
-        '
-        Me.frm_Item_rate_list.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.frm_Item_rate_list.ForeColor = System.Drawing.Color.White
-        Me.frm_Item_rate_list.Image = Global.MMSPlus.My.Resources.Resources.Inventory_box_shipment_product
-        Me.frm_Item_rate_list.Name = "frm_Item_rate_list"
-        Me.frm_Item_rate_list.Size = New System.Drawing.Size(233, 22)
-        Me.frm_Item_rate_list.Text = "Item Rate"
-        Me.frm_Item_rate_list.Visible = False
-        '
         'frm_Change_Password
         '
         Me.frm_Change_Password.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
@@ -344,6 +334,16 @@ Partial Class MDIMain
         Me.frm_Cost_Center.Size = New System.Drawing.Size(233, 22)
         Me.frm_Cost_Center.Text = "Cost Center"
         Me.frm_Cost_Center.Visible = False
+        '
+        'frm_Item_rate_list
+        '
+        Me.frm_Item_rate_list.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.frm_Item_rate_list.ForeColor = System.Drawing.Color.White
+        Me.frm_Item_rate_list.Image = Global.MMSPlus.My.Resources.Resources.Inventory_box_shipment_product
+        Me.frm_Item_rate_list.Name = "frm_Item_rate_list"
+        Me.frm_Item_rate_list.Size = New System.Drawing.Size(233, 22)
+        Me.frm_Item_rate_list.Text = "Item Rate"
+        Me.frm_Item_rate_list.Visible = False
         '
         'PurchaseToolStripMenuItem
         '
@@ -457,7 +457,7 @@ Partial Class MDIMain
         'StockINToolStripMenuItem
         '
         Me.StockINToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(44, Byte), Integer), CType(CType(44, Byte), Integer))
-        Me.StockINToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.frm_Material_Received_Without_PO_Master, Me.frm_material_rec_against_PO, Me.frm_Reverse_Wastage_Master, Me.frm_ReverseMaterial_Issue_To_Cost_Center_Master, Me.frm_DebitNote, Me.frm_Accept_Stock_transfer, Me.frm_Stock_Transfer, Me.MaterialReturnfromCostCenterToolStripMenuItem})
+        Me.StockINToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.frm_Material_Received_Without_PO_Master, Me.frm_material_rec_against_PO, Me.frm_DebitNote, Me.frm_Accept_Stock_transfer, Me.frm_Stock_Transfer, Me.MaterialReturnfromCostCenterToolStripMenuItem, Me.frm_Reverse_Wastage_Master, Me.frm_ReverseMaterial_Issue_To_Cost_Center_Master})
         Me.StockINToolStripMenuItem.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.StockINToolStripMenuItem.ForeColor = System.Drawing.Color.White
         Me.StockINToolStripMenuItem.Image = Global.MMSPlus.My.Resources.Resources.receive
@@ -494,6 +494,7 @@ Partial Class MDIMain
         Me.frm_Reverse_Wastage_Master.Name = "frm_Reverse_Wastage_Master"
         Me.frm_Reverse_Wastage_Master.Size = New System.Drawing.Size(285, 22)
         Me.frm_Reverse_Wastage_Master.Text = "Reverse Wastage"
+        Me.frm_Reverse_Wastage_Master.Visible = False
         '
         'frm_ReverseMaterial_Issue_To_Cost_Center_Master
         '
@@ -503,6 +504,7 @@ Partial Class MDIMain
         Me.frm_ReverseMaterial_Issue_To_Cost_Center_Master.Name = "frm_ReverseMaterial_Issue_To_Cost_Center_Master"
         Me.frm_ReverseMaterial_Issue_To_Cost_Center_Master.Size = New System.Drawing.Size(285, 22)
         Me.frm_ReverseMaterial_Issue_To_Cost_Center_Master.Text = "Reverse Material Issue to Cost Center"
+        Me.frm_ReverseMaterial_Issue_To_Cost_Center_Master.Visible = False
         '
         'frm_DebitNote
         '
