@@ -124,9 +124,9 @@ Public Class frm_user_rights
             Dim ds1 As DataSet
             lstUsers.Clear()
             lstUsers.View = View.Details
-            lstUsers.Columns.Add("user_name", "", 160)
+            lstUsers.Columns.Add("user_name", "", 202)
             lstUsers.Columns.Add("user_id", "state_id", 0)
-            ds1 = obj.FillDataSet("select * from user_master where user_role='" & _user_role & "'")
+            ds1 = obj.FillDataSet("select user_id ,UPPER(user_name) AS user_name ,password ,user_role ,division_id ,CostCenter_Id from user_master where user_role='" & _user_role & "'")
             For Each drow As DataRow In ds1.Tables(0).Rows
                 Dim strArr As String() = {drow(1), drow(0)}
                 lstUsers.Items.Add(New ListViewItem(strArr))
@@ -152,7 +152,7 @@ Public Class frm_user_rights
 
                 If T1.Name <> "logo" And T1.Name <> "Home" Then
                     node = trvForms.Nodes.Add(T1.Name, T1.Text)
-                    node.ForeColor = Color.Brown
+                    node.ForeColor = Color.White
 
                     If T1.HasDropDownItems Then
                         If T1.Name = "Reports" Then
@@ -181,10 +181,10 @@ Public Class frm_user_rights
                     t_temp = CType(obj, ToolStripMenuItem)
                     node = n.Nodes.Add(t_temp.Name, t_temp.Text)
                     If t_temp.HasDropDownItems Then
-                        node.ForeColor = Color.Brown
+                        ' node.ForeColor = Color.Maroon
                         Nodes_under_reports(t_temp, node)
                     Else
-                        node.ForeColor = Color.CadetBlue
+                        ' node.ForeColor = Color.Maroon
                         node.Nodes.Add("vw", "View")
                     End If
                 End If
@@ -204,10 +204,10 @@ Public Class frm_user_rights
                     If t_temp.Enabled Then
                         node = n.Nodes.Add(t_temp.Name, t_temp.Text)
                         If t_temp.HasDropDownItems Then
-                            node.ForeColor = Color.Brown
+                            ' node.ForeColor = Color.Maroon
                             add_sub_menu(t_temp, node)
                         Else
-                            node.ForeColor = Color.CadetBlue
+                            '  node.ForeColor = Color.Maroon
                             Add_Nodes_of_Rigths(node)
                         End If
                     End If

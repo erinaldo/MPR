@@ -83,7 +83,7 @@ Partial Class frm_Print_Barcode
         Me.chkPrintOurPrice.Location = New System.Drawing.Point(7, 128)
         Me.chkPrintOurPrice.Name = "chkPrintOurPrice"
         Me.chkPrintOurPrice.Size = New System.Drawing.Size(186, 17)
-        Me.chkPrintOurPrice.TabIndex = 1
+        Me.chkPrintOurPrice.TabIndex = 4
         Me.chkPrintOurPrice.Text = "Click to print ""Our Price"" on labels"
         Me.chkPrintOurPrice.UseVisualStyleBackColor = True
         '
@@ -95,7 +95,7 @@ Partial Class frm_Print_Barcode
         Me.GroupBox2.Location = New System.Drawing.Point(1, 143)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Size = New System.Drawing.Size(949, 471)
-        Me.GroupBox2.TabIndex = 1
+        Me.GroupBox2.TabIndex = 11
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "List of Items"
         '
@@ -217,20 +217,22 @@ Partial Class frm_Print_Barcode
         Me.GroupBox1.Location = New System.Drawing.Point(3, 7)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(946, 116)
-        Me.GroupBox1.TabIndex = 0
+        Me.GroupBox1.TabIndex = 10
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Search By"
         '
         'btnAddItem
         '
+        Me.btnAddItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.btnAddItem.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnAddItem.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnAddItem.ForeColor = System.Drawing.Color.Black
-        Me.btnAddItem.Location = New System.Drawing.Point(716, 78)
+        Me.btnAddItem.ForeColor = System.Drawing.Color.White
+        Me.btnAddItem.Location = New System.Drawing.Point(644, 78)
         Me.btnAddItem.Name = "btnAddItem"
-        Me.btnAddItem.Size = New System.Drawing.Size(179, 23)
-        Me.btnAddItem.TabIndex = 32
+        Me.btnAddItem.Size = New System.Drawing.Size(160, 29)
+        Me.btnAddItem.TabIndex = 3
         Me.btnAddItem.Text = "Search Item"
-        Me.btnAddItem.UseVisualStyleBackColor = True
+        Me.btnAddItem.UseVisualStyleBackColor = False
         '
         'txtItemCode
         '
@@ -241,7 +243,7 @@ Partial Class frm_Print_Barcode
         Me.txtItemCode.Location = New System.Drawing.Point(140, 54)
         Me.txtItemCode.Name = "txtItemCode"
         Me.txtItemCode.Size = New System.Drawing.Size(483, 19)
-        Me.txtItemCode.TabIndex = 31
+        Me.txtItemCode.TabIndex = 1
         '
         'txtItemName
         '
@@ -252,7 +254,7 @@ Partial Class frm_Print_Barcode
         Me.txtItemName.Location = New System.Drawing.Point(140, 26)
         Me.txtItemName.Name = "txtItemName"
         Me.txtItemName.Size = New System.Drawing.Size(483, 19)
-        Me.txtItemName.TabIndex = 30
+        Me.txtItemName.TabIndex = 0
         '
         'lblFormHeading
         '

@@ -69,21 +69,23 @@ Partial Class frm_ChangePassword
         '
         'btn_Change
         '
+        Me.btn_Change.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.btn_Change.Location = New System.Drawing.Point(109, 161)
         Me.btn_Change.Name = "btn_Change"
-        Me.btn_Change.Size = New System.Drawing.Size(115, 23)
+        Me.btn_Change.Size = New System.Drawing.Size(115, 27)
         Me.btn_Change.TabIndex = 3
         Me.btn_Change.Text = "Change Password"
-        Me.btn_Change.UseVisualStyleBackColor = True
+        Me.btn_Change.UseVisualStyleBackColor = False
         '
         'btn_Cancel
         '
+        Me.btn_Cancel.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.btn_Cancel.Location = New System.Drawing.Point(232, 161)
         Me.btn_Cancel.Name = "btn_Cancel"
-        Me.btn_Cancel.Size = New System.Drawing.Size(75, 23)
+        Me.btn_Cancel.Size = New System.Drawing.Size(75, 27)
         Me.btn_Cancel.TabIndex = 4
         Me.btn_Cancel.Text = "Cancel"
-        Me.btn_Cancel.UseVisualStyleBackColor = True
+        Me.btn_Cancel.UseVisualStyleBackColor = False
         '
         'txt_UserName
         '

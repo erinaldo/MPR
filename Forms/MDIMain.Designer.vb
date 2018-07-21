@@ -100,9 +100,9 @@ Partial Class MDIMain
         Me.frm_GSTR1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_GSTR2 = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_GSTR3 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.GSTSummaryToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_PurchaseTaxRegister = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_SaleTaxRegister = New System.Windows.Forms.ToolStripMenuItem()
+        Me.GSTSummaryToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_user_master = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_DebitNote_WO_Items = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_CreditNote_WO_Items = New System.Windows.Forms.ToolStripMenuItem()
@@ -225,7 +225,7 @@ Partial Class MDIMain
         'MasterSetupToolStripMenuItem
         '
         Me.MasterSetupToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(22, Byte), Integer), CType(CType(22, Byte), Integer), CType(CType(22, Byte), Integer))
-        Me.MasterSetupToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Synchronization, Me.frm_Item_Master, Me.frm_StockAdjustment, Me.frm_Print_Barcode, Me.TransferDataToolStripMenuItem, Me.TransferDataBetweenDatesToolStripMenuItem, Me.BackupDB, Me.frm_Division_Settings, Me.frm_Item_rate_list, Me.frm_Change_Password, Me.frm_user_rights, Me.frm_Cost_Center})
+        Me.MasterSetupToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Synchronization, Me.frm_Item_Master, Me.frm_StockAdjustment, Me.frm_Print_Barcode, Me.TransferDataToolStripMenuItem, Me.TransferDataBetweenDatesToolStripMenuItem, Me.BackupDB, Me.frm_Division_Settings, Me.frm_Change_Password, Me.frm_user_rights, Me.frm_Cost_Center, Me.frm_Item_rate_list})
         Me.MasterSetupToolStripMenuItem.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.MasterSetupToolStripMenuItem.ForeColor = System.Drawing.Color.White
         Me.MasterSetupToolStripMenuItem.Image = Global.MMSPlus.My.Resources.Resources.smserver
@@ -315,6 +315,7 @@ Partial Class MDIMain
         Me.frm_Item_rate_list.Name = "frm_Item_rate_list"
         Me.frm_Item_rate_list.Size = New System.Drawing.Size(233, 22)
         Me.frm_Item_rate_list.Text = "Item Rate"
+        Me.frm_Item_rate_list.Visible = False
         '
         'frm_Change_Password
         '
@@ -337,7 +338,6 @@ Partial Class MDIMain
         'frm_Cost_Center
         '
         Me.frm_Cost_Center.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.frm_Cost_Center.Enabled = False
         Me.frm_Cost_Center.ForeColor = System.Drawing.Color.White
         Me.frm_Cost_Center.Image = Global.MMSPlus.My.Resources.Resources.Financier_tycoon_stockbroker
         Me.frm_Cost_Center.Name = "frm_Cost_Center"
@@ -962,16 +962,6 @@ Partial Class MDIMain
         Me.frm_GSTR3.Size = New System.Drawing.Size(201, 22)
         Me.frm_GSTR3.Text = "GSTR 3"
         '
-        'GSTSummaryToolStripMenuItem
-        '
-        Me.GSTSummaryToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.GSTSummaryToolStripMenuItem.ForeColor = System.Drawing.Color.White
-        Me.GSTSummaryToolStripMenuItem.Image = CType(resources.GetObject("GSTSummaryToolStripMenuItem.Image"), System.Drawing.Image)
-        Me.GSTSummaryToolStripMenuItem.Name = "GSTSummaryToolStripMenuItem"
-        Me.GSTSummaryToolStripMenuItem.Size = New System.Drawing.Size(201, 22)
-        Me.GSTSummaryToolStripMenuItem.Text = "GST Summary"
-        Me.GSTSummaryToolStripMenuItem.Visible = False
-        '
         'frm_PurchaseTaxRegister
         '
         Me.frm_PurchaseTaxRegister.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
@@ -989,6 +979,16 @@ Partial Class MDIMain
         Me.frm_SaleTaxRegister.Name = "frm_SaleTaxRegister"
         Me.frm_SaleTaxRegister.Size = New System.Drawing.Size(201, 22)
         Me.frm_SaleTaxRegister.Text = "GST Sale Register"
+        '
+        'GSTSummaryToolStripMenuItem
+        '
+        Me.GSTSummaryToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.GSTSummaryToolStripMenuItem.ForeColor = System.Drawing.Color.White
+        Me.GSTSummaryToolStripMenuItem.Image = CType(resources.GetObject("GSTSummaryToolStripMenuItem.Image"), System.Drawing.Image)
+        Me.GSTSummaryToolStripMenuItem.Name = "GSTSummaryToolStripMenuItem"
+        Me.GSTSummaryToolStripMenuItem.Size = New System.Drawing.Size(201, 22)
+        Me.GSTSummaryToolStripMenuItem.Text = "GST Summary"
+        Me.GSTSummaryToolStripMenuItem.Visible = False
         '
         'frm_user_master
         '

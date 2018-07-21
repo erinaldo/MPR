@@ -32,14 +32,15 @@ Partial Class frm_transferData
         '
         'btnDataTransfer
         '
+        Me.btnDataTransfer.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.btnDataTransfer.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnDataTransfer.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnDataTransfer.Location = New System.Drawing.Point(322, 272)
+        Me.btnDataTransfer.Location = New System.Drawing.Point(25, 272)
         Me.btnDataTransfer.Name = "btnDataTransfer"
         Me.btnDataTransfer.Size = New System.Drawing.Size(93, 31)
-        Me.btnDataTransfer.TabIndex = 1
+        Me.btnDataTransfer.TabIndex = 3
         Me.btnDataTransfer.Text = "Data Transfer"
-        Me.btnDataTransfer.UseVisualStyleBackColor = True
+        Me.btnDataTransfer.UseVisualStyleBackColor = False
         '
         'GroupBox1
         '
@@ -55,7 +56,7 @@ Partial Class frm_transferData
         '
         'lstTablesName
         '
-        Me.lstTablesName.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.lstTablesName.BackColor = System.Drawing.Color.FromArgb(CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.lstTablesName.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.lstTablesName.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lstTablesName.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -65,14 +66,14 @@ Partial Class frm_transferData
         Me.lstTablesName.Location = New System.Drawing.Point(3, 17)
         Me.lstTablesName.Name = "lstTablesName"
         Me.lstTablesName.Size = New System.Drawing.Size(384, 131)
-        Me.lstTablesName.TabIndex = 0
+        Me.lstTablesName.TabIndex = 1
         '
         'pbardatatransfer
         '
         Me.pbardatatransfer.Location = New System.Drawing.Point(25, 222)
         Me.pbardatatransfer.Name = "pbardatatransfer"
         Me.pbardatatransfer.Size = New System.Drawing.Size(390, 23)
-        Me.pbardatatransfer.TabIndex = 3
+        Me.pbardatatransfer.TabIndex = 2
         '
         'lblDate
         '
@@ -91,19 +92,20 @@ Partial Class frm_transferData
         Me.dtpDate.Location = New System.Drawing.Point(136, 26)
         Me.dtpDate.Name = "dtpDate"
         Me.dtpDate.Size = New System.Drawing.Size(200, 20)
-        Me.dtpDate.TabIndex = 5
+        Me.dtpDate.TabIndex = 0
         '
         'btn_Cancel
         '
+        Me.btn_Cancel.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.btn_Cancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btn_Cancel.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btn_Cancel.ForeColor = System.Drawing.Color.White
-        Me.btn_Cancel.Location = New System.Drawing.Point(241, 272)
+        Me.btn_Cancel.Location = New System.Drawing.Point(340, 272)
         Me.btn_Cancel.Name = "btn_Cancel"
         Me.btn_Cancel.Size = New System.Drawing.Size(75, 31)
-        Me.btn_Cancel.TabIndex = 6
+        Me.btn_Cancel.TabIndex = 4
         Me.btn_Cancel.Text = "Cancel"
-        Me.btn_Cancel.UseVisualStyleBackColor = True
+        Me.btn_Cancel.UseVisualStyleBackColor = False
         '
         'frm_transferData
         '

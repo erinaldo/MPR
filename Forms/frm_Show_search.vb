@@ -65,9 +65,9 @@ Public Class frm_Show_search
 
             txtSearch.Text = ""
             'GroupBox1.Width = Me.Width - 20
-            grdSearch.Width = 794
+            grdSearch.Width = 806
             grdSearch.ScrollBars = ScrollBars.Vertical
-            comFun.FormatGrid(grdSearch)
+            '  comFun.FormatGrid(grdSearch)
             comFun.GridBind(grdSearch, qry + extra_condition)
             grdSearch.Columns(ret_column).Visible = False
 

@@ -20,14 +20,15 @@ Partial Class frm_Item_Master
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frm_Item_Master))
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.grdItemMaster = New System.Windows.Forms.DataGridView()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.lnkSelectItems = New System.Windows.Forms.LinkLabel()
         Me.txtSearch = New System.Windows.Forms.TextBox()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
@@ -74,7 +75,6 @@ Partial Class frm_Item_Master
         Me.Label14 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
-        Me.lnkSelectItems = New System.Windows.Forms.LinkLabel()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -121,7 +121,7 @@ Partial Class frm_Item_Master
         Me.GroupBox2.Location = New System.Drawing.Point(28, 88)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Size = New System.Drawing.Size(845, 485)
-        Me.GroupBox2.TabIndex = 16
+        Me.GroupBox2.TabIndex = 17
         Me.GroupBox2.TabStop = False
         '
         'grdItemMaster
@@ -130,27 +130,27 @@ Partial Class frm_Item_Master
         Me.grdItemMaster.AllowUserToDeleteRows = False
         Me.grdItemMaster.BackgroundColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.grdItemMaster.BorderStyle = System.Windows.Forms.BorderStyle.None
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle5.BackColor = System.Drawing.Color.White
-        DataGridViewCellStyle5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle5.ForeColor = System.Drawing.Color.DarkGray
-        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.grdItemMaster.DefaultCellStyle = DataGridViewCellStyle5
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.White
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.DarkGray
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.grdItemMaster.DefaultCellStyle = DataGridViewCellStyle1
         Me.grdItemMaster.Dock = System.Windows.Forms.DockStyle.Fill
         Me.grdItemMaster.GridColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.grdItemMaster.Location = New System.Drawing.Point(3, 16)
         Me.grdItemMaster.Name = "grdItemMaster"
         Me.grdItemMaster.ReadOnly = True
-        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle6.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.grdItemMaster.RowHeadersDefaultCellStyle = DataGridViewCellStyle6
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.grdItemMaster.RowHeadersDefaultCellStyle = DataGridViewCellStyle2
         Me.grdItemMaster.RowHeadersVisible = False
         Me.grdItemMaster.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.grdItemMaster.RowTemplate.DefaultCellStyle.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -158,7 +158,7 @@ Partial Class frm_Item_Master
         Me.grdItemMaster.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.DarkOrange
         Me.grdItemMaster.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black
         Me.grdItemMaster.Size = New System.Drawing.Size(839, 466)
-        Me.grdItemMaster.TabIndex = 14
+        Me.grdItemMaster.TabIndex = 2
         '
         'GroupBox1
         '
@@ -174,6 +174,18 @@ Partial Class frm_Item_Master
         Me.GroupBox1.TabIndex = 16
         Me.GroupBox1.TabStop = False
         '
+        'lnkSelectItems
+        '
+        Me.lnkSelectItems.AutoSize = True
+        Me.lnkSelectItems.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lnkSelectItems.LinkColor = System.Drawing.Color.Gold
+        Me.lnkSelectItems.Location = New System.Drawing.Point(734, 26)
+        Me.lnkSelectItems.Name = "lnkSelectItems"
+        Me.lnkSelectItems.Size = New System.Drawing.Size(100, 15)
+        Me.lnkSelectItems.TabIndex = 1
+        Me.lnkSelectItems.TabStop = True
+        Me.lnkSelectItems.Text = "Advance Search"
+        '
         'txtSearch
         '
         Me.txtSearch.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
@@ -183,7 +195,7 @@ Partial Class frm_Item_Master
         Me.txtSearch.Location = New System.Drawing.Point(82, 26)
         Me.txtSearch.Name = "txtSearch"
         Me.txtSearch.Size = New System.Drawing.Size(645, 18)
-        Me.txtSearch.TabIndex = 15
+        Me.txtSearch.TabIndex = 0
         '
         'Label13
         '
@@ -193,7 +205,7 @@ Partial Class frm_Item_Master
         Me.Label13.Location = New System.Drawing.Point(10, 26)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(68, 15)
-        Me.Label13.TabIndex = 0
+        Me.Label13.TabIndex = 50
         Me.Label13.Text = "Search By :"
         '
         'TabPage2
@@ -235,9 +247,9 @@ Partial Class frm_Item_Master
         Me.GroupBox4.Controls.Add(Me.Label11)
         Me.GroupBox4.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.GroupBox4.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold)
-        Me.GroupBox4.Location = New System.Drawing.Point(3, 257)
+        Me.GroupBox4.Location = New System.Drawing.Point(3, 231)
         Me.GroupBox4.Name = "GroupBox4"
-        Me.GroupBox4.Size = New System.Drawing.Size(896, 340)
+        Me.GroupBox4.Size = New System.Drawing.Size(896, 366)
         Me.GroupBox4.TabIndex = 0
         Me.GroupBox4.TabStop = False
         '
@@ -722,18 +734,6 @@ Partial Class frm_Item_Master
         Me.ImageList1.TransparentColor = System.Drawing.Color.Transparent
         Me.ImageList1.Images.SetKeyName(0, "Zoom_search_find_magnifying_glass.png")
         Me.ImageList1.Images.SetKeyName(1, "Inventory_box_shipment_product.png")
-        '
-        'lnkSelectItems
-        '
-        Me.lnkSelectItems.AutoSize = True
-        Me.lnkSelectItems.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lnkSelectItems.LinkColor = System.Drawing.Color.DarkOrange
-        Me.lnkSelectItems.Location = New System.Drawing.Point(733, 26)
-        Me.lnkSelectItems.Name = "lnkSelectItems"
-        Me.lnkSelectItems.Size = New System.Drawing.Size(100, 15)
-        Me.lnkSelectItems.TabIndex = 16
-        Me.lnkSelectItems.TabStop = True
-        Me.lnkSelectItems.Text = "Advance Search"
         '
         'frm_Item_Master
         '

@@ -25,6 +25,7 @@ Public Class frm_Item_Master
             Call Obj.FormatGrid(grdItemMaster)
             FillGrid()
             new_initialisation()
+
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "Error --> Form Load")
         End Try
@@ -50,6 +51,8 @@ Public Class frm_Item_Master
         txtOpeningStock.Text = ""
         txtCurrentStock.Text = ""
         txtOpeningStock.ReadOnly = False
+        txtSearch.Focus()
+
     End Sub
 
     Public Sub DeleteClick(ByVal sender As Object, ByVal e As System.EventArgs) Implements IForm.DeleteClick
@@ -443,7 +446,7 @@ Public Class frm_Item_Master
         frm_Show_search.column_name4 = "LABELITEMNAME_VCH"
         frm_Show_search.column_name5 = "ITEM_CAT_NAME"
         frm_Show_search.cols_no_for_width = "1,2,3,4,5,6"
-        frm_Show_search.cols_width = "100,350,60,60,100,100"
+        frm_Show_search.cols_width = "100,360,60,60,100,105"
         frm_Show_search.extra_condition = ""
         frm_Show_search.ret_column = "ITEM_ID"
         frm_Show_search.item_rate_column = ""
@@ -464,6 +467,7 @@ Public Class frm_Item_Master
             TabControl1.SelectTab(1)
         End If
     End Sub
+
 
     'Private Sub TabControl1_DrawItem(ByVal sender As Object, ByVal e As System.Windows.Forms.DrawItemEventArgs) Handles TabControl1.DrawItem
 

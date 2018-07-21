@@ -35,14 +35,15 @@ Partial Class frm_transferData_btwn_dates
         '
         'btnDataTransfer
         '
+        Me.btnDataTransfer.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.btnDataTransfer.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnDataTransfer.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnDataTransfer.Location = New System.Drawing.Point(236, 276)
+        Me.btnDataTransfer.Location = New System.Drawing.Point(15, 276)
         Me.btnDataTransfer.Name = "btnDataTransfer"
         Me.btnDataTransfer.Size = New System.Drawing.Size(126, 31)
-        Me.btnDataTransfer.TabIndex = 1
+        Me.btnDataTransfer.TabIndex = 4
         Me.btnDataTransfer.Text = "Data Transfer MMS"
-        Me.btnDataTransfer.UseVisualStyleBackColor = True
+        Me.btnDataTransfer.UseVisualStyleBackColor = False
         '
         'GroupBox1
         '
@@ -58,7 +59,7 @@ Partial Class frm_transferData_btwn_dates
         '
         'lstTablesName
         '
-        Me.lstTablesName.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.lstTablesName.BackColor = System.Drawing.Color.FromArgb(CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.lstTablesName.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.lstTablesName.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lstTablesName.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -68,7 +69,7 @@ Partial Class frm_transferData_btwn_dates
         Me.lstTablesName.Location = New System.Drawing.Point(3, 17)
         Me.lstTablesName.Name = "lstTablesName"
         Me.lstTablesName.Size = New System.Drawing.Size(480, 131)
-        Me.lstTablesName.TabIndex = 0
+        Me.lstTablesName.TabIndex = 2
         '
         'pbardatatransfer
         '
@@ -94,7 +95,7 @@ Partial Class frm_transferData_btwn_dates
         Me.dtpfrmdate.Location = New System.Drawing.Point(97, 19)
         Me.dtpfrmdate.Name = "dtpfrmdate"
         Me.dtpfrmdate.Size = New System.Drawing.Size(200, 20)
-        Me.dtpfrmdate.TabIndex = 5
+        Me.dtpfrmdate.TabIndex = 0
         '
         'lbltodate
         '
@@ -113,30 +114,32 @@ Partial Class frm_transferData_btwn_dates
         Me.dtptodate.Location = New System.Drawing.Point(97, 52)
         Me.dtptodate.Name = "dtptodate"
         Me.dtptodate.Size = New System.Drawing.Size(200, 20)
-        Me.dtptodate.TabIndex = 5
+        Me.dtptodate.TabIndex = 1
         '
         'btn_Cancel
         '
+        Me.btn_Cancel.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.btn_Cancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btn_Cancel.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btn_Cancel.ForeColor = System.Drawing.Color.White
-        Me.btn_Cancel.Location = New System.Drawing.Point(155, 276)
+        Me.btn_Cancel.Location = New System.Drawing.Point(427, 276)
         Me.btn_Cancel.Name = "btn_Cancel"
         Me.btn_Cancel.Size = New System.Drawing.Size(75, 31)
-        Me.btn_Cancel.TabIndex = 7
+        Me.btn_Cancel.TabIndex = 6
         Me.btn_Cancel.Text = "Cancel"
-        Me.btn_Cancel.UseVisualStyleBackColor = True
+        Me.btn_Cancel.UseVisualStyleBackColor = False
         '
         'btnDataTransferAdmin
         '
+        Me.btnDataTransferAdmin.BackColor = System.Drawing.Color.Green
         Me.btnDataTransferAdmin.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnDataTransferAdmin.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnDataTransferAdmin.Location = New System.Drawing.Point(368, 276)
+        Me.btnDataTransferAdmin.Location = New System.Drawing.Point(148, 276)
         Me.btnDataTransferAdmin.Name = "btnDataTransferAdmin"
         Me.btnDataTransferAdmin.Size = New System.Drawing.Size(133, 31)
-        Me.btnDataTransferAdmin.TabIndex = 8
+        Me.btnDataTransferAdmin.TabIndex = 5
         Me.btnDataTransferAdmin.Text = "Data Transfer Admin"
-        Me.btnDataTransferAdmin.UseVisualStyleBackColor = True
+        Me.btnDataTransferAdmin.UseVisualStyleBackColor = False
         '
         'frm_transferData_btwn_dates
         '

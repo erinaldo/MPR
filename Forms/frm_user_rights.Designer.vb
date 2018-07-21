@@ -37,8 +37,8 @@ Partial Class frm_user_rights
         '
         'trvForms
         '
-        Me.trvForms.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.trvForms.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.trvForms.BackColor = System.Drawing.Color.FromArgb(CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.trvForms.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.trvForms.CheckBoxes = True
         Me.trvForms.ContextMenuStrip = Me.ContextMenuStrip1
         Me.trvForms.Dock = System.Windows.Forms.DockStyle.Fill
@@ -48,7 +48,7 @@ Partial Class frm_user_rights
         Me.trvForms.Location = New System.Drawing.Point(218, 6)
         Me.trvForms.Name = "trvForms"
         Me.trvForms.Size = New System.Drawing.Size(612, 508)
-        Me.trvForms.TabIndex = 8
+        Me.trvForms.TabIndex = 2
         '
         'ContextMenuStrip1
         '
@@ -102,19 +102,23 @@ Partial Class frm_user_rights
         '
         'lstUsers
         '
+        Me.lstUsers.AccessibleRole = System.Windows.Forms.AccessibleRole.None
         Me.lstUsers.Activation = System.Windows.Forms.ItemActivation.OneClick
-        Me.lstUsers.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.lstUsers.BackColor = System.Drawing.Color.DarkGray
+        Me.lstUsers.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.lstUsers.Cursor = System.Windows.Forms.Cursors.Hand
         Me.lstUsers.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.lstUsers.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lstUsers.Font = New System.Drawing.Font("Verdana", 9.75!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lstUsers.ForeColor = System.Drawing.Color.White
         Me.lstUsers.FullRowSelect = True
-        Me.lstUsers.GridLines = True
+        Me.lstUsers.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None
         Me.lstUsers.HideSelection = False
+        Me.lstUsers.HoverSelection = True
         Me.lstUsers.LabelEdit = True
         Me.lstUsers.Location = New System.Drawing.Point(6, 6)
         Me.lstUsers.Name = "lstUsers"
         Me.lstUsers.Size = New System.Drawing.Size(203, 508)
-        Me.lstUsers.TabIndex = 11
+        Me.lstUsers.TabIndex = 0
         Me.lstUsers.UseCompatibleStateImageBehavior = False
         '
         'lblFormHeading
