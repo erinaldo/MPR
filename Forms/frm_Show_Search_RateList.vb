@@ -188,6 +188,12 @@ Public Class frm_Show_Search_RateList
         Next
 
         grdSearch.RefreshEdit()
+
+        If IsHeaderCheckBoxClicked = True Then
+            'grdSearch.Rows(1).Selected = True
+            grdSearch.Select()
+
+        End If
         TotalCheckedCheckBoxes = If(HCheckBox.Checked, TotalCheckBoxes, 0)
         IsHeaderCheckBoxClicked = False
     End Sub
@@ -215,6 +221,9 @@ Public Class frm_Show_Search_RateList
             'HeaderCheckBox.Checked = isChecked
         End If
         'grdSearch.EditMode = False
+
+
+
 
     End Sub
 
@@ -758,9 +767,7 @@ Public Class frm_Show_Search_RateList
         End Try
     End Sub
 
-    Private Sub grdSearch_CellValueChanged(sender As Object, e As DataGridViewCellEventArgs) Handles grdSearch.CellValueChanged
-        'If Not IsHeaderCheckBoxClicked Then RowCheckBoxClick(CType(grdSearch(e.ColumnIndex, e.RowIndex), DataGridViewCheckBoxCell))
-    End Sub
+
 
     Private Sub grdSearch_CurrentCellDirtyStateChanged(sender As Object, e As EventArgs) Handles grdSearch.CurrentCellDirtyStateChanged
         If TypeOf grdSearch.CurrentCell Is DataGridViewCheckBoxCell Then grdSearch.CommitEdit(DataGridViewDataErrorContexts.Commit)

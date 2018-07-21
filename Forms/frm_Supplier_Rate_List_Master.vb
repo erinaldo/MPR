@@ -397,8 +397,10 @@ Public Class frm_Supplier_Rate_List_Master
             .ReadOnly = False
             .Visible = True
             .Width = 90
-            .DefaultCellStyle.SelectionBackColor = Color.Gold
+            .DefaultCellStyle.SelectionBackColor = Color.Lime
             .DefaultCellStyle.SelectionForeColor = Color.Black
+
+
         End With
         grdSupplier.Columns.Add(txbCol)
 
@@ -716,7 +718,13 @@ Public Class frm_Supplier_Rate_List_Master
                     grdSupplier.Rows(introw).Cells("UOM").Value = ds.Tables(0).Rows(0)("UM_NAME").ToString()
                     grdSupplier.Rows(introw).Cells("gst").Value = ds.Tables(0).Rows(0)("VAT_PERCENTAGE").ToString()
                     grdSupplier.Rows(introw).Cells("rate").Value = 0
-                    grdSupplier.Rows(introw).Cells("Selling_Rate").Value = ""
+                    grdSupplier.Rows(introw).Cells("Selling_Rate").Value = "0.00"
+
+                    grdSupplier.CurrentCell = grdSupplier.Rows(introw).Cells("Selling_Rate")
+                    grdSupplier.CurrentCell.Style.BackColor = Color.Lime
+                    grdSupplier.CurrentCell.Style.ForeColor = Color.Black
+                    'Color.Gold
+                    grdSupplier.BeginEdit(True)
 
 
                 End If
