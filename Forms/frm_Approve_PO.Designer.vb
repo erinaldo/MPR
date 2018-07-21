@@ -53,13 +53,14 @@ Partial Class frm_Approve_PO
         '
         'btnShow
         '
+        Me.btnShow.BackColor = System.Drawing.Color.FromArgb(CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.btnShow.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnShow.Location = New System.Drawing.Point(440, 37)
         Me.btnShow.Name = "btnShow"
         Me.btnShow.Size = New System.Drawing.Size(148, 33)
-        Me.btnShow.TabIndex = 4
+        Me.btnShow.TabIndex = 3
         Me.btnShow.Text = "Show PO"
-        Me.btnShow.UseVisualStyleBackColor = True
+        Me.btnShow.UseVisualStyleBackColor = False
         '
         'Label3
         '
@@ -68,7 +69,7 @@ Partial Class frm_Approve_PO
         Me.Label3.Location = New System.Drawing.Point(235, 45)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(26, 15)
-        Me.Label3.TabIndex = 3
+        Me.Label3.TabIndex = 12
         Me.Label3.Text = "To :"
         '
         'Label2
@@ -78,7 +79,7 @@ Partial Class frm_Approve_PO
         Me.Label2.Location = New System.Drawing.Point(16, 45)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(42, 15)
-        Me.Label2.TabIndex = 3
+        Me.Label2.TabIndex = 11
         Me.Label2.Text = "From :"
         '
         'lblFormHeading
@@ -86,11 +87,12 @@ Partial Class frm_Approve_PO
         Me.lblFormHeading.BackColor = System.Drawing.Color.Transparent
         Me.lblFormHeading.Font = New System.Drawing.Font("Verdana", 15.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblFormHeading.ForeColor = System.Drawing.Color.White
-        Me.lblFormHeading.Location = New System.Drawing.Point(785, 10)
+        Me.lblFormHeading.Location = New System.Drawing.Point(607, 10)
         Me.lblFormHeading.Name = "lblFormHeading"
-        Me.lblFormHeading.Size = New System.Drawing.Size(120, 88)
-        Me.lblFormHeading.TabIndex = 3
+        Me.lblFormHeading.Size = New System.Drawing.Size(294, 88)
+        Me.lblFormHeading.TabIndex = 13
         Me.lblFormHeading.Text = "Approve Purchase Order"
+        Me.lblFormHeading.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
         'dtpIndentTo
         '
@@ -102,7 +104,7 @@ Partial Class frm_Approve_PO
         Me.dtpIndentTo.Location = New System.Drawing.Point(267, 43)
         Me.dtpIndentTo.Name = "dtpIndentTo"
         Me.dtpIndentTo.Size = New System.Drawing.Size(156, 21)
-        Me.dtpIndentTo.TabIndex = 1
+        Me.dtpIndentTo.TabIndex = 2
         '
         'dtpIndentFrom
         '
@@ -114,7 +116,7 @@ Partial Class frm_Approve_PO
         Me.dtpIndentFrom.Location = New System.Drawing.Point(64, 43)
         Me.dtpIndentFrom.Name = "dtpIndentFrom"
         Me.dtpIndentFrom.Size = New System.Drawing.Size(156, 21)
-        Me.dtpIndentFrom.TabIndex = 0
+        Me.dtpIndentFrom.TabIndex = 1
         '
         'GroupBox2
         '
@@ -122,7 +124,7 @@ Partial Class frm_Approve_PO
         Me.GroupBox2.Location = New System.Drawing.Point(3, 113)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Size = New System.Drawing.Size(904, 514)
-        Me.GroupBox2.TabIndex = 1
+        Me.GroupBox2.TabIndex = 4
         Me.GroupBox2.TabStop = False
         '
         'grdPOList
@@ -130,7 +132,6 @@ Partial Class frm_Approve_PO
         Me.grdPOList.AllowUserToAddRows = False
         Me.grdPOList.BackgroundColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.grdPOList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.grdPOList.Dock = System.Windows.Forms.DockStyle.Fill
         Me.grdPOList.GridColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.grdPOList.Location = New System.Drawing.Point(3, 17)
         Me.grdPOList.Name = "grdPOList"
@@ -140,52 +141,56 @@ Partial Class frm_Approve_PO
         Me.grdPOList.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.White
         Me.grdPOList.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.OrangeRed
         Me.grdPOList.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black
-        Me.grdPOList.Size = New System.Drawing.Size(898, 494)
-        Me.grdPOList.TabIndex = 0
+        Me.grdPOList.Size = New System.Drawing.Size(898, 450)
+        Me.grdPOList.TabIndex = 5
         '
         'btnUpdatePO
         '
+        Me.btnUpdatePO.BackColor = System.Drawing.Color.Green
         Me.btnUpdatePO.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnUpdatePO.Font = New System.Drawing.Font("Arial Narrow", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnUpdatePO.Location = New System.Drawing.Point(218, 586)
+        Me.btnUpdatePO.Location = New System.Drawing.Point(245, 586)
         Me.btnUpdatePO.Name = "btnUpdatePO"
         Me.btnUpdatePO.Size = New System.Drawing.Size(157, 33)
-        Me.btnUpdatePO.TabIndex = 2
+        Me.btnUpdatePO.TabIndex = 6
         Me.btnUpdatePO.Text = "Update PO"
-        Me.btnUpdatePO.UseVisualStyleBackColor = True
+        Me.btnUpdatePO.UseVisualStyleBackColor = False
         '
         'btnSelectAll
         '
+        Me.btnSelectAll.BackColor = System.Drawing.Color.FromArgb(CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.btnSelectAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnSelectAll.Font = New System.Drawing.Font("Arial Narrow", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnSelectAll.Location = New System.Drawing.Point(383, 586)
+        Me.btnSelectAll.Location = New System.Drawing.Point(410, 586)
         Me.btnSelectAll.Name = "btnSelectAll"
         Me.btnSelectAll.Size = New System.Drawing.Size(157, 33)
-        Me.btnSelectAll.TabIndex = 2
+        Me.btnSelectAll.TabIndex = 7
         Me.btnSelectAll.Text = "Select All"
-        Me.btnSelectAll.UseVisualStyleBackColor = True
+        Me.btnSelectAll.UseVisualStyleBackColor = False
         '
         'btnDeselectAll
         '
+        Me.btnDeselectAll.BackColor = System.Drawing.Color.Maroon
         Me.btnDeselectAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnDeselectAll.Font = New System.Drawing.Font("Arial Narrow", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnDeselectAll.Location = New System.Drawing.Point(547, 586)
+        Me.btnDeselectAll.Location = New System.Drawing.Point(574, 586)
         Me.btnDeselectAll.Name = "btnDeselectAll"
         Me.btnDeselectAll.Size = New System.Drawing.Size(157, 33)
-        Me.btnDeselectAll.TabIndex = 2
+        Me.btnDeselectAll.TabIndex = 8
         Me.btnDeselectAll.Text = "Deselect All"
-        Me.btnDeselectAll.UseVisualStyleBackColor = True
+        Me.btnDeselectAll.UseVisualStyleBackColor = False
         '
         'btInverseSelect
         '
+        Me.btInverseSelect.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.btInverseSelect.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btInverseSelect.Font = New System.Drawing.Font("Arial Narrow", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btInverseSelect.Location = New System.Drawing.Point(712, 586)
+        Me.btInverseSelect.Location = New System.Drawing.Point(739, 586)
         Me.btInverseSelect.Name = "btInverseSelect"
         Me.btInverseSelect.Size = New System.Drawing.Size(157, 33)
-        Me.btInverseSelect.TabIndex = 2
+        Me.btInverseSelect.TabIndex = 9
         Me.btInverseSelect.Text = "Inverse Select"
-        Me.btInverseSelect.UseVisualStyleBackColor = True
+        Me.btInverseSelect.UseVisualStyleBackColor = False
         '
         'frm_Approve_PO
         '

@@ -72,12 +72,13 @@ Partial Class frm_Indent_Items
         '
         'btnShow
         '
+        Me.btnShow.BackColor = System.Drawing.Color.FromArgb(CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.btnShow.Location = New System.Drawing.Point(788, 23)
         Me.btnShow.Name = "btnShow"
         Me.btnShow.Size = New System.Drawing.Size(87, 27)
-        Me.btnShow.TabIndex = 1
+        Me.btnShow.TabIndex = 3
         Me.btnShow.Text = "Show"
-        Me.btnShow.UseVisualStyleBackColor = True
+        Me.btnShow.UseVisualStyleBackColor = False
         '
         'Label1
         '
@@ -98,7 +99,7 @@ Partial Class frm_Indent_Items
         Me.dtpToDate.Location = New System.Drawing.Point(663, 27)
         Me.dtpToDate.Name = "dtpToDate"
         Me.dtpToDate.Size = New System.Drawing.Size(107, 20)
-        Me.dtpToDate.TabIndex = 1
+        Me.dtpToDate.TabIndex = 2
         '
         'dtpFromDate
         '
@@ -119,7 +120,7 @@ Partial Class frm_Indent_Items
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(488, 15)
         Me.Label3.TabIndex = 3
-        Me.Label3.Text = "'Drag n Drop' the Item Code and Indent No column to change the item Wise/Indent W" & _
+        Me.Label3.Text = "'Drag n Drop' the Item Code and Indent No column to change the item Wise/Indent W" &
     "ise."
         '
         'GroupBox2
@@ -128,7 +129,7 @@ Partial Class frm_Indent_Items
         Me.GroupBox2.Location = New System.Drawing.Point(8, 81)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Size = New System.Drawing.Size(890, 370)
-        Me.GroupBox2.TabIndex = 0
+        Me.GroupBox2.TabIndex = 4
         Me.GroupBox2.TabStop = False
         '
         'grdIndentItems
@@ -142,25 +143,27 @@ Partial Class frm_Indent_Items
         Me.grdIndentItems.Rows.DefaultSize = 18
         Me.grdIndentItems.Size = New System.Drawing.Size(884, 350)
         Me.grdIndentItems.Styles = New C1.Win.C1FlexGrid.CellStyleCollection(resources.GetString("grdIndentItems.Styles"))
-        Me.grdIndentItems.TabIndex = 1
+        Me.grdIndentItems.TabIndex = 5
         '
         'btnOk
         '
+        Me.btnOk.BackColor = System.Drawing.Color.Green
         Me.btnOk.Location = New System.Drawing.Point(702, 468)
         Me.btnOk.Name = "btnOk"
         Me.btnOk.Size = New System.Drawing.Size(87, 27)
-        Me.btnOk.TabIndex = 1
+        Me.btnOk.TabIndex = 6
         Me.btnOk.Text = "Ok"
-        Me.btnOk.UseVisualStyleBackColor = True
+        Me.btnOk.UseVisualStyleBackColor = False
         '
         'btnCancel
         '
+        Me.btnCancel.BackColor = System.Drawing.Color.Maroon
         Me.btnCancel.Location = New System.Drawing.Point(807, 468)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(87, 27)
-        Me.btnCancel.TabIndex = 1
+        Me.btnCancel.TabIndex = 7
         Me.btnCancel.Text = "Cancel"
-        Me.btnCancel.UseVisualStyleBackColor = True
+        Me.btnCancel.UseVisualStyleBackColor = False
         '
         'frm_Indent_Items
         '

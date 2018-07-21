@@ -38,6 +38,8 @@ Partial Class frm_Purchase_Order
         Me.Label11 = New System.Windows.Forms.Label()
         Me.cmbFilterSupp = New System.Windows.Forms.ComboBox()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
+        Me.lblCESSAmount = New System.Windows.Forms.Label()
+        Me.Label16 = New System.Windows.Forms.Label()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.dtpTransMode = New System.Windows.Forms.ComboBox()
         Me.dtpPriceBasis = New System.Windows.Forms.ComboBox()
@@ -99,8 +101,15 @@ Partial Class frm_Purchase_Order
         Me.lblCap10 = New System.Windows.Forms.Label()
         Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
         Me.erp = New System.Windows.Forms.ErrorProvider(Me.components)
-        Me.lblCESSAmount = New System.Windows.Forms.Label()
-        Me.Label16 = New System.Windows.Forms.Label()
+        Me.Panel7 = New System.Windows.Forms.Panel()
+        Me.lblGST3 = New System.Windows.Forms.Label()
+        Me.lblGST28 = New System.Windows.Forms.Label()
+        Me.lblGST18 = New System.Windows.Forms.Label()
+        Me.lblGST12 = New System.Windows.Forms.Label()
+        Me.lblGST5 = New System.Windows.Forms.Label()
+        Me.lblGST0 = New System.Windows.Forms.Label()
+        Me.lblGSTHeader = New System.Windows.Forms.Label()
+        Me.lblGSTDetail = New System.Windows.Forms.Label()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
@@ -146,7 +155,7 @@ Partial Class frm_Purchase_Order
         Me.GroupBox4.Location = New System.Drawing.Point(6, 117)
         Me.GroupBox4.Name = "GroupBox4"
         Me.GroupBox4.Size = New System.Drawing.Size(890, 477)
-        Me.GroupBox4.TabIndex = 0
+        Me.GroupBox4.TabIndex = 7
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "List of Purchase Order"
         '
@@ -162,7 +171,7 @@ Partial Class frm_Purchase_Order
         Me.flxPOList.Rows.DefaultSize = 18
         Me.flxPOList.Size = New System.Drawing.Size(884, 457)
         Me.flxPOList.Styles = New C1.Win.C1FlexGrid.CellStyleCollection(resources.GetString("flxPOList.Styles"))
-        Me.flxPOList.TabIndex = 0
+        Me.flxPOList.TabIndex = 8
         '
         'GroupBox3
         '
@@ -189,10 +198,10 @@ Partial Class frm_Purchase_Order
         'lblPoStatus
         '
         Me.lblPoStatus.AutoSize = True
-        Me.lblPoStatus.Location = New System.Drawing.Point(449, 71)
+        Me.lblPoStatus.Location = New System.Drawing.Point(604, 68)
         Me.lblPoStatus.Name = "lblPoStatus"
         Me.lblPoStatus.Size = New System.Drawing.Size(68, 15)
-        Me.lblPoStatus.TabIndex = 6
+        Me.lblPoStatus.TabIndex = 13
         Me.lblPoStatus.Text = "PO Status :"
         '
         'cmdPoStatus
@@ -201,30 +210,32 @@ Partial Class frm_Purchase_Order
         Me.cmdPoStatus.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdPoStatus.ForeColor = System.Drawing.Color.White
         Me.cmdPoStatus.FormattingEnabled = True
-        Me.cmdPoStatus.Location = New System.Drawing.Point(530, 65)
+        Me.cmdPoStatus.Location = New System.Drawing.Point(672, 65)
         Me.cmdPoStatus.Name = "cmdPoStatus"
-        Me.cmdPoStatus.Size = New System.Drawing.Size(193, 23)
+        Me.cmdPoStatus.Size = New System.Drawing.Size(109, 23)
         Me.cmdPoStatus.TabIndex = 5
         '
         'btnShow
         '
-        Me.btnShow.Location = New System.Drawing.Point(776, 55)
+        Me.btnShow.BackColor = System.Drawing.Color.FromArgb(CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.btnShow.Location = New System.Drawing.Point(787, 59)
         Me.btnShow.Name = "btnShow"
         Me.btnShow.Size = New System.Drawing.Size(97, 33)
-        Me.btnShow.TabIndex = 4
+        Me.btnShow.TabIndex = 6
         Me.btnShow.Text = "Show"
-        Me.btnShow.UseVisualStyleBackColor = True
+        Me.btnShow.UseVisualStyleBackColor = False
         '
         'txtPONumber
         '
         Me.txtPONumber.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.txtPONumber.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.txtPONumber.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtPONumber.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtPONumber.ForeColor = System.Drawing.Color.White
-        Me.txtPONumber.Location = New System.Drawing.Point(529, 27)
+        Me.txtPONumber.Location = New System.Drawing.Point(455, 63)
+        Me.txtPONumber.Multiline = True
         Me.txtPONumber.Name = "txtPONumber"
-        Me.txtPONumber.Size = New System.Drawing.Size(194, 18)
-        Me.txtPONumber.TabIndex = 3
+        Me.txtPONumber.Size = New System.Drawing.Size(143, 23)
+        Me.txtPONumber.TabIndex = 4
         '
         'dtpoToDate
         '
@@ -232,10 +243,10 @@ Partial Class frm_Purchase_Order
         Me.dtpoToDate.CalendarMonthBackground = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.dtpoToDate.CustomFormat = "dd-MMM-yyyy"
         Me.dtpoToDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpoToDate.Location = New System.Drawing.Point(312, 63)
+        Me.dtpoToDate.Location = New System.Drawing.Point(287, 65)
         Me.dtpoToDate.Name = "dtpoToDate"
-        Me.dtpoToDate.Size = New System.Drawing.Size(119, 21)
-        Me.dtpoToDate.TabIndex = 2
+        Me.dtpoToDate.Size = New System.Drawing.Size(111, 21)
+        Me.dtpoToDate.TabIndex = 3
         '
         'dtpoFromDate
         '
@@ -243,7 +254,7 @@ Partial Class frm_Purchase_Order
         Me.dtpoFromDate.CalendarMonthBackground = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.dtpoFromDate.CustomFormat = "dd-MMM-yyyy"
         Me.dtpoFromDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpoFromDate.Location = New System.Drawing.Point(112, 64)
+        Me.dtpoFromDate.Location = New System.Drawing.Point(92, 63)
         Me.dtpoFromDate.Name = "dtpoFromDate"
         Me.dtpoFromDate.Size = New System.Drawing.Size(113, 21)
         Me.dtpoFromDate.TabIndex = 2
@@ -251,54 +262,64 @@ Partial Class frm_Purchase_Order
         'Label13
         '
         Me.Label13.AutoSize = True
-        Me.Label13.Location = New System.Drawing.Point(237, 65)
+        Me.Label13.Location = New System.Drawing.Point(211, 68)
         Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(69, 15)
-        Me.Label13.TabIndex = 1
-        Me.Label13.Text = "PO Date To"
+        Me.Label13.Size = New System.Drawing.Size(75, 15)
+        Me.Label13.TabIndex = 11
+        Me.Label13.Text = "PO Date To :"
         '
         'Label12
         '
         Me.Label12.AutoSize = True
-        Me.Label12.Location = New System.Drawing.Point(19, 65)
+        Me.Label12.Location = New System.Drawing.Point(5, 66)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(87, 15)
-        Me.Label12.TabIndex = 1
+        Me.Label12.TabIndex = 10
         Me.Label12.Text = "PO Date from :"
         '
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(449, 27)
+        Me.Label7.Location = New System.Drawing.Point(403, 68)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(52, 15)
-        Me.Label7.TabIndex = 1
+        Me.Label7.TabIndex = 12
         Me.Label7.Text = "PO No. :"
         '
         'Label11
         '
         Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(19, 27)
+        Me.Label11.Location = New System.Drawing.Point(5, 27)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(59, 15)
-        Me.Label11.TabIndex = 1
+        Me.Label11.TabIndex = 9
         Me.Label11.Text = "Supplier :"
         '
         'cmbFilterSupp
         '
+        Me.cmbFilterSupp.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cmbFilterSupp.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmbFilterSupp.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.cmbFilterSupp.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cmbFilterSupp.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmbFilterSupp.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmbFilterSupp.ForeColor = System.Drawing.Color.White
         Me.cmbFilterSupp.FormattingEnabled = True
-        Me.cmbFilterSupp.Location = New System.Drawing.Point(112, 24)
+        Me.cmbFilterSupp.Location = New System.Drawing.Point(92, 22)
         Me.cmbFilterSupp.Name = "cmbFilterSupp"
-        Me.cmbFilterSupp.Size = New System.Drawing.Size(319, 25)
-        Me.cmbFilterSupp.TabIndex = 0
+        Me.cmbFilterSupp.Size = New System.Drawing.Size(689, 23)
+        Me.cmbFilterSupp.TabIndex = 1
         '
         'TabPage2
         '
         Me.TabPage2.BackColor = System.Drawing.Color.DimGray
+        Me.TabPage2.Controls.Add(Me.lblGSTDetail)
+        Me.TabPage2.Controls.Add(Me.lblGST3)
+        Me.TabPage2.Controls.Add(Me.lblGST28)
+        Me.TabPage2.Controls.Add(Me.lblGST18)
+        Me.TabPage2.Controls.Add(Me.lblGST12)
+        Me.TabPage2.Controls.Add(Me.lblGST5)
+        Me.TabPage2.Controls.Add(Me.lblGST0)
+        Me.TabPage2.Controls.Add(Me.lblGSTHeader)
+        Me.TabPage2.Controls.Add(Me.Panel7)
         Me.TabPage2.Controls.Add(Me.lblCESSAmount)
         Me.TabPage2.Controls.Add(Me.Label16)
         Me.TabPage2.Controls.Add(Me.Label8)
@@ -344,11 +365,32 @@ Partial Class frm_Purchase_Order
         Me.TabPage2.Size = New System.Drawing.Size(902, 600)
         Me.TabPage2.TabIndex = 1
         '
+        'lblCESSAmount
+        '
+        Me.lblCESSAmount.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblCESSAmount.ForeColor = System.Drawing.Color.Orange
+        Me.lblCESSAmount.Location = New System.Drawing.Point(779, 472)
+        Me.lblCESSAmount.Name = "lblCESSAmount"
+        Me.lblCESSAmount.Size = New System.Drawing.Size(118, 20)
+        Me.lblCESSAmount.TabIndex = 43
+        Me.lblCESSAmount.Text = "0.00"
+        Me.lblCESSAmount.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'Label16
+        '
+        Me.Label16.AutoSize = True
+        Me.Label16.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label16.Location = New System.Drawing.Point(682, 477)
+        Me.Label16.Name = "Label16"
+        Me.Label16.Size = New System.Drawing.Size(93, 15)
+        Me.Label16.TabIndex = 44
+        Me.Label16.Text = "CESS  Amount :"
+        '
         'Label8
         '
         Me.Label8.AutoSize = True
         Me.Label8.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label8.Location = New System.Drawing.Point(16, 452)
+        Me.Label8.Location = New System.Drawing.Point(3, 451)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(99, 15)
         Me.Label8.TabIndex = 41
@@ -356,35 +398,37 @@ Partial Class frm_Purchase_Order
         '
         'dtpTransMode
         '
+        Me.dtpTransMode.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.dtpTransMode.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.dtpTransMode.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.dtpTransMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.dtpTransMode.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.dtpTransMode.ForeColor = System.Drawing.Color.White
         Me.dtpTransMode.FormattingEnabled = True
         Me.dtpTransMode.Items.AddRange(New Object() {"On Party behalf", "On Ourbehalf"})
-        Me.dtpTransMode.Location = New System.Drawing.Point(123, 448)
+        Me.dtpTransMode.Location = New System.Drawing.Point(102, 448)
         Me.dtpTransMode.Name = "dtpTransMode"
-        Me.dtpTransMode.Size = New System.Drawing.Size(166, 23)
-        Me.dtpTransMode.TabIndex = 37
+        Me.dtpTransMode.Size = New System.Drawing.Size(143, 23)
+        Me.dtpTransMode.TabIndex = 17
         '
         'dtpPriceBasis
         '
+        Me.dtpPriceBasis.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.dtpPriceBasis.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.dtpPriceBasis.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.dtpPriceBasis.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.dtpPriceBasis.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.dtpPriceBasis.ForeColor = System.Drawing.Color.White
         Me.dtpPriceBasis.FormattingEnabled = True
         Me.dtpPriceBasis.Items.AddRange(New Object() {"Ex-works,Godown", "F.O.R Destination"})
-        Me.dtpPriceBasis.Location = New System.Drawing.Point(387, 449)
+        Me.dtpPriceBasis.Location = New System.Drawing.Point(336, 449)
         Me.dtpPriceBasis.Name = "dtpPriceBasis"
-        Me.dtpPriceBasis.Size = New System.Drawing.Size(162, 23)
-        Me.dtpPriceBasis.TabIndex = 38
+        Me.dtpPriceBasis.Size = New System.Drawing.Size(139, 23)
+        Me.dtpPriceBasis.TabIndex = 18
         '
         'Label9
         '
         Me.Label9.AutoSize = True
         Me.Label9.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label9.Location = New System.Drawing.Point(298, 454)
+        Me.Label9.Location = New System.Drawing.Point(251, 451)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(76, 15)
         Me.Label9.TabIndex = 42
@@ -392,35 +436,37 @@ Partial Class frm_Purchase_Order
         '
         'dtpFreight
         '
+        Me.dtpFreight.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.dtpFreight.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.dtpFreight.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.dtpFreight.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.dtpFreight.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.dtpFreight.ForeColor = System.Drawing.Color.White
         Me.dtpFreight.FormattingEnabled = True
         Me.dtpFreight.Items.AddRange(New Object() {"By Us", "By You"})
-        Me.dtpFreight.Location = New System.Drawing.Point(387, 418)
+        Me.dtpFreight.Location = New System.Drawing.Point(336, 418)
         Me.dtpFreight.Name = "dtpFreight"
-        Me.dtpFreight.Size = New System.Drawing.Size(162, 23)
-        Me.dtpFreight.TabIndex = 36
+        Me.dtpFreight.Size = New System.Drawing.Size(139, 23)
+        Me.dtpFreight.TabIndex = 16
         '
         'dtpOctroi
         '
+        Me.dtpOctroi.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.dtpOctroi.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.dtpOctroi.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.dtpOctroi.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.dtpOctroi.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.dtpOctroi.ForeColor = System.Drawing.Color.White
         Me.dtpOctroi.FormattingEnabled = True
         Me.dtpOctroi.Items.AddRange(New Object() {"By Us", "By You"})
-        Me.dtpOctroi.Location = New System.Drawing.Point(123, 417)
+        Me.dtpOctroi.Location = New System.Drawing.Point(102, 417)
         Me.dtpOctroi.Name = "dtpOctroi"
-        Me.dtpOctroi.Size = New System.Drawing.Size(166, 23)
-        Me.dtpOctroi.TabIndex = 35
+        Me.dtpOctroi.Size = New System.Drawing.Size(143, 23)
+        Me.dtpOctroi.TabIndex = 15
         '
         'Label10
         '
         Me.Label10.AutoSize = True
         Me.Label10.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label10.Location = New System.Drawing.Point(298, 421)
+        Me.Label10.Location = New System.Drawing.Point(251, 420)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(51, 15)
         Me.Label10.TabIndex = 40
@@ -430,7 +476,7 @@ Partial Class frm_Purchase_Order
         '
         Me.Label14.AutoSize = True
         Me.Label14.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label14.Location = New System.Drawing.Point(16, 421)
+        Me.Label14.Location = New System.Drawing.Point(3, 420)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(45, 15)
         Me.Label14.TabIndex = 39
@@ -482,10 +528,10 @@ Partial Class frm_Purchase_Order
         Me.txtOtherCharges.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtOtherCharges.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtOtherCharges.ForeColor = System.Drawing.Color.White
-        Me.txtOtherCharges.Location = New System.Drawing.Point(760, 476)
+        Me.txtOtherCharges.Location = New System.Drawing.Point(775, 502)
         Me.txtOtherCharges.Name = "txtOtherCharges"
         Me.txtOtherCharges.Size = New System.Drawing.Size(118, 18)
-        Me.txtOtherCharges.TabIndex = 4
+        Me.txtOtherCharges.TabIndex = 21
         Me.txtOtherCharges.Text = "0.00"
         Me.txtOtherCharges.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
@@ -495,11 +541,11 @@ Partial Class frm_Purchase_Order
         Me.txtDiscountAmount.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtDiscountAmount.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtDiscountAmount.ForeColor = System.Drawing.Color.White
-        Me.txtDiscountAmount.Location = New System.Drawing.Point(760, 509)
+        Me.txtDiscountAmount.Location = New System.Drawing.Point(775, 533)
         Me.txtDiscountAmount.Name = "txtDiscountAmount"
         Me.txtDiscountAmount.ReadOnly = True
         Me.txtDiscountAmount.Size = New System.Drawing.Size(118, 18)
-        Me.txtDiscountAmount.TabIndex = 5
+        Me.txtDiscountAmount.TabIndex = 22
         Me.txtDiscountAmount.Text = "0.00"
         Me.txtDiscountAmount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
@@ -507,7 +553,7 @@ Partial Class frm_Purchase_Order
         '
         Me.Panel1.BackColor = System.Drawing.Color.White
         Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.Panel1.Location = New System.Drawing.Point(599, 388)
+        Me.Panel1.Location = New System.Drawing.Point(484, 388)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(1, 200)
         Me.Panel1.TabIndex = 11
@@ -518,12 +564,12 @@ Partial Class frm_Purchase_Order
         Me.txtPaymentTerms.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtPaymentTerms.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtPaymentTerms.ForeColor = System.Drawing.Color.White
-        Me.txtPaymentTerms.Location = New System.Drawing.Point(123, 537)
+        Me.txtPaymentTerms.Location = New System.Drawing.Point(102, 540)
         Me.txtPaymentTerms.Multiline = True
         Me.txtPaymentTerms.Name = "txtPaymentTerms"
         Me.txtPaymentTerms.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtPaymentTerms.Size = New System.Drawing.Size(426, 51)
-        Me.txtPaymentTerms.TabIndex = 3
+        Me.txtPaymentTerms.Size = New System.Drawing.Size(373, 51)
+        Me.txtPaymentTerms.TabIndex = 20
         '
         'GroupBox2
         '
@@ -534,22 +580,24 @@ Partial Class frm_Purchase_Order
         Me.GroupBox2.ForeColor = System.Drawing.Color.White
         Me.GroupBox2.Location = New System.Drawing.Point(6, 129)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(890, 246)
-        Me.GroupBox2.TabIndex = 1
+        Me.GroupBox2.Size = New System.Drawing.Size(890, 251)
+        Me.GroupBox2.TabIndex = 8
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Detail"
         '
         'lnkSelectItemswithoutIndent
         '
-        Me.lnkSelectItemswithoutIndent.AutoSize = True
-        Me.lnkSelectItemswithoutIndent.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lnkSelectItemswithoutIndent.LinkColor = System.Drawing.Color.DarkOrange
-        Me.lnkSelectItemswithoutIndent.Location = New System.Drawing.Point(603, 221)
+        Me.lnkSelectItemswithoutIndent.BackColor = System.Drawing.Color.Silver
+        Me.lnkSelectItemswithoutIndent.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lnkSelectItemswithoutIndent.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline
+        Me.lnkSelectItemswithoutIndent.LinkColor = System.Drawing.Color.OrangeRed
+        Me.lnkSelectItemswithoutIndent.Location = New System.Drawing.Point(670, 220)
         Me.lnkSelectItemswithoutIndent.Name = "lnkSelectItemswithoutIndent"
-        Me.lnkSelectItemswithoutIndent.Size = New System.Drawing.Size(166, 15)
-        Me.lnkSelectItemswithoutIndent.TabIndex = 2
+        Me.lnkSelectItemswithoutIndent.Size = New System.Drawing.Size(210, 25)
+        Me.lnkSelectItemswithoutIndent.TabIndex = 10
         Me.lnkSelectItemswithoutIndent.TabStop = True
         Me.lnkSelectItemswithoutIndent.Text = "Insert Items (without Indent)"
+        Me.lnkSelectItemswithoutIndent.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'flxItemList
         '
@@ -559,40 +607,44 @@ Partial Class frm_Purchase_Order
         Me.flxItemList.AllowSorting = C1.Win.C1FlexGrid.AllowSortingEnum.None
         Me.flxItemList.AutoClipboard = True
         Me.flxItemList.BackColor = System.Drawing.Color.Silver
+        Me.flxItemList.BorderStyle = C1.Win.C1FlexGrid.Util.BaseControls.BorderStyleEnum.None
         Me.flxItemList.ColumnInfo = "10,1,0,0,0,90,Columns:"
-        Me.flxItemList.Dock = System.Windows.Forms.DockStyle.Top
         Me.flxItemList.FocusRect = C1.Win.C1FlexGrid.FocusRectEnum.Solid
         Me.flxItemList.HighLight = C1.Win.C1FlexGrid.HighLightEnum.WithFocus
-        Me.flxItemList.Location = New System.Drawing.Point(3, 17)
+        Me.flxItemList.Location = New System.Drawing.Point(3, 15)
         Me.flxItemList.Name = "flxItemList"
         Me.flxItemList.Rows.DefaultSize = 18
         Me.flxItemList.Size = New System.Drawing.Size(884, 201)
         Me.flxItemList.Styles = New C1.Win.C1FlexGrid.CellStyleCollection(resources.GetString("flxItemList.Styles"))
-        Me.flxItemList.TabIndex = 0
+        Me.flxItemList.TabIndex = 9
         '
         'lnkCalculatePOAmt
         '
-        Me.lnkCalculatePOAmt.AutoSize = True
-        Me.lnkCalculatePOAmt.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lnkCalculatePOAmt.LinkColor = System.Drawing.Color.DarkOrange
-        Me.lnkCalculatePOAmt.Location = New System.Drawing.Point(10, 221)
+        Me.lnkCalculatePOAmt.BackColor = System.Drawing.Color.Silver
+        Me.lnkCalculatePOAmt.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lnkCalculatePOAmt.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline
+        Me.lnkCalculatePOAmt.LinkColor = System.Drawing.Color.OrangeRed
+        Me.lnkCalculatePOAmt.Location = New System.Drawing.Point(9, 220)
         Me.lnkCalculatePOAmt.Name = "lnkCalculatePOAmt"
-        Me.lnkCalculatePOAmt.Size = New System.Drawing.Size(127, 15)
-        Me.lnkCalculatePOAmt.TabIndex = 1
+        Me.lnkCalculatePOAmt.Size = New System.Drawing.Size(210, 25)
+        Me.lnkCalculatePOAmt.TabIndex = 12
         Me.lnkCalculatePOAmt.TabStop = True
         Me.lnkCalculatePOAmt.Text = "Calculate PO Amount"
+        Me.lnkCalculatePOAmt.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'lnkSelectItems
         '
-        Me.lnkSelectItems.AutoSize = True
-        Me.lnkSelectItems.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lnkSelectItems.LinkColor = System.Drawing.Color.DarkOrange
-        Me.lnkSelectItems.Location = New System.Drawing.Point(805, 221)
+        Me.lnkSelectItems.BackColor = System.Drawing.Color.Silver
+        Me.lnkSelectItems.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lnkSelectItems.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline
+        Me.lnkSelectItems.LinkColor = System.Drawing.Color.OrangeRed
+        Me.lnkSelectItems.Location = New System.Drawing.Point(338, 220)
         Me.lnkSelectItems.Name = "lnkSelectItems"
-        Me.lnkSelectItems.Size = New System.Drawing.Size(75, 15)
-        Me.lnkSelectItems.TabIndex = 1
+        Me.lnkSelectItems.Size = New System.Drawing.Size(210, 25)
+        Me.lnkSelectItems.TabIndex = 11
         Me.lnkSelectItems.TabStop = True
         Me.lnkSelectItems.Text = "Insert Items"
+        Me.lnkSelectItems.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'txtPORemarks
         '
@@ -600,24 +652,25 @@ Partial Class frm_Purchase_Order
         Me.txtPORemarks.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtPORemarks.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtPORemarks.ForeColor = System.Drawing.Color.White
-        Me.txtPORemarks.Location = New System.Drawing.Point(123, 480)
+        Me.txtPORemarks.Location = New System.Drawing.Point(102, 480)
         Me.txtPORemarks.Multiline = True
         Me.txtPORemarks.Name = "txtPORemarks"
         Me.txtPORemarks.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtPORemarks.Size = New System.Drawing.Size(426, 51)
-        Me.txtPORemarks.TabIndex = 2
+        Me.txtPORemarks.Size = New System.Drawing.Size(373, 51)
+        Me.txtPORemarks.TabIndex = 19
         '
         'cmbDeliveryRate
         '
+        Me.cmbDeliveryRate.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cmbDeliveryRate.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmbDeliveryRate.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.cmbDeliveryRate.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbDeliveryRate.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmbDeliveryRate.ForeColor = System.Drawing.Color.White
         Me.cmbDeliveryRate.FormattingEnabled = True
-        Me.cmbDeliveryRate.Location = New System.Drawing.Point(387, 387)
+        Me.cmbDeliveryRate.Location = New System.Drawing.Point(336, 387)
         Me.cmbDeliveryRate.Name = "cmbDeliveryRate"
-        Me.cmbDeliveryRate.Size = New System.Drawing.Size(162, 23)
-        Me.cmbDeliveryRate.TabIndex = 1
+        Me.cmbDeliveryRate.Size = New System.Drawing.Size(139, 23)
+        Me.cmbDeliveryRate.TabIndex = 14
         '
         'GroupBox1
         '
@@ -655,19 +708,19 @@ Partial Class frm_Purchase_Order
         Me.txtBarcodeSearch.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtBarcodeSearch.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtBarcodeSearch.ForeColor = System.Drawing.Color.White
-        Me.txtBarcodeSearch.Location = New System.Drawing.Point(514, 101)
+        Me.txtBarcodeSearch.Location = New System.Drawing.Point(63, 98)
         Me.txtBarcodeSearch.MaxLength = 100
+        Me.txtBarcodeSearch.Multiline = True
         Me.txtBarcodeSearch.Name = "txtBarcodeSearch"
-        Me.txtBarcodeSearch.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtBarcodeSearch.Size = New System.Drawing.Size(272, 19)
-        Me.txtBarcodeSearch.TabIndex = 38
+        Me.txtBarcodeSearch.Size = New System.Drawing.Size(635, 20)
+        Me.txtBarcodeSearch.TabIndex = 7
         '
         'Label52
         '
         Me.Label52.AutoSize = True
         Me.Label52.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label52.ForeColor = System.Drawing.Color.White
-        Me.Label52.Location = New System.Drawing.Point(449, 104)
+        Me.Label52.Location = New System.Drawing.Point(6, 100)
         Me.Label52.Name = "Label52"
         Me.Label52.Size = New System.Drawing.Size(59, 15)
         Me.Label52.TabIndex = 37
@@ -677,7 +730,7 @@ Partial Class frm_Purchase_Order
         '
         Me.chk_VatCal.AutoSize = True
         Me.chk_VatCal.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chk_VatCal.Location = New System.Drawing.Point(633, 73)
+        Me.chk_VatCal.Location = New System.Drawing.Point(710, 55)
         Me.chk_VatCal.Name = "chk_VatCal"
         Me.chk_VatCal.Size = New System.Drawing.Size(153, 19)
         Me.chk_VatCal.TabIndex = 6
@@ -690,7 +743,7 @@ Partial Class frm_Purchase_Order
         Me.txtPOPrefix.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.txtPOPrefix.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtPOPrefix.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtPOPrefix.Location = New System.Drawing.Point(618, 26)
+        Me.txtPOPrefix.Location = New System.Drawing.Point(787, 74)
         Me.txtPOPrefix.Name = "txtPOPrefix"
         Me.txtPOPrefix.Size = New System.Drawing.Size(100, 18)
         Me.txtPOPrefix.TabIndex = 20
@@ -701,7 +754,7 @@ Partial Class frm_Purchase_Order
         Me.txtPONO.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.txtPONO.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtPONO.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtPONO.Location = New System.Drawing.Point(616, 6)
+        Me.txtPONO.Location = New System.Drawing.Point(787, 74)
         Me.txtPONO.Name = "txtPONO"
         Me.txtPONO.Size = New System.Drawing.Size(100, 18)
         Me.txtPONO.TabIndex = 9
@@ -710,8 +763,11 @@ Partial Class frm_Purchase_Order
         'CHK_OPEN_PO_QTY
         '
         Me.CHK_OPEN_PO_QTY.AutoSize = True
+        Me.CHK_OPEN_PO_QTY.Checked = True
+        Me.CHK_OPEN_PO_QTY.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.CHK_OPEN_PO_QTY.Enabled = False
         Me.CHK_OPEN_PO_QTY.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.CHK_OPEN_PO_QTY.Location = New System.Drawing.Point(633, 50)
+        Me.CHK_OPEN_PO_QTY.Location = New System.Drawing.Point(710, 39)
         Me.CHK_OPEN_PO_QTY.Name = "CHK_OPEN_PO_QTY"
         Me.CHK_OPEN_PO_QTY.Size = New System.Drawing.Size(123, 19)
         Me.CHK_OPEN_PO_QTY.TabIndex = 5
@@ -723,11 +779,12 @@ Partial Class frm_Purchase_Order
         Me.lblFormHeading.BackColor = System.Drawing.Color.Transparent
         Me.lblFormHeading.Font = New System.Drawing.Font("Verdana", 15.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblFormHeading.ForeColor = System.Drawing.Color.White
-        Me.lblFormHeading.Location = New System.Drawing.Point(762, 6)
+        Me.lblFormHeading.Location = New System.Drawing.Point(705, 9)
         Me.lblFormHeading.Name = "lblFormHeading"
-        Me.lblFormHeading.Size = New System.Drawing.Size(122, 58)
+        Me.lblFormHeading.Size = New System.Drawing.Size(186, 31)
         Me.lblFormHeading.TabIndex = 3
         Me.lblFormHeading.Text = "Purchase Order"
+        Me.lblFormHeading.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
         'dtpEndDate
         '
@@ -735,10 +792,10 @@ Partial Class frm_Purchase_Order
         Me.dtpEndDate.CalendarMonthBackground = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.dtpEndDate.CustomFormat = "dd-MMM-yyyy"
         Me.dtpEndDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpEndDate.Location = New System.Drawing.Point(515, 74)
+        Me.dtpEndDate.Location = New System.Drawing.Point(407, 71)
         Me.dtpEndDate.Name = "dtpEndDate"
         Me.dtpEndDate.Size = New System.Drawing.Size(111, 21)
-        Me.dtpEndDate.TabIndex = 2
+        Me.dtpEndDate.TabIndex = 5
         '
         'dtpStartDate
         '
@@ -746,10 +803,10 @@ Partial Class frm_Purchase_Order
         Me.dtpStartDate.CalendarMonthBackground = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.dtpStartDate.CustomFormat = "dd-MMM-yyyy"
         Me.dtpStartDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpStartDate.Location = New System.Drawing.Point(515, 44)
+        Me.dtpStartDate.Location = New System.Drawing.Point(589, 71)
         Me.dtpStartDate.Name = "dtpStartDate"
-        Me.dtpStartDate.Size = New System.Drawing.Size(111, 21)
-        Me.dtpStartDate.TabIndex = 1
+        Me.dtpStartDate.Size = New System.Drawing.Size(109, 21)
+        Me.dtpStartDate.TabIndex = 6
         '
         'dtpPODate
         '
@@ -757,22 +814,23 @@ Partial Class frm_Purchase_Order
         Me.dtpPODate.CalendarMonthBackground = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.dtpPODate.CustomFormat = "dd-MMM-yyyy"
         Me.dtpPODate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpPODate.Location = New System.Drawing.Point(318, 97)
+        Me.dtpPODate.Location = New System.Drawing.Point(229, 71)
         Me.dtpPODate.Name = "dtpPODate"
-        Me.dtpPODate.Size = New System.Drawing.Size(120, 21)
+        Me.dtpPODate.Size = New System.Drawing.Size(110, 21)
         Me.dtpPODate.TabIndex = 4
         '
         'cmbSupplier
         '
+        Me.cmbSupplier.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cmbSupplier.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmbSupplier.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.cmbSupplier.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbSupplier.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmbSupplier.ForeColor = System.Drawing.Color.White
         Me.cmbSupplier.FormattingEnabled = True
-        Me.cmbSupplier.Location = New System.Drawing.Point(71, 21)
+        Me.cmbSupplier.Location = New System.Drawing.Point(63, 13)
         Me.cmbSupplier.Name = "cmbSupplier"
-        Me.cmbSupplier.Size = New System.Drawing.Size(367, 23)
-        Me.cmbSupplier.TabIndex = 0
+        Me.cmbSupplier.Size = New System.Drawing.Size(635, 23)
+        Me.cmbSupplier.TabIndex = 1
         '
         'cmbPOType
         '
@@ -781,16 +839,16 @@ Partial Class frm_Purchase_Order
         Me.cmbPOType.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmbPOType.ForeColor = System.Drawing.Color.White
         Me.cmbPOType.FormattingEnabled = True
-        Me.cmbPOType.Location = New System.Drawing.Point(71, 96)
+        Me.cmbPOType.Location = New System.Drawing.Point(63, 71)
         Me.cmbPOType.Name = "cmbPOType"
-        Me.cmbPOType.Size = New System.Drawing.Size(174, 23)
+        Me.cmbPOType.Size = New System.Drawing.Size(105, 23)
         Me.cmbPOType.TabIndex = 3
         '
         'lblCap8
         '
         Me.lblCap8.AutoSize = True
         Me.lblCap8.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblCap8.Location = New System.Drawing.Point(447, 77)
+        Me.lblCap8.Location = New System.Drawing.Point(342, 74)
         Me.lblCap8.Name = "lblCap8"
         Me.lblCap8.Size = New System.Drawing.Size(64, 15)
         Me.lblCap8.TabIndex = 0
@@ -800,7 +858,7 @@ Partial Class frm_Purchase_Order
         '
         Me.lblCap7.AutoSize = True
         Me.lblCap7.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblCap7.Location = New System.Drawing.Point(447, 49)
+        Me.lblCap7.Location = New System.Drawing.Point(521, 74)
         Me.lblCap7.Name = "lblCap7"
         Me.lblCap7.Size = New System.Drawing.Size(67, 15)
         Me.lblCap7.TabIndex = 0
@@ -810,7 +868,7 @@ Partial Class frm_Purchase_Order
         '
         Me.lblCap4.AutoSize = True
         Me.lblCap4.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblCap4.Location = New System.Drawing.Point(251, 99)
+        Me.lblCap4.Location = New System.Drawing.Point(170, 74)
         Me.lblCap4.Name = "lblCap4"
         Me.lblCap4.Size = New System.Drawing.Size(59, 15)
         Me.lblCap4.TabIndex = 0
@@ -821,36 +879,38 @@ Partial Class frm_Purchase_Order
         Me.lblAddress.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.lblAddress.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.lblAddress.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblAddress.Location = New System.Drawing.Point(71, 51)
+        Me.lblAddress.Location = New System.Drawing.Point(63, 38)
         Me.lblAddress.Name = "lblAddress"
-        Me.lblAddress.Size = New System.Drawing.Size(367, 42)
-        Me.lblAddress.TabIndex = 7
+        Me.lblAddress.Size = New System.Drawing.Size(635, 28)
+        Me.lblAddress.TabIndex = 2
         '
         'lblStatus
         '
         Me.lblStatus.AutoSize = True
         Me.lblStatus.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblStatus.Location = New System.Drawing.Point(512, 21)
+        Me.lblStatus.Location = New System.Drawing.Point(837, 104)
         Me.lblStatus.Name = "lblStatus"
         Me.lblStatus.Size = New System.Drawing.Size(47, 13)
         Me.lblStatus.TabIndex = 2
         Me.lblStatus.Text = "lblStatus"
+        Me.lblStatus.Visible = False
         '
         'Label4
         '
         Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(447, 21)
+        Me.Label4.Location = New System.Drawing.Point(769, 103)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(68, 15)
         Me.Label4.TabIndex = 0
         Me.Label4.Text = "PO Status :"
+        Me.Label4.Visible = False
         '
         'lblCap
         '
         Me.lblCap.AutoSize = True
         Me.lblCap.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblCap.Location = New System.Drawing.Point(6, 100)
+        Me.lblCap.Location = New System.Drawing.Point(6, 74)
         Me.lblCap.Name = "lblCap"
         Me.lblCap.Size = New System.Drawing.Size(58, 15)
         Me.lblCap.TabIndex = 0
@@ -860,7 +920,7 @@ Partial Class frm_Purchase_Order
         '
         Me.lblCap2.AutoSize = True
         Me.lblCap2.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblCap2.Location = New System.Drawing.Point(6, 53)
+        Me.lblCap2.Location = New System.Drawing.Point(6, 38)
         Me.lblCap2.Name = "lblCap2"
         Me.lblCap2.Size = New System.Drawing.Size(59, 15)
         Me.lblCap2.TabIndex = 0
@@ -870,7 +930,7 @@ Partial Class frm_Purchase_Order
         '
         Me.lblCap1.AutoSize = True
         Me.lblCap1.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblCap1.Location = New System.Drawing.Point(6, 23)
+        Me.lblCap1.Location = New System.Drawing.Point(6, 14)
         Me.lblCap1.Name = "lblCap1"
         Me.lblCap1.Size = New System.Drawing.Size(59, 15)
         Me.lblCap1.TabIndex = 0
@@ -878,21 +938,22 @@ Partial Class frm_Purchase_Order
         '
         'cmbQualityRate
         '
+        Me.cmbQualityRate.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cmbQualityRate.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmbQualityRate.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.cmbQualityRate.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbQualityRate.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmbQualityRate.ForeColor = System.Drawing.Color.White
         Me.cmbQualityRate.FormattingEnabled = True
-        Me.cmbQualityRate.Location = New System.Drawing.Point(123, 387)
+        Me.cmbQualityRate.Location = New System.Drawing.Point(102, 387)
         Me.cmbQualityRate.Name = "cmbQualityRate"
-        Me.cmbQualityRate.Size = New System.Drawing.Size(166, 23)
-        Me.cmbQualityRate.TabIndex = 0
+        Me.cmbQualityRate.Size = New System.Drawing.Size(143, 23)
+        Me.cmbQualityRate.TabIndex = 13
         '
         'lblNetAmount
         '
-        Me.lblNetAmount.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblNetAmount.ForeColor = System.Drawing.Color.Orange
-        Me.lblNetAmount.Location = New System.Drawing.Point(765, 547)
+        Me.lblNetAmount.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblNetAmount.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.lblNetAmount.Location = New System.Drawing.Point(779, 563)
         Me.lblNetAmount.Name = "lblNetAmount"
         Me.lblNetAmount.Size = New System.Drawing.Size(118, 20)
         Me.lblNetAmount.TabIndex = 0
@@ -903,7 +964,7 @@ Partial Class frm_Purchase_Order
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(646, 547)
+        Me.Label3.Location = New System.Drawing.Point(682, 567)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(76, 15)
         Me.Label3.TabIndex = 0
@@ -913,7 +974,7 @@ Partial Class frm_Purchase_Order
         '
         Me.Label6.AutoSize = True
         Me.Label6.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label6.Location = New System.Drawing.Point(646, 512)
+        Me.Label6.Location = New System.Drawing.Point(682, 535)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(85, 15)
         Me.Label6.TabIndex = 0
@@ -923,7 +984,7 @@ Partial Class frm_Purchase_Order
         '
         Me.lblVatAmount.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblVatAmount.ForeColor = System.Drawing.Color.Orange
-        Me.lblVatAmount.Location = New System.Drawing.Point(765, 411)
+        Me.lblVatAmount.Location = New System.Drawing.Point(778, 408)
         Me.lblVatAmount.Name = "lblVatAmount"
         Me.lblVatAmount.Size = New System.Drawing.Size(118, 20)
         Me.lblVatAmount.TabIndex = 0
@@ -934,7 +995,7 @@ Partial Class frm_Purchase_Order
         '
         Me.Label5.AutoSize = True
         Me.Label5.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label5.Location = New System.Drawing.Point(646, 479)
+        Me.Label5.Location = New System.Drawing.Point(682, 505)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(94, 15)
         Me.Label5.TabIndex = 0
@@ -942,9 +1003,9 @@ Partial Class frm_Purchase_Order
         '
         'lblItemValue
         '
-        Me.lblItemValue.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblItemValue.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblItemValue.ForeColor = System.Drawing.Color.Orange
-        Me.lblItemValue.Location = New System.Drawing.Point(765, 383)
+        Me.lblItemValue.Location = New System.Drawing.Point(778, 383)
         Me.lblItemValue.Name = "lblItemValue"
         Me.lblItemValue.Size = New System.Drawing.Size(118, 20)
         Me.lblItemValue.TabIndex = 0
@@ -955,7 +1016,7 @@ Partial Class frm_Purchase_Order
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(646, 416)
+        Me.Label2.Location = New System.Drawing.Point(682, 412)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(84, 15)
         Me.Label2.TabIndex = 0
@@ -965,7 +1026,7 @@ Partial Class frm_Purchase_Order
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(646, 384)
+        Me.Label1.Location = New System.Drawing.Point(682, 387)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(99, 15)
         Me.Label1.TabIndex = 0
@@ -975,7 +1036,7 @@ Partial Class frm_Purchase_Order
         '
         Me.lblCap6.AutoSize = True
         Me.lblCap6.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblCap6.Location = New System.Drawing.Point(16, 480)
+        Me.lblCap6.Location = New System.Drawing.Point(3, 479)
         Me.lblCap6.Name = "lblCap6"
         Me.lblCap6.Size = New System.Drawing.Size(84, 15)
         Me.lblCap6.TabIndex = 0
@@ -985,7 +1046,7 @@ Partial Class frm_Purchase_Order
         '
         Me.lblCap9.AutoSize = True
         Me.lblCap9.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblCap9.Location = New System.Drawing.Point(16, 537)
+        Me.lblCap9.Location = New System.Drawing.Point(3, 540)
         Me.lblCap9.Name = "lblCap9"
         Me.lblCap9.Size = New System.Drawing.Size(99, 15)
         Me.lblCap9.TabIndex = 0
@@ -995,7 +1056,7 @@ Partial Class frm_Purchase_Order
         '
         Me.lblCap5.AutoSize = True
         Me.lblCap5.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblCap5.Location = New System.Drawing.Point(16, 392)
+        Me.lblCap5.Location = New System.Drawing.Point(3, 390)
         Me.lblCap5.Name = "lblCap5"
         Me.lblCap5.Size = New System.Drawing.Size(79, 15)
         Me.lblCap5.TabIndex = 0
@@ -1005,7 +1066,7 @@ Partial Class frm_Purchase_Order
         '
         Me.lblCap10.AutoSize = True
         Me.lblCap10.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblCap10.Location = New System.Drawing.Point(298, 394)
+        Me.lblCap10.Location = New System.Drawing.Point(251, 390)
         Me.lblCap10.Name = "lblCap10"
         Me.lblCap10.Size = New System.Drawing.Size(85, 15)
         Me.lblCap10.TabIndex = 0
@@ -1022,26 +1083,102 @@ Partial Class frm_Purchase_Order
         '
         Me.erp.ContainerControl = Me
         '
-        'lblCESSAmount
+        'Panel7
         '
-        Me.lblCESSAmount.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblCESSAmount.ForeColor = System.Drawing.Color.Orange
-        Me.lblCESSAmount.Location = New System.Drawing.Point(765, 443)
-        Me.lblCESSAmount.Name = "lblCESSAmount"
-        Me.lblCESSAmount.Size = New System.Drawing.Size(118, 20)
-        Me.lblCESSAmount.TabIndex = 43
-        Me.lblCESSAmount.Text = "0.00"
-        Me.lblCESSAmount.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Panel7.BackColor = System.Drawing.Color.White
+        Me.Panel7.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Panel7.Location = New System.Drawing.Point(676, 388)
+        Me.Panel7.Name = "Panel7"
+        Me.Panel7.Size = New System.Drawing.Size(1, 200)
+        Me.Panel7.TabIndex = 45
         '
-        'Label16
+        'lblGST3
         '
-        Me.Label16.AutoSize = True
-        Me.Label16.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label16.Location = New System.Drawing.Point(646, 448)
-        Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(93, 15)
-        Me.Label16.TabIndex = 44
-        Me.Label16.Text = "CESS  Amount :"
+        Me.lblGST3.AutoSize = True
+        Me.lblGST3.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblGST3.ForeColor = System.Drawing.Color.White
+        Me.lblGST3.Location = New System.Drawing.Point(492, 446)
+        Me.lblGST3.Name = "lblGST3"
+        Me.lblGST3.Size = New System.Drawing.Size(107, 14)
+        Me.lblGST3.TabIndex = 273
+        Me.lblGST3.Text = "3% - Amt @ Tax"
+        '
+        'lblGST28
+        '
+        Me.lblGST28.AutoSize = True
+        Me.lblGST28.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblGST28.ForeColor = System.Drawing.Color.White
+        Me.lblGST28.Location = New System.Drawing.Point(491, 564)
+        Me.lblGST28.Name = "lblGST28"
+        Me.lblGST28.Size = New System.Drawing.Size(115, 14)
+        Me.lblGST28.TabIndex = 272
+        Me.lblGST28.Text = "28% - Amt @ Tax"
+        '
+        'lblGST18
+        '
+        Me.lblGST18.AutoSize = True
+        Me.lblGST18.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblGST18.ForeColor = System.Drawing.Color.White
+        Me.lblGST18.Location = New System.Drawing.Point(491, 534)
+        Me.lblGST18.Name = "lblGST18"
+        Me.lblGST18.Size = New System.Drawing.Size(115, 14)
+        Me.lblGST18.TabIndex = 271
+        Me.lblGST18.Text = "18% - Amt @ Tax"
+        '
+        'lblGST12
+        '
+        Me.lblGST12.AutoSize = True
+        Me.lblGST12.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblGST12.ForeColor = System.Drawing.Color.White
+        Me.lblGST12.Location = New System.Drawing.Point(491, 506)
+        Me.lblGST12.Name = "lblGST12"
+        Me.lblGST12.Size = New System.Drawing.Size(115, 14)
+        Me.lblGST12.TabIndex = 270
+        Me.lblGST12.Text = "12% - Amt @ Tax"
+        '
+        'lblGST5
+        '
+        Me.lblGST5.AutoSize = True
+        Me.lblGST5.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblGST5.ForeColor = System.Drawing.Color.White
+        Me.lblGST5.Location = New System.Drawing.Point(492, 476)
+        Me.lblGST5.Name = "lblGST5"
+        Me.lblGST5.Size = New System.Drawing.Size(107, 14)
+        Me.lblGST5.TabIndex = 269
+        Me.lblGST5.Text = "5% - Amt @ Tax"
+        '
+        'lblGST0
+        '
+        Me.lblGST0.AutoSize = True
+        Me.lblGST0.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblGST0.ForeColor = System.Drawing.Color.White
+        Me.lblGST0.Location = New System.Drawing.Point(492, 418)
+        Me.lblGST0.Name = "lblGST0"
+        Me.lblGST0.Size = New System.Drawing.Size(107, 14)
+        Me.lblGST0.TabIndex = 268
+        Me.lblGST0.Text = "0% - Amt @ Tax"
+        '
+        'lblGSTHeader
+        '
+        Me.lblGSTHeader.AutoSize = True
+        Me.lblGSTHeader.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblGSTHeader.ForeColor = System.Drawing.Color.White
+        Me.lblGSTHeader.Location = New System.Drawing.Point(491, 387)
+        Me.lblGSTHeader.Name = "lblGSTHeader"
+        Me.lblGSTHeader.Size = New System.Drawing.Size(116, 14)
+        Me.lblGSTHeader.TabIndex = 267
+        Me.lblGSTHeader.Text = "GST Summary :-"
+        '
+        'lblGSTDetail
+        '
+        Me.lblGSTDetail.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblGSTDetail.ForeColor = System.Drawing.Color.Orange
+        Me.lblGSTDetail.Location = New System.Drawing.Point(715, 433)
+        Me.lblGSTDetail.Name = "lblGSTDetail"
+        Me.lblGSTDetail.Size = New System.Drawing.Size(182, 37)
+        Me.lblGSTDetail.TabIndex = 274
+        Me.lblGSTDetail.Text = "UTGST - 0.00" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "SGST - 0.00"
+        Me.lblGSTDetail.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
         'frm_Purchase_Order
         '
@@ -1060,7 +1197,6 @@ Partial Class frm_Purchase_Order
         Me.TabPage2.ResumeLayout(False)
         Me.TabPage2.PerformLayout()
         Me.GroupBox2.ResumeLayout(False)
-        Me.GroupBox2.PerformLayout()
         CType(Me.flxItemList, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
@@ -1148,4 +1284,13 @@ Partial Class frm_Purchase_Order
     Friend WithEvents Label52 As System.Windows.Forms.Label
     Friend WithEvents lblCESSAmount As Label
     Friend WithEvents Label16 As Label
+    Friend WithEvents Panel7 As Panel
+    Friend WithEvents lblGST3 As Label
+    Friend WithEvents lblGST28 As Label
+    Friend WithEvents lblGST18 As Label
+    Friend WithEvents lblGST12 As Label
+    Friend WithEvents lblGST5 As Label
+    Friend WithEvents lblGST0 As Label
+    Friend WithEvents lblGSTHeader As Label
+    Friend WithEvents lblGSTDetail As Label
 End Class

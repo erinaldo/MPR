@@ -53,13 +53,14 @@ Partial Class frm_Approve_OPEN_PO
         '
         'btnShow
         '
+        Me.btnShow.BackColor = System.Drawing.Color.FromArgb(CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.btnShow.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnShow.Location = New System.Drawing.Point(470, 32)
         Me.btnShow.Name = "btnShow"
         Me.btnShow.Size = New System.Drawing.Size(148, 33)
-        Me.btnShow.TabIndex = 4
+        Me.btnShow.TabIndex = 3
         Me.btnShow.Text = "Show PO"
-        Me.btnShow.UseVisualStyleBackColor = True
+        Me.btnShow.UseVisualStyleBackColor = False
         '
         'Label3
         '
@@ -68,7 +69,7 @@ Partial Class frm_Approve_OPEN_PO
         Me.Label3.Location = New System.Drawing.Point(245, 42)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(26, 15)
-        Me.Label3.TabIndex = 3
+        Me.Label3.TabIndex = 8
         Me.Label3.Text = "To :"
         '
         'Label2
@@ -78,7 +79,7 @@ Partial Class frm_Approve_OPEN_PO
         Me.Label2.Location = New System.Drawing.Point(16, 42)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(42, 15)
-        Me.Label2.TabIndex = 3
+        Me.Label2.TabIndex = 7
         Me.Label2.Text = "From :"
         '
         'lblFormHeading
@@ -89,7 +90,7 @@ Partial Class frm_Approve_OPEN_PO
         Me.lblFormHeading.Location = New System.Drawing.Point(687, 14)
         Me.lblFormHeading.Name = "lblFormHeading"
         Me.lblFormHeading.Size = New System.Drawing.Size(210, 25)
-        Me.lblFormHeading.TabIndex = 3
+        Me.lblFormHeading.TabIndex = 6
         Me.lblFormHeading.Text = "Approve Open PO"
         '
         'dtpIndentTo
@@ -102,7 +103,7 @@ Partial Class frm_Approve_OPEN_PO
         Me.dtpIndentTo.Location = New System.Drawing.Point(286, 39)
         Me.dtpIndentTo.Name = "dtpIndentTo"
         Me.dtpIndentTo.Size = New System.Drawing.Size(156, 21)
-        Me.dtpIndentTo.TabIndex = 1
+        Me.dtpIndentTo.TabIndex = 2
         '
         'dtpIndentFrom
         '
@@ -114,15 +115,15 @@ Partial Class frm_Approve_OPEN_PO
         Me.dtpIndentFrom.Location = New System.Drawing.Point(64, 39)
         Me.dtpIndentFrom.Name = "dtpIndentFrom"
         Me.dtpIndentFrom.Size = New System.Drawing.Size(156, 21)
-        Me.dtpIndentFrom.TabIndex = 0
+        Me.dtpIndentFrom.TabIndex = 1
         '
         'GroupBox2
         '
         Me.GroupBox2.Controls.Add(Me.grdIndentList)
         Me.GroupBox2.Location = New System.Drawing.Point(3, 103)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(904, 515)
-        Me.GroupBox2.TabIndex = 1
+        Me.GroupBox2.Size = New System.Drawing.Size(904, 524)
+        Me.GroupBox2.TabIndex = 4
         Me.GroupBox2.TabStop = False
         '
         'grdIndentList
@@ -130,7 +131,6 @@ Partial Class frm_Approve_OPEN_PO
         Me.grdIndentList.AllowUserToAddRows = False
         Me.grdIndentList.BackgroundColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.grdIndentList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.grdIndentList.Dock = System.Windows.Forms.DockStyle.Fill
         Me.grdIndentList.GridColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.grdIndentList.Location = New System.Drawing.Point(3, 17)
         Me.grdIndentList.Name = "grdIndentList"
@@ -140,8 +140,8 @@ Partial Class frm_Approve_OPEN_PO
         Me.grdIndentList.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.White
         Me.grdIndentList.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.OrangeRed
         Me.grdIndentList.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black
-        Me.grdIndentList.Size = New System.Drawing.Size(898, 495)
-        Me.grdIndentList.TabIndex = 0
+        Me.grdIndentList.Size = New System.Drawing.Size(898, 501)
+        Me.grdIndentList.TabIndex = 5
         '
         'btnUpdatePO
         '

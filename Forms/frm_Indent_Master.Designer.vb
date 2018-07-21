@@ -20,7 +20,7 @@ Partial Class frm_Indent_Master
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frm_Indent_Master))
         Me.TBCIndentMaster = New System.Windows.Forms.TabControl()
         Me.List = New System.Windows.Forms.TabPage()
@@ -92,7 +92,7 @@ Partial Class frm_Indent_Master
         Me.GroupBox1.Location = New System.Drawing.Point(3, 3)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(896, 65)
-        Me.GroupBox1.TabIndex = 17
+        Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         '
         'txtSearch
@@ -104,7 +104,7 @@ Partial Class frm_Indent_Master
         Me.txtSearch.Location = New System.Drawing.Point(85, 26)
         Me.txtSearch.Name = "txtSearch"
         Me.txtSearch.Size = New System.Drawing.Size(784, 19)
-        Me.txtSearch.TabIndex = 15
+        Me.txtSearch.TabIndex = 1
         '
         'Label13
         '
@@ -114,7 +114,7 @@ Partial Class frm_Indent_Master
         Me.Label13.Location = New System.Drawing.Point(6, 29)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(68, 15)
-        Me.Label13.TabIndex = 0
+        Me.Label13.TabIndex = 50
         Me.Label13.Text = "Search By :"
         '
         'GBIndentDetail
@@ -126,7 +126,7 @@ Partial Class frm_Indent_Master
         Me.GBIndentDetail.Location = New System.Drawing.Point(3, 77)
         Me.GBIndentDetail.Name = "GBIndentDetail"
         Me.GBIndentDetail.Size = New System.Drawing.Size(896, 520)
-        Me.GBIndentDetail.TabIndex = 5
+        Me.GBIndentDetail.TabIndex = 2
         Me.GBIndentDetail.TabStop = False
         Me.GBIndentDetail.Text = "Indent Master"
         '
@@ -135,14 +135,14 @@ Partial Class frm_Indent_Master
         Me.DGVIdnetMaster.AllowUserToAddRows = False
         Me.DGVIdnetMaster.AllowUserToDeleteRows = False
         Me.DGVIdnetMaster.BackgroundColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DGVIdnetMaster.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DGVIdnetMaster.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle3
         Me.DGVIdnetMaster.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DGVIdnetMaster.GridColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.DGVIdnetMaster.Location = New System.Drawing.Point(3, 15)
@@ -157,7 +157,7 @@ Partial Class frm_Indent_Master
         Me.DGVIdnetMaster.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black
         Me.DGVIdnetMaster.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.DGVIdnetMaster.Size = New System.Drawing.Size(890, 500)
-        Me.DGVIdnetMaster.TabIndex = 0
+        Me.DGVIdnetMaster.TabIndex = 3
         '
         'Detail
         '
@@ -202,7 +202,7 @@ Partial Class frm_Indent_Master
         Me.GBIndentMaster.Location = New System.Drawing.Point(3, 3)
         Me.GBIndentMaster.Name = "GBIndentMaster"
         Me.GBIndentMaster.Size = New System.Drawing.Size(896, 189)
-        Me.GBIndentMaster.TabIndex = 4
+        Me.GBIndentMaster.TabIndex = 0
         Me.GBIndentMaster.TabStop = False
         Me.GBIndentMaster.Text = "Indent  Master"
         '
@@ -269,7 +269,7 @@ Partial Class frm_Indent_Master
         Me.txtIndentReamrks.Name = "txtIndentReamrks"
         Me.txtIndentReamrks.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.txtIndentReamrks.Size = New System.Drawing.Size(687, 70)
-        Me.txtIndentReamrks.TabIndex = 5
+        Me.txtIndentReamrks.TabIndex = 2
         '
         'dtpRequiredDate
         '
@@ -281,7 +281,7 @@ Partial Class frm_Indent_Master
         Me.dtpRequiredDate.Location = New System.Drawing.Point(476, 64)
         Me.dtpRequiredDate.Name = "dtpRequiredDate"
         Me.dtpRequiredDate.Size = New System.Drawing.Size(121, 20)
-        Me.dtpRequiredDate.TabIndex = 4
+        Me.dtpRequiredDate.TabIndex = 1
         '
         'lbl_IndentCode
         '
@@ -290,7 +290,7 @@ Partial Class frm_Indent_Master
         Me.lbl_IndentCode.Location = New System.Drawing.Point(155, 32)
         Me.lbl_IndentCode.Name = "lbl_IndentCode"
         Me.lbl_IndentCode.Size = New System.Drawing.Size(65, 13)
-        Me.lbl_IndentCode.TabIndex = 3
+        Me.lbl_IndentCode.TabIndex = 5
         Me.lbl_IndentCode.Text = "Indent Code"
         '
         'lblRequiredDate
@@ -300,7 +300,7 @@ Partial Class frm_Indent_Master
         Me.lblRequiredDate.Location = New System.Drawing.Point(378, 70)
         Me.lblRequiredDate.Name = "lblRequiredDate"
         Me.lblRequiredDate.Size = New System.Drawing.Size(93, 15)
-        Me.lblRequiredDate.TabIndex = 2
+        Me.lblRequiredDate.TabIndex = 20
         Me.lblRequiredDate.Text = "Required Date :"
         '
         'lblIndentRemarks
@@ -310,7 +310,7 @@ Partial Class frm_Indent_Master
         Me.lblIndentRemarks.Location = New System.Drawing.Point(23, 106)
         Me.lblIndentRemarks.Name = "lblIndentRemarks"
         Me.lblIndentRemarks.Size = New System.Drawing.Size(101, 15)
-        Me.lblIndentRemarks.TabIndex = 1
+        Me.lblIndentRemarks.TabIndex = 10
         Me.lblIndentRemarks.Text = "Indent Remarks :"
         '
         'lblIndentCode
@@ -320,7 +320,7 @@ Partial Class frm_Indent_Master
         Me.lblIndentCode.Location = New System.Drawing.Point(23, 32)
         Me.lblIndentCode.Name = "lblIndentCode"
         Me.lblIndentCode.Size = New System.Drawing.Size(80, 15)
-        Me.lblIndentCode.TabIndex = 0
+        Me.lblIndentCode.TabIndex = 50
         Me.lblIndentCode.Text = "Indent Code :"
         '
         'GBIndentItem
@@ -332,7 +332,7 @@ Partial Class frm_Indent_Master
         Me.GBIndentItem.Location = New System.Drawing.Point(3, 198)
         Me.GBIndentItem.Name = "GBIndentItem"
         Me.GBIndentItem.Size = New System.Drawing.Size(896, 399)
-        Me.GBIndentItem.TabIndex = 6
+        Me.GBIndentItem.TabIndex = 3
         Me.GBIndentItem.TabStop = False
         Me.GBIndentItem.Text = "List of Items"
         '
@@ -354,7 +354,7 @@ Partial Class frm_Indent_Master
         Me.DGVIndentItem.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black
         Me.DGVIndentItem.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.DGVIndentItem.Size = New System.Drawing.Size(890, 379)
-        Me.DGVIndentItem.TabIndex = 0
+        Me.DGVIndentItem.TabIndex = 4
         '
         'ImageList1
         '
