@@ -612,32 +612,32 @@ Public Class frm_Supplier_Rate_List_Master
             If e.KeyCode = Keys.Space Then
 
                 grdSupplier_Rowindex = grdSupplier.CurrentRow.Index
-                If int_ColumnIndex = 3 Then
+                'If int_ColumnIndex = 3 Then
 
-                    'frm_Show_search.qry = " SELECT " & _
-                    '                            " ITEM_MASTER.ITEM_ID, " & _
-                    '                            " ITEM_MASTER.ITEM_CODE, " & _
-                    '                            " ITEM_MASTER.ITEM_NAME, " & _
-                    '                            " ITEM_MASTER.ITEM_DESC, " & _
-                    '                            " UNIT_MASTER.UM_Name, " & _
-                    '                            " ITEM_CATEGORY.ITEM_CAT_NAME " & _
-                    '                    " FROM " & _
-                    '                            " ITEM_MASTER " & _
-                    '                            " INNER JOIN UNIT_MASTER ON ITEM_MASTER.UM_ID = UNIT_MASTER.UM_ID " & _
-                    '                            " INNER JOIN ITEM_CATEGORY ON ITEM_MASTER.ITEM_CATEGORY_ID = ITEM_CATEGORY.ITEM_CAT_ID " & _
-                    '                             "INNER JOIN ITEM_DETAIL ON ITEM_MASTER.ITEM_ID = ITEM_DETAIL.ITEM_ID "
+                'frm_Show_search.qry = " SELECT " & _
+                '                            " ITEM_MASTER.ITEM_ID, " & _
+                '                            " ITEM_MASTER.ITEM_CODE, " & _
+                '                            " ITEM_MASTER.ITEM_NAME, " & _
+                '                            " ITEM_MASTER.ITEM_DESC, " & _
+                '                            " UNIT_MASTER.UM_Name, " & _
+                '                            " ITEM_CATEGORY.ITEM_CAT_NAME " & _
+                '                    " FROM " & _
+                '                            " ITEM_MASTER " & _
+                '                            " INNER JOIN UNIT_MASTER ON ITEM_MASTER.UM_ID = UNIT_MASTER.UM_ID " & _
+                '                            " INNER JOIN ITEM_CATEGORY ON ITEM_MASTER.ITEM_CATEGORY_ID = ITEM_CATEGORY.ITEM_CAT_ID " & _
+                '                             "INNER JOIN ITEM_DETAIL ON ITEM_MASTER.ITEM_ID = ITEM_DETAIL.ITEM_ID "
 
-                    'frm_Show_search.column_name = "Item_Name"
-                    'frm_Show_search.extra_condition = ""
-                    'frm_Show_search.ret_column = "Item_ID"
-                    'frm_Show_search.item_rate_column = ""
-                    'frm_Show_search.cols_no_for_width = "1,2,3"
-                    'frm_Show_search.cols_width = "60,350,50"
+                'frm_Show_search.column_name = "Item_Name"
+                'frm_Show_search.extra_condition = ""
+                'frm_Show_search.ret_column = "Item_ID"
+                'frm_Show_search.item_rate_column = ""
+                'frm_Show_search.cols_no_for_width = "1,2,3"
+                'frm_Show_search.cols_width = "60,350,50"
 
-                    'frm_Show_search.ShowDialog()
+                'frm_Show_search.ShowDialog()
 
 
-                    frm_Show_Search_RateList.qry = " SELECT  top 50                                         
+                frm_Show_Search_RateList.qry = " SELECT  top 50                                         
                                         ISNULL(im.BarCode_vch, '') AS BARCODE ,
                                         im.ITEM_NAME AS [ITEM NAME] ,
                                         im.MRP_Num AS MRP ,
@@ -669,8 +669,8 @@ Public Class frm_Supplier_Rate_List_Master
                     get_row(frm_Show_Search_RateList.search_result)
                     frm_Show_Search_RateList.Close()
 
+                    'End If
                 End If
-            End If
         Catch ex As Exception
             MessageBox.Show(ex.Message())
         End Try
