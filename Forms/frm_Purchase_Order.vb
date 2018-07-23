@@ -251,6 +251,7 @@ Public Class frm_Purchase_Order
         TabControl1.SelectTab(1)
         'cmbPOType.Focus()
         flag = "save"
+        SetGstLabels()
 
     End Sub
 
@@ -555,6 +556,7 @@ Public Class frm_Purchase_Order
             lblNetAmount.Text = (total_item_value + total_vat_amount + total_cess_amount + total_exice_amount + txtOtherCharges.Text).ToString("#0.00") '- txtDiscountAmount.Text).ToString("#0.00")
             'Return lblItemValue.Text + "," + lblVatAmount.Text + "," + lblNetAmount.Text + "," + lblNetAmount.Text + "," + ExiceGross
             Str = total_item_value.ToString("#0.00") + "," + total_vat_amount.ToString("#0.00") + "," + total_cess_amount.ToString("#0.00") + "," + lblNetAmount.Text + "," + total_exice_amount.ToString()
+            SetGstLabels()
             Return Str
         Catch ex As Exception
             'MsgBox(ex.Message)
@@ -638,7 +640,7 @@ Public Class frm_Purchase_Order
             flxPOList.Cols("PO_END_DATE").Width = 100
             flxPOList.Cols("PO_STATUS").Width = 100
 
-
+            flxPOList.Select()
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
@@ -699,7 +701,9 @@ Public Class frm_Purchase_Order
                 dt.Rows(i)("Vat_Id") = ds.Tables(1).Rows(0)("PURCHASE_VAT_ID")
                 dt.Rows(i)("Item_Value") = (dt.Rows(i)("PO_Qty") * dt.Rows(i)("Item_Rate")) + ((dt.Rows(i)("PO_Qty") * dt.Rows(i)("Item_Rate") * dt.Rows(i)("Vat_Per")) / 100)
             Next
+            SetGstLabels()
         End If
+
     End Sub
 
     Private Sub lnkCalculatePOAmt_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lnkCalculatePOAmt.LinkClicked
@@ -980,6 +984,15 @@ restart:
                 generate_tree()
                 AddHandler flxItemList.AfterDataRefresh, AddressOf flxItemList_AfterDataRefresh
                 frm_Show_Search_RateList.Close()
+
+                Dim Index As Int32 = flxItemList.Rows.Count - 1
+                flxItemList.Row = Index
+                flxItemList.RowSel = Index
+                flxItemList.Col = 5
+                flxItemList.ColSel = 5
+
+                flxItemList.Select()
+
             End If
         Else
             erp.SetError(cmbSupplier, "Please select supplier first.")
@@ -1067,5 +1080,112 @@ restart:
         End If
     End Sub
 
+    Private Sub flxPOList_KeyDown(sender As Object, e As KeyEventArgs) Handles flxPOList.KeyDown
+        Try
+            If e.KeyCode = Keys.Enter Then
+                new_initialization()
+                If flxPOList.Rows(flxPOList.CursorCell.r1)("PO_STATUS").ToString().ToUpper = POStatus.Fresh.ToString().ToUpper() Then
+                    flag = "update"
+                    _po_id = Convert.ToInt32(flxPOList.Rows(flxPOList.CursorCell.r1)("PO_ID"))
+                    fill_PODetail(_po_id)
+                Else
+                    flag = "view"
+                    MsgBox("You can't edit this PO." & vbCrLf & "Because this PO is approved/cleared/canceled.", MsgBoxStyle.Information, gblMessageHeading)
+                End If
+            End If
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, gblMessageHeading)
+        End Try
+    End Sub
+
+
+    Private Sub SetGstLabels()
+
+        Dim GSTAmount0 As Decimal = 0
+        Dim GSTTax0 As Decimal = 0
+        Dim GSTAmount3 As Decimal = 0
+        Dim GSTTax3 As Decimal = 0
+        Dim GSTAmount5 As Decimal = 0
+        Dim GSTTax5 As Decimal = 0
+        Dim GSTAmount12 As Decimal = 0
+        Dim GSTTax12 As Decimal = 0
+        Dim GSTAmount18 As Decimal = 0
+        Dim GSTTax18 As Decimal = 0
+        Dim GSTAmount28 As Decimal = 0
+        Dim GSTTax28 As Decimal = 0
+        Dim GSTTaxTotal As Decimal = 0
+        Dim CessTotal As Decimal = 0
+        Dim Tax As Decimal = 0
+
+        Dim iRow As Integer = 0
+
+        For iRow = 1 To flxItemList.Rows.Count - 1
+
+            Dim totalAmount As Decimal = flxItemList.Item(iRow, "PO_QTY") * flxItemList.Item(iRow, "item_rate")
+
+            If flxItemList.Item(iRow, "DType") = "P" Then
+                totalAmount -= Math.Round((totalAmount * flxItemList.Item(iRow, "DISC") / 100), 2)
+            Else
+                totalAmount -= Math.Round(flxItemList.Item(iRow, "DISC"), 2)
+            End If
+
+            'If flxItemList.Item(iRow, "GPAID") = "Y" Then
+            '    totalAmount -= (totalAmount - (totalAmount / (1 + (flxItemList.Item(iRow, "vat_per") / 100))))
+            'End If
+
+            Tax = totalAmount * flxItemList.Item(iRow, "vat_per") / 100
+
+            GSTTaxTotal += Tax
+
+            Select Case flxItemList.Item(iRow, "vat_per")
+                Case 0
+                    GSTAmount0 += totalAmount
+                    GSTTax0 += Tax
+                Case 3
+                    GSTAmount3 += totalAmount
+                    GSTTax3 += Tax
+                Case 5
+                    GSTAmount5 += totalAmount
+                    GSTTax5 += Tax
+                Case 12
+                    GSTAmount12 += totalAmount
+                    GSTTax12 += Tax
+                Case 18
+                    GSTAmount18 += totalAmount
+                    GSTTax18 += Tax
+                Case 28
+                    GSTAmount28 += totalAmount
+                    GSTTax28 += Tax
+            End Select
+        Next
+
+        lblGST0.Text = String.Format("0% - {0:0.00} @ {1}", Math.Round(GSTAmount0, 2), Math.Round(GSTTax0, 2))
+        lblGST3.Text = String.Format("3% - {0:0.00} @ {1}", Math.Round(GSTAmount3, 2), Math.Round(GSTTax3, 2))
+        lblGST5.Text = String.Format("5% - {0:0.00} @ {1}", Math.Round(GSTAmount5, 2), Math.Round(GSTTax5, 2))
+        lblGST12.Text = String.Format("12% - {0:0.00} @ {1}", Math.Round(GSTAmount12, 2), Math.Round(GSTTax12, 2))
+        lblGST18.Text = String.Format("18% - {0:0.00} @ {1}", Math.Round(GSTAmount18, 2), Math.Round(GSTTax18, 2))
+        lblGST28.Text = String.Format("28% - {0:0.00} @ {1}", Math.Round(GSTAmount28, 2), Math.Round(GSTTax28, 2))
+
+        SetGSTAndCessHeader(GSTTaxTotal, CessTotal)
+
+    End Sub
+
+    Private Sub SetGSTAndCessHeader(TotalGst As Decimal, TotalCess As Decimal)
+        Dim PartialGst As Decimal = Math.Round(TotalGst / 2, 2)
+        If cmbPOType.SelectedValue = 0 Then
+            lblGSTDetail.Text = String.Format("Total GST - {0}", TotalGst)
+            lblGSTDetail.Tag = Math.Round(TotalGst, 2)
+        ElseIf cmbPOType.SelectedValue = 3 Then
+            lblGSTDetail.Text = String.Format("UTGST - {0}{1}CGST - {0}", Math.Round(PartialGst, 2), Environment.NewLine)
+            lblGSTDetail.Tag = Math.Round(PartialGst, 2)
+        ElseIf cmbPOType.SelectedValue = 1 Then
+            lblGSTDetail.Text = String.Format("SGST - {0}{1}CGST - {0}", Math.Round(PartialGst, 2), Environment.NewLine)
+            lblGSTDetail.Tag = Math.Round(PartialGst, 2)
+        ElseIf cmbPOType.SelectedValue = 2 Then
+            lblGSTDetail.Text = String.Format("IGST - {0}", Math.Round(TotalGst, 2))
+            lblGSTDetail.Tag = Math.Round(TotalGst, 2)
+        End If
+
+    End Sub
 
 End Class

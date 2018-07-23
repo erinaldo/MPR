@@ -2,8 +2,8 @@ Imports System.Data.SqlClient
 Imports MMSPlus.item_detail
 
 Public Class frm_Item_Master
-
     Implements IForm
+
     Dim Obj As New item_detail.cls_item_detail
     Dim prpty As item_detail.cls_item_detail_prop
     Dim Flag As String
@@ -424,7 +424,10 @@ Public Class frm_Item_Master
     End Sub
 
     Private Sub lnkSelectItems_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lnkSelectItems.LinkClicked
+
+
         frm_Show_search.qry = " SELECT  TOP 100
+
                                         im.ITEM_ID ,
                                         ISNULL(im.BarCode_vch, '') AS BARCODE ,
                                         im.ITEM_NAME AS [ITEM NAME] ,
@@ -452,6 +455,7 @@ Public Class frm_Item_Master
         frm_Show_search.ret_column = "ITEM_ID"
         frm_Show_search.item_rate_column = ""
         frm_Show_search.ShowDialog()
+
         get_row(frm_Show_search.search_result)
         frm_Show_search.Close()
 
