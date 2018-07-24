@@ -109,9 +109,9 @@ Public Class frm_Supplier_Rate_List_Master
         If flag = "Save" Then
             qry = "SELECT * FROM SUPPLIER_RATE_LIST WHERE SRL_NAME ='" & Trim(txtSupName.Text) & "'"
         Else
-            qry = "SELECT * FROM SUPPLIER_RATE_LIST " & _
-                " WHERE " & _
-                        " SRL_NAME ='" & Trim(txtSupName.Text) & "'" & _
+            qry = "SELECT * FROM SUPPLIER_RATE_LIST " &
+                " WHERE " &
+                        " SRL_NAME ='" & Trim(txtSupName.Text) & "'" &
                         " and SRL_Id<>" & SRL_ID
 
         End If
@@ -244,14 +244,15 @@ Public Class frm_Supplier_Rate_List_Master
                     Next iRow
 
                     MsgBox("Record Update", MsgBoxStyle.Information, gblMessageHeading)
-                    'obj.Clear_All_TextBox(Me.GroupBox1.Controls)
-                    'obj.Clear_All_ComoBox(Me.GroupBox1.Controls)
+                    obj.Clear_All_TextBox(Me.GroupBox1.Controls)
+                    obj.Clear_All_ComoBox(Me.GroupBox1.Controls)
+                    TabControl1.SelectTab(1)
                 End If
                 'End If
                 obj.MyCon_CommitTransaction(cmd)
                 FillGrid()
 
-                TabControl1.SelectTab(1)
+                'TabControl1.SelectTab(1)
 
             Catch ex As Exception
                 obj.MyCon_RollBackTransaction(cmd)
@@ -563,6 +564,10 @@ Public Class frm_Supplier_Rate_List_Master
                     grdSupplier.Rows(rowindex).Cells("GST").Value = gst
                     grdSupplier.Rows(rowindex).Cells("Rate").Value = baseRate
                     grdSupplier.Rows(rowindex).Cells("Selling_rate").Value = baseRate + Math.Round((baseRate * (gst / 100)), 2)
+                    grdSupplier.Rows(rowindex).Cells("Selling_rate").Style.BackColor = Color.Lime
+                    grdSupplier.Rows(rowindex).Cells("Selling_rate").Style.ForeColor = Color.Black
+
+
                 End If
             Next iRow
             TabControl1.SelectTab(1)
@@ -652,25 +657,25 @@ Public Class frm_Supplier_Rate_List_Master
                                         LEFT OUTER JOIN dbo.Label_Items litems ON lim.Fk_LabelDetailId = litems.Pk_LabelDetailId_Num
                                         WHERE id.Is_active = 1 "
 
-                    'frm_Show_Search_RateList.checkbox_column_name = "chkBxSelect"
-                    frm_Show_Search_RateList.column_name = "BARCODE_VCH"
-                    frm_Show_Search_RateList.column_name1 = "ITEM_NAME"
-                    frm_Show_Search_RateList.column_name2 = "MRP_Num"
-                    frm_Show_Search_RateList.column_name3 = "SALE_RATE"
-                    frm_Show_Search_RateList.column_name4 = "LABELITEMNAME_VCH"
-                    frm_Show_Search_RateList.column_name5 = "ITEM_CAT_NAME"
-                    frm_Show_Search_RateList.cols_no_for_width = "1,2,3,4,5,6"
-                    frm_Show_Search_RateList.cols_width = "100,350,60,60,100,100"
-                    frm_Show_Search_RateList.extra_condition = ""
-                    frm_Show_Search_RateList.ret_column = "ITEM_ID"
-                    frm_Show_Search_RateList.item_rate_column = ""
-                    frm_Show_Search_RateList.ShowDialog()
+                'frm_Show_Search_RateList.checkbox_column_name = "chkBxSelect"
+                frm_Show_Search_RateList.column_name = "BARCODE_VCH"
+                frm_Show_Search_RateList.column_name1 = "ITEM_NAME"
+                frm_Show_Search_RateList.column_name2 = "MRP_Num"
+                frm_Show_Search_RateList.column_name3 = "SALE_RATE"
+                frm_Show_Search_RateList.column_name4 = "LABELITEMNAME_VCH"
+                frm_Show_Search_RateList.column_name5 = "ITEM_CAT_NAME"
+                frm_Show_Search_RateList.cols_no_for_width = "1,2,3,4,5,6"
+                frm_Show_Search_RateList.cols_width = "100,350,60,60,100,100"
+                frm_Show_Search_RateList.extra_condition = ""
+                frm_Show_Search_RateList.ret_column = "ITEM_ID"
+                frm_Show_Search_RateList.item_rate_column = ""
+                frm_Show_Search_RateList.ShowDialog()
 
-                    get_row(frm_Show_Search_RateList.search_result)
-                    frm_Show_Search_RateList.Close()
+                get_row(frm_Show_Search_RateList.search_result)
+                frm_Show_Search_RateList.Close()
 
-                    'End If
-                End If
+                'End If
+            End If
         Catch ex As Exception
             MessageBox.Show(ex.Message())
         End Try
@@ -765,5 +770,15 @@ Public Class frm_Supplier_Rate_List_Master
         End If
     End Sub
 
-
+    Private Sub grdSupplierList_KeyDown(sender As Object, e As KeyEventArgs) Handles grdSupplierList.KeyDown
+        If e.KeyCode = Keys.Enter Then
+            If grdSupplierList.SelectedRows.Count > 0 Then
+                SRL_ID = grdSupplierList.SelectedRows(0).Cells("SRL_ID").Value
+                getSupplierDetail(SRL_ID)
+                TabControl1.SelectTab(1)
+            Else
+                SRL_ID = 0
+            End If
+        End If
+    End Sub
 End Class

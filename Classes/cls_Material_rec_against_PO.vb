@@ -476,7 +476,7 @@ Namespace material_rec_against_PO
 
 
             '***************************************************************************************
-            'Inderjeet
+
             'Entries in these table should be done through PROC_MATERIAL_RECEIVED_AGAINST_PO_DETAIL
             'take a referance from recieved without po.
             '***************************************************************************************

@@ -63,6 +63,11 @@ Public Class frm_material_rec_against_PO
         txtotherchrgs.Text = "0.00"
         txtdiscount.Text = "0.00"
         lblnetamt.Text = "0.00"
+        If FLXGRD_PO_Items.DataSource IsNot Nothing Then
+            'SetGstLabels()
+        End If
+
+
     End Sub
 
     Public Sub RefreshClick(ByVal sender As Object, ByVal e As System.EventArgs) Implements IForm.RefreshClick
@@ -486,6 +491,7 @@ Public Class frm_material_rec_against_PO
 
             bind_FLXGRD_PO_Items(cmbPurchaseOrders.SelectedValue)
             generate_tree()
+            SetGstLabels()
         End If
 
     End Sub
@@ -501,6 +507,16 @@ Public Class frm_material_rec_against_PO
         dv.RowFilter = "IS_STOCKABLE = 1"
         dtable_Item_List = dv.ToTable
         FLXGRD_PO_Items.DataSource = dtable_Item_List
+
+
+
+        If FLXGRD_PO_Items.Rows.Count > 0 Then
+            FLXGRD_PO_Items.Row = 1
+            FLXGRD_PO_Items.RowSel = 1
+            FLXGRD_PO_Items.Col = 22
+            FLXGRD_PO_Items.ColSel = 22
+            FLXGRD_PO_Items.Select()
+        End If
 
 
 
@@ -1059,6 +1075,8 @@ Public Class frm_material_rec_against_PO
                 tot_exice_amt = tot_exice_amt + (item_value * exice_per)
                 tot_vat_amt = tot_vat_amt + ((((dt.Rows(i)("Batch_qty") * dt.Rows(i)("Item_Rate")) - discamt) * dt.Rows(i)("Vat_Per")) / 100)
                 tot_cess_amt = tot_cess_amt + ((((dt.Rows(i)("Batch_qty") * dt.Rows(i)("Item_Rate")) - discamt) * dt.Rows(i)("Cess_Per")) / 100)
+                SetGstLabels()
+
             Next
         End If
 
@@ -1209,4 +1227,99 @@ restart:
             Calculate_Amount()
         End If
     End Sub
+
+
+    Private Sub SetGstLabels()
+
+        Dim GSTAmount0 As Decimal = 0
+        Dim GSTTax0 As Decimal = 0
+        Dim GSTAmount3 As Decimal = 0
+        Dim GSTTax3 As Decimal = 0
+        Dim GSTAmount5 As Decimal = 0
+        Dim GSTTax5 As Decimal = 0
+        Dim GSTAmount12 As Decimal = 0
+        Dim GSTTax12 As Decimal = 0
+        Dim GSTAmount18 As Decimal = 0
+        Dim GSTTax18 As Decimal = 0
+        Dim GSTAmount28 As Decimal = 0
+        Dim GSTTax28 As Decimal = 0
+        Dim GSTTaxTotal As Decimal = 0
+        Dim CessTotal As Decimal = 0
+        Dim Tax As Decimal = 0
+
+        Dim iRow As Integer = 0
+
+        For iRow = 1 To FLXGRD_PO_Items.Rows.Count - 1
+
+            Dim totalAmount As Decimal = FLXGRD_PO_Items.Item(iRow, "Batch_qty") * FLXGRD_PO_Items.Item(iRow, "item_rate")
+
+            If FLXGRD_PO_Items.Item(iRow, "DType") = "P" Then
+                totalAmount -= Math.Round((totalAmount * FLXGRD_PO_Items.Item(iRow, "DISC") / 100), 2)
+            Else
+                totalAmount -= Math.Round(FLXGRD_PO_Items.Item(iRow, "DISC"), 2)
+            End If
+
+            'If flxItemList.Item(iRow, "GPAID") = "Y" Then
+            '    totalAmount -= (totalAmount - (totalAmount / (1 + (flxItemList.Item(iRow, "vat_per") / 100))))
+            'End If
+
+            Tax = totalAmount * FLXGRD_PO_Items.Item(iRow, "vat_per") / 100
+
+            GSTTaxTotal += Tax
+
+            Select Case FLXGRD_PO_Items.Item(iRow, "vat_per")
+                Case 0
+                    GSTAmount0 += totalAmount
+                    GSTTax0 += Tax
+                Case 3
+                    GSTAmount3 += totalAmount
+                    GSTTax3 += Tax
+                Case 5
+                    GSTAmount5 += totalAmount
+                    GSTTax5 += Tax
+                Case 12
+                    GSTAmount12 += totalAmount
+                    GSTTax12 += Tax
+                Case 18
+                    GSTAmount18 += totalAmount
+                    GSTTax18 += Tax
+                Case 28
+                    GSTAmount28 += totalAmount
+                    GSTTax28 += Tax
+            End Select
+        Next
+
+        lblGST0.Text = String.Format("0% - {0:0.00} @ {1}", Math.Round(GSTAmount0, 2), Math.Round(GSTTax0, 2))
+        lblGST3.Text = String.Format("3% - {0:0.00} @ {1}", Math.Round(GSTAmount3, 2), Math.Round(GSTTax3, 2))
+        lblGST5.Text = String.Format("5% - {0:0.00} @ {1}", Math.Round(GSTAmount5, 2), Math.Round(GSTTax5, 2))
+        lblGST12.Text = String.Format("12% - {0:0.00} @ {1}", Math.Round(GSTAmount12, 2), Math.Round(GSTTax12, 2))
+        lblGST18.Text = String.Format("18% - {0:0.00} @ {1}", Math.Round(GSTAmount18, 2), Math.Round(GSTTax18, 2))
+        lblGST28.Text = String.Format("28% - {0:0.00} @ {1}", Math.Round(GSTAmount28, 2), Math.Round(GSTTax28, 2))
+
+        SetGSTAndCessHeader(GSTTaxTotal, CessTotal)
+
+    End Sub
+
+    Private Sub SetGSTAndCessHeader(TotalGst As Decimal, TotalCess As Decimal)
+        Dim PartialGst As Decimal = Math.Round(TotalGst / 2, 2)
+
+
+
+        If lblMRNType.Text = "0" Then
+            lblGSTDetail.Text = String.Format("Total GST - {0}", TotalGst)
+            lblGSTDetail.Tag = Math.Round(TotalGst, 2)
+        ElseIf lblMRNType.Text = "3" Then
+            lblGSTDetail.Text = String.Format("UTGST - {0}{1}CGST - {0}", Math.Round(PartialGst, 2), Environment.NewLine)
+            lblGSTDetail.Tag = Math.Round(PartialGst, 2)
+        ElseIf lblMRNType.Text = "1" Then
+            lblGSTDetail.Text = String.Format("SGST - {0}{1}CGST - {0}", Math.Round(PartialGst, 2), Environment.NewLine)
+            lblGSTDetail.Tag = Math.Round(PartialGst, 2)
+        ElseIf lblMRNType.Text = "2" Then
+            lblGSTDetail.Text = String.Format("IGST - {0}", Math.Round(TotalGst, 2))
+            lblGSTDetail.Tag = Math.Round(TotalGst, 2)
+        End If
+
+    End Sub
+
+
 End Class

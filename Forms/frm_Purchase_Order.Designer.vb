@@ -171,7 +171,7 @@ Partial Class frm_Purchase_Order
         Me.flxPOList.Rows.DefaultSize = 18
         Me.flxPOList.Size = New System.Drawing.Size(884, 457)
         Me.flxPOList.Styles = New C1.Win.C1FlexGrid.CellStyleCollection(resources.GetString("flxPOList.Styles"))
-        Me.flxPOList.TabIndex = 8
+        Me.flxPOList.TabIndex = 7
         '
         'GroupBox3
         '
