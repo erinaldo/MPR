@@ -50,12 +50,12 @@ Partial Class MDIMain
         Me.StockINToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_Material_Received_Without_PO_Master = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_material_rec_against_PO = New System.Windows.Forms.ToolStripMenuItem()
-        Me.frm_Reverse_Wastage_Master = New System.Windows.Forms.ToolStripMenuItem()
-        Me.frm_ReverseMaterial_Issue_To_Cost_Center_Master = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_DebitNote = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_Accept_Stock_transfer = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_Stock_Transfer = New System.Windows.Forms.ToolStripMenuItem()
         Me.MaterialReturnfromCostCenterToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.frm_Reverse_Wastage_Master = New System.Windows.Forms.ToolStripMenuItem()
+        Me.frm_ReverseMaterial_Issue_To_Cost_Center_Master = New System.Windows.Forms.ToolStripMenuItem()
         Me.ReportsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_Material_Issue_To_Cost_Center_Master = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_Wastage_Master = New System.Windows.Forms.ToolStripMenuItem()
@@ -486,26 +486,6 @@ Partial Class MDIMain
         Me.frm_material_rec_against_PO.Size = New System.Drawing.Size(285, 22)
         Me.frm_material_rec_against_PO.Text = "MRN Against P.O."
         '
-        'frm_Reverse_Wastage_Master
-        '
-        Me.frm_Reverse_Wastage_Master.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.frm_Reverse_Wastage_Master.ForeColor = System.Drawing.Color.White
-        Me.frm_Reverse_Wastage_Master.Image = Global.MMSPlus.My.Resources.Resources.Reverse_Wastage
-        Me.frm_Reverse_Wastage_Master.Name = "frm_Reverse_Wastage_Master"
-        Me.frm_Reverse_Wastage_Master.Size = New System.Drawing.Size(285, 22)
-        Me.frm_Reverse_Wastage_Master.Text = "Reverse Wastage"
-        Me.frm_Reverse_Wastage_Master.Visible = False
-        '
-        'frm_ReverseMaterial_Issue_To_Cost_Center_Master
-        '
-        Me.frm_ReverseMaterial_Issue_To_Cost_Center_Master.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.frm_ReverseMaterial_Issue_To_Cost_Center_Master.ForeColor = System.Drawing.Color.White
-        Me.frm_ReverseMaterial_Issue_To_Cost_Center_Master.Image = Global.MMSPlus.My.Resources.Resources.Goods_warehouse_products_shipping
-        Me.frm_ReverseMaterial_Issue_To_Cost_Center_Master.Name = "frm_ReverseMaterial_Issue_To_Cost_Center_Master"
-        Me.frm_ReverseMaterial_Issue_To_Cost_Center_Master.Size = New System.Drawing.Size(285, 22)
-        Me.frm_ReverseMaterial_Issue_To_Cost_Center_Master.Text = "Reverse Material Issue to Cost Center"
-        Me.frm_ReverseMaterial_Issue_To_Cost_Center_Master.Visible = False
-        '
         'frm_DebitNote
         '
         Me.frm_DebitNote.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
@@ -543,6 +523,26 @@ Partial Class MDIMain
         Me.MaterialReturnfromCostCenterToolStripMenuItem.Size = New System.Drawing.Size(285, 22)
         Me.MaterialReturnfromCostCenterToolStripMenuItem.Text = "Material Return (from Cost Center)"
         Me.MaterialReturnfromCostCenterToolStripMenuItem.Visible = False
+        '
+        'frm_Reverse_Wastage_Master
+        '
+        Me.frm_Reverse_Wastage_Master.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.frm_Reverse_Wastage_Master.ForeColor = System.Drawing.Color.White
+        Me.frm_Reverse_Wastage_Master.Image = Global.MMSPlus.My.Resources.Resources.Reverse_Wastage
+        Me.frm_Reverse_Wastage_Master.Name = "frm_Reverse_Wastage_Master"
+        Me.frm_Reverse_Wastage_Master.Size = New System.Drawing.Size(285, 22)
+        Me.frm_Reverse_Wastage_Master.Text = "Reverse Wastage"
+        Me.frm_Reverse_Wastage_Master.Visible = False
+        '
+        'frm_ReverseMaterial_Issue_To_Cost_Center_Master
+        '
+        Me.frm_ReverseMaterial_Issue_To_Cost_Center_Master.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.frm_ReverseMaterial_Issue_To_Cost_Center_Master.ForeColor = System.Drawing.Color.White
+        Me.frm_ReverseMaterial_Issue_To_Cost_Center_Master.Image = Global.MMSPlus.My.Resources.Resources.Goods_warehouse_products_shipping
+        Me.frm_ReverseMaterial_Issue_To_Cost_Center_Master.Name = "frm_ReverseMaterial_Issue_To_Cost_Center_Master"
+        Me.frm_ReverseMaterial_Issue_To_Cost_Center_Master.Size = New System.Drawing.Size(285, 22)
+        Me.frm_ReverseMaterial_Issue_To_Cost_Center_Master.Text = "Reverse Material Issue to Cost Center"
+        Me.frm_ReverseMaterial_Issue_To_Cost_Center_Master.Visible = False
         '
         'ReportsToolStripMenuItem
         '
