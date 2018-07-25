@@ -29,8 +29,6 @@ Public Class frm_Show_Search_RateList
     Private Sub frm_Show_search_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Try
 
-
-
             Dim BrandQuery As String
             Dim Dt As DataTable
             Dim Dtrow As DataRow
@@ -69,9 +67,9 @@ Public Class frm_Show_Search_RateList
 
             txtSearch.Text = ""
             'GroupBox1.Width = Me.Width - 20
-            grdSearch.Width = 794
+            grdSearch.Width = 806
             grdSearch.ScrollBars = ScrollBars.Vertical
-            FormatGrid(grdSearch)
+            'FormatGrid(grdSearch)
             'comFun.GridBind(grdSearch, qry + extra_condition)
 
             AddHeaderCheckBox()
@@ -222,9 +220,6 @@ Public Class frm_Show_Search_RateList
         End If
         'grdSearch.EditMode = False
 
-
-
-
     End Sub
 
     Public Sub FormatGrid(ByVal grd As DataGridView)
@@ -237,13 +232,13 @@ Public Class frm_Show_Search_RateList
         grd.RowHeadersWidth = 20
         grd.ColumnHeadersHeight = 20
         grd.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing
-        grd.ColumnHeadersDefaultCellStyle.BackColor = Color.LightSteelBlue
+        grd.ColumnHeadersDefaultCellStyle.BackColor = Color.Gainsboro
         grd.AllowUserToResizeColumns = False
         grd.SelectionMode = DataGridViewSelectionMode.FullRowSelect
         grd.MultiSelect = True
     End Sub
 
-    Private Sub txtSearch_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles txtSearch.KeyDown
+    Private Sub txtSearch_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs)
         Try
             If e.KeyCode = Keys.Enter Then
                 SelectItemAndCloseForm()
@@ -288,7 +283,7 @@ Public Class frm_Show_Search_RateList
 
     End Sub
 
-    Private Sub txtSearch_KeyUp(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles txtSearch.KeyUp
+    Private Sub txtSearch_KeyUp(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs)
         Try
             If e.KeyCode = Keys.Down Then
                 grdSearch.Rows(0).Selected = True
@@ -434,7 +429,7 @@ Public Class frm_Show_Search_RateList
         End Try
     End Sub
 
-    Private Sub txtSearch_KeyPress(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtSearch.KeyPress
+    Private Sub txtSearch_KeyPress(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyPressEventArgs)
         Dim k As Integer
         k = comFun.AllCaps(Asc(e.KeyChar))
         If k = 0 Then
@@ -824,5 +819,6 @@ Public Class frm_Show_Search_RateList
             End If
         End If
     End Sub
+
 
 End Class

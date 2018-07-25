@@ -684,6 +684,7 @@ Partial Class frm_Purchase_Order
         '
         'lnkSelectItemswithoutIndent
         '
+        Me.lnkSelectItemswithoutIndent.ActiveLinkColor = System.Drawing.Color.Lime
         Me.lnkSelectItemswithoutIndent.BackColor = System.Drawing.Color.Silver
         Me.lnkSelectItemswithoutIndent.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lnkSelectItemswithoutIndent.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline
@@ -717,6 +718,7 @@ Partial Class frm_Purchase_Order
         '
         'lnkCalculatePOAmt
         '
+        Me.lnkCalculatePOAmt.ActiveLinkColor = System.Drawing.Color.Lime
         Me.lnkCalculatePOAmt.BackColor = System.Drawing.Color.Silver
         Me.lnkCalculatePOAmt.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lnkCalculatePOAmt.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline
@@ -731,6 +733,7 @@ Partial Class frm_Purchase_Order
         '
         'lnkSelectItems
         '
+        Me.lnkSelectItems.ActiveLinkColor = System.Drawing.Color.Lime
         Me.lnkSelectItems.BackColor = System.Drawing.Color.Silver
         Me.lnkSelectItems.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lnkSelectItems.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline

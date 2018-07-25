@@ -132,7 +132,7 @@ Public Class frm_Supplier_Rate_List_Master
         If Validation() = False Then
             Exit Sub
         End If
-        If grdSupplier.Rows.Count >= 1 And Not grdSupplier.Rows(0).Cells(3).Value = Trim("") Then
+        If grdSupplier.Rows.Count >= 1 And Not grdSupplier.Rows(0).Cells(1).Value = Trim("") Then
             Dim stringArr() As String = New String() {"Rate"}
             If obj.ValidatingDGV(grdSupplier, stringArr) = False Then
                 MsgBox("Please Enter All The Records In Datagrid", vbExclamation, gblMessageHeading)
@@ -326,7 +326,7 @@ Public Class frm_Supplier_Rate_List_Master
 
         txbCol = New DataGridViewTextBoxColumn
         With txbCol
-            .HeaderText = "Item Code"
+            .HeaderText = "BarCode"
             .Name = "Item_Code"
             .DataPropertyName = "Item_Code"
             .ReadOnly = True
@@ -397,7 +397,7 @@ Public Class frm_Supplier_Rate_List_Master
             .Name = "Selling_Rate"
             .ReadOnly = False
             .Visible = True
-            .Width = 90
+            .Width = 100
             .DefaultCellStyle.SelectionBackColor = Color.Lime
             .DefaultCellStyle.SelectionForeColor = Color.Black
 
@@ -665,7 +665,7 @@ Public Class frm_Supplier_Rate_List_Master
                 frm_Show_Search_RateList.column_name4 = "LABELITEMNAME_VCH"
                 frm_Show_Search_RateList.column_name5 = "ITEM_CAT_NAME"
                 frm_Show_Search_RateList.cols_no_for_width = "1,2,3,4,5,6"
-                frm_Show_Search_RateList.cols_width = "100,350,60,60,100,100"
+                frm_Show_Search_RateList.cols_width = "100,340,60,60,100,105"
                 frm_Show_Search_RateList.extra_condition = ""
                 frm_Show_Search_RateList.ret_column = "ITEM_ID"
                 frm_Show_Search_RateList.item_rate_column = ""
@@ -757,7 +757,7 @@ Public Class frm_Supplier_Rate_List_Master
     End Sub
 
     Private Sub grdSupplierList_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles grdSupplierList.CellContentClick
-
+        'grdSupplierList.CommitEdit(DataGridViewDataErrorContexts.Commit)
     End Sub
 
     Private Sub grdSupplierList_CellDoubleClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles grdSupplierList.CellDoubleClick

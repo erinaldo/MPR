@@ -314,7 +314,7 @@ Public Class frm_Purchase_Order
         flxItemList.Cols("Vat_Id").Visible = False
         flxItemList.Cols("Cess_Id").Visible = False
 
-        flxItemList.Cols("Item_Code").Caption = "Item Code"
+        flxItemList.Cols("Item_Code").Caption = "BarCode"
         flxItemList.Cols("Item_Name").Caption = "Item Name"
         flxItemList.Cols("UM_Name").Caption = "UOM"
         flxItemList.Cols("Req_Qty").Caption = "Req.Qty"
@@ -348,7 +348,7 @@ Public Class frm_Purchase_Order
 
         flxItemList.Cols("Item_Code").Width = 90
         flxItemList.Cols("Item_Name").Width = 255
-        flxItemList.Cols("UM_Name").Width = 40
+        flxItemList.Cols("UM_Name").Width = 35
         flxItemList.Cols("Req_Qty").Width = 60
         flxItemList.Cols("PO_Qty").Width = 60
         flxItemList.Cols("Exice_Per").Width = 30
@@ -357,9 +357,9 @@ Public Class frm_Purchase_Order
         flxItemList.Cols("DISC").Width = 45
         flxItemList.Cols("Vat_Name").Width = 60
         'flxItemList.Cols("Vat_Per").Width = 20
-        flxItemList.Cols("Cess_Name").Width = 67
+        flxItemList.Cols("Cess_Name").Width = 70
         'flxItemList.Cols("Cess_Per").Width = 20
-        flxItemList.Cols("Item_Value").Width = 78
+        flxItemList.Cols("Item_Value").Width = 75
 
         flxItemList.Cols("Exice_Per").Visible = False
         flxItemList.Cols("Vat_Id").Visible = False
@@ -934,7 +934,7 @@ restart:
                     Dim dr As DataRow
                     dr = frm_Indent_Items.dTable_POItems.NewRow
                     Dim ds As New DataSet
-                    ds = Obj.Fill_DataSet("SELECT ITEM_ID, ITEM_CODE, ITEM_NAME, UM_Name, UNIT_MASTER.UM_ID, ISNULL(pk_CessId_num,0) AS Cess_Id, ISNULL(CessName_vch,'0%') + ' CESS'  AS Cess_Name, ISNULL(CessPercentage_num,0.00) AS Cess_Per  FROM item_master" &
+                    ds = Obj.Fill_DataSet("SELECT ITEM_ID,BARCODE_VCH as ITEM_CODE, ITEM_NAME, UM_Name, UNIT_MASTER.UM_ID, ISNULL(pk_CessId_num,0) AS Cess_Id, ISNULL(CessName_vch,'0%') + ' CESS'  AS Cess_Name, ISNULL(CessPercentage_num,0.00) AS Cess_Per  FROM item_master" &
                                     " INNER JOIN dbo.UNIT_MASTER ON dbo.UNIT_MASTER .UM_ID =dbo.ITEM_MASTER .UM_ID Left JOIN dbo.CessMaster ON dbo.CessMaster.pk_CessId_num = dbo.ITEM_MASTER.fk_CessId_num " &
                                     " WHERE ITEM_ID=" & Convert.ToInt32(element) & "")
 
@@ -1007,7 +1007,7 @@ restart:
         dr = frm_Indent_Items.dTable_POItems.NewRow
 
 
-        ds = Obj.Fill_DataSet("SELECT ITEM_ID, ITEM_CODE, ITEM_NAME, UM_Name, UNIT_MASTER.UM_ID, ISNULL(pk_CessId_num,0) AS Cess_Id, ISNULL(CessName_vch,'0%') + ' CESS'  AS Cess_Name, ISNULL(CessPercentage_num,0.00) AS Cess_Per  FROM item_master" &
+        ds = Obj.Fill_DataSet("SELECT ITEM_ID,BarCode_vch as ITEM_CODE, ITEM_NAME, UM_Name, UNIT_MASTER.UM_ID, ISNULL(pk_CessId_num,0) AS Cess_Id, ISNULL(CessName_vch,'0%') + ' CESS'  AS Cess_Name, ISNULL(CessPercentage_num,0.00) AS Cess_Per  FROM item_master" &
                                 " INNER JOIN dbo.UNIT_MASTER ON dbo.UNIT_MASTER .UM_ID =dbo.ITEM_MASTER .UM_ID Left JOIN dbo.CessMaster ON dbo.CessMaster.pk_CessId_num = dbo.ITEM_MASTER.fk_CessId_num " &
                                 " WHERE ITEM_ID=" & Convert.ToInt32(item_id) & "")
 
