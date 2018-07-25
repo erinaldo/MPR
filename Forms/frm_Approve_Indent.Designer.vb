@@ -178,7 +178,7 @@ Partial Class frm_Approve_Indent
         Me.grdIndentList.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.grdIndentList.RowTemplate.DefaultCellStyle.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grdIndentList.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.White
-        Me.grdIndentList.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.OrangeRed
+        Me.grdIndentList.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.DarkOrange
         Me.grdIndentList.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black
         Me.grdIndentList.Size = New System.Drawing.Size(891, 424)
         Me.grdIndentList.TabIndex = 7

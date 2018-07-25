@@ -139,8 +139,9 @@ Partial Class frm_Approve_PO
         Me.grdPOList.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.grdPOList.RowTemplate.DefaultCellStyle.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grdPOList.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.White
-        Me.grdPOList.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.OrangeRed
+        Me.grdPOList.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.DarkOrange
         Me.grdPOList.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black
+        Me.grdPOList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.grdPOList.Size = New System.Drawing.Size(898, 450)
         Me.grdPOList.TabIndex = 5
         '
