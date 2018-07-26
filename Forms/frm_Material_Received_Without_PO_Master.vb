@@ -357,6 +357,8 @@ Public Class frm_Material_Received_Without_PO_Master
                         MsgBox("Please select atleast one item to update the record")
                         Exit Sub
                     Else
+                        prpty.Modified_By = v_the_current_logged_in_user_name
+                        prpty.Modification_Date = Now
                         clsObj.update_MATERIAL_RECIEVED_WITHOUT_PO_MASTER(prpty)
                     End If
                 End If
