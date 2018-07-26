@@ -213,7 +213,6 @@ Partial Class frm_Show_Search_RateList
         Me.grdSearch.GridColor = System.Drawing.Color.FromArgb(CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.grdSearch.Location = New System.Drawing.Point(-3, 177)
         Me.grdSearch.Name = "grdSearch"
-        Me.grdSearch.ReadOnly = True
         Me.grdSearch.RowHeadersVisible = False
         Me.grdSearch.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.grdSearch.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer))
@@ -230,7 +229,6 @@ Partial Class frm_Show_Search_RateList
         '
         Me.chkBxSelect.HeaderText = ""
         Me.chkBxSelect.Name = "chkBxSelect"
-        Me.chkBxSelect.ReadOnly = True
         Me.chkBxSelect.Width = 25
         '
         'frm_Show_Search_RateList

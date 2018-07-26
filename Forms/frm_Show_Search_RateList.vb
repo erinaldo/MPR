@@ -102,7 +102,8 @@ Public Class frm_Show_Search_RateList
                 End If
             End If
 
-            'txtSearch.Focus()
+            Dim checkBox As DataGridViewCheckBoxCell = (TryCast(grdSearch.Rows(0).Cells("chkBxSelect"), DataGridViewCheckBoxCell))
+            checkBox.Value = True
         Catch ex As Exception
             MsgBox(gblMessageHeading_Error & vbCrLf & gblMessage_ContactInfo & vbCrLf & ex.Message, MsgBoxStyle.Critical, gblMessageHeading)
         End Try
