@@ -192,6 +192,11 @@ Public Class frm_Wastage_Master
     End Sub
     Private Sub DGVWastageMaster_DoubleClick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles DGVWastageMaster.DoubleClick
         Try
+            If _rights.allow_edit = "N" Then
+                RightsMsg()
+                Exit Sub
+            End If
+
             Dim ds As DataSet
             Dim dtWastage As New DataTable
             'Dim dtWastageDetail As New DataTable

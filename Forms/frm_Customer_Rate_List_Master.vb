@@ -733,6 +733,11 @@ Public Class frm_Customer_Rate_List_Master
     End Sub
 
     Private Sub grdSupplierList_CellDoubleClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles grdSupplierList.CellDoubleClick
+        If _rights.allow_edit = "N" Then
+            RightsMsg()
+            Exit Sub
+        End If
+
         If e.RowIndex <> -1 Then
             SRL_ID = grdSupplierList.Rows(e.RowIndex).Cells("SRL_ID").Value
             getSupplierDetail(SRL_ID)

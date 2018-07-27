@@ -369,6 +369,10 @@ Public Class frm_Item_Master
     End Sub
 
     Private Sub EditItem()
+        If _rights.allow_edit = "N" Then
+            RightsMsg()
+            Exit Sub
+        End If
         If grdItemMaster.SelectedRows.Count > 0 Then
             new_initialisation()
             ItemId = grdItemMaster.SelectedRows(0).Cells("ITEM_ID").Value

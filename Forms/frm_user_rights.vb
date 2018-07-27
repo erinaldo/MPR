@@ -6,7 +6,7 @@ Public Class frm_user_rights
 
     Dim rights As Form_Rights
     Dim v_form_name As String
-    Dim v_view, transactions As String
+    Dim v_view, transactions, edit, cancel As String
     Dim FormName(500) As String
     Dim FormRights(500, 3) As String
     Dim Selected_Node As TreeNode
@@ -46,7 +46,7 @@ Public Class frm_user_rights
 
     Public Sub SaveClick(ByVal sender As Object, ByVal e As System.EventArgs) Implements IForm.SaveClick
         Try
-          
+
 
             Dim i As Integer = 0
             Dim j As Integer = 0
@@ -81,23 +81,32 @@ Public Class frm_user_rights
 
                     v_view = IIf(n1.Parent.Nodes("vw").Checked = True, "Y", "N")
 
+
+
                     If Not (n1.Parent.Nodes("tr") Is Nothing) Then
                         transactions = IIf(n1.Parent.Nodes("tr").Checked = True, "Y", "N")
                     Else
                         transactions = "N"
                     End If
-                    'If Not (n1.Parent.Nodes("d") Is Nothing) Then
-                    '    deletion = IIf(n1.Parent.Nodes("d").Checked = True, "Y", "N")
-                    'Else
-                    '    deletion = "N"
-                    'End If
-                    'If Not (n1.Parent.Nodes("u") Is Nothing) Then
-                    '    updation = IIf(n1.Parent.Nodes("u").Checked = True, "Y", "N")
-                    'Else
-                    '    updation = "N"
-                    'End If
-                    insQry = "insert into user_rights(user_id,form_name,allow_trans,allow_view) values("
-                    insQry += selected_user_id & ",'" & v_form_name & "','" & transactions & "','" & v_view & "')"
+
+                    'edit = IIf(n1.Parent.Nodes("ed").Checked = True, "Y", "N")
+
+                    'cancel = IIf(n1.Parent.Nodes("cn").Checked = True, "Y", "N")
+
+                    If Not (n1.Parent.Nodes("ed") Is Nothing) Then
+                        edit = IIf(n1.Parent.Nodes("ed").Checked = True, "Y", "N")
+                    Else
+                        edit = "N"
+                    End If
+
+                    If Not (n1.Parent.Nodes("cn") Is Nothing) Then
+                        cancel = IIf(n1.Parent.Nodes("cn").Checked = True, "Y", "N")
+                    Else
+                        cancel = "N"
+                    End If
+
+                    insQry = "insert into user_rights(user_id,form_name,allow_trans,allow_view,allow_edit,allow_cancel) values("
+                    insQry += selected_user_id & ",'" & v_form_name & "','" & transactions & "','" & v_view & "','" & edit & "','" & cancel & "' )"
                     obj.ExecuteNonQuery(insQry)
                 End If
             End If
@@ -135,7 +144,7 @@ Public Class frm_user_rights
 
         End Try
     End Sub
-        Private Sub Fill_Tree()
+    Private Sub Fill_Tree()
         Try
             Dim node As TreeNode
             Dim T1 As ToolStripMenuItem
@@ -163,7 +172,7 @@ Public Class frm_user_rights
                     End If
                 End If
 
-                
+
             Next
 
             trvForms.EndUpdate()
@@ -221,7 +230,8 @@ Public Class frm_user_rights
         Try
             n.Nodes.Add("tr", "Transactional")
             n.Nodes.Add("vw", "View")
-            'n.Nodes.Add("a", "Add")
+            n.Nodes.Add("ed", "Edit")
+            n.Nodes.Add("cn", "Cancel")
             'n.Nodes.Add("u", "Update")
             'n.Nodes.Add("d", "Delete")
         Catch ex As Exception
@@ -247,7 +257,7 @@ Public Class frm_user_rights
             ds = obj.FillDataSet("select * from user_rights where user_id =" & selected_user_id & " ")
             While i < ds.Tables(0).Rows.Count()
                 drv = ds.Tables(0).DefaultView(i)
-                Select_Node(trvForms.Nodes, drv("form_name"), drv("allow_trans"), drv("allow_view"))
+                Select_Node(trvForms.Nodes, drv("form_name"), drv("allow_trans"), drv("allow_view"), drv("allow_edit"), drv("allow_cancel"))
                 i += 1
             End While
 
@@ -305,13 +315,13 @@ Public Class frm_user_rights
     '    End Try
     'End Sub
 
-    Private Sub Select_Node(ByVal n As TreeNodeCollection, ByVal form_name As String, ByVal allow_trans As String, ByVal allow_view As String)
+    Private Sub Select_Node(ByVal n As TreeNodeCollection, ByVal form_name As String, ByVal allow_trans As String, ByVal allow_view As String, ByVal allow_Edit As String, ByVal allow_Cancel As String)
         Try
             Dim chk As Boolean = True
             For Each n1 As TreeNode In n
                 If n1.Nodes.Count() > 0 Then
                     '' Recursive call means --- call  this function till it reaches at last node of every menu (e.g to reach at add,delete,update node)
-                    Select_Node(n1.Nodes, form_name, allow_trans, allow_view)
+                    Select_Node(n1.Nodes, form_name, allow_trans, allow_view, allow_Edit, allow_Cancel)
                 Else
                     If LastParent <> n1.Parent.Name Then
                         If n1.Parent.Name = form_name Then ' if saved form_name is equal to the parent node of current node
@@ -328,6 +338,19 @@ Public Class frm_user_rights
                                         n2.Checked = True
                                     Else : n2.Checked = False
                                     End If
+
+                                ElseIf n2.Name = "ed" Then
+                                    If allow_Edit.ToUpper.Trim = "Y" Then
+                                        n2.Checked = True
+                                    Else : n2.Checked = False
+                                    End If
+
+                                ElseIf n2.Name = "cn" Then
+                                    If allow_Cancel.ToUpper.Trim = "Y" Then
+                                        n2.Checked = True
+                                    Else : n2.Checked = False
+                                    End If
+
                                 End If
                             Next
                         End If
@@ -457,9 +480,9 @@ Public Class frm_user_rights
 
     Private Sub ExpandAllToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ExpandAllToolStripMenuItem.Click
         Try
-            
+
             trvForms.ExpandAll()
-            
+
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "Error --> ExpandAllToolStripMenuItem_Click")
         End Try
@@ -467,7 +490,7 @@ Public Class frm_user_rights
 
     Private Sub CollapseAllToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CollapseAllToolStripMenuItem.Click
         Try
-           
+
             trvForms.CollapseAll()
 
         Catch ex As Exception

@@ -169,6 +169,10 @@ Public Class frm_OpeningBalance
     End Sub
 
     Private Sub grdOpeningBalance_DoubleClick(sender As Object, e As EventArgs) Handles grdOpeningBalance.DoubleClick
+        If _rights.allow_edit = "N" Then
+            RightsMsg()
+            Exit Sub
+        End If
         flag = "update"
         OpeningBalanceId = Convert.ToInt32(grdOpeningBalance("OpeningBalanceId", grdOpeningBalance.CurrentCell.RowIndex).Value())
         Dim result As Integer = MessageBox.Show("Are you sure you want to edit this Opening Balance ?", "Edit Opening Balance", MessageBoxButtons.YesNo)

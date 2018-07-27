@@ -385,6 +385,11 @@ Public Class frm_ReverseMaterial_Issue_To_Cost_Center_Master
     End Sub
 
     Private Sub flx_Material_Issue_List_DoubleClick(ByVal sender As Object, ByVal e As System.EventArgs) Handles flx_Material_Issue_List.DoubleClick
+        If _rights.allow_edit = "N" Then
+            RightsMsg()
+            Exit Sub
+        End If
+
         Dim Reverse_Id As Integer
         Dim dtMaster As New DataTable
         Dim dtDetail As New DataTable

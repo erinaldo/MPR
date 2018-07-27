@@ -584,6 +584,10 @@ Public Class frm_CreditNote
     End Sub
 
     Private Sub dgvList_DoubleClick(sender As Object, e As EventArgs) Handles dgvList.DoubleClick
+        If _rights.allow_edit = "N" Then
+            RightsMsg()
+            Exit Sub
+        End If
         flag = "update"
         CreditNoteId = Convert.ToInt32(dgvList("CreditNote_Id", dgvList.CurrentCell.RowIndex).Value())
         FillPaymentDetails(CreditNoteId)
