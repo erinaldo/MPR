@@ -28,32 +28,32 @@ Public Class frm_Stock_Transfer
             Dim divname() As String = v_the_current_selected_division.ToString().Split("--")
             Dim currentname As String = divname(2)
 
-            strsql = "  select * from (SELECT    STOCK_TRANSFER_MASTER.TRANSFER_ID," & _
-                        " STOCK_TRANSFER_MASTER.DC_CODE " & _
-                        " + CAST(STOCK_TRANSFER_MASTER.DC_NO AS VARCHAR) AS [DC No]," & _
-                        " dbo.fn_Format(STOCK_TRANSFER_MASTER.TRANSFER_DATE) AS [DC DATE],'" & _
-                         currentname & "' as [Transfer From]," & _
-                        " DivisionMaster.DivisionName_vch AS [Transfer to]," & _
-                        " ISNULL(STOCK_TRANSFER_MASTER.MRN_PREFIX" & _
-                        " + CAST(CASE WHEN STOCK_TRANSFER_MASTER.MRN_NO <>-1 THEN STOCK_TRANSFER_MASTER.MRN_NO END  AS VARCHAR),'') [MRN No]," & _
-                        " ISNULL(CASE WHEN STOCK_TRANSFER_MASTER.MRN_NO <>-1 THEN dbo.fn_Format(STOCK_TRANSFER_MASTER.RECEIVED_DATE) end,'') AS [MRN Date]," & _
-                        " STOCK_TRANSFER_MASTER.TRANSFER_REMARKS AS Remarks " & _
-                    " FROM STOCK_TRANSFER_MASTER" & _
-                        " INNER JOIN DivisionMaster ON STOCK_TRANSFER_MASTER.TRANSFER_OUTLET_ID = DivisionMaster.Pk_DivisionId_num" & _
-                        " where STOCK_TRANSFER_MASTER.division_id=" & v_the_current_division_id & " AND TYPE='W') tb  where ([DC No] + [DC DATE] + [Transfer to] + [MRN No] + [MRN Date] + Remarks) like '%" & condition & "%'" & _
-                        " union all select * from (SELECT    STOCK_TRANSFER_MASTER.TRANSFER_ID," & _
-                        " STOCK_TRANSFER_MASTER.DC_CODE " & _
-                        " + CAST(STOCK_TRANSFER_MASTER.DC_NO AS VARCHAR) AS [DC No]," & _
-                        " dbo.fn_Format(STOCK_TRANSFER_MASTER.TRANSFER_DATE) AS [DC DATE],'" & _
-                        currentname & "' as [Transfer From]," & _
-                        "  OutletMaster.OutletName_vch AS [Transfer to]," & _
-                        " ISNULL(STOCK_TRANSFER_MASTER.MRN_PREFIX" & _
-                        " + CAST(CASE WHEN STOCK_TRANSFER_MASTER.MRN_NO <>-1 THEN STOCK_TRANSFER_MASTER.MRN_NO END  AS VARCHAR),'') [MRN No]," & _
-                        " ISNULL(CASE WHEN STOCK_TRANSFER_MASTER.MRN_NO <>-1 THEN dbo.fn_Format(STOCK_TRANSFER_MASTER.RECEIVED_DATE) end,'') AS [MRN Date]," & _
-                        " STOCK_TRANSFER_MASTER.TRANSFER_REMARKS AS Remarks " & _
-                    " FROM STOCK_TRANSFER_MASTER" & _
-                        " INNER JOIN OutletMaster ON STOCK_TRANSFER_MASTER.TRANSFER_OUTLET_ID = OutletMaster.Pk_OutletId_num" & _
-                        " where STOCK_TRANSFER_MASTER.division_id=" & v_the_current_division_id & " AND TYPE='O') tb  where ([DC No] + [DC DATE] + [Transfer to] + [MRN No] + [MRN Date] + Remarks) like '%" & condition & "%'"
+            strsql = "  select * from (SELECT    STOCK_TRANSFER_MASTER.TRANSFER_ID," &
+                        " STOCK_TRANSFER_MASTER.DC_CODE " &
+                        " + CAST(STOCK_TRANSFER_MASTER.DC_NO AS VARCHAR) AS [DC No]," &
+                        " dbo.fn_Format(STOCK_TRANSFER_MASTER.TRANSFER_DATE) AS [DC Date],'" &
+                         currentname & "' as [Transfer From]," &
+                        " DivisionMaster.DivisionName_vch AS [Transfer to]," &
+                        " ISNULL(STOCK_TRANSFER_MASTER.MRN_PREFIX" &
+                        " + CAST(CASE WHEN STOCK_TRANSFER_MASTER.MRN_NO <>-1 THEN STOCK_TRANSFER_MASTER.MRN_NO END  AS VARCHAR),'') [MRN No]," &
+                        " ISNULL(CASE WHEN STOCK_TRANSFER_MASTER.MRN_NO <>-1 THEN dbo.fn_Format(STOCK_TRANSFER_MASTER.RECEIVED_DATE) end,'') AS [MRN Date]," &
+                        " STOCK_TRANSFER_MASTER.TRANSFER_REMARKS AS Remarks " &
+                    " FROM STOCK_TRANSFER_MASTER" &
+                        " INNER JOIN DivisionMaster ON STOCK_TRANSFER_MASTER.TRANSFER_OUTLET_ID = DivisionMaster.Pk_DivisionId_num" &
+                        " where STOCK_TRANSFER_MASTER.division_id=" & v_the_current_division_id & " AND TYPE='W') tb  where ([DC No] + [DC DATE] + [Transfer to] + [MRN No] + [MRN Date] + Remarks) like '%" & condition & "%'" &
+                        " union all select * from (SELECT    STOCK_TRANSFER_MASTER.TRANSFER_ID," &
+                        " STOCK_TRANSFER_MASTER.DC_CODE " &
+                        " + CAST(STOCK_TRANSFER_MASTER.DC_NO AS VARCHAR) AS [DC No]," &
+                        " dbo.fn_Format(STOCK_TRANSFER_MASTER.TRANSFER_DATE) AS [DC Date],'" &
+                        currentname & "' as [Transfer From]," &
+                        "  OutletMaster.OutletName_vch AS [Transfer to]," &
+                        " ISNULL(STOCK_TRANSFER_MASTER.MRN_PREFIX" &
+                        " + CAST(CASE WHEN STOCK_TRANSFER_MASTER.MRN_NO <>-1 THEN STOCK_TRANSFER_MASTER.MRN_NO END  AS VARCHAR),'') [MRN No]," &
+                        " ISNULL(CASE WHEN STOCK_TRANSFER_MASTER.MRN_NO <>-1 THEN dbo.fn_Format(STOCK_TRANSFER_MASTER.RECEIVED_DATE) end,'') AS [MRN Date]," &
+                        " STOCK_TRANSFER_MASTER.TRANSFER_REMARKS AS Remarks " &
+                    " FROM STOCK_TRANSFER_MASTER" &
+                        " INNER JOIN OutletMaster ON STOCK_TRANSFER_MASTER.TRANSFER_OUTLET_ID = OutletMaster.Pk_OutletId_num" &
+                        " where STOCK_TRANSFER_MASTER.division_id=" & v_the_current_division_id & " AND TYPE='O') tb  where ([DC No] + [DC Date] + [Transfer to] + [MRN No] + [MRN Date] + Remarks) like '%" & condition & "%'"
 
             Dim dt As DataTable = obj.FillDataSet_Remote(strsql).Tables(0)
 
@@ -61,8 +61,8 @@ Public Class frm_Stock_Transfer
             flxList.Columns(0).Visible = False
             flxList.Columns(1).Width = 150
             flxList.Columns(2).Width = 150
-            flxList.Columns(3).Width = 265
-            flxList.Columns(4).Width = 265
+            flxList.Columns(3).Width = 270
+            flxList.Columns(4).Width = 270
             flxList.Columns(5).Width = 150
             flxList.Columns(6).Width = 100
             flxList.Columns(5).Visible = False
@@ -274,6 +274,7 @@ again:
                 If IsNumeric(dt.Rows(i)("transfer_qty")) Then
                     If Convert.ToDouble(dt.Rows(i)("transfer_qty")) <= 0 Then
                         dt.Rows.RemoveAt(i)
+                        dt.AcceptChanges()
                         GoTo again
                     End If
                 End If
@@ -324,7 +325,7 @@ again:
         flxItems.Cols("Item_Id").AllowEditing = False
 
         flxItems.Cols("Stock_Detail_Id").Visible = True
-        flxItems.Cols("Item_Code").Caption = "Item Code"
+        flxItems.Cols("Item_Code").Caption = "BarCode"
         flxItems.Cols("Item_Name").Caption = "Item Name"
         flxItems.Cols("UM_Name").Caption = "UOM"
         flxItems.Cols("Batch_no").Caption = "Batch No"
@@ -343,17 +344,19 @@ again:
         flxItems.Cols("transfer_Qty").AllowEditing = True
         flxItems.Cols("Item_Rate").AllowEditing = False
 
-        flxItems.Cols("Item_Id").Width = 40
-        flxItems.Cols("Item_Code").Width = 70
-        flxItems.Cols("Item_Name").Width = 350
-        flxItems.Cols("UM_Name").Width = 40
-        flxItems.Cols("Batch_No").Width = 70
-        flxItems.Cols("Expiry_date").Width = 80
-        flxItems.Cols("Batch_Qty").Width = 60
-        flxItems.Cols("Stock_Detail_Id").Width = 60
-        flxItems.Cols("transfer_Qty").Width = 80
-        flxItems.Cols("Item_Rate").Width = 80
+        flxItems.Cols("Item_Id").Width = 10
+        flxItems.Cols("Item_Code").Width = 120
+        flxItems.Cols("Item_Name").Width = 380
+        flxItems.Cols("UM_Name").Width = 50
+        flxItems.Cols("Batch_No").Width = 10
+        flxItems.Cols("Expiry_date").Width = 10
+        flxItems.Cols("Batch_Qty").Width = 80
+        flxItems.Cols("Stock_Detail_Id").Width = 10
+        flxItems.Cols("transfer_Qty").Width = 120
+        flxItems.Cols("Item_Rate").Width = 100
         flxItems.Cols("Stock_Detail_Id").Visible = False
+        flxItems.Cols("Batch_no").Visible = False
+        flxItems.Cols("Expiry_date").Visible = False
 
     End Sub
 
@@ -377,14 +380,16 @@ again:
 
             Dim cs As C1.Win.C1FlexGrid.CellStyle
             cs = Me.flxItems.Styles.Add("transfer_Qty")
-            cs.ForeColor = Color.White
-            cs.BackColor = Color.Green
+            cs.ForeColor = Color.Black
+            cs.BackColor = Color.LimeGreen
             cs.Border.Style = BorderStyleEnum.Raised
 
             Dim i As Integer
             For i = 1 To flxItems.Rows.Count - 1
                 If Not flxItems.Rows(i).IsNode Then flxItems.SetCellStyle(i, flxItems.Cols("transfer_Qty").SafeIndex, cs)
             Next
+
+
         End If
     End Sub
 
@@ -460,16 +465,19 @@ again:
 restart:
                     Dim dt As DataTable
                     dt = TryCast(flxItems.DataSource, DataTable)
+                    dt.AcceptChanges()
                     If Not dt Is Nothing Then
                         For Each dr As DataRow In dt.Rows
                             If Convert.ToString(dr("item_code")) = item_code Then
                                 dr.Delete()
+                                dt.AcceptChanges()
                                 GoTo restart
                             End If
                         Next
                         '        dt.AcceptChanges()
                     End If
                 End If
+                generate_tree()
             End If
         Catch ex As Exception
         End Try
@@ -482,12 +490,12 @@ restart:
             Dim sqlqry As String
             sqlqry = "SELECT  " &
                                         " IM.ITEM_ID , " &
-                                        " IM.ITEM_CODE , " &
+                                        " IM.BarCode_vch as ITEM_CODE , " &
                                         " IM.ITEM_NAME , " &
                                         " UM.UM_Name , " &
                                         " SD.Batch_no , " &
                                         " dbo.fn_Format(SD.Expiry_date) AS Expiry_Date, " &
-                                        " dbo.Get_Average_Rate_as_on_date(IM.ITEM_ID,'" & Now.ToString("dd-MMM-yyyy") & "'," & v_the_current_division_id & ",0) as Item_Rate," &
+                                        "CAST( dbo.Get_Average_Rate_as_on_date(IM.ITEM_ID,'" & Now.ToString("dd-MMM-yyyy") & "'," & v_the_current_division_id & ",0) AS NUMERIC(18, 2)) as Item_Rate," &
                                         " SD.Balance_Qty, " &
                                         " 0.00  as transfer_qty, " &
                                         " SD.STOCK_DETAIL_ID  " &
@@ -529,6 +537,14 @@ restart:
                 If dtable_Item_List.Rows.Count = 0 Then dtable_Item_List.Rows.Add(dtable_Item_List.NewRow)
 
                 generate_tree()
+
+                If flxItems.Rows.Count - 1 > 0 Then
+                    Dim Index As Int32 = 1
+                    flxItems.Row = Index
+                    flxItems.RowSel = Index
+                    flxItems.Col = 10
+                    flxItems.ColSel = 10
+                End If
             Else
                 MsgBox("Stock is not avaialable for this Item.", MsgBoxStyle.Information)
             End If
