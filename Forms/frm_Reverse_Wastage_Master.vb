@@ -338,6 +338,11 @@ Public Class frm_Reverse_Wastage_Master
 
     Private Sub DGVRWastageMaster_DoubleClick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles DGVRWastageMaster.DoubleClick
         Try
+            If _rights.allow_edit = "N" Then
+                RightsMsg()
+                Exit Sub
+            End If
+
             Dim ds As DataSet
             Dim dtWastage As New DataTable
             'Dim dtWastageDetail As New DataTable

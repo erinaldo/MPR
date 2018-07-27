@@ -793,7 +793,10 @@ WHERE   ( SUPPLIER_RATE_LIST_DETAIL.ITEM_ID =" & Convert.ToInt32(item_id) & " )
     End Sub
 
     Private Sub flxList_DoubleClick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles flxList.DoubleClick
-
+        If _rights.allow_edit = "N" Then
+            RightsMsg()
+            Exit Sub
+        End If
         Dim Status As String
         Status = flxList.SelectedRows(0).Cells("Status").Value
 
@@ -1020,6 +1023,10 @@ WHERE   ( SUPPLIER_RATE_LIST_DETAIL.ITEM_ID =" & Convert.ToInt32(item_id) & " )
     End Sub
 
     Private Sub BtnCancelInv_Click(sender As Object, e As EventArgs) Handles BtnCancelInv.Click
+        If _rights.allow_cancel = "N" Then
+            RightsMsg()
+            Exit Sub
+        End If
 
         Dim result As Integer = MessageBox.Show("Are you sure you want to cancel this Invoice ?", "Cancel Invoice", MessageBoxButtons.YesNo)
         If result = DialogResult.Yes Then

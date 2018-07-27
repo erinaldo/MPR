@@ -754,6 +754,10 @@ Public Class frm_Purchase_Order
 
     Private Sub flxPOList_DoubleClick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles flxPOList.DoubleClick
         Try
+            If _rights.allow_edit = "N" Then
+                RightsMsg()
+                Exit Sub
+            End If
 
             new_initialization()
 

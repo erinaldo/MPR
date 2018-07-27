@@ -609,6 +609,11 @@ Public Class frm_DebitNote
     End Function
 
     Private Sub dgvList_DoubleClick(sender As Object, e As EventArgs) Handles dgvList.DoubleClick
+        If _rights.allow_edit = "N" Then
+            RightsMsg()
+            Exit Sub
+        End If
+
         flag = "update"
         DebitNoteId = Convert.ToInt32(dgvList("DebitNote_Id", dgvList.CurrentCell.RowIndex).Value())
         FillPaymentDetails(DebitNoteId)

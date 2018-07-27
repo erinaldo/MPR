@@ -533,6 +533,12 @@ Public Class frm_Indent_Master
 
     Private Sub DGVIdnetMaster_DoubleClick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles DGVIdnetMaster.DoubleClick
         Try
+
+            If _rights.allow_edit = "N" Then
+                RightsMsg()
+                Exit Sub
+            End If
+
             Dim ds As DataSet
             If Convert.ToString(DGVIdnetMaster.SelectedRows.Item(0).Cells(5).Value).ToUpper <> "FRESH" Then
                 MsgBox("Indent with 'FRESH' status can modify only.", vbExclamation, gblMessageHeading)
@@ -544,7 +550,7 @@ Public Class frm_Indent_Master
             Dim dtIndentDetail As New DataTable
             iIdentId = Convert.ToInt32(DGVIdnetMaster.SelectedRows.Item(0).Cells(0).Value)
             flag = "update"
-            ds = obj.fill_Data_set("GET_INDENT_MASTERANDINDENT_DETAIL", "@V_INDENT_ID,@Div_Id,@ToDate", iIdentId & "," & v_the_current_division_id & "," & now)
+            ds = obj.fill_Data_set("GET_INDENT_MASTERANDINDENT_DETAIL", "@V_INDENT_ID,@Div_Id,@ToDate", iIdentId & "," & v_the_current_division_id & "," & Now)
             'ds = obj.fill_Data_set("GET_INDENT_MASTERANDINDENT_DETAIL", "@V_INDENT_ID", iIdentId)
             If ds.Tables.Count > 0 Then
                 'Bind the Indent Infromation

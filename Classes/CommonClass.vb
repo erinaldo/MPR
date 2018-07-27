@@ -820,6 +820,8 @@ Public Class CommonClass
                 p.Has_rights = "Y"
                 p.allow_view = dr("allow_view")
                 p.allow_trans = dr("allow_trans")
+                p.allow_edit = dr("allow_edit")
+                p.allow_cancel = dr("allow_cancel")
                 con.Close()
                 cmd.Dispose()
             Else
@@ -960,6 +962,32 @@ Public Class Form_Rights
             pallow_trans = value
         End Set
     End Property
+
+
+    Private pallow_edit As System.String
+    Public Property allow_edit() As System.String
+        Get
+            Return pallow_edit
+        End Get
+
+        Set(ByVal value As System.String)
+            pallow_edit = value
+        End Set
+    End Property
+
+
+    Private pallow_cancel As System.String
+    Public Property allow_cancel() As System.String
+        Get
+            Return pallow_cancel
+        End Get
+
+        Set(ByVal value As System.String)
+            pallow_cancel = value
+        End Set
+    End Property
+
+
     'Private pallow_delete As System.String
     'Public Property allow_delete() As System.String
     '    Get

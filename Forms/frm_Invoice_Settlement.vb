@@ -590,6 +590,10 @@ Public Class frm_Invoice_Settlement
     End Sub
 
     Private Sub flxList_DoubleClick(sender As Object, e As EventArgs) Handles flxList.DoubleClick
+        If _rights.allow_edit = "N" Then
+            RightsMsg()
+            Exit Sub
+        End If
         flag = "update"
         PaymentId = Convert.ToInt32(flxList("PaymentId", flxList.CurrentCell.RowIndex).Value())
         Dim result As Integer = MessageBox.Show("Are you sure you want to edit this Voucher ?", "Edit Voucher", MessageBoxButtons.YesNo)
@@ -625,6 +629,11 @@ Public Class frm_Invoice_Settlement
     End Sub
 
     Private Sub BtnCancelInv_Click(sender As Object, e As EventArgs) Handles BtnCancelInv.Click
+        If _rights.allow_cancel = "N" Then
+            RightsMsg()
+            Exit Sub
+        End If
+
         Dim result As Integer = MessageBox.Show("Are you sure you want to cancel this Voucher ?", "Cancel Voucher", MessageBoxButtons.YesNo)
         If result = DialogResult.Yes Then
 
