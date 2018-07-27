@@ -38,6 +38,14 @@ Partial Class frm_MRN_Print_Barcode
         Me.btnClose = New System.Windows.Forms.Button()
         Me.BtnPrintAll = New System.Windows.Forms.Button()
         Me.dgvPrintBarcode = New System.Windows.Forms.DataGridView()
+        Me.SNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Item_Code = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ItemName = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.BatchNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Barcode = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.UnitPrice = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.NoOfPrints = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Action = New System.Windows.Forms.DataGridViewButtonColumn()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.cmbMrn = New System.Windows.Forms.ComboBox()
         Me.Label4 = New System.Windows.Forms.Label()
@@ -50,14 +58,6 @@ Partial Class frm_MRN_Print_Barcode
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
-        Me.SNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Item_Code = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ItemName = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.BatchNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Barcode = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.UnitPrice = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.NoOfPrints = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Action = New System.Windows.Forms.DataGridViewButtonColumn()
         Me.TabPage1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         CType(Me.dgvPrintBarcode, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -158,13 +158,99 @@ Partial Class frm_MRN_Print_Barcode
         Me.dgvPrintBarcode.Name = "dgvPrintBarcode"
         Me.dgvPrintBarcode.RowHeadersVisible = False
         DataGridViewCellStyle10.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle10.ForeColor = System.Drawing.Color.Empty
         DataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
         DataGridViewCellStyle10.SelectionForeColor = System.Drawing.Color.White
         Me.dgvPrintBarcode.RowsDefaultCellStyle = DataGridViewCellStyle10
         Me.dgvPrintBarcode.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvPrintBarcode.Size = New System.Drawing.Size(771, 289)
         Me.dgvPrintBarcode.TabIndex = 8
+        '
+        'SNo
+        '
+        DataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(64, Byte), Integer))
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.AppWorkspace
+        Me.SNo.DefaultCellStyle = DataGridViewCellStyle2
+        Me.SNo.HeaderText = "S.No"
+        Me.SNo.Name = "SNo"
+        Me.SNo.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.SNo.Width = 38
+        '
+        'Item_Code
+        '
+        DataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.Item_Code.DefaultCellStyle = DataGridViewCellStyle3
+        Me.Item_Code.HeaderText = "Item Code"
+        Me.Item_Code.Name = "Item_Code"
+        Me.Item_Code.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.Item_Code.Visible = False
+        Me.Item_Code.Width = 10
+        '
+        'ItemName
+        '
+        DataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle4.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.ItemName.DefaultCellStyle = DataGridViewCellStyle4
+        Me.ItemName.HeaderText = " Name"
+        Me.ItemName.Name = "ItemName"
+        Me.ItemName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.ItemName.Width = 215
+        '
+        'BatchNo
+        '
+        DataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle5.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.BatchNo.DefaultCellStyle = DataGridViewCellStyle5
+        Me.BatchNo.HeaderText = "MRP"
+        Me.BatchNo.Name = "BatchNo"
+        Me.BatchNo.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        '
+        'Barcode
+        '
+        DataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle6.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.Barcode.DefaultCellStyle = DataGridViewCellStyle6
+        Me.Barcode.HeaderText = "Barcode"
+        Me.Barcode.Name = "Barcode"
+        Me.Barcode.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.Barcode.Width = 130
+        '
+        'UnitPrice
+        '
+        DataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle7.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.UnitPrice.DefaultCellStyle = DataGridViewCellStyle7
+        Me.UnitPrice.HeaderText = "Unit Price"
+        Me.UnitPrice.Name = "UnitPrice"
+        Me.UnitPrice.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.UnitPrice.Width = 70
+        '
+        'NoOfPrints
+        '
+        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle8.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle8.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle8.ForeColor = System.Drawing.Color.DarkRed
+        Me.NoOfPrints.DefaultCellStyle = DataGridViewCellStyle8
+        Me.NoOfPrints.HeaderText = "No. of Prints"
+        Me.NoOfPrints.Name = "NoOfPrints"
+        Me.NoOfPrints.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.NoOfPrints.Width = 80
+        '
+        'Action
+        '
+        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle9.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(192, Byte), Integer))
+        DataGridViewCellStyle9.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.Lime
+        DataGridViewCellStyle9.SelectionForeColor = System.Drawing.Color.Black
+        Me.Action.DefaultCellStyle = DataGridViewCellStyle9
+        Me.Action.HeaderText = "Action"
+        Me.Action.Name = "Action"
+        Me.Action.Text = "Print Barcode"
+        Me.Action.ToolTipText = "Print Barcode"
+        Me.Action.Width = 120
         '
         'GroupBox1
         '
@@ -309,93 +395,6 @@ Partial Class frm_MRN_Print_Barcode
         Me.TabControl1.Size = New System.Drawing.Size(795, 530)
         Me.TabControl1.TabIndex = 1
         '
-        'SNo
-        '
-        DataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.AppWorkspace
-        Me.SNo.DefaultCellStyle = DataGridViewCellStyle2
-        Me.SNo.HeaderText = "S.No"
-        Me.SNo.Name = "SNo"
-        Me.SNo.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.SNo.Width = 38
-        '
-        'Item_Code
-        '
-        DataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.Item_Code.DefaultCellStyle = DataGridViewCellStyle3
-        Me.Item_Code.HeaderText = "Item Code"
-        Me.Item_Code.Name = "Item_Code"
-        Me.Item_Code.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.Item_Code.Visible = False
-        Me.Item_Code.Width = 10
-        '
-        'ItemName
-        '
-        DataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle4.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.ItemName.DefaultCellStyle = DataGridViewCellStyle4
-        Me.ItemName.HeaderText = " Name"
-        Me.ItemName.Name = "ItemName"
-        Me.ItemName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.ItemName.Width = 215
-        '
-        'BatchNo
-        '
-        DataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle5.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.BatchNo.DefaultCellStyle = DataGridViewCellStyle5
-        Me.BatchNo.HeaderText = "MRP"
-        Me.BatchNo.Name = "BatchNo"
-        Me.BatchNo.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        '
-        'Barcode
-        '
-        DataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle6.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.Barcode.DefaultCellStyle = DataGridViewCellStyle6
-        Me.Barcode.HeaderText = "Barcode"
-        Me.Barcode.Name = "Barcode"
-        Me.Barcode.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.Barcode.Width = 130
-        '
-        'UnitPrice
-        '
-        DataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle7.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.UnitPrice.DefaultCellStyle = DataGridViewCellStyle7
-        Me.UnitPrice.HeaderText = "Unit Price"
-        Me.UnitPrice.Name = "UnitPrice"
-        Me.UnitPrice.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.UnitPrice.Width = 70
-        '
-        'NoOfPrints
-        '
-        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle8.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle8.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle8.ForeColor = System.Drawing.Color.DarkRed
-        Me.NoOfPrints.DefaultCellStyle = DataGridViewCellStyle8
-        Me.NoOfPrints.HeaderText = "No. of Prints"
-        Me.NoOfPrints.Name = "NoOfPrints"
-        Me.NoOfPrints.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.NoOfPrints.Width = 80
-        '
-        'Action
-        '
-        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle9.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(192, Byte), Integer))
-        DataGridViewCellStyle9.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.Lime
-        DataGridViewCellStyle9.SelectionForeColor = System.Drawing.Color.Black
-        Me.Action.DefaultCellStyle = DataGridViewCellStyle9
-        Me.Action.HeaderText = "Action"
-        Me.Action.Name = "Action"
-        Me.Action.Text = "Print Barcode"
-        Me.Action.ToolTipText = "Print Barcode"
-        Me.Action.Width = 120
-        '
         'frm_MRN_Print_Barcode
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -404,9 +403,8 @@ Partial Class frm_MRN_Print_Barcode
         Me.ClientSize = New System.Drawing.Size(795, 530)
         Me.Controls.Add(Me.TabControl1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
-        Me.Location = New System.Drawing.Point(330, 140)
         Me.Name = "frm_MRN_Print_Barcode"
-        Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.TabPage1.ResumeLayout(False)
         Me.TabPage1.PerformLayout()
         Me.GroupBox2.ResumeLayout(False)
