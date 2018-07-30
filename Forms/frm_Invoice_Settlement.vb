@@ -18,12 +18,9 @@ Public Class frm_Invoice_Settlement
     Dim _paymentStatus As PaymentStatus
 
     Private Sub InitializeControls()
-        clsObj.ComboBindForPayment(cmbCustomer, "Select ACC_ID,ACC_NAME from ACCOUNT_MASTER WHERE AG_ID in (" &
-                 AccountGroups.Sundry_Debtors & ") Order by ACC_NAME", "ACC_NAME", "ACC_ID", True)
-        clsObj.ComboBindForPayment(cmbCustomerApprovePayment, "Select ACC_ID,ACC_NAME from ACCOUNT_MASTER WHERE AG_ID in (" &
-                 AccountGroups.Sundry_Debtors & ") Order by ACC_NAME", "ACC_NAME", "ACC_ID", True)
-        clsObj.ComboBindForPayment(cmbCustomerSettleInvoice, "Select ACC_ID,ACC_NAME from ACCOUNT_MASTER WHERE AG_ID In (" &
-                 AccountGroups.Sundry_Debtors & ") Order by ACC_NAME", "ACC_NAME", "ACC_ID", True)
+        clsObj.ComboBindForPayment(cmbCustomer, "Select ACC_ID,ACC_NAME from ACCOUNT_MASTER WHERE AG_ID in (1,2,3,6) Order by ACC_NAME", "ACC_NAME", "ACC_ID", True)
+        clsObj.ComboBindForPayment(cmbCustomerApprovePayment, "Select ACC_ID,ACC_NAME from ACCOUNT_MASTER WHERE AG_ID in (1,2,3,6) Order by ACC_NAME", "ACC_NAME", "ACC_ID", True)
+        clsObj.ComboBindForPayment(cmbCustomerSettleInvoice, "Select ACC_ID,ACC_NAME from ACCOUNT_MASTER WHERE AG_ID in (1,2,3,6) Order by ACC_NAME", "ACC_NAME", "ACC_ID", True)
 
         clsObj.ComboBind(cmbPaymentType, "Select [PaymentTypeId], [PaymentTypeName] + CASE WHEN IsApprovalRequired_bit=1" &
                          " THEN ' - Approval Required' ELSE ' - Approval Not Required' END AS PaymentTypeName from [PaymentTypeMaster] WHERE [IsActive_bit] = 1",

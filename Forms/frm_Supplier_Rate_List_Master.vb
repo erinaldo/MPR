@@ -43,7 +43,7 @@ Public Class frm_Supplier_Rate_List_Master
             flag = "save"
             obj.FormatGrid(grdSupplierList)
             FillGrid()
-            obj.ComboBind(cmbSupplier, "select 0 as ACC_ID,'--Select--' as ACC_NAME union Select ACC_ID,ACC_NAME from ACCOUNT_MASTER WHERE AG_ID=2 Order by ACC_NAME ", "ACC_NAME", "ACC_ID")
+            obj.ComboBind(cmbSupplier, "select 0 as ACC_ID,'--Select--' as ACC_NAME union Select ACC_ID,ACC_NAME from ACCOUNT_MASTER WHERE AG_ID in (1,2,3,6) Order by ACC_NAME ", "ACC_NAME", "ACC_ID")
             grid_style()
         Catch ex As Exception
             MsgBox(gblMessageHeading_Error & vbCrLf & gblMessage_ContactInfo & vbCrLf & ex.Message, MsgBoxStyle.Critical, gblMessageHeading)
@@ -474,13 +474,13 @@ Public Class frm_Supplier_Rate_List_Master
     End Sub
 
     Private Sub comboBind()
-        obj.ComboBind(cmbSuppSrch, "select 0 as srl_id,'All' as Srl_name union Select srl_id,srl_name from supplier_rate_list WHERE SUPP_ID IN(SELECT ACC_ID FROM dbo.ACCOUNT_MASTER WHERE AG_ID=2) order by srl_name", "srl_name", "srl_id")
+        obj.ComboBind(cmbSuppSrch, "select 0 as srl_id,'All' as Srl_name union Select srl_id,srl_name from supplier_rate_list WHERE SUPP_ID IN(SELECT ACC_ID FROM dbo.ACCOUNT_MASTER WHERE AG_ID in (1,2,3,6)) order by srl_name", "srl_name", "srl_id")
     End Sub
 
     Private Sub FillGrid()
         Try
             'obj.GridBind(grdSupplierList, "SELECT srl_id,srl_name,srl_desc,active,creation_date from Supplier_rate_list")
-            obj.GridBind(grdSupplierList, "SELECT SUPPLIER_RATE_LIST.SRL_ID,SUPPLIER_RATE_LIST.SRL_NAME,SUPPLIER_RATE_LIST.SRL_DATE,SUPPLIER_RATE_LIST.SRL_DESC,SUPPLIER_RATE_LIST.ACTIVE,ACCOUNT_MASTER.ACC_NAME,ACCOUNT_MASTER.ACC_ID FROM SUPPLIER_RATE_LIST INNER JOIN ACCOUNT_MASTER ON SUPPLIER_RATE_LIST.SUPP_ID = ACCOUNT_MASTER.ACC_ID WHERE AG_ID=2 order by SUPPLIER_RATE_LIST.SRL_NAME")
+            obj.GridBind(grdSupplierList, "SELECT SUPPLIER_RATE_LIST.SRL_ID,SUPPLIER_RATE_LIST.SRL_NAME,SUPPLIER_RATE_LIST.SRL_DATE,SUPPLIER_RATE_LIST.SRL_DESC,SUPPLIER_RATE_LIST.ACTIVE,ACCOUNT_MASTER.ACC_NAME,ACCOUNT_MASTER.ACC_ID FROM SUPPLIER_RATE_LIST INNER JOIN ACCOUNT_MASTER ON SUPPLIER_RATE_LIST.SUPP_ID = ACCOUNT_MASTER.ACC_ID WHERE AG_ID in (1,2,3,6) order by SUPPLIER_RATE_LIST.SRL_NAME")
             grdSupplierList.Width = 860
             grdSupplierList.Columns(0).Visible = False 'Supplier id
             grdSupplierList.Columns(0).Width = 300
@@ -505,9 +505,9 @@ Public Class frm_Supplier_Rate_List_Master
             Dim IsBol As Boolean
             If chkActive.Checked = True Then
                 IsBol = chkActive.Checked
-                obj.GridBind(grdSupplierList, "SELECT SRL_ID,SRL_NAME,SRL_DESC,ACTIVE,SRL_date,ACCOUNT_MASTER.ACC_NAME,ACCOUNT_MASTER.ACC_ID FROM SUPPLIER_RATE_LIST INNER JOIN ACCOUNT_MASTER ON SUPPLIER_RATE_LIST.SUPP_ID = ACCOUNT_MASTER.ACC_ID where AG_ID=2 and active = '" & IsBol & "'")
+                obj.GridBind(grdSupplierList, "SELECT SRL_ID,SRL_NAME,SRL_DESC,ACTIVE,SRL_date,ACCOUNT_MASTER.ACC_NAME,ACCOUNT_MASTER.ACC_ID FROM SUPPLIER_RATE_LIST INNER JOIN ACCOUNT_MASTER ON SUPPLIER_RATE_LIST.SUPP_ID = ACCOUNT_MASTER.ACC_ID where AG_ID in (1,2,3,6) and active = '" & IsBol & "'")
             Else
-                obj.GridBind(grdSupplierList, "SELECT SRL_ID,SRL_NAME,SRL_DESC,ACTIVE,SRL_date,ACCOUNT_MASTER.ACC_NAME,ACCOUNT_MASTER.ACC_ID FROM SUPPLIER_RATE_LIST INNER JOIN ACCOUNT_MASTER ON SUPPLIER_RATE_LIST.SUPP_ID = ACCOUNT_MASTER.ACC_ID where AG_ID=2")
+                obj.GridBind(grdSupplierList, "SELECT SRL_ID,SRL_NAME,SRL_DESC,ACTIVE,SRL_date,ACCOUNT_MASTER.ACC_NAME,ACCOUNT_MASTER.ACC_ID FROM SUPPLIER_RATE_LIST INNER JOIN ACCOUNT_MASTER ON SUPPLIER_RATE_LIST.SUPP_ID = ACCOUNT_MASTER.ACC_ID where AG_ID in (1,2,3,6)")
                 ' where active = '" & IsBol & "'")
             End If
         Catch ex As Exception
@@ -518,9 +518,9 @@ Public Class frm_Supplier_Rate_List_Master
     Private Sub ComboBox2_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmbSuppSrch.SelectedIndexChanged
         Try
             If cmbSuppSrch.SelectedValue = 0 Then
-                obj.GridBind(grdSupplierList, "SELECT SRL_ID,SRL_NAME,SRL_DESC,ACTIVE,SRL_date,ACCOUNT_MASTER.ACC_NAME,ACCOUNT_MASTER.ACC_ID FROM SUPPLIER_RATE_LIST INNER JOIN ACCOUNT_MASTER ON SUPPLIER_RATE_LIST.SUPP_ID = ACCOUNT_MASTER.ACC_ID where AG_ID=2")
+                obj.GridBind(grdSupplierList, "SELECT SRL_ID,SRL_NAME,SRL_DESC,ACTIVE,SRL_date,ACCOUNT_MASTER.ACC_NAME,ACCOUNT_MASTER.ACC_ID FROM SUPPLIER_RATE_LIST INNER JOIN ACCOUNT_MASTER ON SUPPLIER_RATE_LIST.SUPP_ID = ACCOUNT_MASTER.ACC_ID where AG_ID in (1,2,3,6)")
             Else
-                obj.GridBind(grdSupplierList, "SELECT SRL_ID,SRL_NAME,SRL_DESC,ACTIVE,SRL_date,ACCOUNT_MASTER.ACC_NAME,ACCOUNT_MASTER.ACC_ID FROM SUPPLIER_RATE_LIST INNER JOIN ACCOUNT_MASTER ON SUPPLIER_RATE_LIST.SUPP_ID = ACCOUNT_MASTER.ACC_ID where AG_ID=2 and SRL_Id=" & cmbSuppSrch.SelectedValue)
+                obj.GridBind(grdSupplierList, "SELECT SRL_ID,SRL_NAME,SRL_DESC,ACTIVE,SRL_date,ACCOUNT_MASTER.ACC_NAME,ACCOUNT_MASTER.ACC_ID FROM SUPPLIER_RATE_LIST INNER JOIN ACCOUNT_MASTER ON SUPPLIER_RATE_LIST.SUPP_ID = ACCOUNT_MASTER.ACC_ID where AG_ID in (1,2,3,6) and SRL_Id=" & cmbSuppSrch.SelectedValue)
             End If
         Catch ex As Exception
             MsgBox(gblMessageHeading_Error & vbCrLf & gblMessage_ContactInfo & vbCrLf & ex.Message, MsgBoxStyle.Critical, gblMessageHeading)
@@ -744,7 +744,7 @@ Public Class frm_Supplier_Rate_List_Master
     End Sub
 
     Private Sub txtSearch_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtSearch.TextChanged
-        obj.GridBind(grdSupplierList, "SELECT SUPPLIER_RATE_LIST.SRL_ID,SUPPLIER_RATE_LIST.SRL_NAME,SUPPLIER_RATE_LIST.SRL_DATE,SUPPLIER_RATE_LIST.SRL_DESC,SUPPLIER_RATE_LIST.ACTIVE,ACCOUNT_MASTER.ACC_NAME,ACCOUNT_MASTER.ACC_ID FROM SUPPLIER_RATE_LIST INNER JOIN ACCOUNT_MASTER ON SUPPLIER_RATE_LIST.SUPP_ID = ACCOUNT_MASTER.ACC_ID WHERE AG_ID=2 and (dbo.SUPPLIER_RATE_LIST.SRL_NAME + CONVERT(VARCHAR,SUPPLIER_RATE_LIST.SRL_DATE,101) + dbo.SUPPLIER_RATE_LIST.SRL_DESC + dbo.ACCOUNT_MASTER.ACC_NAME) LIKE '%" & Trim(txtSearch.Text) & "%'")
+        obj.GridBind(grdSupplierList, "SELECT SUPPLIER_RATE_LIST.SRL_ID,SUPPLIER_RATE_LIST.SRL_NAME,SUPPLIER_RATE_LIST.SRL_DATE,SUPPLIER_RATE_LIST.SRL_DESC,SUPPLIER_RATE_LIST.ACTIVE,ACCOUNT_MASTER.ACC_NAME,ACCOUNT_MASTER.ACC_ID FROM SUPPLIER_RATE_LIST INNER JOIN ACCOUNT_MASTER ON SUPPLIER_RATE_LIST.SUPP_ID = ACCOUNT_MASTER.ACC_ID WHERE AG_ID in (1,2,3,6) and (dbo.SUPPLIER_RATE_LIST.SRL_NAME + CONVERT(VARCHAR,SUPPLIER_RATE_LIST.SRL_DATE,101) + dbo.SUPPLIER_RATE_LIST.SRL_DESC + dbo.ACCOUNT_MASTER.ACC_NAME) LIKE '%" & Trim(txtSearch.Text) & "%'")
     End Sub
 
     Private Sub grdSupplier_CellEndEdit(sender As Object, e As DataGridViewCellEventArgs) Handles grdSupplier.CellEndEdit, grdSupplierList.CellEndEdit

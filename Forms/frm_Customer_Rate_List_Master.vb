@@ -44,7 +44,7 @@ Public Class frm_Customer_Rate_List_Master
             flag = "save"
             obj.FormatGrid(grdSupplierList)
             FillGrid()
-            obj.ComboBind(cmbSupplier, "select 0 as ACC_ID,'--Select--' as ACC_NAME union Select ACC_ID,ACC_NAME from ACCOUNT_MASTER WHERE AG_ID=1 Order by ACC_NAME ", "ACC_NAME", "ACC_ID")
+            obj.ComboBind(cmbSupplier, "select 0 as ACC_ID,'--Select--' as ACC_NAME union Select ACC_ID,ACC_NAME from ACCOUNT_MASTER WHERE AG_ID in (1,2,3,6) Order by ACC_NAME ", "ACC_NAME", "ACC_ID")
             grid_style()
         Catch ex As Exception
             MsgBox(gblMessageHeading_Error & vbCrLf & gblMessage_ContactInfo & vbCrLf & ex.Message, MsgBoxStyle.Critical, gblMessageHeading)
@@ -518,7 +518,7 @@ Public Class frm_Customer_Rate_List_Master
     Private Sub BindGrid()
         Dim query As String = " SELECT    SUPPLIER_RATE_LIST.SRL_ID,SRL_NAME,SRL_DESC,ACTIVE,SRL_date, isnull(ACCOUNT_MASTER.ACC_NAME, '') as ACC_NAME, isnull(ACCOUNT_MASTER.ACC_ID,0) as ACC_ID" &
             " FROM         SUPPLIER_RATE_LIST left outer JOIN   CUSTOMER_RATE_LIST_MAPPING on CUSTOMER_RATE_LIST_MAPPING.SRL_ID = SUPPLIER_RATE_LIST.SRL_ID " &
-            " left outer join ACCOUNT_MASTER ON CUSTOMER_RATE_LIST_MAPPING.SUPP_ID = ACCOUNT_MASTER.ACC_ID WHERE AG_ID=1 "
+            " left outer join ACCOUNT_MASTER ON CUSTOMER_RATE_LIST_MAPPING.SUPP_ID = ACCOUNT_MASTER.ACC_ID WHERE AG_ID in (1,2,3,6) "
 
         If cmbSuppSrch.SelectedValue > 0 Then
             query += " and CUSTOMER_RATE_LIST_MAPPING.SRL_ID=" & cmbSuppSrch.SelectedValue
