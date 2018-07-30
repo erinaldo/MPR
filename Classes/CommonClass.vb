@@ -1767,3 +1767,14 @@ again:
     End Sub
 
 End Class
+
+Public Class CustomComboBox
+    Inherits ComboBox
+
+    Protected Overrides Sub OnEnter(ByVal e As System.EventArgs)
+        If Not DroppedDown Then
+            DroppedDown = True
+        End If
+    End Sub
+
+End Class

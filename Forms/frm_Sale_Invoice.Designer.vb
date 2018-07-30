@@ -80,6 +80,7 @@ Partial Class frm_Sale_Invoice
         Me.lblMRSCode = New System.Windows.Forms.Label()
         Me.lblFormHeading = New System.Windows.Forms.Label()
         Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
+        Me.CachedCryCustomerrateList1 = New MMSPlus.CachedCryCustomerrateList()
         Me.TabControl1.SuspendLayout()
         Me.List.SuspendLayout()
         Me.GBMRSDetail.SuspendLayout()
@@ -859,4 +860,5 @@ Partial Class frm_Sale_Invoice
     Friend WithEvents lblACessAmount As Label
     Friend WithEvents Label17 As Label
     Friend WithEvents Label16 As Label
+    Friend WithEvents CachedCryCustomerrateList1 As CachedCryCustomerrateList
 End Class

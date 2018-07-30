@@ -58,6 +58,7 @@ Public Class frm_Sale_Invoice
             obj.FormatGrid(flxItems)
             table_style()
             clsObj.ComboBind(cmbSupplier, "Select ACC_ID,ACC_NAME from ACCOUNT_MASTER WHERE AG_ID=" & AccountGroups.Sundry_Debtors & " Order by ACC_NAME", "ACC_NAME", "ACC_ID", True)
+            clsObj.ComboBind(CustomComboBox1, "Select ACC_ID,ACC_NAME from ACCOUNT_MASTER WHERE AG_ID=" & AccountGroups.Sundry_Debtors & " Order by ACC_NAME", "ACC_NAME", "ACC_ID", True)
             new_initilization()
             fill_grid()
         Catch ex As Exception
@@ -1080,5 +1081,9 @@ WHERE   ( SUPPLIER_RATE_LIST_DETAIL.ITEM_ID =" & Convert.ToInt32(item_id) & " )
         End If
     End Sub
 
-
+    Private Sub cmbSupplier_Enter(sender As Object, e As EventArgs) Handles cmbSupplier.Enter
+        If Not cmbSupplier.DroppedDown Then
+            cmbSupplier.DroppedDown = True
+        End If
+    End Sub
 End Class
