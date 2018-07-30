@@ -30,6 +30,16 @@ Partial Class frm_DebitNote
         Me.dgvList = New System.Windows.Forms.DataGridView()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.lblGSTDetail = New System.Windows.Forms.Label()
+        Me.lblGST3 = New System.Windows.Forms.Label()
+        Me.lblGST28 = New System.Windows.Forms.Label()
+        Me.lblGST18 = New System.Windows.Forms.Label()
+        Me.lblGST12 = New System.Windows.Forms.Label()
+        Me.lblGST5 = New System.Windows.Forms.Label()
+        Me.lblGST0 = New System.Windows.Forms.Label()
+        Me.lblGSTHeader = New System.Windows.Forms.Label()
+        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.Panel13 = New System.Windows.Forms.Panel()
         Me.lblCessAmount = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.lblDebit = New System.Windows.Forms.Label()
@@ -41,6 +51,7 @@ Partial Class frm_DebitNote
         Me.lnkCalculateDebitAmt = New System.Windows.Forms.LinkLabel()
         Me.FLXGRD_MaterialItem = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.lblMRN_TYPE = New System.Windows.Forms.Label()
         Me.txt_INVDate = New System.Windows.Forms.TextBox()
         Me.txt_INVNo = New System.Windows.Forms.TextBox()
         Me.Label8 = New System.Windows.Forms.Label()
@@ -58,16 +69,6 @@ Partial Class frm_DebitNote
         Me.lblSelectMRNNO = New System.Windows.Forms.Label()
         Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
         Me.C1FlexGrid1 = New C1.Win.C1FlexGrid.C1FlexGrid()
-        Me.Panel13 = New System.Windows.Forms.Panel()
-        Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.lblGST3 = New System.Windows.Forms.Label()
-        Me.lblGST28 = New System.Windows.Forms.Label()
-        Me.lblGST18 = New System.Windows.Forms.Label()
-        Me.lblGST12 = New System.Windows.Forms.Label()
-        Me.lblGST5 = New System.Windows.Forms.Label()
-        Me.lblGST0 = New System.Windows.Forms.Label()
-        Me.lblGSTHeader = New System.Windows.Forms.Label()
-        Me.lblGSTDetail = New System.Windows.Forms.Label()
         Me.TbRMRN.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
@@ -125,7 +126,7 @@ Partial Class frm_DebitNote
         Me.txtSearch.Location = New System.Drawing.Point(89, 32)
         Me.txtSearch.Name = "txtSearch"
         Me.txtSearch.Size = New System.Drawing.Size(741, 18)
-        Me.txtSearch.TabIndex = 1
+        Me.txtSearch.TabIndex = 0
         '
         'Label1
         '
@@ -211,6 +212,110 @@ Partial Class frm_DebitNote
         Me.GroupBox2.TabIndex = 6
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Items List"
+        '
+        'lblGSTDetail
+        '
+        Me.lblGSTDetail.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblGSTDetail.ForeColor = System.Drawing.Color.Orange
+        Me.lblGSTDetail.Location = New System.Drawing.Point(704, 323)
+        Me.lblGSTDetail.Name = "lblGSTDetail"
+        Me.lblGSTDetail.Size = New System.Drawing.Size(182, 37)
+        Me.lblGSTDetail.TabIndex = 277
+        Me.lblGSTDetail.Text = "UTGST - 0.00" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "SGST - 0.00"
+        Me.lblGSTDetail.TextAlign = System.Drawing.ContentAlignment.TopRight
+        '
+        'lblGST3
+        '
+        Me.lblGST3.AutoSize = True
+        Me.lblGST3.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblGST3.ForeColor = System.Drawing.Color.White
+        Me.lblGST3.Location = New System.Drawing.Point(460, 317)
+        Me.lblGST3.Name = "lblGST3"
+        Me.lblGST3.Size = New System.Drawing.Size(107, 14)
+        Me.lblGST3.TabIndex = 276
+        Me.lblGST3.Text = "3% - Amt @ Tax"
+        '
+        'lblGST28
+        '
+        Me.lblGST28.AutoSize = True
+        Me.lblGST28.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblGST28.ForeColor = System.Drawing.Color.White
+        Me.lblGST28.Location = New System.Drawing.Point(459, 392)
+        Me.lblGST28.Name = "lblGST28"
+        Me.lblGST28.Size = New System.Drawing.Size(115, 14)
+        Me.lblGST28.TabIndex = 275
+        Me.lblGST28.Text = "28% - Amt @ Tax"
+        '
+        'lblGST18
+        '
+        Me.lblGST18.AutoSize = True
+        Me.lblGST18.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblGST18.ForeColor = System.Drawing.Color.White
+        Me.lblGST18.Location = New System.Drawing.Point(459, 373)
+        Me.lblGST18.Name = "lblGST18"
+        Me.lblGST18.Size = New System.Drawing.Size(115, 14)
+        Me.lblGST18.TabIndex = 274
+        Me.lblGST18.Text = "18% - Amt @ Tax"
+        '
+        'lblGST12
+        '
+        Me.lblGST12.AutoSize = True
+        Me.lblGST12.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblGST12.ForeColor = System.Drawing.Color.White
+        Me.lblGST12.Location = New System.Drawing.Point(459, 353)
+        Me.lblGST12.Name = "lblGST12"
+        Me.lblGST12.Size = New System.Drawing.Size(115, 14)
+        Me.lblGST12.TabIndex = 273
+        Me.lblGST12.Text = "12% - Amt @ Tax"
+        '
+        'lblGST5
+        '
+        Me.lblGST5.AutoSize = True
+        Me.lblGST5.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblGST5.ForeColor = System.Drawing.Color.White
+        Me.lblGST5.Location = New System.Drawing.Point(460, 335)
+        Me.lblGST5.Name = "lblGST5"
+        Me.lblGST5.Size = New System.Drawing.Size(107, 14)
+        Me.lblGST5.TabIndex = 272
+        Me.lblGST5.Text = "5% - Amt @ Tax"
+        '
+        'lblGST0
+        '
+        Me.lblGST0.AutoSize = True
+        Me.lblGST0.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblGST0.ForeColor = System.Drawing.Color.White
+        Me.lblGST0.Location = New System.Drawing.Point(460, 299)
+        Me.lblGST0.Name = "lblGST0"
+        Me.lblGST0.Size = New System.Drawing.Size(107, 14)
+        Me.lblGST0.TabIndex = 271
+        Me.lblGST0.Text = "0% - Amt @ Tax"
+        '
+        'lblGSTHeader
+        '
+        Me.lblGSTHeader.AutoSize = True
+        Me.lblGSTHeader.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblGSTHeader.ForeColor = System.Drawing.Color.White
+        Me.lblGSTHeader.Location = New System.Drawing.Point(459, 279)
+        Me.lblGSTHeader.Name = "lblGSTHeader"
+        Me.lblGSTHeader.Size = New System.Drawing.Size(116, 14)
+        Me.lblGSTHeader.TabIndex = 270
+        Me.lblGSTHeader.Text = "GST Summary :-"
+        '
+        'Panel1
+        '
+        Me.Panel1.BackColor = System.Drawing.Color.Silver
+        Me.Panel1.Location = New System.Drawing.Point(450, 274)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(1, 142)
+        Me.Panel1.TabIndex = 269
+        '
+        'Panel13
+        '
+        Me.Panel13.BackColor = System.Drawing.Color.Silver
+        Me.Panel13.Location = New System.Drawing.Point(673, 274)
+        Me.Panel13.Name = "Panel13"
+        Me.Panel13.Size = New System.Drawing.Size(1, 142)
+        Me.Panel13.TabIndex = 268
         '
         'lblCessAmount
         '
@@ -324,6 +429,7 @@ Partial Class frm_DebitNote
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.lblMRN_TYPE)
         Me.GroupBox1.Controls.Add(Me.txt_INVDate)
         Me.GroupBox1.Controls.Add(Me.txt_INVNo)
         Me.GroupBox1.Controls.Add(Me.Label8)
@@ -346,6 +452,17 @@ Partial Class frm_DebitNote
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Debit Note Detail"
+        '
+        'lblMRN_TYPE
+        '
+        Me.lblMRN_TYPE.AutoSize = True
+        Me.lblMRN_TYPE.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblMRN_TYPE.ForeColor = System.Drawing.Color.DimGray
+        Me.lblMRN_TYPE.Location = New System.Drawing.Point(800, 45)
+        Me.lblMRN_TYPE.Name = "lblMRN_TYPE"
+        Me.lblMRN_TYPE.Size = New System.Drawing.Size(13, 13)
+        Me.lblMRN_TYPE.TabIndex = 31
+        Me.lblMRN_TYPE.Text = "0"
         '
         'txt_INVDate
         '
@@ -532,110 +649,6 @@ Partial Class frm_DebitNote
         Me.C1FlexGrid1.Styles = New C1.Win.C1FlexGrid.CellStyleCollection(resources.GetString("C1FlexGrid1.Styles"))
         Me.C1FlexGrid1.TabIndex = 0
         '
-        'Panel13
-        '
-        Me.Panel13.BackColor = System.Drawing.Color.Silver
-        Me.Panel13.Location = New System.Drawing.Point(673, 274)
-        Me.Panel13.Name = "Panel13"
-        Me.Panel13.Size = New System.Drawing.Size(1, 142)
-        Me.Panel13.TabIndex = 268
-        '
-        'Panel1
-        '
-        Me.Panel1.BackColor = System.Drawing.Color.Silver
-        Me.Panel1.Location = New System.Drawing.Point(450, 274)
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(1, 142)
-        Me.Panel1.TabIndex = 269
-        '
-        'lblGST3
-        '
-        Me.lblGST3.AutoSize = True
-        Me.lblGST3.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblGST3.ForeColor = System.Drawing.Color.White
-        Me.lblGST3.Location = New System.Drawing.Point(460, 317)
-        Me.lblGST3.Name = "lblGST3"
-        Me.lblGST3.Size = New System.Drawing.Size(107, 14)
-        Me.lblGST3.TabIndex = 276
-        Me.lblGST3.Text = "3% - Amt @ Tax"
-        '
-        'lblGST28
-        '
-        Me.lblGST28.AutoSize = True
-        Me.lblGST28.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblGST28.ForeColor = System.Drawing.Color.White
-        Me.lblGST28.Location = New System.Drawing.Point(459, 392)
-        Me.lblGST28.Name = "lblGST28"
-        Me.lblGST28.Size = New System.Drawing.Size(115, 14)
-        Me.lblGST28.TabIndex = 275
-        Me.lblGST28.Text = "28% - Amt @ Tax"
-        '
-        'lblGST18
-        '
-        Me.lblGST18.AutoSize = True
-        Me.lblGST18.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblGST18.ForeColor = System.Drawing.Color.White
-        Me.lblGST18.Location = New System.Drawing.Point(459, 373)
-        Me.lblGST18.Name = "lblGST18"
-        Me.lblGST18.Size = New System.Drawing.Size(115, 14)
-        Me.lblGST18.TabIndex = 274
-        Me.lblGST18.Text = "18% - Amt @ Tax"
-        '
-        'lblGST12
-        '
-        Me.lblGST12.AutoSize = True
-        Me.lblGST12.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblGST12.ForeColor = System.Drawing.Color.White
-        Me.lblGST12.Location = New System.Drawing.Point(459, 353)
-        Me.lblGST12.Name = "lblGST12"
-        Me.lblGST12.Size = New System.Drawing.Size(115, 14)
-        Me.lblGST12.TabIndex = 273
-        Me.lblGST12.Text = "12% - Amt @ Tax"
-        '
-        'lblGST5
-        '
-        Me.lblGST5.AutoSize = True
-        Me.lblGST5.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblGST5.ForeColor = System.Drawing.Color.White
-        Me.lblGST5.Location = New System.Drawing.Point(460, 335)
-        Me.lblGST5.Name = "lblGST5"
-        Me.lblGST5.Size = New System.Drawing.Size(107, 14)
-        Me.lblGST5.TabIndex = 272
-        Me.lblGST5.Text = "5% - Amt @ Tax"
-        '
-        'lblGST0
-        '
-        Me.lblGST0.AutoSize = True
-        Me.lblGST0.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblGST0.ForeColor = System.Drawing.Color.White
-        Me.lblGST0.Location = New System.Drawing.Point(460, 299)
-        Me.lblGST0.Name = "lblGST0"
-        Me.lblGST0.Size = New System.Drawing.Size(107, 14)
-        Me.lblGST0.TabIndex = 271
-        Me.lblGST0.Text = "0% - Amt @ Tax"
-        '
-        'lblGSTHeader
-        '
-        Me.lblGSTHeader.AutoSize = True
-        Me.lblGSTHeader.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblGSTHeader.ForeColor = System.Drawing.Color.White
-        Me.lblGSTHeader.Location = New System.Drawing.Point(459, 279)
-        Me.lblGSTHeader.Name = "lblGSTHeader"
-        Me.lblGSTHeader.Size = New System.Drawing.Size(116, 14)
-        Me.lblGSTHeader.TabIndex = 270
-        Me.lblGSTHeader.Text = "GST Summary :-"
-        '
-        'lblGSTDetail
-        '
-        Me.lblGSTDetail.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblGSTDetail.ForeColor = System.Drawing.Color.Orange
-        Me.lblGSTDetail.Location = New System.Drawing.Point(704, 323)
-        Me.lblGSTDetail.Name = "lblGSTDetail"
-        Me.lblGSTDetail.Size = New System.Drawing.Size(182, 37)
-        Me.lblGSTDetail.TabIndex = 277
-        Me.lblGSTDetail.Text = "UTGST - 0.00" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "SGST - 0.00"
-        Me.lblGSTDetail.TextAlign = System.Drawing.ContentAlignment.TopRight
-        '
         'frm_DebitNote
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -707,4 +720,5 @@ Partial Class frm_DebitNote
     Friend WithEvents lblGST0 As Label
     Friend WithEvents lblGSTHeader As Label
     Friend WithEvents lblGSTDetail As Label
+    Friend WithEvents lblMRN_TYPE As Label
 End Class

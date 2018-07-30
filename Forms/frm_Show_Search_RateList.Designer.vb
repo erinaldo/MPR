@@ -242,9 +242,8 @@ Partial Class frm_Show_Search_RateList
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.KeyPreview = True
-        Me.Location = New System.Drawing.Point(320, 180)
         Me.Name = "frm_Show_Search_RateList"
-        Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Panel1.ResumeLayout(False)
         Me.gpAdvanceSearch.ResumeLayout(False)
         Me.gpAdvanceSearch.PerformLayout()

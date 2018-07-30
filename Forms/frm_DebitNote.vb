@@ -135,7 +135,7 @@ Public Class frm_DebitNote
             dgvList.Columns(7).HeaderText = "Remarks"
             dgvList.Columns(7).Width = 195
             dgvList.Columns(8).HeaderText = "User"
-            dgvList.Columns(8).Width = 65
+            dgvList.Columns(8).Width = 60
         Catch ex As Exception
             MsgBox(gblMessageHeading_Error & vbCrLf & gblMessage_ContactInfo & vbCrLf & ex.Message, MsgBoxStyle.Critical, gblMessageHeading)
         End Try
@@ -480,7 +480,6 @@ Public Class frm_DebitNote
     End Sub
 
     Private Sub FLXGRD_MaterialItem_RowColChange(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles FLXGRD_MaterialItem.RowColChange
-        '  intColumnIndex = fl
 
     End Sub
 
@@ -508,14 +507,15 @@ Public Class frm_DebitNote
                     SetGridSettingValues()
                 End If
 
-                Dim Query As String = " SELECT Invoice_No ,CONVERT(VARCHAR (20),Invoice_date,106)AS Invoice_date FROM dbo.MATERIAL_RECEIVED_AGAINST_PO_MASTER WHERE MRN_NO=" & MRNNo & " AND Division_ID =   " & v_the_current_division_id &
-               "UNION ALL SELECT Invoice_No ,CONVERT(VARCHAR (20),Invoice_date,106)AS Invoice_date FROM dbo.MATERIAL_RECIEVED_WITHOUT_PO_MASTER WHERE MRN_NO=" & MRNNo
+                Dim Query As String = " SELECT Invoice_No ,CONVERT(VARCHAR (20),Invoice_date,106)AS Invoice_date,MRN_TYPE FROM dbo.MATERIAL_RECEIVED_AGAINST_PO_MASTER WHERE MRN_NO=" & MRNNo & " AND Division_ID =   " & v_the_current_division_id &
+               "UNION ALL SELECT Invoice_No ,CONVERT(VARCHAR (20),Invoice_date,106)AS Invoice_date,MRN_TYPE FROM dbo.MATERIAL_RECIEVED_WITHOUT_PO_MASTER WHERE MRN_NO=" & MRNNo
 
 
                 ds1 = clsObj.FillDataSet(Query)
                 If ds1.Tables(0).Rows.Count > 0 Then
                     txt_INVNo.Text = ds1.Tables(0).Rows(0)(0)
                     txt_INVDate.Text = ds1.Tables(0).Rows(0)(1)
+                    lblMRN_TYPE.Text = ds1.Tables(0).Rows(0)(2)
                 End If
                 TbRMRN.SelectTab(1)
             Catch ex As Exception
@@ -531,9 +531,10 @@ Public Class frm_DebitNote
                 FLXGRD_MaterialItem.RowSel = Index
                 FLXGRD_MaterialItem.Col = 10
                 FLXGRD_MaterialItem.ColSel = 10
+                SetGstLabels()
             End If
         End If
-        SetGstLabels()
+
     End Sub
 
     Private Sub frm_DebitNote_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
@@ -600,14 +601,19 @@ Public Class frm_DebitNote
         total_cess_amount = 0
         tot_amt = 0
 
-        If FLXGRD_MaterialItem.Rows.Count - 1 > 0 Then
-            For i = 1 To FLXGRD_MaterialItem.Rows.Count - 1
+
+
+        For i = 1 To FLXGRD_MaterialItem.Rows.Count - 1
+            If Convert.ToDouble(IIf(FLXGRD_MaterialItem.Rows(i).Item("Item_Qty") Is DBNull.Value, 0, FLXGRD_MaterialItem.Rows(i).Item("Item_Qty"))) > 0 Then
+
                 total_item_value = total_item_value + (FLXGRD_MaterialItem.Rows(i).Item("Item_Qty") * FLXGRD_MaterialItem.Rows(i).Item("item_rate"))
                 total_vat_amount = total_vat_amount + ((FLXGRD_MaterialItem.Rows(i).Item("item_rate") * FLXGRD_MaterialItem.Rows.Item(i)("Item_Qty")) * FLXGRD_MaterialItem.Rows(i).Item("Vat_Per") / 100)
                 total_cess_amount = total_cess_amount + ((FLXGRD_MaterialItem.Rows(i).Item("item_rate") * FLXGRD_MaterialItem.Rows.Item(i)("Item_Qty")) * FLXGRD_MaterialItem.Rows(i).Item("Cess_Per") / 100)
 
-            Next
-        End If
+            End If
+        Next
+
+
 
         lblAmount.Text = total_item_value.ToString("#0.00")
         lblVatAmount.Text = total_vat_amount.ToString("#0.00")
@@ -641,43 +647,49 @@ Public Class frm_DebitNote
 
         For iRow = 1 To FLXGRD_MaterialItem.Rows.Count - 1
 
-            Dim totalAmount As Decimal = FLXGRD_MaterialItem.Item(iRow, "Item_Qty") * FLXGRD_MaterialItem.Item(iRow, "item_rate")
+            If Convert.ToDouble(IIf(FLXGRD_MaterialItem.Item(iRow, "Item_Qty") Is DBNull.Value, 0, FLXGRD_MaterialItem.Item(iRow, "Item_Qty"))) > 0 Then
 
-            'If FLXGRD_MaterialItem.Item(iRow, "DType") = "P" Then
-            '    totalAmount -= Math.Round((totalAmount * FLXGRD_MaterialItem.Item(iRow, "DISC") / 100), 2) + Math.Round((FLXGRD_MaterialItem.Item(iRow, "DISC1") / 100), 2)
-            'Else
-            '    totalAmount -= Math.Round(FLXGRD_MaterialItem.Item(iRow, "DISC"), 2) + Math.Round((FLXGRD_MaterialItem.Item(iRow, "DISC1") / 100), 2)
-            'End If
 
-            'If FLXGRD_MaterialItem.Item(iRow, "GPAID") = "Y" Then
-            '    totalAmount -= (totalAmount - (totalAmount / (1 + (FLXGRD_MaterialItem.Item(iRow, "vat_per") / 100))))
-            'End If
+                Dim totalAmount As Decimal = FLXGRD_MaterialItem.Item(iRow, "Item_Qty") * FLXGRD_MaterialItem.Item(iRow, "item_rate")
 
-            Tax = totalAmount * FLXGRD_MaterialItem.Item(iRow, "vat_per") / 100
+                'If FLXGRD_MaterialItem.Item(iRow, "DType") = "P" Then
+                '    totalAmount -= Math.Round((totalAmount * FLXGRD_MaterialItem.Item(iRow, "DISC") / 100), 2) + Math.Round((FLXGRD_MaterialItem.Item(iRow, "DISC1") / 100), 2)
+                'Else
+                '    totalAmount -= Math.Round(FLXGRD_MaterialItem.Item(iRow, "DISC"), 2) + Math.Round((FLXGRD_MaterialItem.Item(iRow, "DISC1") / 100), 2)
+                'End If
 
-            GSTTaxTotal += Tax
+                'If FLXGRD_MaterialItem.Item(iRow, "GPAID") = "Y" Then
+                '    totalAmount -= (totalAmount - (totalAmount / (1 + (FLXGRD_MaterialItem.Item(iRow, "vat_per") / 100))))
+                'End If
 
-            Select Case FLXGRD_MaterialItem.Item(iRow, "vat_per")
-                Case 0
-                    GSTAmount0 += totalAmount
-                    GSTTax0 += Tax
-                Case 3
-                    GSTAmount3 += totalAmount
-                    GSTTax3 += Tax
-                Case 5
-                    GSTAmount5 += totalAmount
-                    GSTTax5 += Tax
-                Case 12
-                    GSTAmount12 += totalAmount
-                    GSTTax12 += Tax
-                Case 18
-                    GSTAmount18 += totalAmount
-                    GSTTax18 += Tax
-                Case 28
-                    GSTAmount28 += totalAmount
-                    GSTTax28 += Tax
-            End Select
+                Tax = totalAmount * FLXGRD_MaterialItem.Item(iRow, "vat_per") / 100
+
+                GSTTaxTotal += Tax
+
+                Select Case FLXGRD_MaterialItem.Item(iRow, "vat_per")
+                    Case 0
+                        GSTAmount0 += totalAmount
+                        GSTTax0 += Tax
+                    Case 3
+                        GSTAmount3 += totalAmount
+                        GSTTax3 += Tax
+                    Case 5
+                        GSTAmount5 += totalAmount
+                        GSTTax5 += Tax
+                    Case 12
+                        GSTAmount12 += totalAmount
+                        GSTTax12 += Tax
+                    Case 18
+                        GSTAmount18 += totalAmount
+                        GSTTax18 += Tax
+                    Case 28
+                        GSTAmount28 += totalAmount
+                        GSTTax28 += Tax
+                End Select
+            End If
         Next
+
+
 
         lblGST0.Text = String.Format("0% - {0:0.00} @ {1}", Math.Round(GSTAmount0, 2), Math.Round(GSTTax0, 2))
         lblGST3.Text = String.Format("3% - {0:0.00} @ {1}", Math.Round(GSTAmount3, 2), Math.Round(GSTTax3, 2))
@@ -692,19 +704,19 @@ Public Class frm_DebitNote
 
     Private Sub SetGSTAndCessHeader(TotalGst As Decimal, TotalCess As Decimal)
         Dim PartialGst As Decimal = Math.Round(TotalGst / 2, 2)
-        'If cmbMRNType.SelectedValue = 0 Then
-        '    lblGSTDetail.Text = String.Format("Total GST - {0}", TotalGst)
-        '    lblGSTDetail.Tag = Math.Round(TotalGst, 2)
-        'ElseIf cmbMRNType.SelectedValue = 3 Then
-        '    lblGSTDetail.Text = String.Format("UTGST - {0}{1}CGST - {0}", Math.Round(PartialGst, 2), Environment.NewLine)
-        '    lblGSTDetail.Tag = Math.Round(PartialGst, 2)
-        'ElseIf cmbMRNType.SelectedValue = 1 Then
-        '    lblGSTDetail.Text = String.Format("SGST - {0}{1}CGST - {0}", Math.Round(PartialGst, 2), Environment.NewLine)
-        '    lblGSTDetail.Tag = Math.Round(PartialGst, 2)
-        'ElseIf cmbMRNType.SelectedValue = 2 Then
-        '    lblGSTDetail.Text = String.Format("IGST - {0}", Math.Round(TotalGst, 2))
-        '    lblGSTDetail.Tag = Math.Round(TotalGst, 2)
-        'End If
+        If lblMRN_TYPE.Text = 0 Then
+            lblGSTDetail.Text = String.Format("Total GST - {0}", TotalGst)
+            lblGSTDetail.Tag = Math.Round(TotalGst, 2)
+        ElseIf lblMRN_TYPE.Text = 3 Then
+            lblGSTDetail.Text = String.Format("UTGST - {0}{1}CGST - {0}", Math.Round(PartialGst, 2), Environment.NewLine)
+            lblGSTDetail.Tag = Math.Round(PartialGst, 2)
+        ElseIf lblMRN_TYPE.Text = 1 Then
+            lblGSTDetail.Text = String.Format("SGST - {0}{1}CGST - {0}", Math.Round(PartialGst, 2), Environment.NewLine)
+            lblGSTDetail.Tag = Math.Round(PartialGst, 2)
+        ElseIf lblMRN_TYPE.Text = 2 Then
+            lblGSTDetail.Text = String.Format("IGST - {0}", Math.Round(TotalGst, 2))
+            lblGSTDetail.Tag = Math.Round(TotalGst, 2)
+        End If
 
     End Sub
 
@@ -717,6 +729,15 @@ Public Class frm_DebitNote
         flag = "update"
         DebitNoteId = Convert.ToInt32(dgvList("DebitNote_Id", dgvList.CurrentCell.RowIndex).Value())
         FillPaymentDetails(DebitNoteId)
+
+        If FLXGRD_MaterialItem.Rows.Count - 1 > 0 Then
+            Dim Index As Int32 = 1
+            FLXGRD_MaterialItem.Row = Index
+            FLXGRD_MaterialItem.RowSel = Index
+            FLXGRD_MaterialItem.Col = 10
+            FLXGRD_MaterialItem.ColSel = 10
+        End If
+
     End Sub
 
     Public Sub FillPaymentDetails(DebitNoteId As Int16)
@@ -733,6 +754,7 @@ Public Class frm_DebitNote
             txt_INVNo.Text = dr("InvoiceNo")
             txt_INVDate.Text = dr("InvoiceDate")
             txtRemarks.Text = dr("Remarks")
+            lblMRN_TYPE.Text = dr("MRN_TYPE")
 
             Dim ds As DataSet
             ds = clsObj.fill_Data_set("GetDebitNoteDetails", "@DebitNoteId", DebitNoteId)
