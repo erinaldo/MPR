@@ -565,13 +565,7 @@ again:
                                         LEFT OUTER JOIN dbo.ITEM_CATEGORY ic ON im.ITEM_CATEGORY_ID = ic.ITEM_CAT_ID
                                         LEFT OUTER JOIN dbo.LabelItem_Mapping lim ON lim.Fk_ItemId_Num = im.ITEM_ID
                                         LEFT OUTER JOIN dbo.Label_Items litems ON lim.Fk_LabelDetailId = litems.Pk_LabelDetailId_Num
-                                        INNER JOIN dbo.SUPPLIER_RATE_LIST_DETAIL AS SRLD ON SRLD.ITEM_ID = IM.ITEM_ID
-                                        INNER JOIN dbo.SUPPLIER_RATE_LIST AS SRL ON SRL.SRL_ID=SRLD.SRL_ID 
-                                        INNER JOIN dbo.CUSTOMER_RATE_LIST_MAPPING AS RLM ON RLM.SRL_ID=SRL.SRL_ID 
-                                        where rlm.supp_id = " & cmbSupplier.SelectedValue & " AND srl.active = 1"
-
-
-
+                                        WHERE   id.Is_active = 1 "
 
 
                         frm_Show_search.column_name = "BARCODE_VCH"
