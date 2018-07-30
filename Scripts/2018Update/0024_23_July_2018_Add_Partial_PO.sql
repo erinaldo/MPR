@@ -104,7 +104,8 @@ AS
                         AND ITEM_ID = @v_Item_ID    
                         
                   UPDATE  dbo.PO_STATUS  
-                SET     BALANCE_QTY = BALANCE_QTY - @v_Item_Qty  
+                SET     BALANCE_QTY = BALANCE_QTY - @v_Item_Qty,
+				RECIEVED_QTY=RECIEVED_QTY+ @v_Item_Qty  
                 WHERE   PO_ID = @v_PO_ID  
                         AND ITEM_ID = @v_Item_ID                      
             
@@ -191,7 +192,7 @@ AS
                   WHERE     PM.PO_ID = PS.PO_ID  
                             AND INDENT_ID IN ( SELECT   INDENT_ID  
                                                FROM     INDENT_MASTER  
-                                               WHERE    DIVISION_ID = 3 )  
+                                               WHERE    DIVISION_ID = @Div_ID )  
                             AND BALANCE_QTY > 0  
                             AND PO_STATUS = 2  
                 ) tb  
