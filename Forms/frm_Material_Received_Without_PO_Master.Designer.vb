@@ -32,6 +32,9 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.BtnActualMRN = New System.Windows.Forms.Button()
         Me.dgvList = New System.Windows.Forms.DataGridView()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
+        Me.txtAmount = New System.Windows.Forms.TextBox()
+        Me.chk_ApplyTax = New System.Windows.Forms.CheckBox()
+        Me.Label54 = New System.Windows.Forms.Label()
         Me.Panel15 = New System.Windows.Forms.Panel()
         Me.Panel13 = New System.Windows.Forms.Panel()
         Me.lblGST3 = New System.Windows.Forms.Label()
@@ -43,7 +46,6 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.lblGST0 = New System.Windows.Forms.Label()
         Me.lblGSTHeader = New System.Windows.Forms.Label()
         Me.txtCashDiscount = New System.Windows.Forms.TextBox()
-        Me.txt_Amount = New System.Windows.Forms.TextBox()
         Me.lblAcess = New System.Windows.Forms.Label()
         Me.Label58 = New System.Windows.Forms.Label()
         Me.lblcessamt = New System.Windows.Forms.Label()
@@ -60,6 +62,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.Label10 = New System.Windows.Forms.Label()
         Me.Panel17 = New System.Windows.Forms.Panel()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.chk_Composition = New System.Windows.Forms.CheckBox()
         Me.txtBarcodeSearch = New System.Windows.Forms.TextBox()
         Me.Label52 = New System.Windows.Forms.Label()
         Me.cmbMRNType = New System.Windows.Forms.ComboBox()
@@ -82,13 +85,10 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.Label4 = New System.Windows.Forms.Label()
         Me.txtdiscount = New System.Windows.Forms.TextBox()
         Me.lblnetamt = New System.Windows.Forms.Label()
-        Me.rbPercentage = New System.Windows.Forms.RadioButton()
         Me.Label50 = New System.Windows.Forms.Label()
         Me.txtMrnRemarks = New System.Windows.Forms.TextBox()
         Me.Label51 = New System.Windows.Forms.Label()
-        Me.txt_Percentage = New System.Windows.Forms.TextBox()
         Me.lblvatamt = New System.Windows.Forms.Label()
-        Me.rb_Amount = New System.Windows.Forms.RadioButton()
         Me.Label53 = New System.Windows.Forms.Label()
         Me.lblgrossamt = New System.Windows.Forms.Label()
         Me.Label55 = New System.Windows.Forms.Label()
@@ -349,6 +349,9 @@ Partial Class frm_Material_Received_Without_PO_Master
         'TabPage2
         '
         Me.TabPage2.BackColor = System.Drawing.Color.DimGray
+        Me.TabPage2.Controls.Add(Me.txtAmount)
+        Me.TabPage2.Controls.Add(Me.chk_ApplyTax)
+        Me.TabPage2.Controls.Add(Me.Label54)
         Me.TabPage2.Controls.Add(Me.Panel15)
         Me.TabPage2.Controls.Add(Me.Panel13)
         Me.TabPage2.Controls.Add(Me.lblGST3)
@@ -360,7 +363,6 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.TabPage2.Controls.Add(Me.lblGST0)
         Me.TabPage2.Controls.Add(Me.lblGSTHeader)
         Me.TabPage2.Controls.Add(Me.txtCashDiscount)
-        Me.TabPage2.Controls.Add(Me.txt_Amount)
         Me.TabPage2.Controls.Add(Me.lblAcess)
         Me.TabPage2.Controls.Add(Me.Label58)
         Me.TabPage2.Controls.Add(Me.lblcessamt)
@@ -380,13 +382,10 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.TabPage2.Controls.Add(Me.Label4)
         Me.TabPage2.Controls.Add(Me.txtdiscount)
         Me.TabPage2.Controls.Add(Me.lblnetamt)
-        Me.TabPage2.Controls.Add(Me.rbPercentage)
         Me.TabPage2.Controls.Add(Me.Label50)
         Me.TabPage2.Controls.Add(Me.txtMrnRemarks)
         Me.TabPage2.Controls.Add(Me.Label51)
-        Me.TabPage2.Controls.Add(Me.txt_Percentage)
         Me.TabPage2.Controls.Add(Me.lblvatamt)
-        Me.TabPage2.Controls.Add(Me.rb_Amount)
         Me.TabPage2.Controls.Add(Me.Label53)
         Me.TabPage2.Controls.Add(Me.lblgrossamt)
         Me.TabPage2.Controls.Add(Me.Label55)
@@ -400,20 +399,57 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.TabPage2.Size = New System.Drawing.Size(902, 600)
         Me.TabPage2.TabIndex = 1
         '
+        'txtAmount
+        '
+        Me.txtAmount.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.txtAmount.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.txtAmount.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtAmount.ForeColor = System.Drawing.Color.Orange
+        Me.txtAmount.Location = New System.Drawing.Point(819, 402)
+        Me.txtAmount.Name = "txtAmount"
+        Me.txtAmount.Size = New System.Drawing.Size(70, 18)
+        Me.txtAmount.TabIndex = 271
+        Me.txtAmount.Tag = ""
+        Me.txtAmount.Text = "0.00"
+        Me.txtAmount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'chk_ApplyTax
+        '
+        Me.chk_ApplyTax.AutoSize = True
+        Me.chk_ApplyTax.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.chk_ApplyTax.ForeColor = System.Drawing.Color.White
+        Me.chk_ApplyTax.Location = New System.Drawing.Point(740, 403)
+        Me.chk_ApplyTax.Name = "chk_ApplyTax"
+        Me.chk_ApplyTax.Size = New System.Drawing.Size(76, 19)
+        Me.chk_ApplyTax.TabIndex = 270
+        Me.chk_ApplyTax.Text = "Apply Tax"
+        Me.chk_ApplyTax.UseVisualStyleBackColor = True
+        '
+        'Label54
+        '
+        Me.Label54.AutoSize = True
+        Me.Label54.Font = New System.Drawing.Font("Verdana", 9.0!)
+        Me.Label54.ForeColor = System.Drawing.Color.White
+        Me.Label54.Location = New System.Drawing.Point(673, 540)
+        Me.Label54.Name = "Label54"
+        Me.Label54.Size = New System.Drawing.Size(106, 14)
+        Me.Label54.TabIndex = 269
+        Me.Label54.Text = "Cash Discount :"
+        '
         'Panel15
         '
         Me.Panel15.BackColor = System.Drawing.Color.Silver
-        Me.Panel15.Location = New System.Drawing.Point(433, 413)
+        Me.Panel15.Location = New System.Drawing.Point(433, 393)
         Me.Panel15.Name = "Panel15"
-        Me.Panel15.Size = New System.Drawing.Size(1, 182)
+        Me.Panel15.Size = New System.Drawing.Size(1, 192)
         Me.Panel15.TabIndex = 268
         '
         'Panel13
         '
         Me.Panel13.BackColor = System.Drawing.Color.Silver
-        Me.Panel13.Location = New System.Drawing.Point(653, 412)
+        Me.Panel13.Location = New System.Drawing.Point(653, 394)
         Me.Panel13.Name = "Panel13"
-        Me.Panel13.Size = New System.Drawing.Size(1, 182)
+        Me.Panel13.Size = New System.Drawing.Size(1, 192)
         Me.Panel13.TabIndex = 267
         '
         'lblGST3
@@ -429,11 +465,11 @@ Partial Class frm_Material_Received_Without_PO_Master
         '
         'lblGSTDetail
         '
-        Me.lblGSTDetail.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblGSTDetail.Font = New System.Drawing.Font("Arial", 9.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblGSTDetail.ForeColor = System.Drawing.Color.Orange
-        Me.lblGSTDetail.Location = New System.Drawing.Point(714, 447)
+        Me.lblGSTDetail.Location = New System.Drawing.Point(677, 443)
         Me.lblGSTDetail.Name = "lblGSTDetail"
-        Me.lblGSTDetail.Size = New System.Drawing.Size(182, 37)
+        Me.lblGSTDetail.Size = New System.Drawing.Size(216, 35)
         Me.lblGSTDetail.TabIndex = 265
         Me.lblGSTDetail.Text = "UTGST - 0.00" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "SGST - 0.00"
         Me.lblGSTDetail.TextAlign = System.Drawing.ContentAlignment.TopRight
@@ -508,39 +544,21 @@ Partial Class frm_Material_Received_Without_PO_Master
         '
         Me.txtCashDiscount.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.txtCashDiscount.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.txtCashDiscount.Enabled = False
         Me.txtCashDiscount.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtCashDiscount.ForeColor = System.Drawing.Color.White
-        Me.txtCashDiscount.Location = New System.Drawing.Point(290, 435)
+        Me.txtCashDiscount.ForeColor = System.Drawing.Color.Orange
+        Me.txtCashDiscount.Location = New System.Drawing.Point(781, 540)
         Me.txtCashDiscount.Name = "txtCashDiscount"
-        Me.txtCashDiscount.ReadOnly = True
-        Me.txtCashDiscount.Size = New System.Drawing.Size(118, 18)
+        Me.txtCashDiscount.Size = New System.Drawing.Size(110, 18)
         Me.txtCashDiscount.TabIndex = 20
         Me.txtCashDiscount.Tag = ""
         Me.txtCashDiscount.Text = "0.00"
         Me.txtCashDiscount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.txtCashDiscount.Visible = False
-        '
-        'txt_Amount
-        '
-        Me.txt_Amount.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.txt_Amount.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.txt_Amount.Enabled = False
-        Me.txt_Amount.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txt_Amount.ForeColor = System.Drawing.Color.Orange
-        Me.txt_Amount.Location = New System.Drawing.Point(781, 520)
-        Me.txt_Amount.Name = "txt_Amount"
-        Me.txt_Amount.Size = New System.Drawing.Size(110, 18)
-        Me.txt_Amount.TabIndex = 8
-        Me.txt_Amount.Tag = ""
-        Me.txt_Amount.Text = "0.00"
-        Me.txt_Amount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'lblAcess
         '
         Me.lblAcess.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblAcess.ForeColor = System.Drawing.Color.Orange
-        Me.lblAcess.Location = New System.Drawing.Point(778, 498)
+        Me.lblAcess.Location = New System.Drawing.Point(778, 494)
         Me.lblAcess.Name = "lblAcess"
         Me.lblAcess.Size = New System.Drawing.Size(118, 20)
         Me.lblAcess.TabIndex = 53
@@ -552,7 +570,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.Label58.AutoSize = True
         Me.Label58.Font = New System.Drawing.Font("Verdana", 9.0!)
         Me.Label58.ForeColor = System.Drawing.Color.White
-        Me.Label58.Location = New System.Drawing.Point(674, 503)
+        Me.Label58.Location = New System.Drawing.Point(674, 499)
         Me.Label58.Name = "Label58"
         Me.Label58.Size = New System.Drawing.Size(109, 14)
         Me.Label58.TabIndex = 54
@@ -562,7 +580,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         '
         Me.lblcessamt.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblcessamt.ForeColor = System.Drawing.Color.Orange
-        Me.lblcessamt.Location = New System.Drawing.Point(778, 480)
+        Me.lblcessamt.Location = New System.Drawing.Point(778, 476)
         Me.lblcessamt.Name = "lblcessamt"
         Me.lblcessamt.Size = New System.Drawing.Size(118, 20)
         Me.lblcessamt.TabIndex = 19
@@ -586,7 +604,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.Label57.AutoSize = True
         Me.Label57.Font = New System.Drawing.Font("Verdana", 9.0!)
         Me.Label57.ForeColor = System.Drawing.Color.White
-        Me.Label57.Location = New System.Drawing.Point(674, 483)
+        Me.Label57.Location = New System.Drawing.Point(674, 479)
         Me.Label57.Name = "Label57"
         Me.Label57.Size = New System.Drawing.Size(101, 14)
         Me.Label57.TabIndex = 20
@@ -635,7 +653,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.Label9.AutoSize = True
         Me.Label9.Font = New System.Drawing.Font("Verdana", 9.0!)
         Me.Label9.ForeColor = System.Drawing.Color.White
-        Me.Label9.Location = New System.Drawing.Point(674, 522)
+        Me.Label9.Location = New System.Drawing.Point(674, 404)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(60, 14)
         Me.Label9.TabIndex = 46
@@ -667,9 +685,9 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.GroupBox2.Controls.Add(Me.FLXGRD_MaterialItem)
         Me.GroupBox2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GroupBox2.ForeColor = System.Drawing.Color.White
-        Me.GroupBox2.Location = New System.Drawing.Point(6, 116)
+        Me.GroupBox2.Location = New System.Drawing.Point(6, 129)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(890, 289)
+        Me.GroupBox2.Size = New System.Drawing.Size(890, 238)
         Me.GroupBox2.TabIndex = 1
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Stockable Items"
@@ -688,7 +706,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.FLXGRD_MaterialItem.Rows.DefaultSize = 17
         Me.FLXGRD_MaterialItem.SelectionMode = C1.Win.C1FlexGrid.SelectionModeEnum.Cell
         Me.FLXGRD_MaterialItem.ShowCursor = True
-        Me.FLXGRD_MaterialItem.Size = New System.Drawing.Size(884, 270)
+        Me.FLXGRD_MaterialItem.Size = New System.Drawing.Size(884, 219)
         Me.FLXGRD_MaterialItem.Styles = New C1.Win.C1FlexGrid.CellStyleCollection(resources.GetString("FLXGRD_MaterialItem.Styles"))
         Me.FLXGRD_MaterialItem.TabIndex = 5
         '
@@ -713,6 +731,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.chk_Composition)
         Me.GroupBox1.Controls.Add(Me.txtBarcodeSearch)
         Me.GroupBox1.Controls.Add(Me.Label52)
         Me.GroupBox1.Controls.Add(Me.cmbMRNType)
@@ -733,9 +752,21 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.GroupBox1.Controls.Add(Me.Label5)
         Me.GroupBox1.Location = New System.Drawing.Point(6, -2)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(890, 114)
+        Me.GroupBox1.Size = New System.Drawing.Size(890, 125)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
+        '
+        'chk_Composition
+        '
+        Me.chk_Composition.AutoSize = True
+        Me.chk_Composition.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.chk_Composition.ForeColor = System.Drawing.Color.White
+        Me.chk_Composition.Location = New System.Drawing.Point(679, 93)
+        Me.chk_Composition.Name = "chk_Composition"
+        Me.chk_Composition.Size = New System.Drawing.Size(127, 19)
+        Me.chk_Composition.TabIndex = 36
+        Me.chk_Composition.Text = "Composite Dealer"
+        Me.chk_Composition.UseVisualStyleBackColor = True
         '
         'txtBarcodeSearch
         '
@@ -914,7 +945,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.chk_VatCal.AutoSize = True
         Me.chk_VatCal.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.chk_VatCal.ForeColor = System.Drawing.Color.White
-        Me.chk_VatCal.Location = New System.Drawing.Point(734, 89)
+        Me.chk_VatCal.Location = New System.Drawing.Point(679, 88)
         Me.chk_VatCal.Name = "chk_VatCal"
         Me.chk_VatCal.Size = New System.Drawing.Size(153, 19)
         Me.chk_VatCal.TabIndex = 32
@@ -950,7 +981,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.txtotherchrgs.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtotherchrgs.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtotherchrgs.ForeColor = System.Drawing.Color.Orange
-        Me.txtotherchrgs.Location = New System.Drawing.Point(781, 540)
+        Me.txtotherchrgs.Location = New System.Drawing.Point(781, 520)
         Me.txtotherchrgs.Name = "txtotherchrgs"
         Me.txtotherchrgs.Size = New System.Drawing.Size(110, 18)
         Me.txtotherchrgs.TabIndex = 9
@@ -989,23 +1020,10 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.lblnetamt.ForeColor = System.Drawing.Color.Lime
         Me.lblnetamt.Location = New System.Drawing.Point(778, 578)
         Me.lblnetamt.Name = "lblnetamt"
-        Me.lblnetamt.Size = New System.Drawing.Size(118, 20)
+        Me.lblnetamt.Size = New System.Drawing.Size(118, 16)
         Me.lblnetamt.TabIndex = 21
         Me.lblnetamt.Text = "0.00"
         Me.lblnetamt.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'rbPercentage
-        '
-        Me.rbPercentage.AutoSize = True
-        Me.rbPercentage.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.rbPercentage.ForeColor = System.Drawing.Color.White
-        Me.rbPercentage.Location = New System.Drawing.Point(251, 409)
-        Me.rbPercentage.Name = "rbPercentage"
-        Me.rbPercentage.Size = New System.Drawing.Size(36, 19)
-        Me.rbPercentage.TabIndex = 39
-        Me.rbPercentage.Text = "%"
-        Me.rbPercentage.UseVisualStyleBackColor = True
-        Me.rbPercentage.Visible = False
         '
         'Label50
         '
@@ -1044,62 +1062,33 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.Label51.TabIndex = 14
         Me.Label51.Text = "Discount Amt :"
         '
-        'txt_Percentage
-        '
-        Me.txt_Percentage.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.txt_Percentage.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.txt_Percentage.Enabled = False
-        Me.txt_Percentage.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txt_Percentage.ForeColor = System.Drawing.Color.White
-        Me.txt_Percentage.Location = New System.Drawing.Point(290, 412)
-        Me.txt_Percentage.Name = "txt_Percentage"
-        Me.txt_Percentage.Size = New System.Drawing.Size(62, 18)
-        Me.txt_Percentage.TabIndex = 40
-        Me.txt_Percentage.Text = "0"
-        Me.txt_Percentage.Visible = False
-        '
         'lblvatamt
         '
         Me.lblvatamt.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblvatamt.ForeColor = System.Drawing.Color.Orange
-        Me.lblvatamt.Location = New System.Drawing.Point(778, 428)
+        Me.lblvatamt.Location = New System.Drawing.Point(775, 423)
         Me.lblvatamt.Name = "lblvatamt"
         Me.lblvatamt.Size = New System.Drawing.Size(118, 20)
         Me.lblvatamt.TabIndex = 17
         Me.lblvatamt.Text = "0.00"
         Me.lblvatamt.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'rb_Amount
-        '
-        Me.rb_Amount.AutoSize = True
-        Me.rb_Amount.Checked = True
-        Me.rb_Amount.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.rb_Amount.ForeColor = System.Drawing.Color.White
-        Me.rb_Amount.Location = New System.Drawing.Point(368, 410)
-        Me.rb_Amount.Name = "rb_Amount"
-        Me.rb_Amount.Size = New System.Drawing.Size(49, 19)
-        Me.rb_Amount.TabIndex = 41
-        Me.rb_Amount.TabStop = True
-        Me.rb_Amount.Text = "Amt."
-        Me.rb_Amount.UseVisualStyleBackColor = True
-        Me.rb_Amount.Visible = False
-        '
         'Label53
         '
         Me.Label53.AutoSize = True
         Me.Label53.Font = New System.Drawing.Font("Verdana", 9.0!)
         Me.Label53.ForeColor = System.Drawing.Color.White
-        Me.Label53.Location = New System.Drawing.Point(674, 542)
+        Me.Label53.Location = New System.Drawing.Point(674, 519)
         Me.Label53.Name = "Label53"
-        Me.Label53.Size = New System.Drawing.Size(109, 14)
+        Me.Label53.Size = New System.Drawing.Size(78, 14)
         Me.Label53.TabIndex = 20
-        Me.Label53.Text = "Other Charges :"
+        Me.Label53.Text = "Round Off :"
         '
         'lblgrossamt
         '
         Me.lblgrossamt.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblgrossamt.ForeColor = System.Drawing.Color.Orange
-        Me.lblgrossamt.Location = New System.Drawing.Point(778, 409)
+        Me.lblgrossamt.Location = New System.Drawing.Point(778, 384)
         Me.lblgrossamt.Name = "lblgrossamt"
         Me.lblgrossamt.Size = New System.Drawing.Size(118, 20)
         Me.lblgrossamt.TabIndex = 19
@@ -1111,7 +1100,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.Label55.AutoSize = True
         Me.Label55.Font = New System.Drawing.Font("Verdana", 9.0!)
         Me.Label55.ForeColor = System.Drawing.Color.White
-        Me.Label55.Location = New System.Drawing.Point(674, 432)
+        Me.Label55.Location = New System.Drawing.Point(671, 427)
         Me.Label55.Name = "Label55"
         Me.Label55.Size = New System.Drawing.Size(92, 14)
         Me.Label55.TabIndex = 18
@@ -1122,7 +1111,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.Label56.AutoSize = True
         Me.Label56.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Bold)
         Me.Label56.ForeColor = System.Drawing.Color.White
-        Me.Label56.Location = New System.Drawing.Point(673, 411)
+        Me.Label56.Location = New System.Drawing.Point(673, 386)
         Me.Label56.Name = "Label56"
         Me.Label56.Size = New System.Drawing.Size(103, 14)
         Me.Label56.TabIndex = 16
@@ -1132,7 +1121,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         '
         Me.GroupBox4.Controls.Add(Me.FLXGRD_MatItem_NonStockable)
         Me.GroupBox4.ForeColor = System.Drawing.Color.White
-        Me.GroupBox4.Location = New System.Drawing.Point(6, 381)
+        Me.GroupBox4.Location = New System.Drawing.Point(6, 367)
         Me.GroupBox4.Name = "GroupBox4"
         Me.GroupBox4.Size = New System.Drawing.Size(890, 10)
         Me.GroupBox4.TabIndex = 2
@@ -2338,9 +2327,6 @@ Partial Class frm_Material_Received_Without_PO_Master
     Friend WithEvents Label8 As System.Windows.Forms.Label
     Friend WithEvents BtnRevisedMRN As System.Windows.Forms.Button
     Friend WithEvents BtnActualMRN As System.Windows.Forms.Button
-    Friend WithEvents rb_Amount As System.Windows.Forms.RadioButton
-    Friend WithEvents txt_Percentage As System.Windows.Forms.TextBox
-    Friend WithEvents rbPercentage As System.Windows.Forms.RadioButton
     Friend WithEvents cmb_MRNAgainst As System.Windows.Forms.ComboBox
     Friend WithEvents Label10 As System.Windows.Forms.Label
     Friend WithEvents Panel6 As System.Windows.Forms.Panel
@@ -2475,7 +2461,6 @@ Partial Class frm_Material_Received_Without_PO_Master
     Friend WithEvents Label52 As System.Windows.Forms.Label
     Friend WithEvents lblcessamt As Label
     Friend WithEvents Label57 As Label
-    Friend WithEvents txt_Amount As TextBox
     Friend WithEvents btnPrintBarCode As Button
     Friend WithEvents lblAcess As Label
     Friend WithEvents Label58 As Label
@@ -2491,4 +2476,8 @@ Partial Class frm_Material_Received_Without_PO_Master
     Friend WithEvents Label56 As Label
     Friend WithEvents Panel13 As Panel
     Friend WithEvents Panel15 As Panel
+    Friend WithEvents chk_Composition As CheckBox
+    Friend WithEvents chk_ApplyTax As CheckBox
+    Friend WithEvents Label54 As Label
+    Friend WithEvents txtAmount As TextBox
 End Class

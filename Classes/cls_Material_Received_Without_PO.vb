@@ -54,6 +54,17 @@ Namespace material_recieved_without_po_master
         Dim _Item_Cess As Double
         Dim _A_Cess As Double
 
+        Dim _Special_Scheme As String
+
+        Public Property Special_Scheme() As String
+            Get
+                Special_Scheme = _Special_Scheme
+            End Get
+            Set(ByVal value As String)
+                _Special_Scheme = value
+            End Set
+        End Property
+
         Public Property Received_ID() As Integer
             Get
                 Received_ID = _Received_ID
@@ -514,6 +525,7 @@ Namespace material_recieved_without_po_master
             cmd.Parameters.AddWithValue("@v_ACESS_AMOUNT", clsObj.ACESS_AMOUNT)
             cmd.Parameters.AddWithValue("@v_NET_AMOUNT", clsObj.NET_AMOUNT)
             cmd.Parameters.AddWithValue("@V_MRN_TYPE", clsObj.MRNType)
+            cmd.Parameters.AddWithValue("@V_Special_Scheme", clsObj.Special_Scheme)
 
             cmd.ExecuteNonQuery()
             cmd.Dispose()
@@ -640,6 +652,7 @@ Namespace material_recieved_without_po_master
                 cmd.Parameters.AddWithValue("@v_ACESS_AMOUNT", clsObj.ACESS_AMOUNT)
                 cmd.Parameters.AddWithValue("@v_NET_AMOUNT", clsObj.NET_AMOUNT)
                 cmd.Parameters.AddWithValue("@V_MRN_TYPE", clsObj.MRNType)
+                cmd.Parameters.AddWithValue("@V_Special_Scheme", clsObj.Special_Scheme)
 
                 cmd.ExecuteNonQuery()
                 cmd.Dispose()

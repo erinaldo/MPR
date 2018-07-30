@@ -51,7 +51,7 @@ Partial Class frm_GSTR_3
         '
         Me.txtToDate.CalendarForeColor = System.Drawing.Color.White
         Me.txtToDate.CalendarMonthBackground = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.txtToDate.CustomFormat = "MMM-yyyy"
+        Me.txtToDate.CustomFormat = "dd-MMM-yyyy"
         Me.txtToDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.txtToDate.Location = New System.Drawing.Point(545, 78)
         Me.txtToDate.MaxDate = New Date(2999, 12, 31, 0, 0, 0, 0)
@@ -73,7 +73,7 @@ Partial Class frm_GSTR_3
         '
         Me.txtFromDate.CalendarForeColor = System.Drawing.Color.White
         Me.txtFromDate.CalendarMonthBackground = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.txtFromDate.CustomFormat = "MMM-yyyy"
+        Me.txtFromDate.CustomFormat = "dd-MMM-yyyy"
         Me.txtFromDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.txtFromDate.Location = New System.Drawing.Point(233, 78)
         Me.txtFromDate.MaxDate = New Date(2999, 12, 31, 0, 0, 0, 0)

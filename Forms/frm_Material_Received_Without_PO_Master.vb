@@ -3,17 +3,19 @@ Imports System.Data
 Imports C1.Win.C1FlexGrid
 
 Public Class frm_Material_Received_Without_PO_Master
-
     Implements IForm
+
     Dim obj As New CommonClass
     Dim clsObj As New material_recieved_without_po_master.cls_material_recieved_without_po_master
     Dim prpty As New material_recieved_without_po_master.cls_material_recieved_without_po_master_prop
     Dim flag As String
     Dim group_id As Integer
     Dim dtable_Item_List As DataTable
+    Dim dtable_Item_List_Copy As DataTable
     Dim dtable As DataTable
     Dim dTable_IndentItems As DataTable
     Dim dtable_Item_List_Stockable As DataTable
+    Dim dtable_Item_List_Stockable_Copy As DataTable
     Dim grdMaterial_Rowindex As Int16
     Dim grdMaterial_Stockable_Rowindex As Int16
     'Dim frm_Batch_Entry_Qty As String
@@ -27,6 +29,12 @@ Public Class frm_Material_Received_Without_PO_Master
     Dim receive_Id As Integer
     Dim Pre As String
     Dim _rights As Form_Rights
+
+    Dim vatper() As String
+    Dim cessper() As String
+    Dim acess() As String
+    Dim qty() As String
+    Dim totalamt() As String
 
     Public Sub New(ByVal rights As Form_Rights)
         _rights = rights
@@ -99,15 +107,16 @@ Public Class frm_Material_Received_Without_PO_Master
         FLXGRD_MaterialItem.DataSource = Nothing
         'cmb_MRNAgainst.SelectedItem = 1
         Grid_styles()
-        txtdiscount.Text = "0.0"
-        txtCashDiscount.Text = "0.0"
-        lblgrossamt.Text = "0.0"
-        lblvatamt.Text = "0.0"
-        lblcessamt.Text = "0.0"
-        lblAcess.Text = "0.0"
-        lblexciseamt.Text = "0.0"
-        lblnetamt.Text = "0.0"
-        txtOtherCharges.Text = "0.0"
+        txtdiscount.Text = "0.00"
+        txtCashDiscount.Text = "0.00"
+        lblgrossamt.Text = "0.00"
+        lblvatamt.Text = "0.00"
+        lblcessamt.Text = "0.00"
+        lblAcess.Text = "0.00"
+        lblexciseamt.Text = "0.00"
+        lblnetamt.Text = "0.00"
+        txtOtherCharges.Text = "0.00"
+        txtAmount.Text = "0.00"
         ' DGVIndentItem.Rows.Add()
         FillGrid()
         flag = "save"
@@ -129,8 +138,8 @@ Public Class frm_Material_Received_Without_PO_Master
                     "CASE WHEN MM.mrn_status = 1 THEN 'NORMAL'" &
                     "     WHEN MM.mrn_status = 3 THEN 'CLEAR'" &
                     "     ELSE 'CANCEL'" &
-                    "END AS MRNStatus " &
-            "FROM MATERIAL_RECIEVED_WITHOUT_PO_MASTER AS MM" &
+                    " END AS MRNStatus " &
+                    " FROM MATERIAL_RECIEVED_WITHOUT_PO_MASTER AS MM" &
                     " INNER JOIN PurchaseType_Master AS PM ON MM.Purchase_Type = PM.pk_PurchaseTypeId" &
                     " LEFT OUTER JOIN ACCOUNT_MASTER ON MM.Vendor_ID = ACCOUNT_MASTER.ACC_ID " & condition
 
@@ -329,16 +338,20 @@ Public Class frm_Material_Received_Without_PO_Master
                     prpty.VAT_ON_EXICE = 0
                 End If
 
-                If rb_Amount.Checked Then
-                    prpty.freight_type = "A"
-                    prpty.freight = Convert.ToDecimal(txt_Amount.Text)
+                If chk_Composition.Checked = True Then
+                    prpty.Special_Scheme = "Composite"
                 Else
-                    prpty.freight_type = "P"
-                    prpty.freight = Convert.ToDecimal(txt_Percentage.Text)
+                    prpty.Special_Scheme = "Nill"
                 End If
+
+                'If rb_Amount.Checked Then
+                prpty.freight_type = "A"
+                prpty.freight = Convert.ToDecimal(txtAmount.Text)
+                'Else
+                '    prpty.freight_type = "P"
+                '    prpty.freight = Convert.ToDecimal(txt_Percentage.Text)
+                'End If
                 prpty.MRNCompanies_ID = Convert.ToInt16(cmb_MRNAgainst.SelectedValue)
-
-
 
                 Dim iRowCount As Int32
                 Dim iRow As Int32
@@ -535,16 +548,6 @@ Public Class frm_Material_Received_Without_PO_Master
         Return POCode
     End Function
 
-    'Public Function GetMrnPrefix() As String
-    '    Dim Pre As String
-    '    Dim CCID As String
-    '    Dim POCode As String
-    '    Pre = obj.getPrefixCode("PREFIX", "MRN_SERIES")
-    '    CCID = obj.getMaxValue("RECEIVED_ID", "MATERIAL_RECIEVED_WITHOUT_PO_MASTER")
-    '    POCode = Pre & "" & CCID
-    '    Return POCode
-    'End Function
-
     Public Sub ViewClick(ByVal sender As Object, ByVal e As System.EventArgs) Implements IForm.ViewClick
         Try
             Dim cmd As SqlCommand
@@ -579,7 +582,6 @@ Public Class frm_Material_Received_Without_PO_Master
         If Not dtable_Item_List Is Nothing Then dtable_Item_List.Dispose()
         If Not dtable_Item_List_Stockable Is Nothing Then dtable_Item_List_Stockable.Dispose()
 
-
         dtable_Item_List = New DataTable()
         dtable_Item_List.Columns.Add("Item_ID", GetType(System.Int32))
         dtable_Item_List.Columns.Add("Item_Code", GetType(System.String))
@@ -600,6 +602,25 @@ Public Class frm_Material_Received_Without_PO_Master
         dtable_Item_List.Columns.Add("BATCH_NO", GetType(System.String))
         dtable_Item_List.Columns.Add("EXPIRY_DATE", GetType(System.DateTime))
 
+        dtable_Item_List_Copy = New DataTable()
+        dtable_Item_List_Copy.Columns.Add("Item_ID", GetType(System.Int32))
+        dtable_Item_List_Copy.Columns.Add("Item_Code", GetType(System.String))
+        dtable_Item_List_Copy.Columns.Add("Item_Name", GetType(System.String))
+        dtable_Item_List_Copy.Columns.Add("UM_Name", GetType(System.String))
+        '  dtable_Item_List.Columns.Add("Item_Qty", GetType(System.Double))
+        dtable_Item_List_Copy.Columns.Add("BATCH_QTY", GetType(System.Double))
+        dtable_Item_List_Copy.Columns.Add("Item_Rate", GetType(System.Double))
+        dtable_Item_List_Copy.Columns.Add("DType", GetType(System.String))
+        dtable_Item_List_Copy.Columns.Add("DISC", GetType(System.Decimal))
+        dtable_Item_List_Copy.Columns.Add("DISC1", GetType(System.Decimal))
+        dtable_Item_List_Copy.Columns.Add("GPAID", GetType(System.String))
+        dtable_Item_List_Copy.Columns.Add("Vat_Per", GetType(System.Double))
+        dtable_Item_List_Copy.Columns.Add("Cess_Per", GetType(System.Double))
+        dtable_Item_List_Copy.Columns.Add("ACess", GetType(System.Double))
+        dtable_Item_List_Copy.Columns.Add("Amount", GetType(System.Double))
+        dtable_Item_List_Copy.Columns.Add("exe_Per", GetType(System.Double))
+        dtable_Item_List_Copy.Columns.Add("BATCH_NO", GetType(System.String))
+        dtable_Item_List_Copy.Columns.Add("EXPIRY_DATE", GetType(System.DateTime))
 
 
         dtable_Item_List_Stockable = New DataTable()
@@ -625,6 +646,28 @@ Public Class frm_Material_Received_Without_PO_Master
         dtable_Item_List_Stockable.Columns.Add("BATCH_NO", GetType(System.String))
         dtable_Item_List_Stockable.Columns.Add("EXPIRY_DATE", GetType(System.DateTime))
 
+        dtable_Item_List_Stockable_Copy = New DataTable()
+        dtable_Item_List_Stockable_Copy.Columns.Add("SNO", GetType(System.Int32))
+        dtable_Item_List_Stockable_Copy.Columns.Add("Item_ID", GetType(System.Int32))
+        dtable_Item_List_Stockable_Copy.Columns.Add("Item_Code", GetType(System.String))
+        dtable_Item_List_Stockable_Copy.Columns.Add("Item_Name", GetType(System.String))
+        dtable_Item_List_Stockable_Copy.Columns.Add("UM_Name", GetType(System.String))
+        dtable_Item_List_Stockable_Copy.Columns.Add("CostCenter_ID", GetType(System.Int32))
+        dtable_Item_List_Stockable_Copy.Columns.Add("CostCenter_Code", GetType(System.String))
+        dtable_Item_List_Stockable_Copy.Columns.Add("CostCenter_Name", GetType(System.String))
+        dtable_Item_List_Stockable_Copy.Columns.Add("BATCH_QTY", GetType(System.Double))
+        dtable_Item_List_Stockable_Copy.Columns.Add("Item_Rate", GetType(System.Double))
+        dtable_Item_List_Stockable_Copy.Columns.Add("DType", GetType(System.String))
+        dtable_Item_List_Stockable_Copy.Columns.Add("DISC", GetType(System.Decimal))
+        dtable_Item_List_Stockable_Copy.Columns.Add("DISC1", GetType(System.Decimal))
+        dtable_Item_List_Stockable_Copy.Columns.Add("GPAID", GetType(System.String))
+        dtable_Item_List_Stockable_Copy.Columns.Add("Vat_Per", GetType(System.Double))
+        dtable_Item_List_Stockable_Copy.Columns.Add("Cess_Per", GetType(System.Double))
+        dtable_Item_List_Stockable_Copy.Columns.Add("ACess", GetType(System.Double))
+        dtable_Item_List_Stockable_Copy.Columns.Add("Amount", GetType(System.Double))
+        dtable_Item_List_Stockable_Copy.Columns.Add("exe_Per", GetType(System.Double))
+        dtable_Item_List_Stockable_Copy.Columns.Add("BATCH_NO", GetType(System.String))
+        dtable_Item_List_Stockable_Copy.Columns.Add("EXPIRY_DATE", GetType(System.DateTime))
 
         FLXGRD_MaterialItem.DataSource = dtable_Item_List
         FLXGRD_MatItem_NonStockable.DataSource = dtable_Item_List_Stockable
@@ -636,7 +679,6 @@ Public Class frm_Material_Received_Without_PO_Master
         FLXGRD_MatItem_NonStockable.Cols(0).Width = 10
 
         SetGridSettingValues()
-
 
     End Sub
 
@@ -892,11 +934,10 @@ restart:
         Dim IsInsert As Boolean
         Dim ds As DataSet
         Dim drItem As DataRow
+        Dim drItemCopy As DataRow
         'Dim dTable_OpenPoItem As New DataTable
         Try
             If item_id <> -1 Then
-
-
 
                 ds = obj.fill_Data_set("GET_ITEM_BY_ID", "@V_ITEM_ID", item_id)
                 Dim iRowCount As Int32
@@ -919,6 +960,8 @@ restart:
                 If IsInsert = True Then
                     drItem = dtable_Item_List.NewRow
 
+                    drItemCopy = dtable_Item_List_Copy.NewRow
+
                     drItem("Item_Id") = ds.Tables(0).Rows(0)(0)
                     drItem("Item_Code") = ds.Tables(0).Rows(0)("Item_Code").ToString()
                     drItem("Item_Name") = ds.Tables(0).Rows(0)("Item_Name").ToString()
@@ -929,12 +972,44 @@ restart:
                     drItem("DISC") = 0.0
                     drItem("DISC1") = 0.0
                     drItem("GPAID") = "N"
+                    'If chk_Composition.Checked = True Then
+                    '    drItem("Vat_Per") = 0
+                    '    drItem("Cess_Per") = 0
+                    '    drItem("ACess") = 0
+                    'Else
                     drItem("Vat_Per") = ds.Tables(0).Rows(0)("VAT_PERCENTAGE")
                     drItem("Cess_Per") = ds.Tables(0).Rows(0)("CessPercentage_num")
                     drItem("ACess") = ds.Tables(0).Rows(0)("ACess")
+                    'End If
+
                     drItem("Amount") = 0.0
                     dtable_Item_List.Rows.Add(drItem)
-                    ' dtable_Item_List.Rows.Add(dtable_Item_List.NewRow)
+
+
+                    drItemCopy("Item_Id") = ds.Tables(0).Rows(0)(0)
+                    drItemCopy("Item_Code") = ds.Tables(0).Rows(0)("Item_Code").ToString()
+                    drItemCopy("Item_Name") = ds.Tables(0).Rows(0)("Item_Name").ToString()
+                    drItemCopy("um_Name") = ds.Tables(0).Rows(0)("UM_Name").ToString()
+                    drItemCopy("BATCH_QTY") = 0.000
+                    drItemCopy("item_rate") = ds.Tables(0).Rows(0)("prev_mrn_rate")
+                    drItemCopy("DType") = "P"
+                    drItemCopy("DISC") = 0.0
+                    drItemCopy("DISC1") = 0.0
+                    drItemCopy("GPAID") = "N"
+                    'If chk_Composition.Checked = True Then
+                    '    drItem("Vat_Per") = 0
+                    '    drItem("Cess_Per") = 0
+                    '    drItem("ACess") = 0
+                    'Else
+                    drItemCopy("Vat_Per") = ds.Tables(0).Rows(0)("VAT_PERCENTAGE")
+                    drItemCopy("Cess_Per") = ds.Tables(0).Rows(0)("CessPercentage_num")
+                    drItemCopy("ACess") = ds.Tables(0).Rows(0)("ACess")
+                    'End If
+
+                    drItemCopy("Amount") = 0.0
+                    dtable_Item_List_Copy.Rows.Add(drItemCopy)
+
+                    'dtable_Item_List.Rows.Add(dtable_Item_List.NewRow)
 
                     'FLXGRD_MaterialItem.DataSource = dtable_Item_List
                     'Dim introw As Integer
@@ -963,6 +1038,7 @@ restart:
         Dim ds As DataSet
         Dim ds_CC As DataSet
         Dim drItem As DataRow
+        Dim drItemCopy As DataRow
         'Dim dTable_OpenPoItem As New DataTable
         Try
             If item_id <> -1 Then
@@ -1017,19 +1093,56 @@ restart:
                         drItem("DISC") = 0.0
                         drItem("DISC1") = 0.0
                         drItem("GPAID") = "N"
+
+                        'If chk_Composition.Checked = True Then
+                        '    drItem("Vat_Per") = 0
+                        '    drItem("Cess_Per") = 0
+                        '    drItem("ACess") = 0
+                        'Else
                         drItem("Vat_Per") = ds.Tables(0).Rows(0)("VAT_PERCENTAGE")
                         drItem("Cess_Per") = ds.Tables(0).Rows(0)("CessPercentage_num")
                         drItem("ACess") = ds.Tables(0).Rows(0)("ACess")
+                        'End If
+
                         drItem("Amount") = 0.0
                         drItem("CostCenter_Id") = ds_CC.Tables(0).Rows(i)("CostCenter_Id").ToString()
                         drItem("CostCenter_Code") = ds_CC.Tables(0).Rows(i)("CostCenter_Code").ToString()
                         drItem("CostCenter_Name") = ds_CC.Tables(0).Rows(i)("CostCenter_Name").ToString()
                         dtable_Item_List_Stockable.Rows.Add(drItem)
 
+
+                        drItemCopy = dtable_Item_List_Stockable_Copy.NewRow
+
+                        drItemCopy("SNO") = 1
+                        drItemCopy("Item_Id") = ds.Tables(0).Rows(0)(0)
+                        drItemCopy("Item_Code") = ds.Tables(0).Rows(0)("Item_Code").ToString()
+                        drItemCopy("Item_Name") = ds.Tables(0).Rows(0)("Item_Name").ToString()
+                        drItemCopy("um_Name") = ds.Tables(0).Rows(0)("UM_Name").ToString()
+                        drItemCopy("BATCH_QTY") = 0.000
+                        drItemCopy("item_rate") = ds.Tables(0).Rows(0)("prev_mrn_rate")
+                        drItemCopy("DType") = "P"
+                        drItemCopy("DISC") = 0.0
+                        drItemCopy("DISC1") = 0.0
+                        drItemCopy("GPAID") = "N"
+
+                        'If chk_Composition.Checked = True Then
+                        '    drItem("Vat_Per") = 0
+                        '    drItem("Cess_Per") = 0
+                        '    drItem("ACess") = 0
+                        'Else
+                        drItemCopy("Vat_Per") = ds.Tables(0).Rows(0)("VAT_PERCENTAGE")
+                        drItemCopy("Cess_Per") = ds.Tables(0).Rows(0)("CessPercentage_num")
+                        drItemCopy("ACess") = ds.Tables(0).Rows(0)("ACess")
+                        'End If
+
+                        drItemCopy("Amount") = 0.0
+                        drItemCopy("CostCenter_Id") = ds_CC.Tables(0).Rows(i)("CostCenter_Id").ToString()
+                        drItemCopy("CostCenter_Code") = ds_CC.Tables(0).Rows(i)("CostCenter_Code").ToString()
+                        drItemCopy("CostCenter_Name") = ds_CC.Tables(0).Rows(i)("CostCenter_Name").ToString()
+                        dtable_Item_List_Stockable_Copy.Rows.Add(drItemCopy)
+
                     Next
                     'dtable_Item_List_Stockable.Rows.Add(dtable_Item_List_Stockable.NewRow)
-
-
 
                     'drItem("Item_Id") = 2
                     'drItem("Item_Code") = "Test Code"
@@ -1053,57 +1166,6 @@ restart:
         Catch ex As Exception
             MsgBox(gblMessageHeading_Error & vbCrLf & gblMessage_ContactInfo & vbCrLf & ex.Message, MsgBoxStyle.Critical, gblMessageHeading)
         End Try
-    End Sub
-
-    'Private Sub lnkCalculatePOAmt_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles lnkCalculatePOAmt.Click
-    '    Dim i As Integer
-    '    Dim total_item_value As Double
-    '    Dim total_vat_amount As Double
-    '    Dim total_exice_amount As Double
-    '    Dim itemamount As Double
-    '    total_item_value = 0
-    '    total_vat_amount = 0
-
-    '    For i = 1 To FLXGRD_MaterialItem.Rows.Count - 1
-    '        With FLXGRD_MaterialItem.Rows(i)
-    '            If Not .IsNode Then
-    '                itemamount = .Item("Item_Qty") * .Item("Item_Rate")
-    '                total_exice_amount = (itemamount * .Item("Exice_Per")) / 100
-    '                total_vat_amount = (total_exice_amount * .Item("Vat_Per")) / 100
-
-
-    '            End If
-    '        End With
-    '    Next
-    '    lblgross_amt.Text = itemamount.ToString("#0.00")
-    '    lbl_total_exice.Text = total_exice_amount.ToString("#0.00")
-    '    lbl_total_vat.Text = total_vat_amount.ToString("#0.00")
-    'End Sub
-
-    Private Sub FLXGRD_MaterialItem_KeyPressEdit(ByVal sender As System.Object, ByVal e As C1.Win.C1FlexGrid.KeyPressEditEventArgs) Handles FLXGRD_MaterialItem.KeyPressEdit
-        'Try
-
-
-        '    If e.Col = enmPODetail.ItemRate Or e.Col = enmPODetail.ExePer Or e.Col = enmPODetail.VatPer Then
-        '        If obj.GridValid_Number(Asc(e.KeyChar), e.Col.GetType.ToString) = False Then
-        '            e.Handled = True
-        '        End If
-        '        'AddHandler e.KeyChar, AddressOf obj.GridValid_Number
-        '        'txtQuanity = TryCast(e.KeyChar, TextBox)
-        '        ''       cmbItems = TryCast(e.Control, ComboBox)
-        '        ''      If cmbItems IsNot Nothing Then
-        '        ''AddHandler cmbItems.SelectedIndexChanged, AddressOf cmbItems_SelectedIndexChanged
-        '        ''End If
-        '        'If txtQuanity IsNot Nothing Then
-        '        '    AddHandler txtQuanity.KeyDown, AddressOf txtQuanity_KeyDown
-
-        '        'End If
-
-        '    End If
-        'Catch ex As Exception
-
-        '    MsgBox(gblMessageHeading_Error & vbCrLf & gblMessage_ContactInfo & vbCrLf & ex.Message, MsgBoxStyle.Critical, gblMessageHeading)
-        'End Try
     End Sub
 
     Private Sub dgvList_DoubleClick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles dgvList.DoubleClick
@@ -1142,20 +1204,29 @@ restart:
             ElseIf dtMRN.Rows(0)("MRN_Status") = MRNStatus.normal Then
                 lblMrnStatus.Text = "Normal"
             End If
-            txt_Amount.Text = Convert.ToString(dtMRN.Rows(0)("freight"))
+            txtAmount.Text = Convert.ToString(dtMRN.Rows(0)("freight"))
             txtotherchrgs.Text = Convert.ToString(dtMRN.Rows(0)("Other_charges"))
             txtdiscount.Text = Convert.ToString(dtMRN.Rows(0)("Discount_amt"))
             txtCashDiscount.Text = Convert.ToString(dtMRN.Rows(0)("CashDiscount_amt"))
             dt_Invoice_Date.Value = dtMRN.Rows(0)("Invoice_Date")
             txt_Invoice_No.Text = dtMRN.Rows(0)("Invoice_No")
+            If (dtMRN.Rows(0)("SpecialSchemeFlag") = "Composite") Then
+                chk_Composition.Checked = True
+            Else
+                chk_Composition.Checked = False
+            End If
+
             ' Grid_styles()
             'dtable_Item_List = ds.Tables(1).Copy
 
             dtable_Item_List = ds.Tables(1).Copy
+            dtable_Item_List_Copy = ds.Tables(1).Copy
+
             ' dtable_Item_List.Rows.Add(dtable_Item_List.NewRow)
             FLXGRD_MaterialItem.DataSource = dtable_Item_List
 
             dtMRNDetail_NonStockableItems = ds.Tables(2).Copy
+            dtable_Item_List_Stockable_Copy = ds.Tables(2).Copy
             FLXGRD_MatItem_NonStockable.DataSource = dtMRNDetail_NonStockableItems
             SetGridSettingValues()
             'FLXGRD_MaterialItem.DataSource = ds.Tables(1)
@@ -1429,73 +1500,6 @@ restart:
         End Try
     End Sub
 
-    Private Sub rbPercentage_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rbPercentage.CheckedChanged
-        txt_Percentage.Enabled = True
-        txt_Amount.Enabled = False
-    End Sub
-
-    Private Sub rb_Amount_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rb_Amount.CheckedChanged
-        txt_Percentage.Enabled = False
-        txt_Amount.Enabled = True
-    End Sub
-
-    Private Sub txt_Percentage_KeyPress(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyPressEventArgs)
-
-        'If (e.KeyChar < "0" OrElse e.KeyChar > "9") Then
-
-
-        '    If e.KeyChar <> ControlChars.Back AndAlso e.KeyChar <> "." Then
-        '        'cancel keys
-        '        e.Handled = True
-        '        MessageBox.Show("Only Numeric Values Allowed")
-        '    Else
-        '        If (Convert.ToDouble(txt_Percentage.Text) > 0) Then
-        '            txt_Amount.Text = Convert.ToString((total_Amt * Convert.ToDouble(txt_Percentage.Text)) / 100)
-        '        End If
-        '    End If
-        'End If
-
-    End Sub
-
-    Private Sub txt_Percentage_KeyUp(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles txt_Percentage.KeyUp
-        Select Case Asc(e.KeyCode)
-            Case AscW(ControlChars.Cr) 'Enter key
-                e.Handled = True
-            Case AscW(ControlChars.Back) 'Backspace
-            Case 27, 45, 46, 48 To 57 'Negative sign, Decimal and Numbers
-            Case Else ' Everything else
-                e.Handled = True
-                MessageBox.Show("Enter Valid Values")
-                Exit Sub
-        End Select
-        If (txt_Percentage.Text <> "") Then
-            If (Convert.ToDouble(txt_Percentage.Text) > 0) Then
-                txt_Amount.Text = Convert.ToString((total_Amt * Convert.ToDouble(txt_Percentage.Text)) / 100)
-            End If
-        End If
-    End Sub
-
-    Private Sub txt_Amount_KeyUp(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs)
-        Select Case Asc(e.KeyCode)
-            Case AscW(ControlChars.Cr) 'Enter key
-                e.Handled = True
-            Case AscW(ControlChars.Back) 'Backspace
-            Case 27, 45, 46, 48 To 57 'Negative sign, Decimal and Numbers
-            Case Else ' Everything else
-                e.Handled = True
-                MessageBox.Show("Enter Valid Values")
-                Exit Sub
-        End Select
-        If (txt_Amount.Text <> "") Then
-            If (Convert.ToDouble(txt_Amount.Text) > 0) Then
-                If total_Amt > 0 Then
-                    txt_Percentage.Text = Convert.ToString((Convert.ToDouble(txt_Amount.Text) * 100) / total_Amt)
-                End If
-
-            End If
-        End If
-    End Sub
-
     Private Sub FLXGRD_MaterialItem_AfterEdit(ByVal sender As System.Object, ByVal e As C1.Win.C1FlexGrid.RowColEventArgs) Handles FLXGRD_MaterialItem.AfterEdit
         Calculate_Amount()
     End Sub
@@ -1507,7 +1511,6 @@ restart:
     Private Sub lnkCalculateAmount_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lnkCalculateAmount.LinkClicked
         Calculate_Amount()
     End Sub
-
 
     Private Sub SetGstLabels()
 
@@ -1524,51 +1527,95 @@ restart:
         Dim GSTAmount28 As Decimal = 0
         Dim GSTTax28 As Decimal = 0
         Dim GSTTaxTotal As Decimal = 0
+        Dim FreightTotal As Decimal = 0
         Dim CessTotal As Decimal = 0
         Dim Tax As Decimal = 0
+        Dim TaxAmount As Decimal = 0
 
         Dim iRow As Integer = 0
 
         For iRow = 1 To FLXGRD_MaterialItem.Rows.Count - 1
 
-            Dim totalAmount As Decimal = FLXGRD_MaterialItem.Item(iRow, "BATCH_QTY") * FLXGRD_MaterialItem.Item(iRow, "item_rate")
+            If Convert.ToDouble(IIf(FLXGRD_MaterialItem.Item(iRow, "BATCH_QTY") Is DBNull.Value, 0, FLXGRD_MaterialItem.Item(iRow, "BATCH_QTY"))) > 0 Then
 
-            If FLXGRD_MaterialItem.Item(iRow, "DType") = "P" Then
-                totalAmount -= Math.Round((totalAmount * FLXGRD_MaterialItem.Item(iRow, "DISC") / 100), 2) + Math.Round((FLXGRD_MaterialItem.Item(iRow, "DISC1") / 100), 2)
-            Else
-                totalAmount -= Math.Round(FLXGRD_MaterialItem.Item(iRow, "DISC"), 2) + Math.Round((FLXGRD_MaterialItem.Item(iRow, "DISC1") / 100), 2)
+                Dim totalAmount As Decimal = FLXGRD_MaterialItem.Item(iRow, "BATCH_QTY") * FLXGRD_MaterialItem.Item(iRow, "item_rate")
+
+                If FLXGRD_MaterialItem.Item(iRow, "DType") = "P" Then
+                    totalAmount -= Math.Round((totalAmount * FLXGRD_MaterialItem.Item(iRow, "DISC") / 100), 2) + Math.Round((FLXGRD_MaterialItem.Item(iRow, "DISC1") / 100), 2)
+                Else
+                    totalAmount -= Math.Round(FLXGRD_MaterialItem.Item(iRow, "DISC"), 2) + Math.Round((FLXGRD_MaterialItem.Item(iRow, "DISC1") / 100), 2)
+                End If
+
+                If FLXGRD_MaterialItem.Item(iRow, "GPAID") = "Y" Then
+                    totalAmount -= (totalAmount - (totalAmount / (1 + (FLXGRD_MaterialItem.Item(iRow, "vat_per") / 100))))
+                End If
+
+                If chk_ApplyTax.Checked = True Then
+                    'Tax = (totalAmount * FLXGRD_MaterialItem.Item(iRow, "vat_per") / 100) + (totalAmount / Convert.ToDecimal(lblgrossamt.Text) * Convert.ToDecimal(txt_Amount.Text))
+                    TaxAmount = ((totalAmount / (Convert.ToDouble(IIf(IsNumeric(lblgrossamt.Text), lblgrossamt.Text, 0)))) * Convert.ToDecimal(txtAmount.Text))
+                    Tax = (totalAmount + TaxAmount) * FLXGRD_MaterialItem.Item(iRow, "vat_per") / 100
+                Else
+                    TaxAmount = 0
+                    Tax = totalAmount * FLXGRD_MaterialItem.Item(iRow, "vat_per") / 100
+                End If
+
+                GSTTaxTotal += Tax
+
+                Select Case FLXGRD_MaterialItem.Item(iRow, "vat_per")
+                    Case 0
+                        If chk_ApplyTax.Checked = True Then
+                            GSTAmount0 += (totalAmount + TaxAmount)
+                        Else
+                            GSTAmount0 += totalAmount
+                        End If
+                        'GSTAmount0 += totalAmount
+                        GSTTax0 += Tax
+                    Case 3
+                        If chk_ApplyTax.Checked = True Then
+                            GSTAmount3 += (totalAmount + TaxAmount)
+                        Else
+                            GSTAmount3 += totalAmount
+                        End If
+                        'GSTAmount3 += totalAmount
+                        GSTTax3 += Tax
+                    Case 5
+                        If chk_ApplyTax.Checked = True Then
+                            GSTAmount5 += (totalAmount + TaxAmount)
+                        Else
+                            GSTAmount5 += totalAmount
+                        End If
+                        'GSTAmount5 += totalAmount
+                        GSTTax5 += Tax
+                    Case 12
+                        If chk_ApplyTax.Checked = True Then
+                            GSTAmount12 += (totalAmount + TaxAmount)
+                        Else
+                            GSTAmount12 += totalAmount
+                        End If
+                        'GSTAmount12 += totalAmount
+                        GSTTax12 += Tax
+                    Case 18
+                        If chk_ApplyTax.Checked = True Then
+                            GSTAmount18 += (totalAmount + TaxAmount)
+                        Else
+                            GSTAmount18 += totalAmount
+                        End If
+                        'GSTAmount18 += totalAmount
+                        GSTTax18 += Tax
+                    Case 28
+                        If chk_ApplyTax.Checked = True Then
+                            GSTAmount28 += (totalAmount + TaxAmount)
+                        Else
+                            GSTAmount28 += totalAmount
+                        End If
+                        'GSTAmount28 += totalAmount
+                        GSTTax28 += Tax
+                End Select
+
             End If
-
-            If FLXGRD_MaterialItem.Item(iRow, "GPAID") = "Y" Then
-                totalAmount -= (totalAmount - (totalAmount / (1 + (FLXGRD_MaterialItem.Item(iRow, "vat_per") / 100))))
-            End If
-
-            Tax = totalAmount * FLXGRD_MaterialItem.Item(iRow, "vat_per") / 100
-
-            GSTTaxTotal += Tax
-
-            Select Case FLXGRD_MaterialItem.Item(iRow, "vat_per")
-                Case 0
-                    GSTAmount0 += totalAmount
-                    GSTTax0 += Tax
-                Case 3
-                    GSTAmount3 += totalAmount
-                    GSTTax3 += Tax
-                Case 5
-                    GSTAmount5 += totalAmount
-                    GSTTax5 += Tax
-                Case 12
-                    GSTAmount12 += totalAmount
-                    GSTTax12 += Tax
-                Case 18
-                    GSTAmount18 += totalAmount
-                    GSTTax18 += Tax
-                Case 28
-                    GSTAmount28 += totalAmount
-                    GSTTax28 += Tax
-            End Select
         Next
 
+        lblvatamt.Text = Math.Round(GSTTaxTotal, 2)
         lblGST0.Text = String.Format("0% - {0:0.00} @ {1}", Math.Round(GSTAmount0, 2), Math.Round(GSTTax0, 2))
         lblGST3.Text = String.Format("3% - {0:0.00} @ {1}", Math.Round(GSTAmount3, 2), Math.Round(GSTTax3, 2))
         lblGST5.Text = String.Format("5% - {0:0.00} @ {1}", Math.Round(GSTAmount5, 2), Math.Round(GSTTax5, 2))
@@ -1596,6 +1643,8 @@ restart:
             lblGSTDetail.Tag = Math.Round(TotalGst, 2)
         End If
 
+        'lblvatamt.Text = TotalGst
+
     End Sub
 
     Private Sub Calculate_Amount()
@@ -1621,6 +1670,22 @@ restart:
             For i As Integer = 0 To dt.Rows.Count - 1
 
                 If (dt.Rows(i).Item("DType")) IsNot Nothing Then
+
+                    'If chk_Composition.Checked = True Then
+                    '    dt.Rows(i).Item("vat_per") = 0
+                    '    dt.Rows(i)("vat_per") = 0
+                    '    dt.Rows(i).Item("cess_per") = 0
+                    '    dt.Rows(i)("cess_per") = 0
+                    '    dt.Rows(i).Item("Acess") = 0
+                    '    dt.Rows(i)("Acess") = 0
+                    'Else
+                    '    dt.Rows(i).Item("vat_per") = dt.Rows(i).Item("vat_per")
+                    '    dt.Rows(i)("vat_per") = dt.Rows(i)("vat_per")
+                    '    dt.Rows(i).Item("cess_per") = dt.Rows(i).Item("cess_per")
+                    '    dt.Rows(i)("cess_per") = dt.Rows(i)("cess_per")
+                    '    dt.Rows(i).Item("Acess") = dt.Rows(i).Item("Acess")
+                    '    dt.Rows(i)("Acess") = dt.Rows(i)("Acess")
+                    'End If
 
                     total_amt = (dt.Rows(i)("Batch_qty") * dt.Rows(i)("Item_Rate"))
 
@@ -1700,7 +1765,7 @@ restart:
                     exice_per = IIf((dt.Rows(i)("Exe_Per")) Is DBNull.Value, 0, dt.Rows(i)("Exe_Per"))
                     exice_per = exice_per / 100
                     tot_exice_amt = tot_exice_amt + (item_value * exice_per)
-                    tot_vat_amt = tot_vat_amt + ((((dt.Rows(i)("Batch_qty") * dt.Rows(i)("Item_Rate")) - discamt) * dt.Rows(i)("vat_per")) / 100)
+                    'tot_vat_amt = tot_vat_amt + ((((dt.Rows(i)("Batch_qty") * dt.Rows(i)("Item_Rate")) - discamt) * dt.Rows(i)("vat_per")) / 100)
                     tot_cess_amt = tot_cess_amt + ((((dt.Rows(i)("Batch_qty") * dt.Rows(i)("Item_Rate")) - discamt) * dt.Rows(i)("cess_per")) / 100)
                     tot_Acess_amt = tot_Acess_amt + (dt.Rows(i)("Batch_qty") * dt.Rows(i)("Acess"))
                     LandingAmt = (item_value - Gpaid) + ((((dt.Rows(i)("Batch_qty") * dt.Rows(i)("Item_Rate")) - discamt) * dt.Rows(i)("vat_per")) / 100) + ((((dt.Rows(i)("Batch_qty") * dt.Rows(i)("Item_Rate")) - discamt) * dt.Rows(i)("cess_per")) / 100) + (dt.Rows(i)("Batch_qty") * dt.Rows(i)("Acess"))
@@ -1730,18 +1795,16 @@ restart:
 
         txtdiscount.Text = totdiscamt.ToString("#0.00")
         lblgrossamt.Text = gross_amt.ToString("0.00")
-        lblvatamt.Text = tot_vat_amt.ToString("0.00")
+        'lblvatamt.Text = tot_vat_amt.ToString("0.00")
         lblcessamt.Text = tot_cess_amt.ToString("0.00")
         lblAcess.Text = tot_Acess_amt.ToString("0.00")
         lblexciseamt.Text = tot_exice_amt.ToString("0.00")
 
-        Net_amt = (gross_amt + tot_vat_amt + tot_cess_amt + tot_Acess_amt + tot_exice_amt + Convert.ToDouble(IIf(IsNumeric(txt_Amount.Text), txt_Amount.Text, 0)) + Convert.ToDouble(IIf(IsNumeric(txtotherchrgs.Text), txtotherchrgs.Text, 0))) '- Convert.ToDouble(IIf(IsNumeric(txtCashDiscount.Text), txtCashDiscount.Text, 0))
-        lblnetamt.Text = Net_amt.ToString("0.00")
         SetGstLabels()
-    End Sub
 
-    Private Sub txt_Amount_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        Calculate_Amount()
+        Net_amt = (gross_amt + Convert.ToDouble(IIf(IsNumeric(lblvatamt.Text), lblvatamt.Text, 0)) + tot_cess_amt + tot_Acess_amt + tot_exice_amt + Convert.ToDouble(IIf(IsNumeric(txtAmount.Text), txtAmount.Text, 0)) + Convert.ToDouble(IIf(IsNumeric(txtotherchrgs.Text), txtotherchrgs.Text, 0))) - Convert.ToDouble(IIf(IsNumeric(txtCashDiscount.Text), txtCashDiscount.Text, 0))
+        lblnetamt.Text = Net_amt.ToString("0.00")
+
     End Sub
 
     Private Sub txtotherchrgs_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtotherchrgs.TextChanged
@@ -1825,5 +1888,92 @@ restart:
         Calculate_Amount()
     End Sub
 
+    Private Sub chk_Composition_CheckedChanged(sender As Object, e As EventArgs) Handles chk_Composition.CheckedChanged
+        If chk_Composition.Checked = True Then
+
+            Dim i As Integer
+            For i = 1 To FLXGRD_MaterialItem.Rows.Count - 1
+
+                AddVatPer(FLXGRD_MaterialItem.Item(i, "vat_per"), (i - 1))
+                AddCessPer(FLXGRD_MaterialItem.Item(i, "Cess_Per"), (i - 1))
+                AddAcess(FLXGRD_MaterialItem.Item(i, "ACess"), (i - 1))
+                AddQty(FLXGRD_MaterialItem.Item(i, "BATCH_QTY"), (i - 1))
+                AddAmount(FLXGRD_MaterialItem.Item(i, "Amount"), (i - 1))
+
+                FLXGRD_MaterialItem.Item(i, "vat_per") = 0
+                FLXGRD_MaterialItem.Rows(i).Item("Cess_Per") = 0
+                FLXGRD_MaterialItem.Rows(i).Item("ACess") = 0
+            Next
+
+            'Dim j As Integer
+            'For j = 1 To FLXGRD_MatItem_NonStockable.Rows.Count - 1
+            '    FLXGRD_MatItem_NonStockable.Item(j, "vat_per") = 0
+            '    FLXGRD_MatItem_NonStockable.Rows(j).Item("Cess_Per") = 0
+            '    FLXGRD_MatItem_NonStockable.Rows(j).Item("ACess") = 0
+            'Next
+        Else
+
+            Dim i As Integer
+            For i = 1 To FLXGRD_MaterialItem.Rows.Count - 1
+                dtable_Item_List_Copy.Rows(i - 1)("Item_Id") = FLXGRD_MaterialItem.Item(i, "Item_Id")
+                dtable_Item_List_Copy.Rows(i - 1)("Item_Code") = FLXGRD_MaterialItem.Item(i, "Item_Code")
+                dtable_Item_List_Copy.Rows(i - 1)("Item_Name") = FLXGRD_MaterialItem.Item(i, "Item_Name")
+                dtable_Item_List_Copy.Rows(i - 1)("um_Name") = FLXGRD_MaterialItem.Item(i, "um_Name")
+                dtable_Item_List_Copy.Rows(i - 1)("item_rate") = FLXGRD_MaterialItem.Item(i, "item_rate")
+                dtable_Item_List_Copy.Rows(i - 1)("DType") = FLXGRD_MaterialItem.Item(i, "DType")
+                dtable_Item_List_Copy.Rows(i - 1)("DISC") = FLXGRD_MaterialItem.Item(i, "DISC")
+                dtable_Item_List_Copy.Rows(i - 1)("DISC1") = FLXGRD_MaterialItem.Item(i, "DISC1")
+                dtable_Item_List_Copy.Rows(i - 1)("GPAID") = FLXGRD_MaterialItem.Item(i, "GPAID")
+                dtable_Item_List_Copy.Rows(i - 1)("BATCH_QTY") = qty(i - 1)
+                dtable_Item_List_Copy.Rows(i - 1)("Vat_Per") = vatper(i - 1)
+                dtable_Item_List_Copy.Rows(i - 1)("Cess_Per") = cessper(i - 1)
+                dtable_Item_List_Copy.Rows(i - 1)("ACess") = acess(i - 1)
+                dtable_Item_List_Copy.Rows(i - 1)("Amount") = totalamt(i - 1)
+            Next
+
+            dtable_Item_List_Copy.AcceptChanges()
+            generate_tree()
+            FLXGRD_MaterialItem.DataSource = dtable_Item_List_Copy
+            FLXGRD_MatItem_NonStockable.DataSource = dtable_Item_List_Stockable_Copy
+            FLXGRD_MaterialItem.Cols(0).Width = 10
+            FLXGRD_MaterialItem.Cols(0).AllowEditing = False
+            FLXGRD_MatItem_NonStockable.Cols(0).Width = 10
+            SetGridSettingValues()
+        End If
+        Calculate_Amount()
+    End Sub
+
+    Private Sub chk_ApplyTax_CheckedChanged(sender As Object, e As EventArgs) Handles chk_ApplyTax.CheckedChanged
+        Calculate_Amount()
+    End Sub
+
+    Public Sub AddVatPer(ByVal stringToAdd As String, ByVal i As Integer)
+        ReDim Preserve vatper(i)
+        vatper(i) = stringToAdd
+    End Sub
+
+    Public Sub AddCessPer(ByVal stringToAdd As String, ByVal i As Integer)
+        ReDim Preserve cessper(i)
+        cessper(i) = stringToAdd
+    End Sub
+
+    Public Sub AddAcess(ByVal stringToAdd As String, ByVal i As Integer)
+        ReDim Preserve acess(i)
+        acess(i) = stringToAdd
+    End Sub
+
+    Public Sub AddQty(ByVal stringToAdd As String, ByVal i As Integer)
+        ReDim Preserve qty(i)
+        qty(i) = stringToAdd
+    End Sub
+
+    Public Sub AddAmount(ByVal stringToAdd As String, ByVal i As Integer)
+        ReDim Preserve totalamt(i)
+        totalamt(i) = stringToAdd
+    End Sub
+
+    Private Sub txtAmount_Leave(sender As Object, e As EventArgs) Handles txtAmount.Leave
+        Calculate_Amount()
+    End Sub
 
 End Class

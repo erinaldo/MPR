@@ -59,7 +59,6 @@ Partial Class frm_Purchase_Order
         Me.Label14 = New System.Windows.Forms.Label()
         Me.Panel6 = New System.Windows.Forms.Panel()
         Me.Panel5 = New System.Windows.Forms.Panel()
-        Me.Panel4 = New System.Windows.Forms.Panel()
         Me.Panel3 = New System.Windows.Forms.Panel()
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.txtOtherCharges = New System.Windows.Forms.TextBox()
@@ -74,6 +73,7 @@ Partial Class frm_Purchase_Order
         Me.txtPORemarks = New System.Windows.Forms.TextBox()
         Me.cmbDeliveryRate = New System.Windows.Forms.ComboBox()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.chk_Composition = New System.Windows.Forms.CheckBox()
         Me.txtBarcodeSearch = New System.Windows.Forms.TextBox()
         Me.Label52 = New System.Windows.Forms.Label()
         Me.chk_VatCal = New System.Windows.Forms.CheckBox()
@@ -332,7 +332,6 @@ Partial Class frm_Purchase_Order
         Me.TabPage2.Controls.Add(Me.Label14)
         Me.TabPage2.Controls.Add(Me.Panel6)
         Me.TabPage2.Controls.Add(Me.Panel5)
-        Me.TabPage2.Controls.Add(Me.Panel4)
         Me.TabPage2.Controls.Add(Me.Panel3)
         Me.TabPage2.Controls.Add(Me.Panel2)
         Me.TabPage2.Controls.Add(Me.txtOtherCharges)
@@ -367,11 +366,11 @@ Partial Class frm_Purchase_Order
         '
         'lblGSTDetail
         '
-        Me.lblGSTDetail.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblGSTDetail.Font = New System.Drawing.Font("Arial", 9.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblGSTDetail.ForeColor = System.Drawing.Color.Orange
-        Me.lblGSTDetail.Location = New System.Drawing.Point(715, 433)
+        Me.lblGSTDetail.Location = New System.Drawing.Point(686, 442)
         Me.lblGSTDetail.Name = "lblGSTDetail"
-        Me.lblGSTDetail.Size = New System.Drawing.Size(182, 37)
+        Me.lblGSTDetail.Size = New System.Drawing.Size(211, 35)
         Me.lblGSTDetail.TabIndex = 274
         Me.lblGSTDetail.Text = "UTGST - 0.00" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "SGST - 0.00"
         Me.lblGSTDetail.TextAlign = System.Drawing.ContentAlignment.TopRight
@@ -466,7 +465,7 @@ Partial Class frm_Purchase_Order
         '
         Me.lblCESSAmount.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblCESSAmount.ForeColor = System.Drawing.Color.Orange
-        Me.lblCESSAmount.Location = New System.Drawing.Point(779, 472)
+        Me.lblCESSAmount.Location = New System.Drawing.Point(779, 486)
         Me.lblCESSAmount.Name = "lblCESSAmount"
         Me.lblCESSAmount.Size = New System.Drawing.Size(118, 20)
         Me.lblCESSAmount.TabIndex = 43
@@ -477,7 +476,7 @@ Partial Class frm_Purchase_Order
         '
         Me.Label16.AutoSize = True
         Me.Label16.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label16.Location = New System.Drawing.Point(682, 477)
+        Me.Label16.Location = New System.Drawing.Point(682, 491)
         Me.Label16.Name = "Label16"
         Me.Label16.Size = New System.Drawing.Size(93, 15)
         Me.Label16.TabIndex = 44
@@ -595,14 +594,6 @@ Partial Class frm_Purchase_Order
         Me.Panel5.Size = New System.Drawing.Size(117, 1)
         Me.Panel5.TabIndex = 13
         '
-        'Panel4
-        '
-        Me.Panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel4.Location = New System.Drawing.Point(722, 436)
-        Me.Panel4.Name = "Panel4"
-        Me.Panel4.Size = New System.Drawing.Size(117, 1)
-        Me.Panel4.TabIndex = 13
-        '
         'Panel3
         '
         Me.Panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
@@ -625,7 +616,7 @@ Partial Class frm_Purchase_Order
         Me.txtOtherCharges.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtOtherCharges.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtOtherCharges.ForeColor = System.Drawing.Color.White
-        Me.txtOtherCharges.Location = New System.Drawing.Point(775, 502)
+        Me.txtOtherCharges.Location = New System.Drawing.Point(775, 520)
         Me.txtOtherCharges.Name = "txtOtherCharges"
         Me.txtOtherCharges.Size = New System.Drawing.Size(118, 18)
         Me.txtOtherCharges.TabIndex = 21
@@ -638,7 +629,7 @@ Partial Class frm_Purchase_Order
         Me.txtDiscountAmount.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtDiscountAmount.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtDiscountAmount.ForeColor = System.Drawing.Color.White
-        Me.txtDiscountAmount.Location = New System.Drawing.Point(775, 533)
+        Me.txtDiscountAmount.Location = New System.Drawing.Point(775, 546)
         Me.txtDiscountAmount.Name = "txtDiscountAmount"
         Me.txtDiscountAmount.ReadOnly = True
         Me.txtDiscountAmount.Size = New System.Drawing.Size(118, 18)
@@ -774,6 +765,7 @@ Partial Class frm_Purchase_Order
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.chk_Composition)
         Me.GroupBox1.Controls.Add(Me.txtBarcodeSearch)
         Me.GroupBox1.Controls.Add(Me.Label52)
         Me.GroupBox1.Controls.Add(Me.chk_VatCal)
@@ -801,6 +793,18 @@ Partial Class frm_Purchase_Order
         Me.GroupBox1.Size = New System.Drawing.Size(890, 126)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
+        '
+        'chk_Composition
+        '
+        Me.chk_Composition.AutoSize = True
+        Me.chk_Composition.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.chk_Composition.ForeColor = System.Drawing.Color.White
+        Me.chk_Composition.Location = New System.Drawing.Point(710, 74)
+        Me.chk_Composition.Name = "chk_Composition"
+        Me.chk_Composition.Size = New System.Drawing.Size(127, 19)
+        Me.chk_Composition.TabIndex = 38
+        Me.chk_Composition.Text = "Composite Dealer"
+        Me.chk_Composition.UseVisualStyleBackColor = True
         '
         'txtBarcodeSearch
         '
@@ -1053,7 +1057,7 @@ Partial Class frm_Purchase_Order
         '
         Me.lblNetAmount.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblNetAmount.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.lblNetAmount.Location = New System.Drawing.Point(779, 563)
+        Me.lblNetAmount.Location = New System.Drawing.Point(779, 569)
         Me.lblNetAmount.Name = "lblNetAmount"
         Me.lblNetAmount.Size = New System.Drawing.Size(118, 20)
         Me.lblNetAmount.TabIndex = 0
@@ -1064,7 +1068,7 @@ Partial Class frm_Purchase_Order
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(682, 567)
+        Me.Label3.Location = New System.Drawing.Point(682, 573)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(76, 15)
         Me.Label3.TabIndex = 0
@@ -1074,7 +1078,7 @@ Partial Class frm_Purchase_Order
         '
         Me.Label6.AutoSize = True
         Me.Label6.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label6.Location = New System.Drawing.Point(682, 535)
+        Me.Label6.Location = New System.Drawing.Point(682, 548)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(85, 15)
         Me.Label6.TabIndex = 0
@@ -1084,9 +1088,9 @@ Partial Class frm_Purchase_Order
         '
         Me.lblVatAmount.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblVatAmount.ForeColor = System.Drawing.Color.Orange
-        Me.lblVatAmount.Location = New System.Drawing.Point(778, 408)
+        Me.lblVatAmount.Location = New System.Drawing.Point(784, 415)
         Me.lblVatAmount.Name = "lblVatAmount"
-        Me.lblVatAmount.Size = New System.Drawing.Size(118, 20)
+        Me.lblVatAmount.Size = New System.Drawing.Size(115, 20)
         Me.lblVatAmount.TabIndex = 0
         Me.lblVatAmount.Text = "0.00"
         Me.lblVatAmount.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -1095,7 +1099,7 @@ Partial Class frm_Purchase_Order
         '
         Me.Label5.AutoSize = True
         Me.Label5.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label5.Location = New System.Drawing.Point(682, 505)
+        Me.Label5.Location = New System.Drawing.Point(682, 523)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(94, 15)
         Me.Label5.TabIndex = 0
@@ -1116,7 +1120,7 @@ Partial Class frm_Purchase_Order
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(682, 412)
+        Me.Label2.Location = New System.Drawing.Point(682, 415)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(84, 15)
         Me.Label2.TabIndex = 0
@@ -1249,7 +1253,6 @@ Partial Class frm_Purchase_Order
     Friend WithEvents lblItemValue As System.Windows.Forms.Label
     Friend WithEvents Panel6 As System.Windows.Forms.Panel
     Friend WithEvents Panel5 As System.Windows.Forms.Panel
-    Friend WithEvents Panel4 As System.Windows.Forms.Panel
     Friend WithEvents Panel3 As System.Windows.Forms.Panel
     Friend WithEvents Panel2 As System.Windows.Forms.Panel
     Friend WithEvents GroupBox4 As System.Windows.Forms.GroupBox
@@ -1296,4 +1299,5 @@ Partial Class frm_Purchase_Order
     Friend WithEvents lblGST0 As Label
     Friend WithEvents lblGSTHeader As Label
     Friend WithEvents lblGSTDetail As Label
+    Friend WithEvents chk_Composition As CheckBox
 End Class

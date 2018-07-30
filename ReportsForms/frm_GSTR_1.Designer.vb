@@ -23,12 +23,12 @@ Partial Class frm_GSTR_1
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.GroupBox6 = New System.Windows.Forms.GroupBox()
+        Me.txtToDate = New System.Windows.Forms.DateTimePicker()
+        Me.Label2 = New System.Windows.Forms.Label()
         Me.txtFromDate = New System.Windows.Forms.DateTimePicker()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.lblFormHeading = New System.Windows.Forms.Label()
         Me.btnShow = New System.Windows.Forms.Button()
-        Me.txtToDate = New System.Windows.Forms.DateTimePicker()
-        Me.Label2 = New System.Windows.Forms.Label()
         Me.GroupBox6.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -47,11 +47,33 @@ Partial Class frm_GSTR_1
         Me.GroupBox6.TabIndex = 2
         Me.GroupBox6.TabStop = False
         '
+        'txtToDate
+        '
+        Me.txtToDate.CalendarForeColor = System.Drawing.Color.White
+        Me.txtToDate.CalendarMonthBackground = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.txtToDate.CustomFormat = "dd-MMM-yyyy"
+        Me.txtToDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.txtToDate.Location = New System.Drawing.Point(554, 78)
+        Me.txtToDate.MaxDate = New Date(2999, 12, 31, 0, 0, 0, 0)
+        Me.txtToDate.Name = "txtToDate"
+        Me.txtToDate.Size = New System.Drawing.Size(142, 20)
+        Me.txtToDate.TabIndex = 47
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.Location = New System.Drawing.Point(430, 83)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(93, 15)
+        Me.Label2.TabIndex = 46
+        Me.Label2.Text = "Select To Month"
+        '
         'txtFromDate
         '
         Me.txtFromDate.CalendarForeColor = System.Drawing.Color.White
         Me.txtFromDate.CalendarMonthBackground = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.txtFromDate.CustomFormat = "MMM-yyyy"
+        Me.txtFromDate.CustomFormat = "dd-MMM-yyyy"
         Me.txtFromDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.txtFromDate.Location = New System.Drawing.Point(233, 78)
         Me.txtFromDate.MaxDate = New Date(2999, 12, 31, 0, 0, 0, 0)
@@ -92,28 +114,6 @@ Partial Class frm_GSTR_1
         Me.btnShow.TabIndex = 8
         Me.btnShow.Text = "GENERATE GSTR 1"
         Me.btnShow.UseVisualStyleBackColor = False
-        '
-        'txtToDate
-        '
-        Me.txtToDate.CalendarForeColor = System.Drawing.Color.White
-        Me.txtToDate.CalendarMonthBackground = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.txtToDate.CustomFormat = "MMM-yyyy"
-        Me.txtToDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.txtToDate.Location = New System.Drawing.Point(554, 78)
-        Me.txtToDate.MaxDate = New Date(2999, 12, 31, 0, 0, 0, 0)
-        Me.txtToDate.Name = "txtToDate"
-        Me.txtToDate.Size = New System.Drawing.Size(142, 20)
-        Me.txtToDate.TabIndex = 47
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(430, 83)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(93, 15)
-        Me.Label2.TabIndex = 46
-        Me.Label2.Text = "Select To Month"
         '
         'frm_GSTR_1
         '

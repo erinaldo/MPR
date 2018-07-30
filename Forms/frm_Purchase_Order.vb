@@ -13,6 +13,16 @@ Public Class frm_Purchase_Order
     'Dim edit_mode As Boolean = False
     Dim _rights As Form_Rights
 
+    Dim vatperid() As String
+    Dim vatper() As String
+    Dim vatpername() As String
+    Dim cessperid() As String
+    Dim cessper() As String
+    Dim cesspername() As String
+    Dim poqty() As String
+    Dim itemvalue() As String
+    Dim itemrate() As String
+
     Public Sub New(ByVal rights As Form_Rights)
         _rights = rights
         InitializeComponent()
@@ -142,7 +152,9 @@ Public Class frm_Purchase_Order
                 clsPropObj.PO_TYPE = cmbPOType.SelectedValue
                 clsPropObj.OCTROI = dtpOctroi.Text
                 clsPropObj.PRICE_BASIS = dtpPriceBasis.Text
+
                 clsPropObj.FRIEGHT = Convert.ToInt32(dtpFreight.SelectedValue)
+
                 clsPropObj.OTHER_CHARGES = Convert.ToDecimal(txtOtherCharges.Text)
                 'clsPropObj.CESS = Convert.ToDecimal("0.0".ToString())
                 clsPropObj.DISCOUNT_AMOUNT = Convert.ToDouble(txtDiscountAmount.Text)
@@ -161,6 +173,12 @@ Public Class frm_Purchase_Order
                     clsPropObj.OPEN_PO_QTY = 1
                 Else
                     clsPropObj.OPEN_PO_QTY = 0
+                End If
+
+                If chk_Composition.Checked = True Then
+                    clsPropObj.Special_Scheme = "Composite"
+                Else
+                    clsPropObj.Special_Scheme = "Nill"
                 End If
 
                 clsPropObj.PO_Items = flxItemList.DataSource
@@ -553,10 +571,14 @@ Public Class frm_Purchase_Order
             lblItemValue.Text = total_item_value.ToString("#0.00")
             lblVatAmount.Text = total_vat_amount.ToString("#0.00")
             lblCESSAmount.Text = total_cess_amount.ToString("#0.00")
+
+
             lblNetAmount.Text = (total_item_value + total_vat_amount + total_cess_amount + total_exice_amount + txtOtherCharges.Text).ToString("#0.00") '- txtDiscountAmount.Text).ToString("#0.00")
             'Return lblItemValue.Text + "," + lblVatAmount.Text + "," + lblNetAmount.Text + "," + lblNetAmount.Text + "," + ExiceGross
             Str = total_item_value.ToString("#0.00") + "," + total_vat_amount.ToString("#0.00") + "," + total_cess_amount.ToString("#0.00") + "," + lblNetAmount.Text + "," + total_exice_amount.ToString()
+
             SetGstLabels()
+
             Return Str
         Catch ex As Exception
             'MsgBox(ex.Message)
@@ -808,6 +830,13 @@ Public Class frm_Purchase_Order
                 cmbPOType.SelectedValue = Convert.ToString(dr("po_type"))
                 CHK_OPEN_PO_QTY.Checked = dr("OPEN_PO_QTY")
 
+
+                If (Convert.ToString(dr("SpecialSchemeFlag")) = "Composite") Then
+                    chk_Composition.Checked = True
+                Else
+                    chk_Composition.Checked = False
+                End If
+
                 If Convert.ToInt32(dr("PO_STATUS").ToString()) = Convert.ToInt32(POStatus.Fresh) Then
                     lblStatus.Text = POStatus.Fresh.ToString()
                 ElseIf Convert.ToInt32(dr("PO_STATUS").ToString()) = Convert.ToInt32(POStatus.Pending) Then
@@ -816,6 +845,7 @@ Public Class frm_Purchase_Order
                     lblStatus.Text = POStatus.Cancel.ToString()
                 End If
                 dtable_Item_List = clsObj.fill_Data_set("GET_PO_ITEM_DETAILS", "@V_PO_ID", strPOID).Tables(0)
+
                 RemoveHandler flxItemList.AfterDataRefresh, AddressOf flxItemList_AfterDataRefresh
                 flxItemList.DataSource = dtable_Item_List
                 CalculateAmount()
@@ -905,6 +935,7 @@ restart:
 
 
             frm_Indent_Items.dTable_POItems = flxItemList.DataSource
+            frm_Indent_Items.dTable_POItems_Copy = flxItemList.DataSource
             frm_Show_Search_RateList.column_name = "BARCODE_VCH"
             frm_Show_Search_RateList.column_name1 = "ITEM_NAME"
             frm_Show_Search_RateList.column_name2 = "MRP_Num"
@@ -936,10 +967,13 @@ restart:
 
                 For Each element As String In result
                     Dim dr As DataRow
+                    Dim drItem As DataRow
                     dr = frm_Indent_Items.dTable_POItems.NewRow
+                    drItem = frm_Indent_Items.dTable_POItems_Copy.NewRow
+
                     Dim ds As New DataSet
                     ds = Obj.Fill_DataSet("SELECT ITEM_ID,BARCODE_VCH as ITEM_CODE, ITEM_NAME, UM_Name, UNIT_MASTER.UM_ID, ISNULL(pk_CessId_num,0) AS Cess_Id, ISNULL(CessName_vch,'0%') + ' CESS'  AS Cess_Name, ISNULL(CessPercentage_num,0.00) AS Cess_Per  FROM item_master" &
-                                    " INNER JOIN dbo.UNIT_MASTER ON dbo.UNIT_MASTER .UM_ID =dbo.ITEM_MASTER .UM_ID Left JOIN dbo.CessMaster ON dbo.CessMaster.pk_CessId_num = dbo.ITEM_MASTER.fk_CessId_num " &
+                                    " INNER JOIN dbo.UNIT_MASTER ON dbo.UNIT_MASTER .UM_ID = dbo.ITEM_MASTER .UM_ID Left JOIN dbo.CessMaster ON dbo.CessMaster.pk_CessId_num = dbo.ITEM_MASTER.fk_CessId_num " &
                                     " WHERE ITEM_ID=" & Convert.ToInt32(element) & "")
 
                     Dim dv_Items As DataView
@@ -983,7 +1017,34 @@ restart:
                     frm_Indent_Items.dTable_POItems.Rows.Add(dr)
 
 
+                    'drItem("Item_id") = ds.Tables(0).Rows(0)("ITEM_ID").ToString
+                    'drItem("Item_Code") = ds.Tables(0).Rows(0)("ITEM_CODE").ToString
+                    'drItem("Item_Name") = ds.Tables(0).Rows(0)("ITEM_NAME").ToString
+                    'drItem("UM_Name") = ds.Tables(0).Rows(0)("UM_Name").ToString
+                    'drItem("Cess_Id") = ds.Tables(0).Rows(0)("Cess_Id")
+                    'drItem("Cess_Name") = ds.Tables(0).Rows(0)("Cess_Name")
+                    'drItem("Cess_Per") = ds.Tables(0).Rows(0)("Cess_Per")
+                    ''dr("UM_Id") = ds.Tables(0).Rows(0)("UM_ID").ToString
+                    'ds = Obj.Fill_DataSet("DECLARE @rate NUMERIC (18,2);SELECT @rate=SUPPLIER_RATE_LIST_DETAIL.ITEM_RATE FROM SUPPLIER_RATE_LIST INNER JOIN SUPPLIER_RATE_LIST_DETAIL ON SUPPLIER_RATE_LIST.SRL_ID = SUPPLIER_RATE_LIST_DETAIL.SRL_ID WHERE (SUPPLIER_RATE_LIST_DETAIL.ITEM_ID = " & Convert.ToInt32(element) & " ) AND (SUPPLIER_RATE_LIST.SUPP_ID = " & Convert.ToInt32(cmbSupplier.SelectedValue) & ") AND (SUPPLIER_RATE_LIST.ACTIVE = 1);SELECT ISNULL(@rate,0);SELECT     ITEM_DETAIL.PURCHASE_VAT_ID as PURCHASE_VAT_ID, VAT_MASTER.VAT_PERCENTAGE, VAT_MASTER.VAT_NAME FROM ITEM_DETAIL INNER JOIN VAT_MASTER ON ITEM_DETAIL.PURCHASE_VAT_ID = VAT_MASTER.VAT_ID WHERE (ITEM_DETAIL.ITEM_ID = " & Convert.ToInt32(element) & " )")
+                    'drItem("Item_Rate") = ds.Tables(0).Rows(0)(0)
+                    'drItem("Vat_Id") = ds.Tables(1).Rows(0)("PURCHASE_VAT_ID")
+                    'drItem("Vat_Name") = ds.Tables(1).Rows(0)("VAT_NAME")
+                    'drItem("Req_Qty") = 0.0
+                    'drItem("Po_Qty") = 0.0
+                    'drItem("DType") = "P"
+                    'drItem("Disc") = 0.0
+                    ''dr("Exice_Per") = 0
+                    'drItem("Vat_per") = ds.Tables(1).Rows(0)("VAT_PERCENTAGE")
+                    'drItem("Item_value") = (drItem("PO_Qty") * drItem("Item_Rate")) + ((drItem("PO_Qty") * drItem("Item_Rate") * drItem("Vat_Per")) / 100)
+                    'drItem("Indent_Id") = -1
+
+                    'frm_Indent_Items.dTable_POItems_Copy.Rows.Add(drItem)
+
+
                 Next
+
+
+                dtable_Item_List = frm_Indent_Items.dTable_POItems
 
                 generate_tree()
                 AddHandler flxItemList.AfterDataRefresh, AddressOf flxItemList_AfterDataRefresh
@@ -1005,21 +1066,24 @@ restart:
 
     Public Sub get_row(ByVal item_id As Integer)
         Dim dr As DataRow
+        'Dim drItemCopy As DataRow
         Dim ds As DataSet
         frm_Indent_Items.dTable_POItems = flxItemList.DataSource
 
+        'frm_Indent_Items.dTable_POItems_Copy = flxItemList.DataSource
+
         dr = frm_Indent_Items.dTable_POItems.NewRow
 
+        'drItemCopy = frm_Indent_Items.dTable_POItems_Copy.NewRow
 
         ds = Obj.Fill_DataSet("SELECT ITEM_ID,BarCode_vch as ITEM_CODE, ITEM_NAME, UM_Name, UNIT_MASTER.UM_ID, ISNULL(pk_CessId_num,0) AS Cess_Id, ISNULL(CessName_vch,'0%') + ' CESS'  AS Cess_Name, ISNULL(CessPercentage_num,0.00) AS Cess_Per  FROM item_master" &
-                                " INNER JOIN dbo.UNIT_MASTER ON dbo.UNIT_MASTER .UM_ID =dbo.ITEM_MASTER .UM_ID Left JOIN dbo.CessMaster ON dbo.CessMaster.pk_CessId_num = dbo.ITEM_MASTER.fk_CessId_num " &
+                                " INNER JOIN dbo.UNIT_MASTER ON dbo.UNIT_MASTER .UM_ID = dbo.ITEM_MASTER .UM_ID Left JOIN dbo.CessMaster ON dbo.CessMaster.pk_CessId_num = dbo.ITEM_MASTER.fk_CessId_num " &
                                 " WHERE ITEM_ID=" & Convert.ToInt32(item_id) & "")
 
         Dim dv_Items As DataView
         Dim tempdt As DataTable
         tempdt = frm_Indent_Items.dTable_POItems.Copy
         dv_Items = tempdt.DefaultView
-
 
         dv_Items.RowFilter = "item_id=" & ds.Tables(0).Rows(0)("item_id").ToString() & ""
 
@@ -1054,6 +1118,30 @@ restart:
         dr("Indent_Id") = -1
 
         frm_Indent_Items.dTable_POItems.Rows.Add(dr)
+
+        'drItemCopy("Item_id") = ds.Tables(0).Rows(0)("ITEM_ID").ToString
+        'drItemCopy("Item_Code") = ds.Tables(0).Rows(0)("ITEM_CODE").ToString
+        'drItemCopy("Item_Name") = ds.Tables(0).Rows(0)("ITEM_NAME").ToString
+        'drItemCopy("UM_Name") = ds.Tables(0).Rows(0)("UM_Name").ToString
+        'drItemCopy("Cess_Id") = ds.Tables(0).Rows(0)("Cess_Id")
+        'drItemCopy("Cess_Name") = ds.Tables(0).Rows(0)("Cess_Name")
+        'drItemCopy("Cess_Per") = ds.Tables(0).Rows(0)("Cess_Per")
+        ''dr("UM_Id") = ds.Tables(0).Rows(0)("UM_ID").ToString
+        'ds = Obj.Fill_DataSet("DECLARE @rate NUMERIC (18,2);SELECT @rate=SUPPLIER_RATE_LIST_DETAIL.ITEM_RATE FROM SUPPLIER_RATE_LIST INNER JOIN SUPPLIER_RATE_LIST_DETAIL ON SUPPLIER_RATE_LIST.SRL_ID = SUPPLIER_RATE_LIST_DETAIL.SRL_ID WHERE (SUPPLIER_RATE_LIST_DETAIL.ITEM_ID = " & Convert.ToInt32(item_id) & " ) AND (SUPPLIER_RATE_LIST.SUPP_ID = " & Convert.ToInt32(cmbSupplier.SelectedValue) & ") AND (SUPPLIER_RATE_LIST.ACTIVE = 1);SELECT ISNULL(@rate,0);SELECT     ITEM_DETAIL.PURCHASE_VAT_ID as PURCHASE_VAT_ID, VAT_MASTER.VAT_PERCENTAGE, VAT_MASTER.VAT_NAME FROM ITEM_DETAIL INNER JOIN VAT_MASTER ON ITEM_DETAIL.PURCHASE_VAT_ID = VAT_MASTER.VAT_ID WHERE (ITEM_DETAIL.ITEM_ID = " & Convert.ToInt32(item_id) & " )")
+        'drItemCopy("Item_Rate") = ds.Tables(0).Rows(0)(0)
+        'drItemCopy("Vat_Id") = ds.Tables(1).Rows(0)("PURCHASE_VAT_ID")
+        'drItemCopy("Vat_Name") = ds.Tables(1).Rows(0)("VAT_NAME")
+        'drItemCopy("Req_Qty") = 0.0
+        'drItemCopy("Po_Qty") = 0.0
+        'drItemCopy("DType") = "P"
+        'dr("Disc") = 0.0
+        ''dr("Exice_Per") = 0
+        'drItemCopy("Vat_per") = ds.Tables(1).Rows(0)("VAT_PERCENTAGE")
+        'drItemCopy("Item_value") = (drItemCopy("PO_Qty") * drItemCopy("Item_Rate")) + ((drItemCopy("PO_Qty") * drItemCopy("Item_Rate") * drItemCopy("Vat_Per")) / 100)
+        'drItemCopy("Indent_Id") = -1
+
+        'frm_Indent_Items.dTable_POItems_Copy.Rows.Add(drItemCopy)
+
         generate_tree()
         AddHandler flxItemList.AfterDataRefresh, AddressOf flxItemList_AfterDataRefresh
 
@@ -1101,7 +1189,6 @@ restart:
             MsgBox(ex.Message, MsgBoxStyle.Critical, gblMessageHeading)
         End Try
     End Sub
-
 
     Private Sub SetGstLabels()
 
@@ -1190,6 +1277,114 @@ restart:
             lblGSTDetail.Tag = Math.Round(TotalGst, 2)
         End If
 
+    End Sub
+
+    Private Sub chk_Composition_CheckedChanged(sender As Object, e As EventArgs) Handles chk_Composition.CheckedChanged
+        If chk_Composition.Checked = True Then
+
+            Dim i As Integer
+            For i = 1 To flxItemList.Rows.Count - 1
+
+                AddVatPerId(flxItemList.Item(i, "Vat_Id"), (i - 1))
+                AddVatPer(flxItemList.Item(i, "vat_per"), (i - 1))
+                AddVatPerName(flxItemList.Item(i, "Vat_Name"), (i - 1))
+                AddCessPerId(flxItemList.Item(i, "Cess_Id"), (i - 1))
+                AddCessPer(flxItemList.Item(i, "Cess_Per"), (i - 1))
+                AddCessPerName(flxItemList.Item(i, "Cess_Name"), (i - 1))
+                AddQty(flxItemList.Item(i, "PO_Qty"), (i - 1))
+                AddAmount(flxItemList.Item(i, "Item_Value"), (i - 1))
+                AddItemRate(flxItemList.Item(i, "Item_Rate"), (i - 1))
+
+                flxItemList.Item(i, "vat_per") = 0
+                flxItemList.Rows(i).Item("Cess_Per") = 0
+                flxItemList.Item(i, "Vat_Id") = 0
+                flxItemList.Item(i, "Vat_Name") = "0% GST"
+                flxItemList.Item(i, "Cess_Id") = 0
+                flxItemList.Item(i, "Cess_Name") = "0% CESS"
+                'flxItemList.Item(i, "Item_Value") = 0.00
+                'flxItemList.Item(i, "Item_Rate") = 0.00
+
+
+            Next
+        Else
+
+            Dim i As Integer
+            For i = 1 To flxItemList.Rows.Count - 1
+                dtable_Item_List.Rows(i - 1)("Item_ID") = flxItemList.Item(i, "Item_ID")
+                dtable_Item_List.Rows(i - 1)("Item_Code") = flxItemList.Item(i, "Item_Code")
+                dtable_Item_List.Rows(i - 1)("Item_Name") = flxItemList.Item(i, "Item_Name")
+                dtable_Item_List.Rows(i - 1)("UM_Name") = flxItemList.Item(i, "UM_Name")
+                dtable_Item_List.Rows(i - 1)("Req_Qty") = flxItemList.Item(i, "Req_Qty")
+                dtable_Item_List.Rows(i - 1)("PO_Qty") = flxItemList.Item(i, "PO_Qty")
+                dtable_Item_List.Rows(i - 1)("DType") = flxItemList.Item(i, "DType")
+                dtable_Item_List.Rows(i - 1)("DISC") = flxItemList.Item(i, "DISC")
+                dtable_Item_List.Rows(i - 1)("Exice_Per") = flxItemList.Item(i, "Exice_Per")
+                dtable_Item_List.Rows(i - 1)("Item_Value") = flxItemList.Item(i, "Item_Value")
+                dtable_Item_List.Rows(i - 1)("Indent_ID") = flxItemList.Item(i, "Indent_ID")
+                dtable_Item_List.Rows(i - 1)("UM_ID") = flxItemList.Item(i, "UM_ID")
+                dtable_Item_List.Rows(i - 1)("PO_Qty") = poqty(i - 1)
+                dtable_Item_List.Rows(i - 1)("Vat_Id") = vatperid(i - 1)
+                dtable_Item_List.Rows(i - 1)("Vat_Name") = vatpername(i - 1)
+                dtable_Item_List.Rows(i - 1)("Vat_Per") = vatper(i - 1)
+                dtable_Item_List.Rows(i - 1)("Cess_Id") = cessperid(i - 1)
+                dtable_Item_List.Rows(i - 1)("Cess_Name") = cesspername(i - 1)
+                dtable_Item_List.Rows(i - 1)("Cess_Per") = cessper(i - 1)
+                dtable_Item_List.Rows(i - 1)("Item_Value") = flxItemList.Item(i, "Item_Value")
+                dtable_Item_List.Rows(i - 1)("Item_Rate") = flxItemList.Item(i, "Item_Rate")
+
+            Next
+
+            dtable_Item_List.AcceptChanges()
+            generate_tree()
+            flxItemList.DataSource = dtable_Item_List
+            format_grid()
+        End If
+        CalculateAmount()
+    End Sub
+
+    Public Sub AddVatPerId(ByVal stringToAdd As String, ByVal i As Integer)
+        ReDim Preserve vatperid(i)
+        vatperid(i) = stringToAdd
+    End Sub
+
+    Public Sub AddVatPer(ByVal stringToAdd As String, ByVal i As Integer)
+        ReDim Preserve vatper(i)
+        vatper(i) = stringToAdd
+    End Sub
+
+    Public Sub AddVatPerName(ByVal stringToAdd As String, ByVal i As Integer)
+        ReDim Preserve vatpername(i)
+        vatpername(i) = stringToAdd
+    End Sub
+
+    Public Sub AddCessPerId(ByVal stringToAdd As String, ByVal i As Integer)
+        ReDim Preserve cessperid(i)
+        cessperid(i) = stringToAdd
+    End Sub
+
+    Public Sub AddCessPer(ByVal stringToAdd As String, ByVal i As Integer)
+        ReDim Preserve cessper(i)
+        cessper(i) = stringToAdd
+    End Sub
+
+    Public Sub AddCessPerName(ByVal stringToAdd As String, ByVal i As Integer)
+        ReDim Preserve cesspername(i)
+        cesspername(i) = stringToAdd
+    End Sub
+
+    Public Sub AddQty(ByVal stringToAdd As String, ByVal i As Integer)
+        ReDim Preserve poqty(i)
+        poqty(i) = stringToAdd
+    End Sub
+
+    Public Sub AddAmount(ByVal stringToAdd As String, ByVal i As Integer)
+        ReDim Preserve itemvalue(i)
+        itemvalue(i) = stringToAdd
+    End Sub
+
+    Public Sub AddItemRate(ByVal stringToAdd As String, ByVal i As Integer)
+        ReDim Preserve itemrate(i)
+        itemrate(i) = stringToAdd
     End Sub
 
 End Class

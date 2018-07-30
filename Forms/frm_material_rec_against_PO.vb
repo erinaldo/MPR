@@ -3,7 +3,6 @@ Imports System.Data.SqlClient
 Imports System.Data
 
 Public Class frm_material_rec_against_PO
-
     Implements IForm
 
     Public I As Integer
@@ -18,9 +17,8 @@ Public Class frm_material_rec_against_PO
     Dim receive_Id As Integer
     Dim datatbl_NonStockable_Items As DataTable
     Dim Open_Po_Qty As Boolean
-
-
     Dim _rights As Form_Rights
+
     Public Sub New(ByVal rights As Form_Rights)
         _rights = rights
         InitializeComponent()
@@ -59,14 +57,13 @@ Public Class frm_material_rec_against_PO
         lblgrossamt.Text = "0.00"
         lblvatamt.Text = "0.00"
         lblcessamt.Text = "0.00"
-        txt_Amount.Text = "0.00"
+        txtAmount.Text = "0.00"
         txtotherchrgs.Text = "0.00"
         txtdiscount.Text = "0.00"
         lblnetamt.Text = "0.00"
         If FLXGRD_PO_Items.DataSource IsNot Nothing Then
             'SetGstLabels()
         End If
-
 
     End Sub
 
@@ -185,7 +182,7 @@ Public Class frm_material_rec_against_PO
                 prop.Division_ID = v_the_current_division_id
                 prop.mrn_status = Convert.ToInt32(GlobalModule.MRNStatus.normal)
                 prop.MRNCompanies_ID = Convert.ToInt16(cmb_MRNAgainst.SelectedValue)
-                prop.freight = Convert.ToDouble(txt_Amount.Text)
+                prop.freight = Convert.ToDouble(txtAmount.Text)
                 prop.Other_Charges = Convert.ToDouble(txtotherchrgs.Text)
                 prop.Discount_amt = Convert.ToDouble(txtdiscount.Text)
                 prop.GROSS_AMOUNT = Convert.ToDouble(lblgrossamt.Text)
@@ -251,6 +248,7 @@ Public Class frm_material_rec_against_PO
         new_initilization()
 
     End Sub
+
     Private Sub fill_PO1()
         ''********************************************************************''
         ''Fill material requisition combo - show only pending (2) requisitions
@@ -271,7 +269,6 @@ Public Class frm_material_rec_against_PO
         ''********************************************************************''
     End Sub
 
-
     Private Sub fill_PO()
         ds = obj.fill_Data_set("Fill_PO", "@Div_ID", v_the_current_division_id)
         If ds.Tables.Count > 0 Then
@@ -282,6 +279,7 @@ Public Class frm_material_rec_against_PO
         ds.Clear()
 
     End Sub
+
     Private Sub table_style()
         If Not dtable_Item_List Is Nothing Then dtable_Item_List.Dispose()
 
@@ -421,7 +419,6 @@ Public Class frm_material_rec_against_PO
         '----------------- Non Stockable Table ---------------------'
 
     End Sub
-
 
     Public Sub C1FlexGrid2_KeyDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs)
         Try
@@ -756,6 +753,7 @@ Public Class frm_material_rec_against_PO
     Private Sub FLXGRD_PO_Items_AfterDataRefresh(ByVal sender As System.Object, ByVal e As System.ComponentModel.ListChangedEventArgs) Handles FLXGRD_PO_Items.AfterDataRefresh
         'generate_tree()
     End Sub
+
     Private Sub generate_tree()
 
         Dim strSort As String = FLXGRD_PO_NON_STOCKABLEITEMS.Cols(1).Name + ", " + FLXGRD_PO_NON_STOCKABLEITEMS.Cols(2).Name + ", " + FLXGRD_PO_NON_STOCKABLEITEMS.Cols(3).Name + ", " + FLXGRD_PO_NON_STOCKABLEITEMS.Cols(4).Name
@@ -887,6 +885,7 @@ Public Class frm_material_rec_against_PO
         End If
         Calculate_Amount()
     End Sub
+
     'Sub NumericValueDGVIndentItem(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyPressEventArgs)
 
     '    Dim colindex As Decimal = DGVIndentItem.CurrentCell.ColumnIndex
@@ -944,6 +943,7 @@ Public Class frm_material_rec_against_PO
             MsgBox(gblMessageHeading_Error & vbCrLf & gblMessage_ContactInfo & vbCrLf & ex.Message, MsgBoxStyle.Critical, gblMessageHeading)
         End Try
     End Sub
+
     Private Sub dgvList_DoubleClick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles dgvList.DoubleClick
         MsgBox("You can't Edit this MRN." & vbCrLf & "To view this MRN Click on ""Print""")
         'Dim Receipt_Id As Integer
@@ -1000,7 +1000,6 @@ Public Class frm_material_rec_against_PO
         frm_Report.formName = "MRN_AgainstPO"
 
     End Sub
-
 
     Private Sub FLXGRD_PO_NON_STOCKABLEITEMS_AfterEdit(ByVal sender As System.Object, ByVal e As C1.Win.C1FlexGrid.RowColEventArgs) Handles FLXGRD_PO_NON_STOCKABLEITEMS.AfterEdit
         Dim dt As DataTable
@@ -1161,11 +1160,11 @@ Public Class frm_material_rec_against_PO
 
         txtdiscount.Text = totdiscamt.ToString("#0.00")
         lblgrossamt.Text = tot_gross_amt.ToString("0.00")
-        lblvatamt.Text = tot_vat_amt.ToString("0.00")
+        'lblvatamt.Text = tot_vat_amt.ToString("0.00")
         lblcessamt.Text = tot_cess_amt.ToString("0.00")
         lblexciseamt.Text = tot_exice_amt.ToString("0.00")
 
-        Net_amt = (tot_gross_amt + tot_vat_amt + tot_cess_amt + tot_exice_amt + Convert.ToDouble(IIf(IsNumeric(txt_Amount.Text), txt_Amount.Text, 0)) + Convert.ToDouble(IIf(IsNumeric(txtotherchrgs.Text), txtotherchrgs.Text, 0))) '- Convert.ToDouble(IIf(IsNumeric(txtdiscount.Text), txtdiscount.Text, 0))
+        Net_amt = (tot_gross_amt + Convert.ToDouble(IIf(IsNumeric(lblvatamt.Text), lblvatamt.Text, 0)) + tot_cess_amt + tot_exice_amt + Convert.ToDouble(IIf(IsNumeric(txtAmount.Text), txtAmount.Text, 0)) + Convert.ToDouble(IIf(IsNumeric(txtotherchrgs.Text), txtotherchrgs.Text, 0))) '- Convert.ToDouble(IIf(IsNumeric(txtdiscount.Text), txtdiscount.Text, 0))
         lblnetamt.Text = Net_amt.ToString("0.00")
 
     End Sub
@@ -1174,7 +1173,7 @@ Public Class frm_material_rec_against_PO
         Calculate_Amount()
     End Sub
 
-    Private Sub txt_Amount_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txt_Amount.TextChanged
+    Private Sub txt_Amount_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Calculate_Amount()
     End Sub
 
@@ -1228,7 +1227,6 @@ restart:
         End If
     End Sub
 
-
     Private Sub SetGstLabels()
 
         Dim GSTAmount0 As Decimal = 0
@@ -1246,6 +1244,7 @@ restart:
         Dim GSTTaxTotal As Decimal = 0
         Dim CessTotal As Decimal = 0
         Dim Tax As Decimal = 0
+        Dim TaxAmount As Decimal = 0
 
         Dim iRow As Integer = 0
 
@@ -1263,31 +1262,70 @@ restart:
             '    totalAmount -= (totalAmount - (totalAmount / (1 + (flxItemList.Item(iRow, "vat_per") / 100))))
             'End If
 
-            Tax = totalAmount * FLXGRD_PO_Items.Item(iRow, "vat_per") / 100
+            If chk_ApplyTax.Checked = True Then
+                'Tax = (totalAmount * FLXGRD_MaterialItem.Item(iRow, "vat_per") / 100) + (totalAmount / Convert.ToDecimal(lblgrossamt.Text) * Convert.ToDecimal(txt_Amount.Text))
+                TaxAmount = ((totalAmount / (Convert.ToDouble(IIf(IsNumeric(lblgrossamt.Text), lblgrossamt.Text, 0)))) * Convert.ToDecimal(txtAmount.Text))
+                Tax = (totalAmount + TaxAmount) * FLXGRD_PO_Items.Item(iRow, "vat_per") / 100
+            Else
+                TaxAmount = 0
+                Tax = totalAmount * FLXGRD_PO_Items.Item(iRow, "vat_per") / 100
+            End If
 
             GSTTaxTotal += Tax
 
             Select Case FLXGRD_PO_Items.Item(iRow, "vat_per")
                 Case 0
-                    GSTAmount0 += totalAmount
+                    If chk_ApplyTax.Checked = True Then
+                        GSTAmount0 += (totalAmount + TaxAmount)
+                    Else
+                        GSTAmount0 += totalAmount
+                    End If
+                    'GSTAmount0 += totalAmount
                     GSTTax0 += Tax
                 Case 3
-                    GSTAmount3 += totalAmount
+                    If chk_ApplyTax.Checked = True Then
+                        GSTAmount3 += (totalAmount + TaxAmount)
+                    Else
+                        GSTAmount3 += totalAmount
+                    End If
+                    'GSTAmount3 += totalAmount
                     GSTTax3 += Tax
                 Case 5
-                    GSTAmount5 += totalAmount
+                    If chk_ApplyTax.Checked = True Then
+                        GSTAmount5 += (totalAmount + TaxAmount)
+                    Else
+                        GSTAmount5 += totalAmount
+                    End If
+                    'GSTAmount5 += totalAmount
                     GSTTax5 += Tax
                 Case 12
-                    GSTAmount12 += totalAmount
+                    If chk_ApplyTax.Checked = True Then
+                        GSTAmount12 += (totalAmount + TaxAmount)
+                    Else
+                        GSTAmount12 += totalAmount
+                    End If
+                    'GSTAmount12 += totalAmount
                     GSTTax12 += Tax
                 Case 18
-                    GSTAmount18 += totalAmount
+                    If chk_ApplyTax.Checked = True Then
+                        GSTAmount18 += (totalAmount + TaxAmount)
+                    Else
+                        GSTAmount18 += totalAmount
+                    End If
+                    'GSTAmount18 += totalAmount
                     GSTTax18 += Tax
                 Case 28
-                    GSTAmount28 += totalAmount
+                    If chk_ApplyTax.Checked = True Then
+                        GSTAmount28 += (totalAmount + TaxAmount)
+                    Else
+                        GSTAmount28 += totalAmount
+                    End If
+                    'GSTAmount28 += totalAmount
                     GSTTax28 += Tax
             End Select
         Next
+
+        lblvatamt.Text = Math.Round(GSTTaxTotal, 2)
 
         lblGST0.Text = String.Format("0% - {0:0.00} @ {1}", Math.Round(GSTAmount0, 2), Math.Round(GSTTax0, 2))
         lblGST3.Text = String.Format("3% - {0:0.00} @ {1}", Math.Round(GSTAmount3, 2), Math.Round(GSTTax3, 2))
@@ -1321,5 +1359,12 @@ restart:
 
     End Sub
 
+    Private Sub chk_ApplyTax_CheckedChanged(sender As Object, e As EventArgs) Handles chk_ApplyTax.CheckedChanged
+        Calculate_Amount()
+    End Sub
+
+    Private Sub txtAmount_Leave(sender As Object, e As EventArgs) Handles txtAmount.Leave
+        Calculate_Amount()
+    End Sub
 
 End Class

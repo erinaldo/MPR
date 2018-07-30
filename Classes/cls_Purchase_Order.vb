@@ -50,6 +50,17 @@ Namespace Purchase_Order
         Dim _OPEN_PO_QTY As Boolean
         Dim _VAT_ON_EXICE As Int32
 
+        Dim _Special_Scheme As String
+
+        Public Property Special_Scheme() As [String]
+            Get
+                Return _Special_Scheme
+            End Get
+            Set(ByVal value As [String])
+                _Special_Scheme = value
+            End Set
+        End Property
+
         Public Property PO_ID() As Int32
             Get
                 Return _PO_ID
@@ -58,6 +69,7 @@ Namespace Purchase_Order
                 _PO_ID = value
             End Set
         End Property
+
         Public Property CESS() As [Decimal]
             Get
                 Return _CESS
@@ -496,6 +508,7 @@ Namespace Purchase_Order
                 cmd.Parameters.AddWithValue("@V_DIVISION_ID", clsPropObj.DIVISION_ID)
                 cmd.Parameters.AddWithValue("@V_OPEN_PO_QTY", clsPropObj.OPEN_PO_QTY)
                 cmd.Parameters.AddWithValue("@V_VAT_ON_EXICE", clsPropObj.VAT_ON_EXICE)
+                cmd.Parameters.AddWithValue("@V_Special_Scheme", clsPropObj.Special_Scheme)
                 cmd.Parameters.AddWithValue("@V_PROC_TYPE", 1)
                 Dim retPOID As New SqlParameter("@PO", SqlDbType.BigInt)
                 retPOID.Direction = ParameterDirection.ReturnValue
@@ -777,11 +790,7 @@ Namespace Purchase_Order
                     cmd.Dispose()
                 Next
 
-
-                tempDT = Nothing
-
-
-
+                tempdt = Nothing
 
                 cmd = New SqlCommand()
                 cmd.CommandTimeout = 0
@@ -822,6 +831,7 @@ Namespace Purchase_Order
                 cmd.Parameters.AddWithValue("@V_DIVISION_ID", clsPropObj.DIVISION_ID)
                 cmd.Parameters.AddWithValue("@V_OPEN_PO_QTY", clsPropObj.OPEN_PO_QTY)
                 cmd.Parameters.AddWithValue("@V_VAT_ON_EXICE", clsPropObj.VAT_ON_EXICE)
+                cmd.Parameters.AddWithValue("@V_Special_Scheme", clsPropObj.Special_Scheme)
                 cmd.Parameters.AddWithValue("@V_PROC_TYPE", 2)
                 cmd.ExecuteNonQuery()
                 cmd.Dispose()
@@ -1056,7 +1066,6 @@ Namespace Purchase_Order
         '    End Try
         'End Function
 
-
         Public Function get_PO_date_wise(ByVal supp_id As String, ByVal po_number As String, ByVal Sdate As String, ByVal Edate As String, ByVal mode As Integer, ByVal status As Integer, ByVal division_id As Integer) As DataSet
             Dim adp As SqlDataAdapter = New SqlDataAdapter("GET_FILTER_PO_LIST", con)
             Dim ds As New DataSet
@@ -1091,4 +1100,5 @@ Namespace Purchase_Order
         End Sub
 
     End Class
+
 End Namespace
