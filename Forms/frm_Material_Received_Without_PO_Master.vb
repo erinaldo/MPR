@@ -55,7 +55,7 @@ Public Class frm_Material_Received_Without_PO_Master
         FillGrid()
         clsObj.ComboBind(cmbMRNType, "Select PO_TYPE_ID,PO_TYPE_NAME from PO_TYPE_MASTER", "PO_TYPE_NAME", "PO_TYPE_ID", True)
         obj.ComboBind(cmbPurchaseType, "select pk_PurchaseTypeId ,PurchaseType from PurchaseType_Master ", "PurchaseType", "pk_PurchaseTypeId")
-        clsObj.ComboBind(cmbVendor, "SELECT ACC_NAME, ACC_ID FROM ACCOUNT_MASTER where AG_ID=2 order by ACC_NAME", "ACC_NAME", "ACC_ID", True)
+        clsObj.ComboBind(cmbVendor, "SELECT ACC_NAME, ACC_ID FROM ACCOUNT_MASTER where AG_ID in (1,2,3,6) order by ACC_NAME", "ACC_NAME", "ACC_ID", True)
 
         clsObj.ComboBind(cmb_MRNAgainst, "SELECT Company_id, Company_name FROM MRN_COMPANIES", "Company_name", "Company_id")
         SetDefaultValues()

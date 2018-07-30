@@ -511,7 +511,7 @@ Public Class frm_CreditNote
     End Sub
 
     Private Sub BindCustomerCombo()
-        obj.ComboBind(cmbCustomer, "select 0 as ACC_ID,'--Select--' as ACC_NAME union Select ACC_ID,ACC_NAME from ACCOUNT_MASTER WHERE AG_ID=1 Order by ACC_NAME ", "ACC_NAME", "ACC_ID")
+        obj.ComboBind(cmbCustomer, "select 0 as ACC_ID,'--Select--' as ACC_NAME union Select ACC_ID,ACC_NAME from ACCOUNT_MASTER WHERE AG_ID in (1,2,3,6) Order by ACC_NAME ", "ACC_NAME", "ACC_ID")
 
     End Sub
 
