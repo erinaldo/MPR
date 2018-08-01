@@ -5,6 +5,7 @@ Public Class frm_Indent_Items
 
     Dim dTable_IndentItems As DataTable
     Public dTable_POItems As DataTable
+    Public dTable_POItems_Copy As DataTable
     Public v_supp_id As Integer
     Dim strItemIDs, strIndentIDs As String
     Dim dtable_Item_List As DataTable

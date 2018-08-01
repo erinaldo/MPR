@@ -36,8 +36,12 @@ Partial Class frm_Supplier_Rate_List_Master
         Me.chkActive = New System.Windows.Forms.CheckBox()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.txt_search = New System.Windows.Forms.TextBox()
+        Me.Label3 = New System.Windows.Forms.Label()
         Me.grdSupplier = New System.Windows.Forms.DataGridView()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.txtBarcodeSearch = New System.Windows.Forms.TextBox()
+        Me.Label15 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.lblFormHeading = New System.Windows.Forms.Label()
         Me.dtpDate = New System.Windows.Forms.DateTimePicker()
@@ -227,32 +231,61 @@ Partial Class frm_Supplier_Rate_List_Master
         'GroupBox2
         '
         Me.GroupBox2.Controls.Add(Me.grdSupplier)
+        Me.GroupBox2.Controls.Add(Me.txt_search)
+        Me.GroupBox2.Controls.Add(Me.Label3)
         Me.GroupBox2.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GroupBox2.ForeColor = System.Drawing.Color.White
-        Me.GroupBox2.Location = New System.Drawing.Point(21, 177)
+        Me.GroupBox2.Location = New System.Drawing.Point(21, 190)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(860, 403)
+        Me.GroupBox2.Size = New System.Drawing.Size(860, 390)
         Me.GroupBox2.TabIndex = 7
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "List of Items"
+        '
+        'txt_search
+        '
+        Me.txt_search.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.txt_search.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.txt_search.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txt_search.ForeColor = System.Drawing.Color.White
+        Me.txt_search.Location = New System.Drawing.Point(174, 14)
+        Me.txt_search.MaxLength = 100
+        Me.txt_search.Name = "txt_search"
+        Me.txt_search.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
+        Me.txt_search.Size = New System.Drawing.Size(679, 19)
+        Me.txt_search.TabIndex = 66
+        Me.txt_search.Visible = False
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label3.Location = New System.Drawing.Point(6, 17)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(160, 15)
+        Me.Label3.TabIndex = 65
+        Me.Label3.Text = "Serach By Name / Barcode :"
+        Me.Label3.Visible = False
         '
         'grdSupplier
         '
         Me.grdSupplier.BackgroundColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.grdSupplier.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.grdSupplier.GridColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.grdSupplier.Location = New System.Drawing.Point(9, 19)
+        Me.grdSupplier.Location = New System.Drawing.Point(9, 14)
         Me.grdSupplier.Name = "grdSupplier"
         Me.grdSupplier.RowHeadersVisible = False
         Me.grdSupplier.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.grdSupplier.RowTemplate.DefaultCellStyle.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grdSupplier.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.White
         Me.grdSupplier.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.grdSupplier.Size = New System.Drawing.Size(845, 374)
+        Me.grdSupplier.Size = New System.Drawing.Size(845, 379)
         Me.grdSupplier.TabIndex = 0
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.txtBarcodeSearch)
+        Me.GroupBox1.Controls.Add(Me.Label15)
         Me.GroupBox1.Controls.Add(Me.Label1)
         Me.GroupBox1.Controls.Add(Me.lblFormHeading)
         Me.GroupBox1.Controls.Add(Me.dtpDate)
@@ -268,10 +301,33 @@ Partial Class frm_Supplier_Rate_List_Master
         Me.GroupBox1.ForeColor = System.Drawing.Color.White
         Me.GroupBox1.Location = New System.Drawing.Point(21, 21)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(860, 150)
+        Me.GroupBox1.Size = New System.Drawing.Size(860, 163)
         Me.GroupBox1.TabIndex = 6
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Supplier Rate List"
+        '
+        'txtBarcodeSearch
+        '
+        Me.txtBarcodeSearch.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.txtBarcodeSearch.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.txtBarcodeSearch.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtBarcodeSearch.ForeColor = System.Drawing.Color.White
+        Me.txtBarcodeSearch.Location = New System.Drawing.Point(100, 135)
+        Me.txtBarcodeSearch.MaxLength = 100
+        Me.txtBarcodeSearch.Name = "txtBarcodeSearch"
+        Me.txtBarcodeSearch.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
+        Me.txtBarcodeSearch.Size = New System.Drawing.Size(509, 19)
+        Me.txtBarcodeSearch.TabIndex = 64
+        '
+        'Label15
+        '
+        Me.Label15.AutoSize = True
+        Me.Label15.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label15.Location = New System.Drawing.Point(6, 135)
+        Me.Label15.Name = "Label15"
+        Me.Label15.Size = New System.Drawing.Size(62, 15)
+        Me.Label15.TabIndex = 63
+        Me.Label15.Text = "BarCode :"
         '
         'Label1
         '
@@ -322,7 +378,7 @@ Partial Class frm_Supplier_Rate_List_Master
         Me.txtDesc.Multiline = True
         Me.txtDesc.Name = "txtDesc"
         Me.txtDesc.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtDesc.Size = New System.Drawing.Size(504, 54)
+        Me.txtDesc.Size = New System.Drawing.Size(504, 42)
         Me.txtDesc.TabIndex = 3
         '
         'cmbSupplier
@@ -421,6 +477,7 @@ Partial Class frm_Supplier_Rate_List_Master
         Me.TabPage2.ResumeLayout(False)
         Me.TabPage2.PerformLayout()
         Me.GroupBox2.ResumeLayout(False)
+        Me.GroupBox2.PerformLayout()
         CType(Me.grdSupplier, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
@@ -454,4 +511,8 @@ Partial Class frm_Supplier_Rate_List_Master
     Friend WithEvents txtSearch As System.Windows.Forms.TextBox
     Friend WithEvents Label13 As System.Windows.Forms.Label
     Friend WithEvents ImageList1 As ImageList
+    Friend WithEvents txtBarcodeSearch As TextBox
+    Friend WithEvents Label15 As Label
+    Friend WithEvents txt_search As TextBox
+    Friend WithEvents Label3 As Label
 End Class

@@ -36,19 +36,25 @@ Partial Class frm_material_rec_against_PO
         Me.BtnRevisedMRN = New System.Windows.Forms.Button()
         Me.dgvList = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
+        Me.chk_ApplyTax = New System.Windows.Forms.CheckBox()
+        Me.txtAmount = New System.Windows.Forms.TextBox()
+        Me.Label15 = New System.Windows.Forms.Label()
+        Me.lblGST3 = New System.Windows.Forms.Label()
+        Me.lblGSTDetail = New System.Windows.Forms.Label()
+        Me.lblGST28 = New System.Windows.Forms.Label()
+        Me.lblGST18 = New System.Windows.Forms.Label()
+        Me.lblGST12 = New System.Windows.Forms.Label()
+        Me.lblGST5 = New System.Windows.Forms.Label()
+        Me.lblGST0 = New System.Windows.Forms.Label()
+        Me.lblGSTHeader = New System.Windows.Forms.Label()
+        Me.Panel1 = New System.Windows.Forms.Panel()
         Me.lblcessamt = New System.Windows.Forms.Label()
         Me.Label16 = New System.Windows.Forms.Label()
         Me.lblMRNType = New System.Windows.Forms.Label()
-        Me.lblexciseamt = New System.Windows.Forms.Label()
-        Me.Label14 = New System.Windows.Forms.Label()
-        Me.Panel19 = New System.Windows.Forms.Panel()
         Me.lnkCalculateAmount = New System.Windows.Forms.LinkLabel()
-        Me.Label13 = New System.Windows.Forms.Label()
         Me.Panel18 = New System.Windows.Forms.Panel()
-        Me.Panel16 = New System.Windows.Forms.Panel()
         Me.txtotherchrgs = New System.Windows.Forms.TextBox()
         Me.txtdiscount = New System.Windows.Forms.TextBox()
-        Me.txt_Amount = New System.Windows.Forms.TextBox()
         Me.lblnetamt = New System.Windows.Forms.Label()
         Me.Label50 = New System.Windows.Forms.Label()
         Me.Label51 = New System.Windows.Forms.Label()
@@ -63,14 +69,13 @@ Partial Class frm_material_rec_against_PO
         Me.Label10 = New System.Windows.Forms.Label()
         Me.txt_Invoice_No = New System.Windows.Forms.TextBox()
         Me.Label12 = New System.Windows.Forms.Label()
-        Me.GroupBox5 = New System.Windows.Forms.GroupBox()
-        Me.FLXGRD_PO_NON_STOCKABLEITEMS = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.txt_Remarks = New System.Windows.Forms.TextBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.FLXGRD_PO_Items = New C1.Win.C1FlexGrid.C1FlexGrid()
+        Me.Label14 = New System.Windows.Forms.Label()
+        Me.lblexciseamt = New System.Windows.Forms.Label()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.lblcustid = New System.Windows.Forms.Label()
-        Me.chk_VatCal = New System.Windows.Forms.CheckBox()
         Me.lblSupplier = New System.Windows.Forms.Label()
         Me.lblSupplierAddress = New System.Windows.Forms.Label()
         Me.lblPODate = New System.Windows.Forms.Label()
@@ -82,29 +87,23 @@ Partial Class frm_material_rec_against_PO
         Me.cmbPurchaseOrders = New System.Windows.Forms.ComboBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.lblFormHeading = New System.Windows.Forms.Label()
+        Me.chk_VatCal = New System.Windows.Forms.CheckBox()
         Me.Label4 = New System.Windows.Forms.Label()
+        Me.GroupBox5 = New System.Windows.Forms.GroupBox()
+        Me.FLXGRD_PO_NON_STOCKABLEITEMS = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
         Me.C1FlexGrid1 = New C1.Win.C1FlexGrid.C1FlexGrid()
-        Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.lblGST3 = New System.Windows.Forms.Label()
-        Me.lblGSTDetail = New System.Windows.Forms.Label()
-        Me.lblGST28 = New System.Windows.Forms.Label()
-        Me.lblGST18 = New System.Windows.Forms.Label()
-        Me.lblGST12 = New System.Windows.Forms.Label()
-        Me.lblGST5 = New System.Windows.Forms.Label()
-        Me.lblGST0 = New System.Windows.Forms.Label()
-        Me.lblGSTHeader = New System.Windows.Forms.Label()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
         CType(Me.dgvList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabPage2.SuspendLayout()
-        Me.GroupBox5.SuspendLayout()
-        CType(Me.FLXGRD_PO_NON_STOCKABLEITEMS, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox2.SuspendLayout()
         CType(Me.FLXGRD_PO_Items, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
+        Me.GroupBox5.SuspendLayout()
+        CType(Me.FLXGRD_PO_NON_STOCKABLEITEMS, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.C1FlexGrid1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -279,6 +278,9 @@ Partial Class frm_material_rec_against_PO
         'TabPage2
         '
         Me.TabPage2.BackColor = System.Drawing.Color.DimGray
+        Me.TabPage2.Controls.Add(Me.chk_ApplyTax)
+        Me.TabPage2.Controls.Add(Me.txtAmount)
+        Me.TabPage2.Controls.Add(Me.Label15)
         Me.TabPage2.Controls.Add(Me.lblGST3)
         Me.TabPage2.Controls.Add(Me.lblGSTDetail)
         Me.TabPage2.Controls.Add(Me.lblGST28)
@@ -291,14 +293,10 @@ Partial Class frm_material_rec_against_PO
         Me.TabPage2.Controls.Add(Me.lblcessamt)
         Me.TabPage2.Controls.Add(Me.Label16)
         Me.TabPage2.Controls.Add(Me.lblMRNType)
-        Me.TabPage2.Controls.Add(Me.Panel19)
         Me.TabPage2.Controls.Add(Me.lnkCalculateAmount)
-        Me.TabPage2.Controls.Add(Me.Label13)
         Me.TabPage2.Controls.Add(Me.Panel18)
-        Me.TabPage2.Controls.Add(Me.Panel16)
         Me.TabPage2.Controls.Add(Me.txtotherchrgs)
         Me.TabPage2.Controls.Add(Me.txtdiscount)
-        Me.TabPage2.Controls.Add(Me.txt_Amount)
         Me.TabPage2.Controls.Add(Me.lblnetamt)
         Me.TabPage2.Controls.Add(Me.Label50)
         Me.TabPage2.Controls.Add(Me.Label51)
@@ -327,12 +325,144 @@ Partial Class frm_material_rec_against_PO
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "  "
         '
+        'chk_ApplyTax
+        '
+        Me.chk_ApplyTax.AutoSize = True
+        Me.chk_ApplyTax.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.chk_ApplyTax.ForeColor = System.Drawing.Color.White
+        Me.chk_ApplyTax.Location = New System.Drawing.Point(738, 429)
+        Me.chk_ApplyTax.Name = "chk_ApplyTax"
+        Me.chk_ApplyTax.Size = New System.Drawing.Size(76, 19)
+        Me.chk_ApplyTax.TabIndex = 280
+        Me.chk_ApplyTax.Text = "Apply Tax"
+        Me.chk_ApplyTax.UseVisualStyleBackColor = True
+        '
+        'txtAmount
+        '
+        Me.txtAmount.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.txtAmount.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.txtAmount.Font = New System.Drawing.Font("Arial", 10.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtAmount.ForeColor = System.Drawing.Color.White
+        Me.txtAmount.Location = New System.Drawing.Point(822, 429)
+        Me.txtAmount.Name = "txtAmount"
+        Me.txtAmount.Size = New System.Drawing.Size(74, 16)
+        Me.txtAmount.TabIndex = 279
+        Me.txtAmount.Text = "0.00"
+        Me.txtAmount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'Label15
+        '
+        Me.Label15.AutoSize = True
+        Me.Label15.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label15.Location = New System.Drawing.Point(681, 429)
+        Me.Label15.Name = "Label15"
+        Me.Label15.Size = New System.Drawing.Size(51, 15)
+        Me.Label15.TabIndex = 278
+        Me.Label15.Text = "Freight :"
+        '
+        'lblGST3
+        '
+        Me.lblGST3.AutoSize = True
+        Me.lblGST3.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblGST3.ForeColor = System.Drawing.Color.White
+        Me.lblGST3.Location = New System.Drawing.Point(465, 493)
+        Me.lblGST3.Name = "lblGST3"
+        Me.lblGST3.Size = New System.Drawing.Size(107, 14)
+        Me.lblGST3.TabIndex = 274
+        Me.lblGST3.Text = "3% - Amt @ Tax"
+        '
+        'lblGSTDetail
+        '
+        Me.lblGSTDetail.Font = New System.Drawing.Font("Arial", 9.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblGSTDetail.ForeColor = System.Drawing.Color.Orange
+        Me.lblGSTDetail.Location = New System.Drawing.Point(719, 474)
+        Me.lblGSTDetail.Name = "lblGSTDetail"
+        Me.lblGSTDetail.Size = New System.Drawing.Size(182, 32)
+        Me.lblGSTDetail.TabIndex = 273
+        Me.lblGSTDetail.Text = "UTGST - 0.00" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "SGST - 0.00"
+        Me.lblGSTDetail.TextAlign = System.Drawing.ContentAlignment.TopRight
+        '
+        'lblGST28
+        '
+        Me.lblGST28.AutoSize = True
+        Me.lblGST28.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblGST28.ForeColor = System.Drawing.Color.White
+        Me.lblGST28.Location = New System.Drawing.Point(464, 568)
+        Me.lblGST28.Name = "lblGST28"
+        Me.lblGST28.Size = New System.Drawing.Size(115, 14)
+        Me.lblGST28.TabIndex = 272
+        Me.lblGST28.Text = "28% - Amt @ Tax"
+        '
+        'lblGST18
+        '
+        Me.lblGST18.AutoSize = True
+        Me.lblGST18.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblGST18.ForeColor = System.Drawing.Color.White
+        Me.lblGST18.Location = New System.Drawing.Point(464, 549)
+        Me.lblGST18.Name = "lblGST18"
+        Me.lblGST18.Size = New System.Drawing.Size(115, 14)
+        Me.lblGST18.TabIndex = 271
+        Me.lblGST18.Text = "18% - Amt @ Tax"
+        '
+        'lblGST12
+        '
+        Me.lblGST12.AutoSize = True
+        Me.lblGST12.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblGST12.ForeColor = System.Drawing.Color.White
+        Me.lblGST12.Location = New System.Drawing.Point(464, 529)
+        Me.lblGST12.Name = "lblGST12"
+        Me.lblGST12.Size = New System.Drawing.Size(115, 14)
+        Me.lblGST12.TabIndex = 270
+        Me.lblGST12.Text = "12% - Amt @ Tax"
+        '
+        'lblGST5
+        '
+        Me.lblGST5.AutoSize = True
+        Me.lblGST5.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblGST5.ForeColor = System.Drawing.Color.White
+        Me.lblGST5.Location = New System.Drawing.Point(465, 511)
+        Me.lblGST5.Name = "lblGST5"
+        Me.lblGST5.Size = New System.Drawing.Size(107, 14)
+        Me.lblGST5.TabIndex = 269
+        Me.lblGST5.Text = "5% - Amt @ Tax"
+        '
+        'lblGST0
+        '
+        Me.lblGST0.AutoSize = True
+        Me.lblGST0.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblGST0.ForeColor = System.Drawing.Color.White
+        Me.lblGST0.Location = New System.Drawing.Point(465, 475)
+        Me.lblGST0.Name = "lblGST0"
+        Me.lblGST0.Size = New System.Drawing.Size(107, 14)
+        Me.lblGST0.TabIndex = 268
+        Me.lblGST0.Text = "0% - Amt @ Tax"
+        '
+        'lblGSTHeader
+        '
+        Me.lblGSTHeader.AutoSize = True
+        Me.lblGSTHeader.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblGSTHeader.ForeColor = System.Drawing.Color.White
+        Me.lblGSTHeader.Location = New System.Drawing.Point(464, 455)
+        Me.lblGSTHeader.Name = "lblGSTHeader"
+        Me.lblGSTHeader.Size = New System.Drawing.Size(116, 14)
+        Me.lblGSTHeader.TabIndex = 267
+        Me.lblGSTHeader.Text = "GST Summary :-"
+        '
+        'Panel1
+        '
+        Me.Panel1.BackColor = System.Drawing.Color.White
+        Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel1.Location = New System.Drawing.Point(453, 410)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(3, 179)
+        Me.Panel1.TabIndex = 81
+        '
         'lblcessamt
         '
         Me.lblcessamt.BackColor = System.Drawing.Color.Transparent
-        Me.lblcessamt.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblcessamt.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblcessamt.ForeColor = System.Drawing.Color.Orange
-        Me.lblcessamt.Location = New System.Drawing.Point(780, 483)
+        Me.lblcessamt.Location = New System.Drawing.Point(780, 507)
         Me.lblcessamt.Name = "lblcessamt"
         Me.lblcessamt.Size = New System.Drawing.Size(118, 20)
         Me.lblcessamt.TabIndex = 79
@@ -344,7 +474,7 @@ Partial Class frm_material_rec_against_PO
         Me.Label16.AutoSize = True
         Me.Label16.BackColor = System.Drawing.Color.Transparent
         Me.Label16.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label16.Location = New System.Drawing.Point(680, 486)
+        Me.Label16.Location = New System.Drawing.Point(680, 510)
         Me.Label16.Name = "Label16"
         Me.Label16.Size = New System.Drawing.Size(90, 15)
         Me.Label16.TabIndex = 80
@@ -362,39 +492,6 @@ Partial Class frm_material_rec_against_PO
         Me.lblMRNType.Text = "0.00"
         Me.lblMRNType.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'lblexciseamt
-        '
-        Me.lblexciseamt.BackColor = System.Drawing.Color.Transparent
-        Me.lblexciseamt.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblexciseamt.ForeColor = System.Drawing.Color.Orange
-        Me.lblexciseamt.Location = New System.Drawing.Point(88, 256)
-        Me.lblexciseamt.Name = "lblexciseamt"
-        Me.lblexciseamt.Size = New System.Drawing.Size(118, 20)
-        Me.lblexciseamt.TabIndex = 76
-        Me.lblexciseamt.Text = "0.00"
-        Me.lblexciseamt.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.lblexciseamt.Visible = False
-        '
-        'Label14
-        '
-        Me.Label14.AutoSize = True
-        Me.Label14.BackColor = System.Drawing.Color.Transparent
-        Me.Label14.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label14.Location = New System.Drawing.Point(6, 259)
-        Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(83, 15)
-        Me.Label14.TabIndex = 77
-        Me.Label14.Text = "Exice Amount:"
-        Me.Label14.Visible = False
-        '
-        'Panel19
-        '
-        Me.Panel19.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel19.Location = New System.Drawing.Point(755, 463)
-        Me.Panel19.Name = "Panel19"
-        Me.Panel19.Size = New System.Drawing.Size(117, 1)
-        Me.Panel19.TabIndex = 75
-        '
         'lnkCalculateAmount
         '
         Me.lnkCalculateAmount.BackColor = System.Drawing.Color.Silver
@@ -409,17 +506,6 @@ Partial Class frm_material_rec_against_PO
         Me.lnkCalculateAmount.Text = "Calculate Amount"
         Me.lnkCalculateAmount.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
-        'Label13
-        '
-        Me.Label13.AutoSize = True
-        Me.Label13.BackColor = System.Drawing.Color.Transparent
-        Me.Label13.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label13.Location = New System.Drawing.Point(680, 510)
-        Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(51, 15)
-        Me.Label13.TabIndex = 73
-        Me.Label13.Text = "Frieght :"
-        '
         'Panel18
         '
         Me.Panel18.BackColor = System.Drawing.Color.White
@@ -429,22 +515,13 @@ Partial Class frm_material_rec_against_PO
         Me.Panel18.Size = New System.Drawing.Size(3, 179)
         Me.Panel18.TabIndex = 72
         '
-        'Panel16
-        '
-        Me.Panel16.BackColor = System.Drawing.Color.Transparent
-        Me.Panel16.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel16.Location = New System.Drawing.Point(755, 459)
-        Me.Panel16.Name = "Panel16"
-        Me.Panel16.Size = New System.Drawing.Size(117, 1)
-        Me.Panel16.TabIndex = 70
-        '
         'txtotherchrgs
         '
         Me.txtotherchrgs.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.txtotherchrgs.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtotherchrgs.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtotherchrgs.ForeColor = System.Drawing.Color.Orange
-        Me.txtotherchrgs.Location = New System.Drawing.Point(777, 530)
+        Me.txtotherchrgs.Location = New System.Drawing.Point(777, 533)
         Me.txtotherchrgs.Name = "txtotherchrgs"
         Me.txtotherchrgs.Size = New System.Drawing.Size(118, 18)
         Me.txtotherchrgs.TabIndex = 10
@@ -457,26 +534,13 @@ Partial Class frm_material_rec_against_PO
         Me.txtdiscount.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtdiscount.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtdiscount.ForeColor = System.Drawing.Color.Orange
-        Me.txtdiscount.Location = New System.Drawing.Point(777, 553)
+        Me.txtdiscount.Location = New System.Drawing.Point(777, 554)
         Me.txtdiscount.Name = "txtdiscount"
         Me.txtdiscount.ReadOnly = True
         Me.txtdiscount.Size = New System.Drawing.Size(118, 18)
         Me.txtdiscount.TabIndex = 66
         Me.txtdiscount.Text = "0.00"
         Me.txtdiscount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        '
-        'txt_Amount
-        '
-        Me.txt_Amount.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.txt_Amount.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.txt_Amount.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txt_Amount.ForeColor = System.Drawing.Color.Orange
-        Me.txt_Amount.Location = New System.Drawing.Point(777, 507)
-        Me.txt_Amount.Name = "txt_Amount"
-        Me.txt_Amount.Size = New System.Drawing.Size(118, 18)
-        Me.txt_Amount.TabIndex = 9
-        Me.txt_Amount.Text = "0.00"
-        Me.txt_Amount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'lblnetamt
         '
@@ -506,7 +570,7 @@ Partial Class frm_material_rec_against_PO
         Me.Label51.AutoSize = True
         Me.Label51.BackColor = System.Drawing.Color.Transparent
         Me.Label51.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label51.Location = New System.Drawing.Point(680, 555)
+        Me.Label51.Location = New System.Drawing.Point(680, 556)
         Me.Label51.Name = "Label51"
         Me.Label51.Size = New System.Drawing.Size(85, 15)
         Me.Label51.TabIndex = 55
@@ -515,9 +579,9 @@ Partial Class frm_material_rec_against_PO
         'lblvatamt
         '
         Me.lblvatamt.BackColor = System.Drawing.Color.Transparent
-        Me.lblvatamt.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblvatamt.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblvatamt.ForeColor = System.Drawing.Color.Orange
-        Me.lblvatamt.Location = New System.Drawing.Point(781, 428)
+        Me.lblvatamt.Location = New System.Drawing.Point(781, 449)
         Me.lblvatamt.Name = "lblvatamt"
         Me.lblvatamt.Size = New System.Drawing.Size(118, 20)
         Me.lblvatamt.TabIndex = 58
@@ -529,11 +593,11 @@ Partial Class frm_material_rec_against_PO
         Me.Label53.AutoSize = True
         Me.Label53.BackColor = System.Drawing.Color.Transparent
         Me.Label53.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label53.Location = New System.Drawing.Point(680, 532)
+        Me.Label53.Location = New System.Drawing.Point(680, 535)
         Me.Label53.Name = "Label53"
-        Me.Label53.Size = New System.Drawing.Size(94, 15)
+        Me.Label53.Size = New System.Drawing.Size(68, 15)
         Me.Label53.TabIndex = 63
-        Me.Label53.Text = "Other Charges :"
+        Me.Label53.Text = "Round Off :"
         '
         'lblgrossamt
         '
@@ -552,7 +616,7 @@ Partial Class frm_material_rec_against_PO
         Me.Label55.AutoSize = True
         Me.Label55.BackColor = System.Drawing.Color.Transparent
         Me.Label55.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label55.Location = New System.Drawing.Point(680, 431)
+        Me.Label55.Location = New System.Drawing.Point(680, 452)
         Me.Label55.Name = "Label55"
         Me.Label55.Size = New System.Drawing.Size(81, 15)
         Me.Label55.TabIndex = 60
@@ -637,33 +701,6 @@ Partial Class frm_material_rec_against_PO
         Me.Label12.TabIndex = 51
         Me.Label12.Text = "Invoice No :"
         '
-        'GroupBox5
-        '
-        Me.GroupBox5.BackColor = System.Drawing.Color.Transparent
-        Me.GroupBox5.Controls.Add(Me.FLXGRD_PO_NON_STOCKABLEITEMS)
-        Me.GroupBox5.ForeColor = System.Drawing.Color.White
-        Me.GroupBox5.Location = New System.Drawing.Point(3, 355)
-        Me.GroupBox5.Name = "GroupBox5"
-        Me.GroupBox5.Size = New System.Drawing.Size(896, 11)
-        Me.GroupBox5.TabIndex = 3
-        Me.GroupBox5.TabStop = False
-        Me.GroupBox5.Text = "Non Stockable Items"
-        Me.GroupBox5.Visible = False
-        '
-        'FLXGRD_PO_NON_STOCKABLEITEMS
-        '
-        Me.FLXGRD_PO_NON_STOCKABLEITEMS.AutoSearch = C1.Win.C1FlexGrid.AutoSearchEnum.FromTop
-        Me.FLXGRD_PO_NON_STOCKABLEITEMS.BackColor = System.Drawing.Color.Silver
-        Me.FLXGRD_PO_NON_STOCKABLEITEMS.ColumnInfo = "10,1,0,0,0,85,Columns:"
-        Me.FLXGRD_PO_NON_STOCKABLEITEMS.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.FLXGRD_PO_NON_STOCKABLEITEMS.FocusRect = C1.Win.C1FlexGrid.FocusRectEnum.Solid
-        Me.FLXGRD_PO_NON_STOCKABLEITEMS.Location = New System.Drawing.Point(3, 16)
-        Me.FLXGRD_PO_NON_STOCKABLEITEMS.Name = "FLXGRD_PO_NON_STOCKABLEITEMS"
-        Me.FLXGRD_PO_NON_STOCKABLEITEMS.Rows.DefaultSize = 17
-        Me.FLXGRD_PO_NON_STOCKABLEITEMS.Size = New System.Drawing.Size(890, 0)
-        Me.FLXGRD_PO_NON_STOCKABLEITEMS.Styles = New C1.Win.C1FlexGrid.CellStyleCollection(resources.GetString("FLXGRD_PO_NON_STOCKABLEITEMS.Styles"))
-        Me.FLXGRD_PO_NON_STOCKABLEITEMS.TabIndex = 2
-        '
         'txt_Remarks
         '
         Me.txt_Remarks.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
@@ -704,6 +741,31 @@ Partial Class frm_material_rec_against_PO
         Me.FLXGRD_PO_Items.Styles = New C1.Win.C1FlexGrid.CellStyleCollection(resources.GetString("FLXGRD_PO_Items.Styles"))
         Me.FLXGRD_PO_Items.TabIndex = 3
         '
+        'Label14
+        '
+        Me.Label14.AutoSize = True
+        Me.Label14.BackColor = System.Drawing.Color.Transparent
+        Me.Label14.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label14.Location = New System.Drawing.Point(6, 259)
+        Me.Label14.Name = "Label14"
+        Me.Label14.Size = New System.Drawing.Size(83, 15)
+        Me.Label14.TabIndex = 77
+        Me.Label14.Text = "Exice Amount:"
+        Me.Label14.Visible = False
+        '
+        'lblexciseamt
+        '
+        Me.lblexciseamt.BackColor = System.Drawing.Color.Transparent
+        Me.lblexciseamt.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblexciseamt.ForeColor = System.Drawing.Color.Orange
+        Me.lblexciseamt.Location = New System.Drawing.Point(88, 256)
+        Me.lblexciseamt.Name = "lblexciseamt"
+        Me.lblexciseamt.Size = New System.Drawing.Size(118, 20)
+        Me.lblexciseamt.TabIndex = 76
+        Me.lblexciseamt.Text = "0.00"
+        Me.lblexciseamt.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.lblexciseamt.Visible = False
+        '
         'GroupBox1
         '
         Me.GroupBox1.BackColor = System.Drawing.Color.Transparent
@@ -734,18 +796,6 @@ Partial Class frm_material_rec_against_PO
         Me.lblcustid.Name = "lblcustid"
         Me.lblcustid.Size = New System.Drawing.Size(0, 13)
         Me.lblcustid.TabIndex = 29
-        '
-        'chk_VatCal
-        '
-        Me.chk_VatCal.AutoSize = True
-        Me.chk_VatCal.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chk_VatCal.Location = New System.Drawing.Point(737, 41)
-        Me.chk_VatCal.Name = "chk_VatCal"
-        Me.chk_VatCal.Size = New System.Drawing.Size(153, 19)
-        Me.chk_VatCal.TabIndex = 28
-        Me.chk_VatCal.Text = "Calculate Vat on Excise"
-        Me.chk_VatCal.UseVisualStyleBackColor = True
-        Me.chk_VatCal.Visible = False
         '
         'lblSupplier
         '
@@ -864,6 +914,18 @@ Partial Class frm_material_rec_against_PO
         Me.lblFormHeading.Text = "Material Recieved" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "against" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Purchase Order"
         Me.lblFormHeading.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
+        'chk_VatCal
+        '
+        Me.chk_VatCal.AutoSize = True
+        Me.chk_VatCal.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.chk_VatCal.Location = New System.Drawing.Point(737, 41)
+        Me.chk_VatCal.Name = "chk_VatCal"
+        Me.chk_VatCal.Size = New System.Drawing.Size(153, 19)
+        Me.chk_VatCal.TabIndex = 28
+        Me.chk_VatCal.Text = "Calculate Vat on Excise"
+        Me.chk_VatCal.UseVisualStyleBackColor = True
+        Me.chk_VatCal.Visible = False
+        '
         'Label4
         '
         Me.Label4.AutoSize = True
@@ -874,6 +936,33 @@ Partial Class frm_material_rec_against_PO
         Me.Label4.Size = New System.Drawing.Size(94, 15)
         Me.Label4.TabIndex = 12
         Me.Label4.Text = "MRN Remarks :"
+        '
+        'GroupBox5
+        '
+        Me.GroupBox5.BackColor = System.Drawing.Color.Transparent
+        Me.GroupBox5.Controls.Add(Me.FLXGRD_PO_NON_STOCKABLEITEMS)
+        Me.GroupBox5.ForeColor = System.Drawing.Color.White
+        Me.GroupBox5.Location = New System.Drawing.Point(3, 355)
+        Me.GroupBox5.Name = "GroupBox5"
+        Me.GroupBox5.Size = New System.Drawing.Size(896, 11)
+        Me.GroupBox5.TabIndex = 3
+        Me.GroupBox5.TabStop = False
+        Me.GroupBox5.Text = "Non Stockable Items"
+        Me.GroupBox5.Visible = False
+        '
+        'FLXGRD_PO_NON_STOCKABLEITEMS
+        '
+        Me.FLXGRD_PO_NON_STOCKABLEITEMS.AutoSearch = C1.Win.C1FlexGrid.AutoSearchEnum.FromTop
+        Me.FLXGRD_PO_NON_STOCKABLEITEMS.BackColor = System.Drawing.Color.Silver
+        Me.FLXGRD_PO_NON_STOCKABLEITEMS.ColumnInfo = "10,1,0,0,0,85,Columns:"
+        Me.FLXGRD_PO_NON_STOCKABLEITEMS.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.FLXGRD_PO_NON_STOCKABLEITEMS.FocusRect = C1.Win.C1FlexGrid.FocusRectEnum.Solid
+        Me.FLXGRD_PO_NON_STOCKABLEITEMS.Location = New System.Drawing.Point(3, 16)
+        Me.FLXGRD_PO_NON_STOCKABLEITEMS.Name = "FLXGRD_PO_NON_STOCKABLEITEMS"
+        Me.FLXGRD_PO_NON_STOCKABLEITEMS.Rows.DefaultSize = 17
+        Me.FLXGRD_PO_NON_STOCKABLEITEMS.Size = New System.Drawing.Size(890, 0)
+        Me.FLXGRD_PO_NON_STOCKABLEITEMS.Styles = New C1.Win.C1FlexGrid.CellStyleCollection(resources.GetString("FLXGRD_PO_NON_STOCKABLEITEMS.Styles"))
+        Me.FLXGRD_PO_NON_STOCKABLEITEMS.TabIndex = 2
         '
         'ImageList1
         '
@@ -892,103 +981,6 @@ Partial Class frm_material_rec_against_PO
         Me.C1FlexGrid1.Styles = New C1.Win.C1FlexGrid.CellStyleCollection(resources.GetString("C1FlexGrid1.Styles"))
         Me.C1FlexGrid1.TabIndex = 0
         '
-        'Panel1
-        '
-        Me.Panel1.BackColor = System.Drawing.Color.White
-        Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel1.Location = New System.Drawing.Point(453, 410)
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(3, 179)
-        Me.Panel1.TabIndex = 81
-        '
-        'lblGST3
-        '
-        Me.lblGST3.AutoSize = True
-        Me.lblGST3.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblGST3.ForeColor = System.Drawing.Color.White
-        Me.lblGST3.Location = New System.Drawing.Point(465, 493)
-        Me.lblGST3.Name = "lblGST3"
-        Me.lblGST3.Size = New System.Drawing.Size(107, 14)
-        Me.lblGST3.TabIndex = 274
-        Me.lblGST3.Text = "3% - Amt @ Tax"
-        '
-        'lblGSTDetail
-        '
-        Me.lblGSTDetail.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblGSTDetail.ForeColor = System.Drawing.Color.Orange
-        Me.lblGSTDetail.Location = New System.Drawing.Point(719, 449)
-        Me.lblGSTDetail.Name = "lblGSTDetail"
-        Me.lblGSTDetail.Size = New System.Drawing.Size(182, 37)
-        Me.lblGSTDetail.TabIndex = 273
-        Me.lblGSTDetail.Text = "UTGST - 0.00" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "SGST - 0.00"
-        Me.lblGSTDetail.TextAlign = System.Drawing.ContentAlignment.TopRight
-        '
-        'lblGST28
-        '
-        Me.lblGST28.AutoSize = True
-        Me.lblGST28.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblGST28.ForeColor = System.Drawing.Color.White
-        Me.lblGST28.Location = New System.Drawing.Point(464, 568)
-        Me.lblGST28.Name = "lblGST28"
-        Me.lblGST28.Size = New System.Drawing.Size(115, 14)
-        Me.lblGST28.TabIndex = 272
-        Me.lblGST28.Text = "28% - Amt @ Tax"
-        '
-        'lblGST18
-        '
-        Me.lblGST18.AutoSize = True
-        Me.lblGST18.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblGST18.ForeColor = System.Drawing.Color.White
-        Me.lblGST18.Location = New System.Drawing.Point(464, 549)
-        Me.lblGST18.Name = "lblGST18"
-        Me.lblGST18.Size = New System.Drawing.Size(115, 14)
-        Me.lblGST18.TabIndex = 271
-        Me.lblGST18.Text = "18% - Amt @ Tax"
-        '
-        'lblGST12
-        '
-        Me.lblGST12.AutoSize = True
-        Me.lblGST12.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblGST12.ForeColor = System.Drawing.Color.White
-        Me.lblGST12.Location = New System.Drawing.Point(464, 529)
-        Me.lblGST12.Name = "lblGST12"
-        Me.lblGST12.Size = New System.Drawing.Size(115, 14)
-        Me.lblGST12.TabIndex = 270
-        Me.lblGST12.Text = "12% - Amt @ Tax"
-        '
-        'lblGST5
-        '
-        Me.lblGST5.AutoSize = True
-        Me.lblGST5.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblGST5.ForeColor = System.Drawing.Color.White
-        Me.lblGST5.Location = New System.Drawing.Point(465, 511)
-        Me.lblGST5.Name = "lblGST5"
-        Me.lblGST5.Size = New System.Drawing.Size(107, 14)
-        Me.lblGST5.TabIndex = 269
-        Me.lblGST5.Text = "5% - Amt @ Tax"
-        '
-        'lblGST0
-        '
-        Me.lblGST0.AutoSize = True
-        Me.lblGST0.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblGST0.ForeColor = System.Drawing.Color.White
-        Me.lblGST0.Location = New System.Drawing.Point(465, 475)
-        Me.lblGST0.Name = "lblGST0"
-        Me.lblGST0.Size = New System.Drawing.Size(107, 14)
-        Me.lblGST0.TabIndex = 268
-        Me.lblGST0.Text = "0% - Amt @ Tax"
-        '
-        'lblGSTHeader
-        '
-        Me.lblGSTHeader.AutoSize = True
-        Me.lblGSTHeader.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblGSTHeader.ForeColor = System.Drawing.Color.White
-        Me.lblGSTHeader.Location = New System.Drawing.Point(464, 455)
-        Me.lblGSTHeader.Name = "lblGSTHeader"
-        Me.lblGSTHeader.Size = New System.Drawing.Size(116, 14)
-        Me.lblGSTHeader.TabIndex = 267
-        Me.lblGSTHeader.Text = "GST Summary :-"
-        '
         'frm_material_rec_against_PO
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1004,13 +996,13 @@ Partial Class frm_material_rec_against_PO
         CType(Me.dgvList, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabPage2.ResumeLayout(False)
         Me.TabPage2.PerformLayout()
-        Me.GroupBox5.ResumeLayout(False)
-        CType(Me.FLXGRD_PO_NON_STOCKABLEITEMS, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
         CType(Me.FLXGRD_PO_Items, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
+        Me.GroupBox5.ResumeLayout(False)
+        CType(Me.FLXGRD_PO_NON_STOCKABLEITEMS, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.C1FlexGrid1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
@@ -1057,14 +1049,10 @@ Partial Class frm_material_rec_against_PO
     Friend WithEvents BtnActualMRN As System.Windows.Forms.Button
 
     Friend WithEvents FLXGRD_PO_NON_STOCKABLEITEMS As C1.Win.C1FlexGrid.C1FlexGrid
-    Friend WithEvents Panel19 As System.Windows.Forms.Panel
     Friend WithEvents lnkCalculateAmount As System.Windows.Forms.LinkLabel
-    Friend WithEvents Label13 As System.Windows.Forms.Label
     Friend WithEvents Panel18 As System.Windows.Forms.Panel
-    Friend WithEvents Panel16 As System.Windows.Forms.Panel
     Friend WithEvents txtotherchrgs As System.Windows.Forms.TextBox
     Friend WithEvents txtdiscount As System.Windows.Forms.TextBox
-    Friend WithEvents txt_Amount As System.Windows.Forms.TextBox
     Friend WithEvents lblnetamt As System.Windows.Forms.Label
     Friend WithEvents Label50 As System.Windows.Forms.Label
     Friend WithEvents Label51 As System.Windows.Forms.Label
@@ -1090,4 +1078,7 @@ Partial Class frm_material_rec_against_PO
     Friend WithEvents lblGST5 As Label
     Friend WithEvents lblGST0 As Label
     Friend WithEvents lblGSTHeader As Label
+    Friend WithEvents chk_ApplyTax As CheckBox
+    Friend WithEvents txtAmount As TextBox
+    Friend WithEvents Label15 As Label
 End Class

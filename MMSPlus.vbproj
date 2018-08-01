@@ -2300,6 +2300,8 @@
     <Content Include="Scripts\2018Update\0020_05_July_2018_PurcgaseRegisterModified.sql" />
     <Content Include="Scripts\2018Update\0023_17_July_2018_MRN_WPO_LANDING_AMOUNT.sql" />
     <Content Include="Scripts\2018Update\0024_23_July_2018_Add_Partial_PO.sql" />
+    <Content Include="Scripts\2018Update\0027_30_July_2018_PurchaseOrderCompositionChanges.sql" />
+    <Content Include="Scripts\2018Update\0026_26_July_2018_CompositionChanges.sql" />
     <Content Include="Scripts\2018Update\0025_24_July_2018_Change_PO_and_Ratelist.sql" />
     <Content Include="Scripts\2018Update\0026_26_July_2018_user_Rights.sql" />
     <Content Include="Scripts\2018Update\0026_27_July_2018_DebitNote_Modify.sql" />

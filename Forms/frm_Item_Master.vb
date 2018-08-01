@@ -249,12 +249,15 @@ Public Class frm_Item_Master
                     & " ITEM_MASTER.TRANSFER_RATE, ITEM_MASTER.SALE_RATE, ITEM_MASTER.PURCHASE_RATE, ITEM_MASTER.VAT_ID, ITEM_MASTER.EXCISE_ID, " _
                     & " ITEM_MASTER.CREATED_BY, ITEM_MASTER.CREATION_DATE, ITEM_MASTER.MODIFIED_BY, ITEM_MASTER.MODIFIED_DATE, " _
                     & " ITEM_MASTER.DIVISION_ID, ITEM_MASTER.IS_STOCKABLE, UNIT_MASTER_1.UM_Name AS ISSUE_UOM, " _
-                    & " UNIT_MASTER_2.UM_Name AS Recp_UM" _
+                    & " UNIT_MASTER_2.UM_Name AS Recp_UM,MRP_Num AS MRP,sale_rate AS SALERATE,HsnCode_vch AS HSNCODE, BarCode_vch AS BARCODE,ISNULL(LabelItemName_vch,'N/A')AS BrandName" _
                     & " FROM         ITEM_MASTER INNER JOIN" _
                     & " UNIT_MASTER ON ITEM_MASTER.UM_ID = UNIT_MASTER.UM_ID INNER JOIN" _
                     & " ITEM_CATEGORY ON ITEM_MASTER.ITEM_CATEGORY_ID = ITEM_CATEGORY.ITEM_CAT_ID INNER JOIN" _
                     & " UNIT_MASTER AS UNIT_MASTER_1 ON ITEM_MASTER.ISSUE_UM_ID = UNIT_MASTER_1.UM_ID INNER JOIN" _
-                    & " UNIT_MASTER AS UNIT_MASTER_2 ON ITEM_MASTER.RECP_UM_ID = UNIT_MASTER_2.UM_ID" _
+                    & " UNIT_MASTER AS UNIT_MASTER_2 ON ITEM_MASTER.RECP_UM_ID = UNIT_MASTER_2.UM_ID " _
+                    & " INNER JOIN dbo.HsnCode_Master ON dbo.HsnCode_Master.Pk_HsnId_num=dbo.ITEM_MASTER.fk_HsnId_num " _
+                    & " LEFT JOIN dbo.LabelItem_Mapping ON dbo.LabelItem_Mapping.Fk_ItemId_Num=dbo.ITEM_MASTER.ITEM_ID " _
+                    & " LEFT JOIN  dbo.Label_Items ON dbo.Label_Items.Pk_LabelDetailId_Num=LabelItem_Mapping.Fk_LabelDetailId " _
                     & " where ITEM_ID =" & Convert.ToString(ItemID)
             ds = Obj.Fill_DataSet(Qry)
             If ds.Tables(0).Rows.Count > 0 Then
@@ -276,6 +279,13 @@ Public Class frm_Item_Master
                 chkIsStockable.Checked = Convert.ToBoolean(drv("IS_STOCKABLE"))
                 chkIsActive.Checked = True
                 txtCurrentStock.Text = "0.000"
+
+                lblmrp.Text = drv("MRP").ToString()
+                lblSalerate.Text = drv("SALERATE").ToString()
+                lblhsn.Text = drv("HSNCODE").ToString()
+                lblbarcode.Text = drv("BARCODE").ToString()
+                lblbrandname.Text = drv("BrandName").ToString()
+
                 Flag = "update"
             Else
                 '''''''''''''''''''''''''''new_initilization()

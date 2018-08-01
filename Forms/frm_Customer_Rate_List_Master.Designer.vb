@@ -38,6 +38,8 @@ Partial Class frm_Customer_Rate_List_Master
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.grdSupplier = New System.Windows.Forms.DataGridView()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.txtBarcodeSearch = New System.Windows.Forms.TextBox()
+        Me.Label15 = New System.Windows.Forms.Label()
         Me.btn_ratelist_mapping = New System.Windows.Forms.Button()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.lblFormHeading = New System.Windows.Forms.Label()
@@ -249,14 +251,14 @@ Partial Class frm_Customer_Rate_List_Master
         Me.grdSupplier.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.grdSupplier.RowTemplate.DefaultCellStyle.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grdSupplier.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.White
-        'Me.grdSupplier.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.Orange
-        'Me.grdSupplier.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black
         Me.grdSupplier.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.grdSupplier.Size = New System.Drawing.Size(845, 374)
         Me.grdSupplier.TabIndex = 0
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.txtBarcodeSearch)
+        Me.GroupBox1.Controls.Add(Me.Label15)
         Me.GroupBox1.Controls.Add(Me.btn_ratelist_mapping)
         Me.GroupBox1.Controls.Add(Me.Label1)
         Me.GroupBox1.Controls.Add(Me.lblFormHeading)
@@ -277,6 +279,29 @@ Partial Class frm_Customer_Rate_List_Master
         Me.GroupBox1.TabIndex = 6
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Customer Rate List"
+        '
+        'txtBarcodeSearch
+        '
+        Me.txtBarcodeSearch.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.txtBarcodeSearch.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.txtBarcodeSearch.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtBarcodeSearch.ForeColor = System.Drawing.Color.White
+        Me.txtBarcodeSearch.Location = New System.Drawing.Point(104, 126)
+        Me.txtBarcodeSearch.MaxLength = 100
+        Me.txtBarcodeSearch.Name = "txtBarcodeSearch"
+        Me.txtBarcodeSearch.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
+        Me.txtBarcodeSearch.Size = New System.Drawing.Size(505, 19)
+        Me.txtBarcodeSearch.TabIndex = 66
+        '
+        'Label15
+        '
+        Me.Label15.AutoSize = True
+        Me.Label15.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label15.Location = New System.Drawing.Point(6, 129)
+        Me.Label15.Name = "Label15"
+        Me.Label15.Size = New System.Drawing.Size(62, 15)
+        Me.Label15.TabIndex = 65
+        Me.Label15.Text = "BarCode :"
         '
         'btn_ratelist_mapping
         '
@@ -336,7 +361,7 @@ Partial Class frm_Customer_Rate_List_Master
         Me.txtDesc.Multiline = True
         Me.txtDesc.Name = "txtDesc"
         Me.txtDesc.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtDesc.Size = New System.Drawing.Size(504, 54)
+        Me.txtDesc.Size = New System.Drawing.Size(504, 34)
         Me.txtDesc.TabIndex = 3
         '
         'cmbSupplier
@@ -469,4 +494,6 @@ Partial Class frm_Customer_Rate_List_Master
     Friend WithEvents Label13 As System.Windows.Forms.Label
     Friend WithEvents ImageList1 As ImageList
     Friend WithEvents btn_ratelist_mapping As System.Windows.Forms.Button
+    Friend WithEvents txtBarcodeSearch As TextBox
+    Friend WithEvents Label15 As Label
 End Class

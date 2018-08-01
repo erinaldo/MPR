@@ -3,6 +3,7 @@ Imports System.Data.SqlClient
 Imports System.Text
 Imports MMSPlus.frm_Supplier_Rate_List_Master
 
+
 Public Class frm_Supplier_Rate_List_Master
 
     Implements IForm
@@ -20,6 +21,7 @@ Public Class frm_Supplier_Rate_List_Master
     Dim txtQuanity As TextBox
     Dim int_RowIndex As Integer
     Dim _rights As Form_Rights
+    Dim source1 As New BindingSource()
 
     Public Sub New(ByVal rights As Form_Rights)
         _rights = rights
@@ -326,7 +328,7 @@ Public Class frm_Supplier_Rate_List_Master
 
         txbCol = New DataGridViewTextBoxColumn
         With txbCol
-            .HeaderText = "BarCode"
+            .HeaderText = "Item Code"
             .Name = "Item_Code"
             .DataPropertyName = "Item_Code"
             .ReadOnly = True
@@ -480,7 +482,7 @@ Public Class frm_Supplier_Rate_List_Master
     Private Sub FillGrid()
         Try
             'obj.GridBind(grdSupplierList, "SELECT srl_id,srl_name,srl_desc,active,creation_date from Supplier_rate_list")
-            obj.GridBind(grdSupplierList, "SELECT SUPPLIER_RATE_LIST.SRL_ID,SUPPLIER_RATE_LIST.SRL_NAME,SUPPLIER_RATE_LIST.SRL_DATE,SUPPLIER_RATE_LIST.SRL_DESC,SUPPLIER_RATE_LIST.ACTIVE,ACCOUNT_MASTER.ACC_NAME,ACCOUNT_MASTER.ACC_ID FROM SUPPLIER_RATE_LIST INNER JOIN ACCOUNT_MASTER ON SUPPLIER_RATE_LIST.SUPP_ID = ACCOUNT_MASTER.ACC_ID WHERE AG_ID in (1,2,3,6) order by SUPPLIER_RATE_LIST.SRL_NAME")
+            obj.GridBind(grdSupplierList, "SELECT SUPPLIER_RATE_LIST.SRL_ID,SUPPLIER_RATE_LIST.SRL_NAME,SUPPLIER_RATE_LIST.SRL_DATE,SUPPLIER_RATE_LIST.SRL_DESC,SUPPLIER_RATE_LIST.ACTIVE,ACCOUNT_MASTER.ACC_NAME,ACCOUNT_MASTER.ACC_ID FROM SUPPLIER_RATE_LIST INNER JOIN ACCOUNT_MASTER ON SUPPLIER_RATE_LIST.SUPP_ID = ACCOUNT_MASTER.ACC_ID WHERE AG_ID in (1,2,3,6) AND SRL_ID NOT IN(SELECT SRL_ID FROM dbo.CUSTOMER_RATE_LIST_MAPPING) order by SUPPLIER_RATE_LIST.SRL_NAME")
             grdSupplierList.Width = 860
             grdSupplierList.Columns(0).Visible = False 'Supplier id
             grdSupplierList.Columns(0).Width = 300
@@ -711,6 +713,7 @@ Public Class frm_Supplier_Rate_List_Master
                 datatbl = ds.Tables(0)
 
 
+
                 If IsInsert = True Then
                     Dim introw As Integer
 
@@ -734,6 +737,31 @@ Public Class frm_Supplier_Rate_List_Master
 
                 End If
             Next
+
+            'Dim dtCustomers As New DataTable("Item")
+
+            'dtCustomers.Columns.Add("Item_ID", GetType(String))
+            'dtCustomers.Columns.Add("Item_CODE", GetType(String))
+            'dtCustomers.Columns.Add("Item_Name", GetType(String))
+            'dtCustomers.Columns.Add("UOM", GetType(String))
+            'dtCustomers.Columns.Add("gst", GetType(String))
+            'dtCustomers.Columns.Add("rate", GetType(String))
+            'dtCustomers.Columns.Add("Selling_Rate", GetType(String))
+
+
+            'For Each row As DataGridViewRow In grdSupplier.Rows
+            '    dtCustomers.Rows.Add()
+            '    For i As Integer = 0 To row.Cells.Count - 1
+            '        If row.Cells(i).Value <> Nothing Then
+            '            dtCustomers.Rows(row.Index)(i - 1) = row.Cells(i).Value
+            '        End If
+
+
+            '    Next
+            'Next
+
+            'grdSupplier.DataSource = dtCustomers
+            'source1.DataSource = dtCustomers
 
         End If
 
@@ -792,4 +820,35 @@ Public Class frm_Supplier_Rate_List_Master
             End If
         End If
     End Sub
+
+    Private Sub txtBarcodeSearch_KeyDown(sender As Object, e As KeyEventArgs) Handles txtBarcodeSearch.KeyDown
+        If e.KeyCode = Keys.Enter Then
+            If Not String.IsNullOrEmpty(txtBarcodeSearch.Text) Then
+
+                Dim qry As String = "SELECT  im.item_id  FROM  Item_master im  LEFT OUTER JOIN item_detail id ON im.item_id = id.item_id  WHERE id.Is_active = 1 and    Barcode_vch = '" + txtBarcodeSearch.Text + "'"
+                Dim id As Int32 = clsObj.ExecuteScalar(qry)
+                If id > 0 Then
+                    get_row(id)
+
+                End If
+                txtBarcodeSearch.Text = ""
+                txtBarcodeSearch.Focus()
+            End If
+        End If
+    End Sub
+
+    Private Sub txt_search_TextChanged(sender As Object, e As EventArgs) Handles txt_search.TextChanged
+
+        'If txt_search.Text = "" Then
+        '    source1.Filter = ""
+        'Else
+        '    source1.Filter = "[Item_CODE] like '%" & txt_search.Text & "%'  OR [Item_name] like '%" & txt_search.Text & "%' "
+        'End If
+
+        'grdSupplier.Refresh()
+
+        '((DataTable)datagridview1.DataSource)).DefaultView.RowFilter = string.Format("name LIKE '*{0}*'",txt_search.Text)
+
+    End Sub
+
 End Class

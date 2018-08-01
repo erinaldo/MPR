@@ -101,9 +101,11 @@ Public Class frm_Show_Search_RateList
                     Next
                 End If
             End If
+            If grdSearch.RowCount > 0 Then
+                Dim checkBox As DataGridViewCheckBoxCell = (TryCast(grdSearch.Rows(0).Cells("chkBxSelect"), DataGridViewCheckBoxCell))
+                checkBox.Value = True
+            End If
 
-            Dim checkBox As DataGridViewCheckBoxCell = (TryCast(grdSearch.Rows(0).Cells("chkBxSelect"), DataGridViewCheckBoxCell))
-            checkBox.Value = True
         Catch ex As Exception
             MsgBox(gblMessageHeading_Error & vbCrLf & gblMessage_ContactInfo & vbCrLf & ex.Message, MsgBoxStyle.Critical, gblMessageHeading)
         End Try
