@@ -517,8 +517,8 @@ Public Class frm_Customer_Rate_List_Master
 
     Private Sub BindGrid()
         Dim query As String = " SELECT    SUPPLIER_RATE_LIST.SRL_ID,SRL_NAME,SRL_DESC,ACTIVE,SRL_date, isnull(ACCOUNT_MASTER.ACC_NAME, '') as ACC_NAME, isnull(ACCOUNT_MASTER.ACC_ID,0) as ACC_ID" &
-            " FROM         SUPPLIER_RATE_LIST left outer JOIN   CUSTOMER_RATE_LIST_MAPPING on CUSTOMER_RATE_LIST_MAPPING.SRL_ID = SUPPLIER_RATE_LIST.SRL_ID " &
-            " left outer join ACCOUNT_MASTER ON CUSTOMER_RATE_LIST_MAPPING.SUPP_ID = ACCOUNT_MASTER.ACC_ID WHERE AG_ID in (1,2,3,6) "
+            " FROM         SUPPLIER_RATE_LIST  JOIN   CUSTOMER_RATE_LIST_MAPPING on CUSTOMER_RATE_LIST_MAPPING.SRL_ID = SUPPLIER_RATE_LIST.SRL_ID " &
+            "  join ACCOUNT_MASTER ON CUSTOMER_RATE_LIST_MAPPING.SUPP_ID = ACCOUNT_MASTER.ACC_ID WHERE AG_ID in (1,2,3,6) "
 
         If cmbSuppSrch.SelectedValue > 0 Then
             query += " and CUSTOMER_RATE_LIST_MAPPING.SRL_ID=" & cmbSuppSrch.SelectedValue
@@ -772,4 +772,19 @@ Public Class frm_Customer_Rate_List_Master
         End If
     End Sub
 
+    Private Sub txtBarcodeSearch_KeyDown(sender As Object, e As KeyEventArgs) Handles txtBarcodeSearch.KeyDown
+        If e.KeyCode = Keys.Enter Then
+            If Not String.IsNullOrEmpty(txtBarcodeSearch.Text) Then
+
+                Dim qry As String = "SELECT  im.item_id  FROM  Item_master im  LEFT OUTER JOIN item_detail id ON im.item_id = id.item_id  WHERE id.Is_active = 1 and    Barcode_vch = '" + txtBarcodeSearch.Text + "'"
+                Dim id As Int32 = clsObj.ExecuteScalar(qry)
+                If id > 0 Then
+                    get_row(id)
+
+                End If
+                txtBarcodeSearch.Text = ""
+                txtBarcodeSearch.Focus()
+            End If
+        End If
+    End Sub
 End Class

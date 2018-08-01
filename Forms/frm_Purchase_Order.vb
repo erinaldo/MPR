@@ -931,7 +931,7 @@ restart:
                                         LEFT OUTER JOIN dbo.Label_Items litems ON lim.Fk_LabelDetailId = litems.Pk_LabelDetailId_Num
                                         INNER JOIN dbo.SUPPLIER_RATE_LIST_DETAIL As SRLD On SRLD.ITEM_ID = IM.ITEM_ID
                                         INNER JOIN dbo.SUPPLIER_RATE_LIST As SRL On SRL.SRL_ID=SRLD.SRL_ID 
-                                        where srl.supp_id = " & cmbSupplier.SelectedValue & " And srl.active = 1 and  id.Is_active = 1 "
+                                        where srl.supp_id = " & cmbSupplier.SelectedValue & " And srl.active = 1 and  id.Is_active = 1 AND SRL.SRL_ID NOT IN(SELECT SRL_ID FROM dbo.CUSTOMER_RATE_LIST_MAPPING)"
 
 
             frm_Indent_Items.dTable_POItems = flxItemList.DataSource
