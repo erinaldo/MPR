@@ -52,11 +52,12 @@ Public Class frm_CreditNote
         'lblAddress.Text = ""
         txt_INVDate.Text = ""
         txt_INVNo.Text = ""
+        lblInvType.Text = ""
         lblAmount.Text = 0
         lblVatAmount.Text = 0
         lblCessAmount.Text = 0
         lblCredit.Text = 0
-
+        SetGstLabels()
         flag = "save"
 
     End Sub
@@ -384,6 +385,7 @@ Public Class frm_CreditNote
 
         dtable_Item_List.Columns.Add("INvDate", GetType(System.Double))
         dtable_Item_List.Columns.Add("SiNo", GetType(System.Double))
+        dtable_Item_List.Columns.Add("INV_TYPE", GetType(System.String))
 
         FLXGRD_MaterialItem.DataSource = dtable_Item_List
         dtable_Item_List.Rows.Add(dtable_Item_List.NewRow)
@@ -423,9 +425,10 @@ Public Class frm_CreditNote
 
         FLXGRD_MaterialItem.Cols("INvDate").Visible = False
         FLXGRD_MaterialItem.Cols("SiNo").Visible = False
+        FLXGRD_MaterialItem.Cols("INV_TYPE").Visible = False
 
-        FLXGRD_MaterialItem.Cols("Item_Code").Width = 60
-        FLXGRD_MaterialItem.Cols("Item_Name").Width = 300
+        FLXGRD_MaterialItem.Cols("Item_Code").Width = 70
+        FLXGRD_MaterialItem.Cols("Item_Name").Width = 290
         FLXGRD_MaterialItem.Cols("UM_Name").Width = 40
         FLXGRD_MaterialItem.Cols("Prev_Item_Qty").Width = 90
 
@@ -434,14 +437,15 @@ Public Class frm_CreditNote
         FLXGRD_MaterialItem.Cols("Vat_Per").Width = 65
         FLXGRD_MaterialItem.Cols("Cess_Per").Width = 65
 
-        FLXGRD_MaterialItem.Cols("Item_Qty").Width = 100
-        FLXGRD_MaterialItem.Cols("Stock_Detail_Id").Width = 200
+        FLXGRD_MaterialItem.Cols("Item_Qty").Width = 80
+        FLXGRD_MaterialItem.Cols("Stock_Detail_Id").Width = 10
 
         Dim cs As C1.Win.C1FlexGrid.CellStyle
         cs = Me.FLXGRD_MaterialItem.Styles.Add("Item_Qty")
-        cs.ForeColor = Color.White
-        cs.BackColor = Color.Green
+        cs.ForeColor = Color.Black
+        cs.BackColor = Color.LimeGreen
         cs.Border.Style = BorderStyleEnum.Raised
+
 
         Dim i As Integer
         For i = 1 To FLXGRD_MaterialItem.Rows.Count - 1
@@ -493,9 +497,18 @@ Public Class frm_CreditNote
                     FLXGRD_MaterialItem.DataSource = dtable_Item_List
                     txt_INVDate.Text = ds.Tables(0).Rows(0)("INvDate")
                     txt_INVNo.Text = ds.Tables(0).Rows(0)("SiNo")
+                    lblInvType.Text = ds.Tables(0).Rows(0)("INV_TYPE")
                     SetGridSettingValues()
                 End If
                 TbRMRN.SelectTab(1)
+                If FLXGRD_MaterialItem.Rows.Count - 1 > 0 Then
+                    Dim Index As Int32 = 1
+                    FLXGRD_MaterialItem.Row = Index
+                    FLXGRD_MaterialItem.RowSel = Index
+                    FLXGRD_MaterialItem.Col = 10
+                    FLXGRD_MaterialItem.ColSel = 10
+                    SetGstLabels()
+                End If
             Catch ex As Exception
                 MsgBox(gblMessageHeading_Error & vbCrLf & gblMessage_ContactInfo & vbCrLf & ex.Message, MsgBoxStyle.Critical, gblMessageHeading)
             End Try
@@ -536,7 +549,7 @@ Public Class frm_CreditNote
         cmbINVNo.ValueMember = "SI_ID"
         cmbINVNo.DataSource = Dt
         cmbINVNo.SelectedIndex = 0
-
+        cmbINVNo.Focus()
     End Sub
 
     Private Sub txtSearch_KeyUp(sender As Object, e As KeyEventArgs) Handles txtSearch.KeyUp
@@ -546,7 +559,100 @@ Public Class frm_CreditNote
     Private Sub cmbCustomer_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbCustomer.SelectedIndexChanged
         BindINVCombo()
     End Sub
+    Private Sub SetGstLabels()
 
+        Dim GSTAmount0 As Decimal = 0
+        Dim GSTTax0 As Decimal = 0
+        Dim GSTAmount3 As Decimal = 0
+        Dim GSTTax3 As Decimal = 0
+        Dim GSTAmount5 As Decimal = 0
+        Dim GSTTax5 As Decimal = 0
+        Dim GSTAmount12 As Decimal = 0
+        Dim GSTTax12 As Decimal = 0
+        Dim GSTAmount18 As Decimal = 0
+        Dim GSTTax18 As Decimal = 0
+        Dim GSTAmount28 As Decimal = 0
+        Dim GSTTax28 As Decimal = 0
+        Dim GSTTaxTotal As Decimal = 0
+        Dim CessTotal As Decimal = 0
+        Dim Tax As Decimal = 0
+
+        Dim iRow As Integer = 0
+
+        For iRow = 1 To FLXGRD_MaterialItem.Rows.Count - 1
+
+            If Convert.ToDouble(IIf(FLXGRD_MaterialItem.Item(iRow, "Item_Qty") Is DBNull.Value, 0, FLXGRD_MaterialItem.Item(iRow, "Item_Qty"))) > 0 Then
+
+
+                Dim totalAmount As Decimal = FLXGRD_MaterialItem.Item(iRow, "Item_Qty") * FLXGRD_MaterialItem.Item(iRow, "item_rate")
+
+                'If FLXGRD_MaterialItem.Item(iRow, "DType") = "P" Then
+                '    totalAmount -= Math.Round((totalAmount * FLXGRD_MaterialItem.Item(iRow, "DISC") / 100), 2) + Math.Round((FLXGRD_MaterialItem.Item(iRow, "DISC1") / 100), 2)
+                'Else
+                '    totalAmount -= Math.Round(FLXGRD_MaterialItem.Item(iRow, "DISC"), 2) + Math.Round((FLXGRD_MaterialItem.Item(iRow, "DISC1") / 100), 2)
+                'End If
+
+                'If FLXGRD_MaterialItem.Item(iRow, "GPAID") = "Y" Then
+                '    totalAmount -= (totalAmount - (totalAmount / (1 + (FLXGRD_MaterialItem.Item(iRow, "vat_per") / 100))))
+                'End If
+
+                Tax = totalAmount * FLXGRD_MaterialItem.Item(iRow, "vat_per") / 100
+
+                GSTTaxTotal += Tax
+
+                Select Case FLXGRD_MaterialItem.Item(iRow, "vat_per")
+                    Case 0
+                        GSTAmount0 += totalAmount
+                        GSTTax0 += Tax
+                    Case 3
+                        GSTAmount3 += totalAmount
+                        GSTTax3 += Tax
+                    Case 5
+                        GSTAmount5 += totalAmount
+                        GSTTax5 += Tax
+                    Case 12
+                        GSTAmount12 += totalAmount
+                        GSTTax12 += Tax
+                    Case 18
+                        GSTAmount18 += totalAmount
+                        GSTTax18 += Tax
+                    Case 28
+                        GSTAmount28 += totalAmount
+                        GSTTax28 += Tax
+                End Select
+            End If
+        Next
+
+
+
+        lblGST0.Text = String.Format("0% - {0:0.00} @ {1}", Math.Round(GSTAmount0, 2), Math.Round(GSTTax0, 2))
+        lblGST3.Text = String.Format("3% - {0:0.00} @ {1}", Math.Round(GSTAmount3, 2), Math.Round(GSTTax3, 2))
+        lblGST5.Text = String.Format("5% - {0:0.00} @ {1}", Math.Round(GSTAmount5, 2), Math.Round(GSTTax5, 2))
+        lblGST12.Text = String.Format("12% - {0:0.00} @ {1}", Math.Round(GSTAmount12, 2), Math.Round(GSTTax12, 2))
+        lblGST18.Text = String.Format("18% - {0:0.00} @ {1}", Math.Round(GSTAmount18, 2), Math.Round(GSTTax18, 2))
+        lblGST28.Text = String.Format("28% - {0:0.00} @ {1}", Math.Round(GSTAmount28, 2), Math.Round(GSTTax28, 2))
+
+        SetGSTAndCessHeader(GSTTaxTotal, CessTotal)
+
+    End Sub
+
+    Private Sub SetGSTAndCessHeader(TotalGst As Decimal, TotalCess As Decimal)
+        Dim PartialGst As Decimal = Math.Round(TotalGst / 2, 2)
+        If lblInvType.Text = "" Then
+            lblGSTDetail.Text = String.Format("Total GST - {0}", Math.Round(TotalGst, 2))
+            lblGSTDetail.Tag = Math.Round(TotalGst, 2)
+        ElseIf lblInvType.Text = "U" Then
+            lblGSTDetail.Text = String.Format("UTGST - {0}{1}CGST - {0}", Math.Round(PartialGst, 2), Environment.NewLine)
+            lblGSTDetail.Tag = Math.Round(PartialGst, 2)
+        ElseIf lblInvType.Text = "S" Then
+            lblGSTDetail.Text = String.Format("SGST - {0}{1}CGST - {0}", Math.Round(PartialGst, 2), Environment.NewLine)
+            lblGSTDetail.Tag = Math.Round(PartialGst, 2)
+        ElseIf lblInvType.Text = "I" Then
+            lblGSTDetail.Text = String.Format("IGST - {0}", Math.Round(TotalGst, 2))
+            lblGSTDetail.Tag = Math.Round(TotalGst, 2)
+        End If
+
+    End Sub
     Private Function CalculateAmount() As String
         Dim i As Integer
         Dim Str As String
@@ -564,10 +670,13 @@ Public Class frm_CreditNote
 
 
         For i = 1 To FLXGRD_MaterialItem.Rows.Count - 1
-            total_item_value = total_item_value + (FLXGRD_MaterialItem.Rows(i).Item("Item_Qty") * FLXGRD_MaterialItem.Rows(i).Item("item_rate"))
-            total_vat_amount = total_vat_amount + ((FLXGRD_MaterialItem.Rows(i).Item("item_rate") * FLXGRD_MaterialItem.Rows.Item(i)("Item_Qty")) * FLXGRD_MaterialItem.Rows(i).Item("Vat_Per") / 100)
-            total_cess_amount = total_cess_amount + ((FLXGRD_MaterialItem.Rows(i).Item("item_rate") * FLXGRD_MaterialItem.Rows.Item(i)("Item_Qty")) * FLXGRD_MaterialItem.Rows(i).Item("Cess_Per") / 100)
+            If Convert.ToDouble(IIf(FLXGRD_MaterialItem.Rows(i).Item("Item_Qty") Is DBNull.Value, 0, FLXGRD_MaterialItem.Rows(i).Item("Item_Qty"))) > 0 Then
 
+                total_item_value = total_item_value + (FLXGRD_MaterialItem.Rows(i).Item("Item_Qty") * FLXGRD_MaterialItem.Rows(i).Item("item_rate"))
+                total_vat_amount = total_vat_amount + ((FLXGRD_MaterialItem.Rows(i).Item("item_rate") * FLXGRD_MaterialItem.Rows.Item(i)("Item_Qty")) * FLXGRD_MaterialItem.Rows(i).Item("Vat_Per") / 100)
+                total_cess_amount = total_cess_amount + ((FLXGRD_MaterialItem.Rows(i).Item("item_rate") * FLXGRD_MaterialItem.Rows.Item(i)("Item_Qty")) * FLXGRD_MaterialItem.Rows(i).Item("Cess_Per") / 100)
+
+            End If
         Next
 
         lblAmount.Text = total_item_value.ToString("#0.00")
@@ -575,8 +684,8 @@ Public Class frm_CreditNote
         lblCessAmount.Text = total_cess_amount.ToString("#0.00")
         lblCredit.Text = (total_item_value + total_vat_amount + total_cess_amount + total_exice_amount).ToString("#0.00")
         Str = total_item_value.ToString("#0.00") + "," + total_vat_amount.ToString("#0.00") + "," + total_cess_amount.ToString("#0.00") + "," + total_exice_amount.ToString()
+        SetGstLabels()
         Return Str
-
     End Function
 
     Private Sub lnkCalculateDebitAmt_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lnkCalculateDebitAmt.LinkClicked
@@ -620,4 +729,9 @@ Public Class frm_CreditNote
         End If
     End Sub
 
+    Private Sub cmbCustomer_Enter(sender As Object, e As EventArgs) Handles cmbCustomer.Enter
+        If Not cmbCustomer.DroppedDown Then
+            cmbCustomer.DroppedDown = True
+        End If
+    End Sub
 End Class

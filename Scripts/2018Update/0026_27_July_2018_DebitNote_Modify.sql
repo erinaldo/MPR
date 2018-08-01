@@ -162,6 +162,32 @@ AS
         WHERE   IM.ITEM_ID = @V_ITEM_ID       
         
     END       
-      
+    GO  
+ALTER PROCEDURE [dbo].[Get_INV_Details_CreditNote] @Si_ID NUMERIC(18, 0)  
+AS  
+    BEGIN         
+        SELECT  IM.ITEM_ID AS Item_ID ,  
+                IM.ITEM_CODE AS Item_Code ,  
+                IM.ITEM_NAME AS Item_Name ,  
+                IM.UM_Name AS UM_Name ,  
+                CAST(SD.Balance_Qty AS NUMERIC(18,3)) AS Prev_Item_Qty ,  
+                CAST(saleID.Item_Qty AS NUMERIC(18,3)) AS INV_Qty ,  
+                CAST( saleID.Item_Rate AS NUMERIC(18,2)) AS Item_Rate,  
+                saleID.Vat_Per ,  
+                saleID.CessPercentage_num AS Cess_Per ,  
+                '0.00' AS Item_Qty ,  
+                SIID.Stock_Detail_Id AS Stock_Detail_Id ,  
+                CONVERT(VARCHAR(20), SIM.CREATION_DATE, 106) AS INvDate ,  
+                SI_CODE + CAST(SI_NO AS VARCHAR(20)) AS SiNo,
+                INV_TYPE
+        FROM    dbo.SALE_INVOICE_MASTER SIM  
+                INNER JOIN SALE_INVOICE_DETAIL SaleID ON sim.SI_ID = SaleID.SI_ID  
+                JOIN dbo.SALE_INVOICE_STOCK_DETAIL SIID ON SIID.ITEM_ID = SaleID.ITEM_ID  
+                                                           AND SIID.SI_ID = SaleID.SI_ID  
+                INNER JOIN vw_ItemMaster_Detail_Unit IM ON SaleID.Item_ID = IM.ITEM_ID  
+                INNER JOIN STOCK_DETAIL SD ON SIID.Stock_Detail_Id = SD.STOCK_DETAIL_ID  
+        WHERE   SIM.SI_ID = @Si_ID     
+    END    
+
       
       

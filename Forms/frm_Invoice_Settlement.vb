@@ -38,11 +38,11 @@ Public Class frm_Invoice_Settlement
 
             Dim strsql As String
 
-            strsql = "SELECT * FROM (SELECT  pt.PaymentTransactionId as PaymentID ,PaymentTransactionNo AS PaymentCode ,CONVERT(VARCHAR(20), PaymentDate, 106) AS PaymentDate, " &
+            strsql = "SELECT * FROM (SELECT  pt.PaymentTransactionId as PaymentID ,PaymentTransactionNo AS VoucherNo ,CONVERT(VARCHAR(20), PaymentDate, 106) AS Date, " &
             " AM.ACC_NAME AS Account ,ChequeDraftNo AS ChequeNo,CONVERT(VARCHAR(20), ChequeDraftDate, 106) AS ChequeDate ,BK.ACC_NAME AS Bank, " &
             " TotalAmountReceived AS Amount,CASE WHEN StatusId =1 THEN 'InProcess'  WHEN StatusId =2 THEN 'Approved' WHEN StatusId =3 THEN 'Cancelled'  WHEN StatusId =4 THEN 'Bounced' END AS Status,ptm.PaymentTypeName AS PaymentType,  PT.StatusId" &
             " FROM    dbo.PaymentTransaction PT JOIN dbo.ACCOUNT_MASTER AM ON pt.AccountId = AM.ACC_ID JOIN dbo.PaymentTypeMaster PTM ON PTM.PaymentTypeId = PT.PaymentTypeId " &
-            " JOIN dbo.ACCOUNT_MASTER BK ON BK.ACC_ID= PT.BankId and PM_Type=" & PaymentType.Receipt & ")tb Where PaymentCode + PaymentDate + Account + ChequeNo " &
+            " JOIN dbo.ACCOUNT_MASTER BK ON BK.ACC_ID= PT.BankId and PM_Type=" & PaymentType.Receipt & ")tb Where VoucherNo + Date + Account + ChequeNo " &
             "+ ChequeDate + Bank +CAST(Amount AS VARCHAR(50))+ PaymentType+Status LIKE '%" & condition & "%' order by 1"
 
             Dim dt As DataTable = clsObj.Fill_DataSet(strsql).Tables(0)
@@ -52,13 +52,13 @@ Public Class frm_Invoice_Settlement
             flxList.Columns(0).Visible = False
             flxList.Columns(1).Width = 120
             flxList.Columns(2).Width = 70
-            flxList.Columns(3).Width = 220
+            flxList.Columns(3).Width = 210
             flxList.Columns(4).Width = 70
             flxList.Columns(5).Width = 70
-            flxList.Columns(6).Width = 70
+            flxList.Columns(6).Width = 100
             flxList.Columns(7).Width = 70
             flxList.Columns(8).Width = 60
-            flxList.Columns(9).Width = 115
+            flxList.Columns(9).Width = 80
             flxList.Columns(10).Visible = False
 
         Catch ex As Exception
@@ -412,11 +412,11 @@ Public Class frm_Invoice_Settlement
     End Sub
 
     Private Sub FillGrid()
-        Dim query As String = " SELECT SI_ID, SI_CODE ,SI_NO,  SI_DATE, NET_AMOUNT, " &
+        Dim query As String = " SELECT SI_ID, SI_CODE ,SI_NO, CONVERT(VARCHAR(20), SI_DATE, 106) as SI_DATE, NET_AMOUNT, " &
             "ISNULL((SELECT SUM(AmountSettled) FROM dbo.SettlementDetail JOIN dbo.PaymentTransaction  ON dbo.PaymentTransaction.PaymentTransactionId = dbo.SettlementDetail.PaymentTransactionId WHERE InvoiceId = SI_ID AND AccountId=" & cmbCustomerSettleInvoice.SelectedValue & "),0) +" &
             " ISNULL((SELECT SUM(AmountSettled) FROM dbo.SettlementDetail JOIN dbo.OpeningBalance  ON dbo.OpeningBalance.OpeningBalanceId = dbo.SettlementDetail.PaymentTransactionId WHERE InvoiceId = SI_ID AND fkAccountId=" & cmbCustomerSettleInvoice.SelectedValue & "),0) AS ReceivedAmount ,iSNULL(cn_amount,0) AS CnAmount" &
             " FROM dbo.SALE_INVOICE_MASTER  LEFT JOIN dbo.CreditNote_Master ON INVId = SI_ID WHERE  INVOICE_STATUS <> 4 AND CUST_ID = " & cmbCustomerSettleInvoice.SelectedValue &
-            " UNION SELECT OpeningBalanceId,'Opening Balance',OpeningBalanceId,OpeningDate,OpeningAmount, ISNULL(( SELECT SUM(AmountSettled)FROM   dbo.SettlementDetail JOIN dbo.PaymentTransaction " &
+            " UNION SELECT OpeningBalanceId,'Opening Balance',OpeningBalanceId,CONVERT(VARCHAR(20), OpeningDate, 106) AS OpeningDate ,OpeningAmount, ISNULL(( SELECT SUM(AmountSettled)FROM   dbo.SettlementDetail JOIN dbo.PaymentTransaction " &
             " ON dbo.PaymentTransaction.PaymentTransactionId = dbo.SettlementDetail.PaymentTransactionId  WHERE  InvoiceId = OpeningBalanceId  AND AccountId = " & cmbCustomerSettleInvoice.SelectedValue &
             " ), 0) AS ReceivedAmount ,0 FROM dbo.OpeningBalance WHERE  TYPE=1 AND FkAccountId=" & cmbCustomerSettleInvoice.SelectedValue
 
@@ -649,4 +649,39 @@ Public Class frm_Invoice_Settlement
 
     End Sub
 
+    Private Sub cmbCustomer_Enter(sender As Object, e As EventArgs) Handles cmbCustomer.Enter
+        If Not cmbCustomer.DroppedDown Then
+            cmbCustomer.DroppedDown = True
+        End If
+    End Sub
+
+    Private Sub cmbPaymentType_Enter(sender As Object, e As EventArgs) Handles cmbPaymentType.Enter
+        If Not cmbPaymentType.DroppedDown Then
+            cmbPaymentType.DroppedDown = True
+        End If
+    End Sub
+
+    Private Sub cmbBank_Enter(sender As Object, e As EventArgs) Handles cmbBank.Enter
+        If Not cmbBank.DroppedDown Then
+            cmbBank.DroppedDown = True
+        End If
+    End Sub
+
+    Private Sub cmbCustomerApprovePayment_Enter(sender As Object, e As EventArgs) Handles cmbCustomerApprovePayment.Enter
+        If Not cmbCustomerApprovePayment.DroppedDown Then
+            cmbCustomerApprovePayment.DroppedDown = True
+        End If
+    End Sub
+
+    Private Sub cmbPendingPayment_Enter(sender As Object, e As EventArgs) Handles cmbPendingPayment.Enter
+        If Not cmbPendingPayment.DroppedDown Then
+            cmbPendingPayment.DroppedDown = True
+        End If
+    End Sub
+
+    Private Sub cmbCustomerSettleInvoice_Enter(sender As Object, e As EventArgs) Handles cmbCustomerSettleInvoice.Enter
+        If Not cmbCustomerSettleInvoice.DroppedDown Then
+            cmbCustomerSettleInvoice.DroppedDown = True
+        End If
+    End Sub
 End Class

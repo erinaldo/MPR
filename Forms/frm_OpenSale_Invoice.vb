@@ -287,6 +287,7 @@ Public Class frm_openSale_Invoice
         '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         ''''''''''''''''''''''''''TO GET INV NO'''''''''''''''''''''''''''''
         '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+        SetGstLabels()
         flag = "save"
     End Sub
 
@@ -446,18 +447,18 @@ again:
 
 
         flxItems.Cols("Item_Id").Width = 40
-        flxItems.Cols("Item_Code").Width = 55
-        flxItems.Cols("Item_Name").Width = 225
-        flxItems.Cols("UM_Name").Width = 35
+        flxItems.Cols("Item_Code").Width = 10
+        flxItems.Cols("Item_Name").Width = 220
+        flxItems.Cols("UM_Name").Width = 32
         'flxItems.Cols("Batch_No").Width = 70
         flxItems.Cols("Amount").Width = 60
-        flxItems.Cols("Batch_Qty").Width = 50
-        flxItems.Cols("Stock_Detail_Id").Width = 60
+        flxItems.Cols("Batch_Qty").Width = 45
+        flxItems.Cols("Stock_Detail_Id").Width = 10
         flxItems.Cols("transfer_Qty").Width = 50
         flxItems.Cols("Item_Rate").Width = 55
         'flxItems.Cols("MRP").Width = 50
         flxItems.Cols("DType").Width = 40
-        flxItems.Cols("DISC").Width = 45
+        flxItems.Cols("DISC").Width = 40
         flxItems.Cols("GPAID").Width = 55
         flxItems.Cols("GST").Width = 40
         flxItems.Cols("GST_Amount").Width = 55
@@ -713,7 +714,11 @@ restart:
 
                     generate_tree()
                     'flxItems.Rows(flxItems.Rows.Count - 1).Selected = True
-
+                    Dim Index As Int32 = flxItems.Rows.Count - 1
+                    flxItems.Row = Index
+                    flxItems.RowSel = Index
+                    flxItems.Col = 7
+                    flxItems.ColSel = 7
 
                 Else
                     MsgBox("Stock is not avaialable for this Item.", MsgBoxStyle.Information)
@@ -855,7 +860,96 @@ restart:
 
         End If
     End Sub
+    Private Sub SetGstLabels()
 
+        Dim GSTAmount0 As Decimal = 0
+        Dim GSTTax0 As Decimal = 0
+        Dim GSTAmount3 As Decimal = 0
+        Dim GSTTax3 As Decimal = 0
+        Dim GSTAmount5 As Decimal = 0
+        Dim GSTTax5 As Decimal = 0
+        Dim GSTAmount12 As Decimal = 0
+        Dim GSTTax12 As Decimal = 0
+        Dim GSTAmount18 As Decimal = 0
+        Dim GSTTax18 As Decimal = 0
+        Dim GSTAmount28 As Decimal = 0
+        Dim GSTTax28 As Decimal = 0
+        Dim GSTTaxTotal As Decimal = 0
+        Dim CessTotal As Decimal = 0
+        Dim Tax As Decimal = 0
+
+        Dim iRow As Integer = 0
+
+        For iRow = 1 To flxItems.Rows.Count - 1
+            If Convert.ToDouble(IIf(flxItems.Item(iRow, "transfer_Qty") Is DBNull.Value, 0, flxItems.Item(iRow, "transfer_Qty"))) > 0 Then
+
+                Dim totalAmount As Decimal = flxItems.Item(iRow, "transfer_Qty") * flxItems.Item(iRow, "item_rate")
+
+                If flxItems.Item(iRow, "DType") = "P" Then
+                    totalAmount -= Math.Round((totalAmount * flxItems.Item(iRow, "DISC") / 100), 2)
+                Else
+                    totalAmount -= Math.Round(flxItems.Item(iRow, "DISC"), 2)
+                End If
+
+                If flxItems.Item(iRow, "GPAID") = "Y" Then
+                    totalAmount -= (totalAmount - (totalAmount / (1 + (flxItems.Item(iRow, "GST") / 100))))
+                End If
+
+                Tax = totalAmount * flxItems.Item(iRow, "GST") / 100
+
+                GSTTaxTotal += Tax
+
+                Select Case flxItems.Item(iRow, "GST")
+                    Case 0
+                        GSTAmount0 += totalAmount
+                        GSTTax0 += Tax
+                    Case 3
+                        GSTAmount3 += totalAmount
+                        GSTTax3 += Tax
+                    Case 5
+                        GSTAmount5 += totalAmount
+                        GSTTax5 += Tax
+                    Case 12
+                        GSTAmount12 += totalAmount
+                        GSTTax12 += Tax
+                    Case 18
+                        GSTAmount18 += totalAmount
+                        GSTTax18 += Tax
+                    Case 28
+                        GSTAmount28 += totalAmount
+                        GSTTax28 += Tax
+                End Select
+            End If
+        Next
+
+        lblGST0.Text = String.Format("0% - {0:0.00} @ {1}", Math.Round(GSTAmount0, 2), Math.Round(GSTTax0, 2))
+        lblGST3.Text = String.Format("3% - {0:0.00} @ {1}", Math.Round(GSTAmount3, 2), Math.Round(GSTTax3, 2))
+        lblGST5.Text = String.Format("5% - {0:0.00} @ {1}", Math.Round(GSTAmount5, 2), Math.Round(GSTTax5, 2))
+        lblGST12.Text = String.Format("12% - {0:0.00} @ {1}", Math.Round(GSTAmount12, 2), Math.Round(GSTTax12, 2))
+        lblGST18.Text = String.Format("18% - {0:0.00} @ {1}", Math.Round(GSTAmount18, 2), Math.Round(GSTTax18, 2))
+        lblGST28.Text = String.Format("28% - {0:0.00} @ {1}", Math.Round(GSTAmount28, 2), Math.Round(GSTTax28, 2))
+
+        SetGSTAndCessHeader(GSTTaxTotal, CessTotal)
+
+    End Sub
+
+    Private Sub SetGSTAndCessHeader(TotalGst As Decimal, TotalCess As Decimal)
+        Dim PartialGst As Decimal = Math.Round(TotalGst / 2, 2)
+        If cmbinvtype.Text = "" Then
+            lblGSTDetail.Text = String.Format("Total GST - {0}", Math.Round(TotalGst, 2))
+            lblGSTDetail.Tag = Math.Round(TotalGst, 2)
+        ElseIf cmbinvtype.Text = "UGST" Then
+            lblGSTDetail.Text = String.Format("UTGST - {0}{1}CGST - {0}", Math.Round(PartialGst, 2), Environment.NewLine)
+            lblGSTDetail.Tag = Math.Round(PartialGst, 2)
+        ElseIf cmbinvtype.Text = "SGST" Then
+            lblGSTDetail.Text = String.Format("SGST - {0}{1}CGST - {0}", Math.Round(PartialGst, 2), Environment.NewLine)
+            lblGSTDetail.Tag = Math.Round(PartialGst, 2)
+        ElseIf cmbinvtype.Text = "IGST" Then
+            lblGSTDetail.Text = String.Format("IGST - {0}", Math.Round(TotalGst, 2))
+            lblGSTDetail.Tag = Math.Round(TotalGst, 2)
+        End If
+
+    End Sub
     Private Function CalculateAmount() As String
         Try
 
@@ -934,6 +1028,7 @@ restart:
             lblACessAmount.Text = total_Acess_amount.ToString("#0.00")
             lblNetAmount.Text = (total_item_value - totdiscamt + total_vat_amount + total_cess_amount + total_Acess_amount + total_exice_amount).ToString("#0.00")
             Str = total_item_value.ToString("#0.00") + "," + total_vat_amount.ToString("#0.00") + "," + total_cess_amount.ToString("#0.00") + "," + total_Acess_amount.ToString("#0.00") + "," + lblNetAmount.Text + "," + total_exice_amount.ToString()
+            SetGstLabels()
             Return Str
         Catch ex As Exception
             'MsgBox(ex.Message)
@@ -1023,8 +1118,6 @@ restart:
             txtGstNo.Text = Accdata.Tables(0).Rows(0)(2)
             cmbCity.SelectedValue = Accdata.Tables(0).Rows(0)(3)
             txtShippingAddress.Text = Accdata.Tables(0).Rows(0)(4)
-            txtvechicle_no.Focus()
-
 
             Dim NewstrSql As String
             Dim dsdata As DataSet
@@ -1047,6 +1140,7 @@ restart:
                 End If
             End If
         End If
+        SetGstLabels()
     End Sub
 
     Private Sub cmbCity_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbCity.SelectedIndexChanged
@@ -1098,4 +1192,9 @@ restart:
 
     End Sub
 
+    Private Sub cmbSupplier_Enter(sender As Object, e As EventArgs) Handles cmbSupplier.Enter
+        If Not cmbSupplier.DroppedDown Then
+            cmbSupplier.DroppedDown = True
+        End If
+    End Sub
 End Class

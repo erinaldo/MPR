@@ -52,6 +52,7 @@ Public Class frm_DebitNote
         txtRemarks.Text = ""
         txt_INVNo.Text = ""
         txt_INVDate.Text = ""
+        lblMRN_TYPE.Text = "0"
         dtable_Item_List = FLXGRD_MaterialItem.DataSource
 
         lblAmount.Text = 0
@@ -562,7 +563,7 @@ Public Class frm_DebitNote
         cmbMRNNo.ValueMember = "MRN_ID"
         cmbMRNNo.DataSource = Dt
         cmbMRNNo.SelectedIndex = 0
-
+        cmbMRNNo.Focus()
     End Sub
 
     Private Sub BindSupplierCombo()
@@ -705,7 +706,7 @@ Public Class frm_DebitNote
     Private Sub SetGSTAndCessHeader(TotalGst As Decimal, TotalCess As Decimal)
         Dim PartialGst As Decimal = Math.Round(TotalGst / 2, 2)
         If lblMRN_TYPE.Text = 0 Then
-            lblGSTDetail.Text = String.Format("Total GST - {0}", TotalGst)
+            lblGSTDetail.Text = String.Format("Total GST - {0}", Math.Round(TotalGst, 2))
             lblGSTDetail.Tag = Math.Round(TotalGst, 2)
         ElseIf lblMRN_TYPE.Text = 3 Then
             lblGSTDetail.Text = String.Format("UTGST - {0}{1}CGST - {0}", Math.Round(PartialGst, 2), Environment.NewLine)
@@ -768,4 +769,9 @@ Public Class frm_DebitNote
         End If
     End Sub
 
+    Private Sub cmbsupplier_Enter(sender As Object, e As EventArgs) Handles cmbsupplier.Enter
+        If Not cmbsupplier.DroppedDown Then
+            cmbsupplier.DroppedDown = True
+        End If
+    End Sub
 End Class

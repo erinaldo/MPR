@@ -323,10 +323,10 @@ Public Class CommonClass
             ds1 = FillDataSet(qry)
             cnt.ValueMember = value
             cnt.DisplayMember = text
-            cnt.DropDownStyle = ComboBoxStyle.DropDown
-            cnt.AutoCompleteMode = AutoCompleteMode.SuggestAppend
-            cnt.AutoCompleteSource = AutoCompleteSource.ListItems
-            cnt.AllowDrop = True
+            'cnt.DropDownStyle = ComboBoxStyle.DropDown
+            'cnt.AutoCompleteMode = AutoCompleteMode.SuggestAppend
+            'cnt.AutoCompleteSource = AutoCompleteSource.ListItems
+            'cnt.AllowDrop = True
             Dim dr As DataRow
             If ds1.Tables(0).Rows.Count > 0 Then
                 If use_select Then
@@ -338,7 +338,7 @@ Public Class CommonClass
             Else
                 dr = ds1.Tables(0).NewRow
                 dr(value) = 0
-                dr(text) = "--No Data Found--"
+                dr(text) = "--Select--"
                 ds1.Tables(0).Rows.Add(dr)
             End If
             cnt.DataSource = ds1.Tables(0)

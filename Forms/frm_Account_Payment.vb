@@ -241,7 +241,7 @@ Public Class frm_Account_Payment
             flxList.Columns(6).Width = 70
             flxList.Columns(7).Width = 70
             flxList.Columns(8).Width = 60
-            flxList.Columns(9).Width = 115
+            flxList.Columns(9).Width = 100
             flxList.Columns(10).Visible = False
 
         Catch ex As Exception
@@ -351,4 +351,21 @@ Public Class frm_Account_Payment
         End If
     End Sub
 
+    Private Sub cmbAccountToDebit_Enter(sender As Object, e As EventArgs) Handles cmbAccountToDebit.Enter
+        If Not cmbAccountToDebit.DroppedDown Then
+            cmbAccountToDebit.DroppedDown = True
+        End If
+    End Sub
+
+    Private Sub cmbAccountToCredit_Enter(sender As Object, e As EventArgs) Handles cmbAccountToCredit.Enter
+        If Not cmbAccountToCredit.DroppedDown Then
+            cmbAccountToCredit.DroppedDown = True
+        End If
+    End Sub
+
+    Private Sub cmbPaymentType_Enter(sender As Object, e As EventArgs) Handles cmbPaymentType.Enter
+        If Not cmbPaymentType.DroppedDown Then
+            cmbPaymentType.DroppedDown = True
+        End If
+    End Sub
 End Class

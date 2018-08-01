@@ -40,6 +40,8 @@ Partial Class frm_DebitNote
         Me.lblGSTHeader = New System.Windows.Forms.Label()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.Panel13 = New System.Windows.Forms.Panel()
+        Me.txtRemarks = New System.Windows.Forms.TextBox()
+        Me.lbl_Remarks = New System.Windows.Forms.Label()
         Me.lblCessAmount = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.lblDebit = New System.Windows.Forms.Label()
@@ -61,8 +63,6 @@ Partial Class frm_DebitNote
         Me.lbl_DNDate = New System.Windows.Forms.Label()
         Me.lblDN_Code = New System.Windows.Forms.Label()
         Me.lblReverseCode = New System.Windows.Forms.Label()
-        Me.txtRemarks = New System.Windows.Forms.TextBox()
-        Me.lbl_Remarks = New System.Windows.Forms.Label()
         Me.lblReceivedDate = New System.Windows.Forms.Label()
         Me.lblFormHeading = New System.Windows.Forms.Label()
         Me.cmbMRNNo = New System.Windows.Forms.ComboBox()
@@ -195,6 +195,8 @@ Partial Class frm_DebitNote
         Me.GroupBox2.Controls.Add(Me.lblGSTHeader)
         Me.GroupBox2.Controls.Add(Me.Panel1)
         Me.GroupBox2.Controls.Add(Me.Panel13)
+        Me.GroupBox2.Controls.Add(Me.txtRemarks)
+        Me.GroupBox2.Controls.Add(Me.lbl_Remarks)
         Me.GroupBox2.Controls.Add(Me.lblCessAmount)
         Me.GroupBox2.Controls.Add(Me.Label5)
         Me.GroupBox2.Controls.Add(Me.lblDebit)
@@ -206,10 +208,10 @@ Partial Class frm_DebitNote
         Me.GroupBox2.Controls.Add(Me.lnkCalculateDebitAmt)
         Me.GroupBox2.Controls.Add(Me.FLXGRD_MaterialItem)
         Me.GroupBox2.ForeColor = System.Drawing.Color.White
-        Me.GroupBox2.Location = New System.Drawing.Point(6, 164)
+        Me.GroupBox2.Location = New System.Drawing.Point(6, 114)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(890, 427)
-        Me.GroupBox2.TabIndex = 6
+        Me.GroupBox2.Size = New System.Drawing.Size(890, 477)
+        Me.GroupBox2.TabIndex = 1
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Items List"
         '
@@ -217,7 +219,7 @@ Partial Class frm_DebitNote
         '
         Me.lblGSTDetail.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblGSTDetail.ForeColor = System.Drawing.Color.Orange
-        Me.lblGSTDetail.Location = New System.Drawing.Point(704, 323)
+        Me.lblGSTDetail.Location = New System.Drawing.Point(704, 370)
         Me.lblGSTDetail.Name = "lblGSTDetail"
         Me.lblGSTDetail.Size = New System.Drawing.Size(182, 37)
         Me.lblGSTDetail.TabIndex = 277
@@ -229,7 +231,7 @@ Partial Class frm_DebitNote
         Me.lblGST3.AutoSize = True
         Me.lblGST3.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblGST3.ForeColor = System.Drawing.Color.White
-        Me.lblGST3.Location = New System.Drawing.Point(460, 317)
+        Me.lblGST3.Location = New System.Drawing.Point(459, 383)
         Me.lblGST3.Name = "lblGST3"
         Me.lblGST3.Size = New System.Drawing.Size(107, 14)
         Me.lblGST3.TabIndex = 276
@@ -240,7 +242,7 @@ Partial Class frm_DebitNote
         Me.lblGST28.AutoSize = True
         Me.lblGST28.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblGST28.ForeColor = System.Drawing.Color.White
-        Me.lblGST28.Location = New System.Drawing.Point(459, 392)
+        Me.lblGST28.Location = New System.Drawing.Point(458, 450)
         Me.lblGST28.Name = "lblGST28"
         Me.lblGST28.Size = New System.Drawing.Size(115, 14)
         Me.lblGST28.TabIndex = 275
@@ -251,7 +253,7 @@ Partial Class frm_DebitNote
         Me.lblGST18.AutoSize = True
         Me.lblGST18.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblGST18.ForeColor = System.Drawing.Color.White
-        Me.lblGST18.Location = New System.Drawing.Point(459, 373)
+        Me.lblGST18.Location = New System.Drawing.Point(458, 433)
         Me.lblGST18.Name = "lblGST18"
         Me.lblGST18.Size = New System.Drawing.Size(115, 14)
         Me.lblGST18.TabIndex = 274
@@ -262,7 +264,7 @@ Partial Class frm_DebitNote
         Me.lblGST12.AutoSize = True
         Me.lblGST12.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblGST12.ForeColor = System.Drawing.Color.White
-        Me.lblGST12.Location = New System.Drawing.Point(459, 353)
+        Me.lblGST12.Location = New System.Drawing.Point(458, 416)
         Me.lblGST12.Name = "lblGST12"
         Me.lblGST12.Size = New System.Drawing.Size(115, 14)
         Me.lblGST12.TabIndex = 273
@@ -273,7 +275,7 @@ Partial Class frm_DebitNote
         Me.lblGST5.AutoSize = True
         Me.lblGST5.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblGST5.ForeColor = System.Drawing.Color.White
-        Me.lblGST5.Location = New System.Drawing.Point(460, 335)
+        Me.lblGST5.Location = New System.Drawing.Point(459, 400)
         Me.lblGST5.Name = "lblGST5"
         Me.lblGST5.Size = New System.Drawing.Size(107, 14)
         Me.lblGST5.TabIndex = 272
@@ -284,7 +286,7 @@ Partial Class frm_DebitNote
         Me.lblGST0.AutoSize = True
         Me.lblGST0.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblGST0.ForeColor = System.Drawing.Color.White
-        Me.lblGST0.Location = New System.Drawing.Point(460, 299)
+        Me.lblGST0.Location = New System.Drawing.Point(459, 366)
         Me.lblGST0.Name = "lblGST0"
         Me.lblGST0.Size = New System.Drawing.Size(107, 14)
         Me.lblGST0.TabIndex = 271
@@ -295,7 +297,7 @@ Partial Class frm_DebitNote
         Me.lblGSTHeader.AutoSize = True
         Me.lblGSTHeader.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblGSTHeader.ForeColor = System.Drawing.Color.White
-        Me.lblGSTHeader.Location = New System.Drawing.Point(459, 279)
+        Me.lblGSTHeader.Location = New System.Drawing.Point(459, 348)
         Me.lblGSTHeader.Name = "lblGSTHeader"
         Me.lblGSTHeader.Size = New System.Drawing.Size(116, 14)
         Me.lblGSTHeader.TabIndex = 270
@@ -304,24 +306,48 @@ Partial Class frm_DebitNote
         'Panel1
         '
         Me.Panel1.BackColor = System.Drawing.Color.Silver
-        Me.Panel1.Location = New System.Drawing.Point(450, 274)
+        Me.Panel1.Location = New System.Drawing.Point(452, 316)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(1, 142)
-        Me.Panel1.TabIndex = 269
+        Me.Panel1.Size = New System.Drawing.Size(1, 150)
+        Me.Panel1.TabIndex = 3
         '
         'Panel13
         '
         Me.Panel13.BackColor = System.Drawing.Color.Silver
-        Me.Panel13.Location = New System.Drawing.Point(673, 274)
+        Me.Panel13.Location = New System.Drawing.Point(673, 317)
         Me.Panel13.Name = "Panel13"
-        Me.Panel13.Size = New System.Drawing.Size(1, 142)
+        Me.Panel13.Size = New System.Drawing.Size(1, 150)
         Me.Panel13.TabIndex = 268
+        '
+        'txtRemarks
+        '
+        Me.txtRemarks.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.txtRemarks.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.txtRemarks.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtRemarks.ForeColor = System.Drawing.Color.White
+        Me.txtRemarks.Location = New System.Drawing.Point(6, 341)
+        Me.txtRemarks.MaxLength = 500
+        Me.txtRemarks.Multiline = True
+        Me.txtRemarks.Name = "txtRemarks"
+        Me.txtRemarks.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
+        Me.txtRemarks.Size = New System.Drawing.Size(440, 121)
+        Me.txtRemarks.TabIndex = 1
+        '
+        'lbl_Remarks
+        '
+        Me.lbl_Remarks.AutoSize = True
+        Me.lbl_Remarks.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_Remarks.Location = New System.Drawing.Point(2, 313)
+        Me.lbl_Remarks.Name = "lbl_Remarks"
+        Me.lbl_Remarks.Size = New System.Drawing.Size(64, 15)
+        Me.lbl_Remarks.TabIndex = 13
+        Me.lbl_Remarks.Text = "Remarks :"
         '
         'lblCessAmount
         '
         Me.lblCessAmount.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblCessAmount.ForeColor = System.Drawing.Color.Orange
-        Me.lblCessAmount.Location = New System.Drawing.Point(774, 365)
+        Me.lblCessAmount.Location = New System.Drawing.Point(774, 417)
         Me.lblCessAmount.Name = "lblCessAmount"
         Me.lblCessAmount.Size = New System.Drawing.Size(112, 17)
         Me.lblCessAmount.TabIndex = 18
@@ -332,7 +358,7 @@ Partial Class frm_DebitNote
         '
         Me.Label5.AutoSize = True
         Me.Label5.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label5.Location = New System.Drawing.Point(686, 367)
+        Me.Label5.Location = New System.Drawing.Point(686, 419)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(90, 15)
         Me.Label5.TabIndex = 19
@@ -342,7 +368,7 @@ Partial Class frm_DebitNote
         '
         Me.lblDebit.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblDebit.ForeColor = System.Drawing.Color.Lime
-        Me.lblDebit.Location = New System.Drawing.Point(773, 392)
+        Me.lblDebit.Location = New System.Drawing.Point(774, 445)
         Me.lblDebit.Name = "lblDebit"
         Me.lblDebit.Size = New System.Drawing.Size(112, 17)
         Me.lblDebit.TabIndex = 7
@@ -353,7 +379,7 @@ Partial Class frm_DebitNote
         '
         Me.Label6.AutoSize = True
         Me.Label6.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label6.Location = New System.Drawing.Point(686, 394)
+        Me.Label6.Location = New System.Drawing.Point(687, 447)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(89, 15)
         Me.Label6.TabIndex = 8
@@ -363,7 +389,7 @@ Partial Class frm_DebitNote
         '
         Me.lblVatAmount.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblVatAmount.ForeColor = System.Drawing.Color.Orange
-        Me.lblVatAmount.Location = New System.Drawing.Point(775, 301)
+        Me.lblVatAmount.Location = New System.Drawing.Point(775, 339)
         Me.lblVatAmount.Name = "lblVatAmount"
         Me.lblVatAmount.Size = New System.Drawing.Size(112, 17)
         Me.lblVatAmount.TabIndex = 5
@@ -374,7 +400,7 @@ Partial Class frm_DebitNote
         '
         Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(686, 303)
+        Me.Label4.Location = New System.Drawing.Point(686, 341)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(84, 15)
         Me.Label4.TabIndex = 6
@@ -384,7 +410,7 @@ Partial Class frm_DebitNote
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(686, 277)
+        Me.Label3.Location = New System.Drawing.Point(686, 315)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(87, 15)
         Me.Label3.TabIndex = 4
@@ -394,7 +420,7 @@ Partial Class frm_DebitNote
         '
         Me.lblAmount.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblAmount.ForeColor = System.Drawing.Color.Orange
-        Me.lblAmount.Location = New System.Drawing.Point(775, 275)
+        Me.lblAmount.Location = New System.Drawing.Point(775, 313)
         Me.lblAmount.Name = "lblAmount"
         Me.lblAmount.Size = New System.Drawing.Size(112, 17)
         Me.lblAmount.TabIndex = 3
@@ -406,11 +432,12 @@ Partial Class frm_DebitNote
         Me.lnkCalculateDebitAmt.ActiveLinkColor = System.Drawing.Color.Lime
         Me.lnkCalculateDebitAmt.BackColor = System.Drawing.Color.Gainsboro
         Me.lnkCalculateDebitAmt.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lnkCalculateDebitAmt.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline
         Me.lnkCalculateDebitAmt.LinkColor = System.Drawing.Color.OrangeRed
-        Me.lnkCalculateDebitAmt.Location = New System.Drawing.Point(243, 277)
+        Me.lnkCalculateDebitAmt.Location = New System.Drawing.Point(463, 316)
         Me.lnkCalculateDebitAmt.Name = "lnkCalculateDebitAmt"
         Me.lnkCalculateDebitAmt.Size = New System.Drawing.Size(200, 25)
-        Me.lnkCalculateDebitAmt.TabIndex = 8
+        Me.lnkCalculateDebitAmt.TabIndex = 2
         Me.lnkCalculateDebitAmt.TabStop = True
         Me.lnkCalculateDebitAmt.Text = "Calculate All"
         Me.lnkCalculateDebitAmt.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -423,9 +450,9 @@ Partial Class frm_DebitNote
         Me.FLXGRD_MaterialItem.Name = "FLXGRD_MaterialItem"
         Me.FLXGRD_MaterialItem.Rows.Count = 1
         Me.FLXGRD_MaterialItem.Rows.DefaultSize = 17
-        Me.FLXGRD_MaterialItem.Size = New System.Drawing.Size(879, 249)
+        Me.FLXGRD_MaterialItem.Size = New System.Drawing.Size(879, 285)
         Me.FLXGRD_MaterialItem.Styles = New C1.Win.C1FlexGrid.CellStyleCollection(resources.GetString("FLXGRD_MaterialItem.Styles"))
-        Me.FLXGRD_MaterialItem.TabIndex = 7
+        Me.FLXGRD_MaterialItem.TabIndex = 0
         '
         'GroupBox1
         '
@@ -439,8 +466,6 @@ Partial Class frm_DebitNote
         Me.GroupBox1.Controls.Add(Me.lbl_DNDate)
         Me.GroupBox1.Controls.Add(Me.lblDN_Code)
         Me.GroupBox1.Controls.Add(Me.lblReverseCode)
-        Me.GroupBox1.Controls.Add(Me.txtRemarks)
-        Me.GroupBox1.Controls.Add(Me.lbl_Remarks)
         Me.GroupBox1.Controls.Add(Me.lblReceivedDate)
         Me.GroupBox1.Controls.Add(Me.lblFormHeading)
         Me.GroupBox1.Controls.Add(Me.cmbMRNNo)
@@ -448,7 +473,7 @@ Partial Class frm_DebitNote
         Me.GroupBox1.ForeColor = System.Drawing.Color.White
         Me.GroupBox1.Location = New System.Drawing.Point(6, 6)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(890, 152)
+        Me.GroupBox1.Size = New System.Drawing.Size(890, 102)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Debit Note Detail"
@@ -475,7 +500,7 @@ Partial Class frm_DebitNote
         Me.txt_INVDate.Name = "txt_INVDate"
         Me.txt_INVDate.ReadOnly = True
         Me.txt_INVDate.Size = New System.Drawing.Size(137, 19)
-        Me.txt_INVDate.TabIndex = 4
+        Me.txt_INVDate.TabIndex = 3
         '
         'txt_INVNo
         '
@@ -488,7 +513,7 @@ Partial Class frm_DebitNote
         Me.txt_INVNo.Name = "txt_INVNo"
         Me.txt_INVNo.ReadOnly = True
         Me.txt_INVNo.Size = New System.Drawing.Size(110, 19)
-        Me.txt_INVNo.TabIndex = 3
+        Me.txt_INVNo.TabIndex = 2
         '
         'Label8
         '
@@ -515,13 +540,14 @@ Partial Class frm_DebitNote
         Me.cmbsupplier.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbsupplier.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmbsupplier.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.cmbsupplier.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmbsupplier.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmbsupplier.ForeColor = System.Drawing.Color.White
         Me.cmbsupplier.FormattingEnabled = True
         Me.cmbsupplier.Location = New System.Drawing.Point(145, 40)
         Me.cmbsupplier.Name = "cmbsupplier"
         Me.cmbsupplier.Size = New System.Drawing.Size(572, 23)
-        Me.cmbsupplier.TabIndex = 1
+        Me.cmbsupplier.TabIndex = 0
         '
         'Label2
         '
@@ -537,7 +563,7 @@ Partial Class frm_DebitNote
         '
         Me.lbl_DNDate.AutoSize = True
         Me.lbl_DNDate.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lbl_DNDate.ForeColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.lbl_DNDate.ForeColor = System.Drawing.Color.Orange
         Me.lbl_DNDate.Location = New System.Drawing.Point(298, 17)
         Me.lbl_DNDate.Name = "lbl_DNDate"
         Me.lbl_DNDate.Size = New System.Drawing.Size(84, 13)
@@ -548,7 +574,7 @@ Partial Class frm_DebitNote
         '
         Me.lblDN_Code.AutoSize = True
         Me.lblDN_Code.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblDN_Code.ForeColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.lblDN_Code.ForeColor = System.Drawing.Color.Orange
         Me.lblDN_Code.Location = New System.Drawing.Point(82, 18)
         Me.lblDN_Code.Name = "lblDN_Code"
         Me.lblDN_Code.Size = New System.Drawing.Size(86, 13)
@@ -564,30 +590,6 @@ Partial Class frm_DebitNote
         Me.lblReverseCode.Size = New System.Drawing.Size(50, 15)
         Me.lblReverseCode.TabIndex = 15
         Me.lblReverseCode.Text = "DN No :"
-        '
-        'txtRemarks
-        '
-        Me.txtRemarks.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.txtRemarks.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.txtRemarks.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtRemarks.ForeColor = System.Drawing.Color.White
-        Me.txtRemarks.Location = New System.Drawing.Point(145, 100)
-        Me.txtRemarks.MaxLength = 500
-        Me.txtRemarks.Multiline = True
-        Me.txtRemarks.Name = "txtRemarks"
-        Me.txtRemarks.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtRemarks.Size = New System.Drawing.Size(572, 46)
-        Me.txtRemarks.TabIndex = 5
-        '
-        'lbl_Remarks
-        '
-        Me.lbl_Remarks.AutoSize = True
-        Me.lbl_Remarks.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lbl_Remarks.Location = New System.Drawing.Point(28, 102)
-        Me.lbl_Remarks.Name = "lbl_Remarks"
-        Me.lbl_Remarks.Size = New System.Drawing.Size(64, 15)
-        Me.lbl_Remarks.TabIndex = 13
-        Me.lbl_Remarks.Text = "Remarks :"
         '
         'lblReceivedDate
         '
@@ -614,13 +616,14 @@ Partial Class frm_DebitNote
         '
         Me.cmbMRNNo.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.cmbMRNNo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbMRNNo.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmbMRNNo.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmbMRNNo.ForeColor = System.Drawing.Color.White
         Me.cmbMRNNo.FormattingEnabled = True
         Me.cmbMRNNo.Location = New System.Drawing.Point(145, 71)
         Me.cmbMRNNo.Name = "cmbMRNNo"
         Me.cmbMRNNo.Size = New System.Drawing.Size(181, 23)
-        Me.cmbMRNNo.TabIndex = 2
+        Me.cmbMRNNo.TabIndex = 1
         '
         'lblSelectMRNNO
         '

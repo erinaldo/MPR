@@ -37,13 +37,13 @@ Public Class frm_OpeningBalance
             Dim dt As DataTable = obj.Fill_DataSet(strsql).Tables(0)
 
             grdOpeningBalance.DataSource = dt
-            grdOpeningBalance.Columns(0).Width = 150
+            grdOpeningBalance.Columns(0).Width = 50
             'grdOpeningBalance.Columns(1).Width = 150
             grdOpeningBalance.Columns(1).Visible = False
-            grdOpeningBalance.Columns(2).Width = 150
-            grdOpeningBalance.Columns(3).Width = 150
+            grdOpeningBalance.Columns(2).Width = 200
+            grdOpeningBalance.Columns(3).Width = 300
             grdOpeningBalance.Columns(4).Width = 150
-            grdOpeningBalance.Columns(5).Width = 150
+            grdOpeningBalance.Columns(5).Width = 120
 
         Catch ex As Exception
             MsgBox(gblMessageHeading_Error & vbCrLf & gblMessage_ContactInfo & vbCrLf & ex.Message, MsgBoxStyle.Critical, gblMessageHeading)
@@ -53,7 +53,12 @@ Public Class frm_OpeningBalance
 
     Private Sub BindCustomerCombo()
 
+        'If cmbAccountGroup.SelectedValue > 0 Then
+
         clsObj.ComboBindForPayment(cmbCustomer, "select 0 as ACC_ID,'--Select--' as ACC_NAME union Select ACC_ID,ACC_NAME from ACCOUNT_MASTER WHERE AG_ID=" & cmbAccountGroup.SelectedValue & " Order by ACC_NAME ", "ACC_NAME", "ACC_ID")
+        'Else
+        '    MsgBox("Please select valid Account Group !!!", MsgBoxStyle.Critical + MsgBoxStyle.OkOnly, gblMessageHeading)
+        'End If
 
     End Sub
 
@@ -197,6 +202,18 @@ Public Class frm_OpeningBalance
                 cmbopbaltype.SelectedItem = "Cr."
             End If
 
+        End If
+    End Sub
+
+    Private Sub cmbAccountGroup_Enter(sender As Object, e As EventArgs) Handles cmbAccountGroup.Enter
+        If Not cmbAccountGroup.DroppedDown Then
+            cmbAccountGroup.DroppedDown = True
+        End If
+    End Sub
+
+    Private Sub cmbCustomer_Enter(sender As Object, e As EventArgs) Handles cmbCustomer.Enter
+        If Not cmbCustomer.DroppedDown Then
+            cmbCustomer.DroppedDown = True
         End If
     End Sub
 

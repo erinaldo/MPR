@@ -23,8 +23,8 @@ Partial Class frm_GatePass
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frm_GatePass))
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
@@ -78,7 +78,7 @@ Partial Class frm_GatePass
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
         Me.TabControl1.Size = New System.Drawing.Size(910, 630)
-        Me.TabControl1.TabIndex = 2
+        Me.TabControl1.TabIndex = 0
         '
         'TabPage1
         '
@@ -103,7 +103,7 @@ Partial Class frm_GatePass
         Me.GroupBox2.Location = New System.Drawing.Point(28, 88)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Size = New System.Drawing.Size(845, 485)
-        Me.GroupBox2.TabIndex = 16
+        Me.GroupBox2.TabIndex = 1
         Me.GroupBox2.TabStop = False
         '
         'grdGatePass
@@ -112,27 +112,27 @@ Partial Class frm_GatePass
         Me.grdGatePass.AllowUserToDeleteRows = False
         Me.grdGatePass.BackgroundColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.grdGatePass.BorderStyle = System.Windows.Forms.BorderStyle.None
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.White
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.DarkGray
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.grdGatePass.DefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle5.BackColor = System.Drawing.Color.White
+        DataGridViewCellStyle5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle5.ForeColor = System.Drawing.Color.DarkGray
+        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.grdGatePass.DefaultCellStyle = DataGridViewCellStyle5
         Me.grdGatePass.Dock = System.Windows.Forms.DockStyle.Fill
         Me.grdGatePass.GridColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.grdGatePass.Location = New System.Drawing.Point(3, 16)
         Me.grdGatePass.Name = "grdGatePass"
         Me.grdGatePass.ReadOnly = True
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.grdGatePass.RowHeadersDefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle6.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.grdGatePass.RowHeadersDefaultCellStyle = DataGridViewCellStyle6
         Me.grdGatePass.RowHeadersVisible = False
         Me.grdGatePass.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.grdGatePass.RowTemplate.DefaultCellStyle.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -140,7 +140,7 @@ Partial Class frm_GatePass
         Me.grdGatePass.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.DarkOrange
         Me.grdGatePass.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black
         Me.grdGatePass.Size = New System.Drawing.Size(839, 466)
-        Me.grdGatePass.TabIndex = 14
+        Me.grdGatePass.TabIndex = 0
         '
         'GroupBox1
         '
@@ -152,7 +152,7 @@ Partial Class frm_GatePass
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.GroupBox1.Size = New System.Drawing.Size(845, 64)
-        Me.GroupBox1.TabIndex = 16
+        Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         '
         'txtSearch
@@ -164,7 +164,7 @@ Partial Class frm_GatePass
         Me.txtSearch.Location = New System.Drawing.Point(82, 26)
         Me.txtSearch.Name = "txtSearch"
         Me.txtSearch.Size = New System.Drawing.Size(743, 18)
-        Me.txtSearch.TabIndex = 15
+        Me.txtSearch.TabIndex = 0
         '
         'Label13
         '
@@ -382,7 +382,7 @@ Partial Class frm_GatePass
         Me.lblFormHeading.AutoSize = True
         Me.lblFormHeading.Font = New System.Drawing.Font("Verdana", 15.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblFormHeading.ForeColor = System.Drawing.Color.White
-        Me.lblFormHeading.Location = New System.Drawing.Point(760, 31)
+        Me.lblFormHeading.Location = New System.Drawing.Point(771, 10)
         Me.lblFormHeading.Name = "lblFormHeading"
         Me.lblFormHeading.Size = New System.Drawing.Size(122, 25)
         Me.lblFormHeading.TabIndex = 42
@@ -409,7 +409,7 @@ Partial Class frm_GatePass
         Me.cmbBillNo.Location = New System.Drawing.Point(133, 84)
         Me.cmbBillNo.Name = "cmbBillNo"
         Me.cmbBillNo.Size = New System.Drawing.Size(169, 22)
-        Me.cmbBillNo.TabIndex = 1
+        Me.cmbBillNo.TabIndex = 0
         '
         'Label1
         '
@@ -431,7 +431,7 @@ Partial Class frm_GatePass
         Me.txtRemarks.MaxLength = 0
         Me.txtRemarks.Multiline = True
         Me.txtRemarks.Name = "txtRemarks"
-        Me.txtRemarks.Size = New System.Drawing.Size(639, 259)
+        Me.txtRemarks.Size = New System.Drawing.Size(639, 152)
         Me.txtRemarks.TabIndex = 5
         '
         'txtCustomer
@@ -446,13 +446,13 @@ Partial Class frm_GatePass
         Me.txtCustomer.Name = "txtCustomer"
         Me.txtCustomer.ReadOnly = True
         Me.txtCustomer.Size = New System.Drawing.Size(639, 28)
-        Me.txtCustomer.TabIndex = 5
+        Me.txtCustomer.TabIndex = 1
         '
         'Label20
         '
         Me.Label20.AutoSize = True
         Me.Label20.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label20.Location = New System.Drawing.Point(26, 93)
+        Me.Label20.Location = New System.Drawing.Point(26, 87)
         Me.Label20.Name = "Label20"
         Me.Label20.Size = New System.Drawing.Size(52, 13)
         Me.Label20.TabIndex = 34

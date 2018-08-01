@@ -74,7 +74,7 @@ Partial Class frm_Account_Payment
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
         Me.TabControl1.Size = New System.Drawing.Size(910, 630)
-        Me.TabControl1.TabIndex = 1
+        Me.TabControl1.TabIndex = 0
         '
         'List
         '
@@ -92,11 +92,11 @@ Partial Class frm_Account_Payment
         '
         'BtnCancelInv
         '
-        Me.BtnCancelInv.BackColor = System.Drawing.Color.RosyBrown
-        Me.BtnCancelInv.Location = New System.Drawing.Point(752, 544)
+        Me.BtnCancelInv.BackColor = System.Drawing.Color.Tomato
+        Me.BtnCancelInv.Location = New System.Drawing.Point(766, 544)
         Me.BtnCancelInv.Name = "BtnCancelInv"
-        Me.BtnCancelInv.Size = New System.Drawing.Size(141, 30)
-        Me.BtnCancelInv.TabIndex = 10
+        Me.BtnCancelInv.Size = New System.Drawing.Size(127, 30)
+        Me.BtnCancelInv.TabIndex = 2
         Me.BtnCancelInv.Text = "Cancel "
         Me.BtnCancelInv.UseVisualStyleBackColor = False
         '
@@ -106,7 +106,7 @@ Partial Class frm_Account_Payment
         Me.GBMRSDetail.Location = New System.Drawing.Point(19, 91)
         Me.GBMRSDetail.Name = "GBMRSDetail"
         Me.GBMRSDetail.Size = New System.Drawing.Size(877, 437)
-        Me.GBMRSDetail.TabIndex = 6
+        Me.GBMRSDetail.TabIndex = 1
         Me.GBMRSDetail.TabStop = False
         '
         'flxList
@@ -114,6 +114,7 @@ Partial Class frm_Account_Payment
         Me.flxList.AllowUserToAddRows = False
         Me.flxList.AllowUserToDeleteRows = False
         Me.flxList.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.flxList.GridColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.flxList.Location = New System.Drawing.Point(3, 16)
         Me.flxList.Name = "flxList"
         Me.flxList.RowHeadersVisible = False
@@ -125,7 +126,7 @@ Partial Class frm_Account_Payment
         Me.flxList.RowsDefaultCellStyle = DataGridViewCellStyle1
         Me.flxList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.flxList.Size = New System.Drawing.Size(871, 418)
-        Me.flxList.TabIndex = 3
+        Me.flxList.TabIndex = 0
         '
         'GroupBox2
         '
@@ -134,7 +135,7 @@ Partial Class frm_Account_Payment
         Me.GroupBox2.Location = New System.Drawing.Point(19, 9)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Size = New System.Drawing.Size(874, 76)
-        Me.GroupBox2.TabIndex = 7
+        Me.GroupBox2.TabIndex = 0
         Me.GroupBox2.TabStop = False
         '
         'txtSearch
@@ -146,7 +147,7 @@ Partial Class frm_Account_Payment
         Me.txtSearch.Location = New System.Drawing.Point(89, 32)
         Me.txtSearch.Name = "txtSearch"
         Me.txtSearch.Size = New System.Drawing.Size(741, 18)
-        Me.txtSearch.TabIndex = 17
+        Me.txtSearch.TabIndex = 0
         '
         'Label1
         '
@@ -193,10 +194,10 @@ Partial Class frm_Account_Payment
         Me.GBDCMASTER.Controls.Add(Me.Label3)
         Me.GBDCMASTER.Controls.Add(Me.cmbAccountToDebit)
         Me.GBDCMASTER.Controls.Add(Me.lblCap1)
-        Me.GBDCMASTER.Location = New System.Drawing.Point(44, 61)
+        Me.GBDCMASTER.Location = New System.Drawing.Point(23, 41)
         Me.GBDCMASTER.Name = "GBDCMASTER"
-        Me.GBDCMASTER.Size = New System.Drawing.Size(810, 299)
-        Me.GBDCMASTER.TabIndex = 6
+        Me.GBDCMASTER.Size = New System.Drawing.Size(859, 532)
+        Me.GBDCMASTER.TabIndex = 0
         Me.GBDCMASTER.TabStop = False
         '
         'lblAdvanceAmount
@@ -204,7 +205,7 @@ Partial Class frm_Account_Payment
         Me.lblAdvanceAmount.AutoSize = True
         Me.lblAdvanceAmount.Font = New System.Drawing.Font("Arial", 11.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblAdvanceAmount.ForeColor = System.Drawing.Color.LimeGreen
-        Me.lblAdvanceAmount.Location = New System.Drawing.Point(64, 56)
+        Me.lblAdvanceAmount.Location = New System.Drawing.Point(89, 80)
         Me.lblAdvanceAmount.Name = "lblAdvanceAmount"
         Me.lblAdvanceAmount.Size = New System.Drawing.Size(28, 18)
         Me.lblAdvanceAmount.TabIndex = 61
@@ -214,7 +215,7 @@ Partial Class frm_Account_Payment
         '
         Me.Label5.AutoSize = True
         Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label5.Location = New System.Drawing.Point(10, 56)
+        Me.Label5.Location = New System.Drawing.Point(35, 80)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(56, 15)
         Me.Label5.TabIndex = 60
@@ -225,7 +226,7 @@ Partial Class frm_Account_Payment
         Me.lblPendingAmount.AutoSize = True
         Me.lblPendingAmount.Font = New System.Drawing.Font("Arial", 11.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblPendingAmount.ForeColor = System.Drawing.Color.Red
-        Me.lblPendingAmount.Location = New System.Drawing.Point(64, 27)
+        Me.lblPendingAmount.Location = New System.Drawing.Point(89, 35)
         Me.lblPendingAmount.Name = "lblPendingAmount"
         Me.lblPendingAmount.Size = New System.Drawing.Size(28, 18)
         Me.lblPendingAmount.TabIndex = 59
@@ -237,16 +238,16 @@ Partial Class frm_Account_Payment
         Me.dtpBankDate.CalendarMonthBackground = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.dtpBankDate.CustomFormat = "dd-MMM-yyyy"
         Me.dtpBankDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpBankDate.Location = New System.Drawing.Point(593, 170)
+        Me.dtpBankDate.Location = New System.Drawing.Point(618, 226)
         Me.dtpBankDate.Name = "dtpBankDate"
         Me.dtpBankDate.Size = New System.Drawing.Size(194, 20)
-        Me.dtpBankDate.TabIndex = 6
+        Me.dtpBankDate.TabIndex = 7
         '
         'Label11
         '
         Me.Label11.AutoSize = True
         Me.Label11.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label11.Location = New System.Drawing.Point(482, 174)
+        Me.Label11.Location = New System.Drawing.Point(507, 230)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(70, 15)
         Me.Label11.TabIndex = 58
@@ -258,18 +259,18 @@ Partial Class frm_Account_Payment
         Me.txtRemarks.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtRemarks.Font = New System.Drawing.Font("Arial Narrow", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtRemarks.ForeColor = System.Drawing.Color.White
-        Me.txtRemarks.Location = New System.Drawing.Point(109, 217)
+        Me.txtRemarks.Location = New System.Drawing.Point(134, 266)
         Me.txtRemarks.MaxLength = 0
         Me.txtRemarks.Multiline = True
         Me.txtRemarks.Name = "txtRemarks"
-        Me.txtRemarks.Size = New System.Drawing.Size(678, 65)
+        Me.txtRemarks.Size = New System.Drawing.Size(678, 103)
         Me.txtRemarks.TabIndex = 8
         '
         'Label10
         '
         Me.Label10.AutoSize = True
         Me.Label10.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label10.Location = New System.Drawing.Point(10, 220)
+        Me.Label10.Location = New System.Drawing.Point(35, 269)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(63, 15)
         Me.Label10.TabIndex = 55
@@ -281,16 +282,16 @@ Partial Class frm_Account_Payment
         Me.dtpReferenceDate.CalendarMonthBackground = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.dtpReferenceDate.CustomFormat = "dd-MMM-yyyy"
         Me.dtpReferenceDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpReferenceDate.Location = New System.Drawing.Point(594, 133)
+        Me.dtpReferenceDate.Location = New System.Drawing.Point(619, 184)
         Me.dtpReferenceDate.Name = "dtpReferenceDate"
         Me.dtpReferenceDate.Size = New System.Drawing.Size(193, 20)
-        Me.dtpReferenceDate.TabIndex = 4
+        Me.dtpReferenceDate.TabIndex = 5
         '
         'Label9
         '
         Me.Label9.AutoSize = True
         Me.Label9.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label9.Location = New System.Drawing.Point(482, 124)
+        Me.Label9.Location = New System.Drawing.Point(507, 175)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(99, 30)
         Me.Label9.TabIndex = 53
@@ -299,15 +300,15 @@ Partial Class frm_Account_Payment
         'cmbAccountToCredit
         '
         Me.cmbAccountToCredit.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.cmbAccountToCredit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbAccountToCredit.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmbAccountToCredit.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmbAccountToCredit.ForeColor = System.Drawing.Color.White
         Me.cmbAccountToCredit.FormattingEnabled = True
         Me.cmbAccountToCredit.Items.AddRange(New Object() {"---Select---", "Post Dated Cheque", "Temporary Receipt", "Credit Payment"})
-        Me.cmbAccountToCredit.Location = New System.Drawing.Point(109, 53)
+        Me.cmbAccountToCredit.Location = New System.Drawing.Point(134, 78)
         Me.cmbAccountToCredit.Name = "cmbAccountToCredit"
         Me.cmbAccountToCredit.Size = New System.Drawing.Size(678, 23)
-        Me.cmbAccountToCredit.TabIndex = 5
+        Me.cmbAccountToCredit.TabIndex = 1
         '
         'dtpPaymentDate
         '
@@ -315,16 +316,16 @@ Partial Class frm_Account_Payment
         Me.dtpPaymentDate.CalendarMonthBackground = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.dtpPaymentDate.CustomFormat = "dd-MMM-yyyy"
         Me.dtpPaymentDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpPaymentDate.Location = New System.Drawing.Point(594, 96)
+        Me.dtpPaymentDate.Location = New System.Drawing.Point(619, 145)
         Me.dtpPaymentDate.Name = "dtpPaymentDate"
         Me.dtpPaymentDate.Size = New System.Drawing.Size(193, 20)
-        Me.dtpPaymentDate.TabIndex = 2
+        Me.dtpPaymentDate.TabIndex = 3
         '
         'Label12
         '
         Me.Label12.AutoSize = True
         Me.Label12.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label12.Location = New System.Drawing.Point(482, 94)
+        Me.Label12.Location = New System.Drawing.Point(507, 143)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(90, 15)
         Me.Label12.TabIndex = 48
@@ -334,20 +335,21 @@ Partial Class frm_Account_Payment
         '
         Me.cmbPaymentType.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.cmbPaymentType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbPaymentType.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmbPaymentType.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmbPaymentType.ForeColor = System.Drawing.Color.White
         Me.cmbPaymentType.FormattingEnabled = True
         Me.cmbPaymentType.Items.AddRange(New Object() {"---Select---", "Post Dated Cheque", "Temporary Receipt", "Credit Payment"})
-        Me.cmbPaymentType.Location = New System.Drawing.Point(109, 96)
+        Me.cmbPaymentType.Location = New System.Drawing.Point(134, 141)
         Me.cmbPaymentType.Name = "cmbPaymentType"
         Me.cmbPaymentType.Size = New System.Drawing.Size(306, 23)
-        Me.cmbPaymentType.TabIndex = 1
+        Me.cmbPaymentType.TabIndex = 2
         '
         'Label4
         '
         Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(10, 94)
+        Me.Label4.Location = New System.Drawing.Point(35, 143)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(90, 15)
         Me.Label4.TabIndex = 46
@@ -359,17 +361,18 @@ Partial Class frm_Account_Payment
         Me.txtAmount.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtAmount.Font = New System.Drawing.Font("Arial Narrow", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtAmount.ForeColor = System.Drawing.Color.White
-        Me.txtAmount.Location = New System.Drawing.Point(109, 174)
+        Me.txtAmount.Location = New System.Drawing.Point(134, 223)
         Me.txtAmount.MaxLength = 0
+        Me.txtAmount.Multiline = True
         Me.txtAmount.Name = "txtAmount"
-        Me.txtAmount.Size = New System.Drawing.Size(306, 19)
-        Me.txtAmount.TabIndex = 7
+        Me.txtAmount.Size = New System.Drawing.Size(306, 23)
+        Me.txtAmount.TabIndex = 6
         '
         'Label2
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(10, 174)
+        Me.Label2.Location = New System.Drawing.Point(35, 226)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(55, 15)
         Me.Label2.TabIndex = 44
@@ -381,17 +384,18 @@ Partial Class frm_Account_Payment
         Me.txtReferenceNo.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtReferenceNo.Font = New System.Drawing.Font("Arial Narrow", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtReferenceNo.ForeColor = System.Drawing.Color.White
-        Me.txtReferenceNo.Location = New System.Drawing.Point(109, 137)
+        Me.txtReferenceNo.Location = New System.Drawing.Point(134, 182)
         Me.txtReferenceNo.MaxLength = 0
+        Me.txtReferenceNo.Multiline = True
         Me.txtReferenceNo.Name = "txtReferenceNo"
-        Me.txtReferenceNo.Size = New System.Drawing.Size(306, 19)
-        Me.txtReferenceNo.TabIndex = 3
+        Me.txtReferenceNo.Size = New System.Drawing.Size(306, 23)
+        Me.txtReferenceNo.TabIndex = 4
         '
         'Label3
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(10, 124)
+        Me.Label3.Location = New System.Drawing.Point(35, 174)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(89, 30)
         Me.Label3.TabIndex = 15
@@ -400,11 +404,11 @@ Partial Class frm_Account_Payment
         'cmbAccountToDebit
         '
         Me.cmbAccountToDebit.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.cmbAccountToDebit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbAccountToDebit.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmbAccountToDebit.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmbAccountToDebit.ForeColor = System.Drawing.Color.White
         Me.cmbAccountToDebit.FormattingEnabled = True
-        Me.cmbAccountToDebit.Location = New System.Drawing.Point(109, 19)
+        Me.cmbAccountToDebit.Location = New System.Drawing.Point(134, 33)
         Me.cmbAccountToDebit.Name = "cmbAccountToDebit"
         Me.cmbAccountToDebit.Size = New System.Drawing.Size(678, 23)
         Me.cmbAccountToDebit.TabIndex = 0
@@ -413,7 +417,7 @@ Partial Class frm_Account_Payment
         '
         Me.lblCap1.AutoSize = True
         Me.lblCap1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblCap1.Location = New System.Drawing.Point(10, 27)
+        Me.lblCap1.Location = New System.Drawing.Point(35, 35)
         Me.lblCap1.Name = "lblCap1"
         Me.lblCap1.Size = New System.Drawing.Size(56, 15)
         Me.lblCap1.TabIndex = 10
@@ -424,7 +428,7 @@ Partial Class frm_Account_Payment
         Me.lblFormHeading.AutoSize = True
         Me.lblFormHeading.Font = New System.Drawing.Font("Verdana", 15.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblFormHeading.ForeColor = System.Drawing.Color.White
-        Me.lblFormHeading.Location = New System.Drawing.Point(340, 24)
+        Me.lblFormHeading.Location = New System.Drawing.Point(351, 11)
         Me.lblFormHeading.Name = "lblFormHeading"
         Me.lblFormHeading.Size = New System.Drawing.Size(162, 25)
         Me.lblFormHeading.TabIndex = 5

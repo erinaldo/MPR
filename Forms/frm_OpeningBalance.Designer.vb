@@ -69,7 +69,7 @@ Partial Class frm_OpeningBalance
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
         Me.TabControl1.Size = New System.Drawing.Size(910, 630)
-        Me.TabControl1.TabIndex = 2
+        Me.TabControl1.TabIndex = 0
         '
         'TabPage1
         '
@@ -94,7 +94,7 @@ Partial Class frm_OpeningBalance
         Me.GroupBox2.Location = New System.Drawing.Point(28, 88)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Size = New System.Drawing.Size(845, 485)
-        Me.GroupBox2.TabIndex = 16
+        Me.GroupBox2.TabIndex = 1
         Me.GroupBox2.TabStop = False
         '
         'grdOpeningBalance
@@ -132,7 +132,7 @@ Partial Class frm_OpeningBalance
         Me.grdOpeningBalance.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black
         Me.grdOpeningBalance.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.grdOpeningBalance.Size = New System.Drawing.Size(839, 466)
-        Me.grdOpeningBalance.TabIndex = 14
+        Me.grdOpeningBalance.TabIndex = 0
         '
         'GroupBox1
         '
@@ -144,7 +144,7 @@ Partial Class frm_OpeningBalance
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.GroupBox1.Size = New System.Drawing.Size(845, 64)
-        Me.GroupBox1.TabIndex = 16
+        Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         '
         'txtSearch
@@ -156,7 +156,7 @@ Partial Class frm_OpeningBalance
         Me.txtSearch.Location = New System.Drawing.Point(82, 26)
         Me.txtSearch.Name = "txtSearch"
         Me.txtSearch.Size = New System.Drawing.Size(743, 18)
-        Me.txtSearch.TabIndex = 15
+        Me.txtSearch.TabIndex = 0
         '
         'Label13
         '
@@ -212,17 +212,17 @@ Partial Class frm_OpeningBalance
         Me.dtpOpeningDate.CalendarMonthBackground = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.dtpOpeningDate.CustomFormat = "dd-MMM-yyyy"
         Me.dtpOpeningDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpOpeningDate.Location = New System.Drawing.Point(139, 152)
+        Me.dtpOpeningDate.Location = New System.Drawing.Point(192, 228)
         Me.dtpOpeningDate.Name = "dtpOpeningDate"
-        Me.dtpOpeningDate.Size = New System.Drawing.Size(243, 22)
-        Me.dtpOpeningDate.TabIndex = 54
+        Me.dtpOpeningDate.Size = New System.Drawing.Size(201, 22)
+        Me.dtpOpeningDate.TabIndex = 4
         Me.dtpOpeningDate.Visible = False
         '
         'Label7
         '
         Me.Label7.AutoSize = True
         Me.Label7.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label7.Location = New System.Drawing.Point(23, 152)
+        Me.Label7.Location = New System.Drawing.Point(73, 228)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(89, 15)
         Me.Label7.TabIndex = 53
@@ -235,7 +235,7 @@ Partial Class frm_OpeningBalance
         Me.Label6.BackColor = System.Drawing.Color.Transparent
         Me.Label6.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label6.ForeColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.Label6.Location = New System.Drawing.Point(509, 153)
+        Me.Label6.Location = New System.Drawing.Point(676, 235)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(80, 15)
         Me.Label6.TabIndex = 52
@@ -247,7 +247,7 @@ Partial Class frm_OpeningBalance
         Me.Label5.BackColor = System.Drawing.Color.Transparent
         Me.Label5.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label5.ForeColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.Label5.Location = New System.Drawing.Point(411, 153)
+        Me.Label5.Location = New System.Drawing.Point(552, 235)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(109, 15)
         Me.Label5.TabIndex = 51
@@ -259,7 +259,7 @@ Partial Class frm_OpeningBalance
         Me.Label4.BackColor = System.Drawing.Color.Transparent
         Me.Label4.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label4.ForeColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.Label4.Location = New System.Drawing.Point(410, 114)
+        Me.Label4.Location = New System.Drawing.Point(551, 190)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(68, 19)
         Me.Label4.TabIndex = 50
@@ -269,14 +269,15 @@ Partial Class frm_OpeningBalance
         '
         Me.cmbopbaltype.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.cmbopbaltype.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbopbaltype.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmbopbaltype.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmbopbaltype.ForeColor = System.Drawing.Color.White
         Me.cmbopbaltype.FormattingEnabled = True
         Me.cmbopbaltype.Items.AddRange(New Object() {"Dr.", "Cr."})
-        Me.cmbopbaltype.Location = New System.Drawing.Point(485, 110)
+        Me.cmbopbaltype.Location = New System.Drawing.Point(625, 186)
         Me.cmbopbaltype.Name = "cmbopbaltype"
-        Me.cmbopbaltype.Size = New System.Drawing.Size(104, 23)
-        Me.cmbopbaltype.TabIndex = 49
+        Me.cmbopbaltype.Size = New System.Drawing.Size(131, 23)
+        Me.cmbopbaltype.TabIndex = 3
         '
         'txtAmount
         '
@@ -284,17 +285,18 @@ Partial Class frm_OpeningBalance
         Me.txtAmount.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtAmount.Font = New System.Drawing.Font("Arial Narrow", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtAmount.ForeColor = System.Drawing.Color.White
-        Me.txtAmount.Location = New System.Drawing.Point(139, 114)
+        Me.txtAmount.Location = New System.Drawing.Point(192, 190)
         Me.txtAmount.MaxLength = 14
+        Me.txtAmount.Multiline = True
         Me.txtAmount.Name = "txtAmount"
-        Me.txtAmount.Size = New System.Drawing.Size(243, 19)
-        Me.txtAmount.TabIndex = 47
+        Me.txtAmount.Size = New System.Drawing.Size(201, 23)
+        Me.txtAmount.TabIndex = 2
         '
         'Label3
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(20, 116)
+        Me.Label3.Location = New System.Drawing.Point(73, 190)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(108, 15)
         Me.Label3.TabIndex = 48
@@ -303,20 +305,20 @@ Partial Class frm_OpeningBalance
         'cmbAccountGroup
         '
         Me.cmbAccountGroup.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.cmbAccountGroup.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbAccountGroup.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmbAccountGroup.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmbAccountGroup.ForeColor = System.Drawing.Color.White
         Me.cmbAccountGroup.FormattingEnabled = True
-        Me.cmbAccountGroup.Location = New System.Drawing.Point(137, 25)
+        Me.cmbAccountGroup.Location = New System.Drawing.Point(190, 101)
         Me.cmbAccountGroup.Name = "cmbAccountGroup"
-        Me.cmbAccountGroup.Size = New System.Drawing.Size(452, 23)
-        Me.cmbAccountGroup.TabIndex = 46
+        Me.cmbAccountGroup.Size = New System.Drawing.Size(566, 23)
+        Me.cmbAccountGroup.TabIndex = 0
         '
         'Label1
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(20, 28)
+        Me.Label1.Location = New System.Drawing.Point(73, 101)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(90, 15)
         Me.Label1.TabIndex = 45
@@ -325,20 +327,20 @@ Partial Class frm_OpeningBalance
         'cmbCustomer
         '
         Me.cmbCustomer.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.cmbCustomer.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbCustomer.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmbCustomer.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmbCustomer.ForeColor = System.Drawing.Color.White
         Me.cmbCustomer.FormattingEnabled = True
-        Me.cmbCustomer.Location = New System.Drawing.Point(137, 71)
+        Me.cmbCustomer.Location = New System.Drawing.Point(190, 147)
         Me.cmbCustomer.Name = "cmbCustomer"
-        Me.cmbCustomer.Size = New System.Drawing.Size(452, 23)
-        Me.cmbCustomer.TabIndex = 44
+        Me.cmbCustomer.Size = New System.Drawing.Size(566, 23)
+        Me.cmbCustomer.TabIndex = 1
         '
         'Label2
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(20, 74)
+        Me.Label2.Location = New System.Drawing.Point(73, 150)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(92, 15)
         Me.Label2.TabIndex = 43
@@ -346,13 +348,15 @@ Partial Class frm_OpeningBalance
         '
         'lblFormHeading
         '
+        Me.lblFormHeading.BackColor = System.Drawing.Color.Transparent
         Me.lblFormHeading.Font = New System.Drawing.Font("Verdana", 15.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblFormHeading.ForeColor = System.Drawing.Color.White
-        Me.lblFormHeading.Location = New System.Drawing.Point(681, 18)
+        Me.lblFormHeading.Location = New System.Drawing.Point(277, 18)
         Me.lblFormHeading.Name = "lblFormHeading"
-        Me.lblFormHeading.Size = New System.Drawing.Size(209, 59)
+        Me.lblFormHeading.Size = New System.Drawing.Size(358, 38)
         Me.lblFormHeading.TabIndex = 42
-        Me.lblFormHeading.Text = "Account      Opening Balance"
+        Me.lblFormHeading.Text = "Account Opening Balance"
+        Me.lblFormHeading.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
         'ImageList1
         '
