@@ -110,9 +110,6 @@ Public Class frm_openSale_Invoice
                 Exit Sub
             End If
 
-
-
-
             prpty = New cls_Sale_Invoice_prop
 
             Dim ds1 As DataSet = obj.FillDataSet("Select isnull(max(SI_ID),0) + 1 from dbo.SALE_INVOICE_MASTER")
@@ -202,6 +199,7 @@ Public Class frm_openSale_Invoice
                 End If
 
             Else
+                prpty.EwayBill_NO = txtEwayBillNo.Text.ToUpper()
                 clsObj.Update_SALE_INVOICE_MASTER(prpty)
                 If MsgBox("Invoice information has been Updated." & vbCrLf & "Do You Want to Print Preview.", MsgBoxStyle.Question + MsgBoxStyle.YesNo, gblMessageHeading) = MsgBoxResult.Yes Then
                     obj.RptShow(enmReportName.RptInvoicePrint, "Si_ID", CStr(prpty.SI_ID), CStr(enmDataType.D_int))
@@ -244,6 +242,7 @@ Public Class frm_openSale_Invoice
         txtGstNo.Text = ""
         txtTransport.Text = ""
         txtLRNO.Text = ""
+        txtEwayBillNo.Text = ""
         txtcustomer_name.Text = ""
         cmbinvtype.SelectedIndex = 0
         cmbCity.SelectedIndex = 0
@@ -817,6 +816,7 @@ restart:
                 new_initilization()
                 flag = "update"
                 btnAddNew.Visible = False
+                txtEwayBillNo.ReadOnly = False
                 Si_ID = Convert.ToInt32(flxList("Si_ID", flxList.CurrentCell.RowIndex).Value())
                 fill_InvoiceDetail(Si_ID)
             End If
@@ -847,6 +847,7 @@ restart:
             txtTransport.Text = dr("TRANSPORT")
             txtLRNO.Text = dr("LR_NO")
             cmbinvtype.Text = dr("INV_TYPE")
+            txtEwayBillNo.Text = dr("EwayBillNo")
 
             RemoveHandler flxItems.AfterDataRefresh, AddressOf flxItems_AfterDataRefresh
 
@@ -860,6 +861,7 @@ restart:
 
         End If
     End Sub
+
     Private Sub SetGstLabels()
 
         Dim GSTAmount0 As Decimal = 0
@@ -950,6 +952,7 @@ restart:
         End If
 
     End Sub
+
     Private Function CalculateAmount() As String
         Try
 
@@ -1197,4 +1200,9 @@ restart:
             cmbSupplier.DroppedDown = True
         End If
     End Sub
+
+    Private Sub txtEwayBillNo_TextChanged(sender As Object, e As EventArgs) Handles txtEwayBillNo.TextChanged
+        txtEwayBillNo.CharacterCasing = CharacterCasing.Upper
+    End Sub
+
 End Class

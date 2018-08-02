@@ -39,6 +39,17 @@ Namespace Sale_Invoice
         Dim _dtable_Item_List As DataTable
         Dim _DataTable As DataTable
 
+        Dim _EwayBill_NO As String
+
+        Public Property EwayBill_NO() As String
+            Get
+                EwayBill_NO = _EwayBill_NO
+            End Get
+            Set(ByVal value As String)
+                _EwayBill_NO = value
+            End Set
+        End Property
+
         Public Property SI_ID() As Double
             Get
                 SI_ID = _SI_ID
@@ -882,10 +893,8 @@ again:
                 cmd.Parameters.AddWithValue("@v_SALE_TYPE", clsobj.SALE_TYPE)
                 cmd.Parameters.AddWithValue("@v_GROSS_AMOUNT", clsobj.GROSS_AMOUNT)
                 cmd.Parameters.AddWithValue("@v_VAT_AMOUNT", clsobj.VAT_AMOUNT)
-
                 cmd.Parameters.AddWithValue("@v_CESS_AMOUNT", clsobj.CESS_AMOUNT)
                 cmd.Parameters.AddWithValue("@v_ACESS_AMOUNT", clsobj.ACESS_AMOUNT)
-
                 cmd.Parameters.AddWithValue("@v_NET_AMOUNT", clsobj.NET_AMOUNT)
                 cmd.Parameters.AddWithValue("@V_IS_SAMPLE", clsobj.IS_SAMPLE)
                 cmd.Parameters.AddWithValue("@V_DELIVERY_NOTE_NO", clsobj.DELIVERY_NOTE_NO)
@@ -902,6 +911,7 @@ again:
                 cmd.Parameters.AddWithValue("@v_INV_TYPE", clsobj.INV_TYPE)
                 cmd.Parameters.AddWithValue("@v_LR_NO", clsobj.LR_NO)
                 cmd.Parameters.AddWithValue("@V_MODE", 2)
+                cmd.Parameters.AddWithValue("@v_EwayBill_NO", clsobj.EwayBill_NO)
                 cmd.ExecuteNonQuery()
                 cmd.Dispose()
 
@@ -1111,6 +1121,7 @@ again:
                 cmd.Parameters.AddWithValue("@v_INV_TYPE", clsobj.INV_TYPE)
                 cmd.Parameters.AddWithValue("@v_LR_NO", clsobj.LR_NO)
                 cmd.Parameters.AddWithValue("@V_MODE", 2)
+                cmd.Parameters.AddWithValue("@v_EwayBill_NO", clsobj.EwayBill_NO)
                 cmd.ExecuteNonQuery()
                 cmd.Dispose()
 
