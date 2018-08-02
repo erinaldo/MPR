@@ -1540,11 +1540,20 @@ restart:
 
                 Dim totalAmount As Decimal = FLXGRD_MaterialItem.Item(iRow, "BATCH_QTY") * FLXGRD_MaterialItem.Item(iRow, "item_rate")
 
+
+
                 If FLXGRD_MaterialItem.Item(iRow, "DType") = "P" Then
-                    totalAmount -= Math.Round((totalAmount * FLXGRD_MaterialItem.Item(iRow, "DISC") / 100), 2) + Math.Round((FLXGRD_MaterialItem.Item(iRow, "DISC1") / 100), 2)
+                    totalAmount -= Math.Round((totalAmount * FLXGRD_MaterialItem.Item(iRow, "DISC") / 100), 2)
                 Else
-                    totalAmount -= Math.Round(FLXGRD_MaterialItem.Item(iRow, "DISC"), 2) + Math.Round((FLXGRD_MaterialItem.Item(iRow, "DISC1") / 100), 2)
+                    totalAmount -= Math.Round(FLXGRD_MaterialItem.Item(iRow, "DISC"), 2)
                 End If
+
+                If FLXGRD_MaterialItem.Item(iRow, "DType") = "P" Then
+                    totalAmount -= Math.Round((totalAmount * FLXGRD_MaterialItem.Item(iRow, "DISC1") / 100), 2)
+                Else
+                    totalAmount -= Math.Round(FLXGRD_MaterialItem.Item(iRow, "DISC1"), 2)
+                End If
+
 
                 If FLXGRD_MaterialItem.Item(iRow, "GPAID") = "Y" Then
                     totalAmount -= (totalAmount - (totalAmount / (1 + (FLXGRD_MaterialItem.Item(iRow, "vat_per") / 100))))
