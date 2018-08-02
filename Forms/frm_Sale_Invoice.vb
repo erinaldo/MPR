@@ -178,6 +178,7 @@ Public Class frm_Sale_Invoice
                     obj.RptShow(enmReportName.RptInvoicePrint, "Si_ID", CStr(prpty.SI_ID), CStr(enmDataType.D_int))
                 End If
             Else
+                prpty.EwayBill_NO = txtEwayBillNo.Text.ToUpper()
                 clsObj.Update_SALE_INVOICE_MASTER(prpty)
                 If MsgBox("Invoice information has been Updated." & vbCrLf & "Do You Want to Print Preview.", MsgBoxStyle.Question + MsgBoxStyle.YesNo, gblMessageHeading) = MsgBoxResult.Yes Then
                     obj.RptShow(enmReportName.RptInvoicePrint, "Si_ID", CStr(prpty.SI_ID), CStr(enmDataType.D_int))
@@ -213,6 +214,7 @@ Public Class frm_Sale_Invoice
 
         lbl_TransferDate.Text = Now.ToString("dd-MMM-yyyy")
         txt_LRNO.Text = ""
+        txtEwayBillNo.Text = ""
         cmbSupplier.SelectedIndex = 0
         cmbSupplier.SelectedIndex = 0
         lblAddress.Text = ""
@@ -825,6 +827,7 @@ WHERE   ( SUPPLIER_RATE_LIST_DETAIL.ITEM_ID =" & Convert.ToInt32(item_id) & " )
             Else
                 new_initilization()
                 flag = "update"
+                txtEwayBillNo.ReadOnly = False
                 Si_ID = Convert.ToInt32(flxList("Si_ID", flxList.CurrentCell.RowIndex).Value())
                 fill_InvoiceDetail(Si_ID)
             End If
@@ -856,19 +859,14 @@ WHERE   ( SUPPLIER_RATE_LIST_DETAIL.ITEM_ID =" & Convert.ToInt32(item_id) & " )
             txtTransport.Text = dr("TRANSPORT")
             txt_LRNO.Text = dr("LR_NO")
             cmbinvtype.Text = dr("INV_TYPE")
-
+            txtEwayBillNo.Text = dr("EwayBillNo")
             dtable_Item_List = clsObj.fill_Data_set("GET_INV_ITEM_DETAILS", "@V_SI_ID", strSIID).Tables(0)
-
             flxItems.DataSource = dtable_Item_List
-
             format_grid()
             'table_style()
             generate_tree()
             CalculateAmount()
-
         End If
-
-
     End Sub
 
     Private Sub cmbSupplier_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmbSupplier.SelectedIndexChanged
@@ -1021,6 +1019,7 @@ WHERE   ( SUPPLIER_RATE_LIST_DETAIL.ITEM_ID =" & Convert.ToInt32(item_id) & " )
         End If
 
     End Sub
+
     Private Function CalculateAmount() As String
         Try
 
@@ -1190,4 +1189,9 @@ WHERE   ( SUPPLIER_RATE_LIST_DETAIL.ITEM_ID =" & Convert.ToInt32(item_id) & " )
             cmbSupplier.DroppedDown = True
         End If
     End Sub
+
+    Private Sub txtEwayBillNo_TextChanged(sender As Object, e As EventArgs) Handles txtEwayBillNo.TextChanged
+        txtEwayBillNo.CharacterCasing = CharacterCasing.Upper
+    End Sub
+
 End Class
