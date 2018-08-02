@@ -109,8 +109,8 @@ Public Class frm_Accept_stock_transfer
 
             table_style()
             new_initilization()
-            clsObj.FormatGrid(flxItems)
-            clsObj.FormatGrid(flxGridItems)
+            'clsObj.FormatGrid(flxItems)
+            'clsObj.FormatGrid(flxGridItems)
             table_style_new()
             GetItemList()
         Catch ex As Exception

@@ -16,7 +16,7 @@ Public Class frm_Depreciation_Cal
     End Sub
 
     Private Sub InitializeControls()
-        obj.FormatGrid(dgvDepreciation)
+        'obj.FormatGrid(dgvDepreciation)
         SetFYText()
         BindGrid()
     End Sub

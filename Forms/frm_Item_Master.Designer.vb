@@ -20,8 +20,8 @@ Partial Class frm_Item_Master
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frm_Item_Master))
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
@@ -54,6 +54,16 @@ Partial Class frm_Item_Master
         Me.Label8 = New System.Windows.Forms.Label()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.lblbrandname = New System.Windows.Forms.Label()
+        Me.lblbarcode = New System.Windows.Forms.Label()
+        Me.lblhsn = New System.Windows.Forms.Label()
+        Me.lblSalerate = New System.Windows.Forms.Label()
+        Me.lblmrp = New System.Windows.Forms.Label()
+        Me.Label25 = New System.Windows.Forms.Label()
+        Me.Label27 = New System.Windows.Forms.Label()
+        Me.Label28 = New System.Windows.Forms.Label()
+        Me.Label29 = New System.Windows.Forms.Label()
+        Me.Label30 = New System.Windows.Forms.Label()
         Me.txtCurrentStock = New System.Windows.Forms.Label()
         Me.lblConvReciepe = New System.Windows.Forms.Label()
         Me.lblConvIssue = New System.Windows.Forms.Label()
@@ -75,16 +85,6 @@ Partial Class frm_Item_Master
         Me.Label14 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
-        Me.lblbrandname = New System.Windows.Forms.Label()
-        Me.lblbarcode = New System.Windows.Forms.Label()
-        Me.lblhsn = New System.Windows.Forms.Label()
-        Me.lblSalerate = New System.Windows.Forms.Label()
-        Me.lblmrp = New System.Windows.Forms.Label()
-        Me.Label25 = New System.Windows.Forms.Label()
-        Me.Label27 = New System.Windows.Forms.Label()
-        Me.Label28 = New System.Windows.Forms.Label()
-        Me.Label29 = New System.Windows.Forms.Label()
-        Me.Label30 = New System.Windows.Forms.Label()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -140,33 +140,34 @@ Partial Class frm_Item_Master
         Me.grdItemMaster.AllowUserToDeleteRows = False
         Me.grdItemMaster.BackgroundColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.grdItemMaster.BorderStyle = System.Windows.Forms.BorderStyle.None
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle5.BackColor = System.Drawing.Color.White
-        DataGridViewCellStyle5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle5.ForeColor = System.Drawing.Color.DarkGray
-        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.grdItemMaster.DefaultCellStyle = DataGridViewCellStyle5
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.White
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.DarkGray
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.grdItemMaster.DefaultCellStyle = DataGridViewCellStyle1
         Me.grdItemMaster.Dock = System.Windows.Forms.DockStyle.Fill
         Me.grdItemMaster.GridColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.grdItemMaster.Location = New System.Drawing.Point(3, 16)
         Me.grdItemMaster.Name = "grdItemMaster"
         Me.grdItemMaster.ReadOnly = True
-        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle6.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.grdItemMaster.RowHeadersDefaultCellStyle = DataGridViewCellStyle6
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.grdItemMaster.RowHeadersDefaultCellStyle = DataGridViewCellStyle2
         Me.grdItemMaster.RowHeadersVisible = False
         Me.grdItemMaster.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.grdItemMaster.RowTemplate.DefaultCellStyle.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grdItemMaster.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.White
         Me.grdItemMaster.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.DarkOrange
         Me.grdItemMaster.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black
+        Me.grdItemMaster.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.grdItemMaster.Size = New System.Drawing.Size(839, 466)
         Me.grdItemMaster.TabIndex = 2
         '
@@ -528,6 +529,116 @@ Partial Class frm_Item_Master
         Me.GroupBox3.TabIndex = 1
         Me.GroupBox3.TabStop = False
         '
+        'lblbrandname
+        '
+        Me.lblbrandname.AutoSize = True
+        Me.lblbrandname.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblbrandname.ForeColor = System.Drawing.Color.Orange
+        Me.lblbrandname.Location = New System.Drawing.Point(645, 133)
+        Me.lblbrandname.Name = "lblbrandname"
+        Me.lblbrandname.Size = New System.Drawing.Size(49, 13)
+        Me.lblbrandname.TabIndex = 46
+        Me.lblbrandname.Text = "brand :"
+        '
+        'lblbarcode
+        '
+        Me.lblbarcode.AutoSize = True
+        Me.lblbarcode.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblbarcode.ForeColor = System.Drawing.Color.Orange
+        Me.lblbarcode.Location = New System.Drawing.Point(645, 106)
+        Me.lblbarcode.Name = "lblbarcode"
+        Me.lblbarcode.Size = New System.Drawing.Size(70, 13)
+        Me.lblbarcode.TabIndex = 47
+        Me.lblbarcode.Text = "Bar Code :"
+        '
+        'lblhsn
+        '
+        Me.lblhsn.AutoSize = True
+        Me.lblhsn.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblhsn.ForeColor = System.Drawing.Color.Orange
+        Me.lblhsn.Location = New System.Drawing.Point(645, 80)
+        Me.lblhsn.Name = "lblhsn"
+        Me.lblhsn.Size = New System.Drawing.Size(40, 13)
+        Me.lblhsn.TabIndex = 48
+        Me.lblhsn.Text = "HSN :"
+        '
+        'lblSalerate
+        '
+        Me.lblSalerate.AutoSize = True
+        Me.lblSalerate.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblSalerate.ForeColor = System.Drawing.Color.Orange
+        Me.lblSalerate.Location = New System.Drawing.Point(645, 54)
+        Me.lblSalerate.Name = "lblSalerate"
+        Me.lblSalerate.Size = New System.Drawing.Size(71, 13)
+        Me.lblSalerate.TabIndex = 49
+        Me.lblSalerate.Text = "Sale Rate :"
+        '
+        'lblmrp
+        '
+        Me.lblmrp.AutoSize = True
+        Me.lblmrp.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblmrp.ForeColor = System.Drawing.Color.Orange
+        Me.lblmrp.Location = New System.Drawing.Point(645, 28)
+        Me.lblmrp.Name = "lblmrp"
+        Me.lblmrp.Size = New System.Drawing.Size(40, 13)
+        Me.lblmrp.TabIndex = 50
+        Me.lblmrp.Text = "MRP :"
+        '
+        'Label25
+        '
+        Me.Label25.AutoSize = True
+        Me.Label25.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label25.Location = New System.Drawing.Point(498, 29)
+        Me.Label25.Name = "Label25"
+        Me.Label25.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.Label25.Size = New System.Drawing.Size(40, 13)
+        Me.Label25.TabIndex = 41
+        Me.Label25.Text = "MRP :"
+        '
+        'Label27
+        '
+        Me.Label27.AutoSize = True
+        Me.Label27.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label27.Location = New System.Drawing.Point(498, 55)
+        Me.Label27.Name = "Label27"
+        Me.Label27.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.Label27.Size = New System.Drawing.Size(71, 13)
+        Me.Label27.TabIndex = 42
+        Me.Label27.Text = "Sale Rate :"
+        '
+        'Label28
+        '
+        Me.Label28.AutoSize = True
+        Me.Label28.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label28.Location = New System.Drawing.Point(498, 107)
+        Me.Label28.Name = "Label28"
+        Me.Label28.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.Label28.Size = New System.Drawing.Size(70, 13)
+        Me.Label28.TabIndex = 43
+        Me.Label28.Text = "Bar Code :"
+        '
+        'Label29
+        '
+        Me.Label29.AutoSize = True
+        Me.Label29.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label29.Location = New System.Drawing.Point(498, 81)
+        Me.Label29.Name = "Label29"
+        Me.Label29.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.Label29.Size = New System.Drawing.Size(74, 13)
+        Me.Label29.TabIndex = 44
+        Me.Label29.Text = "HSN Code :"
+        '
+        'Label30
+        '
+        Me.Label30.AutoSize = True
+        Me.Label30.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label30.Location = New System.Drawing.Point(498, 133)
+        Me.Label30.Name = "Label30"
+        Me.Label30.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.Label30.Size = New System.Drawing.Size(57, 13)
+        Me.Label30.TabIndex = 45
+        Me.Label30.Text = "BRAND :"
+        '
         'txtCurrentStock
         '
         Me.txtCurrentStock.AutoSize = True
@@ -754,116 +865,6 @@ Partial Class frm_Item_Master
         Me.ImageList1.TransparentColor = System.Drawing.Color.Transparent
         Me.ImageList1.Images.SetKeyName(0, "Zoom_search_find_magnifying_glass.png")
         Me.ImageList1.Images.SetKeyName(1, "Inventory_box_shipment_product.png")
-        '
-        'lblbrandname
-        '
-        Me.lblbrandname.AutoSize = True
-        Me.lblbrandname.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblbrandname.ForeColor = System.Drawing.Color.Orange
-        Me.lblbrandname.Location = New System.Drawing.Point(645, 133)
-        Me.lblbrandname.Name = "lblbrandname"
-        Me.lblbrandname.Size = New System.Drawing.Size(49, 13)
-        Me.lblbrandname.TabIndex = 46
-        Me.lblbrandname.Text = "brand :"
-        '
-        'lblbarcode
-        '
-        Me.lblbarcode.AutoSize = True
-        Me.lblbarcode.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblbarcode.ForeColor = System.Drawing.Color.Orange
-        Me.lblbarcode.Location = New System.Drawing.Point(645, 106)
-        Me.lblbarcode.Name = "lblbarcode"
-        Me.lblbarcode.Size = New System.Drawing.Size(70, 13)
-        Me.lblbarcode.TabIndex = 47
-        Me.lblbarcode.Text = "Bar Code :"
-        '
-        'lblhsn
-        '
-        Me.lblhsn.AutoSize = True
-        Me.lblhsn.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblhsn.ForeColor = System.Drawing.Color.Orange
-        Me.lblhsn.Location = New System.Drawing.Point(645, 80)
-        Me.lblhsn.Name = "lblhsn"
-        Me.lblhsn.Size = New System.Drawing.Size(40, 13)
-        Me.lblhsn.TabIndex = 48
-        Me.lblhsn.Text = "HSN :"
-        '
-        'lblSalerate
-        '
-        Me.lblSalerate.AutoSize = True
-        Me.lblSalerate.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblSalerate.ForeColor = System.Drawing.Color.Orange
-        Me.lblSalerate.Location = New System.Drawing.Point(645, 54)
-        Me.lblSalerate.Name = "lblSalerate"
-        Me.lblSalerate.Size = New System.Drawing.Size(71, 13)
-        Me.lblSalerate.TabIndex = 49
-        Me.lblSalerate.Text = "Sale Rate :"
-        '
-        'lblmrp
-        '
-        Me.lblmrp.AutoSize = True
-        Me.lblmrp.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblmrp.ForeColor = System.Drawing.Color.Orange
-        Me.lblmrp.Location = New System.Drawing.Point(645, 28)
-        Me.lblmrp.Name = "lblmrp"
-        Me.lblmrp.Size = New System.Drawing.Size(40, 13)
-        Me.lblmrp.TabIndex = 50
-        Me.lblmrp.Text = "MRP :"
-        '
-        'Label25
-        '
-        Me.Label25.AutoSize = True
-        Me.Label25.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label25.Location = New System.Drawing.Point(498, 29)
-        Me.Label25.Name = "Label25"
-        Me.Label25.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Label25.Size = New System.Drawing.Size(40, 13)
-        Me.Label25.TabIndex = 41
-        Me.Label25.Text = "MRP :"
-        '
-        'Label27
-        '
-        Me.Label27.AutoSize = True
-        Me.Label27.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label27.Location = New System.Drawing.Point(498, 55)
-        Me.Label27.Name = "Label27"
-        Me.Label27.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Label27.Size = New System.Drawing.Size(71, 13)
-        Me.Label27.TabIndex = 42
-        Me.Label27.Text = "Sale Rate :"
-        '
-        'Label28
-        '
-        Me.Label28.AutoSize = True
-        Me.Label28.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label28.Location = New System.Drawing.Point(498, 107)
-        Me.Label28.Name = "Label28"
-        Me.Label28.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Label28.Size = New System.Drawing.Size(70, 13)
-        Me.Label28.TabIndex = 43
-        Me.Label28.Text = "Bar Code :"
-        '
-        'Label29
-        '
-        Me.Label29.AutoSize = True
-        Me.Label29.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label29.Location = New System.Drawing.Point(498, 81)
-        Me.Label29.Name = "Label29"
-        Me.Label29.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Label29.Size = New System.Drawing.Size(74, 13)
-        Me.Label29.TabIndex = 44
-        Me.Label29.Text = "HSN Code :"
-        '
-        'Label30
-        '
-        Me.Label30.AutoSize = True
-        Me.Label30.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label30.Location = New System.Drawing.Point(498, 133)
-        Me.Label30.Name = "Label30"
-        Me.Label30.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Label30.Size = New System.Drawing.Size(57, 13)
-        Me.Label30.TabIndex = 45
-        Me.Label30.Text = "BRAND :"
         '
         'frm_Item_Master
         '

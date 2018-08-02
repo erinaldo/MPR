@@ -834,29 +834,29 @@ Public Class CommonClass
         Return p
     End Function
 
-    Public Sub FormatGrid(ByVal grd As DataGridView)
-        grd.BackgroundColor = Color.White
-        grd.RowsDefaultCellStyle.SelectionBackColor = Color.LightGray
-        grd.RowsDefaultCellStyle.SelectionForeColor = Color.Blue
-        grd.RowHeadersDefaultCellStyle.SelectionBackColor = Color.LightGray
-        grd.RowHeadersDefaultCellStyle.BackColor = Color.LightSteelBlue
-        grd.RowHeadersDefaultCellStyle.SelectionForeColor = Color.Black
-        grd.RowHeadersWidth = 20
-        grd.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing
-        grd.ColumnHeadersDefaultCellStyle.BackColor = Color.LightSteelBlue
-        grd.AllowUserToResizeColumns = True
-        grd.SelectionMode = DataGridViewSelectionMode.FullRowSelect
-        grd.MultiSelect = False
-    End Sub
+    'Public Sub FormatGrid(ByVal grd As DataGridView)
+    '    grd.BackgroundColor = Color.White
+    '    grd.RowsDefaultCellStyle.SelectionBackColor = Color.LightGray
+    '    grd.RowsDefaultCellStyle.SelectionForeColor = Color.Blue
+    '    grd.RowHeadersDefaultCellStyle.SelectionBackColor = Color.LightGray
+    '    grd.RowHeadersDefaultCellStyle.BackColor = Color.LightSteelBlue
+    '    grd.RowHeadersDefaultCellStyle.SelectionForeColor = Color.Black
+    '    grd.RowHeadersWidth = 20
+    '    grd.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing
+    '    grd.ColumnHeadersDefaultCellStyle.BackColor = Color.LightSteelBlue
+    '    grd.AllowUserToResizeColumns = True
+    '    grd.SelectionMode = DataGridViewSelectionMode.FullRowSelect
+    '    grd.MultiSelect = False
+    'End Sub
 
-    Public Sub FormatGrid(ByVal grd As C1.Win.C1FlexGrid.C1FlexGrid)
-        grd.BackColor = Color.White
-        grd.Styles.EmptyArea.BackColor = Color.DimGray
-        grd.Styles.Fixed.BackColor = Color.LightSteelBlue
-        grd.SelectionMode = DataGridViewSelectionMode.FullRowSelect
-        grd.Tree.LineColor = Color.Blue
-        grd.Tree.LineStyle = Drawing2D.DashStyle.Solid
-    End Sub
+    'Public Sub FormatGrid(ByVal grd As C1.Win.C1FlexGrid.C1FlexGrid)
+    '    grd.BackColor = Color.White
+    '    grd.Styles.EmptyArea.BackColor = Color.DimGray
+    '    grd.Styles.Fixed.BackColor = Color.LightSteelBlue
+    '    grd.SelectionMode = DataGridViewSelectionMode.FullRowSelect
+    '    grd.Tree.LineColor = Color.Blue
+    '    grd.Tree.LineStyle = Drawing2D.DashStyle.Solid
+    'End Sub
 
     Public Function CheckTANNo(ByVal tan As String) As Boolean
         ''''''''tan no->ABCD12345E

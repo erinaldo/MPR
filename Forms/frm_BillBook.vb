@@ -55,7 +55,7 @@ Public Class frm_BillBook
 
     Private Sub frm_Sale_Invoice_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Try
-            obj.FormatGrid(flxItems)
+            'obj.FormatGrid(flxItems)
             table_style()
             BillBookBind()
             CustomerBind()

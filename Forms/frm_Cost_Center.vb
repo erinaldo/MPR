@@ -129,7 +129,7 @@ Public Class frm_Cost_Center
     Private Sub frm_Cost_Center_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Try
 
-            clsObj.FormatGrid(DgvCostCenterMaster)
+            'clsObj.FormatGrid(DgvCostCenterMaster)
             flag = "save"
             FillGrid()
             TBCCostCenter.SelectTab(0)

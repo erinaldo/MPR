@@ -52,7 +52,7 @@ Partial Class frm_PurchaseTaxRegister
         Me.GroupBox6.Location = New System.Drawing.Point(9, 6)
         Me.GroupBox6.Name = "GroupBox6"
         Me.GroupBox6.Size = New System.Drawing.Size(890, 101)
-        Me.GroupBox6.TabIndex = 2
+        Me.GroupBox6.TabIndex = 0
         Me.GroupBox6.TabStop = False
         '
         'txtToDate
@@ -61,17 +61,17 @@ Partial Class frm_PurchaseTaxRegister
         Me.txtToDate.CalendarMonthBackground = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.txtToDate.CustomFormat = "dd-MMM-yyyy"
         Me.txtToDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.txtToDate.Location = New System.Drawing.Point(410, 57)
+        Me.txtToDate.Location = New System.Drawing.Point(397, 52)
         Me.txtToDate.MaxDate = New Date(2999, 12, 31, 0, 0, 0, 0)
         Me.txtToDate.Name = "txtToDate"
         Me.txtToDate.Size = New System.Drawing.Size(142, 20)
-        Me.txtToDate.TabIndex = 51
+        Me.txtToDate.TabIndex = 1
         '
         'Label2
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(302, 62)
+        Me.Label2.Location = New System.Drawing.Point(288, 56)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(93, 15)
         Me.Label2.TabIndex = 50
@@ -79,14 +79,14 @@ Partial Class frm_PurchaseTaxRegister
         '
         'btnGenerate
         '
-        Me.btnGenerate.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
+        Me.btnGenerate.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.btnGenerate.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnGenerate.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnGenerate.ForeColor = System.Drawing.Color.ForestGreen
-        Me.btnGenerate.Location = New System.Drawing.Point(568, 50)
+        Me.btnGenerate.Location = New System.Drawing.Point(608, 46)
         Me.btnGenerate.Name = "btnGenerate"
         Me.btnGenerate.Size = New System.Drawing.Size(133, 34)
-        Me.btnGenerate.TabIndex = 18
+        Me.btnGenerate.TabIndex = 2
         Me.btnGenerate.Text = "Generate"
         Me.btnGenerate.UseVisualStyleBackColor = False
         '
@@ -96,17 +96,17 @@ Partial Class frm_PurchaseTaxRegister
         Me.txtFromDate.CalendarMonthBackground = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.txtFromDate.CustomFormat = "dd-MMM-yyyy"
         Me.txtFromDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.txtFromDate.Location = New System.Drawing.Point(140, 57)
+        Me.txtFromDate.Location = New System.Drawing.Point(127, 52)
         Me.txtFromDate.MaxDate = New Date(2999, 12, 31, 0, 0, 0, 0)
         Me.txtFromDate.Name = "txtFromDate"
         Me.txtFromDate.Size = New System.Drawing.Size(142, 20)
-        Me.txtFromDate.TabIndex = 45
+        Me.txtFromDate.TabIndex = 0
         '
         'Label1
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(17, 62)
+        Me.Label1.Location = New System.Drawing.Point(12, 54)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(109, 15)
         Me.Label1.TabIndex = 44
@@ -115,9 +115,10 @@ Partial Class frm_PurchaseTaxRegister
         'lblFormHeading
         '
         Me.lblFormHeading.AutoSize = True
+        Me.lblFormHeading.BackColor = System.Drawing.Color.Transparent
         Me.lblFormHeading.Font = New System.Drawing.Font("Verdana", 15.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblFormHeading.ForeColor = System.Drawing.Color.White
-        Me.lblFormHeading.Location = New System.Drawing.Point(15, 14)
+        Me.lblFormHeading.Location = New System.Drawing.Point(621, 9)
         Me.lblFormHeading.Name = "lblFormHeading"
         Me.lblFormHeading.Size = New System.Drawing.Size(267, 25)
         Me.lblFormHeading.TabIndex = 43
@@ -125,14 +126,14 @@ Partial Class frm_PurchaseTaxRegister
         '
         'btnShow
         '
-        Me.btnShow.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
+        Me.btnShow.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.btnShow.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnShow.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnShow.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.btnShow.Location = New System.Drawing.Point(727, 50)
+        Me.btnShow.ForeColor = System.Drawing.Color.Red
+        Me.btnShow.Location = New System.Drawing.Point(747, 46)
         Me.btnShow.Name = "btnShow"
         Me.btnShow.Size = New System.Drawing.Size(133, 34)
-        Me.btnShow.TabIndex = 8
+        Me.btnShow.TabIndex = 3
         Me.btnShow.Text = "Export to Excel"
         Me.btnShow.UseVisualStyleBackColor = False
         '
@@ -144,7 +145,7 @@ Partial Class frm_PurchaseTaxRegister
         Me.GroupBox2.Location = New System.Drawing.Point(9, 113)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Size = New System.Drawing.Size(890, 502)
-        Me.GroupBox2.TabIndex = 17
+        Me.GroupBox2.TabIndex = 1
         Me.GroupBox2.TabStop = False
         '
         'grdTaxReport
@@ -182,7 +183,7 @@ Partial Class frm_PurchaseTaxRegister
         Me.grdTaxReport.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black
         Me.grdTaxReport.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.grdTaxReport.Size = New System.Drawing.Size(884, 483)
-        Me.grdTaxReport.TabIndex = 14
+        Me.grdTaxReport.TabIndex = 0
         '
         'frm_PurchaseTaxRegister
         '

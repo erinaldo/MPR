@@ -53,7 +53,7 @@ Public Class frm_GatePass
     Private Sub frm_GatePass_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Try
 
-            obj.FormatGrid(grdGatePass)
+            'obj.FormatGrid(grdGatePass)
             'obj.FormatGrid(flxList)
 
             ' table_style()

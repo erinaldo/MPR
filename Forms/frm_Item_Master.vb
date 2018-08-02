@@ -23,7 +23,7 @@ Public Class frm_Item_Master
             Call ComboBind()
             Flag = "save"
 
-            Call Obj.FormatGrid(grdItemMaster)
+            ' Call Obj.FormatGrid(grdItemMaster)
             FillGrid()
             new_initialisation()
 
