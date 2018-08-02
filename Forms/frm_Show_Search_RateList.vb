@@ -97,6 +97,7 @@ Public Class frm_Show_Search_RateList
                     For Each a As String In arr_width
                         col_index = arr_cols_no(i)
                         grdSearch.Columns(col_index).Width = arr_width(i)
+                        grdSearch.Columns(col_index).HeaderCell.Style.Font = New Font("Arial", 9, FontStyle.Bold)
                         i += 1
                     Next
                 End If
@@ -113,54 +114,6 @@ Public Class frm_Show_Search_RateList
         Catch ex As Exception
             MsgBox(gblMessageHeading_Error & vbCrLf & gblMessage_ContactInfo & vbCrLf & ex.Message, MsgBoxStyle.Critical, gblMessageHeading)
         End Try
-    End Sub
-
-    Private Sub SetUpDataGridView()
-
-        Me.Controls.Add(grdSearch)
-        grdSearch.ColumnCount = 5
-
-        With grdSearch.ColumnHeadersDefaultCellStyle
-            .BackColor = Color.Navy
-            .ForeColor = Color.White
-            .Font = New Font(grdSearch.Font, FontStyle.Bold)
-        End With
-
-        With grdSearch
-            .EditMode = DataGridViewEditMode.EditOnEnter
-            .Name = "dataGridView1"
-            .Location = New Point(8, 8)
-            .Size = New Size(500, 300)
-            .AutoSizeRowsMode =
-            DataGridViewAutoSizeRowsMode.DisplayedCellsExceptHeaders
-            .ColumnHeadersBorderStyle =
-            DataGridViewHeaderBorderStyle.Raised
-            .CellBorderStyle =
-            DataGridViewCellBorderStyle.Single
-            .GridColor = SystemColors.ActiveBorder
-            .RowHeadersVisible = False
-
-            .Columns(0).Name = "Release Date"
-            .Columns(1).Name = "Track"
-            .Columns(1).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
-            .Columns(2).Name = "Title"
-            .Columns(3).Name = "Artist"
-            .Columns(4).Name = "Album"
-
-
-            .Columns(4).DefaultCellStyle.Font =
-            New Font(Control.DefaultFont,
-                FontStyle.Italic)
-
-            .SelectionMode =
-            DataGridViewSelectionMode.FullRowSelect
-            .MultiSelect = False
-
-            .BackgroundColor = Color.Honeydew
-
-            .Dock = DockStyle.Fill
-        End With
-
     End Sub
 
 

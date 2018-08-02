@@ -403,6 +403,7 @@ Partial Class frm_Account_Payment
         '
         'cmbAccountToDebit
         '
+        Me.cmbAccountToDebit.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append
         Me.cmbAccountToDebit.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.cmbAccountToDebit.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmbAccountToDebit.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))

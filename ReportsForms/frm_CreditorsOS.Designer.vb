@@ -23,12 +23,12 @@ Partial Class frm_CreditorsOS
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.GroupBox6 = New System.Windows.Forms.GroupBox()
+        Me.cmbSupplier = New System.Windows.Forms.ComboBox()
         Me.lblFormHeading = New System.Windows.Forms.Label()
         Me.txtDateSearch = New System.Windows.Forms.DateTimePicker()
         Me.btnShow = New System.Windows.Forms.Button()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.Label13 = New System.Windows.Forms.Label()
-        Me.cmbSupplier = New System.Windows.Forms.ComboBox()
         Me.GroupBox6.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -46,6 +46,18 @@ Partial Class frm_CreditorsOS
         Me.GroupBox6.Size = New System.Drawing.Size(890, 210)
         Me.GroupBox6.TabIndex = 0
         Me.GroupBox6.TabStop = False
+        '
+        'cmbSupplier
+        '
+        Me.cmbSupplier.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append
+        Me.cmbSupplier.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.cmbSupplier.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmbSupplier.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmbSupplier.ForeColor = System.Drawing.Color.White
+        Me.cmbSupplier.Location = New System.Drawing.Point(145, 97)
+        Me.cmbSupplier.Name = "cmbSupplier"
+        Me.cmbSupplier.Size = New System.Drawing.Size(708, 25)
+        Me.cmbSupplier.TabIndex = 0
         '
         'lblFormHeading
         '
@@ -100,19 +112,6 @@ Partial Class frm_CreditorsOS
         Me.Label13.Size = New System.Drawing.Size(96, 15)
         Me.Label13.TabIndex = 0
         Me.Label13.Text = "Select Supplier :"
-        '
-        'cmbSupplier
-        '
-        Me.cmbSupplier.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append
-        Me.cmbSupplier.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbSupplier.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.cmbSupplier.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmbSupplier.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmbSupplier.ForeColor = System.Drawing.Color.White
-        Me.cmbSupplier.Location = New System.Drawing.Point(145, 97)
-        Me.cmbSupplier.Name = "cmbSupplier"
-        Me.cmbSupplier.Size = New System.Drawing.Size(708, 25)
-        Me.cmbSupplier.TabIndex = 0
         '
         'frm_CreditorsOS
         '
