@@ -101,6 +101,10 @@ Public Class frm_Show_Search_RateList
                     Next
                 End If
             End If
+            'grdSearch.ColumnHeadersDefaultCellStyle.Font.Bold = True
+
+
+
             If grdSearch.RowCount > 0 Then
                 Dim checkBox As DataGridViewCheckBoxCell = (TryCast(grdSearch.Rows(0).Cells("chkBxSelect"), DataGridViewCheckBoxCell))
                 checkBox.Value = True
@@ -110,6 +114,55 @@ Public Class frm_Show_Search_RateList
             MsgBox(gblMessageHeading_Error & vbCrLf & gblMessage_ContactInfo & vbCrLf & ex.Message, MsgBoxStyle.Critical, gblMessageHeading)
         End Try
     End Sub
+
+    Private Sub SetUpDataGridView()
+
+        Me.Controls.Add(grdSearch)
+        grdSearch.ColumnCount = 5
+
+        With grdSearch.ColumnHeadersDefaultCellStyle
+            .BackColor = Color.Navy
+            .ForeColor = Color.White
+            .Font = New Font(grdSearch.Font, FontStyle.Bold)
+        End With
+
+        With grdSearch
+            .EditMode = DataGridViewEditMode.EditOnEnter
+            .Name = "dataGridView1"
+            .Location = New Point(8, 8)
+            .Size = New Size(500, 300)
+            .AutoSizeRowsMode =
+            DataGridViewAutoSizeRowsMode.DisplayedCellsExceptHeaders
+            .ColumnHeadersBorderStyle =
+            DataGridViewHeaderBorderStyle.Raised
+            .CellBorderStyle =
+            DataGridViewCellBorderStyle.Single
+            .GridColor = SystemColors.ActiveBorder
+            .RowHeadersVisible = False
+
+            .Columns(0).Name = "Release Date"
+            .Columns(1).Name = "Track"
+            .Columns(1).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+            .Columns(2).Name = "Title"
+            .Columns(3).Name = "Artist"
+            .Columns(4).Name = "Album"
+
+
+            .Columns(4).DefaultCellStyle.Font =
+            New Font(Control.DefaultFont,
+                FontStyle.Italic)
+
+            .SelectionMode =
+            DataGridViewSelectionMode.FullRowSelect
+            .MultiSelect = False
+
+            .BackgroundColor = Color.Honeydew
+
+            .Dock = DockStyle.Fill
+        End With
+
+    End Sub
+
 
     Private Sub AddHeaderCheckBox()
         HeaderCheckBox = New CheckBox()

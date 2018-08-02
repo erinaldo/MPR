@@ -322,6 +322,7 @@ Public Class frm_Supplier_Rate_List_Master
             .Width = 100
             .DefaultCellStyle.SelectionBackColor = Color.Orange
             .DefaultCellStyle.SelectionForeColor = Color.Black
+
         End With
         grdSupplier.Columns.Add(txbCol)
 

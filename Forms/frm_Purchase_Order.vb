@@ -982,9 +982,11 @@ restart:
                     dv_Items = tempdt.DefaultView
 
 
-                    dv_Items.RowFilter = "item_id=" & ds.Tables(0).Rows(0)("item_id").ToString() & ""
+                    If dv_Items.Count > 0 Then
+                        dv_Items.RowFilter = "item_id=" & ds.Tables(0).Rows(0)("item_id").ToString() & ""
+                        tempdt = dv_Items.ToTable()
+                    End If
 
-                    tempdt = dv_Items.ToTable()
 
                     For i As Integer = 0 To frm_Indent_Items.dTable_POItems.Rows.Count - 1
                         If tempdt.Rows.Count() > 0 Then
