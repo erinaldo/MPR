@@ -41,10 +41,10 @@ Partial Class frm_DayBook
         Me.GroupBox6.Controls.Add(Me.btnShow)
         Me.GroupBox6.Controls.Add(Me.Label14)
         Me.GroupBox6.ForeColor = System.Drawing.Color.White
-        Me.GroupBox6.Location = New System.Drawing.Point(9, 27)
+        Me.GroupBox6.Location = New System.Drawing.Point(8, 15)
         Me.GroupBox6.Name = "GroupBox6"
-        Me.GroupBox6.Size = New System.Drawing.Size(890, 211)
-        Me.GroupBox6.TabIndex = 2
+        Me.GroupBox6.Size = New System.Drawing.Size(890, 172)
+        Me.GroupBox6.TabIndex = 0
         Me.GroupBox6.TabStop = False
         '
         'txtTodate
@@ -53,16 +53,16 @@ Partial Class frm_DayBook
         Me.txtTodate.CalendarMonthBackground = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.txtTodate.CustomFormat = "dd-MMM-yyyy"
         Me.txtTodate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.txtTodate.Location = New System.Drawing.Point(452, 124)
+        Me.txtTodate.Location = New System.Drawing.Point(462, 82)
         Me.txtTodate.Name = "txtTodate"
         Me.txtTodate.Size = New System.Drawing.Size(142, 20)
-        Me.txtTodate.TabIndex = 45
+        Me.txtTodate.TabIndex = 1
         '
         'Label1
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(332, 129)
+        Me.Label1.Location = New System.Drawing.Point(351, 86)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(52, 15)
         Me.Label1.TabIndex = 44
@@ -73,7 +73,7 @@ Partial Class frm_DayBook
         Me.lblFormHeading.AutoSize = True
         Me.lblFormHeading.Font = New System.Drawing.Font("Verdana", 15.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblFormHeading.ForeColor = System.Drawing.Color.White
-        Me.lblFormHeading.Location = New System.Drawing.Point(659, 26)
+        Me.lblFormHeading.Location = New System.Drawing.Point(739, 26)
         Me.lblFormHeading.Name = "lblFormHeading"
         Me.lblFormHeading.Size = New System.Drawing.Size(131, 25)
         Me.lblFormHeading.TabIndex = 43
@@ -85,27 +85,28 @@ Partial Class frm_DayBook
         Me.txtFromDate.CalendarMonthBackground = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.txtFromDate.CustomFormat = "dd-MMM-yyyy"
         Me.txtFromDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.txtFromDate.Location = New System.Drawing.Point(143, 124)
+        Me.txtFromDate.Location = New System.Drawing.Point(162, 81)
         Me.txtFromDate.Name = "txtFromDate"
         Me.txtFromDate.Size = New System.Drawing.Size(142, 20)
-        Me.txtFromDate.TabIndex = 9
+        Me.txtFromDate.TabIndex = 0
         '
         'btnShow
         '
+        Me.btnShow.BackColor = System.Drawing.Color.FromArgb(CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.btnShow.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnShow.ForeColor = System.Drawing.Color.White
-        Me.btnShow.Location = New System.Drawing.Point(718, 124)
+        Me.btnShow.Location = New System.Drawing.Point(737, 80)
         Me.btnShow.Name = "btnShow"
         Me.btnShow.Size = New System.Drawing.Size(133, 27)
-        Me.btnShow.TabIndex = 8
+        Me.btnShow.TabIndex = 2
         Me.btnShow.Text = "SHOW DAY BOOK"
-        Me.btnShow.UseVisualStyleBackColor = True
+        Me.btnShow.UseVisualStyleBackColor = False
         '
         'Label14
         '
         Me.Label14.AutoSize = True
         Me.Label14.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label14.Location = New System.Drawing.Point(32, 129)
+        Me.Label14.Location = New System.Drawing.Point(51, 86)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(68, 15)
         Me.Label14.TabIndex = 1

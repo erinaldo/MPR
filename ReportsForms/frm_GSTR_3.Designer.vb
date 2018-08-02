@@ -41,10 +41,10 @@ Partial Class frm_GSTR_3
         Me.GroupBox6.Controls.Add(Me.lblFormHeading)
         Me.GroupBox6.Controls.Add(Me.btnShow)
         Me.GroupBox6.ForeColor = System.Drawing.Color.White
-        Me.GroupBox6.Location = New System.Drawing.Point(9, 27)
+        Me.GroupBox6.Location = New System.Drawing.Point(10, 9)
         Me.GroupBox6.Name = "GroupBox6"
         Me.GroupBox6.Size = New System.Drawing.Size(890, 211)
-        Me.GroupBox6.TabIndex = 2
+        Me.GroupBox6.TabIndex = 0
         Me.GroupBox6.TabStop = False
         '
         'txtToDate
@@ -57,7 +57,7 @@ Partial Class frm_GSTR_3
         Me.txtToDate.MaxDate = New Date(2999, 12, 31, 0, 0, 0, 0)
         Me.txtToDate.Name = "txtToDate"
         Me.txtToDate.Size = New System.Drawing.Size(142, 20)
-        Me.txtToDate.TabIndex = 49
+        Me.txtToDate.TabIndex = 1
         '
         'Label2
         '
@@ -79,7 +79,7 @@ Partial Class frm_GSTR_3
         Me.txtFromDate.MaxDate = New Date(2999, 12, 31, 0, 0, 0, 0)
         Me.txtFromDate.Name = "txtFromDate"
         Me.txtFromDate.Size = New System.Drawing.Size(142, 20)
-        Me.txtFromDate.TabIndex = 45
+        Me.txtFromDate.TabIndex = 0
         '
         'Label1
         '
@@ -96,7 +96,7 @@ Partial Class frm_GSTR_3
         Me.lblFormHeading.AutoSize = True
         Me.lblFormHeading.Font = New System.Drawing.Font("Verdana", 15.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblFormHeading.ForeColor = System.Drawing.Color.White
-        Me.lblFormHeading.Location = New System.Drawing.Point(28, 28)
+        Me.lblFormHeading.Location = New System.Drawing.Point(779, 16)
         Me.lblFormHeading.Name = "lblFormHeading"
         Me.lblFormHeading.Size = New System.Drawing.Size(93, 25)
         Me.lblFormHeading.TabIndex = 43
@@ -104,14 +104,14 @@ Partial Class frm_GSTR_3
         '
         'btnShow
         '
-        Me.btnShow.BackColor = System.Drawing.Color.Gray
+        Me.btnShow.BackColor = System.Drawing.Color.FromArgb(CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.btnShow.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnShow.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnShow.ForeColor = System.Drawing.Color.White
         Me.btnShow.Location = New System.Drawing.Point(337, 146)
         Me.btnShow.Name = "btnShow"
         Me.btnShow.Size = New System.Drawing.Size(133, 27)
-        Me.btnShow.TabIndex = 8
+        Me.btnShow.TabIndex = 2
         Me.btnShow.Text = "GENERATE GSTR 3"
         Me.btnShow.UseVisualStyleBackColor = False
         '

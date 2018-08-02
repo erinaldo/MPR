@@ -47,7 +47,7 @@ Partial Class frm_Depreciation_Cal
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
         Me.TabControl1.Size = New System.Drawing.Size(910, 630)
-        Me.TabControl1.TabIndex = 1
+        Me.TabControl1.TabIndex = 0
         '
         'TabPage2
         '
@@ -68,7 +68,9 @@ Partial Class frm_Depreciation_Cal
         '
         Me.dgvDepreciation.AllowUserToAddRows = False
         Me.dgvDepreciation.AllowUserToDeleteRows = False
-        Me.dgvDepreciation.Location = New System.Drawing.Point(44, 143)
+        Me.dgvDepreciation.BackgroundColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.dgvDepreciation.GridColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.dgvDepreciation.Location = New System.Drawing.Point(6, 135)
         Me.dgvDepreciation.Name = "dgvDepreciation"
         Me.dgvDepreciation.RowHeadersVisible = False
         DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
@@ -78,28 +80,28 @@ Partial Class frm_Depreciation_Cal
         DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black
         Me.dgvDepreciation.RowsDefaultCellStyle = DataGridViewCellStyle1
         Me.dgvDepreciation.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvDepreciation.Size = New System.Drawing.Size(812, 400)
-        Me.dgvDepreciation.TabIndex = 13
+        Me.dgvDepreciation.Size = New System.Drawing.Size(890, 400)
+        Me.dgvDepreciation.TabIndex = 1
         '
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(46, 551)
+        Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.Location = New System.Drawing.Point(6, 557)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(608, 13)
+        Me.Label2.Size = New System.Drawing.Size(574, 15)
         Me.Label2.TabIndex = 12
-        Me.Label2.Text = "*All transactions on or before 3rd Oct (4th Oct in case of leap year) will be con" &
-    "sidered for full depreciation"
+        Me.Label2.Text = "* All transactions on or before 3rd Oct (4th Oct in case of leap year) will be co" &
+    "nsidered for full depreciation"
         '
         'GBDCMASTER
         '
         Me.GBDCMASTER.Controls.Add(Me.lblFY)
         Me.GBDCMASTER.Controls.Add(Me.lblCap1)
-        Me.GBDCMASTER.Location = New System.Drawing.Point(46, 77)
+        Me.GBDCMASTER.Location = New System.Drawing.Point(6, 59)
         Me.GBDCMASTER.Name = "GBDCMASTER"
-        Me.GBDCMASTER.Size = New System.Drawing.Size(810, 60)
-        Me.GBDCMASTER.TabIndex = 10
+        Me.GBDCMASTER.Size = New System.Drawing.Size(893, 60)
+        Me.GBDCMASTER.TabIndex = 0
         Me.GBDCMASTER.TabStop = False
         '
         'lblFY
@@ -127,7 +129,7 @@ Partial Class frm_Depreciation_Cal
         Me.lblFormHeading.AutoSize = True
         Me.lblFormHeading.Font = New System.Drawing.Font("Verdana", 15.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblFormHeading.ForeColor = System.Drawing.Color.White
-        Me.lblFormHeading.Location = New System.Drawing.Point(334, 37)
+        Me.lblFormHeading.Location = New System.Drawing.Point(333, 24)
         Me.lblFormHeading.Name = "lblFormHeading"
         Me.lblFormHeading.Size = New System.Drawing.Size(222, 25)
         Me.lblFormHeading.TabIndex = 9

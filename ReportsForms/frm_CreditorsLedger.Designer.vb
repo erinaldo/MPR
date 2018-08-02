@@ -48,7 +48,7 @@ Partial Class frm_CreditorsLedger
         Me.GroupBox6.Location = New System.Drawing.Point(9, 27)
         Me.GroupBox6.Name = "GroupBox6"
         Me.GroupBox6.Size = New System.Drawing.Size(890, 211)
-        Me.GroupBox6.TabIndex = 2
+        Me.GroupBox6.TabIndex = 0
         Me.GroupBox6.TabStop = False
         '
         'txtTodate
@@ -60,7 +60,7 @@ Partial Class frm_CreditorsLedger
         Me.txtTodate.Location = New System.Drawing.Point(452, 124)
         Me.txtTodate.Name = "txtTodate"
         Me.txtTodate.Size = New System.Drawing.Size(142, 20)
-        Me.txtTodate.TabIndex = 45
+        Me.txtTodate.TabIndex = 2
         '
         'Label1
         '
@@ -92,18 +92,19 @@ Partial Class frm_CreditorsLedger
         Me.txtFromDate.Location = New System.Drawing.Point(143, 124)
         Me.txtFromDate.Name = "txtFromDate"
         Me.txtFromDate.Size = New System.Drawing.Size(142, 20)
-        Me.txtFromDate.TabIndex = 9
+        Me.txtFromDate.TabIndex = 1
         '
         'btnShow
         '
+        Me.btnShow.BackColor = System.Drawing.Color.FromArgb(CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.btnShow.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnShow.ForeColor = System.Drawing.Color.White
         Me.btnShow.Location = New System.Drawing.Point(718, 124)
         Me.btnShow.Name = "btnShow"
         Me.btnShow.Size = New System.Drawing.Size(133, 27)
-        Me.btnShow.TabIndex = 8
+        Me.btnShow.TabIndex = 3
         Me.btnShow.Text = "SHOW LEDGER"
-        Me.btnShow.UseVisualStyleBackColor = True
+        Me.btnShow.UseVisualStyleBackColor = False
         '
         'cmbSupplier
         '
@@ -115,7 +116,7 @@ Partial Class frm_CreditorsLedger
         Me.cmbSupplier.Location = New System.Drawing.Point(143, 76)
         Me.cmbSupplier.Name = "cmbSupplier"
         Me.cmbSupplier.Size = New System.Drawing.Size(708, 25)
-        Me.cmbSupplier.TabIndex = 7
+        Me.cmbSupplier.TabIndex = 0
         '
         'Label14
         '

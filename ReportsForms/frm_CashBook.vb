@@ -122,4 +122,9 @@ Public Class frm_CashBook
         End Try
     End Sub
 
+    Private Sub cmbSupplier_Enter(sender As Object, e As EventArgs) Handles cmbSupplier.Enter
+        If Not cmbSupplier.DroppedDown Then
+            cmbSupplier.DroppedDown = True
+        End If
+    End Sub
 End Class

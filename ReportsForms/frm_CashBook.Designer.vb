@@ -23,14 +23,14 @@ Partial Class frm_CashBook
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.GroupBox6 = New System.Windows.Forms.GroupBox()
+        Me.cmbSupplier = New System.Windows.Forms.ComboBox()
+        Me.Label13 = New System.Windows.Forms.Label()
         Me.txtTodate = New System.Windows.Forms.DateTimePicker()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.lblFormHeading = New System.Windows.Forms.Label()
         Me.txtFromDate = New System.Windows.Forms.DateTimePicker()
         Me.btnShow = New System.Windows.Forms.Button()
         Me.Label14 = New System.Windows.Forms.Label()
-        Me.cmbSupplier = New System.Windows.Forms.ComboBox()
-        Me.Label13 = New System.Windows.Forms.Label()
         Me.GroupBox6.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -45,11 +45,33 @@ Partial Class frm_CashBook
         Me.GroupBox6.Controls.Add(Me.btnShow)
         Me.GroupBox6.Controls.Add(Me.Label14)
         Me.GroupBox6.ForeColor = System.Drawing.Color.White
-        Me.GroupBox6.Location = New System.Drawing.Point(9, 27)
+        Me.GroupBox6.Location = New System.Drawing.Point(9, 13)
         Me.GroupBox6.Name = "GroupBox6"
         Me.GroupBox6.Size = New System.Drawing.Size(890, 211)
-        Me.GroupBox6.TabIndex = 2
+        Me.GroupBox6.TabIndex = 0
         Me.GroupBox6.TabStop = False
+        '
+        'cmbSupplier
+        '
+        Me.cmbSupplier.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.cmbSupplier.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmbSupplier.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmbSupplier.ForeColor = System.Drawing.Color.White
+        Me.cmbSupplier.FormattingEnabled = True
+        Me.cmbSupplier.Location = New System.Drawing.Point(142, 65)
+        Me.cmbSupplier.Name = "cmbSupplier"
+        Me.cmbSupplier.Size = New System.Drawing.Size(708, 25)
+        Me.cmbSupplier.TabIndex = 0
+        '
+        'Label13
+        '
+        Me.Label13.AutoSize = True
+        Me.Label13.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label13.Location = New System.Drawing.Point(31, 70)
+        Me.Label13.Name = "Label13"
+        Me.Label13.Size = New System.Drawing.Size(92, 15)
+        Me.Label13.TabIndex = 46
+        Me.Label13.Text = "Select Account :"
         '
         'txtTodate
         '
@@ -60,7 +82,7 @@ Partial Class frm_CashBook
         Me.txtTodate.Location = New System.Drawing.Point(452, 124)
         Me.txtTodate.Name = "txtTodate"
         Me.txtTodate.Size = New System.Drawing.Size(142, 20)
-        Me.txtTodate.TabIndex = 45
+        Me.txtTodate.TabIndex = 2
         '
         'Label1
         '
@@ -77,7 +99,7 @@ Partial Class frm_CashBook
         Me.lblFormHeading.AutoSize = True
         Me.lblFormHeading.Font = New System.Drawing.Font("Verdana", 15.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblFormHeading.ForeColor = System.Drawing.Color.White
-        Me.lblFormHeading.Location = New System.Drawing.Point(659, 26)
+        Me.lblFormHeading.Location = New System.Drawing.Point(713, 16)
         Me.lblFormHeading.Name = "lblFormHeading"
         Me.lblFormHeading.Size = New System.Drawing.Size(144, 25)
         Me.lblFormHeading.TabIndex = 43
@@ -92,18 +114,19 @@ Partial Class frm_CashBook
         Me.txtFromDate.Location = New System.Drawing.Point(143, 124)
         Me.txtFromDate.Name = "txtFromDate"
         Me.txtFromDate.Size = New System.Drawing.Size(142, 20)
-        Me.txtFromDate.TabIndex = 9
+        Me.txtFromDate.TabIndex = 1
         '
         'btnShow
         '
+        Me.btnShow.BackColor = System.Drawing.Color.FromArgb(CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.btnShow.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnShow.ForeColor = System.Drawing.Color.White
         Me.btnShow.Location = New System.Drawing.Point(718, 124)
         Me.btnShow.Name = "btnShow"
         Me.btnShow.Size = New System.Drawing.Size(133, 27)
-        Me.btnShow.TabIndex = 8
+        Me.btnShow.TabIndex = 3
         Me.btnShow.Text = "SHOW CASH BOOK"
-        Me.btnShow.UseVisualStyleBackColor = True
+        Me.btnShow.UseVisualStyleBackColor = False
         '
         'Label14
         '
@@ -114,28 +137,6 @@ Partial Class frm_CashBook
         Me.Label14.Size = New System.Drawing.Size(68, 15)
         Me.Label14.TabIndex = 1
         Me.Label14.Text = "From Date:"
-        '
-        'cmbSupplier
-        '
-        Me.cmbSupplier.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.cmbSupplier.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmbSupplier.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmbSupplier.ForeColor = System.Drawing.Color.White
-        Me.cmbSupplier.FormattingEnabled = True
-        Me.cmbSupplier.Location = New System.Drawing.Point(142, 65)
-        Me.cmbSupplier.Name = "cmbSupplier"
-        Me.cmbSupplier.Size = New System.Drawing.Size(708, 25)
-        Me.cmbSupplier.TabIndex = 47
-        '
-        'Label13
-        '
-        Me.Label13.AutoSize = True
-        Me.Label13.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label13.Location = New System.Drawing.Point(31, 70)
-        Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(92, 15)
-        Me.Label13.TabIndex = 46
-        Me.Label13.Text = "Select Account :"
         '
         'frm_CashBook
         '

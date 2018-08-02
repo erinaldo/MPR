@@ -310,7 +310,6 @@ Public Class CommonClass
             End If
             cnt.DataSource = ds1.Tables(0)
 
-
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "Error ComboBind")
         End Try
