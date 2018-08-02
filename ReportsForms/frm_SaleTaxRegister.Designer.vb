@@ -22,9 +22,9 @@ Partial Class frm_SaleTaxRegister
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.GroupBox6 = New System.Windows.Forms.GroupBox()
         Me.txtToDate = New System.Windows.Forms.DateTimePicker()
         Me.Label2 = New System.Windows.Forms.Label()
@@ -53,7 +53,7 @@ Partial Class frm_SaleTaxRegister
         Me.GroupBox6.Location = New System.Drawing.Point(9, 6)
         Me.GroupBox6.Name = "GroupBox6"
         Me.GroupBox6.Size = New System.Drawing.Size(890, 113)
-        Me.GroupBox6.TabIndex = 2
+        Me.GroupBox6.TabIndex = 0
         Me.GroupBox6.TabStop = False
         '
         'txtToDate
@@ -62,17 +62,17 @@ Partial Class frm_SaleTaxRegister
         Me.txtToDate.CalendarMonthBackground = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.txtToDate.CustomFormat = "dd-MMM-yyyy"
         Me.txtToDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.txtToDate.Location = New System.Drawing.Point(411, 67)
+        Me.txtToDate.Location = New System.Drawing.Point(420, 60)
         Me.txtToDate.MaxDate = New Date(2999, 12, 31, 0, 0, 0, 0)
         Me.txtToDate.Name = "txtToDate"
         Me.txtToDate.Size = New System.Drawing.Size(142, 20)
-        Me.txtToDate.TabIndex = 55
+        Me.txtToDate.TabIndex = 1
         '
         'Label2
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(303, 72)
+        Me.Label2.Location = New System.Drawing.Point(312, 65)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(93, 15)
         Me.Label2.TabIndex = 54
@@ -84,17 +84,17 @@ Partial Class frm_SaleTaxRegister
         Me.txtFromDate.CalendarMonthBackground = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.txtFromDate.CustomFormat = "dd-MMM-yyyy"
         Me.txtFromDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.txtFromDate.Location = New System.Drawing.Point(141, 67)
+        Me.txtFromDate.Location = New System.Drawing.Point(150, 60)
         Me.txtFromDate.MaxDate = New Date(2999, 12, 31, 0, 0, 0, 0)
         Me.txtFromDate.Name = "txtFromDate"
         Me.txtFromDate.Size = New System.Drawing.Size(142, 20)
-        Me.txtFromDate.TabIndex = 53
+        Me.txtFromDate.TabIndex = 0
         '
         'Label1
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(18, 72)
+        Me.Label1.Location = New System.Drawing.Point(27, 63)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(109, 15)
         Me.Label1.TabIndex = 52
@@ -102,23 +102,24 @@ Partial Class frm_SaleTaxRegister
         '
         'btnGenerate
         '
-        Me.btnGenerate.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
+        Me.btnGenerate.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.btnGenerate.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnGenerate.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnGenerate.ForeColor = System.Drawing.Color.ForestGreen
-        Me.btnGenerate.Location = New System.Drawing.Point(569, 60)
+        Me.btnGenerate.Location = New System.Drawing.Point(605, 53)
         Me.btnGenerate.Name = "btnGenerate"
         Me.btnGenerate.Size = New System.Drawing.Size(133, 34)
-        Me.btnGenerate.TabIndex = 18
+        Me.btnGenerate.TabIndex = 2
         Me.btnGenerate.Text = "Generate"
         Me.btnGenerate.UseVisualStyleBackColor = False
         '
         'lblFormHeading
         '
         Me.lblFormHeading.AutoSize = True
+        Me.lblFormHeading.BackColor = System.Drawing.Color.Transparent
         Me.lblFormHeading.Font = New System.Drawing.Font("Verdana", 15.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblFormHeading.ForeColor = System.Drawing.Color.White
-        Me.lblFormHeading.Location = New System.Drawing.Point(16, 16)
+        Me.lblFormHeading.Location = New System.Drawing.Point(676, 9)
         Me.lblFormHeading.Name = "lblFormHeading"
         Me.lblFormHeading.Size = New System.Drawing.Size(211, 25)
         Me.lblFormHeading.TabIndex = 43
@@ -126,14 +127,14 @@ Partial Class frm_SaleTaxRegister
         '
         'btnShow
         '
-        Me.btnShow.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
+        Me.btnShow.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.btnShow.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnShow.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnShow.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.btnShow.Location = New System.Drawing.Point(728, 60)
+        Me.btnShow.ForeColor = System.Drawing.Color.Red
+        Me.btnShow.Location = New System.Drawing.Point(744, 53)
         Me.btnShow.Name = "btnShow"
         Me.btnShow.Size = New System.Drawing.Size(133, 34)
-        Me.btnShow.TabIndex = 8
+        Me.btnShow.TabIndex = 3
         Me.btnShow.Text = "Export to Excel"
         Me.btnShow.UseVisualStyleBackColor = False
         '
@@ -145,41 +146,41 @@ Partial Class frm_SaleTaxRegister
         Me.GroupBox2.Location = New System.Drawing.Point(9, 125)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Size = New System.Drawing.Size(890, 490)
-        Me.GroupBox2.TabIndex = 17
+        Me.GroupBox2.TabIndex = 1
         Me.GroupBox2.TabStop = False
         '
         'grdTaxReport
         '
         Me.grdTaxReport.AllowUserToAddRows = False
         Me.grdTaxReport.AllowUserToDeleteRows = False
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.Gray
-        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black
-        Me.grdTaxReport.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle7.BackColor = System.Drawing.Color.Gray
+        DataGridViewCellStyle7.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
+        DataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.Black
+        Me.grdTaxReport.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle7
         Me.grdTaxReport.BackgroundColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.grdTaxReport.BorderStyle = System.Windows.Forms.BorderStyle.None
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = System.Drawing.Color.White
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.Color.DarkGray
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.grdTaxReport.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle8.BackColor = System.Drawing.Color.White
+        DataGridViewCellStyle8.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle8.ForeColor = System.Drawing.Color.DarkGray
+        DataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.grdTaxReport.DefaultCellStyle = DataGridViewCellStyle8
         Me.grdTaxReport.Dock = System.Windows.Forms.DockStyle.Fill
         Me.grdTaxReport.GridColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.grdTaxReport.Location = New System.Drawing.Point(3, 16)
         Me.grdTaxReport.Name = "grdTaxReport"
         Me.grdTaxReport.ReadOnly = True
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.grdTaxReport.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle9.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        DataGridViewCellStyle9.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle9.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.grdTaxReport.RowHeadersDefaultCellStyle = DataGridViewCellStyle9
         Me.grdTaxReport.RowHeadersVisible = False
         Me.grdTaxReport.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.grdTaxReport.RowTemplate.DefaultCellStyle.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -188,7 +189,7 @@ Partial Class frm_SaleTaxRegister
         Me.grdTaxReport.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black
         Me.grdTaxReport.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.grdTaxReport.Size = New System.Drawing.Size(884, 471)
-        Me.grdTaxReport.TabIndex = 14
+        Me.grdTaxReport.TabIndex = 0
         '
         'frm_SaleTaxRegister
         '

@@ -97,7 +97,7 @@ Public Class frm_Approve_OPEN_PO
     End Sub
 
     Private Sub frm_Approve_Indent_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        clsObj.FormatGrid(grdIndentList)
+        ' clsObj.FormatGrid(grdIndentList)
 
     End Sub
 

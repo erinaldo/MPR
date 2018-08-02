@@ -153,7 +153,7 @@ Public Class frm_user_master
     Private Sub frm_user_master_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Try
             'ComboBind_Enum(New ComboBox, New POStatus)
-            Obj.FormatGrid(grdUsers)
+            'Obj.FormatGrid(grdUsers)
             flag = "save"
             FillGrid()
         Catch ex As Exception

@@ -58,7 +58,7 @@ Public Class frm_Material_Received_Without_PO_Master
         flag = "save"
         Grid_styles()
         'FLXGRD_MaterialItem.Rows.Add()
-        clsObj.FormatGrid(dgvList)
+        'clsObj.FormatGrid(dgvList)
 
         FillGrid()
         clsObj.ComboBind(cmbMRNType, "Select PO_TYPE_ID,PO_TYPE_NAME from PO_TYPE_MASTER", "PO_TYPE_NAME", "PO_TYPE_ID", True)

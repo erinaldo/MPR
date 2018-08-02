@@ -43,7 +43,7 @@ Public Class frm_Supplier_Rate_List_Master
         Try
             comboBind()
             flag = "save"
-            obj.FormatGrid(grdSupplierList)
+            'obj.FormatGrid(grdSupplierList)
             FillGrid()
             obj.ComboBind(cmbSupplier, "select 0 as ACC_ID,'--Select--' as ACC_NAME union Select ACC_ID,ACC_NAME from ACCOUNT_MASTER WHERE AG_ID in (1,2,3,6) Order by ACC_NAME ", "ACC_NAME", "ACC_ID")
             grid_style()

@@ -36,9 +36,9 @@ Public Class frm_Open_PO_Master
             flag = "save"
             clsObj.ComboBind(ddlSupplierSearch, "SELECT '--SELECT--' as Acc_Name,0 as Acc_id union all SELECT ACC_NAME, ACC_ID FROM ACCOUNT_MASTER where AG_ID=2 order by ACC_NAME", "ACC_NAME", "ACC_ID")
             ComboBind_Enum(cmdPOStatusSearch, New POStatus)
-            obj.FormatGrid(grdOpenPOList)
+            'obj.FormatGrid(grdOpenPOList)
             Fill_Grid()
-            obj.FormatGrid(grdOpenPoMaster)
+            '  obj.FormatGrid(grdOpenPoMaster)
             grdOpenPoMaster.SelectionMode = DataGridViewSelectionMode.RowHeaderSelect
             clsObj.ComboBind(cmbPOType, "Select PO_TYPE_ID,PO_TYPE_NAME from PO_TYPE_MASTER", "PO_TYPE_NAME", "PO_TYPE_ID", True)
             clsObj.ComboBind(cmbSupplier, "select 0 as ACC_ID,'--Select--' as ACC_NAME union Select ACC_ID,ACC_NAME from ACCOUNT_MASTER WHERE AG_ID=" & AccountGroups.Sundry_Creditors, "ACC_NAME", "ACC_ID")
