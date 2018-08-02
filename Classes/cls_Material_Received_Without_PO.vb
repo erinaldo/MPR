@@ -55,6 +55,8 @@ Namespace material_recieved_without_po_master
         Dim _A_Cess As Double
 
         Dim _Special_Scheme As String
+        Dim _Freight_TaxApplied As String
+        Dim _Freight_TaxValue As String
 
         Public Property Special_Scheme() As String
             Get
@@ -62,6 +64,24 @@ Namespace material_recieved_without_po_master
             End Get
             Set(ByVal value As String)
                 _Special_Scheme = value
+            End Set
+        End Property
+
+        Public Property Freight_TaxApplied() As String
+            Get
+                Freight_TaxApplied = _Freight_TaxApplied
+            End Get
+            Set(ByVal value As String)
+                _Freight_TaxApplied = value
+            End Set
+        End Property
+
+        Public Property Freight_TaxValue() As String
+            Get
+                Freight_TaxValue = _Freight_TaxValue
+            End Get
+            Set(ByVal value As String)
+                _Freight_TaxValue = value
             End Set
         End Property
 
@@ -466,6 +486,7 @@ Namespace material_recieved_without_po_master
                 _ACESS_AMOUNT = value
             End Set
         End Property
+
         Public Property NET_AMOUNT() As Double
             Get
                 NET_AMOUNT = _NET_AMOUNT
@@ -526,6 +547,8 @@ Namespace material_recieved_without_po_master
             cmd.Parameters.AddWithValue("@v_NET_AMOUNT", clsObj.NET_AMOUNT)
             cmd.Parameters.AddWithValue("@V_MRN_TYPE", clsObj.MRNType)
             cmd.Parameters.AddWithValue("@V_Special_Scheme", clsObj.Special_Scheme)
+            cmd.Parameters.AddWithValue("@V_FreightTaxApplied", clsObj.Freight_TaxApplied)
+            cmd.Parameters.AddWithValue("@V_FreightTaxValue", clsObj.Freight_TaxValue)
 
             cmd.ExecuteNonQuery()
             cmd.Dispose()
@@ -653,6 +676,8 @@ Namespace material_recieved_without_po_master
                 cmd.Parameters.AddWithValue("@v_NET_AMOUNT", clsObj.NET_AMOUNT)
                 cmd.Parameters.AddWithValue("@V_MRN_TYPE", clsObj.MRNType)
                 cmd.Parameters.AddWithValue("@V_Special_Scheme", clsObj.Special_Scheme)
+                cmd.Parameters.AddWithValue("@V_FreightTaxApplied", clsObj.Freight_TaxApplied)
+                cmd.Parameters.AddWithValue("@V_FreightTaxValue", clsObj.Freight_TaxValue)
 
                 cmd.ExecuteNonQuery()
                 cmd.Dispose()
@@ -697,25 +722,25 @@ Namespace material_recieved_without_po_master
             cmd.CommandType = CommandType.StoredProcedure
             cmd.CommandText = "PROC_MATERIAL_RECIEVED_WITHOUT_PO_MASTER"
 
-            cmd.Parameters.AddWithValue("@V_Received_ID", clsobj.Received_ID)
-            cmd.Parameters.AddWithValue("@V_Received_Code", clsobj.Received_Code)
-            cmd.Parameters.AddWithValue("@V_Received_No", clsobj.Received_No)
-            cmd.Parameters.AddWithValue("@V_Received_Date", clsobj.Received_Date)
-            cmd.Parameters.AddWithValue("@V_Purchase_Type", clsobj.Purchase_Type)
-            cmd.Parameters.AddWithValue("@V_Vendor_ID", clsobj.Vendor_ID)
-            cmd.Parameters.AddWithValue("@V_Remarks", clsobj.Remarks)
-            cmd.Parameters.AddWithValue("@V_Po_ID", clsobj.Po_ID)
-            cmd.Parameters.AddWithValue("@V_MRN_PREFIX", clsobj.MRN_PREFIX)
-            cmd.Parameters.AddWithValue("@V_MRN_NO", clsobj.MRN_NO)
-            cmd.Parameters.AddWithValue("@V_Created_By", clsobj.Created_By)
-            cmd.Parameters.AddWithValue("@V_Creation_Date", clsobj.Creation_Date)
-            cmd.Parameters.AddWithValue("@V_Modified_By", clsobj.Modified_By)
-            cmd.Parameters.AddWithValue("@V_Modification_Date", clsobj.Modification_Date)
-            cmd.Parameters.AddWithValue("@V_Division_ID", clsobj.Division_ID)
-            cmd.Parameters.AddWithValue("@V_mrn_status", clsobj.mrn_status)
-            cmd.Parameters.AddWithValue("@v_other_charges", clsobj.Other_Charges)
-            cmd.Parameters.AddWithValue("@v_Discount_amt", clsobj.Discount_amt)
-            cmd.Parameters.AddWithValue("@V_VAT_ON_EXICE", clsobj.VAT_ON_EXICE)
+            cmd.Parameters.AddWithValue("@V_Received_ID", clsObj.Received_ID)
+            cmd.Parameters.AddWithValue("@V_Received_Code", clsObj.Received_Code)
+            cmd.Parameters.AddWithValue("@V_Received_No", clsObj.Received_No)
+            cmd.Parameters.AddWithValue("@V_Received_Date", clsObj.Received_Date)
+            cmd.Parameters.AddWithValue("@V_Purchase_Type", clsObj.Purchase_Type)
+            cmd.Parameters.AddWithValue("@V_Vendor_ID", clsObj.Vendor_ID)
+            cmd.Parameters.AddWithValue("@V_Remarks", clsObj.Remarks)
+            cmd.Parameters.AddWithValue("@V_Po_ID", clsObj.Po_ID)
+            cmd.Parameters.AddWithValue("@V_MRN_PREFIX", clsObj.MRN_PREFIX)
+            cmd.Parameters.AddWithValue("@V_MRN_NO", clsObj.MRN_NO)
+            cmd.Parameters.AddWithValue("@V_Created_By", clsObj.Created_By)
+            cmd.Parameters.AddWithValue("@V_Creation_Date", clsObj.Creation_Date)
+            cmd.Parameters.AddWithValue("@V_Modified_By", clsObj.Modified_By)
+            cmd.Parameters.AddWithValue("@V_Modification_Date", clsObj.Modification_Date)
+            cmd.Parameters.AddWithValue("@V_Division_ID", clsObj.Division_ID)
+            cmd.Parameters.AddWithValue("@V_mrn_status", clsObj.mrn_status)
+            cmd.Parameters.AddWithValue("@v_other_charges", clsObj.Other_Charges)
+            cmd.Parameters.AddWithValue("@v_Discount_amt", clsObj.Discount_amt)
+            cmd.Parameters.AddWithValue("@V_VAT_ON_EXICE", clsObj.VAT_ON_EXICE)
             cmd.Parameters.AddWithValue("@V_PROC_TYPE", 3)
 
             cmd.ExecuteNonQuery()

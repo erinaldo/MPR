@@ -831,7 +831,7 @@ Public Class frm_Purchase_Order
                 CHK_OPEN_PO_QTY.Checked = dr("OPEN_PO_QTY")
 
 
-                If (Convert.ToString(dr("SpecialSchemeFlag")) = "Composite") Then
+                If (Convert.ToString(dr("SpecialSchemeFlag")).Trim() = "Composite") Then
                     chk_Composition.Checked = True
                 Else
                     chk_Composition.Checked = False
@@ -1324,16 +1324,26 @@ restart:
                 dtable_Item_List.Rows(i - 1)("Item_Value") = flxItemList.Item(i, "Item_Value")
                 dtable_Item_List.Rows(i - 1)("Indent_ID") = flxItemList.Item(i, "Indent_ID")
                 dtable_Item_List.Rows(i - 1)("UM_ID") = flxItemList.Item(i, "UM_ID")
-                dtable_Item_List.Rows(i - 1)("PO_Qty") = poqty(i - 1)
-                dtable_Item_List.Rows(i - 1)("Vat_Id") = vatperid(i - 1)
-                dtable_Item_List.Rows(i - 1)("Vat_Name") = vatpername(i - 1)
-                dtable_Item_List.Rows(i - 1)("Vat_Per") = vatper(i - 1)
-                dtable_Item_List.Rows(i - 1)("Cess_Id") = cessperid(i - 1)
-                dtable_Item_List.Rows(i - 1)("Cess_Name") = cesspername(i - 1)
-                dtable_Item_List.Rows(i - 1)("Cess_Per") = cessper(i - 1)
                 dtable_Item_List.Rows(i - 1)("Item_Value") = flxItemList.Item(i, "Item_Value")
                 dtable_Item_List.Rows(i - 1)("Item_Rate") = flxItemList.Item(i, "Item_Rate")
 
+                If (flag = "save") Then
+                    dtable_Item_List.Rows(i - 1)("PO_Qty") = poqty(i - 1)
+                    dtable_Item_List.Rows(i - 1)("Vat_Id") = vatperid(i - 1)
+                    dtable_Item_List.Rows(i - 1)("Vat_Name") = vatpername(i - 1)
+                    dtable_Item_List.Rows(i - 1)("Vat_Per") = vatper(i - 1)
+                    dtable_Item_List.Rows(i - 1)("Cess_Id") = cessperid(i - 1)
+                    dtable_Item_List.Rows(i - 1)("Cess_Name") = cesspername(i - 1)
+                    dtable_Item_List.Rows(i - 1)("Cess_Per") = cessper(i - 1)
+                Else
+                    dtable_Item_List.Rows(i - 1)("PO_Qty") = dtable_Item_List.Rows(i - 1)("PO_Qty")
+                    dtable_Item_List.Rows(i - 1)("Vat_Id") = dtable_Item_List.Rows(i - 1)("Vat_Id")
+                    dtable_Item_List.Rows(i - 1)("Vat_Name") = dtable_Item_List.Rows(i - 1)("Vat_Name")
+                    dtable_Item_List.Rows(i - 1)("Vat_Per") = dtable_Item_List.Rows(i - 1)("Vat_Per")
+                    dtable_Item_List.Rows(i - 1)("Cess_Id") = dtable_Item_List.Rows(i - 1)("Cess_Id")
+                    dtable_Item_List.Rows(i - 1)("Cess_Name") = dtable_Item_List.Rows(i - 1)("Cess_Name")
+                    dtable_Item_List.Rows(i - 1)("Cess_Per") = dtable_Item_List.Rows(i - 1)("Cess_Per")
+                End If
             Next
 
             dtable_Item_List.AcceptChanges()

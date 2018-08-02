@@ -41,8 +41,35 @@ Namespace material_rec_against_PO
         Dim _VAT_ON_EXICE As Int32
         Dim _IsPrinted As Int32
         Dim _CUST_ID As Int32
+        Dim _CashDiscount_amt As Double
+        Dim _Freight_TaxApplied As String
+        Dim _Freight_TaxValue As String
+        Public Property Freight_TaxApplied() As String
+            Get
+                Freight_TaxApplied = _Freight_TaxApplied
+            End Get
+            Set(ByVal value As String)
+                _Freight_TaxApplied = value
+            End Set
+        End Property
 
+        Public Property Freight_TaxValue() As String
+            Get
+                Freight_TaxValue = _Freight_TaxValue
+            End Get
+            Set(ByVal value As String)
+                _Freight_TaxValue = value
+            End Set
+        End Property
 
+        Public Property CashDiscount_amt() As Double
+            Get
+                CashDiscount_amt = _CashDiscount_amt
+            End Get
+            Set(ByVal value As Double)
+                _CashDiscount_amt = value
+            End Set
+        End Property
         Public Property Receipt_ID() As Int32
             Get
                 Receipt_ID = _Receipt_ID
@@ -388,6 +415,9 @@ Namespace material_rec_against_PO
             cmd.Parameters.AddWithValue("@v_NET_AMOUNT", clsObj.NET_AMOUNT)
             cmd.Parameters.AddWithValue("@V_MRN_TYPE", clsObj.MRN_TYPE)
             cmd.Parameters.AddWithValue("@V_CUST_ID", clsObj.CUST_ID)
+            cmd.Parameters.AddWithValue("@v_CashDiscount_amt", clsObj.CashDiscount_amt)
+            cmd.Parameters.AddWithValue("@V_FreightTaxApplied", clsObj.Freight_TaxApplied)
+            cmd.Parameters.AddWithValue("@V_FreightTaxValue", clsObj.Freight_TaxValue)
 
             cmd.ExecuteNonQuery()
             cmd.Parameters.Clear()

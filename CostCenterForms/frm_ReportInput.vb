@@ -31,7 +31,7 @@ Public Class frm_ReportInput
             lblSubCategory.Visible = False
             cmb_subCategory.Visible = False
 
-            lblCategoryHead.Text = "CustomerName:"
+            lblCategoryHead.Text = "Customer Name:"
             lblCategoryHead.Visible = True
             cmbCategoryHead.Visible = True
             Dim Query As String
@@ -51,6 +51,35 @@ Public Class frm_ReportInput
 
         End If
 
+        If _call_type = enmReportName.RptPurchaseSummary_itemwise Then
+            dtp_FromDate.Visible = True
+            dtp_ToDate.Visible = True
+
+            lblstatus.Visible = False
+            cmbstatus.Visible = False
+            rBtnMRS.Visible = False
+            rBtnReqDate.Visible = False
+            cmbCategoryHead.Visible = False
+            lblSubCategory.Visible = False
+            cmb_subCategory.Visible = False
+
+            lblCategoryHead.Text = "Supplier Name:"
+            lblCategoryHead.Visible = True
+            cmbCategoryHead.Visible = True
+            Dim Query As String
+            Dim Dt As DataTable
+            Dim Dtrow As DataRow
+            Query = " SELECT ACC_ID,ACC_NAME FROM dbo.ACCOUNT_MASTER WHERE AG_ID=2 order by ACC_NAME"
+            Dt = objCommFunction.Fill_DataSet(Query).Tables(0)
+            Dtrow = Dt.NewRow
+            Dtrow("ACC_ID") = -1
+            Dtrow("ACC_NAME") = "--ALL Supplier--"
+            Dt.Rows.InsertAt(Dtrow, 0)
+            cmbCategoryHead.DisplayMember = "ACC_NAME"
+            cmbCategoryHead.ValueMember = "ACC_ID"
+            cmbCategoryHead.DataSource = Dt
+            cmbCategoryHead.SelectedIndex = 0
+        End If
 
         If _call_type = enmReportName.RptBrandWiseSale Then
             dtp_FromDate.Visible = True
@@ -579,6 +608,8 @@ Public Class frm_ReportInput
                 filepath = ReportFilePath & "NonMovingItems.rpt"
             ElseIf _call_type = enmReportName.RpttotPurchase_catwise Then
                 filepath = ReportFilePath & "cryPurchaserpt.rpt"
+            ElseIf _call_type = enmReportName.RptPurchaseSummary_itemwise Then
+                filepath = ReportFilePath & "cry_Purchase_Summary.rpt"
             ElseIf _call_type = enmReportName.RptListofMRNWithOutPO Then
                 filepath = ReportFilePath & "cryListofMRN_Without_PO.rpt"
             ElseIf _call_type = enmReportName.RptListofMRNWithOutPO_WithoutSupplier Then
@@ -1055,7 +1086,6 @@ Public Class frm_ReportInput
                     Else
                         selectionFormnula += " and {mrn_list.vendor_id}=" & cmbCategoryHead.SelectedValue
                     End If
-
                 End If
 
                 rep.RecordSelectionFormula = selectionFormnula
@@ -1076,7 +1106,6 @@ Public Class frm_ReportInput
                     Else
                         rep.RecordSelectionFormula = "{wastage.Wastage_DATE}>=#" & dtp_FromDate.Value.Date & "# and {wastage.Wastage_DATE}<=#" & dtp_ToDate.Value.Date & "# and {wastage.ITEM_CAT_Head_ID}=" & cmbCategoryHead.SelectedValue
                     End If
-
                 End If
 
             ElseIf _call_type = enmReportName.RptReverseMaterialWithOutPO Then
@@ -1109,8 +1138,6 @@ Public Class frm_ReportInput
                     FLX_ISSUE_CAT_HEAD_WISE.DataSource = datast.Tables(0)
                 End If
 
-
-
             End If
 
             Dim CrExportOptions As ExportOptions
@@ -1128,9 +1155,7 @@ Public Class frm_ReportInput
                 .FormatOptions = CrFormatTypeOptions
             End With
 
-
-            If Not _call_type = enmReportName.RptCategoryHeadWiseIssue And Not _call_type = enmReportName.RptWastageDetail_ItemWise_cc And Not _call_type = enmReportName.RptIkt_ItemWise_cc And Not _call_type = enmReportName.RptConsumption_ItemWise_cc And Not _call_type = enmReportName.RptCatheadWise_Consumption_cc And Not _call_type = enmReportName.RptNonMovingItemList And Not _call_type = enmReportName.RptSalesummary And Not _call_type = enmReportName.RptSalesummaryList And Not _call_type = enmReportName.RptNonMovingItemList And Not _call_type = enmReportName.RptBrandWiseSale Then
-
+            If Not _call_type = enmReportName.RptCategoryHeadWiseIssue And Not _call_type = enmReportName.RptWastageDetail_ItemWise_cc And Not _call_type = enmReportName.RptIkt_ItemWise_cc And Not _call_type = enmReportName.RptConsumption_ItemWise_cc And Not _call_type = enmReportName.RptCatheadWise_Consumption_cc And Not _call_type = enmReportName.RptNonMovingItemList And Not _call_type = enmReportName.RptSalesummary And Not _call_type = enmReportName.RptSalesummaryList And Not _call_type = enmReportName.RptNonMovingItemList And Not _call_type = enmReportName.RptBrandWiseSale And Not _call_type = enmReportName.RptPurchaseSummary_itemwise Then
                 rep.SetParameterValue("PFromDate", dtp_FromDate.Value.Date)
                 rep.SetParameterValue("PToDate", dtp_ToDate.Value.Date)
                 'rep.SetParameterValue("Condition", " REQ_DATE ='" & dtp_FromDate.Value.Date & "' and REQ_DATE ='" & dtp_ToDate.Value.Date & "' and MRS_MAIN_STORE_MASTER.MRS_Status = " & v_the_current_division_id & "")
@@ -1163,7 +1188,7 @@ Public Class frm_ReportInput
                 frm_Report.Show()
             End If
 
-            If _call_type = enmReportName.RptSalesummary Or _call_type = enmReportName.RptSalesummaryList Then
+            If _call_type = enmReportName.RptSalesummary Or _call_type = enmReportName.RptSalesummaryList Or _call_type = enmReportName.RptPurchaseSummary_itemwise Then
                 rep.SetParameterValue("From", Convert.ToDateTime(dtp_FromDate.Value.Date.ToString("dd-MMM-yyyy")))
                 rep.SetParameterValue("To", Convert.ToDateTime(dtp_ToDate.Value.Date.ToString("dd-MMM-yyyy")))
 

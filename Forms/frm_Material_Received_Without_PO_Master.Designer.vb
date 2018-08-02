@@ -32,6 +32,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.BtnActualMRN = New System.Windows.Forms.Button()
         Me.dgvList = New System.Windows.Forms.DataGridView()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
+        Me.lblFreightTaxTotal = New System.Windows.Forms.Label()
         Me.txtAmount = New System.Windows.Forms.TextBox()
         Me.chk_ApplyTax = New System.Windows.Forms.CheckBox()
         Me.Label54 = New System.Windows.Forms.Label()
@@ -56,7 +57,6 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.lnkCalculateAmount = New System.Windows.Forms.LinkLabel()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.cmb_MRNAgainst = New System.Windows.Forms.ComboBox()
-        Me.Panel14 = New System.Windows.Forms.Panel()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.FLXGRD_MaterialItem = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.Label10 = New System.Windows.Forms.Label()
@@ -349,6 +349,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         'TabPage2
         '
         Me.TabPage2.BackColor = System.Drawing.Color.DimGray
+        Me.TabPage2.Controls.Add(Me.lblFreightTaxTotal)
         Me.TabPage2.Controls.Add(Me.txtAmount)
         Me.TabPage2.Controls.Add(Me.chk_ApplyTax)
         Me.TabPage2.Controls.Add(Me.Label54)
@@ -373,7 +374,6 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.TabPage2.Controls.Add(Me.lnkCalculateAmount)
         Me.TabPage2.Controls.Add(Me.Label9)
         Me.TabPage2.Controls.Add(Me.cmb_MRNAgainst)
-        Me.TabPage2.Controls.Add(Me.Panel14)
         Me.TabPage2.Controls.Add(Me.GroupBox2)
         Me.TabPage2.Controls.Add(Me.Label10)
         Me.TabPage2.Controls.Add(Me.Panel17)
@@ -398,6 +398,18 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
         Me.TabPage2.Size = New System.Drawing.Size(902, 600)
         Me.TabPage2.TabIndex = 1
+        '
+        'lblFreightTaxTotal
+        '
+        Me.lblFreightTaxTotal.AutoSize = True
+        Me.lblFreightTaxTotal.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblFreightTaxTotal.ForeColor = System.Drawing.Color.White
+        Me.lblFreightTaxTotal.Location = New System.Drawing.Point(441, 390)
+        Me.lblFreightTaxTotal.Name = "lblFreightTaxTotal"
+        Me.lblFreightTaxTotal.Size = New System.Drawing.Size(35, 14)
+        Me.lblFreightTaxTotal.TabIndex = 272
+        Me.lblFreightTaxTotal.Text = "0.00"
+        Me.lblFreightTaxTotal.Visible = False
         '
         'txtAmount
         '
@@ -671,14 +683,6 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.cmb_MRNAgainst.Size = New System.Drawing.Size(263, 23)
         Me.cmb_MRNAgainst.TabIndex = 6
         Me.cmb_MRNAgainst.Tag = ""
-        '
-        'Panel14
-        '
-        Me.Panel14.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel14.Location = New System.Drawing.Point(750, 537)
-        Me.Panel14.Name = "Panel14"
-        Me.Panel14.Size = New System.Drawing.Size(117, 1)
-        Me.Panel14.TabIndex = 24
         '
         'GroupBox2
         '
@@ -2437,7 +2441,6 @@ Partial Class frm_Material_Received_Without_PO_Master
     Friend WithEvents Label46 As System.Windows.Forms.Label
     Friend WithEvents Label47 As System.Windows.Forms.Label
     Friend WithEvents Label48 As System.Windows.Forms.Label
-    Friend WithEvents Panel14 As System.Windows.Forms.Panel
     Friend WithEvents Panel17 As System.Windows.Forms.Panel
     Friend WithEvents txtotherchrgs As System.Windows.Forms.TextBox
     Friend WithEvents txtdiscount As System.Windows.Forms.TextBox
@@ -2480,4 +2483,5 @@ Partial Class frm_Material_Received_Without_PO_Master
     Friend WithEvents chk_ApplyTax As CheckBox
     Friend WithEvents Label54 As Label
     Friend WithEvents txtAmount As TextBox
+    Friend WithEvents lblFreightTaxTotal As Label
 End Class

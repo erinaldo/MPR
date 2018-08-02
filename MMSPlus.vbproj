@@ -921,6 +921,12 @@
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Reports\cry_Purchase_Summary.vb">
+      <DependentUpon>cry_Purchase_Summary.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Reports\PaymentVoucher.vb">
       <DependentUpon>PaymentVoucher.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -1880,6 +1886,10 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>cry_Brand_Wise_Sale.vb</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Reports\cry_Purchase_Summary.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cry_Purchase_Summary.vb</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reports\PaymentVoucher.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>PaymentVoucher.vb</LastGenOutput>
@@ -2300,6 +2310,7 @@
     <Content Include="Scripts\2018Update\0020_05_July_2018_PurcgaseRegisterModified.sql" />
     <Content Include="Scripts\2018Update\0023_17_July_2018_MRN_WPO_LANDING_AMOUNT.sql" />
     <Content Include="Scripts\2018Update\0024_23_July_2018_Add_Partial_PO.sql" />
+    <Content Include="Scripts\2018Update\0028_01_August_2018_FreightTaxChanges.sql" />
     <Content Include="Scripts\2018Update\0027_30_July_2018_PurchaseOrderCompositionChanges.sql" />
     <Content Include="Scripts\2018Update\0026_26_July_2018_CompositionChanges.sql" />
     <Content Include="Scripts\2018Update\0025_24_July_2018_Change_PO_and_Ratelist.sql" />

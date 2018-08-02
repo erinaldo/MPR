@@ -60,6 +60,7 @@ Public Class frm_material_rec_against_PO
         txtAmount.Text = "0.00"
         txtotherchrgs.Text = "0.00"
         txtdiscount.Text = "0.00"
+        txtCashDiscount.Text = "0.00"
         lblnetamt.Text = "0.00"
         If FLXGRD_PO_Items.DataSource IsNot Nothing Then
             'SetGstLabels()
@@ -195,6 +196,16 @@ Public Class frm_material_rec_against_PO
                     prop.VAT_ON_EXICE = 1
                 Else
                     prop.VAT_ON_EXICE = 0
+                End If
+
+                prop.CashDiscount_amt = Convert.ToDouble(txtCashDiscount.Text)
+
+                If chk_ApplyTax.Checked = True Then
+                    prop.Freight_TaxApplied = 1
+                    prop.Freight_TaxValue = Convert.ToDouble(lblFreightTaxTotal.Text)
+                Else
+                    prop.Freight_TaxApplied = 0
+                    prop.Freight_TaxValue = 0.00
                 End If
 
                 Master.insert_MATERIAL_RECIEVED_AGAINST_PO_MASTER(prop, cmd, FLXGRD_PO_Items.DataSource, FLXGRD_PO_NON_STOCKABLEITEMS.DataSource)
@@ -1164,7 +1175,7 @@ Public Class frm_material_rec_against_PO
         lblcessamt.Text = tot_cess_amt.ToString("0.00")
         lblexciseamt.Text = tot_exice_amt.ToString("0.00")
 
-        Net_amt = (tot_gross_amt + Convert.ToDouble(IIf(IsNumeric(lblvatamt.Text), lblvatamt.Text, 0)) + tot_cess_amt + tot_exice_amt + Convert.ToDouble(IIf(IsNumeric(txtAmount.Text), txtAmount.Text, 0)) + Convert.ToDouble(IIf(IsNumeric(txtotherchrgs.Text), txtotherchrgs.Text, 0))) '- Convert.ToDouble(IIf(IsNumeric(txtdiscount.Text), txtdiscount.Text, 0))
+        Net_amt = (tot_gross_amt + Convert.ToDouble(IIf(IsNumeric(lblvatamt.Text), lblvatamt.Text, 0)) + tot_cess_amt + tot_exice_amt + Convert.ToDouble(IIf(IsNumeric(txtAmount.Text), txtAmount.Text, 0)) + Convert.ToDouble(IIf(IsNumeric(txtotherchrgs.Text), txtotherchrgs.Text, 0))) - Convert.ToDouble(IIf(IsNumeric(txtCashDiscount.Text), txtCashDiscount.Text, 0)) '- Convert.ToDouble(IIf(IsNumeric(txtdiscount.Text), txtdiscount.Text, 0))
         lblnetamt.Text = Net_amt.ToString("0.00")
 
     End Sub
@@ -1246,6 +1257,16 @@ restart:
         Dim Tax As Decimal = 0
         Dim TaxAmount As Decimal = 0
 
+        Dim FreightTaxAmount As Decimal = 0
+        Dim FreightTaxAmount0 As Decimal = 0
+        Dim FreightTaxAmount3 As Decimal = 0
+        Dim FreightTaxAmount5 As Decimal = 0
+        Dim FreightTaxAmount12 As Decimal = 0
+        Dim FreightTaxAmount18 As Decimal = 0
+        Dim FreightTaxAmount28 As Decimal = 0
+
+        Dim FreightTaxTotal As Decimal = 0
+
         Dim iRow As Integer = 0
 
         For iRow = 1 To FLXGRD_PO_Items.Rows.Count - 1
@@ -1266,12 +1287,15 @@ restart:
                 'Tax = (totalAmount * FLXGRD_MaterialItem.Item(iRow, "vat_per") / 100) + (totalAmount / Convert.ToDecimal(lblgrossamt.Text) * Convert.ToDecimal(txt_Amount.Text))
                 TaxAmount = ((totalAmount / (Convert.ToDouble(IIf(IsNumeric(lblgrossamt.Text), lblgrossamt.Text, 0)))) * Convert.ToDecimal(txtAmount.Text))
                 Tax = (totalAmount + TaxAmount) * FLXGRD_PO_Items.Item(iRow, "vat_per") / 100
+                FreightTaxAmount = Tax - (totalAmount * FLXGRD_PO_Items.Item(iRow, "vat_per") / 100)
             Else
                 TaxAmount = 0
                 Tax = totalAmount * FLXGRD_PO_Items.Item(iRow, "vat_per") / 100
+                FreightTaxAmount = 0
             End If
 
             GSTTaxTotal += Tax
+            FreightTaxTotal += FreightTaxAmount
 
             Select Case FLXGRD_PO_Items.Item(iRow, "vat_per")
                 Case 0
@@ -1324,9 +1348,8 @@ restart:
                     GSTTax28 += Tax
             End Select
         Next
-
+        lblFreightTaxTotal.Text = Math.Round(FreightTaxTotal, 2)
         lblvatamt.Text = Math.Round(GSTTaxTotal, 2)
-
         lblGST0.Text = String.Format("0% - {0:0.00} @ {1}", Math.Round(GSTAmount0, 2), Math.Round(GSTTax0, 2))
         lblGST3.Text = String.Format("3% - {0:0.00} @ {1}", Math.Round(GSTAmount3, 2), Math.Round(GSTTax3, 2))
         lblGST5.Text = String.Format("5% - {0:0.00} @ {1}", Math.Round(GSTAmount5, 2), Math.Round(GSTTax5, 2))

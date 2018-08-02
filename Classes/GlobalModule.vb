@@ -48,8 +48,6 @@ Module GlobalModule
 
     Public frm_Item_Master_obj As frm_Item_Master
 
-
-
     Public Enum division_type As Integer
         Warehouse = 1
         Resturant = 2
@@ -142,6 +140,7 @@ Module GlobalModule
         RptDebitNoteWOItemPrint = 79
         RptCreditNoteWOItemPrint = 80
         RptBrandWiseSale = 81
+        RptPurchaseSummary_itemwise = 82
 
     End Enum
     Public Enum IndentStatus As Integer
@@ -222,7 +221,6 @@ Module GlobalModule
         Stock_in_hand = 27
         Suspense_Account = 28
         Unsecured_Loans = 29
-
     End Enum
 
     Public Enum Transaction_Type As Integer
@@ -248,7 +246,6 @@ Module GlobalModule
         Journal = 21
         Contra = 22
         Expense = 23
-
     End Enum
 
     Public Enum PaymentType
@@ -299,7 +296,6 @@ Module GlobalModule
     End Function
 
     Public Function Decrypt(ByVal sSTR As String) As String
-
         Dim sTmp As String
         Dim sResult As String
         Dim icnt As Integer

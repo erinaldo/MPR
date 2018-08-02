@@ -36,6 +36,9 @@ Partial Class frm_material_rec_against_PO
         Me.BtnRevisedMRN = New System.Windows.Forms.Button()
         Me.dgvList = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
+        Me.txtCashDiscount = New System.Windows.Forms.TextBox()
+        Me.Label54 = New System.Windows.Forms.Label()
+        Me.lblFreightTaxTotal = New System.Windows.Forms.Label()
         Me.chk_ApplyTax = New System.Windows.Forms.CheckBox()
         Me.txtAmount = New System.Windows.Forms.TextBox()
         Me.Label15 = New System.Windows.Forms.Label()
@@ -278,6 +281,9 @@ Partial Class frm_material_rec_against_PO
         'TabPage2
         '
         Me.TabPage2.BackColor = System.Drawing.Color.DimGray
+        Me.TabPage2.Controls.Add(Me.txtCashDiscount)
+        Me.TabPage2.Controls.Add(Me.Label54)
+        Me.TabPage2.Controls.Add(Me.lblFreightTaxTotal)
         Me.TabPage2.Controls.Add(Me.chk_ApplyTax)
         Me.TabPage2.Controls.Add(Me.txtAmount)
         Me.TabPage2.Controls.Add(Me.Label15)
@@ -324,6 +330,43 @@ Partial Class frm_material_rec_against_PO
         Me.TabPage2.Size = New System.Drawing.Size(902, 600)
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "  "
+        '
+        'txtCashDiscount
+        '
+        Me.txtCashDiscount.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.txtCashDiscount.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.txtCashDiscount.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtCashDiscount.ForeColor = System.Drawing.Color.Orange
+        Me.txtCashDiscount.Location = New System.Drawing.Point(784, 541)
+        Me.txtCashDiscount.Name = "txtCashDiscount"
+        Me.txtCashDiscount.Size = New System.Drawing.Size(110, 18)
+        Me.txtCashDiscount.TabIndex = 270
+        Me.txtCashDiscount.Tag = ""
+        Me.txtCashDiscount.Text = "0.00"
+        Me.txtCashDiscount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'Label54
+        '
+        Me.Label54.AutoSize = True
+        Me.Label54.Font = New System.Drawing.Font("Verdana", 9.0!)
+        Me.Label54.ForeColor = System.Drawing.Color.White
+        Me.Label54.Location = New System.Drawing.Point(680, 543)
+        Me.Label54.Name = "Label54"
+        Me.Label54.Size = New System.Drawing.Size(106, 14)
+        Me.Label54.TabIndex = 271
+        Me.Label54.Text = "Cash Discount :"
+        '
+        'lblFreightTaxTotal
+        '
+        Me.lblFreightTaxTotal.AutoSize = True
+        Me.lblFreightTaxTotal.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblFreightTaxTotal.ForeColor = System.Drawing.Color.White
+        Me.lblFreightTaxTotal.Location = New System.Drawing.Point(465, 438)
+        Me.lblFreightTaxTotal.Name = "lblFreightTaxTotal"
+        Me.lblFreightTaxTotal.Size = New System.Drawing.Size(35, 14)
+        Me.lblFreightTaxTotal.TabIndex = 281
+        Me.lblFreightTaxTotal.Text = "0.00"
+        Me.lblFreightTaxTotal.Visible = False
         '
         'chk_ApplyTax
         '
@@ -375,7 +418,7 @@ Partial Class frm_material_rec_against_PO
         '
         Me.lblGSTDetail.Font = New System.Drawing.Font("Arial", 9.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblGSTDetail.ForeColor = System.Drawing.Color.Orange
-        Me.lblGSTDetail.Location = New System.Drawing.Point(719, 474)
+        Me.lblGSTDetail.Location = New System.Drawing.Point(719, 471)
         Me.lblGSTDetail.Name = "lblGSTDetail"
         Me.lblGSTDetail.Size = New System.Drawing.Size(182, 32)
         Me.lblGSTDetail.TabIndex = 273
@@ -462,7 +505,7 @@ Partial Class frm_material_rec_against_PO
         Me.lblcessamt.BackColor = System.Drawing.Color.Transparent
         Me.lblcessamt.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblcessamt.ForeColor = System.Drawing.Color.Orange
-        Me.lblcessamt.Location = New System.Drawing.Point(780, 507)
+        Me.lblcessamt.Location = New System.Drawing.Point(780, 502)
         Me.lblcessamt.Name = "lblcessamt"
         Me.lblcessamt.Size = New System.Drawing.Size(118, 20)
         Me.lblcessamt.TabIndex = 79
@@ -474,7 +517,7 @@ Partial Class frm_material_rec_against_PO
         Me.Label16.AutoSize = True
         Me.Label16.BackColor = System.Drawing.Color.Transparent
         Me.Label16.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label16.Location = New System.Drawing.Point(680, 510)
+        Me.Label16.Location = New System.Drawing.Point(680, 505)
         Me.Label16.Name = "Label16"
         Me.Label16.Size = New System.Drawing.Size(90, 15)
         Me.Label16.TabIndex = 80
@@ -521,9 +564,9 @@ Partial Class frm_material_rec_against_PO
         Me.txtotherchrgs.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtotherchrgs.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtotherchrgs.ForeColor = System.Drawing.Color.Orange
-        Me.txtotherchrgs.Location = New System.Drawing.Point(777, 533)
+        Me.txtotherchrgs.Location = New System.Drawing.Point(783, 520)
         Me.txtotherchrgs.Name = "txtotherchrgs"
-        Me.txtotherchrgs.Size = New System.Drawing.Size(118, 18)
+        Me.txtotherchrgs.Size = New System.Drawing.Size(112, 18)
         Me.txtotherchrgs.TabIndex = 10
         Me.txtotherchrgs.Text = "0.00"
         Me.txtotherchrgs.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
@@ -534,7 +577,7 @@ Partial Class frm_material_rec_against_PO
         Me.txtdiscount.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtdiscount.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtdiscount.ForeColor = System.Drawing.Color.Orange
-        Me.txtdiscount.Location = New System.Drawing.Point(777, 554)
+        Me.txtdiscount.Location = New System.Drawing.Point(777, 557)
         Me.txtdiscount.Name = "txtdiscount"
         Me.txtdiscount.ReadOnly = True
         Me.txtdiscount.Size = New System.Drawing.Size(118, 18)
@@ -570,7 +613,7 @@ Partial Class frm_material_rec_against_PO
         Me.Label51.AutoSize = True
         Me.Label51.BackColor = System.Drawing.Color.Transparent
         Me.Label51.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label51.Location = New System.Drawing.Point(680, 556)
+        Me.Label51.Location = New System.Drawing.Point(680, 559)
         Me.Label51.Name = "Label51"
         Me.Label51.Size = New System.Drawing.Size(85, 15)
         Me.Label51.TabIndex = 55
@@ -593,7 +636,7 @@ Partial Class frm_material_rec_against_PO
         Me.Label53.AutoSize = True
         Me.Label53.BackColor = System.Drawing.Color.Transparent
         Me.Label53.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label53.Location = New System.Drawing.Point(680, 535)
+        Me.Label53.Location = New System.Drawing.Point(680, 522)
         Me.Label53.Name = "Label53"
         Me.Label53.Size = New System.Drawing.Size(68, 15)
         Me.Label53.TabIndex = 63
@@ -1081,4 +1124,7 @@ Partial Class frm_material_rec_against_PO
     Friend WithEvents chk_ApplyTax As CheckBox
     Friend WithEvents txtAmount As TextBox
     Friend WithEvents Label15 As Label
+    Friend WithEvents lblFreightTaxTotal As Label
+    Friend WithEvents txtCashDiscount As TextBox
+    Friend WithEvents Label54 As Label
 End Class

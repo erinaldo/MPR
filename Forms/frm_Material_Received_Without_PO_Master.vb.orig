@@ -58,7 +58,7 @@ Public Class frm_Material_Received_Without_PO_Master
         flag = "save"
         Grid_styles()
         'FLXGRD_MaterialItem.Rows.Add()
-        'clsObj.FormatGrid(dgvList)
+        clsObj.FormatGrid(dgvList)
 
         FillGrid()
         clsObj.ComboBind(cmbMRNType, "Select PO_TYPE_ID,PO_TYPE_NAME from PO_TYPE_MASTER", "PO_TYPE_NAME", "PO_TYPE_ID", True)
@@ -342,14 +342,6 @@ Public Class frm_Material_Received_Without_PO_Master
                     prpty.Special_Scheme = "Composite"
                 Else
                     prpty.Special_Scheme = "Nill"
-                End If
-
-                If chk_ApplyTax.Checked = True Then
-                    prpty.Freight_TaxApplied = 1
-                    prpty.Freight_TaxValue = Convert.ToDouble(lblFreightTaxTotal.Text)
-                Else
-                    prpty.Freight_TaxApplied = 0
-                    prpty.Freight_TaxValue = 0.00
                 End If
 
                 'If rb_Amount.Checked Then
@@ -1211,6 +1203,15 @@ restart:
                 lblMrnStatus.Text = "Clear"
             ElseIf dtMRN.Rows(0)("MRN_Status") = MRNStatus.normal Then
                 lblMrnStatus.Text = "Normal"
+<<<<<<< Updated upstream
+            End If
+            txt_Amount.Text = Convert.ToString(dtMRN.Rows(0)("freight"))
+            txtotherchrgs.Text = Convert.ToString(dtMRN.Rows(0)("Other_charges"))
+            txtdiscount.Text = Convert.ToString(dtMRN.Rows(0)("Discount_amt"))
+            txtCashDiscount.Text = Convert.ToString(dtMRN.Rows(0)("CashDiscount_amt"))
+            dt_Invoice_Date.Value = dtMRN.Rows(0)("Invoice_Date")
+            txt_Invoice_No.Text = dtMRN.Rows(0)("Invoice_No")
+=======
             End If
             txtAmount.Text = Convert.ToString(dtMRN.Rows(0)("freight"))
             txtotherchrgs.Text = Convert.ToString(dtMRN.Rows(0)("Other_charges"))
@@ -1218,29 +1219,30 @@ restart:
             txtCashDiscount.Text = Convert.ToString(dtMRN.Rows(0)("CashDiscount_amt"))
             dt_Invoice_Date.Value = dtMRN.Rows(0)("Invoice_Date")
             txt_Invoice_No.Text = dtMRN.Rows(0)("Invoice_No")
-            If (dtMRN.Rows(0)("FreightTaxApplied") = True) Then
-                chk_ApplyTax.Checked = True
-            Else
-                chk_ApplyTax.Checked = False
-            End If
-
-            If (dtMRN.Rows(0)("SpecialSchemeFlag").ToString().Trim() = "Composite") Then
+            If (dtMRN.Rows(0)("SpecialSchemeFlag") = "Composite") Then
                 chk_Composition.Checked = True
             Else
                 chk_Composition.Checked = False
             End If
 
+>>>>>>> Stashed changes
             ' Grid_styles()
             'dtable_Item_List = ds.Tables(1).Copy
 
             dtable_Item_List = ds.Tables(1).Copy
+<<<<<<< Updated upstream
+=======
             dtable_Item_List_Copy = ds.Tables(1).Copy
 
+>>>>>>> Stashed changes
             ' dtable_Item_List.Rows.Add(dtable_Item_List.NewRow)
             FLXGRD_MaterialItem.DataSource = dtable_Item_List
 
             dtMRNDetail_NonStockableItems = ds.Tables(2).Copy
+<<<<<<< Updated upstream
+=======
             dtable_Item_List_Stockable_Copy = ds.Tables(2).Copy
+>>>>>>> Stashed changes
             FLXGRD_MatItem_NonStockable.DataSource = dtMRNDetail_NonStockableItems
             SetGridSettingValues()
             'FLXGRD_MaterialItem.DataSource = ds.Tables(1)
@@ -1546,16 +1548,6 @@ restart:
         Dim Tax As Decimal = 0
         Dim TaxAmount As Decimal = 0
 
-        Dim FreightTaxAmount As Decimal = 0
-        Dim FreightTaxAmount0 As Decimal = 0
-        Dim FreightTaxAmount3 As Decimal = 0
-        Dim FreightTaxAmount5 As Decimal = 0
-        Dim FreightTaxAmount12 As Decimal = 0
-        Dim FreightTaxAmount18 As Decimal = 0
-        Dim FreightTaxAmount28 As Decimal = 0
-
-        Dim FreightTaxTotal As Decimal = 0
-
         Dim iRow As Integer = 0
 
         For iRow = 1 To FLXGRD_MaterialItem.Rows.Count - 1
@@ -1564,20 +1556,11 @@ restart:
 
                 Dim totalAmount As Decimal = FLXGRD_MaterialItem.Item(iRow, "BATCH_QTY") * FLXGRD_MaterialItem.Item(iRow, "item_rate")
 
-
-
                 If FLXGRD_MaterialItem.Item(iRow, "DType") = "P" Then
-                    totalAmount -= Math.Round((totalAmount * FLXGRD_MaterialItem.Item(iRow, "DISC") / 100), 2)
+                    totalAmount -= Math.Round((totalAmount * FLXGRD_MaterialItem.Item(iRow, "DISC") / 100), 2) + Math.Round((FLXGRD_MaterialItem.Item(iRow, "DISC1") / 100), 2)
                 Else
-                    totalAmount -= Math.Round(FLXGRD_MaterialItem.Item(iRow, "DISC"), 2)
+                    totalAmount -= Math.Round(FLXGRD_MaterialItem.Item(iRow, "DISC"), 2) + Math.Round((FLXGRD_MaterialItem.Item(iRow, "DISC1") / 100), 2)
                 End If
-
-                If FLXGRD_MaterialItem.Item(iRow, "DType") = "P" Then
-                    totalAmount -= Math.Round((totalAmount * FLXGRD_MaterialItem.Item(iRow, "DISC1") / 100), 2)
-                Else
-                    totalAmount -= Math.Round(FLXGRD_MaterialItem.Item(iRow, "DISC1"), 2)
-                End If
-
 
                 If FLXGRD_MaterialItem.Item(iRow, "GPAID") = "Y" Then
                     totalAmount -= (totalAmount - (totalAmount / (1 + (FLXGRD_MaterialItem.Item(iRow, "vat_per") / 100))))
@@ -1587,87 +1570,59 @@ restart:
                     'Tax = (totalAmount * FLXGRD_MaterialItem.Item(iRow, "vat_per") / 100) + (totalAmount / Convert.ToDecimal(lblgrossamt.Text) * Convert.ToDecimal(txt_Amount.Text))
                     TaxAmount = ((totalAmount / (Convert.ToDouble(IIf(IsNumeric(lblgrossamt.Text), lblgrossamt.Text, 0)))) * Convert.ToDecimal(txtAmount.Text))
                     Tax = (totalAmount + TaxAmount) * FLXGRD_MaterialItem.Item(iRow, "vat_per") / 100
-                    FreightTaxAmount = Tax - (totalAmount * FLXGRD_MaterialItem.Item(iRow, "vat_per") / 100)
                 Else
                     TaxAmount = 0
                     Tax = totalAmount * FLXGRD_MaterialItem.Item(iRow, "vat_per") / 100
-                    FreightTaxAmount = 0
                 End If
 
                 GSTTaxTotal += Tax
-
-                FreightTaxTotal += FreightTaxAmount
 
                 Select Case FLXGRD_MaterialItem.Item(iRow, "vat_per")
                     Case 0
                         If chk_ApplyTax.Checked = True Then
                             GSTAmount0 += (totalAmount + TaxAmount)
-                            'FreightTaxAmount0 = Convert.ToDecimal(txtAmount.Text) * FLXGRD_MaterialItem.Item(iRow, "vat_per") / 100
-                            'FreightTaxTotal += FreightTaxAmount0
                         Else
                             GSTAmount0 += totalAmount
-                            'FreightTaxAmount0 = 0
-                            'FreightTaxTotal += 0
                         End If
                         'GSTAmount0 += totalAmount
                         GSTTax0 += Tax
                     Case 3
                         If chk_ApplyTax.Checked = True Then
                             GSTAmount3 += (totalAmount + TaxAmount)
-                            'FreightTaxAmount3 = Convert.ToDecimal(txtAmount.Text) * FLXGRD_MaterialItem.Item(iRow, "vat_per") / 100
-                            'FreightTaxTotal += FreightTaxAmount3
                         Else
                             GSTAmount3 += totalAmount
-                            'FreightTaxAmount3 = 0
-                            'FreightTaxTotal += 0
                         End If
                         'GSTAmount3 += totalAmount
                         GSTTax3 += Tax
                     Case 5
                         If chk_ApplyTax.Checked = True Then
                             GSTAmount5 += (totalAmount + TaxAmount)
-                            'FreightTaxAmount5 = Convert.ToDecimal(txtAmount.Text) * FLXGRD_MaterialItem.Item(iRow, "vat_per") / 100
-                            'FreightTaxTotal += FreightTaxAmount5
                         Else
                             GSTAmount5 += totalAmount
-                            'FreightTaxAmount5 = 0
-                            'FreightTaxTotal += 0
                         End If
                         'GSTAmount5 += totalAmount
                         GSTTax5 += Tax
                     Case 12
                         If chk_ApplyTax.Checked = True Then
                             GSTAmount12 += (totalAmount + TaxAmount)
-                            'FreightTaxAmount12 = Convert.ToDecimal(txtAmount.Text) * FLXGRD_MaterialItem.Item(iRow, "vat_per") / 100
-                            'FreightTaxTotal += FreightTaxAmount12
                         Else
                             GSTAmount12 += totalAmount
-                            'FreightTaxAmount12 = 0
-                            'FreightTaxTotal += 0
                         End If
                         'GSTAmount12 += totalAmount
                         GSTTax12 += Tax
                     Case 18
                         If chk_ApplyTax.Checked = True Then
                             GSTAmount18 += (totalAmount + TaxAmount)
-                            'FreightTaxAmount18 = Convert.ToDecimal(txtAmount.Text) * FLXGRD_MaterialItem.Item(iRow, "vat_per") / 100
-                            'FreightTaxTotal += FreightTaxAmount18
                         Else
                             GSTAmount18 += totalAmount
-                            'FreightTaxAmount18 = 0
-                            'FreightTaxTotal += 0
                         End If
                         'GSTAmount18 += totalAmount
                         GSTTax18 += Tax
                     Case 28
                         If chk_ApplyTax.Checked = True Then
                             GSTAmount28 += (totalAmount + TaxAmount)
-                            'FreightTaxAmount28 = Convert.ToDecimal(txtAmount.Text) * FLXGRD_MaterialItem.Item(iRow, "vat_per") / 100
-                            'FreightTaxTotal += FreightTaxAmount28
                         Else
                             GSTAmount28 += totalAmount
-                            'FreightTaxAmount28 = 0
-                            'FreightTaxTotal += 0
                         End If
                         'GSTAmount28 += totalAmount
                         GSTTax28 += Tax
@@ -1676,7 +1631,6 @@ restart:
             End If
         Next
 
-        lblFreightTaxTotal.Text = Math.Round(FreightTaxTotal, 2)
         lblvatamt.Text = Math.Round(GSTTaxTotal, 2)
         lblGST0.Text = String.Format("0% - {0:0.00} @ {1}", Math.Round(GSTAmount0, 2), Math.Round(GSTTax0, 2))
         lblGST3.Text = String.Format("3% - {0:0.00} @ {1}", Math.Round(GSTAmount3, 2), Math.Round(GSTTax3, 2))
@@ -1986,21 +1940,11 @@ restart:
                 dtable_Item_List_Copy.Rows(i - 1)("DISC") = FLXGRD_MaterialItem.Item(i, "DISC")
                 dtable_Item_List_Copy.Rows(i - 1)("DISC1") = FLXGRD_MaterialItem.Item(i, "DISC1")
                 dtable_Item_List_Copy.Rows(i - 1)("GPAID") = FLXGRD_MaterialItem.Item(i, "GPAID")
-
-                If (flag = "save") Then
-                    dtable_Item_List_Copy.Rows(i - 1)("BATCH_QTY") = qty(i - 1)
-                    dtable_Item_List_Copy.Rows(i - 1)("Vat_Per") = vatper(i - 1)
-                    dtable_Item_List_Copy.Rows(i - 1)("Cess_Per") = cessper(i - 1)
-                    dtable_Item_List_Copy.Rows(i - 1)("ACess") = acess(i - 1)
-                    dtable_Item_List_Copy.Rows(i - 1)("Amount") = totalamt(i - 1)
-                Else
-                    dtable_Item_List_Copy.Rows(i - 1)("BATCH_QTY") = dtable_Item_List_Copy.Rows(i - 1)("BATCH_QTY")
-                    dtable_Item_List_Copy.Rows(i - 1)("Vat_Per") = dtable_Item_List_Copy.Rows(i - 1)("Vat_Per")
-                    dtable_Item_List_Copy.Rows(i - 1)("Cess_Per") = dtable_Item_List_Copy.Rows(i - 1)("Cess_Per")
-                    dtable_Item_List_Copy.Rows(i - 1)("ACess") = dtable_Item_List_Copy.Rows(i - 1)("ACess")
-                    dtable_Item_List_Copy.Rows(i - 1)("Amount") = dtable_Item_List_Copy.Rows(i - 1)("Amount")
-                End If
-
+                dtable_Item_List_Copy.Rows(i - 1)("BATCH_QTY") = qty(i - 1)
+                dtable_Item_List_Copy.Rows(i - 1)("Vat_Per") = vatper(i - 1)
+                dtable_Item_List_Copy.Rows(i - 1)("Cess_Per") = cessper(i - 1)
+                dtable_Item_List_Copy.Rows(i - 1)("ACess") = acess(i - 1)
+                dtable_Item_List_Copy.Rows(i - 1)("Amount") = totalamt(i - 1)
             Next
 
             dtable_Item_List_Copy.AcceptChanges()

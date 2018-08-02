@@ -129,7 +129,9 @@ Partial Class MDIMain
         Me.frm_WastageItemDetail = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_WastageItemWise = New System.Windows.Forms.ToolStripMenuItem()
         Me.ItemWiseWastagebetweenDatesCategoryHeadWiseToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.frm_rpt_PurchaseInvoice = New System.Windows.Forms.ToolStripMenuItem()
         Me.Purchase_rpt = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Purchase_Summary = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_MRN = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_ListMRNDetail = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_ListMRN = New System.Windows.Forms.ToolStripMenuItem()
@@ -1026,7 +1028,7 @@ Partial Class MDIMain
         'Reports
         '
         Me.Reports.BackColor = System.Drawing.Color.FromArgb(CType(CType(88, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(88, Byte), Integer))
-        Me.Reports.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.frm_Stock, Me.frm_Item_Ledger, Me.frm_LedgerSummary, Me.NonMovingItemList, Me.frm_Indents, Me.frm_MRS, Me.frm_Wastage, Me.Purchase_rpt, Me.frm_MRN, Me.frm_Mrnwithpo, Me.frm_MRNDetails, Me.frm_rpt_SaleInvoice, Me.LastPurchaseratelist, Me.AllPurchaseRate, Me.frm_IssueDetail, Me.frm_ReverseMaterial, Me.ItemWiseMaterialIssueToCostCenterToolStripMenuItem, Me.ItemWiseMaterialIssueToCostCenterCatHeadWiseToolStripMenuItem, Me.CostofIssueReport})
+        Me.Reports.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.frm_Stock, Me.frm_Item_Ledger, Me.frm_LedgerSummary, Me.NonMovingItemList, Me.frm_Indents, Me.frm_MRS, Me.frm_Wastage, Me.frm_rpt_PurchaseInvoice, Me.frm_MRNDetails, Me.frm_rpt_SaleInvoice, Me.LastPurchaseratelist, Me.AllPurchaseRate, Me.frm_IssueDetail, Me.frm_ReverseMaterial, Me.ItemWiseMaterialIssueToCostCenterToolStripMenuItem, Me.ItemWiseMaterialIssueToCostCenterCatHeadWiseToolStripMenuItem, Me.CostofIssueReport})
         Me.Reports.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Reports.ForeColor = System.Drawing.Color.White
         Me.Reports.Image = Global.MMSPlus.My.Resources.Resources.Market_report
@@ -1238,32 +1240,46 @@ Partial Class MDIMain
         Me.ItemWiseWastagebetweenDatesCategoryHeadWiseToolStripMenuItem.Size = New System.Drawing.Size(386, 22)
         Me.ItemWiseWastagebetweenDatesCategoryHeadWiseToolStripMenuItem.Text = "Item Wise Wastage (between Dates Category Head Wise)"
         '
+        'frm_rpt_PurchaseInvoice
+        '
+        Me.frm_rpt_PurchaseInvoice.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.frm_rpt_PurchaseInvoice.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Purchase_Summary, Me.Purchase_rpt, Me.frm_MRN, Me.frm_Mrnwithpo})
+        Me.frm_rpt_PurchaseInvoice.ForeColor = System.Drawing.Color.White
+        Me.frm_rpt_PurchaseInvoice.Image = Global.MMSPlus.My.Resources.Resources.Reports
+        Me.frm_rpt_PurchaseInvoice.Name = "frm_rpt_PurchaseInvoice"
+        Me.frm_rpt_PurchaseInvoice.ShowShortcutKeys = False
+        Me.frm_rpt_PurchaseInvoice.Size = New System.Drawing.Size(280, 22)
+        Me.frm_rpt_PurchaseInvoice.Text = "Purchase Reports"
+        '
         'Purchase_rpt
         '
         Me.Purchase_rpt.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.Purchase_rpt.ForeColor = System.Drawing.Color.White
-        Me.Purchase_rpt.Image = Global.MMSPlus.My.Resources.Resources.Reports
         Me.Purchase_rpt.Name = "Purchase_rpt"
-        Me.Purchase_rpt.ShowShortcutKeys = False
-        Me.Purchase_rpt.Size = New System.Drawing.Size(280, 22)
-        Me.Purchase_rpt.Text = "Purchase Register"
+        Me.Purchase_rpt.Size = New System.Drawing.Size(240, 22)
+        Me.Purchase_rpt.Text = "Purchase Register Detail"
+        '
+        'Purchase_Summary
+        '
+        Me.Purchase_Summary.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.Purchase_Summary.ForeColor = System.Drawing.Color.White
+        Me.Purchase_Summary.Name = "Purchase_Summary"
+        Me.Purchase_Summary.Size = New System.Drawing.Size(240, 22)
+        Me.Purchase_Summary.Text = "Purchase Summary"
         '
         'frm_MRN
         '
         Me.frm_MRN.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.frm_MRN.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.frm_ListMRNDetail, Me.frm_ListMRN, Me.frm_ListMRN_supplierwise, Me.frm_mrnItemWiseSupplier, Me.frm_ItemWiseMRN})
         Me.frm_MRN.ForeColor = System.Drawing.Color.White
-        Me.frm_MRN.Image = Global.MMSPlus.My.Resources.Resources.Reports
         Me.frm_MRN.Name = "frm_MRN"
-        Me.frm_MRN.ShowShortcutKeys = False
-        Me.frm_MRN.Size = New System.Drawing.Size(280, 22)
+        Me.frm_MRN.Size = New System.Drawing.Size(240, 22)
         Me.frm_MRN.Text = "Purchase Register-Without PO"
         '
         'frm_ListMRNDetail
         '
         Me.frm_ListMRNDetail.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.frm_ListMRNDetail.ForeColor = System.Drawing.Color.White
-        Me.frm_ListMRNDetail.Image = Global.MMSPlus.My.Resources.Resources.Reports
         Me.frm_ListMRNDetail.Name = "frm_ListMRNDetail"
         Me.frm_ListMRNDetail.Size = New System.Drawing.Size(321, 22)
         Me.frm_ListMRNDetail.Text = "List of MRN with detail (Without PO)"
@@ -1272,7 +1288,6 @@ Partial Class MDIMain
         '
         Me.frm_ListMRN.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.frm_ListMRN.ForeColor = System.Drawing.Color.White
-        Me.frm_ListMRN.Image = Global.MMSPlus.My.Resources.Resources.Reports
         Me.frm_ListMRN.Name = "frm_ListMRN"
         Me.frm_ListMRN.Size = New System.Drawing.Size(321, 22)
         Me.frm_ListMRN.Text = "List of MRN (Without PO)"
@@ -1281,7 +1296,6 @@ Partial Class MDIMain
         '
         Me.frm_ListMRN_supplierwise.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.frm_ListMRN_supplierwise.ForeColor = System.Drawing.Color.White
-        Me.frm_ListMRN_supplierwise.Image = Global.MMSPlus.My.Resources.Resources.Reports
         Me.frm_ListMRN_supplierwise.Name = "frm_ListMRN_supplierwise"
         Me.frm_ListMRN_supplierwise.Size = New System.Drawing.Size(321, 22)
         Me.frm_ListMRN_supplierwise.Text = "List of MRN (without PO Supplier Wise)"
@@ -1290,7 +1304,6 @@ Partial Class MDIMain
         '
         Me.frm_mrnItemWiseSupplier.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.frm_mrnItemWiseSupplier.ForeColor = System.Drawing.Color.White
-        Me.frm_mrnItemWiseSupplier.Image = Global.MMSPlus.My.Resources.Resources.Reports
         Me.frm_mrnItemWiseSupplier.Name = "frm_mrnItemWiseSupplier"
         Me.frm_mrnItemWiseSupplier.Size = New System.Drawing.Size(321, 22)
         Me.frm_mrnItemWiseSupplier.Text = "MRN without PO Supplier Wise and Item Wise"
@@ -1299,7 +1312,6 @@ Partial Class MDIMain
         '
         Me.frm_ItemWiseMRN.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.frm_ItemWiseMRN.ForeColor = System.Drawing.Color.White
-        Me.frm_ItemWiseMRN.Image = Global.MMSPlus.My.Resources.Resources.Reports
         Me.frm_ItemWiseMRN.Name = "frm_ItemWiseMRN"
         Me.frm_ItemWiseMRN.Size = New System.Drawing.Size(321, 22)
         Me.frm_ItemWiseMRN.Text = "Item Wise MRN between dates (Without PO)"
@@ -1309,16 +1321,14 @@ Partial Class MDIMain
         Me.frm_Mrnwithpo.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.frm_Mrnwithpo.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmd_ListMRNwithPO, Me.cmd_DetailMRNwithPO, Me.frm_MRNWithPOSUPWISEe, Me.frm_mrnPOItemWiseSupplier, Me.cmd_ItemWiseMRNwithPO})
         Me.frm_Mrnwithpo.ForeColor = System.Drawing.Color.White
-        Me.frm_Mrnwithpo.Image = Global.MMSPlus.My.Resources.Resources.Reports
         Me.frm_Mrnwithpo.Name = "frm_Mrnwithpo"
-        Me.frm_Mrnwithpo.Size = New System.Drawing.Size(280, 22)
+        Me.frm_Mrnwithpo.Size = New System.Drawing.Size(240, 22)
         Me.frm_Mrnwithpo.Text = "Purchase Register-With PO"
         '
         'cmd_ListMRNwithPO
         '
         Me.cmd_ListMRNwithPO.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.cmd_ListMRNwithPO.ForeColor = System.Drawing.Color.White
-        Me.cmd_ListMRNwithPO.Image = Global.MMSPlus.My.Resources.Resources.Reports
         Me.cmd_ListMRNwithPO.Name = "cmd_ListMRNwithPO"
         Me.cmd_ListMRNwithPO.Size = New System.Drawing.Size(310, 22)
         Me.cmd_ListMRNwithPO.Text = "List of MRN (With PO)"
@@ -1327,7 +1337,6 @@ Partial Class MDIMain
         '
         Me.cmd_DetailMRNwithPO.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.cmd_DetailMRNwithPO.ForeColor = System.Drawing.Color.White
-        Me.cmd_DetailMRNwithPO.Image = Global.MMSPlus.My.Resources.Resources.Reports
         Me.cmd_DetailMRNwithPO.Name = "cmd_DetailMRNwithPO"
         Me.cmd_DetailMRNwithPO.Size = New System.Drawing.Size(310, 22)
         Me.cmd_DetailMRNwithPO.Text = "List of MRN with Detail (with PO)"
@@ -1336,7 +1345,6 @@ Partial Class MDIMain
         '
         Me.frm_MRNWithPOSUPWISEe.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.frm_MRNWithPOSUPWISEe.ForeColor = System.Drawing.Color.White
-        Me.frm_MRNWithPOSUPWISEe.Image = Global.MMSPlus.My.Resources.Resources.Reports
         Me.frm_MRNWithPOSUPWISEe.Name = "frm_MRNWithPOSUPWISEe"
         Me.frm_MRNWithPOSUPWISEe.Size = New System.Drawing.Size(310, 22)
         Me.frm_MRNWithPOSUPWISEe.Text = "List of MRN with PO (Supplier Wise)"
@@ -1345,7 +1353,6 @@ Partial Class MDIMain
         '
         Me.frm_mrnPOItemWiseSupplier.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.frm_mrnPOItemWiseSupplier.ForeColor = System.Drawing.Color.White
-        Me.frm_mrnPOItemWiseSupplier.Image = Global.MMSPlus.My.Resources.Resources.Reports
         Me.frm_mrnPOItemWiseSupplier.Name = "frm_mrnPOItemWiseSupplier"
         Me.frm_mrnPOItemWiseSupplier.Size = New System.Drawing.Size(310, 22)
         Me.frm_mrnPOItemWiseSupplier.Text = "MRN with PO Supplier Wise and Items wise"
@@ -1354,7 +1361,6 @@ Partial Class MDIMain
         '
         Me.cmd_ItemWiseMRNwithPO.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.cmd_ItemWiseMRNwithPO.ForeColor = System.Drawing.Color.White
-        Me.cmd_ItemWiseMRNwithPO.Image = Global.MMSPlus.My.Resources.Resources.Reports
         Me.cmd_ItemWiseMRNwithPO.Name = "cmd_ItemWiseMRNwithPO"
         Me.cmd_ItemWiseMRNwithPO.Size = New System.Drawing.Size(310, 22)
         Me.cmd_ItemWiseMRNwithPO.Text = "Item Wise MRN between dates (With PO)"
@@ -1377,7 +1383,7 @@ Partial Class MDIMain
         Me.frm_rpt_SaleInvoice.Image = Global.MMSPlus.My.Resources.Resources.Reports
         Me.frm_rpt_SaleInvoice.Name = "frm_rpt_SaleInvoice"
         Me.frm_rpt_SaleInvoice.Size = New System.Drawing.Size(280, 22)
-        Me.frm_rpt_SaleInvoice.Text = "Sale Register"
+        Me.frm_rpt_SaleInvoice.Text = "Sale Detail"
         '
         'frmsaleInvoicesummary
         '
@@ -1753,7 +1759,6 @@ Partial Class MDIMain
     Friend WithEvents frm_Wastage As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents MaterialReturnfromCostCenterToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents frm_Indents As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents frm_MRN As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents frm_ReverseMaterial As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents frm_Division_Settings As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents Synchronization As System.Windows.Forms.ToolStripMenuItem
@@ -1767,7 +1772,7 @@ Partial Class MDIMain
     Friend WithEvents TableLayoutPanel1 As System.Windows.Forms.TableLayoutPanel
     Friend WithEvents TabControl2 As System.Windows.Forms.TabControl
     Friend WithEvents frm_Item_rate_list As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents Purchase_rpt As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents frm_rpt_PurchaseInvoice As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents TransferDataBetweenDatesToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents Recipe As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents frm_Recipe_Master As System.Windows.Forms.ToolStripMenuItem
@@ -1787,24 +1792,13 @@ Partial Class MDIMain
     Friend WithEvents frm_WastageItemDetail As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents frm_WastageItemWise As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ItemWiseWastagebetweenDatesCategoryHeadWiseToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents frm_ListMRNDetail As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents frm_ListMRN As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents frm_ListMRN_supplierwise As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents frm_mrnItemWiseSupplier As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents frm_ItemWiseMRN As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents frmStockValue As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents StockValueCategoryWise As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents frmStockValueBatchWise As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents frm_mrnPOItemWiseSupplier As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents cmd_ItemWiseMRNwithPO As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents AllPurchaseRate As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents NonMovingItemList As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents Home As ToolStripMenuItem
     Friend WithEvents logo As ToolStripMenuItem
-    Friend WithEvents frm_Mrnwithpo As ToolStripMenuItem
-    Friend WithEvents cmd_ListMRNwithPO As ToolStripMenuItem
-    Friend WithEvents cmd_DetailMRNwithPO As ToolStripMenuItem
-    Friend WithEvents frm_MRNWithPOSUPWISEe As ToolStripMenuItem
     Friend WithEvents picLogo As PictureBox
     Friend WithEvents ToolStripSeparator11 As ToolStripSeparator
     Friend WithEvents ToolStripSeparator17 As ToolStripSeparator
@@ -1860,4 +1854,18 @@ Partial Class MDIMain
     Friend WithEvents frm_Contra_Entry As ToolStripMenuItem
     Friend WithEvents frm_Expense_Entry As ToolStripMenuItem
     Friend WithEvents frm_GeneralLedger As ToolStripMenuItem
+    Friend WithEvents Purchase_rpt As ToolStripMenuItem
+    Friend WithEvents Purchase_Summary As ToolStripMenuItem
+    Friend WithEvents frm_MRN As ToolStripMenuItem
+    Friend WithEvents frm_ListMRNDetail As ToolStripMenuItem
+    Friend WithEvents frm_ListMRN As ToolStripMenuItem
+    Friend WithEvents frm_ListMRN_supplierwise As ToolStripMenuItem
+    Friend WithEvents frm_mrnItemWiseSupplier As ToolStripMenuItem
+    Friend WithEvents frm_ItemWiseMRN As ToolStripMenuItem
+    Friend WithEvents frm_Mrnwithpo As ToolStripMenuItem
+    Friend WithEvents cmd_ListMRNwithPO As ToolStripMenuItem
+    Friend WithEvents cmd_DetailMRNwithPO As ToolStripMenuItem
+    Friend WithEvents frm_MRNWithPOSUPWISEe As ToolStripMenuItem
+    Friend WithEvents frm_mrnPOItemWiseSupplier As ToolStripMenuItem
+    Friend WithEvents cmd_ItemWiseMRNwithPO As ToolStripMenuItem
 End Class

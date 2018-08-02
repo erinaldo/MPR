@@ -771,8 +771,6 @@ Public Class frm_Show_Search_RateList
         End Try
     End Sub
 
-
-
     Private Sub grdSearch_CurrentCellDirtyStateChanged(sender As Object, e As EventArgs) Handles grdSearch.CurrentCellDirtyStateChanged
         If TypeOf grdSearch.CurrentCell Is DataGridViewCheckBoxCell Then grdSearch.CommitEdit(DataGridViewDataErrorContexts.Commit)
     End Sub
