@@ -1399,4 +1399,19 @@ restart:
         itemrate(i) = stringToAdd
     End Sub
 
+    Private Sub cmbFilterSupp_Enter(sender As Object, e As EventArgs) Handles cmbFilterSupp.Enter
+        If Not cmbFilterSupp.DroppedDown Then
+            cmbFilterSupp.DroppedDown = True
+        End If
+    End Sub
+
+    Private Sub cmbSupplier_Enter(sender As Object, e As EventArgs) Handles cmbSupplier.Enter
+        If Not cmbSupplier.DroppedDown Then
+            cmbSupplier.DroppedDown = True
+        End If
+    End Sub
+
+    Private Sub cmbFilterSupp_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbFilterSupp.SelectedIndexChanged
+
+    End Sub
 End Class

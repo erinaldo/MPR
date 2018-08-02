@@ -329,7 +329,7 @@ Public Class frm_Supplier_Rate_List_Master
 
         txbCol = New DataGridViewTextBoxColumn
         With txbCol
-            .HeaderText = "Item Code"
+            .HeaderText = "BarCode"
             .Name = "Item_Code"
             .DataPropertyName = "Item_Code"
             .ReadOnly = True
@@ -348,7 +348,7 @@ Public Class frm_Supplier_Rate_List_Master
             .Name = "Item_Name"
             .ReadOnly = True
             .Visible = True
-            .Width = 350
+            .Width = 400
             .DefaultCellStyle.SelectionBackColor = Color.Orange
             .DefaultCellStyle.SelectionForeColor = Color.Black
         End With
@@ -375,7 +375,7 @@ Public Class frm_Supplier_Rate_List_Master
             .Name = "GST"
             .ReadOnly = True
             .Visible = True
-            .Width = 80
+            .Width = 70
             .DefaultCellStyle.SelectionBackColor = Color.Orange
             .DefaultCellStyle.SelectionForeColor = Color.Black
         End With
@@ -477,7 +477,7 @@ Public Class frm_Supplier_Rate_List_Master
     End Sub
 
     Private Sub comboBind()
-        obj.ComboBind(cmbSuppSrch, "select 0 as srl_id,'All' as Srl_name union Select srl_id,srl_name from supplier_rate_list WHERE SUPP_ID IN(SELECT ACC_ID FROM dbo.ACCOUNT_MASTER WHERE AG_ID in (1,2,3,6)) order by srl_name", "srl_name", "srl_id")
+        obj.ComboBind(cmbSuppSrch, "select 0 as srl_id,'All' as Srl_name union Select srl_id,srl_name from supplier_rate_list WHERE SUPP_ID IN(SELECT ACC_ID FROM dbo.ACCOUNT_MASTER WHERE AG_ID in (1,2,3,6)) AND SRL_ID NOT IN(SELECT SRL_ID FROM dbo.CUSTOMER_RATE_LIST_MAPPING) order by srl_name", "srl_name", "srl_id")
     End Sub
 
     Private Sub FillGrid()
@@ -490,7 +490,7 @@ Public Class frm_Supplier_Rate_List_Master
             grdSupplierList.Columns(0).HeaderText = "SRL_ID"
             grdSupplierList.Columns(1).Width = 193
             grdSupplierList.Columns(1).HeaderText = "Item Rate List"
-            grdSupplierList.Columns(2).HeaderText = "Supplier Date"
+            grdSupplierList.Columns(2).HeaderText = "Active Date"
             grdSupplierList.Columns(3).Width = 140
             grdSupplierList.Columns(3).HeaderText = "Rate List Desc."
             grdSupplierList.Columns(4).HeaderText = "Active"
@@ -521,9 +521,9 @@ Public Class frm_Supplier_Rate_List_Master
     Private Sub ComboBox2_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmbSuppSrch.SelectedIndexChanged
         Try
             If cmbSuppSrch.SelectedValue = 0 Then
-                obj.GridBind(grdSupplierList, "SELECT SRL_ID,SRL_NAME,SRL_DESC,ACTIVE,SRL_date,ACCOUNT_MASTER.ACC_NAME,ACCOUNT_MASTER.ACC_ID FROM SUPPLIER_RATE_LIST INNER JOIN ACCOUNT_MASTER ON SUPPLIER_RATE_LIST.SUPP_ID = ACCOUNT_MASTER.ACC_ID where AG_ID in (1,2,3,6)")
+                obj.GridBind(grdSupplierList, "SELECT SRL_ID,SRL_NAME,SRL_DESC,ACTIVE,SRL_date,ACCOUNT_MASTER.ACC_NAME,ACCOUNT_MASTER.ACC_ID FROM SUPPLIER_RATE_LIST INNER JOIN ACCOUNT_MASTER ON SUPPLIER_RATE_LIST.SUPP_ID = ACCOUNT_MASTER.ACC_ID where AG_ID in (1,2,3,6) AND SRL_ID NOT IN(SELECT SRL_ID FROM dbo.CUSTOMER_RATE_LIST_MAPPING)")
             Else
-                obj.GridBind(grdSupplierList, "SELECT SRL_ID,SRL_NAME,SRL_DESC,ACTIVE,SRL_date,ACCOUNT_MASTER.ACC_NAME,ACCOUNT_MASTER.ACC_ID FROM SUPPLIER_RATE_LIST INNER JOIN ACCOUNT_MASTER ON SUPPLIER_RATE_LIST.SUPP_ID = ACCOUNT_MASTER.ACC_ID where AG_ID in (1,2,3,6) and SRL_Id=" & cmbSuppSrch.SelectedValue)
+                obj.GridBind(grdSupplierList, "SELECT SRL_ID,SRL_NAME,SRL_DESC,ACTIVE,SRL_date,ACCOUNT_MASTER.ACC_NAME,ACCOUNT_MASTER.ACC_ID FROM SUPPLIER_RATE_LIST INNER JOIN ACCOUNT_MASTER ON SUPPLIER_RATE_LIST.SUPP_ID = ACCOUNT_MASTER.ACC_ID where AG_ID in (1,2,3,6) AND SRL_ID NOT IN(SELECT SRL_ID FROM dbo.CUSTOMER_RATE_LIST_MAPPING) and SRL_Id=" & cmbSuppSrch.SelectedValue)
             End If
         Catch ex As Exception
             MsgBox(gblMessageHeading_Error & vbCrLf & gblMessage_ContactInfo & vbCrLf & ex.Message, MsgBoxStyle.Critical, gblMessageHeading)
@@ -567,7 +567,7 @@ Public Class frm_Supplier_Rate_List_Master
                     grdSupplier.Rows(rowindex).Cells("GST").Value = gst
                     grdSupplier.Rows(rowindex).Cells("Rate").Value = baseRate
                     grdSupplier.Rows(rowindex).Cells("Selling_rate").Value = baseRate + Math.Round((baseRate * (gst / 100)), 2)
-                    grdSupplier.Rows(rowindex).Cells("Selling_rate").Style.BackColor = Color.Lime
+                    grdSupplier.Rows(rowindex).Cells("Selling_rate").Style.BackColor = Color.LimeGreen
                     grdSupplier.Rows(rowindex).Cells("Selling_rate").Style.ForeColor = Color.Black
 
 
@@ -648,7 +648,7 @@ Public Class frm_Supplier_Rate_List_Master
                 frm_Show_Search_RateList.qry = " SELECT  top 50                                         
                                         ISNULL(im.BarCode_vch, '') AS BARCODE ,
                                         im.ITEM_NAME AS [ITEM NAME] ,
-                                        im.MRP_Num AS MRP ,
+                                        CAST(im.MRP_Num AS NUMERIC(18, 2)) AS MRP ,
                                         CAST(im.sale_rate AS NUMERIC(18, 2)) AS RATE ,
                                         ISNULL(litems.LabelItemName_vch, '') AS BRAND ,
                                         ic.ITEM_CAT_NAME AS CATEGORY,
@@ -668,7 +668,7 @@ Public Class frm_Supplier_Rate_List_Master
                 frm_Show_Search_RateList.column_name4 = "LABELITEMNAME_VCH"
                 frm_Show_Search_RateList.column_name5 = "ITEM_CAT_NAME"
                 frm_Show_Search_RateList.cols_no_for_width = "1,2,3,4,5,6"
-                frm_Show_Search_RateList.cols_width = "100,340,60,60,100,105"
+                frm_Show_Search_RateList.cols_width = "100,320,70,70,100,105"
                 frm_Show_Search_RateList.extra_condition = ""
                 frm_Show_Search_RateList.ret_column = "ITEM_ID"
                 frm_Show_Search_RateList.item_rate_column = ""
@@ -730,9 +730,9 @@ Public Class frm_Supplier_Rate_List_Master
                     grdSupplier.Rows(introw).Cells("Selling_Rate").Value = "0.00"
 
                     grdSupplier.CurrentCell = grdSupplier.Rows(introw).Cells("Selling_Rate")
-                    grdSupplier.CurrentCell.Style.BackColor = Color.Lime
+                    grdSupplier.CurrentCell.Style.BackColor = Color.LimeGreen
                     grdSupplier.CurrentCell.Style.ForeColor = Color.Black
-                    'Color.Gold
+
                     grdSupplier.BeginEdit(True)
 
 
@@ -773,7 +773,7 @@ Public Class frm_Supplier_Rate_List_Master
     End Sub
 
     Private Sub txtSearch_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtSearch.TextChanged
-        obj.GridBind(grdSupplierList, "SELECT SUPPLIER_RATE_LIST.SRL_ID,SUPPLIER_RATE_LIST.SRL_NAME,SUPPLIER_RATE_LIST.SRL_DATE,SUPPLIER_RATE_LIST.SRL_DESC,SUPPLIER_RATE_LIST.ACTIVE,ACCOUNT_MASTER.ACC_NAME,ACCOUNT_MASTER.ACC_ID FROM SUPPLIER_RATE_LIST INNER JOIN ACCOUNT_MASTER ON SUPPLIER_RATE_LIST.SUPP_ID = ACCOUNT_MASTER.ACC_ID WHERE AG_ID in (1,2,3,6) and (dbo.SUPPLIER_RATE_LIST.SRL_NAME + CONVERT(VARCHAR,SUPPLIER_RATE_LIST.SRL_DATE,101) + dbo.SUPPLIER_RATE_LIST.SRL_DESC + dbo.ACCOUNT_MASTER.ACC_NAME) LIKE '%" & Trim(txtSearch.Text) & "%'")
+        obj.GridBind(grdSupplierList, "SELECT SUPPLIER_RATE_LIST.SRL_ID,SUPPLIER_RATE_LIST.SRL_NAME,SUPPLIER_RATE_LIST.SRL_DATE,SUPPLIER_RATE_LIST.SRL_DESC,SUPPLIER_RATE_LIST.ACTIVE,ACCOUNT_MASTER.ACC_NAME,ACCOUNT_MASTER.ACC_ID FROM SUPPLIER_RATE_LIST INNER JOIN ACCOUNT_MASTER ON SUPPLIER_RATE_LIST.SUPP_ID = ACCOUNT_MASTER.ACC_ID WHERE AG_ID in (1,2,3,6) AND SRL_ID NOT IN(SELECT SRL_ID FROM dbo.CUSTOMER_RATE_LIST_MAPPING) and (dbo.SUPPLIER_RATE_LIST.SRL_NAME + CONVERT(VARCHAR,SUPPLIER_RATE_LIST.SRL_DATE,101) + dbo.SUPPLIER_RATE_LIST.SRL_DESC + dbo.ACCOUNT_MASTER.ACC_NAME) LIKE '%" & Trim(txtSearch.Text) & "%'")
     End Sub
 
     Private Sub grdSupplier_CellEndEdit(sender As Object, e As DataGridViewCellEventArgs) Handles grdSupplier.CellEndEdit, grdSupplierList.CellEndEdit
@@ -852,4 +852,15 @@ Public Class frm_Supplier_Rate_List_Master
 
     End Sub
 
+    Private Sub cmbSuppSrch_Enter(sender As Object, e As EventArgs) Handles cmbSuppSrch.Enter
+        If Not cmbSuppSrch.DroppedDown Then
+            cmbSuppSrch.DroppedDown = True
+        End If
+    End Sub
+
+    Private Sub cmbSupplier_Enter(sender As Object, e As EventArgs) Handles cmbSupplier.Enter
+        If Not cmbSupplier.DroppedDown Then
+            cmbSupplier.DroppedDown = True
+        End If
+    End Sub
 End Class

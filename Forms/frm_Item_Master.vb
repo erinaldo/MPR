@@ -445,8 +445,8 @@ Public Class frm_Item_Master
                                         im.ITEM_ID ,
                                         ISNULL(im.BarCode_vch, '') AS BARCODE ,
                                         im.ITEM_NAME AS [ITEM NAME] ,
-                                        im.MRP_Num AS MRP ,
-                                        im.sale_rate AS RATE,
+                                        CAST(im.MRP_Num  AS NUMERIC(18, 2)) AS MRP ,
+                                        CAST(im.sale_rate  AS NUMERIC(18, 2)) AS RATE,
                                         --CAST(im.sale_rate AS NUMERIC(18, 2)) AS RATE ,
                                         ISNULL(litems.LabelItemName_vch,'') AS BRAND ,
                                         ic.ITEM_CAT_NAME AS CATEGORY
@@ -464,7 +464,7 @@ Public Class frm_Item_Master
         frm_Show_search.column_name4 = "LABELITEMNAME_VCH"
         frm_Show_search.column_name5 = "ITEM_CAT_NAME"
         frm_Show_search.cols_no_for_width = "1,2,3,4,5,6"
-        frm_Show_search.cols_width = "100,360,60,60,100,105"
+        frm_Show_search.cols_width = "100,340,70,70,100,105"
         frm_Show_search.extra_condition = ""
         frm_Show_search.ret_column = "ITEM_ID"
         frm_Show_search.item_rate_column = ""

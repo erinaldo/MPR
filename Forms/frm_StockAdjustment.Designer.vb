@@ -39,6 +39,8 @@ Partial Class frm_StockAdjustment
         Me.GBWastageItem = New System.Windows.Forms.GroupBox()
         Me.grdAdjustmentItem = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.GBWastageMasterInfo = New System.Windows.Forms.GroupBox()
+        Me.txtBarcodeSearch = New System.Windows.Forms.TextBox()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.lblFormHeading = New System.Windows.Forms.Label()
         Me.lblWastageDate = New System.Windows.Forms.Label()
         Me.txtAdjustmentRemarks = New System.Windows.Forms.TextBox()
@@ -47,8 +49,6 @@ Partial Class frm_StockAdjustment
         Me.lblWastageRemarks = New System.Windows.Forms.Label()
         Me.lblWastageCode = New System.Windows.Forms.Label()
         Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.txtBarcodeSearch = New System.Windows.Forms.TextBox()
         CType(Me.DGVWastageMaster, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TBCWastageMaster.SuspendLayout()
         Me.List.SuspendLayout()
@@ -270,6 +270,29 @@ Partial Class frm_StockAdjustment
         Me.GBWastageMasterInfo.TabStop = False
         Me.GBWastageMasterInfo.Text = "Adjustment  Master"
         '
+        'txtBarcodeSearch
+        '
+        Me.txtBarcodeSearch.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.txtBarcodeSearch.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.txtBarcodeSearch.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtBarcodeSearch.ForeColor = System.Drawing.Color.White
+        Me.txtBarcodeSearch.Location = New System.Drawing.Point(157, 103)
+        Me.txtBarcodeSearch.MaxLength = 100
+        Me.txtBarcodeSearch.Name = "txtBarcodeSearch"
+        Me.txtBarcodeSearch.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
+        Me.txtBarcodeSearch.Size = New System.Drawing.Size(568, 19)
+        Me.txtBarcodeSearch.TabIndex = 30
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.Location = New System.Drawing.Point(22, 102)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(59, 15)
+        Me.Label1.TabIndex = 29
+        Me.Label1.Text = "Barcode :"
+        '
         'lblFormHeading
         '
         Me.lblFormHeading.AutoSize = True
@@ -353,29 +376,6 @@ Partial Class frm_StockAdjustment
         Me.ImageList1.TransparentColor = System.Drawing.Color.Transparent
         Me.ImageList1.Images.SetKeyName(0, "Zoom_search_find_magnifying_glass.png")
         Me.ImageList1.Images.SetKeyName(1, "Inventory_box_shipment_product.png")
-        '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(22, 102)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(59, 15)
-        Me.Label1.TabIndex = 29
-        Me.Label1.Text = "Barcode :"
-        '
-        'txtBarcodeSearch
-        '
-        Me.txtBarcodeSearch.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.txtBarcodeSearch.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.txtBarcodeSearch.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtBarcodeSearch.ForeColor = System.Drawing.Color.White
-        Me.txtBarcodeSearch.Location = New System.Drawing.Point(157, 103)
-        Me.txtBarcodeSearch.MaxLength = 100
-        Me.txtBarcodeSearch.Name = "txtBarcodeSearch"
-        Me.txtBarcodeSearch.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtBarcodeSearch.Size = New System.Drawing.Size(568, 19)
-        Me.txtBarcodeSearch.TabIndex = 30
         '
         'frm_StockAdjustment
         '

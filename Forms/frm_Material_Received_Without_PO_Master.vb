@@ -2048,4 +2048,9 @@ restart:
         Calculate_Amount()
     End Sub
 
+    Private Sub cmbVendor_Enter(sender As Object, e As EventArgs) Handles cmbVendor.Enter
+        If Not cmbVendor.DroppedDown Then
+            cmbVendor.DroppedDown = True
+        End If
+    End Sub
 End Class

@@ -78,7 +78,7 @@ Partial Class frm_Show_search
         Me.grdSearch.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.White
         Me.grdSearch.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.grdSearch.Size = New System.Drawing.Size(806, 253)
-        Me.grdSearch.TabIndex = 5
+        Me.grdSearch.TabIndex = 1
         '
         'gpAdvanceSearch
         '
@@ -99,7 +99,7 @@ Partial Class frm_Show_search
         Me.gpAdvanceSearch.Location = New System.Drawing.Point(1, -2)
         Me.gpAdvanceSearch.Name = "gpAdvanceSearch"
         Me.gpAdvanceSearch.Size = New System.Drawing.Size(808, 175)
-        Me.gpAdvanceSearch.TabIndex = 6
+        Me.gpAdvanceSearch.TabIndex = 0
         Me.gpAdvanceSearch.TabStop = False
         Me.gpAdvanceSearch.Text = "Filter Options"
         '
@@ -112,7 +112,7 @@ Partial Class frm_Show_search
         Me.btnExit.Location = New System.Drawing.Point(777, 13)
         Me.btnExit.Name = "btnExit"
         Me.btnExit.Size = New System.Drawing.Size(25, 23)
-        Me.btnExit.TabIndex = 7
+        Me.btnExit.TabIndex = 10
         Me.btnExit.Text = "X"
         Me.btnExit.UseVisualStyleBackColor = False
         '
@@ -135,7 +135,7 @@ Partial Class frm_Show_search
         Me.txtRate.Location = New System.Drawing.Point(499, 104)
         Me.txtRate.Name = "txtRate"
         Me.txtRate.Size = New System.Drawing.Size(250, 18)
-        Me.txtRate.TabIndex = 3
+        Me.txtRate.TabIndex = 5
         '
         'lblRate
         '
@@ -156,7 +156,7 @@ Partial Class frm_Show_search
         Me.txtMRP.Location = New System.Drawing.Point(162, 105)
         Me.txtMRP.Name = "txtMRP"
         Me.txtMRP.Size = New System.Drawing.Size(250, 18)
-        Me.txtMRP.TabIndex = 2
+        Me.txtMRP.TabIndex = 4
         '
         'txtSearch
         '
@@ -167,7 +167,7 @@ Partial Class frm_Show_search
         Me.txtSearch.Location = New System.Drawing.Point(162, 140)
         Me.txtSearch.Name = "txtSearch"
         Me.txtSearch.Size = New System.Drawing.Size(587, 18)
-        Me.txtSearch.TabIndex = 4
+        Me.txtSearch.TabIndex = 6
         '
         'lblMRP
         '
@@ -191,14 +191,15 @@ Partial Class frm_Show_search
         '
         'cmbCategory
         '
+        Me.cmbCategory.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append
         Me.cmbCategory.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.cmbCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbCategory.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmbCategory.ForeColor = System.Drawing.Color.White
         Me.cmbCategory.FormattingEnabled = True
         Me.cmbCategory.Location = New System.Drawing.Point(162, 67)
         Me.cmbCategory.Name = "cmbCategory"
         Me.cmbCategory.Size = New System.Drawing.Size(587, 21)
-        Me.cmbCategory.TabIndex = 1
+        Me.cmbCategory.TabIndex = 2
         '
         'lblBrand
         '
@@ -212,14 +213,15 @@ Partial Class frm_Show_search
         '
         'cmbBrand
         '
+        Me.cmbBrand.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append
         Me.cmbBrand.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.cmbBrand.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbBrand.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmbBrand.ForeColor = System.Drawing.Color.White
         Me.cmbBrand.FormattingEnabled = True
         Me.cmbBrand.Location = New System.Drawing.Point(162, 29)
         Me.cmbBrand.Name = "cmbBrand"
         Me.cmbBrand.Size = New System.Drawing.Size(587, 21)
-        Me.cmbBrand.TabIndex = 0
+        Me.cmbBrand.TabIndex = 1
         '
         'frm_Show_search
         '

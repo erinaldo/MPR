@@ -54,10 +54,11 @@ Partial Class frm_Approve_PO
         'btnShow
         '
         Me.btnShow.BackColor = System.Drawing.Color.FromArgb(CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.btnShow.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnShow.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnShow.Location = New System.Drawing.Point(440, 37)
+        Me.btnShow.Location = New System.Drawing.Point(441, 43)
         Me.btnShow.Name = "btnShow"
-        Me.btnShow.Size = New System.Drawing.Size(148, 33)
+        Me.btnShow.Size = New System.Drawing.Size(100, 25)
         Me.btnShow.TabIndex = 3
         Me.btnShow.Text = "Show PO"
         Me.btnShow.UseVisualStyleBackColor = False
@@ -120,6 +121,10 @@ Partial Class frm_Approve_PO
         '
         'GroupBox2
         '
+        Me.GroupBox2.Controls.Add(Me.btnUpdatePO)
+        Me.GroupBox2.Controls.Add(Me.btnSelectAll)
+        Me.GroupBox2.Controls.Add(Me.btnDeselectAll)
+        Me.GroupBox2.Controls.Add(Me.btInverseSelect)
         Me.GroupBox2.Controls.Add(Me.grdPOList)
         Me.GroupBox2.Location = New System.Drawing.Point(3, 113)
         Me.GroupBox2.Name = "GroupBox2"
@@ -150,9 +155,9 @@ Partial Class frm_Approve_PO
         Me.btnUpdatePO.BackColor = System.Drawing.Color.Green
         Me.btnUpdatePO.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnUpdatePO.Font = New System.Drawing.Font("Arial Narrow", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnUpdatePO.Location = New System.Drawing.Point(245, 586)
+        Me.btnUpdatePO.Location = New System.Drawing.Point(480, 478)
         Me.btnUpdatePO.Name = "btnUpdatePO"
-        Me.btnUpdatePO.Size = New System.Drawing.Size(157, 33)
+        Me.btnUpdatePO.Size = New System.Drawing.Size(100, 25)
         Me.btnUpdatePO.TabIndex = 6
         Me.btnUpdatePO.Text = "Update PO"
         Me.btnUpdatePO.UseVisualStyleBackColor = False
@@ -162,9 +167,9 @@ Partial Class frm_Approve_PO
         Me.btnSelectAll.BackColor = System.Drawing.Color.FromArgb(CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.btnSelectAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnSelectAll.Font = New System.Drawing.Font("Arial Narrow", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnSelectAll.Location = New System.Drawing.Point(410, 586)
+        Me.btnSelectAll.Location = New System.Drawing.Point(586, 478)
         Me.btnSelectAll.Name = "btnSelectAll"
-        Me.btnSelectAll.Size = New System.Drawing.Size(157, 33)
+        Me.btnSelectAll.Size = New System.Drawing.Size(100, 25)
         Me.btnSelectAll.TabIndex = 7
         Me.btnSelectAll.Text = "Select All"
         Me.btnSelectAll.UseVisualStyleBackColor = False
@@ -174,9 +179,9 @@ Partial Class frm_Approve_PO
         Me.btnDeselectAll.BackColor = System.Drawing.Color.Maroon
         Me.btnDeselectAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnDeselectAll.Font = New System.Drawing.Font("Arial Narrow", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnDeselectAll.Location = New System.Drawing.Point(574, 586)
+        Me.btnDeselectAll.Location = New System.Drawing.Point(692, 478)
         Me.btnDeselectAll.Name = "btnDeselectAll"
-        Me.btnDeselectAll.Size = New System.Drawing.Size(157, 33)
+        Me.btnDeselectAll.Size = New System.Drawing.Size(100, 25)
         Me.btnDeselectAll.TabIndex = 8
         Me.btnDeselectAll.Text = "Deselect All"
         Me.btnDeselectAll.UseVisualStyleBackColor = False
@@ -186,9 +191,9 @@ Partial Class frm_Approve_PO
         Me.btInverseSelect.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.btInverseSelect.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btInverseSelect.Font = New System.Drawing.Font("Arial Narrow", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btInverseSelect.Location = New System.Drawing.Point(739, 586)
+        Me.btInverseSelect.Location = New System.Drawing.Point(798, 478)
         Me.btInverseSelect.Name = "btInverseSelect"
-        Me.btInverseSelect.Size = New System.Drawing.Size(157, 33)
+        Me.btInverseSelect.Size = New System.Drawing.Size(100, 25)
         Me.btInverseSelect.TabIndex = 9
         Me.btInverseSelect.Text = "Inverse Select"
         Me.btInverseSelect.UseVisualStyleBackColor = False
@@ -198,10 +203,6 @@ Partial Class frm_Approve_PO
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.DimGray
-        Me.Controls.Add(Me.btInverseSelect)
-        Me.Controls.Add(Me.btnDeselectAll)
-        Me.Controls.Add(Me.btnSelectAll)
-        Me.Controls.Add(Me.btnUpdatePO)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox1)
         Me.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))

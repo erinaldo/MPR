@@ -61,9 +61,9 @@ Partial Class frm_Approve_Indent
         '
         Me.btnShow.BackColor = System.Drawing.Color.FromArgb(CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.btnShow.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnShow.Location = New System.Drawing.Point(525, 63)
+        Me.btnShow.Location = New System.Drawing.Point(472, 71)
         Me.btnShow.Name = "btnShow"
-        Me.btnShow.Size = New System.Drawing.Size(148, 33)
+        Me.btnShow.Size = New System.Drawing.Size(100, 25)
         Me.btnShow.TabIndex = 5
         Me.btnShow.Text = "Show Indents"
         Me.btnShow.UseVisualStyleBackColor = False
@@ -142,7 +142,7 @@ Partial Class frm_Approve_Indent
         Me.dtpIndentTo.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.dtpIndentTo.Location = New System.Drawing.Point(328, 72)
         Me.dtpIndentTo.Name = "dtpIndentTo"
-        Me.dtpIndentTo.Size = New System.Drawing.Size(156, 21)
+        Me.dtpIndentTo.Size = New System.Drawing.Size(114, 21)
         Me.dtpIndentTo.TabIndex = 4
         '
         'dtpIndentFrom
@@ -154,7 +154,7 @@ Partial Class frm_Approve_Indent
         Me.dtpIndentFrom.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.dtpIndentFrom.Location = New System.Drawing.Point(112, 72)
         Me.dtpIndentFrom.Name = "dtpIndentFrom"
-        Me.dtpIndentFrom.Size = New System.Drawing.Size(156, 21)
+        Me.dtpIndentFrom.Size = New System.Drawing.Size(115, 21)
         Me.dtpIndentFrom.TabIndex = 3
         '
         'GroupBox2
@@ -188,9 +188,9 @@ Partial Class frm_Approve_Indent
         Me.btnApproveIndent.BackColor = System.Drawing.Color.Green
         Me.btnApproveIndent.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnApproveIndent.Font = New System.Drawing.Font("Arial Narrow", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnApproveIndent.Location = New System.Drawing.Point(489, 586)
+        Me.btnApproveIndent.Location = New System.Drawing.Point(489, 593)
         Me.btnApproveIndent.Name = "btnApproveIndent"
-        Me.btnApproveIndent.Size = New System.Drawing.Size(100, 33)
+        Me.btnApproveIndent.Size = New System.Drawing.Size(100, 25)
         Me.btnApproveIndent.TabIndex = 8
         Me.btnApproveIndent.Text = "Update Indent"
         Me.btnApproveIndent.UseVisualStyleBackColor = False
@@ -200,9 +200,9 @@ Partial Class frm_Approve_Indent
         Me.btnSelectAll.BackColor = System.Drawing.Color.FromArgb(CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.btnSelectAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnSelectAll.Font = New System.Drawing.Font("Arial Narrow", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnSelectAll.Location = New System.Drawing.Point(595, 586)
+        Me.btnSelectAll.Location = New System.Drawing.Point(595, 593)
         Me.btnSelectAll.Name = "btnSelectAll"
-        Me.btnSelectAll.Size = New System.Drawing.Size(100, 33)
+        Me.btnSelectAll.Size = New System.Drawing.Size(100, 25)
         Me.btnSelectAll.TabIndex = 9
         Me.btnSelectAll.Text = "Select All"
         Me.btnSelectAll.UseVisualStyleBackColor = False
@@ -212,9 +212,9 @@ Partial Class frm_Approve_Indent
         Me.btnDeselectAll.BackColor = System.Drawing.Color.Maroon
         Me.btnDeselectAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnDeselectAll.Font = New System.Drawing.Font("Arial Narrow", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnDeselectAll.Location = New System.Drawing.Point(701, 586)
+        Me.btnDeselectAll.Location = New System.Drawing.Point(701, 593)
         Me.btnDeselectAll.Name = "btnDeselectAll"
-        Me.btnDeselectAll.Size = New System.Drawing.Size(100, 33)
+        Me.btnDeselectAll.Size = New System.Drawing.Size(100, 25)
         Me.btnDeselectAll.TabIndex = 10
         Me.btnDeselectAll.Text = "Deselect All"
         Me.btnDeselectAll.UseVisualStyleBackColor = False
@@ -224,9 +224,9 @@ Partial Class frm_Approve_Indent
         Me.btInverseSelect.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.btInverseSelect.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btInverseSelect.Font = New System.Drawing.Font("Arial Narrow", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btInverseSelect.Location = New System.Drawing.Point(807, 586)
+        Me.btInverseSelect.Location = New System.Drawing.Point(807, 593)
         Me.btInverseSelect.Name = "btInverseSelect"
-        Me.btInverseSelect.Size = New System.Drawing.Size(100, 33)
+        Me.btInverseSelect.Size = New System.Drawing.Size(100, 25)
         Me.btInverseSelect.TabIndex = 11
         Me.btInverseSelect.Text = "Inverse Select"
         Me.btInverseSelect.UseVisualStyleBackColor = False

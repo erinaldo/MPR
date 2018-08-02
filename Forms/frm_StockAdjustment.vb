@@ -284,7 +284,7 @@ restart:
         frm_Show_search.qry = " SELECT  top 50 im.ITEM_ID ,
 		                                ISNULL(im.BarCode_vch, '') AS BARCODE ,
                                         im.ITEM_NAME AS [ITEM NAME] ,
-                                        im.MRP_Num AS MRP ,
+                                        CAST(im.MRP_Num AS NUMERIC(18, 2)) AS MRP ,
                                         CAST(im.sale_rate AS NUMERIC(18, 2)) AS RATE ,
                                         ISNULL(litems.LabelItemName_vch, '') AS BRAND ,
                                         ic.ITEM_CAT_NAME AS CATEGORY
@@ -303,7 +303,7 @@ restart:
         frm_Show_search.column_name4 = "LABELITEMNAME_VCH"
         frm_Show_search.column_name5 = "ITEM_CAT_NAME"
         frm_Show_search.cols_no_for_width = "1,2,3,4,5,6"
-        frm_Show_search.cols_width = "100,350,60,60,100,100"
+        frm_Show_search.cols_width = "100,340,70,70,100,105"
         frm_Show_search.extra_condition = ""
         frm_Show_search.ret_column = "ITEM_ID"
         frm_Show_search.item_rate_column = ""
@@ -313,6 +313,13 @@ restart:
         If Not check_item_exist(frm_Show_search.search_result) Then
             get_row(frm_Show_search.search_result, 0)
         End If
+
+        Dim Index As Int32 = grdAdjustmentItem.Rows.Count - 1
+        grdAdjustmentItem.Row = Index
+        grdAdjustmentItem.RowSel = Index
+        grdAdjustmentItem.Col = 10
+        grdAdjustmentItem.ColSel = 10
+
     End Sub
 
     Function check_item_exist(ByVal item_id As Integer) As Boolean
@@ -343,9 +350,9 @@ restart:
                                         " UM.UM_Name , " &
                                         " SD.Batch_no , " &
                                         " dbo.fn_Format(SD.Expiry_date) AS Expiry_Date, " &
-                                        " dbo.Get_Average_Rate_as_on_date(IM.ITEM_ID,'" & Now.ToString("dd-MMM-yyyy") & "'," & v_the_current_division_id & ",0) as Item_Rate," &
-                                        " SD.Balance_Qty, " &
-                                        " 0.00  as adjustment_qty, " &
+                                        " CAST( dbo.Get_Average_Rate_as_on_date(IM.ITEM_ID,'" & Now.ToString("dd-MMM-yyyy") & "'," & v_the_current_division_id & ",0) AS NUMERIC(18, 2)) as Item_Rate," &
+                                        " CAST(SD.Balance_Qty AS NUMERIC(18, 3)) AS Balance_Qty, " &
+                                        " 0.000  as adjustment_qty, " &
                                         " SD.STOCK_DETAIL_ID  " &
                                 " FROM " &
                                         " ITEM_MASTER  IM " &

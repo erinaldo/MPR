@@ -38,12 +38,12 @@ Public Class frm_Show_search
             Dt.Rows.InsertAt(Dtrow, 0)
             cmbBrand.DisplayMember = "LabelItemName_vch"
             cmbBrand.ValueMember = "LabelItemName_vch"
-            cmbBrand.DropDownStyle = ComboBoxStyle.DropDown
-            cmbBrand.AutoCompleteMode = AutoCompleteMode.SuggestAppend
-            cmbBrand.AutoCompleteSource = AutoCompleteSource.ListItems
-            cmbBrand.AllowDrop = True
+            'cmbBrand.DropDownStyle = ComboBoxStyle.DropDown
+            'cmbBrand.AutoCompleteMode = AutoCompleteMode.SuggestAppend
+            'cmbBrand.AutoCompleteSource = AutoCompleteSource.ListItems
+            'cmbBrand.AllowDrop = True
             cmbBrand.DataSource = Dt
-            cmbBrand.SelectedIndex = 0
+            'cmbBrand.SelectedIndex = 0
 
             Dim CategoryQuery As String
             Dim DtCat As DataTable
@@ -56,12 +56,12 @@ Public Class frm_Show_search
             DtCat.Rows.InsertAt(Dtrowcat, 0)
             cmbCategory.DisplayMember = "ITEM_CAT_NAME"
             cmbCategory.ValueMember = "ITEM_CAT_NAME"
-            cmbCategory.DropDownStyle = ComboBoxStyle.DropDown
-            cmbCategory.AutoCompleteMode = AutoCompleteMode.SuggestAppend
-            cmbCategory.AutoCompleteSource = AutoCompleteSource.ListItems
-            cmbCategory.AllowDrop = True
+            'cmbCategory.DropDownStyle = ComboBoxStyle.DropDown
+            'cmbCategory.AutoCompleteMode = AutoCompleteMode.SuggestAppend
+            'cmbCategory.AutoCompleteSource = AutoCompleteSource.ListItems
+            'cmbCategory.AllowDrop = True
             cmbCategory.DataSource = DtCat
-            cmbCategory.SelectedIndex = 0
+            'cmbCategory.SelectedIndex = 0
 
             txtSearch.Text = ""
             'GroupBox1.Width = Me.Width - 20
@@ -583,4 +583,15 @@ Public Class frm_Show_search
         End Try
     End Sub
 
+    Private Sub cmbBrand_Enter(sender As Object, e As EventArgs) Handles cmbBrand.Enter
+        If Not cmbBrand.DroppedDown Then
+            cmbBrand.DroppedDown = True
+        End If
+    End Sub
+
+    Private Sub cmbCategory_Enter(sender As Object, e As EventArgs) Handles cmbCategory.Enter
+        If Not cmbCategory.DroppedDown Then
+            cmbCategory.DroppedDown = True
+        End If
+    End Sub
 End Class

@@ -155,7 +155,7 @@ Partial Class frm_Purchase_Order
         Me.GroupBox4.Location = New System.Drawing.Point(6, 117)
         Me.GroupBox4.Name = "GroupBox4"
         Me.GroupBox4.Size = New System.Drawing.Size(890, 477)
-        Me.GroupBox4.TabIndex = 7
+        Me.GroupBox4.TabIndex = 1
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "List of Purchase Order"
         '
@@ -171,7 +171,7 @@ Partial Class frm_Purchase_Order
         Me.flxPOList.Rows.DefaultSize = 18
         Me.flxPOList.Size = New System.Drawing.Size(884, 457)
         Me.flxPOList.Styles = New C1.Win.C1FlexGrid.CellStyleCollection(resources.GetString("flxPOList.Styles"))
-        Me.flxPOList.TabIndex = 7
+        Me.flxPOList.TabIndex = 0
         '
         'GroupBox3
         '
@@ -213,15 +213,15 @@ Partial Class frm_Purchase_Order
         Me.cmdPoStatus.Location = New System.Drawing.Point(672, 65)
         Me.cmdPoStatus.Name = "cmdPoStatus"
         Me.cmdPoStatus.Size = New System.Drawing.Size(109, 23)
-        Me.cmdPoStatus.TabIndex = 5
+        Me.cmdPoStatus.TabIndex = 4
         '
         'btnShow
         '
         Me.btnShow.BackColor = System.Drawing.Color.FromArgb(CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.btnShow.Location = New System.Drawing.Point(787, 59)
+        Me.btnShow.Location = New System.Drawing.Point(787, 65)
         Me.btnShow.Name = "btnShow"
-        Me.btnShow.Size = New System.Drawing.Size(97, 33)
-        Me.btnShow.TabIndex = 6
+        Me.btnShow.Size = New System.Drawing.Size(97, 25)
+        Me.btnShow.TabIndex = 5
         Me.btnShow.Text = "Show"
         Me.btnShow.UseVisualStyleBackColor = False
         '
@@ -235,7 +235,7 @@ Partial Class frm_Purchase_Order
         Me.txtPONumber.Multiline = True
         Me.txtPONumber.Name = "txtPONumber"
         Me.txtPONumber.Size = New System.Drawing.Size(143, 23)
-        Me.txtPONumber.TabIndex = 4
+        Me.txtPONumber.TabIndex = 3
         '
         'dtpoToDate
         '
@@ -246,7 +246,7 @@ Partial Class frm_Purchase_Order
         Me.dtpoToDate.Location = New System.Drawing.Point(287, 65)
         Me.dtpoToDate.Name = "dtpoToDate"
         Me.dtpoToDate.Size = New System.Drawing.Size(111, 21)
-        Me.dtpoToDate.TabIndex = 3
+        Me.dtpoToDate.TabIndex = 2
         '
         'dtpoFromDate
         '
@@ -257,7 +257,7 @@ Partial Class frm_Purchase_Order
         Me.dtpoFromDate.Location = New System.Drawing.Point(92, 63)
         Me.dtpoFromDate.Name = "dtpoFromDate"
         Me.dtpoFromDate.Size = New System.Drawing.Size(113, 21)
-        Me.dtpoFromDate.TabIndex = 2
+        Me.dtpoFromDate.TabIndex = 1
         '
         'Label13
         '
@@ -297,16 +297,15 @@ Partial Class frm_Purchase_Order
         '
         'cmbFilterSupp
         '
-        Me.cmbFilterSupp.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.cmbFilterSupp.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmbFilterSupp.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.cmbFilterSupp.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmbFilterSupp.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmbFilterSupp.ForeColor = System.Drawing.Color.White
         Me.cmbFilterSupp.FormattingEnabled = True
         Me.cmbFilterSupp.Location = New System.Drawing.Point(92, 22)
         Me.cmbFilterSupp.Name = "cmbFilterSupp"
         Me.cmbFilterSupp.Size = New System.Drawing.Size(689, 23)
-        Me.cmbFilterSupp.TabIndex = 1
+        Me.cmbFilterSupp.TabIndex = 0
         '
         'TabPage2
         '
@@ -497,6 +496,8 @@ Partial Class frm_Purchase_Order
         Me.dtpTransMode.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.dtpTransMode.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.dtpTransMode.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.dtpTransMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.dtpTransMode.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.dtpTransMode.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.dtpTransMode.ForeColor = System.Drawing.Color.White
         Me.dtpTransMode.FormattingEnabled = True
@@ -504,13 +505,15 @@ Partial Class frm_Purchase_Order
         Me.dtpTransMode.Location = New System.Drawing.Point(102, 448)
         Me.dtpTransMode.Name = "dtpTransMode"
         Me.dtpTransMode.Size = New System.Drawing.Size(143, 23)
-        Me.dtpTransMode.TabIndex = 17
+        Me.dtpTransMode.TabIndex = 6
         '
         'dtpPriceBasis
         '
         Me.dtpPriceBasis.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.dtpPriceBasis.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.dtpPriceBasis.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.dtpPriceBasis.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.dtpPriceBasis.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.dtpPriceBasis.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.dtpPriceBasis.ForeColor = System.Drawing.Color.White
         Me.dtpPriceBasis.FormattingEnabled = True
@@ -518,7 +521,7 @@ Partial Class frm_Purchase_Order
         Me.dtpPriceBasis.Location = New System.Drawing.Point(336, 449)
         Me.dtpPriceBasis.Name = "dtpPriceBasis"
         Me.dtpPriceBasis.Size = New System.Drawing.Size(139, 23)
-        Me.dtpPriceBasis.TabIndex = 18
+        Me.dtpPriceBasis.TabIndex = 7
         '
         'Label9
         '
@@ -535,6 +538,8 @@ Partial Class frm_Purchase_Order
         Me.dtpFreight.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.dtpFreight.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.dtpFreight.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.dtpFreight.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.dtpFreight.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.dtpFreight.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.dtpFreight.ForeColor = System.Drawing.Color.White
         Me.dtpFreight.FormattingEnabled = True
@@ -542,13 +547,15 @@ Partial Class frm_Purchase_Order
         Me.dtpFreight.Location = New System.Drawing.Point(336, 418)
         Me.dtpFreight.Name = "dtpFreight"
         Me.dtpFreight.Size = New System.Drawing.Size(139, 23)
-        Me.dtpFreight.TabIndex = 16
+        Me.dtpFreight.TabIndex = 5
         '
         'dtpOctroi
         '
         Me.dtpOctroi.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.dtpOctroi.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.dtpOctroi.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.dtpOctroi.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.dtpOctroi.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.dtpOctroi.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.dtpOctroi.ForeColor = System.Drawing.Color.White
         Me.dtpOctroi.FormattingEnabled = True
@@ -556,7 +563,7 @@ Partial Class frm_Purchase_Order
         Me.dtpOctroi.Location = New System.Drawing.Point(102, 417)
         Me.dtpOctroi.Name = "dtpOctroi"
         Me.dtpOctroi.Size = New System.Drawing.Size(143, 23)
-        Me.dtpOctroi.TabIndex = 15
+        Me.dtpOctroi.TabIndex = 4
         '
         'Label10
         '
@@ -619,7 +626,7 @@ Partial Class frm_Purchase_Order
         Me.txtOtherCharges.Location = New System.Drawing.Point(775, 520)
         Me.txtOtherCharges.Name = "txtOtherCharges"
         Me.txtOtherCharges.Size = New System.Drawing.Size(118, 18)
-        Me.txtOtherCharges.TabIndex = 21
+        Me.txtOtherCharges.TabIndex = 10
         Me.txtOtherCharges.Text = "0.00"
         Me.txtOtherCharges.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
@@ -633,7 +640,7 @@ Partial Class frm_Purchase_Order
         Me.txtDiscountAmount.Name = "txtDiscountAmount"
         Me.txtDiscountAmount.ReadOnly = True
         Me.txtDiscountAmount.Size = New System.Drawing.Size(118, 18)
-        Me.txtDiscountAmount.TabIndex = 22
+        Me.txtDiscountAmount.TabIndex = 11
         Me.txtDiscountAmount.Text = "0.00"
         Me.txtDiscountAmount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
@@ -655,9 +662,8 @@ Partial Class frm_Purchase_Order
         Me.txtPaymentTerms.Location = New System.Drawing.Point(102, 540)
         Me.txtPaymentTerms.Multiline = True
         Me.txtPaymentTerms.Name = "txtPaymentTerms"
-        Me.txtPaymentTerms.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.txtPaymentTerms.Size = New System.Drawing.Size(373, 51)
-        Me.txtPaymentTerms.TabIndex = 20
+        Me.txtPaymentTerms.TabIndex = 9
         '
         'GroupBox2
         '
@@ -669,7 +675,7 @@ Partial Class frm_Purchase_Order
         Me.GroupBox2.Location = New System.Drawing.Point(6, 129)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Size = New System.Drawing.Size(890, 251)
-        Me.GroupBox2.TabIndex = 8
+        Me.GroupBox2.TabIndex = 1
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Detail"
         '
@@ -683,7 +689,7 @@ Partial Class frm_Purchase_Order
         Me.lnkSelectItemswithoutIndent.Location = New System.Drawing.Point(670, 220)
         Me.lnkSelectItemswithoutIndent.Name = "lnkSelectItemswithoutIndent"
         Me.lnkSelectItemswithoutIndent.Size = New System.Drawing.Size(210, 25)
-        Me.lnkSelectItemswithoutIndent.TabIndex = 10
+        Me.lnkSelectItemswithoutIndent.TabIndex = 1
         Me.lnkSelectItemswithoutIndent.TabStop = True
         Me.lnkSelectItemswithoutIndent.Text = "Insert Items (without Indent)"
         Me.lnkSelectItemswithoutIndent.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -705,7 +711,7 @@ Partial Class frm_Purchase_Order
         Me.flxItemList.Rows.DefaultSize = 18
         Me.flxItemList.Size = New System.Drawing.Size(884, 201)
         Me.flxItemList.Styles = New C1.Win.C1FlexGrid.CellStyleCollection(resources.GetString("flxItemList.Styles"))
-        Me.flxItemList.TabIndex = 9
+        Me.flxItemList.TabIndex = 0
         '
         'lnkCalculatePOAmt
         '
@@ -717,7 +723,7 @@ Partial Class frm_Purchase_Order
         Me.lnkCalculatePOAmt.Location = New System.Drawing.Point(9, 220)
         Me.lnkCalculatePOAmt.Name = "lnkCalculatePOAmt"
         Me.lnkCalculatePOAmt.Size = New System.Drawing.Size(210, 25)
-        Me.lnkCalculatePOAmt.TabIndex = 12
+        Me.lnkCalculatePOAmt.TabIndex = 3
         Me.lnkCalculatePOAmt.TabStop = True
         Me.lnkCalculatePOAmt.Text = "Calculate PO Amount"
         Me.lnkCalculatePOAmt.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -732,7 +738,7 @@ Partial Class frm_Purchase_Order
         Me.lnkSelectItems.Location = New System.Drawing.Point(338, 220)
         Me.lnkSelectItems.Name = "lnkSelectItems"
         Me.lnkSelectItems.Size = New System.Drawing.Size(210, 25)
-        Me.lnkSelectItems.TabIndex = 11
+        Me.lnkSelectItems.TabIndex = 2
         Me.lnkSelectItems.TabStop = True
         Me.lnkSelectItems.Text = "Insert Items"
         Me.lnkSelectItems.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -746,22 +752,23 @@ Partial Class frm_Purchase_Order
         Me.txtPORemarks.Location = New System.Drawing.Point(102, 480)
         Me.txtPORemarks.Multiline = True
         Me.txtPORemarks.Name = "txtPORemarks"
-        Me.txtPORemarks.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.txtPORemarks.Size = New System.Drawing.Size(373, 51)
-        Me.txtPORemarks.TabIndex = 19
+        Me.txtPORemarks.TabIndex = 8
         '
         'cmbDeliveryRate
         '
         Me.cmbDeliveryRate.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbDeliveryRate.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmbDeliveryRate.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.cmbDeliveryRate.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbDeliveryRate.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmbDeliveryRate.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmbDeliveryRate.ForeColor = System.Drawing.Color.White
         Me.cmbDeliveryRate.FormattingEnabled = True
         Me.cmbDeliveryRate.Location = New System.Drawing.Point(336, 387)
         Me.cmbDeliveryRate.Name = "cmbDeliveryRate"
         Me.cmbDeliveryRate.Size = New System.Drawing.Size(139, 23)
-        Me.cmbDeliveryRate.TabIndex = 14
+        Me.cmbDeliveryRate.TabIndex = 3
         '
         'GroupBox1
         '
@@ -817,7 +824,7 @@ Partial Class frm_Purchase_Order
         Me.txtBarcodeSearch.Multiline = True
         Me.txtBarcodeSearch.Name = "txtBarcodeSearch"
         Me.txtBarcodeSearch.Size = New System.Drawing.Size(635, 20)
-        Me.txtBarcodeSearch.TabIndex = 7
+        Me.txtBarcodeSearch.TabIndex = 6
         '
         'Label52
         '
@@ -899,7 +906,7 @@ Partial Class frm_Purchase_Order
         Me.dtpEndDate.Location = New System.Drawing.Point(407, 71)
         Me.dtpEndDate.Name = "dtpEndDate"
         Me.dtpEndDate.Size = New System.Drawing.Size(111, 21)
-        Me.dtpEndDate.TabIndex = 5
+        Me.dtpEndDate.TabIndex = 4
         '
         'dtpStartDate
         '
@@ -910,7 +917,7 @@ Partial Class frm_Purchase_Order
         Me.dtpStartDate.Location = New System.Drawing.Point(589, 71)
         Me.dtpStartDate.Name = "dtpStartDate"
         Me.dtpStartDate.Size = New System.Drawing.Size(109, 21)
-        Me.dtpStartDate.TabIndex = 6
+        Me.dtpStartDate.TabIndex = 5
         '
         'dtpPODate
         '
@@ -921,32 +928,32 @@ Partial Class frm_Purchase_Order
         Me.dtpPODate.Location = New System.Drawing.Point(229, 71)
         Me.dtpPODate.Name = "dtpPODate"
         Me.dtpPODate.Size = New System.Drawing.Size(110, 21)
-        Me.dtpPODate.TabIndex = 4
+        Me.dtpPODate.TabIndex = 3
         '
         'cmbSupplier
         '
-        Me.cmbSupplier.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.cmbSupplier.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmbSupplier.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.cmbSupplier.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmbSupplier.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmbSupplier.ForeColor = System.Drawing.Color.White
         Me.cmbSupplier.FormattingEnabled = True
         Me.cmbSupplier.Location = New System.Drawing.Point(63, 13)
         Me.cmbSupplier.Name = "cmbSupplier"
         Me.cmbSupplier.Size = New System.Drawing.Size(635, 23)
-        Me.cmbSupplier.TabIndex = 1
+        Me.cmbSupplier.TabIndex = 0
         '
         'cmbPOType
         '
         Me.cmbPOType.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.cmbPOType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbPOType.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmbPOType.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmbPOType.ForeColor = System.Drawing.Color.White
         Me.cmbPOType.FormattingEnabled = True
         Me.cmbPOType.Location = New System.Drawing.Point(63, 71)
         Me.cmbPOType.Name = "cmbPOType"
         Me.cmbPOType.Size = New System.Drawing.Size(105, 23)
-        Me.cmbPOType.TabIndex = 3
+        Me.cmbPOType.TabIndex = 2
         '
         'lblCap8
         '
@@ -986,7 +993,7 @@ Partial Class frm_Purchase_Order
         Me.lblAddress.Location = New System.Drawing.Point(63, 38)
         Me.lblAddress.Name = "lblAddress"
         Me.lblAddress.Size = New System.Drawing.Size(635, 28)
-        Me.lblAddress.TabIndex = 2
+        Me.lblAddress.TabIndex = 1
         '
         'lblStatus
         '
@@ -1045,19 +1052,21 @@ Partial Class frm_Purchase_Order
         Me.cmbQualityRate.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbQualityRate.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmbQualityRate.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.cmbQualityRate.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbQualityRate.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmbQualityRate.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmbQualityRate.ForeColor = System.Drawing.Color.White
         Me.cmbQualityRate.FormattingEnabled = True
         Me.cmbQualityRate.Location = New System.Drawing.Point(102, 387)
         Me.cmbQualityRate.Name = "cmbQualityRate"
         Me.cmbQualityRate.Size = New System.Drawing.Size(143, 23)
-        Me.cmbQualityRate.TabIndex = 13
+        Me.cmbQualityRate.TabIndex = 2
         '
         'lblNetAmount
         '
         Me.lblNetAmount.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblNetAmount.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.lblNetAmount.Location = New System.Drawing.Point(779, 569)
+        Me.lblNetAmount.Location = New System.Drawing.Point(780, 569)
         Me.lblNetAmount.Name = "lblNetAmount"
         Me.lblNetAmount.Size = New System.Drawing.Size(118, 20)
         Me.lblNetAmount.TabIndex = 0
@@ -1088,7 +1097,7 @@ Partial Class frm_Purchase_Order
         '
         Me.lblVatAmount.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblVatAmount.ForeColor = System.Drawing.Color.Orange
-        Me.lblVatAmount.Location = New System.Drawing.Point(784, 415)
+        Me.lblVatAmount.Location = New System.Drawing.Point(782, 415)
         Me.lblVatAmount.Name = "lblVatAmount"
         Me.lblVatAmount.Size = New System.Drawing.Size(115, 20)
         Me.lblVatAmount.TabIndex = 0
@@ -1109,7 +1118,7 @@ Partial Class frm_Purchase_Order
         '
         Me.lblItemValue.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblItemValue.ForeColor = System.Drawing.Color.Orange
-        Me.lblItemValue.Location = New System.Drawing.Point(778, 383)
+        Me.lblItemValue.Location = New System.Drawing.Point(779, 383)
         Me.lblItemValue.Name = "lblItemValue"
         Me.lblItemValue.Size = New System.Drawing.Size(118, 20)
         Me.lblItemValue.TabIndex = 0

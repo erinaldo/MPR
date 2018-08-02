@@ -48,8 +48,8 @@ Public Class frm_Print_Barcode
         Query = "SELECT top 250  ROW_NUMBER() OVER ( ORDER BY ITEM_ID ) AS SNO ," &
             " Item_Code ," &
             " Item_Name, BarCode_vch," &
-            " MRP_num as MRP ," &
-            " sale_rate," &
+            " CAST(MRP_num AS NUMERIC(18, 2)) as MRP ," &
+            " CAST(sale_rate AS NUMERIC(18, 2)) as sale_rate," &
             " 0 AS [Current Stock]" &
             " From dbo.Item_Master mm" &
             " where 1=1 "
