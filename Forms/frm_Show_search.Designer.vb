@@ -56,7 +56,7 @@ Partial Class frm_Show_search
         '
         Me.grdSearch.AllowUserToAddRows = False
         Me.grdSearch.AllowUserToDeleteRows = False
-        Me.grdSearch.BackgroundColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.grdSearch.BackgroundColor = System.Drawing.Color.Lavender
         Me.grdSearch.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
         DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle1.BackColor = System.Drawing.Color.Gainsboro

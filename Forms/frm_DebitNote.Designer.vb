@@ -537,8 +537,6 @@ Partial Class frm_DebitNote
         '
         'cmbsupplier
         '
-        Me.cmbsupplier.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.cmbsupplier.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmbsupplier.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.cmbsupplier.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmbsupplier.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))

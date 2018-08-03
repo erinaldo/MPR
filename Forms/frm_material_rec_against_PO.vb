@@ -320,7 +320,7 @@ Public Class frm_material_rec_against_PO
         FLXGRD_PO_Items.Cols(2).Visible = False
 
 
-        FLXGRD_PO_Items.Cols(3).Caption = "Item Code"
+        FLXGRD_PO_Items.Cols(3).Caption = "BarCode"
         FLXGRD_PO_Items.Cols(4).Caption = "Item Name"
         FLXGRD_PO_Items.Cols(5).Caption = "UOM"
         FLXGRD_PO_Items.Cols(6).Caption = "PO Qty"
@@ -336,7 +336,7 @@ Public Class frm_material_rec_against_PO
         FLXGRD_PO_Items.Cols(15).Caption = "Net Amt"
         FLXGRD_PO_Items.Cols(16).Caption = "Gross Amt"
 
-        FLXGRD_PO_Items.Cols(3).Width = 65
+        FLXGRD_PO_Items.Cols(3).Width = 75
         FLXGRD_PO_Items.Cols(4).Width = 350
         FLXGRD_PO_Items.Cols(5).Width = 40
         FLXGRD_PO_Items.Cols(6).Width = 70
@@ -387,7 +387,7 @@ Public Class frm_material_rec_against_PO
         FLXGRD_PO_NON_STOCKABLEITEMS.Cols("CostCenter_ID").Visible = False
 
 
-        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("Item_Code").Caption = "Item Code"
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("Item_Code").Caption = "BarCode"
         FLXGRD_PO_NON_STOCKABLEITEMS.Cols("Item_Name").Caption = "Item Name"
         FLXGRD_PO_NON_STOCKABLEITEMS.Cols("UM_Name").Caption = "UOM"
         FLXGRD_PO_NON_STOCKABLEITEMS.Cols("CostCenter_Code").Caption = "CC Code"
@@ -608,7 +608,7 @@ Public Class frm_material_rec_against_PO
 
     Private Sub Grid_Formatting()
         FLXGRD_PO_Items.Cols("item_id").Caption = "Item Id"
-        FLXGRD_PO_Items.Cols("item_code").Caption = "Item Code"
+        FLXGRD_PO_Items.Cols("item_code").Caption = "BarCode"
         FLXGRD_PO_Items.Cols("item_name").Caption = "Item Name"
         FLXGRD_PO_Items.Cols("um_name").Caption = "UOM"
         FLXGRD_PO_Items.Cols("PO_QTY").Caption = "PO Qty"
@@ -632,8 +632,8 @@ Public Class frm_material_rec_against_PO
 
         FLXGRD_PO_Items.Cols(0).Width = 8
         FLXGRD_PO_Items.Cols("item_id").Width = 40
-        FLXGRD_PO_Items.Cols("item_code").Width = 50
-        FLXGRD_PO_Items.Cols("item_name").Width = 200
+        FLXGRD_PO_Items.Cols("item_code").Width = 60
+        FLXGRD_PO_Items.Cols("item_name").Width = 190
         FLXGRD_PO_Items.Cols("um_name").Width = 30
         FLXGRD_PO_Items.Cols("PO_QTY").Width = 50
         FLXGRD_PO_Items.Cols("item_rate").Width = 50
@@ -1189,7 +1189,11 @@ Public Class frm_material_rec_against_PO
     End Sub
 
     Private Sub txtotherchrgs_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtotherchrgs.TextChanged
-        Calculate_Amount()
+        If String.IsNullOrEmpty(txtotherchrgs.Text) Then
+            txtotherchrgs.Text = "0.00"
+        Else
+            Calculate_Amount()
+        End If
     End Sub
 
     Private Sub txtdiscount_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtdiscount.TextChanged
@@ -1387,7 +1391,18 @@ restart:
     End Sub
 
     Private Sub txtAmount_Leave(sender As Object, e As EventArgs) Handles txtAmount.Leave
-        Calculate_Amount()
+        If String.IsNullOrEmpty(txtAmount.Text) Then
+            txtAmount.Text = "0.00"
+        Else
+            Calculate_Amount()
+        End If
     End Sub
 
+    Private Sub txtCashDiscount_TextChanged(sender As Object, e As EventArgs) Handles txtCashDiscount.TextChanged
+        If String.IsNullOrEmpty(txtCashDiscount.Text) Then
+            txtCashDiscount.Text = "0.00"
+        Else
+            Calculate_Amount()
+        End If
+    End Sub
 End Class

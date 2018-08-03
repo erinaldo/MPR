@@ -73,9 +73,10 @@ Partial Class frm_Indent_Items
         'btnShow
         '
         Me.btnShow.BackColor = System.Drawing.Color.FromArgb(CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.btnShow.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnShow.Location = New System.Drawing.Point(788, 23)
         Me.btnShow.Name = "btnShow"
-        Me.btnShow.Size = New System.Drawing.Size(87, 27)
+        Me.btnShow.Size = New System.Drawing.Size(87, 25)
         Me.btnShow.TabIndex = 3
         Me.btnShow.Text = "Show"
         Me.btnShow.UseVisualStyleBackColor = False
@@ -148,9 +149,10 @@ Partial Class frm_Indent_Items
         'btnOk
         '
         Me.btnOk.BackColor = System.Drawing.Color.Green
+        Me.btnOk.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnOk.Location = New System.Drawing.Point(702, 468)
         Me.btnOk.Name = "btnOk"
-        Me.btnOk.Size = New System.Drawing.Size(87, 27)
+        Me.btnOk.Size = New System.Drawing.Size(87, 25)
         Me.btnOk.TabIndex = 6
         Me.btnOk.Text = "Ok"
         Me.btnOk.UseVisualStyleBackColor = False
@@ -158,9 +160,10 @@ Partial Class frm_Indent_Items
         'btnCancel
         '
         Me.btnCancel.BackColor = System.Drawing.Color.Maroon
+        Me.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnCancel.Location = New System.Drawing.Point(807, 468)
         Me.btnCancel.Name = "btnCancel"
-        Me.btnCancel.Size = New System.Drawing.Size(87, 27)
+        Me.btnCancel.Size = New System.Drawing.Size(87, 25)
         Me.btnCancel.TabIndex = 7
         Me.btnCancel.Text = "Cancel"
         Me.btnCancel.UseVisualStyleBackColor = False
@@ -169,7 +172,7 @@ Partial Class frm_Indent_Items
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.DimGray
+        Me.BackColor = System.Drawing.Color.Gray
         Me.ClientSize = New System.Drawing.Size(910, 509)
         Me.ControlBox = False
         Me.Controls.Add(Me.Label3)
@@ -184,6 +187,7 @@ Partial Class frm_Indent_Items
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "frm_Indent_Items"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.GroupBox2.ResumeLayout(False)

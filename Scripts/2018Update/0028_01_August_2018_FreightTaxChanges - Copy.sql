@@ -834,3 +834,120 @@ AS
     END 
 
 Go
+ALTER PROCEDURE [dbo].[Fill_PO_ITEMS]
+    (
+      @PO_ID NUMERIC(18, 0) ,
+      @DIV_ID NUMERIC(18, 0)
+    )
+AS
+    BEGIN         
+        DECLARE @con VARCHAR(100)        
+        DECLARE @open INT        
+        
+        SELECT  @open = open_po_qty
+        FROM    po_master
+        WHERE   po_id = @po_id        
+         
+-- if (@open=1)        
+-- begin        
+--  @con= ''        
+-- else               
+--  @con='AND (PO_DETAIL.BALANCE_QTY > 0)'        
+-- end        
+          
+        SELECT  PO_DETAIL.PO_ID ,
+                IM.ITEM_ID ,
+                UNIT_MASTER.UM_ID ,
+                IM.barcode_vch as ITEM_CODE ,
+                IM.ITEM_NAME ,
+                UNIT_MASTER.UM_Name ,
+                PO_DETAIL.ITEM_RATE ,
+                ISNULL(PO_DETAIL.DType, 'P') AS DType ,
+                ISNULL(PO_DETAIL.DiscountValue, 0.00) AS DISC ,
+                ISNULL(PO_DETAIL.VAT_PER, 0.00) AS VAT_PER ,
+                ISNULL(PO_DETAIL.CESS_PER, 0.00) AS CESS_PER ,
+                ISNULL(PO_DETAIL.EXICE_PER, 0.00) AS EXICE_PER ,
+                '' AS BATCH_NO ,
+                DATEADD(yy, 2, GETDATE()) AS EXPIRY_DATE ,
+                CASE WHEN ISNULL(PO_DETAIL.DType, 'P') = 'P'
+                     THEN ISNULL(CAST(PO_DETAIL.Balance_qty
+                                 * PO_DETAIL.ITEM_RATE AS NUMERIC(18, 2)),
+                                 0.00)
+                          - ISNULL(CAST(PO_DETAIL.Balance_qty
+                                   * PO_DETAIL.ITEM_RATE AS NUMERIC(18, 2)),
+                                   0.00) * ISNULL(PO_DETAIL.DiscountValue,
+                                                  0.00) / 100
+                     ELSE ISNULL(CAST(PO_DETAIL.Balance_qty
+                                 * PO_DETAIL.ITEM_RATE AS NUMERIC(18, 2)),
+                                 0.00) - ISNULL(PO_DETAIL.DiscountValue, 0.00)
+                END AS Net_Amount ,
+                CASE WHEN ISNULL(PO_DETAIL.DType, 'P') = 'P'
+                     THEN ISNULL(CAST(( ( PO_DETAIL.Balance_qty
+                                          * PO_DETAIL.ITEM_RATE
+                                          - ISNULL(CAST(PO_DETAIL.Balance_qty
+                                                   * PO_DETAIL.ITEM_RATE AS NUMERIC(18,
+                                                              2)), 0.00)
+                                          * ISNULL(PO_DETAIL.DiscountValue,
+                                                   0.00) / 100 )
+                                        + ( PO_DETAIL.Balance_qty
+                                            * PO_DETAIL.ITEM_RATE
+                                            - ISNULL(CAST(PO_DETAIL.Balance_qty
+                                                     * PO_DETAIL.ITEM_RATE AS NUMERIC(18,
+                                                              2)), 0.00)
+                                            * ISNULL(PO_DETAIL.DiscountValue,
+                                                     0.00) / 100 )
+                                        * PO_DETAIL.EXICE_PER / 100 )
+                                 + ( ( PO_DETAIL.Balance_qty
+                                       * PO_DETAIL.ITEM_RATE
+                                       - ISNULL(CAST(PO_DETAIL.Balance_qty
+                                                * PO_DETAIL.ITEM_RATE AS NUMERIC(18,
+                                                              2)), 0.00)
+                                       * ISNULL(PO_DETAIL.DiscountValue, 0.00)
+                                       / 100 ) + ( PO_DETAIL.Balance_qty
+                                                   * PO_DETAIL.ITEM_RATE
+                                                   - ISNULL(CAST(PO_DETAIL.Balance_qty
+                                                            * PO_DETAIL.ITEM_RATE AS NUMERIC(18,
+                                                              2)), 0.00)
+                                                   * ISNULL(PO_DETAIL.DiscountValue,
+                                                            0.00) / 100 )
+                                     * PO_DETAIL.EXICE_PER / 100 )
+                                 * PO_DETAIL.VAT_PER / 100 AS NUMERIC(18, 2)),
+                                 0.00)
+                     ELSE ISNULL(CAST(( ( PO_DETAIL.Balance_qty
+                                          * PO_DETAIL.ITEM_RATE
+                                          - ISNULL(PO_DETAIL.DiscountValue,
+                                                   0.00) )
+                                        + ( PO_DETAIL.Balance_qty
+                                            * PO_DETAIL.ITEM_RATE
+                                            - ISNULL(PO_DETAIL.DiscountValue,
+                                                     0.00) )
+                                        * PO_DETAIL.EXICE_PER / 100 )
+                                 + ( ( PO_DETAIL.Balance_qty
+                                       * PO_DETAIL.ITEM_RATE
+                                       - ISNULL(PO_DETAIL.DiscountValue, 0.00) )
+                                     + ( PO_DETAIL.Balance_qty
+                                         * PO_DETAIL.ITEM_RATE
+                                         - ISNULL(PO_DETAIL.DiscountValue,
+                                                  0.00) )
+                                     * PO_DETAIL.EXICE_PER / 100 )
+                                 * PO_DETAIL.VAT_PER / 100 AS NUMERIC(18, 2)),
+                                 0.00)
+                END AS Gross_Amount ,
+                ITEM_DETAIL.IS_STOCKABLE ,
+                0 AS CostCenter_Id ,
+                '' AS CostCenter_Code ,
+                '' AS CostCenter_Name ,
+                PO_DETAIL.Balance_qty AS PO_QTY ,
+                0.00 AS BATCH_QTY ,
+                PM.OPEN_PO_QTY
+        FROM    ITEM_MASTER AS IM
+                INNER JOIN UNIT_MASTER ON IM.UM_ID = UNIT_MASTER.UM_ID
+                INNER JOIN PO_DETAIL ON IM.ITEM_ID = PO_DETAIL.ITEM_ID
+                INNER JOIN PO_MASTER AS PM ON PO_DETAIL.PO_ID = PM.PO_ID
+                INNER JOIN ITEM_DETAIL ON IM.ITEM_ID = ITEM_DETAIL.ITEM_ID
+        WHERE   ( PO_DETAIL.PO_ID = @PO_ID )
+                AND PO_DETAIL.BALANCE_QTY > 0  
+    --            AND ( ( CASE WHEN ( @open <> 1 ) THEN PO_DETAIL.BALANCE_QTY    
+    --                         ELSE 1    
+    --                    END ) > 0 )      
+    END 

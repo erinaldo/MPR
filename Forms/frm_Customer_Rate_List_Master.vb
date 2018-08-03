@@ -334,7 +334,7 @@ Public Class frm_Customer_Rate_List_Master
 
         txbCol = New DataGridViewTextBoxColumn
         With txbCol
-            .HeaderText = "Item Code"
+            .HeaderText = "BarCode"
             .Name = "Item_Code"
             .DataPropertyName = "Item_Code"
             .ReadOnly = True
@@ -353,7 +353,7 @@ Public Class frm_Customer_Rate_List_Master
             .Name = "Item_Name"
             .ReadOnly = True
             .Visible = True
-            .Width = 350
+            .Width = 400
             .DefaultCellStyle.SelectionBackColor = Color.Orange
             .DefaultCellStyle.SelectionForeColor = Color.Black
         End With
@@ -379,7 +379,7 @@ Public Class frm_Customer_Rate_List_Master
             .Name = "GST"
             .ReadOnly = True
             .Visible = True
-            .Width = 80
+            .Width = 70
             .DefaultCellStyle.SelectionBackColor = Color.Orange
             .DefaultCellStyle.SelectionForeColor = Color.Black
         End With
@@ -404,9 +404,10 @@ Public Class frm_Customer_Rate_List_Master
             .Name = "Selling_Rate"
             .ReadOnly = False
             .Visible = True
-            .Width = 90
-            .DefaultCellStyle.SelectionBackColor = Color.Gold
+            .Width = 100
+            .DefaultCellStyle.SelectionBackColor = Color.Lime
             .DefaultCellStyle.SelectionForeColor = Color.Black
+
         End With
         grdSupplier.Columns.Add(txbCol)
 
@@ -474,9 +475,7 @@ Public Class frm_Customer_Rate_List_Master
     End Sub
 
     Private Sub comboBind()
-        Dim query As String = " select 0 as srl_id,'All' as Srl_name union  " &
-            "  Select srl_id,srl_name from supplier_rate_list " &
-            " WHERE supp_id =0 order by srl_name "
+        Dim query As String = "select 0 as srl_id,'All' as Srl_name union Select srl_id,srl_name from supplier_rate_list WHERE SUPP_ID IN(SELECT ACC_ID FROM dbo.ACCOUNT_MASTER WHERE AG_ID in (1,2,3,6)) AND SRL_ID IN(SELECT SRL_ID FROM dbo.CUSTOMER_RATE_LIST_MAPPING) order by srl_name"
         obj.ComboBind(cmbSuppSrch, query, "srl_name", "srl_id")
     End Sub
 
@@ -572,6 +571,8 @@ Public Class frm_Customer_Rate_List_Master
                     grdSupplier.Rows(rowindex).Cells("GST").Value = gst
                     grdSupplier.Rows(rowindex).Cells("Rate").Value = baseRate
                     grdSupplier.Rows(rowindex).Cells("Selling_rate").Value = baseRate + Math.Round((baseRate * (gst / 100)), 2)
+                    grdSupplier.Rows(rowindex).Cells("Selling_rate").Style.BackColor = Color.LimeGreen
+                    grdSupplier.Rows(rowindex).Cells("Selling_rate").Style.ForeColor = Color.Black
                 End If
             Next iRow
             TabControl1.SelectTab(1)
@@ -645,7 +646,7 @@ Public Class frm_Customer_Rate_List_Master
                     frm_Show_Search_RateList.qry = " SELECT  top 50 im.ITEM_ID ,
 		                                ISNULL(im.BarCode_vch, '') AS BARCODE ,
                                         im.ITEM_NAME AS [ITEM NAME] ,
-                                        im.MRP_Num AS MRP ,
+                                        CAST(im.MRP_Num AS NUMERIC(18, 2)) AS MRP ,
                                         CAST(im.sale_rate AS NUMERIC(18, 2)) AS RATE ,
                                         ISNULL(litems.LabelItemName_vch, '') AS BRAND ,
                                         ic.ITEM_CAT_NAME AS CATEGORY
@@ -656,15 +657,14 @@ Public Class frm_Customer_Rate_List_Master
                                         LEFT OUTER JOIN dbo.Label_Items litems ON lim.Fk_LabelDetailId = litems.Pk_LabelDetailId_Num
                                         WHERE   id.Is_active = 1 "
 
-
-                    frm_Show_Search_RateList.column_name = "ITEM_NAME"
                     frm_Show_Search_RateList.column_name1 = "BARCODE_VCH"
+                    frm_Show_Search_RateList.column_name = "ITEM_NAME"
                     frm_Show_Search_RateList.column_name2 = "MRP_Num"
                     frm_Show_Search_RateList.column_name3 = "SALE_RATE"
                     frm_Show_Search_RateList.column_name4 = "LABELITEMNAME_VCH"
                     frm_Show_Search_RateList.column_name5 = "ITEM_CAT_NAME"
-                    frm_Show_Search_RateList.cols_no_for_width = "1,2,3,4,5,6"
-                    frm_Show_Search_RateList.cols_width = "100,350,60,60,100,100"
+                    frm_Show_Search_RateList.cols_no_for_width = "1,2,3,4,5,6,7"
+                    frm_Show_Search_RateList.cols_width = "10,100,310,70,70,100,105"
                     frm_Show_Search_RateList.extra_condition = ""
                     frm_Show_Search_RateList.ret_column = "ITEM_ID"
                     frm_Show_Search_RateList.item_rate_column = ""
@@ -688,7 +688,7 @@ Public Class frm_Customer_Rate_List_Master
 
             Dim IsInsert As Boolean
             Dim ds As DataSet
-            'If item_id <> -1 Then
+
             For Each element As String In result
                 ds = obj.fill_Data_set("GET_ITEM_BY_ID", "@V_ITEM_ID", element)
                 Dim iRowCount As Int32
@@ -720,8 +720,13 @@ Public Class frm_Customer_Rate_List_Master
                     grdSupplier.Rows(introw).Cells("UOM").Value = ds.Tables(0).Rows(0)("UM_NAME").ToString()
                     grdSupplier.Rows(introw).Cells("gst").Value = ds.Tables(0).Rows(0)("VAT_PERCENTAGE").ToString()
                     grdSupplier.Rows(introw).Cells("rate").Value = 0
-                    grdSupplier.Rows(introw).Cells("Selling_Rate").Value = ""
+                    grdSupplier.Rows(introw).Cells("Selling_Rate").Value = "0.00"
 
+                    grdSupplier.CurrentCell = grdSupplier.Rows(introw).Cells("Selling_Rate")
+                    grdSupplier.CurrentCell.Style.BackColor = Color.LimeGreen
+                    grdSupplier.CurrentCell.Style.ForeColor = Color.Black
+
+                    grdSupplier.BeginEdit(True)
                 End If
             Next
         End If
@@ -785,6 +790,12 @@ Public Class frm_Customer_Rate_List_Master
                 txtBarcodeSearch.Text = ""
                 txtBarcodeSearch.Focus()
             End If
+        End If
+    End Sub
+
+    Private Sub cmbSupplier_Enter(sender As Object, e As EventArgs) Handles cmbSupplier.Enter
+        If Not cmbSupplier.DroppedDown Then
+            cmbSupplier.DroppedDown = True
         End If
     End Sub
 End Class

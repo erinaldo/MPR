@@ -97,7 +97,7 @@ Public Class frm_Show_Search_RateList
                     For Each a As String In arr_width
                         col_index = arr_cols_no(i)
                         grdSearch.Columns(col_index).Width = arr_width(i)
-                        grdSearch.Columns(col_index).HeaderCell.Style.Font = New Font("Arial", 9, FontStyle.Bold)
+                        grdSearch.Columns(col_index).HeaderCell.Style.Font = New Font("Arial", 8, FontStyle.Bold)
                         i += 1
                     Next
                 End If

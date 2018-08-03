@@ -245,6 +245,7 @@ Partial Class frm_Stock_Transfer
         'cmbOutlet
         '
         Me.cmbOutlet.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.cmbOutlet.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmbOutlet.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmbOutlet.ForeColor = System.Drawing.Color.White
         Me.cmbOutlet.FormattingEnabled = True

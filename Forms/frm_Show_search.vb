@@ -4,8 +4,6 @@ Imports MMSPlus.CommonClass
 Public Class frm_Show_search
     Inherits System.Windows.Forms.Form
 
-    'Dim frm_MRS_MainStore_Obj As New frm_MRS_MainStore
-    '
 
     Dim comFun As New CommonClass
     Public qry As String
@@ -86,7 +84,7 @@ Public Class frm_Show_search
                     For Each a As String In arr_width
                         col_index = arr_cols_no(i)
                         grdSearch.Columns(col_index).Width = arr_width(i)
-                        grdSearch.Columns(col_index).HeaderCell.Style.Font = New Font("Arial", 9, FontStyle.Bold)
+                        grdSearch.Columns(col_index).HeaderCell.Style.Font = New Font("Arial", 8, FontStyle.Bold)
                         i += 1
                     Next
                 End If

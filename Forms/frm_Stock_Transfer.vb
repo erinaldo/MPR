@@ -443,7 +443,7 @@ again:
                     frm_Show_search.column_name4 = "LABELITEMNAME_VCH"
                     frm_Show_search.column_name5 = "ITEM_CAT_NAME"
                     frm_Show_search.cols_no_for_width = "1,2,3,4,5,6"
-                    frm_Show_search.cols_width = "100,350,60,60,100,100"
+                    frm_Show_search.cols_width = "100,320,70,70,100,105"
                     frm_Show_search.extra_condition = ""
                     frm_Show_search.ret_column = "ITEM_ID"
                     frm_Show_search.item_rate_column = ""
@@ -479,6 +479,15 @@ restart:
                 End If
                 generate_tree()
             End If
+
+            If flxItems.Rows.Count - 1 > 0 Then
+                Dim Index As Int32 = flxItems.Row
+                flxItems.Row = Index
+                flxItems.RowSel = Index
+                flxItems.Col = 10
+                flxItems.ColSel = 10
+            End If
+
         Catch ex As Exception
         End Try
 
@@ -610,4 +619,9 @@ restart:
 
     End Sub
 
+    Private Sub cmbOutlet_Enter(sender As Object, e As EventArgs) Handles cmbOutlet.Enter
+        If Not cmbOutlet.DroppedDown Then
+            cmbOutlet.DroppedDown = True
+        End If
+    End Sub
 End Class

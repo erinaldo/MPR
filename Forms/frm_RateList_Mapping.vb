@@ -1,6 +1,8 @@
 Imports System.Data.SqlClient
-
+Imports MMSPlus.CommonClass
 Public Class frm_RateList_Mapping
+    Inherits System.Windows.Forms.Form
+
     Dim obj As New CommonClass
 
     Public Sub New()
@@ -37,5 +39,27 @@ Public Class frm_RateList_Mapping
         obj.ComboBind(cmbratelist, query, "srl_name", "srl_id")
         obj.ComboBind(cmbSupplier, "select 0 as ACC_ID,'--Select--' as ACC_NAME union Select ACC_ID,ACC_NAME from ACCOUNT_MASTER WHERE AG_ID in (1,2,3,6) Order by ACC_NAME ", "ACC_NAME", "ACC_ID")
 
+    End Sub
+
+    Private Sub cmbratelist_Enter(sender As Object, e As EventArgs) Handles cmbratelist.Enter
+        If Not cmbratelist.DroppedDown Then
+            cmbratelist.DroppedDown = True
+        End If
+    End Sub
+
+    Private Sub cmbSupplier_Enter(sender As Object, e As EventArgs) Handles cmbSupplier.Enter
+        If Not cmbSupplier.DroppedDown Then
+            cmbSupplier.DroppedDown = True
+        End If
+    End Sub
+
+    Private Sub frm_RateList_Mapping_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
+        Try
+            If e.KeyCode = Keys.Escape Then
+                Me.Close()
+            End If
+        Catch ex As Exception
+
+        End Try
     End Sub
 End Class

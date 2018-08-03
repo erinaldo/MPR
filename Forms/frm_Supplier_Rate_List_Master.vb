@@ -686,7 +686,6 @@ Public Class frm_Supplier_Rate_List_Master
 
     Public Sub get_row(ByVal item_id As String)
 
-        'Dim result() As String = Split(item_id, ",")
         If item_id <> -1 Then
             Dim stringSeparators() As String = {","}
             Dim result() As String
@@ -712,7 +711,6 @@ Public Class frm_Supplier_Rate_List_Master
                 Next iRow
                 Dim datatbl As New DataTable
                 datatbl = ds.Tables(0)
-
 
 
                 If IsInsert = True Then

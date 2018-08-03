@@ -986,8 +986,8 @@ restart:
                     '    drItem("ACess") = 0
                     'Else
                     drItem("Vat_Per") = ds.Tables(0).Rows(0)("VAT_PERCENTAGE")
-                    drItem("Cess_Per") = ds.Tables(0).Rows(0)("CessPercentage_num")
-                    drItem("ACess") = ds.Tables(0).Rows(0)("ACess")
+                        drItem("Cess_Per") = ds.Tables(0).Rows(0)("CessPercentage_num")
+                        drItem("ACess") = ds.Tables(0).Rows(0)("ACess")
                     'End If
 
                     drItem("Amount") = 0.0
@@ -1005,9 +1005,9 @@ restart:
                     drItemCopy("DISC1") = 0.0
                     drItemCopy("GPAID") = "N"
                     'If chk_Composition.Checked = True Then
-                    '    drItem("Vat_Per") = 0
-                    '    drItem("Cess_Per") = 0
-                    '    drItem("ACess") = 0
+                    '    drItemCopy("Vat_Per") = 0
+                    '    drItemCopy("Cess_Per") = 0
+                    '    drItemCopy("ACess") = 0
                     'Else
                     drItemCopy("Vat_Per") = ds.Tables(0).Rows(0)("VAT_PERCENTAGE")
                     drItemCopy("Cess_Per") = ds.Tables(0).Rows(0)("CessPercentage_num")
@@ -1870,7 +1870,11 @@ restart:
     End Sub
 
     Private Sub txtotherchrgs_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtotherchrgs.TextChanged
-        Calculate_Amount()
+        If String.IsNullOrEmpty(txtotherchrgs.Text) Then
+            txtotherchrgs.Text = "0.00"
+        Else
+            Calculate_Amount()
+        End If
     End Sub
 
     Private Sub FLXGRD_MaterialItem_AfterDeleteRow(ByVal sender As System.Object, ByVal e As C1.Win.C1FlexGrid.RowColEventArgs) Handles FLXGRD_MaterialItem.AfterDeleteRow
@@ -1946,72 +1950,74 @@ restart:
         PritBarcodeMrn.ShowDialog()
     End Sub
 
-    Private Sub txtCashDiscount_KeyDown(sender As Object, e As KeyEventArgs) Handles txtCashDiscount.KeyDown
-        Calculate_Amount()
-    End Sub
+    'Private Sub txtCashDiscount_KeyDown(sender As Object, e As KeyEventArgs) Handles txtCashDiscount.KeyDown
+    '    Calculate_Amount()
+    'End Sub
 
     Private Sub chk_Composition_CheckedChanged(sender As Object, e As EventArgs) Handles chk_Composition.CheckedChanged
+
         If chk_Composition.Checked = True Then
 
-            Dim i As Integer
-            For i = 1 To FLXGRD_MaterialItem.Rows.Count - 1
+                Dim i As Integer
+                For i = 1 To FLXGRD_MaterialItem.Rows.Count - 1
 
-                AddVatPer(FLXGRD_MaterialItem.Item(i, "vat_per"), (i - 1))
-                AddCessPer(FLXGRD_MaterialItem.Item(i, "Cess_Per"), (i - 1))
-                AddAcess(FLXGRD_MaterialItem.Item(i, "ACess"), (i - 1))
-                AddQty(FLXGRD_MaterialItem.Item(i, "BATCH_QTY"), (i - 1))
-                AddAmount(FLXGRD_MaterialItem.Item(i, "Amount"), (i - 1))
+                    AddVatPer(FLXGRD_MaterialItem.Item(i, "vat_per"), (i - 1))
+                    AddCessPer(FLXGRD_MaterialItem.Item(i, "Cess_Per"), (i - 1))
+                    AddAcess(FLXGRD_MaterialItem.Item(i, "ACess"), (i - 1))
+                    AddQty(FLXGRD_MaterialItem.Item(i, "BATCH_QTY"), (i - 1))
+                    AddAmount(FLXGRD_MaterialItem.Item(i, "Amount"), (i - 1))
 
-                FLXGRD_MaterialItem.Item(i, "vat_per") = 0
-                FLXGRD_MaterialItem.Rows(i).Item("Cess_Per") = 0
-                FLXGRD_MaterialItem.Rows(i).Item("ACess") = 0
-            Next
+                    FLXGRD_MaterialItem.Item(i, "vat_per") = 0
+                    FLXGRD_MaterialItem.Rows(i).Item("Cess_Per") = 0
+                    FLXGRD_MaterialItem.Rows(i).Item("ACess") = 0
+                Next
 
-            'Dim j As Integer
-            'For j = 1 To FLXGRD_MatItem_NonStockable.Rows.Count - 1
-            '    FLXGRD_MatItem_NonStockable.Item(j, "vat_per") = 0
-            '    FLXGRD_MatItem_NonStockable.Rows(j).Item("Cess_Per") = 0
-            '    FLXGRD_MatItem_NonStockable.Rows(j).Item("ACess") = 0
-            'Next
-        Else
+                'Dim j As Integer
+                'For j = 1 To FLXGRD_MatItem_NonStockable.Rows.Count - 1
+                '    FLXGRD_MatItem_NonStockable.Item(j, "vat_per") = 0
+                '    FLXGRD_MatItem_NonStockable.Rows(j).Item("Cess_Per") = 0
+                '    FLXGRD_MatItem_NonStockable.Rows(j).Item("ACess") = 0
+                'Next
+            Else
 
-            Dim i As Integer
-            For i = 1 To FLXGRD_MaterialItem.Rows.Count - 1
-                dtable_Item_List_Copy.Rows(i - 1)("Item_Id") = FLXGRD_MaterialItem.Item(i, "Item_Id")
-                dtable_Item_List_Copy.Rows(i - 1)("Item_Code") = FLXGRD_MaterialItem.Item(i, "Item_Code")
-                dtable_Item_List_Copy.Rows(i - 1)("Item_Name") = FLXGRD_MaterialItem.Item(i, "Item_Name")
-                dtable_Item_List_Copy.Rows(i - 1)("um_Name") = FLXGRD_MaterialItem.Item(i, "um_Name")
-                dtable_Item_List_Copy.Rows(i - 1)("item_rate") = FLXGRD_MaterialItem.Item(i, "item_rate")
-                dtable_Item_List_Copy.Rows(i - 1)("DType") = FLXGRD_MaterialItem.Item(i, "DType")
-                dtable_Item_List_Copy.Rows(i - 1)("DISC") = FLXGRD_MaterialItem.Item(i, "DISC")
-                dtable_Item_List_Copy.Rows(i - 1)("DISC1") = FLXGRD_MaterialItem.Item(i, "DISC1")
-                dtable_Item_List_Copy.Rows(i - 1)("GPAID") = FLXGRD_MaterialItem.Item(i, "GPAID")
+                Dim i As Integer
+                For i = 1 To FLXGRD_MaterialItem.Rows.Count - 1
+                    dtable_Item_List_Copy.Rows(i - 1)("Item_Id") = FLXGRD_MaterialItem.Item(i, "Item_Id")
+                    dtable_Item_List_Copy.Rows(i - 1)("Item_Code") = FLXGRD_MaterialItem.Item(i, "Item_Code")
+                    dtable_Item_List_Copy.Rows(i - 1)("Item_Name") = FLXGRD_MaterialItem.Item(i, "Item_Name")
+                    dtable_Item_List_Copy.Rows(i - 1)("um_Name") = FLXGRD_MaterialItem.Item(i, "um_Name")
+                    dtable_Item_List_Copy.Rows(i - 1)("item_rate") = FLXGRD_MaterialItem.Item(i, "item_rate")
+                    dtable_Item_List_Copy.Rows(i - 1)("DType") = FLXGRD_MaterialItem.Item(i, "DType")
+                    dtable_Item_List_Copy.Rows(i - 1)("DISC") = FLXGRD_MaterialItem.Item(i, "DISC")
+                    dtable_Item_List_Copy.Rows(i - 1)("DISC1") = FLXGRD_MaterialItem.Item(i, "DISC1")
+                    dtable_Item_List_Copy.Rows(i - 1)("GPAID") = FLXGRD_MaterialItem.Item(i, "GPAID")
 
-                If (flag = "save") Then
-                    dtable_Item_List_Copy.Rows(i - 1)("BATCH_QTY") = qty(i - 1)
-                    dtable_Item_List_Copy.Rows(i - 1)("Vat_Per") = vatper(i - 1)
-                    dtable_Item_List_Copy.Rows(i - 1)("Cess_Per") = cessper(i - 1)
-                    dtable_Item_List_Copy.Rows(i - 1)("ACess") = acess(i - 1)
-                    dtable_Item_List_Copy.Rows(i - 1)("Amount") = totalamt(i - 1)
-                Else
-                    dtable_Item_List_Copy.Rows(i - 1)("BATCH_QTY") = dtable_Item_List_Copy.Rows(i - 1)("BATCH_QTY")
-                    dtable_Item_List_Copy.Rows(i - 1)("Vat_Per") = dtable_Item_List_Copy.Rows(i - 1)("Vat_Per")
-                    dtable_Item_List_Copy.Rows(i - 1)("Cess_Per") = dtable_Item_List_Copy.Rows(i - 1)("Cess_Per")
-                    dtable_Item_List_Copy.Rows(i - 1)("ACess") = dtable_Item_List_Copy.Rows(i - 1)("ACess")
-                    dtable_Item_List_Copy.Rows(i - 1)("Amount") = dtable_Item_List_Copy.Rows(i - 1)("Amount")
-                End If
+                    If (flag = "save") Then
+                        dtable_Item_List_Copy.Rows(i - 1)("BATCH_QTY") = qty(i - 1)
+                        dtable_Item_List_Copy.Rows(i - 1)("Vat_Per") = vatper(i - 1)
+                        dtable_Item_List_Copy.Rows(i - 1)("Cess_Per") = cessper(i - 1)
+                        dtable_Item_List_Copy.Rows(i - 1)("ACess") = acess(i - 1)
+                        dtable_Item_List_Copy.Rows(i - 1)("Amount") = totalamt(i - 1)
+                    Else
+                        dtable_Item_List_Copy.Rows(i - 1)("BATCH_QTY") = dtable_Item_List_Copy.Rows(i - 1)("BATCH_QTY")
+                        dtable_Item_List_Copy.Rows(i - 1)("Vat_Per") = dtable_Item_List_Copy.Rows(i - 1)("Vat_Per")
+                        dtable_Item_List_Copy.Rows(i - 1)("Cess_Per") = dtable_Item_List_Copy.Rows(i - 1)("Cess_Per")
+                        dtable_Item_List_Copy.Rows(i - 1)("ACess") = dtable_Item_List_Copy.Rows(i - 1)("ACess")
+                        dtable_Item_List_Copy.Rows(i - 1)("Amount") = dtable_Item_List_Copy.Rows(i - 1)("Amount")
+                    End If
 
-            Next
+                Next
 
-            dtable_Item_List_Copy.AcceptChanges()
-            generate_tree()
-            FLXGRD_MaterialItem.DataSource = dtable_Item_List_Copy
-            FLXGRD_MatItem_NonStockable.DataSource = dtable_Item_List_Stockable_Copy
-            FLXGRD_MaterialItem.Cols(0).Width = 10
-            FLXGRD_MaterialItem.Cols(0).AllowEditing = False
-            FLXGRD_MatItem_NonStockable.Cols(0).Width = 10
-            SetGridSettingValues()
-        End If
+                dtable_Item_List_Copy.AcceptChanges()
+                generate_tree()
+                FLXGRD_MaterialItem.DataSource = dtable_Item_List_Copy
+                FLXGRD_MatItem_NonStockable.DataSource = dtable_Item_List_Stockable_Copy
+                FLXGRD_MaterialItem.Cols(0).Width = 10
+                FLXGRD_MaterialItem.Cols(0).AllowEditing = False
+                FLXGRD_MatItem_NonStockable.Cols(0).Width = 10
+                SetGridSettingValues()
+            End If
+
         Calculate_Amount()
     End Sub
 
@@ -2045,12 +2051,26 @@ restart:
     End Sub
 
     Private Sub txtAmount_Leave(sender As Object, e As EventArgs) Handles txtAmount.Leave
-        Calculate_Amount()
+        If String.IsNullOrEmpty(txtAmount.Text) Then
+            txtAmount.Text = "0.00"
+        Else
+            Calculate_Amount()
+        End If
     End Sub
 
     Private Sub cmbVendor_Enter(sender As Object, e As EventArgs) Handles cmbVendor.Enter
         If Not cmbVendor.DroppedDown Then
             cmbVendor.DroppedDown = True
         End If
+    End Sub
+
+    Private Sub txtCashDiscount_Leave(sender As Object, e As EventArgs) Handles txtCashDiscount.Leave
+
+        If String.IsNullOrEmpty(txtCashDiscount.Text) Then
+            txtCashDiscount.Text = "0.00"
+        Else
+            Calculate_Amount()
+        End If
+
     End Sub
 End Class

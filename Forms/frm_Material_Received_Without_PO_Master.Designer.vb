@@ -422,7 +422,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.txtAmount.Location = New System.Drawing.Point(806, 403)
         Me.txtAmount.Name = "txtAmount"
         Me.txtAmount.Size = New System.Drawing.Size(85, 18)
-        Me.txtAmount.TabIndex = 6
+        Me.txtAmount.TabIndex = 5
         Me.txtAmount.Tag = ""
         Me.txtAmount.Text = "0.00"
         Me.txtAmount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
@@ -435,7 +435,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.chk_ApplyTax.Location = New System.Drawing.Point(728, 403)
         Me.chk_ApplyTax.Name = "chk_ApplyTax"
         Me.chk_ApplyTax.Size = New System.Drawing.Size(76, 19)
-        Me.chk_ApplyTax.TabIndex = 270
+        Me.chk_ApplyTax.TabIndex = 6
         Me.chk_ApplyTax.Text = "Apply Tax"
         Me.chk_ApplyTax.UseVisualStyleBackColor = True
         '

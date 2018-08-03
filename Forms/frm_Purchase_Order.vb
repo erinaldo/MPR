@@ -924,7 +924,7 @@ restart:
                                         CAST(im.sale_rate AS NUMERIC(18, 2)) AS RATE ,
                                         ISNULL(litems.LabelItemName_vch, '') AS BRAND ,
                                         ic.ITEM_CAT_NAME AS CATEGORY
-                                        FROM      Item_master im
+                                        FROM Item_master im
                                         LEFT OUTER JOIN item_detail id ON im.item_id = id.item_id
                                         LEFT OUTER JOIN dbo.ITEM_CATEGORY ic ON im.ITEM_CATEGORY_ID = ic.ITEM_CAT_ID
                                         LEFT OUTER JOIN dbo.LabelItem_Mapping lim ON lim.Fk_ItemId_Num = im.ITEM_ID
@@ -942,8 +942,8 @@ restart:
             frm_Show_Search_RateList.column_name3 = "SALE_RATE"
             frm_Show_Search_RateList.column_name4 = "LABELITEMNAME_VCH"
             frm_Show_Search_RateList.column_name5 = "ITEM_CAT_NAME"
-            frm_Show_Search_RateList.cols_no_for_width = "1,2,3,4,5,6"
-            frm_Show_Search_RateList.cols_width = "100,350,60,60,100,100"
+            frm_Show_Search_RateList.cols_no_for_width = "1,2,3,4,5,6,7"
+            frm_Show_Search_RateList.cols_width = "10,100,320,70,70,90,105"
             frm_Show_Search_RateList.extra_condition = ""
             frm_Show_Search_RateList.ret_column = "ITEM_ID"
             frm_Show_Search_RateList.item_rate_column = ""
