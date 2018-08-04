@@ -205,6 +205,10 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.Label46 = New System.Windows.Forms.Label()
         Me.Label47 = New System.Windows.Forms.Label()
         Me.Label48 = New System.Windows.Forms.Label()
+        Me.cmbITCEligibility = New System.Windows.Forms.ComboBox()
+        Me.lblITCEligibility = New System.Windows.Forms.Label()
+        Me.cmbCapitalAccount = New System.Windows.Forms.ComboBox()
+        Me.lblSelectCapitalAccount = New System.Windows.Forms.Label()
         Me.TbPO.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.GroupBox5.SuspendLayout()
@@ -691,9 +695,9 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.GroupBox2.Controls.Add(Me.FLXGRD_MaterialItem)
         Me.GroupBox2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GroupBox2.ForeColor = System.Drawing.Color.White
-        Me.GroupBox2.Location = New System.Drawing.Point(6, 129)
+        Me.GroupBox2.Location = New System.Drawing.Point(6, 161)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(890, 247)
+        Me.GroupBox2.Size = New System.Drawing.Size(890, 215)
         Me.GroupBox2.TabIndex = 1
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Stockable Items"
@@ -712,7 +716,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.FLXGRD_MaterialItem.Rows.DefaultSize = 17
         Me.FLXGRD_MaterialItem.SelectionMode = C1.Win.C1FlexGrid.SelectionModeEnum.Cell
         Me.FLXGRD_MaterialItem.ShowCursor = True
-        Me.FLXGRD_MaterialItem.Size = New System.Drawing.Size(884, 228)
+        Me.FLXGRD_MaterialItem.Size = New System.Drawing.Size(884, 196)
         Me.FLXGRD_MaterialItem.Styles = New C1.Win.C1FlexGrid.CellStyleCollection(resources.GetString("FLXGRD_MaterialItem.Styles"))
         Me.FLXGRD_MaterialItem.TabIndex = 0
         '
@@ -737,6 +741,10 @@ Partial Class frm_Material_Received_Without_PO_Master
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.cmbCapitalAccount)
+        Me.GroupBox1.Controls.Add(Me.lblSelectCapitalAccount)
+        Me.GroupBox1.Controls.Add(Me.cmbITCEligibility)
+        Me.GroupBox1.Controls.Add(Me.lblITCEligibility)
         Me.GroupBox1.Controls.Add(Me.chk_Composition)
         Me.GroupBox1.Controls.Add(Me.txtBarcodeSearch)
         Me.GroupBox1.Controls.Add(Me.Label52)
@@ -758,7 +766,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.GroupBox1.Controls.Add(Me.Label5)
         Me.GroupBox1.Location = New System.Drawing.Point(6, -2)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(890, 130)
+        Me.GroupBox1.Size = New System.Drawing.Size(890, 157)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         '
@@ -767,7 +775,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.chk_Composition.AutoSize = True
         Me.chk_Composition.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.chk_Composition.ForeColor = System.Drawing.Color.White
-        Me.chk_Composition.Location = New System.Drawing.Point(679, 102)
+        Me.chk_Composition.Location = New System.Drawing.Point(722, 104)
         Me.chk_Composition.Name = "chk_Composition"
         Me.chk_Composition.Size = New System.Drawing.Size(127, 19)
         Me.chk_Composition.TabIndex = 6
@@ -839,7 +847,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.txt_Invoice_No.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txt_Invoice_No.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txt_Invoice_No.ForeColor = System.Drawing.Color.White
-        Me.txt_Invoice_No.Location = New System.Drawing.Point(112, 74)
+        Me.txt_Invoice_No.Location = New System.Drawing.Point(112, 73)
         Me.txt_Invoice_No.Multiline = True
         Me.txt_Invoice_No.Name = "txt_Invoice_No"
         Me.txt_Invoice_No.Size = New System.Drawing.Size(177, 23)
@@ -859,7 +867,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.Label6.AutoSize = True
         Me.Label6.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label6.ForeColor = System.Drawing.Color.White
-        Me.Label6.Location = New System.Drawing.Point(13, 76)
+        Me.Label6.Location = New System.Drawing.Point(13, 75)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(70, 15)
         Me.Label6.TabIndex = 27
@@ -2264,6 +2272,52 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.Label48.TabIndex = 0
         Me.Label48.Text = "Delivery Rate :"
         '
+        'cmbITCEligibility
+        '
+        Me.cmbITCEligibility.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.cmbITCEligibility.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbITCEligibility.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmbITCEligibility.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmbITCEligibility.ForeColor = System.Drawing.Color.White
+        Me.cmbITCEligibility.Location = New System.Drawing.Point(112, 128)
+        Me.cmbITCEligibility.Name = "cmbITCEligibility"
+        Me.cmbITCEligibility.Size = New System.Drawing.Size(177, 23)
+        Me.cmbITCEligibility.TabIndex = 36
+        '
+        'lblITCEligibility
+        '
+        Me.lblITCEligibility.AutoSize = True
+        Me.lblITCEligibility.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblITCEligibility.ForeColor = System.Drawing.Color.White
+        Me.lblITCEligibility.Location = New System.Drawing.Point(13, 133)
+        Me.lblITCEligibility.Name = "lblITCEligibility"
+        Me.lblITCEligibility.Size = New System.Drawing.Size(83, 15)
+        Me.lblITCEligibility.TabIndex = 37
+        Me.lblITCEligibility.Text = "ITC Eligibility :"
+        '
+        'cmbCapitalAccount
+        '
+        Me.cmbCapitalAccount.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.cmbCapitalAccount.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbCapitalAccount.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmbCapitalAccount.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmbCapitalAccount.ForeColor = System.Drawing.Color.White
+        Me.cmbCapitalAccount.Location = New System.Drawing.Point(412, 128)
+        Me.cmbCapitalAccount.Name = "cmbCapitalAccount"
+        Me.cmbCapitalAccount.Size = New System.Drawing.Size(177, 23)
+        Me.cmbCapitalAccount.TabIndex = 38
+        '
+        'lblSelectCapitalAccount
+        '
+        Me.lblSelectCapitalAccount.AutoSize = True
+        Me.lblSelectCapitalAccount.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblSelectCapitalAccount.ForeColor = System.Drawing.Color.White
+        Me.lblSelectCapitalAccount.Location = New System.Drawing.Point(313, 133)
+        Me.lblSelectCapitalAccount.Name = "lblSelectCapitalAccount"
+        Me.lblSelectCapitalAccount.Size = New System.Drawing.Size(92, 15)
+        Me.lblSelectCapitalAccount.TabIndex = 39
+        Me.lblSelectCapitalAccount.Text = "Select Account :"
+        '
         'frm_Material_Received_Without_PO_Master
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -2484,4 +2538,8 @@ Partial Class frm_Material_Received_Without_PO_Master
     Friend WithEvents Label54 As Label
     Friend WithEvents txtAmount As TextBox
     Friend WithEvents lblFreightTaxTotal As Label
+    Friend WithEvents cmbCapitalAccount As ComboBox
+    Friend WithEvents lblSelectCapitalAccount As Label
+    Friend WithEvents cmbITCEligibility As ComboBox
+    Friend WithEvents lblITCEligibility As Label
 End Class

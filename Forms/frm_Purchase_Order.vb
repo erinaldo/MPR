@@ -995,56 +995,74 @@ restart:
                         End If
                     Next
 
+                    If chk_Composition.Checked = True Then
+
+                        If frm_Indent_Items.dTable_POItems.Rows.Count = 0 Then
+                            AddCessPerId(ds.Tables(0).Rows(0)("Cess_Id"), 0)
+                            AddCessPer(ds.Tables(0).Rows(0)("Cess_Per"), 0)
+                            AddCessPerName(ds.Tables(0).Rows(0)("Cess_Name"), 0)
+                        Else
+                            AddCessPerId(ds.Tables(0).Rows(0)("Cess_Id"), cessperid.Length)
+                            AddCessPer(ds.Tables(0).Rows(0)("Cess_Per"), cessper.Length)
+                            AddCessPerName(ds.Tables(0).Rows(0)("Cess_Name"), cesspername.Length)
+                        End If
+
+                        dr("Cess_Per") = 0
+                        dr("Cess_Id") = 0
+                        dr("Cess_Name") = "0% CESS"
+                    Else
+                        dr("Cess_Per") = ds.Tables(0).Rows(0)("CessPercentage_num")
+                        dr("Cess_Id") = ds.Tables(0).Rows(0)("Cess_Id")
+                        dr("Cess_Name") = ds.Tables(0).Rows(0)("Cess_Name")
+                    End If
+
                     dr("Item_id") = ds.Tables(0).Rows(0)("ITEM_ID").ToString
                     dr("Item_Code") = ds.Tables(0).Rows(0)("ITEM_CODE").ToString
                     dr("Item_Name") = ds.Tables(0).Rows(0)("ITEM_NAME").ToString
                     dr("UM_Name") = ds.Tables(0).Rows(0)("UM_Name").ToString
-                    dr("Cess_Id") = ds.Tables(0).Rows(0)("Cess_Id")
-                    dr("Cess_Name") = ds.Tables(0).Rows(0)("Cess_Name")
-                    dr("Cess_Per") = ds.Tables(0).Rows(0)("Cess_Per")
+                    'dr("Cess_Id") = ds.Tables(0).Rows(0)("Cess_Id")
+                    'dr("Cess_Name") = ds.Tables(0).Rows(0)("Cess_Name")
+                    'dr("Cess_Per") = ds.Tables(0).Rows(0)("Cess_Per")
                     'dr("UM_Id") = ds.Tables(0).Rows(0)("UM_ID").ToString
                     ds = Obj.Fill_DataSet("DECLARE @rate NUMERIC (18,2);SELECT @rate=SUPPLIER_RATE_LIST_DETAIL.ITEM_RATE FROM SUPPLIER_RATE_LIST INNER JOIN SUPPLIER_RATE_LIST_DETAIL ON SUPPLIER_RATE_LIST.SRL_ID = SUPPLIER_RATE_LIST_DETAIL.SRL_ID WHERE (SUPPLIER_RATE_LIST_DETAIL.ITEM_ID = " & Convert.ToInt32(element) & " ) AND (SUPPLIER_RATE_LIST.SUPP_ID = " & Convert.ToInt32(cmbSupplier.SelectedValue) & ") AND (SUPPLIER_RATE_LIST.ACTIVE = 1);SELECT ISNULL(@rate,0);SELECT     ITEM_DETAIL.PURCHASE_VAT_ID as PURCHASE_VAT_ID, VAT_MASTER.VAT_PERCENTAGE, VAT_MASTER.VAT_NAME FROM ITEM_DETAIL INNER JOIN VAT_MASTER ON ITEM_DETAIL.PURCHASE_VAT_ID = VAT_MASTER.VAT_ID WHERE (ITEM_DETAIL.ITEM_ID = " & Convert.ToInt32(element) & " )")
                     dr("Item_Rate") = ds.Tables(0).Rows(0)(0)
-                    dr("Vat_Id") = ds.Tables(1).Rows(0)("PURCHASE_VAT_ID")
-                    dr("Vat_Name") = ds.Tables(1).Rows(0)("VAT_NAME")
+                    'dr("Vat_Id") = ds.Tables(1).Rows(0)("PURCHASE_VAT_ID")
+                    'dr("Vat_Name") = ds.Tables(1).Rows(0)("VAT_NAME")
                     dr("Req_Qty") = 0.0
                     dr("Po_Qty") = 0.0
                     dr("DType") = "P"
                     dr("Disc") = 0.0
+
+                    If chk_Composition.Checked = True Then
+
+                        If frm_Indent_Items.dTable_POItems.Rows.Count = 0 Then
+                            AddVatPerId(ds.Tables(1).Rows(0)("PURCHASE_VAT_ID"), 0)
+                            AddVatPer(ds.Tables(1).Rows(0)("VAT_PERCENTAGE"), 0)
+                            AddVatPerName(ds.Tables(1).Rows(0)("VAT_NAME"), 0)
+                        Else
+                            AddVatPerId(ds.Tables(1).Rows(0)("PURCHASE_VAT_ID"), vatperid.Length)
+                            AddVatPer(ds.Tables(1).Rows(0)("VAT_PERCENTAGE"), vatper.Length)
+                            AddVatPerName(ds.Tables(1).Rows(0)("VAT_NAME"), vatpername.Length)
+                        End If
+
+                        dr("Vat_Per") = 0
+                        dr("Vat_Id") = 0
+                        dr("Vat_Name") = "0% GST"
+                    Else
+                        dr("Vat_Per") = ds.Tables(0).Rows(0)("VAT_PERCENTAGE")
+                        dr("Vat_Id") = ds.Tables(1).Rows(0)("PURCHASE_VAT_ID")
+                        dr("Vat_Name") = ds.Tables(1).Rows(0)("VAT_NAME")
+
+                    End If
+
                     'dr("Exice_Per") = 0
-                    dr("Vat_per") = ds.Tables(1).Rows(0)("VAT_PERCENTAGE")
+                    'dr("Vat_per") = ds.Tables(1).Rows(0)("VAT_PERCENTAGE")
                     dr("Item_value") = (dr("PO_Qty") * dr("Item_Rate")) + ((dr("PO_Qty") * dr("Item_Rate") * dr("Vat_Per")) / 100)
                     dr("Indent_Id") = -1
 
                     frm_Indent_Items.dTable_POItems.Rows.Add(dr)
 
-
-                    'drItem("Item_id") = ds.Tables(0).Rows(0)("ITEM_ID").ToString
-                    'drItem("Item_Code") = ds.Tables(0).Rows(0)("ITEM_CODE").ToString
-                    'drItem("Item_Name") = ds.Tables(0).Rows(0)("ITEM_NAME").ToString
-                    'drItem("UM_Name") = ds.Tables(0).Rows(0)("UM_Name").ToString
-                    'drItem("Cess_Id") = ds.Tables(0).Rows(0)("Cess_Id")
-                    'drItem("Cess_Name") = ds.Tables(0).Rows(0)("Cess_Name")
-                    'drItem("Cess_Per") = ds.Tables(0).Rows(0)("Cess_Per")
-                    ''dr("UM_Id") = ds.Tables(0).Rows(0)("UM_ID").ToString
-                    'ds = Obj.Fill_DataSet("DECLARE @rate NUMERIC (18,2);SELECT @rate=SUPPLIER_RATE_LIST_DETAIL.ITEM_RATE FROM SUPPLIER_RATE_LIST INNER JOIN SUPPLIER_RATE_LIST_DETAIL ON SUPPLIER_RATE_LIST.SRL_ID = SUPPLIER_RATE_LIST_DETAIL.SRL_ID WHERE (SUPPLIER_RATE_LIST_DETAIL.ITEM_ID = " & Convert.ToInt32(element) & " ) AND (SUPPLIER_RATE_LIST.SUPP_ID = " & Convert.ToInt32(cmbSupplier.SelectedValue) & ") AND (SUPPLIER_RATE_LIST.ACTIVE = 1);SELECT ISNULL(@rate,0);SELECT     ITEM_DETAIL.PURCHASE_VAT_ID as PURCHASE_VAT_ID, VAT_MASTER.VAT_PERCENTAGE, VAT_MASTER.VAT_NAME FROM ITEM_DETAIL INNER JOIN VAT_MASTER ON ITEM_DETAIL.PURCHASE_VAT_ID = VAT_MASTER.VAT_ID WHERE (ITEM_DETAIL.ITEM_ID = " & Convert.ToInt32(element) & " )")
-                    'drItem("Item_Rate") = ds.Tables(0).Rows(0)(0)
-                    'drItem("Vat_Id") = ds.Tables(1).Rows(0)("PURCHASE_VAT_ID")
-                    'drItem("Vat_Name") = ds.Tables(1).Rows(0)("VAT_NAME")
-                    'drItem("Req_Qty") = 0.0
-                    'drItem("Po_Qty") = 0.0
-                    'drItem("DType") = "P"
-                    'drItem("Disc") = 0.0
-                    ''dr("Exice_Per") = 0
-                    'drItem("Vat_per") = ds.Tables(1).Rows(0)("VAT_PERCENTAGE")
-                    'drItem("Item_value") = (drItem("PO_Qty") * drItem("Item_Rate")) + ((drItem("PO_Qty") * drItem("Item_Rate") * drItem("Vat_Per")) / 100)
-                    'drItem("Indent_Id") = -1
-
-                    'frm_Indent_Items.dTable_POItems_Copy.Rows.Add(drItem)
-
-
                 Next
-
 
                 dtable_Item_List = frm_Indent_Items.dTable_POItems
 
@@ -1293,9 +1311,9 @@ restart:
                 AddCessPerId(flxItemList.Item(i, "Cess_Id"), (i - 1))
                 AddCessPer(flxItemList.Item(i, "Cess_Per"), (i - 1))
                 AddCessPerName(flxItemList.Item(i, "Cess_Name"), (i - 1))
-                AddQty(flxItemList.Item(i, "PO_Qty"), (i - 1))
-                AddAmount(flxItemList.Item(i, "Item_Value"), (i - 1))
-                AddItemRate(flxItemList.Item(i, "Item_Rate"), (i - 1))
+                'AddQty(flxItemList.Item(i, "PO_Qty"), (i - 1))
+                'AddAmount(flxItemList.Item(i, "Item_Value"), (i - 1))
+                'AddItemRate(flxItemList.Item(i, "Item_Rate"), (i - 1))
 
                 flxItemList.Item(i, "vat_per") = 0
                 flxItemList.Rows(i).Item("Cess_Per") = 0
@@ -1305,7 +1323,6 @@ restart:
                 flxItemList.Item(i, "Cess_Name") = "0% CESS"
                 'flxItemList.Item(i, "Item_Value") = 0.00
                 'flxItemList.Item(i, "Item_Rate") = 0.00
-
 
             Next
         Else
@@ -1326,24 +1343,30 @@ restart:
                 dtable_Item_List.Rows(i - 1)("UM_ID") = flxItemList.Item(i, "UM_ID")
                 dtable_Item_List.Rows(i - 1)("Item_Value") = flxItemList.Item(i, "Item_Value")
                 dtable_Item_List.Rows(i - 1)("Item_Rate") = flxItemList.Item(i, "Item_Rate")
+                dtable_Item_List.Rows(i - 1)("PO_Qty") = flxItemList.Item(i, "PO_Qty")
 
-                If (flag = "save") Then
-                    dtable_Item_List.Rows(i - 1)("PO_Qty") = poqty(i - 1)
-                    dtable_Item_List.Rows(i - 1)("Vat_Id") = vatperid(i - 1)
-                    dtable_Item_List.Rows(i - 1)("Vat_Name") = vatpername(i - 1)
-                    dtable_Item_List.Rows(i - 1)("Vat_Per") = vatper(i - 1)
-                    dtable_Item_List.Rows(i - 1)("Cess_Id") = cessperid(i - 1)
-                    dtable_Item_List.Rows(i - 1)("Cess_Name") = cesspername(i - 1)
-                    dtable_Item_List.Rows(i - 1)("Cess_Per") = cessper(i - 1)
-                Else
-                    dtable_Item_List.Rows(i - 1)("PO_Qty") = dtable_Item_List.Rows(i - 1)("PO_Qty")
-                    dtable_Item_List.Rows(i - 1)("Vat_Id") = dtable_Item_List.Rows(i - 1)("Vat_Id")
-                    dtable_Item_List.Rows(i - 1)("Vat_Name") = dtable_Item_List.Rows(i - 1)("Vat_Name")
-                    dtable_Item_List.Rows(i - 1)("Vat_Per") = dtable_Item_List.Rows(i - 1)("Vat_Per")
-                    dtable_Item_List.Rows(i - 1)("Cess_Id") = dtable_Item_List.Rows(i - 1)("Cess_Id")
-                    dtable_Item_List.Rows(i - 1)("Cess_Name") = dtable_Item_List.Rows(i - 1)("Cess_Name")
-                    dtable_Item_List.Rows(i - 1)("Cess_Per") = dtable_Item_List.Rows(i - 1)("Cess_Per")
-                End If
+                dtable_Item_List.Rows(i - 1)("Vat_Id") = vatperid(i - 1)
+                dtable_Item_List.Rows(i - 1)("Vat_Name") = vatpername(i - 1)
+                dtable_Item_List.Rows(i - 1)("Vat_Per") = vatper(i - 1)
+                dtable_Item_List.Rows(i - 1)("Cess_Id") = cessperid(i - 1)
+                dtable_Item_List.Rows(i - 1)("Cess_Name") = cesspername(i - 1)
+                dtable_Item_List.Rows(i - 1)("Cess_Per") = cessper(i - 1)
+
+                'If (flag = "save") Then
+                '    dtable_Item_List.Rows(i - 1)("Vat_Id") = vatperid(i - 1)
+                '    dtable_Item_List.Rows(i - 1)("Vat_Name") = vatpername(i - 1)
+                '    dtable_Item_List.Rows(i - 1)("Vat_Per") = vatper(i - 1)
+                '    dtable_Item_List.Rows(i - 1)("Cess_Id") = cessperid(i - 1)
+                '    dtable_Item_List.Rows(i - 1)("Cess_Name") = cesspername(i - 1)
+                '    dtable_Item_List.Rows(i - 1)("Cess_Per") = cessper(i - 1)
+                'Else
+                '    dtable_Item_List.Rows(i - 1)("Vat_Id") = dtable_Item_List.Rows(i - 1)("Vat_Id")
+                '    dtable_Item_List.Rows(i - 1)("Vat_Name") = dtable_Item_List.Rows(i - 1)("Vat_Name")
+                '    dtable_Item_List.Rows(i - 1)("Vat_Per") = dtable_Item_List.Rows(i - 1)("Vat_Per")
+                '    dtable_Item_List.Rows(i - 1)("Cess_Id") = dtable_Item_List.Rows(i - 1)("Cess_Id")
+                '    dtable_Item_List.Rows(i - 1)("Cess_Name") = dtable_Item_List.Rows(i - 1)("Cess_Name")
+                '    dtable_Item_List.Rows(i - 1)("Cess_Per") = dtable_Item_List.Rows(i - 1)("Cess_Per")
+                'End If
             Next
 
             dtable_Item_List.AcceptChanges()
@@ -1414,4 +1437,5 @@ restart:
     Private Sub cmbFilterSupp_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbFilterSupp.SelectedIndexChanged
 
     End Sub
+
 End Class

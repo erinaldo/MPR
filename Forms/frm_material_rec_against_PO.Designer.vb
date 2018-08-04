@@ -96,6 +96,10 @@ Partial Class frm_material_rec_against_PO
         Me.FLXGRD_PO_NON_STOCKABLEITEMS = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
         Me.C1FlexGrid1 = New C1.Win.C1FlexGrid.C1FlexGrid()
+        Me.cmbCapitalAccount = New System.Windows.Forms.ComboBox()
+        Me.lblSelectCapitalAccount = New System.Windows.Forms.Label()
+        Me.cmbITCEligibility = New System.Windows.Forms.ComboBox()
+        Me.lblITCEligibility = New System.Windows.Forms.Label()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
@@ -765,9 +769,9 @@ Partial Class frm_material_rec_against_PO
         Me.GroupBox2.Controls.Add(Me.Label14)
         Me.GroupBox2.Controls.Add(Me.lblexciseamt)
         Me.GroupBox2.ForeColor = System.Drawing.Color.White
-        Me.GroupBox2.Location = New System.Drawing.Point(3, 89)
+        Me.GroupBox2.Location = New System.Drawing.Point(3, 120)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(896, 312)
+        Me.GroupBox2.Size = New System.Drawing.Size(896, 281)
         Me.GroupBox2.TabIndex = 1
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Stockable Items"
@@ -781,7 +785,7 @@ Partial Class frm_material_rec_against_PO
         Me.FLXGRD_PO_Items.Name = "FLXGRD_PO_Items"
         Me.FLXGRD_PO_Items.Rows.Count = 1
         Me.FLXGRD_PO_Items.Rows.DefaultSize = 17
-        Me.FLXGRD_PO_Items.Size = New System.Drawing.Size(890, 293)
+        Me.FLXGRD_PO_Items.Size = New System.Drawing.Size(890, 262)
         Me.FLXGRD_PO_Items.Styles = New C1.Win.C1FlexGrid.CellStyleCollection(resources.GetString("FLXGRD_PO_Items.Styles"))
         Me.FLXGRD_PO_Items.TabIndex = 0
         '
@@ -813,6 +817,10 @@ Partial Class frm_material_rec_against_PO
         'GroupBox1
         '
         Me.GroupBox1.BackColor = System.Drawing.Color.Transparent
+        Me.GroupBox1.Controls.Add(Me.cmbCapitalAccount)
+        Me.GroupBox1.Controls.Add(Me.lblSelectCapitalAccount)
+        Me.GroupBox1.Controls.Add(Me.cmbITCEligibility)
+        Me.GroupBox1.Controls.Add(Me.lblITCEligibility)
         Me.GroupBox1.Controls.Add(Me.lblcustid)
         Me.GroupBox1.Controls.Add(Me.lblSupplier)
         Me.GroupBox1.Controls.Add(Me.lblSupplierAddress)
@@ -828,7 +836,7 @@ Partial Class frm_material_rec_against_PO
         Me.GroupBox1.Controls.Add(Me.chk_VatCal)
         Me.GroupBox1.Location = New System.Drawing.Point(3, -1)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(896, 88)
+        Me.GroupBox1.Size = New System.Drawing.Size(896, 115)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         '
@@ -1027,6 +1035,52 @@ Partial Class frm_material_rec_against_PO
         Me.C1FlexGrid1.Styles = New C1.Win.C1FlexGrid.CellStyleCollection(resources.GetString("C1FlexGrid1.Styles"))
         Me.C1FlexGrid1.TabIndex = 0
         '
+        'cmbCapitalAccount
+        '
+        Me.cmbCapitalAccount.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.cmbCapitalAccount.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbCapitalAccount.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmbCapitalAccount.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmbCapitalAccount.ForeColor = System.Drawing.Color.White
+        Me.cmbCapitalAccount.Location = New System.Drawing.Point(412, 83)
+        Me.cmbCapitalAccount.Name = "cmbCapitalAccount"
+        Me.cmbCapitalAccount.Size = New System.Drawing.Size(177, 23)
+        Me.cmbCapitalAccount.TabIndex = 42
+        '
+        'lblSelectCapitalAccount
+        '
+        Me.lblSelectCapitalAccount.AutoSize = True
+        Me.lblSelectCapitalAccount.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblSelectCapitalAccount.ForeColor = System.Drawing.Color.White
+        Me.lblSelectCapitalAccount.Location = New System.Drawing.Point(313, 88)
+        Me.lblSelectCapitalAccount.Name = "lblSelectCapitalAccount"
+        Me.lblSelectCapitalAccount.Size = New System.Drawing.Size(92, 15)
+        Me.lblSelectCapitalAccount.TabIndex = 43
+        Me.lblSelectCapitalAccount.Text = "Select Account :"
+        '
+        'cmbITCEligibility
+        '
+        Me.cmbITCEligibility.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.cmbITCEligibility.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbITCEligibility.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmbITCEligibility.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmbITCEligibility.ForeColor = System.Drawing.Color.White
+        Me.cmbITCEligibility.Location = New System.Drawing.Point(96, 85)
+        Me.cmbITCEligibility.Name = "cmbITCEligibility"
+        Me.cmbITCEligibility.Size = New System.Drawing.Size(177, 23)
+        Me.cmbITCEligibility.TabIndex = 40
+        '
+        'lblITCEligibility
+        '
+        Me.lblITCEligibility.AutoSize = True
+        Me.lblITCEligibility.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblITCEligibility.ForeColor = System.Drawing.Color.White
+        Me.lblITCEligibility.Location = New System.Drawing.Point(13, 88)
+        Me.lblITCEligibility.Name = "lblITCEligibility"
+        Me.lblITCEligibility.Size = New System.Drawing.Size(83, 15)
+        Me.lblITCEligibility.TabIndex = 41
+        Me.lblITCEligibility.Text = "ITC Eligibility :"
+        '
         'frm_material_rec_against_PO
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1130,4 +1184,8 @@ Partial Class frm_material_rec_against_PO
     Friend WithEvents lblFreightTaxTotal As Label
     Friend WithEvents txtCashDiscount As TextBox
     Friend WithEvents Label54 As Label
+    Friend WithEvents cmbCapitalAccount As ComboBox
+    Friend WithEvents lblSelectCapitalAccount As Label
+    Friend WithEvents cmbITCEligibility As ComboBox
+    Friend WithEvents lblITCEligibility As Label
 End Class

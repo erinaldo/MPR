@@ -44,6 +44,27 @@ Namespace material_rec_against_PO
         Dim _CashDiscount_amt As Double
         Dim _Freight_TaxApplied As String
         Dim _Freight_TaxValue As String
+
+        Dim _FK_ITCEligibility_ID As Double
+        Dim _Reference_ID As Double
+
+        Public Property FK_ITCEligibility_ID() As Double
+            Get
+                FK_ITCEligibility_ID = _FK_ITCEligibility_ID
+            End Get
+            Set(ByVal value As Double)
+                _FK_ITCEligibility_ID = value
+            End Set
+        End Property
+
+        Public Property Reference_ID() As Double
+            Get
+                Reference_ID = _Reference_ID
+            End Get
+            Set(ByVal value As Double)
+                _Reference_ID = value
+            End Set
+        End Property
         Public Property Freight_TaxApplied() As String
             Get
                 Freight_TaxApplied = _Freight_TaxApplied
@@ -418,6 +439,8 @@ Namespace material_rec_against_PO
             cmd.Parameters.AddWithValue("@v_CashDiscount_amt", clsObj.CashDiscount_amt)
             cmd.Parameters.AddWithValue("@V_FreightTaxApplied", clsObj.Freight_TaxApplied)
             cmd.Parameters.AddWithValue("@V_FreightTaxValue", clsObj.Freight_TaxValue)
+            cmd.Parameters.AddWithValue("@V_FK_ITCEligibility_ID", clsObj.FK_ITCEligibility_ID)
+            cmd.Parameters.AddWithValue("@V_Reference_ID", clsObj.Reference_ID)
 
             cmd.ExecuteNonQuery()
             cmd.Parameters.Clear()
