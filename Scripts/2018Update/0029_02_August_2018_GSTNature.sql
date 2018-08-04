@@ -1037,26 +1037,26 @@ Alter PROC [dbo].[Proc_UpdatePaymentStauts]
       @CancellationCharges [numeric](18, 2) ,
       @StatusId NUMERIC ,
       @PM_TYPE NUMERIC(18, 0) ,
-      @TransactionId NUMERIC = NULL                
+      @TransactionId NUMERIC = NULL              
     )
 AS
-    BEGIN       
-        
-        DECLARE @AccountId NUMERIC                    
-        DECLARE @TotalamountReceived NUMERIC(18, 2) = 0                     
-        DECLARE @PaymentTransactionNo VARCHAR(100)                     
-        DECLARE @CreatedBy VARCHAR(50) = NULL                     
-        DECLARE @DivisionId NUMERIC = 0                     
-        DECLARE @BankId NUMERIC = 0                    
-        DECLARE @ChequeDraftNo VARCHAR(50) = NULL                   
-        DECLARE @TransactionDate DATETIME        
-        DECLARE @GSTPerAmt NUMERIC(18, 2) = 0           
-        DECLARE @FK_GST_TYPE_ID NUMERIC(18, 0) = NULL       
-        DECLARE @fk_GST_ID NUMERIC(18, 0) = NULL       
-        DECLARE @Fk_HSN_ID NUMERIC(18, 0) = NULL       
-        DECLARE @Fk_GSTNature_ID NUMERIC(18, 0) = NULL        
-              
-              
+    BEGIN     
+      
+        DECLARE @AccountId NUMERIC                  
+        DECLARE @TotalamountReceived NUMERIC(18, 2) = 0                   
+        DECLARE @PaymentTransactionNo VARCHAR(100)                   
+        DECLARE @CreatedBy VARCHAR(50) = NULL                   
+        DECLARE @DivisionId NUMERIC = 0                   
+        DECLARE @BankId NUMERIC = 0                  
+        DECLARE @ChequeDraftNo VARCHAR(50) = NULL                 
+        DECLARE @TransactionDate DATETIME      
+        DECLARE @GSTPerAmt NUMERIC(18, 2) = 0         
+        DECLARE @FK_GST_TYPE_ID NUMERIC(18, 0) = NULL     
+        DECLARE @fk_GST_ID NUMERIC(18, 0) = NULL     
+        DECLARE @Fk_HSN_ID NUMERIC(18, 0) = NULL     
+        DECLARE @Fk_GSTNature_ID NUMERIC(18, 0) = NULL      
+            
+            
         SELECT  @AccountId = AccountId ,
                 @TotalamountReceived = TotalAmountReceived ,
                 @PaymentTransactionNo = PaymentTransactionNo ,
@@ -1071,16 +1071,16 @@ AS
                 @Fk_HSN_ID = Fk_HSN_ID ,
                 @Fk_GSTNature_ID = Fk_GSTNature_ID
         FROM    dbo.PaymentTransaction
-        WHERE   PaymentTransactionId = @PaymentTransactionId      
-        
-        DECLARE @IsInUT BIT                 
-        DECLARE @DivisionStateId INT                
-        DECLARE @CustStateid INT       
-        DECLARE @InputID NUMERIC      
-                      
-        DECLARE @CInputID NUMERIC                 
-        SET @CInputID = 10016         
-            
+        WHERE   PaymentTransactionId = @PaymentTransactionId    
+      
+        DECLARE @IsInUT BIT               
+        DECLARE @DivisionStateId INT              
+        DECLARE @CustStateid INT     
+        DECLARE @InputID NUMERIC    
+                    
+        DECLARE @CInputID NUMERIC               
+        SET @CInputID = 10016       
+          
         SELECT  @DivisionStateId = STATE_ID ,
                 @IsInUT = isUT_bit
         FROM    dbo.STATE_MASTER
@@ -1088,7 +1088,7 @@ AS
                 SELECT  STATE_ID
                 FROM    dbo.CITY_MASTER
                 WHERE   CITY_ID IN ( SELECT CITY_ID
-                                     FROM   dbo.DIVISION_SETTINGS ) )    
+                                     FROM   dbo.DIVISION_SETTINGS ) )  
         SELECT  @CustStateid = STATE_ID
         FROM    dbo.STATE_MASTER
         WHERE   STATE_ID IN (
@@ -1096,400 +1096,401 @@ AS
                 FROM    dbo.CITY_MASTER
                 WHERE   CITY_ID IN ( SELECT CITY_ID
                                      FROM   dbo.ACCOUNT_MASTER
-                                     WHERE  ACC_ID = @AccountId ) )         
-                 
-                      
-        DECLARE @CGST_Amount NUMERIC(18, 2)                  
-        SET @CGST_Amount = ( @GSTPerAmt / 2 )     
-        DECLARE @TotalAmtPlusGST NUMERIC(18, 2)          
-        SET @TotalAmtPlusGST = @TotalamountReceived + @GSTPerAmt        
-            
-        SET @InputID = ( SELECT CASE WHEN @DivisionStateId <> @CustStateid
-                                     THEN 10020 --'I'                
-                                     WHEN @DivisionStateId = @CustStateid
-                                          AND @IsInUT = '1' THEN 10074 --'U'                
-                                     ELSE 10023 --'S'                
-                                END AS inputid
-                       )      
-        
-                       
+                                     WHERE  ACC_ID = @AccountId ) )       
+               
                     
+        DECLARE @CGST_Amount NUMERIC(18, 2)                
+        SET @CGST_Amount = ( @GSTPerAmt / 2 )   
+        DECLARE @TotalAmtPlusGST NUMERIC(18, 2)        
+        SET @TotalAmtPlusGST = @TotalamountReceived + @GSTPerAmt      
+          
+        SET @InputID = ( SELECT CASE WHEN @DivisionStateId <> @CustStateid
+                                     THEN 10020 --'I'              
+                                     WHEN @DivisionStateId = @CustStateid
+                                          AND @IsInUT = '1' THEN 10074 --'U'              
+                                     ELSE 10023 --'S'              
+                                END AS inputid
+                       )    
+      
+                     
+                  
         UPDATE  PaymentTransaction
         SET     StatusId = @StatusId ,
                 CancellationCharges = @CancellationCharges
-        WHERE   PaymentTransactionId = @PaymentTransactionId                      
+        WHERE   PaymentTransactionId = @PaymentTransactionId                    
+                  
                     
-                      
-                    
-        ---update customer ledger                    
-  ---if payment status approved than make entry in customer ledger                    
-                    
-        DECLARE @Remarks VARCHAR(200)                     
-                    
+                  
+        ---update customer ledger                  
+		---if payment status approved than make entry in customer ledger                  
+                  
+        DECLARE @Remarks VARCHAR(200)                   
+                  
         IF @StatusId = 2
-            BEGIN                    
-                    
+            BEGIN                  
+                  
                 IF @PM_TYPE = 1
-                    BEGIN                    
-                    
+                    BEGIN                  
+                  
                         SET @Remarks = 'Payment received against reference no.: '
-                            + @ChequeDraftNo                      
-                    
+                            + @ChequeDraftNo                    
+                  
                         EXECUTE Proc_Ledger_Insert @AccountId,
                             @TotalamountReceived, 0, @Remarks, @DivisionId,
                             @PaymentTransactionId, @TransactionId,
-                            @TransactionDate, @CreatedBy                     
-                            
+                            @TransactionDate, @CreatedBy                   
+                          
                         EXECUTE Proc_Ledger_Insert @BankId, 0,
                             @TotalamountReceived, @Remarks, @DivisionId,
                             @PaymentTransactionId, @TransactionId,
-                            @TransactionDate, @CreatedBy                     
-                    
-                    END                       
-                    
+                            @TransactionDate, @CreatedBy                   
+                  
+                    END                     
+                  
                 IF @PM_TYPE = 2
-                    BEGIN                    
-                    
+                    BEGIN                  
+                  
                         SET @Remarks = 'Payment released against reference no.: '
-                            + @ChequeDraftNo                      
-                    
+                            + @ChequeDraftNo                    
+                  
                         EXECUTE Proc_Ledger_Insert @AccountId, 0,
                             @TotalamountReceived, @Remarks, @DivisionId,
                             @PaymentTransactionId, @TransactionId,
-                            @TransactionDate, @CreatedBy                     
-                    
+                            @TransactionDate, @CreatedBy                   
+                  
                         EXECUTE Proc_Ledger_Insert @BankId, @TotalAmtPlusGST,
                             0, @Remarks, @DivisionId, @PaymentTransactionId,
-                            @TransactionId, @TransactionDate, @CreatedBy    
-                                
+                            @TransactionId, @TransactionDate, @CreatedBy  
+                              
                         IF ISNULL(@FK_GST_TYPE_ID, 0) = 2
-                            BEGIN      
-               
+                            BEGIN    
+             
                                 SET @Remarks = 'GST against Payment released reference no.: '
-                                    + @ChequeDraftNo               
-                  
-                                IF @InputID <> 10020
-                                    BEGIN                  
+                                    + @ChequeDraftNo             
                 
+                                IF @InputID <> 10020
+                                    BEGIN                
+              
                                         EXECUTE Proc_Ledger_Insert @CInputID,
                                             0, @CGST_Amount, @Remarks,
                                             @DivisionId, @PaymentTransactionId,
                                             @TransactionId, @TransactionDate,
-                                            @CreatedBy             
-                
+                                            @CreatedBy           
+              
                                         EXECUTE Proc_Ledger_Insert @InputID, 0,
                                             @CGST_Amount, @Remarks,
                                             @DivisionId, @PaymentTransactionId,
                                             @TransactionId, @TransactionDate,
-                                            @CreatedBy                 
-                                    END                  
-                
+                                            @CreatedBy               
+                                    END                
+              
                                 ELSE
-                                    BEGIN                  
-                
+                                    BEGIN                
+              
                                         EXECUTE Proc_Ledger_Insert @InputID, 0,
                                             @GSTPerAmt, @Remarks, @DivisionId,
                                             @PaymentTransactionId,
                                             @TransactionId, @TransactionDate,
-                                            @CreatedBy            
-                                    END        
-                                      
-                            END                                      
-                    
-                    END                    
+                                            @CreatedBy          
+                                    END      
                                     
+                            END                                    
+                  
+                  
+                    END                  
+                                  
                 IF @PM_TYPE = 3
-                    BEGIN                    
+                    BEGIN                  
                         SET @Remarks = 'Journal Entry against reference no.: '
-                            + @ChequeDraftNo                      
-                    
+                            + @ChequeDraftNo                    
+                  
                         EXECUTE Proc_Ledger_Insert @AccountId, 0,
                             @TotalamountReceived, @Remarks, @DivisionId,
                             @PaymentTransactionId, @TransactionId,
-                            @TransactionDate, @CreatedBy                     
-                    
+                            @TransactionDate, @CreatedBy                   
+                  
                         EXECUTE Proc_Ledger_Insert @BankId,
                             @TotalamountReceived, 0, @Remarks, @DivisionId,
                             @PaymentTransactionId, @TransactionId,
-                            @TransactionDate, @CreatedBy                     
-                    
-                    END                     
-                                        
+                            @TransactionDate, @CreatedBy                   
+                  
+                    END                   
+                                      
                 IF @PM_TYPE = 4
-                    BEGIN                    
+                    BEGIN                  
                         SET @Remarks = 'Contra Entry against reference no.: '
-                            + @ChequeDraftNo                      
-                    
+                            + @ChequeDraftNo                    
+                  
                         EXECUTE Proc_Ledger_Insert @AccountId, 0,
                             @TotalamountReceived, @Remarks, @DivisionId,
                             @PaymentTransactionId, @TransactionId,
-                            @TransactionDate, @CreatedBy                     
-                    
+                            @TransactionDate, @CreatedBy                   
+                  
                         EXECUTE Proc_Ledger_Insert @BankId,
                             @TotalamountReceived, 0, @Remarks, @DivisionId,
                             @PaymentTransactionId, @TransactionId,
-                            @TransactionDate, @CreatedBy                     
-                    
-                    END                     
-                                        
+                            @TransactionDate, @CreatedBy                   
+                  
+                    END                   
+                                      
                 IF @PM_TYPE = 5
-                    BEGIN                    
+                    BEGIN                  
                         SET @Remarks = 'Expense Entry against reference no.: '
-                            + @ChequeDraftNo                      
-                    
+                            + @ChequeDraftNo                    
+                  
                         EXECUTE Proc_Ledger_Insert @AccountId, 0,
                             @TotalamountReceived, @Remarks, @DivisionId,
                             @PaymentTransactionId, @TransactionId,
-                            @TransactionDate, @CreatedBy                     
-                    
+                            @TransactionDate, @CreatedBy                   
+                  
                         EXECUTE Proc_Ledger_Insert @BankId,
                             @TotalamountReceived, 0, @Remarks, @DivisionId,
                             @PaymentTransactionId, @TransactionId,
-                            @TransactionDate, @CreatedBy                     
-                    
-                    END                     
-            END                      
-                    
-        ---if payment status bounced with cancellation charges than make entry in customer ledger                     
-        SET @Remarks = 'Payment Cancelation Charges against ' + @ChequeDraftNo                    
-                    
+                            @TransactionDate, @CreatedBy                   
+                  
+                    END                   
+            END                    
+                  
+        ---if payment status bounced with cancellation charges than make entry in customer ledger                   
+        SET @Remarks = 'Payment Cancelation Charges against ' + @ChequeDraftNo                  
+                  
         IF @StatusId = 4
             AND @CancellationCharges > 0
-            BEGIN                   
-                             
+            BEGIN                 
+                           
                 IF @PM_TYPE = 1
-                    BEGIN                    
+                    BEGIN                  
                         EXECUTE Proc_Ledger_Insert @AccountId, 0,
                             @CancellationCharges, @Remarks, @DivisionId,
                             @PaymentTransactionId, @TransactionId,
-                            @TransactionDate, @CreatedBy                     
-                    END                    
-                    
+                            @TransactionDate, @CreatedBy                   
+                    END                  
+                  
                 IF @PM_TYPE = 2
-                    BEGIN                    
-                    
+                    BEGIN                  
+                  
                         EXECUTE Proc_Ledger_Insert @AccountId,
                             @CancellationCharges, 0, @Remarks, @DivisionId,
                             @PaymentTransactionId, @TransactionId,
-                            @TransactionDate, @CreatedBy                     
-                    END                     
-                    
-            END                 
-                            
-        IF @StatusId = 3
-            BEGIN               
-                 
-                IF @PM_TYPE = 1
-                    BEGIN                
-                    
-                        SET @Remarks = 'Amount Deducted against Cancel reference no.: '
-                            + @ChequeDraftNo                     
+                            @TransactionDate, @CreatedBy                   
+                    END                   
+                  
+            END               
                           
+        IF @StatusId = 3
+            BEGIN             
+               
+                IF @PM_TYPE = 1
+                    BEGIN              
+                  
+                        SET @Remarks = 'Amount Deducted against Cancel reference no.: '
+                            + @ChequeDraftNo                   
+                        
                         EXECUTE Proc_Ledger_Insert @AccountId, 0,
                             @TotalamountReceived, @Remarks, @DivisionId,
                             @PaymentTransactionId, @TransactionId,
-                            @TransactionDate, @CreatedBy                    
-                                    
+                            @TransactionDate, @CreatedBy                  
+                                  
                         EXECUTE Proc_Ledger_Insert @BankId,
                             @TotalamountReceived, 0, @Remarks, @DivisionId,
                             @PaymentTransactionId, @TransactionId,
-                            @TransactionDate, @CreatedBy    
-                                
-                        DELETE  FROM dbo.SettlementDetail
-                        WHERE   PaymentTransactionId = @TransactionId              
-                                  
-                    END               
-                                  
-                IF @PM_TYPE = 2
-                    BEGIN                
-                    
-                        SET @Remarks = 'Amount Deducted against Cancel reference no.: '
-                            + @ChequeDraftNo                     
-                          
-                        EXECUTE Proc_Ledger_Insert @AccountId,
-                            @TotalamountReceived, 0, @Remarks, @DivisionId,
-                            @PaymentTransactionId, @TransactionId,
-                            @TransactionDate, @CreatedBy                    
-                                    
-                        EXECUTE Proc_Ledger_Insert @BankId, 0,
-                            @TotalAmtPlusGST, @Remarks, @DivisionId,
-                            @PaymentTransactionId, @TransactionId,
-                            @TransactionDate, @CreatedBy   
-                              
-                          
-                        IF ISNULL(@FK_GST_TYPE_ID, 0) = 2
-                            BEGIN      
-               
-                                SET @Remarks = 'GST Amount Deducted against Cancel reference no.: '
-                                    + @ChequeDraftNo               
-                  
-                                IF @InputID <> 10020
-                                    BEGIN                  
-                
-                                        EXECUTE Proc_Ledger_Insert @CInputID,
-                                            @CGST_Amount, 0, @Remarks,
-                                            @DivisionId, @PaymentTransactionId,
-                                            @TransactionId, @TransactionDate,
-                                            @CreatedBy             
-                
-                                        EXECUTE Proc_Ledger_Insert @InputID,
-                                            @CGST_Amount, 0, @Remarks,
-                                            @DivisionId, @PaymentTransactionId,
-                                            @TransactionId, @TransactionDate,
-                                            @CreatedBy                 
-                                    END                  
-                
-                                ELSE
-                                    BEGIN                  
-                
-                                        EXECUTE Proc_Ledger_Insert @InputID,
-                                            @GSTPerAmt, 0, @Remarks,
-                                            @DivisionId, @PaymentTransactionId,
-                                            @TransactionId, @TransactionDate,
-                                            @CreatedBy            
-                                    END        
-                                      
-                            END     
-                                
-                        DELETE  FROM dbo.SettlementDetail
-                        WHERE   PaymentTransactionId = @TransactionId             
-                                                              
-                    END           
-                            
-                IF @PM_TYPE = 3
-                    BEGIN                
-                    
-                        SET @Remarks = 'Amount Deducted against Cancel reference no.: '
-                            + @ChequeDraftNo                     
-                          
-                        EXECUTE Proc_Ledger_Insert @AccountId,
-                            @TotalamountReceived, 0, @Remarks, @DivisionId,
-                            @PaymentTransactionId, @TransactionId,
-                            @TransactionDate, @CreatedBy                    
-                                    
-                        EXECUTE Proc_Ledger_Insert @BankId, 0,
-                            @TotalAmtPlusGST, @Remarks, @DivisionId,
-                            @PaymentTransactionId, @TransactionId,
                             @TransactionDate, @CreatedBy  
                               
-                        IF ISNULL(@FK_GST_TYPE_ID, 0) = 2
-                            BEGIN      
-               
-                                SET @Remarks = 'GST Amount Deducted against Cancel reference no.: '
-                                    + @ChequeDraftNo               
+                        DELETE  FROM dbo.SettlementDetail
+                        WHERE   PaymentTransactionId = @PaymentTransactionId            
+                                
+                    END             
+                                
+                IF @PM_TYPE = 2
+                    BEGIN              
                   
-                                IF @InputID <> 10020
-                                    BEGIN                  
+                        SET @Remarks = 'Amount Deducted against Cancel reference no.: '
+                            + @ChequeDraftNo                   
+                        
+                        EXECUTE Proc_Ledger_Insert @AccountId,
+                            @TotalamountReceived, 0, @Remarks, @DivisionId,
+                            @PaymentTransactionId, @TransactionId,
+                            @TransactionDate, @CreatedBy                  
+                                  
+                        EXECUTE Proc_Ledger_Insert @BankId, 0,
+                            @TotalAmtPlusGST, @Remarks, @DivisionId,
+                            @PaymentTransactionId, @TransactionId,
+                            @TransactionDate, @CreatedBy 
+                            
+                        
+                        IF ISNULL(@FK_GST_TYPE_ID, 0) = 2
+                            BEGIN    
+             
+                                SET @Remarks = 'GST Amount Deducted against Cancel reference no.: '
+                                    + @ChequeDraftNo             
                 
+                                IF @InputID <> 10020
+                                    BEGIN                
+              
                                         EXECUTE Proc_Ledger_Insert @CInputID,
                                             @CGST_Amount, 0, @Remarks,
                                             @DivisionId, @PaymentTransactionId,
                                             @TransactionId, @TransactionDate,
-                                            @CreatedBy             
-                
-                                        EXECUTE Proc_Ledger_Insert @InputID,
-                                            @CGST_Amount, 0, @Remarks,
+                                            @CreatedBy           
+              
+                                        EXECUTE Proc_Ledger_Insert @InputID, 
+											@CGST_Amount, 0, @Remarks,
                                             @DivisionId, @PaymentTransactionId,
                                             @TransactionId, @TransactionDate,
-                                            @CreatedBy                 
-                                    END                  
-                
+                                            @CreatedBy               
+                                    END                
+              
                                 ELSE
-                                    BEGIN                  
-                
+                                    BEGIN                
+              
                                         EXECUTE Proc_Ledger_Insert @InputID,
-                                            @GSTPerAmt, 0, @Remarks,
-                                            @DivisionId, @PaymentTransactionId,
+                                            @GSTPerAmt, 0, @Remarks, @DivisionId,
+                                            @PaymentTransactionId,
                                             @TransactionId, @TransactionDate,
-                                            @CreatedBy            
-                                    END        
-                                      
+                                            @CreatedBy          
+                                    END      
+                                    
                             END   
-                                
+                              
                         DELETE  FROM dbo.SettlementDetail
-                        WHERE   PaymentTransactionId = @TransactionId            
-                                                              
-                    END        
-                            
-                IF @PM_TYPE = 4
-                    BEGIN                
-                    
-                        SET @Remarks = 'Amount Deducted against Cancel reference no.: '
-                            + @ChequeDraftNo                     
+                        WHERE   PaymentTransactionId = @PaymentTransactionId           
+                                                            
+                    END         
                           
+                IF @PM_TYPE = 3
+                    BEGIN              
+                  
+                        SET @Remarks = 'Amount Deducted against Cancel reference no.: '
+                            + @ChequeDraftNo                   
+                        
                         EXECUTE Proc_Ledger_Insert @AccountId,
                             @TotalamountReceived, 0, @Remarks, @DivisionId,
                             @PaymentTransactionId, @TransactionId,
-                            @TransactionDate, @CreatedBy                    
+                            @TransactionDate, @CreatedBy                  
+                                  
+                        EXECUTE Proc_Ledger_Insert @BankId, 0,
+                            @TotalAmtPlusGST, @Remarks, @DivisionId,
+                            @PaymentTransactionId, @TransactionId,
+                            @TransactionDate, @CreatedBy
+                            
+                        IF ISNULL(@FK_GST_TYPE_ID, 0) = 2
+                            BEGIN    
+             
+                                SET @Remarks = 'GST Amount Deducted against Cancel reference no.: '
+                                    + @ChequeDraftNo             
+                
+                                IF @InputID <> 10020
+                                    BEGIN                
+              
+                                        EXECUTE Proc_Ledger_Insert @CInputID,
+                                            @CGST_Amount, 0, @Remarks,
+                                            @DivisionId, @PaymentTransactionId,
+                                            @TransactionId, @TransactionDate,
+                                            @CreatedBy           
+              
+                                        EXECUTE Proc_Ledger_Insert @InputID, 
+											@CGST_Amount, 0, @Remarks,
+                                            @DivisionId, @PaymentTransactionId,
+                                            @TransactionId, @TransactionDate,
+                                            @CreatedBy               
+                                    END                
+              
+                                ELSE
+                                    BEGIN                
+              
+                                        EXECUTE Proc_Ledger_Insert @InputID,
+                                            @GSTPerAmt, 0, @Remarks, @DivisionId,
+                                            @PaymentTransactionId,
+                                            @TransactionId, @TransactionDate,
+                                            @CreatedBy          
+                                    END      
                                     
+                            END 
+                              
+                        DELETE  FROM dbo.SettlementDetail
+                        WHERE   PaymentTransactionId = @PaymentTransactionId          
+                                                            
+                    END      
+                          
+                IF @PM_TYPE = 4
+                    BEGIN              
+                  
+                        SET @Remarks = 'Amount Deducted against Cancel reference no.: '
+                            + @ChequeDraftNo                   
+                        
+                        EXECUTE Proc_Ledger_Insert @AccountId,
+                            @TotalamountReceived, 0, @Remarks, @DivisionId,
+                            @PaymentTransactionId, @TransactionId,
+                            @TransactionDate, @CreatedBy                  
+                                  
                         EXECUTE Proc_Ledger_Insert @BankId, 0,
                             @TotalamountReceived, @Remarks, @DivisionId,
                             @PaymentTransactionId, @TransactionId,
-                            @TransactionDate, @CreatedBy    
-                                
+                            @TransactionDate, @CreatedBy  
+                              
                         DELETE  FROM dbo.SettlementDetail
-                        WHERE   PaymentTransactionId = @TransactionId              
-                                                              
-                    END        
-                            
-                IF @PM_TYPE = 5
-                    BEGIN                
-                    
-                        SET @Remarks = 'Amount Deducted against Cancel reference no.: '
-                            + @ChequeDraftNo                     
+                        WHERE   PaymentTransactionId = @PaymentTransactionId            
+                                                            
+                    END      
                           
+                IF @PM_TYPE = 5
+                    BEGIN              
+                  
+                        SET @Remarks = 'Amount Deducted against Cancel reference no.: '
+                            + @ChequeDraftNo                   
+                        
                         EXECUTE Proc_Ledger_Insert @AccountId,
                             @TotalamountReceived, 0, @Remarks, @DivisionId,
                             @PaymentTransactionId, @TransactionId,
-                            @TransactionDate, @CreatedBy                    
-                                    
+                            @TransactionDate, @CreatedBy                  
+                                  
                         EXECUTE Proc_Ledger_Insert @BankId, 0,
                             @TotalAmtPlusGST, @Remarks, @DivisionId,
                             @PaymentTransactionId, @TransactionId,
-                            @TransactionDate, @CreatedBy   
-                              
-                              
-                        IF ISNULL(@FK_GST_TYPE_ID, 0) = 2
-                            BEGIN      
-               
+                            @TransactionDate, @CreatedBy 
+                            
+                            
+                            IF ISNULL(@FK_GST_TYPE_ID, 0) = 2
+                            BEGIN    
+             
                                 SET @Remarks = 'GST Amount Deducted against Cancel reference no.: '
-                                    + @ChequeDraftNo               
-                  
-                                IF @InputID <> 10020
-                                    BEGIN                  
+                                    + @ChequeDraftNo             
                 
+                                IF @InputID <> 10020
+                                    BEGIN                
+              
                                         EXECUTE Proc_Ledger_Insert @CInputID,
                                             @CGST_Amount, 0, @Remarks,
                                             @DivisionId, @PaymentTransactionId,
                                             @TransactionId, @TransactionDate,
-                                            @CreatedBy             
-                
-                                        EXECUTE Proc_Ledger_Insert @InputID,
-                                            @CGST_Amount, 0, @Remarks,
+                                            @CreatedBy           
+              
+                                        EXECUTE Proc_Ledger_Insert @InputID, 
+											@CGST_Amount, 0, @Remarks,
                                             @DivisionId, @PaymentTransactionId,
                                             @TransactionId, @TransactionDate,
-                                            @CreatedBy                 
-                                    END                  
-                
+                                            @CreatedBy               
+                                    END                
+              
                                 ELSE
-                                    BEGIN                  
-                
+                                    BEGIN                
+              
                                         EXECUTE Proc_Ledger_Insert @InputID,
-                                            @GSTPerAmt, 0, @Remarks,
-                                            @DivisionId, @PaymentTransactionId,
+                                            @GSTPerAmt, 0, @Remarks, @DivisionId,
+                                            @PaymentTransactionId,
                                             @TransactionId, @TransactionDate,
-                                            @CreatedBy            
-                                    END        
-                                      
-                            END     
-                                
+                                            @CreatedBy          
+                                    END      
+                                    
+                            END   
+                              
                         DELETE  FROM dbo.SettlementDetail
-                        WHERE   PaymentTransactionId = @TransactionId             
-                                                              
-                    END            
-                            
-            END         
-                    
+                        WHERE   PaymentTransactionId = @PaymentTransactionId           
+                                                            
+                    END          
+                          
+            END       
+                  
     END
 
 Go
