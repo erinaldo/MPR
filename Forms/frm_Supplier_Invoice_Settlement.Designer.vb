@@ -20,8 +20,8 @@ Partial Class frm_Supplier_Invoice_Settlement
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frm_Supplier_Invoice_Settlement))
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.List = New System.Windows.Forms.TabPage()
@@ -112,6 +112,10 @@ Partial Class frm_Supplier_Invoice_Settlement
         Me.Label44 = New System.Windows.Forms.Label()
         Me.lblFormHeading = New System.Windows.Forms.Label()
         Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
+        Me.lblGSTPercentageValue = New System.Windows.Forms.Label()
+        Me.chk_GSTApplicable = New System.Windows.Forms.CheckBox()
+        Me.cmbGSTNature = New System.Windows.Forms.ComboBox()
+        Me.Label22 = New System.Windows.Forms.Label()
         Me.TabControl1.SuspendLayout()
         Me.List.SuspendLayout()
         Me.GBMRSDetail.SuspendLayout()
@@ -183,12 +187,12 @@ Partial Class frm_Supplier_Invoice_Settlement
         Me.flxList.Location = New System.Drawing.Point(3, 16)
         Me.flxList.Name = "flxList"
         Me.flxList.RowHeadersVisible = False
-        DataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black
-        Me.flxList.RowsDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        DataGridViewCellStyle5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle5.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
+        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.Black
+        Me.flxList.RowsDefaultCellStyle = DataGridViewCellStyle5
         Me.flxList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.flxList.Size = New System.Drawing.Size(871, 430)
         Me.flxList.TabIndex = 0
@@ -262,6 +266,10 @@ Partial Class frm_Supplier_Invoice_Settlement
         '
         'GBDCMASTER
         '
+        Me.GBDCMASTER.Controls.Add(Me.lblGSTPercentageValue)
+        Me.GBDCMASTER.Controls.Add(Me.chk_GSTApplicable)
+        Me.GBDCMASTER.Controls.Add(Me.cmbGSTNature)
+        Me.GBDCMASTER.Controls.Add(Me.Label22)
         Me.GBDCMASTER.Controls.Add(Me.Label10)
         Me.GBDCMASTER.Controls.Add(Me.lblUnDistributeAmount)
         Me.GBDCMASTER.Controls.Add(Me.Label12)
@@ -298,7 +306,7 @@ Partial Class frm_Supplier_Invoice_Settlement
         '
         Me.Label10.AutoSize = True
         Me.Label10.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label10.Location = New System.Drawing.Point(16, 303)
+        Me.Label10.Location = New System.Drawing.Point(16, 320)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(74, 30)
         Me.Label10.TabIndex = 62
@@ -406,11 +414,11 @@ Partial Class frm_Supplier_Invoice_Settlement
         Me.txtRemarks.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtRemarks.Font = New System.Drawing.Font("Arial Narrow", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtRemarks.ForeColor = System.Drawing.Color.White
-        Me.txtRemarks.Location = New System.Drawing.Point(119, 303)
+        Me.txtRemarks.Location = New System.Drawing.Point(119, 323)
         Me.txtRemarks.MaxLength = 0
         Me.txtRemarks.Multiline = True
         Me.txtRemarks.Name = "txtRemarks"
-        Me.txtRemarks.Size = New System.Drawing.Size(689, 67)
+        Me.txtRemarks.Size = New System.Drawing.Size(689, 47)
         Me.txtRemarks.TabIndex = 8
         '
         'Label11
@@ -977,12 +985,12 @@ Partial Class frm_Supplier_Invoice_Settlement
         Me.dgvInvoiceToSettle.Location = New System.Drawing.Point(1, 123)
         Me.dgvInvoiceToSettle.Name = "dgvInvoiceToSettle"
         Me.dgvInvoiceToSettle.RowHeadersVisible = False
-        DataGridViewCellStyle4.BackColor = System.Drawing.Color.WhiteSmoke
-        DataGridViewCellStyle4.Font = New System.Drawing.Font("Arial", 9.0!)
-        DataGridViewCellStyle4.ForeColor = System.Drawing.Color.Black
-        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.DarkOrange
-        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.White
-        Me.dgvInvoiceToSettle.RowsDefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle6.BackColor = System.Drawing.Color.WhiteSmoke
+        DataGridViewCellStyle6.Font = New System.Drawing.Font("Arial", 9.0!)
+        DataGridViewCellStyle6.ForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.DarkOrange
+        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.White
+        Me.dgvInvoiceToSettle.RowsDefaultCellStyle = DataGridViewCellStyle6
         Me.dgvInvoiceToSettle.Size = New System.Drawing.Size(887, 355)
         Me.dgvInvoiceToSettle.TabIndex = 1
         '
@@ -1135,6 +1143,55 @@ Partial Class frm_Supplier_Invoice_Settlement
         Me.ImageList1.Images.SetKeyName(0, "Zoom_search_find_magnifying_glass.png")
         Me.ImageList1.Images.SetKeyName(1, "Inventory_box_shipment_product.png")
         '
+        'lblGSTPercentageValue
+        '
+        Me.lblGSTPercentageValue.AutoSize = True
+        Me.lblGSTPercentageValue.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblGSTPercentageValue.ForeColor = System.Drawing.Color.White
+        Me.lblGSTPercentageValue.Location = New System.Drawing.Point(777, 302)
+        Me.lblGSTPercentageValue.Name = "lblGSTPercentageValue"
+        Me.lblGSTPercentageValue.Size = New System.Drawing.Size(31, 15)
+        Me.lblGSTPercentageValue.TabIndex = 73
+        Me.lblGSTPercentageValue.Text = "0.00"
+        '
+        'chk_GSTApplicable
+        '
+        Me.chk_GSTApplicable.AutoSize = True
+        Me.chk_GSTApplicable.BackColor = System.Drawing.Color.Transparent
+        Me.chk_GSTApplicable.Enabled = False
+        Me.chk_GSTApplicable.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!)
+        Me.chk_GSTApplicable.ForeColor = System.Drawing.Color.White
+        Me.chk_GSTApplicable.Location = New System.Drawing.Point(533, 292)
+        Me.chk_GSTApplicable.Name = "chk_GSTApplicable"
+        Me.chk_GSTApplicable.Size = New System.Drawing.Size(110, 19)
+        Me.chk_GSTApplicable.TabIndex = 72
+        Me.chk_GSTApplicable.Text = "GST Applicable"
+        Me.chk_GSTApplicable.UseVisualStyleBackColor = False
+        '
+        'cmbGSTNature
+        '
+        Me.cmbGSTNature.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.cmbGSTNature.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbGSTNature.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmbGSTNature.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmbGSTNature.ForeColor = System.Drawing.Color.White
+        Me.cmbGSTNature.FormattingEnabled = True
+        Me.cmbGSTNature.Items.AddRange(New Object() {"---Select---", "Post Dated Cheque", "Temporary Receipt", "Credit Payment"})
+        Me.cmbGSTNature.Location = New System.Drawing.Point(116, 294)
+        Me.cmbGSTNature.Name = "cmbGSTNature"
+        Me.cmbGSTNature.Size = New System.Drawing.Size(312, 23)
+        Me.cmbGSTNature.TabIndex = 70
+        '
+        'Label22
+        '
+        Me.Label22.AutoSize = True
+        Me.Label22.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label22.Location = New System.Drawing.Point(16, 296)
+        Me.Label22.Name = "Label22"
+        Me.Label22.Size = New System.Drawing.Size(77, 15)
+        Me.Label22.TabIndex = 71
+        Me.Label22.Text = "GST Nature :"
+        '
         'frm_Supplier_Invoice_Settlement
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1254,4 +1311,8 @@ Partial Class frm_Supplier_Invoice_Settlement
     Friend WithEvents DebitedAmount As DataGridViewTextBoxColumn
     Friend WithEvents PendingAmount As DataGridViewTextBoxColumn
     Friend WithEvents AmountToReceive As DataGridViewTextBoxColumn
+    Friend WithEvents lblGSTPercentageValue As Label
+    Friend WithEvents chk_GSTApplicable As CheckBox
+    Friend WithEvents cmbGSTNature As ComboBox
+    Friend WithEvents Label22 As Label
 End Class

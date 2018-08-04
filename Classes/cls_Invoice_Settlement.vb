@@ -19,6 +19,14 @@ Public Class cls_Invoice_Settlement_prop
     Public CreatedBy As String
     Public DivisionId As Int32
     Public PM_Type As Int32
+
+    Public FK_GST_TYPE_ID As Int32
+    Public fk_GST_ID As Int32
+    Public Fk_HSN_ID As Int32
+    Public GSTPerAmt As Decimal
+    Public Fk_GSTNature_ID As Int32
+
+
     ''''''''''''''''''''''''''''''''''''''
     Public PaymentId As Int32
     Public InvoiceId As Int32
@@ -67,6 +75,11 @@ Public Class cls_Invoice_Settlement
         cmd.Parameters.AddWithValue("@Proctype", clsObj.Proctype)
         cmd.Parameters.AddWithValue("@TransactionId", clsObj.TransactionId)
 
+        cmd.Parameters.AddWithValue("@FK_GST_TYPE_ID", clsObj.FK_GST_TYPE_ID)
+        cmd.Parameters.AddWithValue("@fk_GST_ID", clsObj.fk_GST_ID)
+        cmd.Parameters.AddWithValue("@Fk_HSN_ID", clsObj.Fk_HSN_ID)
+        cmd.Parameters.AddWithValue("@GSTPerAmt", clsObj.GSTPerAmt)
+        cmd.Parameters.AddWithValue("@Fk_GSTNature_ID", clsObj.Fk_GSTNature_ID)
         cmd.Parameters.AddWithValue("@ProcedureStatus", 0)
 
         cmd.ExecuteNonQuery()

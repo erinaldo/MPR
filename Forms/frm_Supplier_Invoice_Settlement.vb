@@ -19,11 +19,11 @@ Public Class frm_Supplier_Invoice_Settlement
     Dim _paymentStatus As PaymentStatus
 
     Private Sub InitializeControls()
-        clsObj.ComboBindForPayment(cmbCustomer, "Select ACC_ID,ACC_NAME from ACCOUNT_MASTER WHERE AG_ID in (1,2,3,6) Order by ACC_NAME", "ACC_NAME", "ACC_ID", True)
+        clsObj.ComboBindForPayment(cmbCustomer, "Select ACC_ID,ACC_NAME from ACCOUNT_MASTER WHERE AG_ID in (1,2,3,6,10,11,12) Order by ACC_NAME", "ACC_NAME", "ACC_ID", True)
 
-        clsObj.ComboBindForPayment(cmbCustomerApprovePayment, "Select ACC_ID,ACC_NAME from ACCOUNT_MASTER WHERE AG_ID in (1,2,3,6) Order by ACC_NAME", "ACC_NAME", "ACC_ID", True)
+        clsObj.ComboBindForPayment(cmbCustomerApprovePayment, "Select ACC_ID,ACC_NAME from ACCOUNT_MASTER WHERE AG_ID in (1,2,3,6,10,11,12) Order by ACC_NAME", "ACC_NAME", "ACC_ID", True)
 
-        clsObj.ComboBindForPayment(cmbCustomerSettleInvoice, "Select ACC_ID,ACC_NAME from ACCOUNT_MASTER WHERE AG_ID in (1,2,3,6) Order by ACC_NAME", "ACC_NAME", "ACC_ID", True)
+        clsObj.ComboBindForPayment(cmbCustomerSettleInvoice, "Select ACC_ID,ACC_NAME from ACCOUNT_MASTER WHERE AG_ID in (1,2,3,6,10,11,12) Order by ACC_NAME", "ACC_NAME", "ACC_ID", True)
 
         clsObj.ComboBind(cmbPaymentType, "Select [PaymentTypeId], [PaymentTypeName] + CASE WHEN IsApprovalRequired_bit=1" &
                          " THEN ' - Approval Required' ELSE ' - Approval Not Required' END AS PaymentTypeName from [PaymentTypeMaster] WHERE [IsActive_bit] = 1",
@@ -31,6 +31,9 @@ Public Class frm_Supplier_Invoice_Settlement
 
         clsObj.ComboBind(cmbBank, "SELECT ACC_ID,ACC_NAME FROM dbo.ACCOUNT_MASTER WHERE AG_ID IN(" & AccountGroups.Bank_Accounts & "," & AccountGroups.Cash_in_hand & ")",
                           "ACC_NAME", "ACC_ID", True)
+
+        clsObj.ComboBind(cmbGSTNature, "Select ID,Type from GST_Nature where Is_Active = 1", "Type", "ID", True)
+
         GetPMCode()
         fill_ListPaymentgrid()
         ClearControls()
@@ -85,6 +88,7 @@ Public Class frm_Supplier_Invoice_Settlement
         txtAmount.Text = ""
         txtRemarks.Text = ""
         flag = "save"
+        cmbGSTNature.SelectedIndex = 0
     End Sub
 
     Private Sub cmbPaymentType_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbPaymentType.SelectedIndexChanged
@@ -176,6 +180,24 @@ Public Class frm_Supplier_Invoice_Settlement
             prpty.CreatedBy = v_the_current_logged_in_user_name
             prpty.PM_Type = PaymentType.Payment
             prpty.DivisionId = v_the_current_division_id
+
+            If chk_GSTApplicable.Checked Then
+                'query = "Select isnull(FK_GST_TYPE_ID,0) As FK_GST_TYPE_ID, isnull(fk_GST_ID,0) As fk_GST_ID, Isnull(Fk_HSN_ID,0) As Fk_HSN_ID from ACCOUNT_MASTER where AG_ID in (10,11,12) and ACC_ID = " + cmbAccountToDebit.SelectedValue.ToString
+                'GSTTypeCalculation = clsObj.FillDataSet(query).Tables(0)
+
+                prpty.FK_GST_TYPE_ID = GSTTypeCalculation.Rows(0)("FK_GST_TYPE_ID")
+                prpty.fk_GST_ID = GSTTypeCalculation.Rows(0)("fk_GST_ID")
+                prpty.Fk_HSN_ID = GSTTypeCalculation.Rows(0)("Fk_HSN_ID")
+                prpty.GSTPerAmt = lblGSTPercentageValue.Text
+
+            Else
+                prpty.FK_GST_TYPE_ID = 0
+                prpty.fk_GST_ID = 0
+                prpty.Fk_HSN_ID = 0
+                prpty.GSTPerAmt = 0.00
+
+            End If
+            prpty.Fk_GSTNature_ID = cmbGSTNature.SelectedValue
 
             If (flag = "save") Then
                 prpty.Proctype = 1
@@ -580,10 +602,11 @@ Public Class frm_Supplier_Invoice_Settlement
     Private Sub txtSearch_KeyUp(sender As Object, e As KeyEventArgs) Handles txtSearch.KeyUp
         fill_ListPaymentgrid(txtSearch.Text)
     End Sub
-
+    Dim GSTTypeCalculation As DataTable = Nothing
+    Dim GSTPercentageCalculation As DataTable = Nothing
     Private Sub cmbCustomer_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbCustomer.SelectedIndexChanged
-        Dim query As String = "DECLARE @AmountInHand DECIMAL(18,2) DECLARE @UndistributedAmount DECIMAL(18,2) SELECT @AmountInHand= isnull( sum(AmountInHand),0) FROM dbo.LedgerMaster WHERE AccountId=" & cmbCustomer.SelectedValue & _
-       " SELECT  @UndistributedAmount=isnull(SUM(UndistributedAmount), 0) FROM dbo.PaymentTransaction WHERE StatusId =2 AND AccountId=" & cmbCustomer.SelectedValue & _
+        Dim query As String = "DECLARE @AmountInHand DECIMAL(18,2) DECLARE @UndistributedAmount DECIMAL(18,2) SELECT @AmountInHand= isnull( sum(AmountInHand),0) FROM dbo.LedgerMaster WHERE AccountId=" & cmbCustomer.SelectedValue &
+       " SELECT  @UndistributedAmount=isnull(SUM(UndistributedAmount), 0) FROM dbo.PaymentTransaction WHERE StatusId =2 AND AccountId=" & cmbCustomer.SelectedValue &
        " SET @UndistributedAmount=ISNULL(@UndistributedAmount,0)+ISNULL((SELECT ISNULL(MAX(OpeningAmount),0)- ISNULL(sum(AmountSettled),0) FROM dbo.OpeningBalance left JOIN dbo.SettlementDetail" &
        " ON OpeningBalanceId=PaymentTransactionId WHERE TYPE=1 AND FkAccountId=" & cmbCustomer.SelectedValue & " ),0)" &
        " SELECT @AmountInHand AS AmountInHand,@UndistributedAmount AS UndistributedAmount"
@@ -601,6 +624,21 @@ Public Class frm_Supplier_Invoice_Settlement
             lblAdvanceAmount.Text = "0.00"
         End If
         lblUnDistributeAmount.Text = dt.Rows(0)(1)
+
+
+        chk_GSTApplicable.Checked = False
+        txtAmount.Text = ""
+        lblGSTPercentageValue.Text = "0.00"
+
+        query = "Select isnull(FK_GST_TYPE_ID,0) As FK_GST_TYPE_ID, isnull(fk_GST_ID,0) As fk_GST_ID, Isnull(Fk_HSN_ID,0) As Fk_HSN_ID from ACCOUNT_MASTER where AG_ID in (10,11,12) and ACC_ID = " + cmbCustomer.SelectedValue.ToString
+        GSTTypeCalculation = clsObj.FillDataSet(query).Tables(0)
+        If (GSTTypeCalculation.Rows.Count > 0) Then
+            If (GSTTypeCalculation.Rows(0)("FK_GST_TYPE_ID").ToString = "2") Then
+                chk_GSTApplicable.Checked = True
+                chk_GSTApplicable.ForeColor = Color.White
+            End If
+        End If
+
     End Sub
 
     Private Sub flxList_DoubleClick(sender As Object, e As EventArgs) Handles flxList.DoubleClick
@@ -639,6 +677,8 @@ Public Class frm_Supplier_Invoice_Settlement
             dtpPaymentDate.Value = dr("PaymentDate")
             dtpBankDate.Value = dr("BankDate")
             dtpReferenceDate.Value = dr("ChequeDraftDate")
+            lblGSTPercentageValue.Text = dr("GSTPerAmt")
+            cmbGSTNature.SelectedValue = dr("Fk_GSTNature_ID")
 
         End If
     End Sub
@@ -699,6 +739,42 @@ Public Class frm_Supplier_Invoice_Settlement
     Private Sub cmbCustomerSettleInvoice_Enter(sender As Object, e As EventArgs) Handles cmbCustomerSettleInvoice.Enter
         If Not cmbCustomerSettleInvoice.DroppedDown Then
             cmbCustomerSettleInvoice.DroppedDown = True
+        End If
+    End Sub
+
+    Private Sub txtAmount_TextChanged(sender As Object, e As EventArgs) Handles txtAmount.TextChanged
+        If String.IsNullOrEmpty(txtAmount.Text) Then
+            txtAmount.Text = 0
+        End If
+        If (GSTTypeCalculation.Rows.Count > 0) Then
+            If (GSTTypeCalculation.Rows(0)("FK_GST_TYPE_ID") = "2") Then
+
+                Dim query As String = "SELECT VAT_PERCENTAGE FROM dbo.VAT_MASTER WHERE VAT_ID = " + GSTTypeCalculation.Rows(0)("fk_GST_ID").ToString
+                GSTPercentageCalculation = clsObj.FillDataSet(query).Tables(0)
+
+                If (GSTPercentageCalculation.Rows.Count > 0) Then
+                    lblGSTPercentageValue.Text = Math.Round((Convert.ToDecimal(txtAmount.Text) * Convert.ToDecimal(GSTPercentageCalculation.Rows(0)("VAT_PERCENTAGE"))) / 100, 2)
+                End If
+
+            End If
+        End If
+    End Sub
+
+    Private Sub txtAmount_Leave(sender As Object, e As EventArgs) Handles txtAmount.Leave
+        If String.IsNullOrEmpty(txtAmount.Text) Then
+            txtAmount.Text = 0
+        End If
+        If (GSTTypeCalculation.Rows.Count > 0) Then
+            If (GSTTypeCalculation.Rows(0)("FK_GST_TYPE_ID") = "2") Then
+
+                Dim query As String = "SELECT VAT_PERCENTAGE FROM dbo.VAT_MASTER WHERE VAT_ID = " + GSTTypeCalculation.Rows(0)("fk_GST_ID").ToString
+                GSTPercentageCalculation = clsObj.FillDataSet(query).Tables(0)
+
+                If (GSTPercentageCalculation.Rows.Count > 0) Then
+                    lblGSTPercentageValue.Text = Math.Round((Convert.ToDecimal(txtAmount.Text) * Convert.ToDecimal(GSTPercentageCalculation.Rows(0)("VAT_PERCENTAGE"))) / 100, 2)
+                End If
+
+            End If
         End If
     End Sub
 End Class

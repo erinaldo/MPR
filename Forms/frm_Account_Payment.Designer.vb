@@ -32,6 +32,11 @@ Partial Class frm_Account_Payment
         Me.Label1 = New System.Windows.Forms.Label()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.GBDCMASTER = New System.Windows.Forms.GroupBox()
+        Me.lblGSTPercentageValue = New System.Windows.Forms.Label()
+        Me.lblGSTPercentage = New System.Windows.Forms.Label()
+        Me.chk_GSTApplicable = New System.Windows.Forms.CheckBox()
+        Me.cmbGSTNature = New System.Windows.Forms.ComboBox()
+        Me.Label6 = New System.Windows.Forms.Label()
         Me.lblAdvanceAmount = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.lblPendingAmount = New System.Windows.Forms.Label()
@@ -174,6 +179,11 @@ Partial Class frm_Account_Payment
         '
         'GBDCMASTER
         '
+        Me.GBDCMASTER.Controls.Add(Me.lblGSTPercentageValue)
+        Me.GBDCMASTER.Controls.Add(Me.lblGSTPercentage)
+        Me.GBDCMASTER.Controls.Add(Me.chk_GSTApplicable)
+        Me.GBDCMASTER.Controls.Add(Me.cmbGSTNature)
+        Me.GBDCMASTER.Controls.Add(Me.Label6)
         Me.GBDCMASTER.Controls.Add(Me.lblAdvanceAmount)
         Me.GBDCMASTER.Controls.Add(Me.Label5)
         Me.GBDCMASTER.Controls.Add(Me.lblPendingAmount)
@@ -199,6 +209,66 @@ Partial Class frm_Account_Payment
         Me.GBDCMASTER.Size = New System.Drawing.Size(859, 532)
         Me.GBDCMASTER.TabIndex = 0
         Me.GBDCMASTER.TabStop = False
+        '
+        'lblGSTPercentageValue
+        '
+        Me.lblGSTPercentageValue.AutoSize = True
+        Me.lblGSTPercentageValue.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblGSTPercentageValue.ForeColor = System.Drawing.Color.White
+        Me.lblGSTPercentageValue.Location = New System.Drawing.Point(761, 276)
+        Me.lblGSTPercentageValue.Name = "lblGSTPercentageValue"
+        Me.lblGSTPercentageValue.Size = New System.Drawing.Size(31, 15)
+        Me.lblGSTPercentageValue.TabIndex = 69
+        Me.lblGSTPercentageValue.Text = "0.00"
+        '
+        'lblGSTPercentage
+        '
+        Me.lblGSTPercentage.AutoSize = True
+        Me.lblGSTPercentage.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblGSTPercentage.ForeColor = System.Drawing.Color.White
+        Me.lblGSTPercentage.Location = New System.Drawing.Point(653, 276)
+        Me.lblGSTPercentage.Name = "lblGSTPercentage"
+        Me.lblGSTPercentage.Size = New System.Drawing.Size(82, 15)
+        Me.lblGSTPercentage.TabIndex = 68
+        Me.lblGSTPercentage.Text = "GST Amount :"
+        '
+        'chk_GSTApplicable
+        '
+        Me.chk_GSTApplicable.AutoSize = True
+        Me.chk_GSTApplicable.BackColor = System.Drawing.Color.Transparent
+        Me.chk_GSTApplicable.Enabled = False
+        Me.chk_GSTApplicable.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!)
+        Me.chk_GSTApplicable.ForeColor = System.Drawing.Color.White
+        Me.chk_GSTApplicable.Location = New System.Drawing.Point(510, 275)
+        Me.chk_GSTApplicable.Name = "chk_GSTApplicable"
+        Me.chk_GSTApplicable.Size = New System.Drawing.Size(110, 19)
+        Me.chk_GSTApplicable.TabIndex = 67
+        Me.chk_GSTApplicable.Text = "GST Applicable"
+        Me.chk_GSTApplicable.UseVisualStyleBackColor = False
+        '
+        'cmbGSTNature
+        '
+        Me.cmbGSTNature.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.cmbGSTNature.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbGSTNature.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmbGSTNature.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmbGSTNature.ForeColor = System.Drawing.Color.White
+        Me.cmbGSTNature.FormattingEnabled = True
+        Me.cmbGSTNature.Items.AddRange(New Object() {"---Select---", "Post Dated Cheque", "Temporary Receipt", "Credit Payment"})
+        Me.cmbGSTNature.Location = New System.Drawing.Point(134, 266)
+        Me.cmbGSTNature.Name = "cmbGSTNature"
+        Me.cmbGSTNature.Size = New System.Drawing.Size(306, 23)
+        Me.cmbGSTNature.TabIndex = 62
+        '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label6.Location = New System.Drawing.Point(34, 268)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(77, 15)
+        Me.Label6.TabIndex = 63
+        Me.Label6.Text = "GST Nature :"
         '
         'lblAdvanceAmount
         '
@@ -259,18 +329,18 @@ Partial Class frm_Account_Payment
         Me.txtRemarks.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtRemarks.Font = New System.Drawing.Font("Arial Narrow", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtRemarks.ForeColor = System.Drawing.Color.White
-        Me.txtRemarks.Location = New System.Drawing.Point(134, 266)
+        Me.txtRemarks.Location = New System.Drawing.Point(134, 300)
         Me.txtRemarks.MaxLength = 0
         Me.txtRemarks.Multiline = True
         Me.txtRemarks.Name = "txtRemarks"
-        Me.txtRemarks.Size = New System.Drawing.Size(678, 103)
+        Me.txtRemarks.Size = New System.Drawing.Size(678, 69)
         Me.txtRemarks.TabIndex = 8
         '
         'Label10
         '
         Me.Label10.AutoSize = True
         Me.Label10.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label10.Location = New System.Drawing.Point(35, 269)
+        Me.Label10.Location = New System.Drawing.Point(35, 300)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(63, 15)
         Me.Label10.TabIndex = 55
@@ -495,4 +565,9 @@ Partial Class frm_Account_Payment
     Friend WithEvents lblAdvanceAmount As Label
     Friend WithEvents ImageList1 As System.Windows.Forms.ImageList
     Friend WithEvents BtnCancelInv As Button
+    Friend WithEvents cmbGSTNature As ComboBox
+    Friend WithEvents Label6 As Label
+    Friend WithEvents lblGSTPercentageValue As Label
+    Friend WithEvents lblGSTPercentage As Label
+    Friend WithEvents chk_GSTApplicable As CheckBox
 End Class
