@@ -64,8 +64,10 @@ Public Class frm_Material_Received_Without_PO_Master
         clsObj.ComboBind(cmbMRNType, "Select PO_TYPE_ID,PO_TYPE_NAME from PO_TYPE_MASTER", "PO_TYPE_NAME", "PO_TYPE_ID", True)
         obj.ComboBind(cmbPurchaseType, "select pk_PurchaseTypeId ,PurchaseType from PurchaseType_Master ", "PurchaseType", "pk_PurchaseTypeId")
         clsObj.ComboBind(cmbVendor, "SELECT ACC_NAME, ACC_ID FROM ACCOUNT_MASTER where AG_ID in (1,2,3,6) order by ACC_NAME", "ACC_NAME", "ACC_ID", True)
-
         clsObj.ComboBind(cmb_MRNAgainst, "SELECT Company_id, Company_name FROM MRN_COMPANIES", "Company_name", "Company_id")
+
+        clsObj.ComboBind(cmbITCEligibility, "Select ID, Type from ITC_Eligibility where Is_Active = 1", "Type", "ID")
+
         SetDefaultValues()
         intColumnIndex = -1
         new_initilization()
@@ -117,6 +119,10 @@ Public Class frm_Material_Received_Without_PO_Master
         lblnetamt.Text = "0.00"
         txtOtherCharges.Text = "0.00"
         txtAmount.Text = "0.00"
+        chk_ApplyTax.Checked = False
+        chk_Composition.Checked = False
+        cmbITCEligibility.SelectedIndex = 0
+        lblGSTDetail.Text = ""
         ' DGVIndentItem.Rows.Add()
         FillGrid()
         flag = "save"
@@ -350,6 +356,14 @@ Public Class frm_Material_Received_Without_PO_Master
                 Else
                     prpty.Freight_TaxApplied = 0
                     prpty.Freight_TaxValue = 0.00
+                End If
+
+                If cmbITCEligibility.SelectedIndex = 1 Then
+                    prpty.FK_ITCEligibility_ID = cmbITCEligibility.SelectedValue
+                    prpty.Reference_ID = cmbCapitalAccount.SelectedValue
+                Else
+                    prpty.FK_ITCEligibility_ID = cmbITCEligibility.SelectedValue
+                    prpty.Reference_ID = 10070
                 End If
 
                 'If rb_Amount.Checked Then
@@ -980,15 +994,30 @@ restart:
                     drItem("DISC") = 0.0
                     drItem("DISC1") = 0.0
                     drItem("GPAID") = "N"
-                    'If chk_Composition.Checked = True Then
-                    '    drItem("Vat_Per") = 0
-                    '    drItem("Cess_Per") = 0
-                    '    drItem("ACess") = 0
-                    'Else
-                    drItem("Vat_Per") = ds.Tables(0).Rows(0)("VAT_PERCENTAGE")
+                    If chk_Composition.Checked = True Then
+
+                        If dtable_Item_List.Rows.Count = 0 Then
+                            AddVatPer(ds.Tables(0).Rows(0)("VAT_PERCENTAGE"), 0)
+                            AddCessPer(ds.Tables(0).Rows(0)("CessPercentage_num"), 0)
+                            AddAcess(ds.Tables(0).Rows(0)("ACess"), 0)
+                        Else
+                            AddVatPer(ds.Tables(0).Rows(0)("VAT_PERCENTAGE"), vatper.Length)
+                            AddCessPer(ds.Tables(0).Rows(0)("CessPercentage_num"), cessper.Length)
+                            AddAcess(ds.Tables(0).Rows(0)("ACess"), acess.Length)
+                        End If
+
+
+                        'AddQty(FLXGRD_MaterialItem.Item(i, "BATCH_QTY"), (i - 1))
+                        'AddAmount(FLXGRD_MaterialItem.Item(i, "Amount"), (i - 1))
+
+                        drItem("Vat_Per") = 0
+                        drItem("Cess_Per") = 0
+                        drItem("ACess") = 0
+                    Else
+                        drItem("Vat_Per") = ds.Tables(0).Rows(0)("VAT_PERCENTAGE")
                         drItem("Cess_Per") = ds.Tables(0).Rows(0)("CessPercentage_num")
                         drItem("ACess") = ds.Tables(0).Rows(0)("ACess")
-                    'End If
+                    End If
 
                     drItem("Amount") = 0.0
                     dtable_Item_List.Rows.Add(drItem)
@@ -1101,17 +1130,9 @@ restart:
                         drItem("DISC") = 0.0
                         drItem("DISC1") = 0.0
                         drItem("GPAID") = "N"
-
-                        'If chk_Composition.Checked = True Then
-                        '    drItem("Vat_Per") = 0
-                        '    drItem("Cess_Per") = 0
-                        '    drItem("ACess") = 0
-                        'Else
                         drItem("Vat_Per") = ds.Tables(0).Rows(0)("VAT_PERCENTAGE")
                         drItem("Cess_Per") = ds.Tables(0).Rows(0)("CessPercentage_num")
                         drItem("ACess") = ds.Tables(0).Rows(0)("ACess")
-                        'End If
-
                         drItem("Amount") = 0.0
                         drItem("CostCenter_Id") = ds_CC.Tables(0).Rows(i)("CostCenter_Id").ToString()
                         drItem("CostCenter_Code") = ds_CC.Tables(0).Rows(i)("CostCenter_Code").ToString()
@@ -1132,17 +1153,9 @@ restart:
                         drItemCopy("DISC") = 0.0
                         drItemCopy("DISC1") = 0.0
                         drItemCopy("GPAID") = "N"
-
-                        'If chk_Composition.Checked = True Then
-                        '    drItem("Vat_Per") = 0
-                        '    drItem("Cess_Per") = 0
-                        '    drItem("ACess") = 0
-                        'Else
                         drItemCopy("Vat_Per") = ds.Tables(0).Rows(0)("VAT_PERCENTAGE")
                         drItemCopy("Cess_Per") = ds.Tables(0).Rows(0)("CessPercentage_num")
                         drItemCopy("ACess") = ds.Tables(0).Rows(0)("ACess")
-                        'End If
-
                         drItemCopy("Amount") = 0.0
                         drItemCopy("CostCenter_Id") = ds_CC.Tables(0).Rows(i)("CostCenter_Id").ToString()
                         drItemCopy("CostCenter_Code") = ds_CC.Tables(0).Rows(i)("CostCenter_Code").ToString()
@@ -1229,6 +1242,14 @@ restart:
             Else
                 chk_Composition.Checked = False
             End If
+
+            If (dtMRN.Rows(0)("FK_ITCEligibility_ID").ToString.Trim() = "2") Then
+                cmbITCEligibility.SelectedIndex = 1
+                lblSelectCapitalAccount.Visible = True
+                cmbCapitalAccount.Visible = True
+                cmbCapitalAccount.SelectedValue = dtMRN.Rows(0)("REFERENCE_ID")
+            End If
+
 
             ' Grid_styles()
             'dtable_Item_List = ds.Tables(1).Copy
@@ -1958,65 +1979,65 @@ restart:
 
         If chk_Composition.Checked = True Then
 
-                Dim i As Integer
-                For i = 1 To FLXGRD_MaterialItem.Rows.Count - 1
+            Dim i As Integer
+            For i = 1 To FLXGRD_MaterialItem.Rows.Count - 1
 
-                    AddVatPer(FLXGRD_MaterialItem.Item(i, "vat_per"), (i - 1))
-                    AddCessPer(FLXGRD_MaterialItem.Item(i, "Cess_Per"), (i - 1))
-                    AddAcess(FLXGRD_MaterialItem.Item(i, "ACess"), (i - 1))
-                    AddQty(FLXGRD_MaterialItem.Item(i, "BATCH_QTY"), (i - 1))
-                    AddAmount(FLXGRD_MaterialItem.Item(i, "Amount"), (i - 1))
+                AddVatPer(FLXGRD_MaterialItem.Item(i, "vat_per"), (i - 1))
+                AddCessPer(FLXGRD_MaterialItem.Item(i, "Cess_Per"), (i - 1))
+                AddAcess(FLXGRD_MaterialItem.Item(i, "ACess"), (i - 1))
+                'AddQty(FLXGRD_MaterialItem.Item(i, "BATCH_QTY"), (i - 1))
+                'AddAmount(FLXGRD_MaterialItem.Item(i, "Amount"), (i - 1))
 
-                    FLXGRD_MaterialItem.Item(i, "vat_per") = 0
-                    FLXGRD_MaterialItem.Rows(i).Item("Cess_Per") = 0
-                    FLXGRD_MaterialItem.Rows(i).Item("ACess") = 0
-                Next
+                FLXGRD_MaterialItem.Item(i, "vat_per") = 0
+                FLXGRD_MaterialItem.Rows(i).Item("Cess_Per") = 0
+                FLXGRD_MaterialItem.Rows(i).Item("ACess") = 0
+            Next
 
-                'Dim j As Integer
-                'For j = 1 To FLXGRD_MatItem_NonStockable.Rows.Count - 1
-                '    FLXGRD_MatItem_NonStockable.Item(j, "vat_per") = 0
-                '    FLXGRD_MatItem_NonStockable.Rows(j).Item("Cess_Per") = 0
-                '    FLXGRD_MatItem_NonStockable.Rows(j).Item("ACess") = 0
-                'Next
-            Else
+        Else
 
-                Dim i As Integer
-                For i = 1 To FLXGRD_MaterialItem.Rows.Count - 1
-                    dtable_Item_List_Copy.Rows(i - 1)("Item_Id") = FLXGRD_MaterialItem.Item(i, "Item_Id")
-                    dtable_Item_List_Copy.Rows(i - 1)("Item_Code") = FLXGRD_MaterialItem.Item(i, "Item_Code")
-                    dtable_Item_List_Copy.Rows(i - 1)("Item_Name") = FLXGRD_MaterialItem.Item(i, "Item_Name")
-                    dtable_Item_List_Copy.Rows(i - 1)("um_Name") = FLXGRD_MaterialItem.Item(i, "um_Name")
-                    dtable_Item_List_Copy.Rows(i - 1)("item_rate") = FLXGRD_MaterialItem.Item(i, "item_rate")
-                    dtable_Item_List_Copy.Rows(i - 1)("DType") = FLXGRD_MaterialItem.Item(i, "DType")
-                    dtable_Item_List_Copy.Rows(i - 1)("DISC") = FLXGRD_MaterialItem.Item(i, "DISC")
-                    dtable_Item_List_Copy.Rows(i - 1)("DISC1") = FLXGRD_MaterialItem.Item(i, "DISC1")
-                    dtable_Item_List_Copy.Rows(i - 1)("GPAID") = FLXGRD_MaterialItem.Item(i, "GPAID")
+            Dim i As Integer
+            For i = 1 To FLXGRD_MaterialItem.Rows.Count - 1
+                dtable_Item_List_Copy.Rows(i - 1)("Item_Id") = FLXGRD_MaterialItem.Item(i, "Item_Id")
+                dtable_Item_List_Copy.Rows(i - 1)("Item_Code") = FLXGRD_MaterialItem.Item(i, "Item_Code")
+                dtable_Item_List_Copy.Rows(i - 1)("Item_Name") = FLXGRD_MaterialItem.Item(i, "Item_Name")
+                dtable_Item_List_Copy.Rows(i - 1)("um_Name") = FLXGRD_MaterialItem.Item(i, "um_Name")
+                dtable_Item_List_Copy.Rows(i - 1)("item_rate") = FLXGRD_MaterialItem.Item(i, "item_rate")
+                dtable_Item_List_Copy.Rows(i - 1)("DType") = FLXGRD_MaterialItem.Item(i, "DType")
+                dtable_Item_List_Copy.Rows(i - 1)("DISC") = FLXGRD_MaterialItem.Item(i, "DISC")
+                dtable_Item_List_Copy.Rows(i - 1)("DISC1") = FLXGRD_MaterialItem.Item(i, "DISC1")
+                dtable_Item_List_Copy.Rows(i - 1)("GPAID") = FLXGRD_MaterialItem.Item(i, "GPAID")
+                dtable_Item_List_Copy.Rows(i - 1)("BATCH_QTY") = FLXGRD_MaterialItem.Item(i, "BATCH_QTY")
+                dtable_Item_List_Copy.Rows(i - 1)("Amount") = FLXGRD_MaterialItem.Item(i, "Amount")
 
-                    If (flag = "save") Then
-                        dtable_Item_List_Copy.Rows(i - 1)("BATCH_QTY") = qty(i - 1)
-                        dtable_Item_List_Copy.Rows(i - 1)("Vat_Per") = vatper(i - 1)
-                        dtable_Item_List_Copy.Rows(i - 1)("Cess_Per") = cessper(i - 1)
-                        dtable_Item_List_Copy.Rows(i - 1)("ACess") = acess(i - 1)
-                        dtable_Item_List_Copy.Rows(i - 1)("Amount") = totalamt(i - 1)
-                    Else
-                        dtable_Item_List_Copy.Rows(i - 1)("BATCH_QTY") = dtable_Item_List_Copy.Rows(i - 1)("BATCH_QTY")
-                        dtable_Item_List_Copy.Rows(i - 1)("Vat_Per") = dtable_Item_List_Copy.Rows(i - 1)("Vat_Per")
-                        dtable_Item_List_Copy.Rows(i - 1)("Cess_Per") = dtable_Item_List_Copy.Rows(i - 1)("Cess_Per")
-                        dtable_Item_List_Copy.Rows(i - 1)("ACess") = dtable_Item_List_Copy.Rows(i - 1)("ACess")
-                        dtable_Item_List_Copy.Rows(i - 1)("Amount") = dtable_Item_List_Copy.Rows(i - 1)("Amount")
-                    End If
 
-                Next
+                dtable_Item_List_Copy.Rows(i - 1)("Vat_Per") = vatper(i - 1)
+                dtable_Item_List_Copy.Rows(i - 1)("Cess_Per") = cessper(i - 1)
+                dtable_Item_List_Copy.Rows(i - 1)("ACess") = acess(i - 1)
 
-                dtable_Item_List_Copy.AcceptChanges()
-                generate_tree()
-                FLXGRD_MaterialItem.DataSource = dtable_Item_List_Copy
-                FLXGRD_MatItem_NonStockable.DataSource = dtable_Item_List_Stockable_Copy
-                FLXGRD_MaterialItem.Cols(0).Width = 10
-                FLXGRD_MaterialItem.Cols(0).AllowEditing = False
-                FLXGRD_MatItem_NonStockable.Cols(0).Width = 10
-                SetGridSettingValues()
-            End If
+                'If (flag = "save") Then
+                '    'dtable_Item_List_Copy.Rows(i - 1)("BATCH_QTY") = qty(i - 1)
+                '    dtable_Item_List_Copy.Rows(i - 1)("Vat_Per") = vatper(i - 1)
+                '    dtable_Item_List_Copy.Rows(i - 1)("Cess_Per") = cessper(i - 1)
+                '    dtable_Item_List_Copy.Rows(i - 1)("ACess") = acess(i - 1)
+                '    'dtable_Item_List_Copy.Rows(i - 1)("Amount") = totalamt(i - 1)
+                'Else
+                '    dtable_Item_List_Copy.Rows(i - 1)("Vat_Per") = dtable_Item_List_Copy.Rows(i - 1)("Vat_Per")
+                '    dtable_Item_List_Copy.Rows(i - 1)("Cess_Per") = dtable_Item_List_Copy.Rows(i - 1)("Cess_Per")
+                '    dtable_Item_List_Copy.Rows(i - 1)("ACess") = dtable_Item_List_Copy.Rows(i - 1)("ACess")
+
+                'End If
+
+            Next
+
+            dtable_Item_List_Copy.AcceptChanges()
+            generate_tree()
+            FLXGRD_MaterialItem.DataSource = dtable_Item_List_Copy
+            FLXGRD_MatItem_NonStockable.DataSource = dtable_Item_List_Stockable_Copy
+            FLXGRD_MaterialItem.Cols(0).Width = 10
+            FLXGRD_MaterialItem.Cols(0).AllowEditing = False
+            FLXGRD_MatItem_NonStockable.Cols(0).Width = 10
+            SetGridSettingValues()
+        End If
 
         Calculate_Amount()
     End Sub
@@ -2073,4 +2094,16 @@ restart:
         End If
 
     End Sub
+
+    Private Sub cmbITCEligibility_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbITCEligibility.SelectedIndexChanged
+        If (cmbITCEligibility.SelectedIndex = 1) Then
+            lblSelectCapitalAccount.Visible = True
+            cmbCapitalAccount.Visible = True
+            clsObj.ComboBind(cmbCapitalAccount, "SELECT ACC_ID, ACC_Name FROM dbo.ACCOUNT_MASTER WHERE ag_id = 12", "ACC_NAME", "ACC_ID")
+        Else
+            lblSelectCapitalAccount.Visible = False
+            cmbCapitalAccount.Visible = False
+        End If
+    End Sub
+
 End Class

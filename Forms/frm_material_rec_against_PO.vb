@@ -62,6 +62,10 @@ Public Class frm_material_rec_against_PO
         txtdiscount.Text = "0.00"
         txtCashDiscount.Text = "0.00"
         lblnetamt.Text = "0.00"
+        chk_ApplyTax.Checked = False
+        cmbITCEligibility.SelectedIndex = 0
+        lblGSTDetail.Text = ""
+
         If FLXGRD_PO_Items.DataSource IsNot Nothing Then
             'SetGstLabels()
         End If
@@ -75,7 +79,6 @@ Public Class frm_material_rec_against_PO
     Public Sub SaveClick(ByVal sender As Object, ByVal e As System.EventArgs) Implements IForm.SaveClick
         FLXGRD_PO_Items.FinishEditing()
         Dim cmd As SqlCommand
-
 
         prop = New material_rec_against_PO.cls_Material_rec_Against_PO_Prop
         Master = New material_rec_against_PO.cls_material_recieved_against_po_master
@@ -105,18 +108,12 @@ Public Class frm_material_rec_against_PO
                         Exit Sub
                     End If
 
-
                     If dtable.Rows(iRow)("BATCH_QTY") > dtable.Rows(iRow)("PO_QTY") Then
                         MsgBox("Batch Qty Cannot be greater than PO QTY")
                         Exit Sub
                     End If
-
-
-
                 Next iRow
-
             End If
-
 
             dtable = FLXGRD_PO_Items.DataSource
             If Not dtable Is Nothing Then
@@ -208,6 +205,14 @@ Public Class frm_material_rec_against_PO
                     prop.Freight_TaxValue = 0.00
                 End If
 
+                If cmbITCEligibility.SelectedIndex = 1 Then
+                    prop.FK_ITCEligibility_ID = cmbITCEligibility.SelectedValue
+                    prop.Reference_ID = cmbCapitalAccount.SelectedValue
+                Else
+                    prop.FK_ITCEligibility_ID = cmbITCEligibility.SelectedValue
+                    prop.Reference_ID = 10070
+                End If
+
                 Master.insert_MATERIAL_RECIEVED_AGAINST_PO_MASTER(prop, cmd, FLXGRD_PO_Items.DataSource, FLXGRD_PO_NON_STOCKABLEITEMS.DataSource)
 
                 obj.MyCon_CommitTransaction(cmd)
@@ -252,6 +257,7 @@ Public Class frm_material_rec_against_PO
 
     Private Sub frm_material_rec_against_PO_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         obj.ComboBind(cmb_MRNAgainst, "SELECT Company_id, Company_name FROM MRN_COMPANIES", "Company_name", "Company_id")
+        obj.ComboBind(cmbITCEligibility, "Select ID, Type from ITC_Eligibility where Is_Active = 1", "Type", "ID")
         fill_PO()
         table_style()
         dtpFrom.Value = Now.AddDays(-7)
@@ -1405,4 +1411,16 @@ restart:
             Calculate_Amount()
         End If
     End Sub
+
+    Private Sub cmbITCEligibility_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbITCEligibility.SelectedIndexChanged
+        If (cmbITCEligibility.SelectedIndex = 1) Then
+            lblSelectCapitalAccount.Visible = True
+            cmbCapitalAccount.Visible = True
+            obj.ComboBind(cmbCapitalAccount, "SELECT ACC_ID, ACC_Name FROM dbo.ACCOUNT_MASTER WHERE ag_id = 12", "ACC_NAME", "ACC_ID")
+        Else
+            lblSelectCapitalAccount.Visible = False
+            cmbCapitalAccount.Visible = False
+        End If
+    End Sub
+
 End Class

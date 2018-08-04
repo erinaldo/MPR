@@ -58,6 +58,27 @@ Namespace material_recieved_without_po_master
         Dim _Freight_TaxApplied As String
         Dim _Freight_TaxValue As String
 
+        Dim _FK_ITCEligibility_ID As Double
+        Dim _Reference_ID As Double
+
+        Public Property FK_ITCEligibility_ID() As Double
+            Get
+                FK_ITCEligibility_ID = _FK_ITCEligibility_ID
+            End Get
+            Set(ByVal value As Double)
+                _FK_ITCEligibility_ID = value
+            End Set
+        End Property
+
+        Public Property Reference_ID() As Double
+            Get
+                Reference_ID = _Reference_ID
+            End Get
+            Set(ByVal value As Double)
+                _Reference_ID = value
+            End Set
+        End Property
+
         Public Property Special_Scheme() As String
             Get
                 Special_Scheme = _Special_Scheme
@@ -549,6 +570,8 @@ Namespace material_recieved_without_po_master
             cmd.Parameters.AddWithValue("@V_Special_Scheme", clsObj.Special_Scheme)
             cmd.Parameters.AddWithValue("@V_FreightTaxApplied", clsObj.Freight_TaxApplied)
             cmd.Parameters.AddWithValue("@V_FreightTaxValue", clsObj.Freight_TaxValue)
+            cmd.Parameters.AddWithValue("@V_FK_ITCEligibility_ID", clsObj.FK_ITCEligibility_ID)
+            cmd.Parameters.AddWithValue("@V_Reference_ID", clsObj.Reference_ID)
 
             cmd.ExecuteNonQuery()
             cmd.Dispose()
@@ -678,6 +701,8 @@ Namespace material_recieved_without_po_master
                 cmd.Parameters.AddWithValue("@V_Special_Scheme", clsObj.Special_Scheme)
                 cmd.Parameters.AddWithValue("@V_FreightTaxApplied", clsObj.Freight_TaxApplied)
                 cmd.Parameters.AddWithValue("@V_FreightTaxValue", clsObj.Freight_TaxValue)
+                cmd.Parameters.AddWithValue("@V_FK_ITCEligibility_ID", clsObj.FK_ITCEligibility_ID)
+                cmd.Parameters.AddWithValue("@V_Reference_ID", clsObj.Reference_ID)
 
                 cmd.ExecuteNonQuery()
                 cmd.Dispose()
