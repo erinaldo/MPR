@@ -22,7 +22,7 @@ Public Class frm_PurchaseTaxRegister
         '        " Order by [Bill Date]"
 
         Qry = "SELECT ROW_NUMBER()OVER(ORDER BY [Bill Date])AS SrNo, * FROM dbo.VWPurchaseRegister
-                WHERE  cast([Bill Date] AS date) between CAST('" & txtFromDate.Value.ToString("dd-MMM-yyyy") & "' AS date) AND CAST('" & txtToDate.Value.ToString("dd-MMM-yyyy") & "' AS date) " &
+                WHERE  cast([Received Date] AS date) between CAST('" & txtFromDate.Value.ToString("dd-MMM-yyyy") & "' AS date) AND CAST('" & txtToDate.Value.ToString("dd-MMM-yyyy") & "' AS date) " &
                 " Order by [Bill Date]"
 
         Dim dt As DataTable = objCommFunction.Fill_DataSet(Qry).Tables(0)
