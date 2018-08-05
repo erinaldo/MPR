@@ -65,6 +65,7 @@ Public Class frm_GSTR_3
         xlWorkSheet = Add3_2SectionData(xlWorkSheet)
         xlWorkSheet = Add4SectionData(xlWorkSheet)
         xlWorkSheet = Add5SectionData(xlWorkSheet)
+        xlWorkSheet = Add5SectionDataNNGST(xlWorkSheet)
     End Sub
 
     Private Function AddBasicData(xlWorkSheet As Object) As Object
@@ -171,6 +172,39 @@ Public Class frm_GSTR_3
         xlWorkSheet.Cells(rowIndex, 5) = row("InterState_TaxableValue")
         xlWorkSheet.Cells(rowIndex, 11) = row("IntraState_TaxableValue")
         Return xlWorkSheet
+    End Function
+
+    Private Function Add5SectionDataNNGST(xlWorkSheet As Object) As Object
+        rowIndex = 46 + noOfRowsInserted
+        row = Get5SectionDataNONGST()
+        xlWorkSheet.Cells(rowIndex, 5) = row("InterState_TaxableValue")
+        xlWorkSheet.Cells(rowIndex, 11) = row("IntraState_TaxableValue")
+        Return xlWorkSheet
+    End Function
+
+    Private Function Get5SectionDataNONGST() As DataRow
+
+        Qry = "SELECT ISNULL(SUM(CASE WHEN INV_TYPE <> 'I' THEN Taxable_Value
+                        ELSE 0
+                   END), 0) AS IntraState_TaxableValue ,
+                    ISNULL(SUM(CASE WHEN INV_TYPE = 'I' THEN Taxable_Value
+                        ELSE 0
+                   END), 0) AS InterState_TaxableValue
+          FROM   ( SELECT    0.00 AS VAT_PER ,
+                    SUM(( ISNULL(pt.TotalAmountReceived, 0) )) AS Taxable_Value ,
+                    CASE WHEN cm.STATE_ID = " & stateId & " THEN 'S'
+                         ELSE 'I'
+                    END AS Inv_Type
+          FROM      dbo.PaymentTransaction pt
+                    INNER JOIN dbo.ACCOUNT_MASTER am ON am.ACC_ID = pt.AccountId
+                    INNER JOIN dbo.CITY_MASTER cm ON cm.CITY_ID = am.CITY_ID
+                    INNER JOIN dbo.STATE_MASTER sm ON sm.STATE_ID = cm.STATE_ID
+          WHERE     am.FK_GST_TYPE_ID = 3
+                    AND CAST(pt.PaymentDate AS DATE) between CAST('" & txtFromDate.Value.ToString("dd-MMM-yyyy") & "' AS date) AND CAST('" & txtToDate.Value.ToString("dd-MMM-yyyy") & "' AS date) " & "
+          GROUP BY  cm.STATE_ID
+        ) tb"
+
+        Return objCommFunction.Fill_DataSet(Qry).Tables(0).Rows(0)
     End Function
 
     Private Function Get5SectionData() As DataRow
@@ -533,7 +567,7 @@ FROM    ( SELECT    SUM(ISNULL(IntraState_TaxableValue, 0)) AS IntraState_Taxabl
             " FROM dbo.MATERIAL_RECIEVED_WITHOUT_PO_MASTER  AS mrn " &
             " INNER JOIN dbo.ACCOUNT_MASTER am ON mrn.Vendor_ID = am.ACC_ID" &
             " INNER JOIN dbo.CITY_MASTER cm ON cm.CITY_ID = am.CITY_ID" &
-            " WHERE MRN_STATUS <> 2 and cast(Invoice_date AS date) between CAST('" & txtFromDate.Value.ToString("dd-MMM-yyyy") & "' AS date) AND CAST('" & txtToDate.Value.ToString("dd-MMM-yyyy") & "' AS date) " &
+            " WHERE MRN_STATUS <> 2 AND LEN(am.VAT_NO) > 0 and cast(Received_Date AS date) between CAST('" & txtFromDate.Value.ToString("dd-MMM-yyyy") & "' AS date) AND CAST('" & txtToDate.Value.ToString("dd-MMM-yyyy") & "' AS date) " &
             " union" &
             " SELECT  SUM(CASE WHEN mrn.MRN_TYPE <> 2 THEN mrn.GST_AMOUNT ELSE 0 END) AS non_integrated_tax," &
             "         SUM(CASE WHEN mrn.MRN_TYPE = 2 THEN mrn.GST_AMOUNT ELSE 0 END) AS integrated_tax, " &
@@ -541,14 +575,22 @@ FROM    ( SELECT    SUM(ISNULL(IntraState_TaxableValue, 0)) AS IntraState_Taxabl
             " FROM dbo.MATERIAL_RECEIVED_AGAINST_PO_MASTER AS mrn " &
             " INNER JOIN dbo.ACCOUNT_MASTER am ON mrn.CUST_ID = am.ACC_ID" &
             " INNER JOIN dbo.CITY_MASTER cm ON cm.CITY_ID = am.CITY_ID" &
-            " WHERE MRN_STATUS <> 2 and cast(Invoice_date AS date) between CAST('" & txtFromDate.Value.ToString("dd-MMM-yyyy") & "' AS date) AND CAST('" & txtToDate.Value.ToString("dd-MMM-yyyy") & "' AS date) " &
-            " ) AS temp"
+            " WHERE MRN_STATUS <> 2 AND LEN(am.VAT_NO) > 0 and cast(Receipt_Date AS date) between CAST('" & txtFromDate.Value.ToString("dd-MMM-yyyy") & "' AS date) AND CAST('" & txtToDate.Value.ToString("dd-MMM-yyyy") & "' AS date) " & "
+            UNION
+            Select Case WHEN cm.STATE_ID = " & stateId & " THEN pt.GSTPerAmt END AS non_integrated_tax ,                    
+                    Case WHEN cm.STATE_ID <> " & stateId & " THEN pt.GSTPerAmt END AS integrated_tax ,
+                    0.00 AS CessAmt
+            From dbo.PaymentTransaction AS pt
+                    INNER Join dbo.ACCOUNT_MASTER am ON pt.AccountId = am.ACC_ID
+                    INNER Join dbo.CITY_MASTER cm ON cm.CITY_ID = am.CITY_ID
+            WHERE     CAST(pt.PaymentDate As Date) between CAST('" & txtFromDate.Value.ToString("dd-MMM-yyyy") & "' AS date) AND CAST('" & txtToDate.Value.ToString("dd-MMM-yyyy") & "' AS date) " & "
+             ) As temp"
         Return objCommFunction.Fill_DataSet(Qry).Tables(0).Rows(0)
     End Function
 
     Private Function Get3_2_SectionData() As System.Data.DataTable
 
-        Qry = " SELECT  STATE_CODE ,
+        Qry = " Select  STATE_CODE ,
         STATE_NAME ,
         SUM(Taxable_Value) AS Taxable_Value ,
         SUM(integrated_tax) AS integrated_tax
