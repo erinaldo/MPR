@@ -1,6 +1,23 @@
+Imports System.Runtime.InteropServices
 Public Class MDIMain
     Dim cls_obj As New CommonClass
     Dim prpty_form_rights As New Form_Rights
+
+    'Dim X, Y As Integer
+    'Dim NewPoint As New System.Drawing.Point
+
+    'Public Const WM_NCLBUTTONDOWN As Integer = &HA1
+    'Public Const HT_CAPTION As Integer = &H2
+
+    '<DllImportAttribute("user32.dll")>
+    'Public Shared Function SendMessage(ByVal hWnd As IntPtr,
+    '  ByVal Msg As Integer, ByVal wParam As Integer,
+    '  ByVal lParam As Integer) As Integer
+    'End Function
+
+    '<DllImportAttribute("user32.dll")>
+    'Public Shared Function ReleaseCapture() As Boolean
+    'End Function
 
     Public Sub MDIMain_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         MenuStrip1.Focus()
@@ -748,4 +765,36 @@ Public Class MDIMain
 
     End Sub
 
+    'Private Sub MDIMain_MouseMove(sender As Object, e As MouseEventArgs) Handles MyBase.MouseMove
+    '    If e.Button = Windows.Forms.MouseButtons.Left Then
+    '        NewPoint = Control.MousePosition
+    '        NewPoint.X -= (X)
+    '        NewPoint.Y -= (Y)
+    '        Me.Location = NewPoint
+    '    End If
+    'End Sub
+
+    'Private Sub MDIMain_MouseDown(sender As Object, e As MouseEventArgs) Handles MyBase.MouseDown
+
+    '    'X = Control.MousePosition.X - Me.Location.X
+    '    'Y = Control.MousePosition.Y - Me.Location.Y
+
+    ' ------------------------------------------------------
+    '    'If e.Button = Windows.Forms.MouseButtons.Left Then
+    '    '    ReleaseCapture()
+    '    '    SendMessage(Handle, WM_NCLBUTTONDOWN,
+    '    '       HT_CAPTION, 0)
+    '    'End If
+    'End Sub
+
+    'Protected Overrides Sub WndProc(ByRef m As System.Windows.Forms.Message)
+    '    MyBase.WndProc(m)
+    '    Const HTCLIENT As Integer = &H1
+    '    Const HTCAPTION As Integer = &H2
+    '    Const WM_NCHITTEST As Integer = &H84
+
+    '    If m.Result.ToInt32 = HTCLIENT And m.Msg = WM_NCHITTEST Then
+    '        m.Result = New IntPtr(HTCAPTION)
+    '    End If
+    'End Sub
 End Class

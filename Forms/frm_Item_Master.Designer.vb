@@ -246,6 +246,7 @@ Partial Class frm_Item_Master
         Me.GroupBox4.Controls.Add(Me.Label5)
         Me.GroupBox4.Controls.Add(Me.Label9)
         Me.GroupBox4.Controls.Add(Me.txtTransferRate)
+        Me.GroupBox4.Controls.Add(Me.txtCurrentStock)
         Me.GroupBox4.Controls.Add(Me.cmbSaleVat)
         Me.GroupBox4.Controls.Add(Me.Label1)
         Me.GroupBox4.Controls.Add(Me.txtBatchNo)
@@ -256,6 +257,7 @@ Partial Class frm_Item_Master
         Me.GroupBox4.Controls.Add(Me.txtReorderLevel)
         Me.GroupBox4.Controls.Add(Me.Label8)
         Me.GroupBox4.Controls.Add(Me.Label11)
+        Me.GroupBox4.Controls.Add(Me.Label26)
         Me.GroupBox4.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.GroupBox4.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold)
         Me.GroupBox4.Location = New System.Drawing.Point(3, 231)
@@ -280,7 +282,7 @@ Partial Class frm_Item_Master
         '
         Me.Label18.AutoSize = True
         Me.Label18.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label18.Location = New System.Drawing.Point(342, 49)
+        Me.Label18.Location = New System.Drawing.Point(352, 48)
         Me.Label18.Name = "Label18"
         Me.Label18.Size = New System.Drawing.Size(93, 13)
         Me.Label18.TabIndex = 41
@@ -349,7 +351,7 @@ Partial Class frm_Item_Master
         '
         Me.Label5.AutoSize = True
         Me.Label5.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label5.Location = New System.Drawing.Point(347, 85)
+        Me.Label5.Location = New System.Drawing.Point(352, 85)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(119, 13)
         Me.Label5.TabIndex = 35
@@ -450,7 +452,7 @@ Partial Class frm_Item_Master
         '
         Me.Label10.AutoSize = True
         Me.Label10.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label10.Location = New System.Drawing.Point(347, 128)
+        Me.Label10.Location = New System.Drawing.Point(352, 128)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(114, 13)
         Me.Label10.TabIndex = 30
@@ -482,7 +484,7 @@ Partial Class frm_Item_Master
         '
         Me.Label11.AutoSize = True
         Me.Label11.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label11.Location = New System.Drawing.Point(347, 166)
+        Me.Label11.Location = New System.Drawing.Point(352, 165)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(98, 13)
         Me.Label11.TabIndex = 31
@@ -500,7 +502,6 @@ Partial Class frm_Item_Master
         Me.GroupBox3.Controls.Add(Me.Label28)
         Me.GroupBox3.Controls.Add(Me.Label29)
         Me.GroupBox3.Controls.Add(Me.Label30)
-        Me.GroupBox3.Controls.Add(Me.txtCurrentStock)
         Me.GroupBox3.Controls.Add(Me.lblConvReciepe)
         Me.GroupBox3.Controls.Add(Me.lblConvIssue)
         Me.GroupBox3.Controls.Add(Me.lbl_Recipeunit)
@@ -515,7 +516,6 @@ Partial Class frm_Item_Master
         Me.GroupBox3.Controls.Add(Me.Label12)
         Me.GroupBox3.Controls.Add(Me.Label4)
         Me.GroupBox3.Controls.Add(Me.Label17)
-        Me.GroupBox3.Controls.Add(Me.Label26)
         Me.GroupBox3.Controls.Add(Me.Label16)
         Me.GroupBox3.Controls.Add(Me.Label15)
         Me.GroupBox3.Controls.Add(Me.Label14)
@@ -532,55 +532,55 @@ Partial Class frm_Item_Master
         'lblbrandname
         '
         Me.lblbrandname.AutoSize = True
-        Me.lblbrandname.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblbrandname.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblbrandname.ForeColor = System.Drawing.Color.Orange
-        Me.lblbrandname.Location = New System.Drawing.Point(645, 133)
+        Me.lblbrandname.Location = New System.Drawing.Point(646, 28)
         Me.lblbrandname.Name = "lblbrandname"
-        Me.lblbrandname.Size = New System.Drawing.Size(49, 13)
+        Me.lblbrandname.Size = New System.Drawing.Size(53, 13)
         Me.lblbrandname.TabIndex = 46
         Me.lblbrandname.Text = "brand :"
         '
         'lblbarcode
         '
         Me.lblbarcode.AutoSize = True
-        Me.lblbarcode.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblbarcode.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblbarcode.ForeColor = System.Drawing.Color.Orange
-        Me.lblbarcode.Location = New System.Drawing.Point(645, 106)
+        Me.lblbarcode.Location = New System.Drawing.Point(646, 79)
         Me.lblbarcode.Name = "lblbarcode"
-        Me.lblbarcode.Size = New System.Drawing.Size(70, 13)
+        Me.lblbarcode.Size = New System.Drawing.Size(73, 13)
         Me.lblbarcode.TabIndex = 47
         Me.lblbarcode.Text = "Bar Code :"
         '
         'lblhsn
         '
         Me.lblhsn.AutoSize = True
-        Me.lblhsn.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblhsn.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblhsn.ForeColor = System.Drawing.Color.Orange
-        Me.lblhsn.Location = New System.Drawing.Point(645, 80)
+        Me.lblhsn.Location = New System.Drawing.Point(646, 54)
         Me.lblhsn.Name = "lblhsn"
-        Me.lblhsn.Size = New System.Drawing.Size(40, 13)
+        Me.lblhsn.Size = New System.Drawing.Size(41, 13)
         Me.lblhsn.TabIndex = 48
         Me.lblhsn.Text = "HSN :"
         '
         'lblSalerate
         '
         Me.lblSalerate.AutoSize = True
-        Me.lblSalerate.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblSalerate.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblSalerate.ForeColor = System.Drawing.Color.Orange
-        Me.lblSalerate.Location = New System.Drawing.Point(645, 54)
+        Me.lblSalerate.Location = New System.Drawing.Point(646, 131)
         Me.lblSalerate.Name = "lblSalerate"
-        Me.lblSalerate.Size = New System.Drawing.Size(71, 13)
+        Me.lblSalerate.Size = New System.Drawing.Size(76, 13)
         Me.lblSalerate.TabIndex = 49
         Me.lblSalerate.Text = "Sale Rate :"
         '
         'lblmrp
         '
         Me.lblmrp.AutoSize = True
-        Me.lblmrp.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblmrp.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblmrp.ForeColor = System.Drawing.Color.Orange
-        Me.lblmrp.Location = New System.Drawing.Point(645, 28)
+        Me.lblmrp.Location = New System.Drawing.Point(646, 105)
         Me.lblmrp.Name = "lblmrp"
-        Me.lblmrp.Size = New System.Drawing.Size(40, 13)
+        Me.lblmrp.Size = New System.Drawing.Size(41, 13)
         Me.lblmrp.TabIndex = 50
         Me.lblmrp.Text = "MRP :"
         '
@@ -588,7 +588,7 @@ Partial Class frm_Item_Master
         '
         Me.Label25.AutoSize = True
         Me.Label25.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label25.Location = New System.Drawing.Point(498, 29)
+        Me.Label25.Location = New System.Drawing.Point(499, 106)
         Me.Label25.Name = "Label25"
         Me.Label25.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label25.Size = New System.Drawing.Size(40, 13)
@@ -599,7 +599,7 @@ Partial Class frm_Item_Master
         '
         Me.Label27.AutoSize = True
         Me.Label27.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label27.Location = New System.Drawing.Point(498, 55)
+        Me.Label27.Location = New System.Drawing.Point(499, 132)
         Me.Label27.Name = "Label27"
         Me.Label27.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label27.Size = New System.Drawing.Size(71, 13)
@@ -610,7 +610,7 @@ Partial Class frm_Item_Master
         '
         Me.Label28.AutoSize = True
         Me.Label28.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label28.Location = New System.Drawing.Point(498, 107)
+        Me.Label28.Location = New System.Drawing.Point(499, 80)
         Me.Label28.Name = "Label28"
         Me.Label28.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label28.Size = New System.Drawing.Size(70, 13)
@@ -621,7 +621,7 @@ Partial Class frm_Item_Master
         '
         Me.Label29.AutoSize = True
         Me.Label29.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label29.Location = New System.Drawing.Point(498, 81)
+        Me.Label29.Location = New System.Drawing.Point(499, 55)
         Me.Label29.Name = "Label29"
         Me.Label29.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label29.Size = New System.Drawing.Size(74, 13)
@@ -632,7 +632,7 @@ Partial Class frm_Item_Master
         '
         Me.Label30.AutoSize = True
         Me.Label30.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label30.Location = New System.Drawing.Point(498, 133)
+        Me.Label30.Location = New System.Drawing.Point(499, 28)
         Me.Label30.Name = "Label30"
         Me.Label30.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label30.Size = New System.Drawing.Size(57, 13)
@@ -644,7 +644,7 @@ Partial Class frm_Item_Master
         Me.txtCurrentStock.AutoSize = True
         Me.txtCurrentStock.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtCurrentStock.ForeColor = System.Drawing.Color.Gold
-        Me.txtCurrentStock.Location = New System.Drawing.Point(816, 15)
+        Me.txtCurrentStock.Location = New System.Drawing.Point(474, 206)
         Me.txtCurrentStock.Name = "txtCurrentStock"
         Me.txtCurrentStock.Size = New System.Drawing.Size(65, 16)
         Me.txtCurrentStock.TabIndex = 40
@@ -655,7 +655,7 @@ Partial Class frm_Item_Master
         Me.lblConvReciepe.AutoSize = True
         Me.lblConvReciepe.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblConvReciepe.ForeColor = System.Drawing.Color.Orange
-        Me.lblConvReciepe.Location = New System.Drawing.Point(643, 184)
+        Me.lblConvReciepe.Location = New System.Drawing.Point(646, 184)
         Me.lblConvReciepe.Name = "lblConvReciepe"
         Me.lblConvReciepe.Size = New System.Drawing.Size(127, 13)
         Me.lblConvReciepe.TabIndex = 40
@@ -666,7 +666,7 @@ Partial Class frm_Item_Master
         Me.lblConvIssue.AutoSize = True
         Me.lblConvIssue.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblConvIssue.ForeColor = System.Drawing.Color.Orange
-        Me.lblConvIssue.Location = New System.Drawing.Point(643, 158)
+        Me.lblConvIssue.Location = New System.Drawing.Point(646, 158)
         Me.lblConvIssue.Name = "lblConvIssue"
         Me.lblConvIssue.Size = New System.Drawing.Size(120, 13)
         Me.lblConvIssue.TabIndex = 40
@@ -697,55 +697,55 @@ Partial Class frm_Item_Master
         'txt_UMID
         '
         Me.txt_UMID.AutoSize = True
-        Me.txt_UMID.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txt_UMID.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txt_UMID.ForeColor = System.Drawing.Color.Orange
         Me.txt_UMID.Location = New System.Drawing.Point(124, 132)
         Me.txt_UMID.Name = "txt_UMID"
-        Me.txt_UMID.Size = New System.Drawing.Size(69, 13)
+        Me.txt_UMID.Size = New System.Drawing.Size(76, 13)
         Me.txt_UMID.TabIndex = 40
         Me.txt_UMID.Text = "Item Unit :"
         '
         'lblItemDesc
         '
         Me.lblItemDesc.AutoSize = True
-        Me.lblItemDesc.Font = New System.Drawing.Font("Verdana", 8.25!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblItemDesc.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblItemDesc.ForeColor = System.Drawing.Color.Orange
         Me.lblItemDesc.Location = New System.Drawing.Point(124, 106)
         Me.lblItemDesc.Name = "lblItemDesc"
-        Me.lblItemDesc.Size = New System.Drawing.Size(80, 13)
+        Me.lblItemDesc.Size = New System.Drawing.Size(81, 13)
         Me.lblItemDesc.TabIndex = 40
         Me.lblItemDesc.Text = "Item Desc :"
         '
         'txtItemName
         '
         Me.txtItemName.AutoSize = True
-        Me.txtItemName.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtItemName.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtItemName.ForeColor = System.Drawing.Color.Orange
         Me.txtItemName.Location = New System.Drawing.Point(124, 80)
         Me.txtItemName.Name = "txtItemName"
-        Me.txtItemName.Size = New System.Drawing.Size(80, 13)
+        Me.txtItemName.Size = New System.Drawing.Size(87, 13)
         Me.txtItemName.TabIndex = 40
         Me.txtItemName.Text = "Item Name :"
         '
         'txtItemCode
         '
         Me.txtItemCode.AutoSize = True
-        Me.txtItemCode.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtItemCode.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtItemCode.ForeColor = System.Drawing.Color.Orange
         Me.txtItemCode.Location = New System.Drawing.Point(124, 54)
         Me.txtItemCode.Name = "txtItemCode"
-        Me.txtItemCode.Size = New System.Drawing.Size(77, 13)
+        Me.txtItemCode.Size = New System.Drawing.Size(82, 13)
         Me.txtItemCode.TabIndex = 40
         Me.txtItemCode.Text = "Item Code :"
         '
         'txtItemCat
         '
         Me.txtItemCat.AutoSize = True
-        Me.txtItemCat.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtItemCat.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtItemCat.ForeColor = System.Drawing.Color.Orange
         Me.txtItemCat.Location = New System.Drawing.Point(124, 28)
         Me.txtItemCat.Name = "txtItemCat"
-        Me.txtItemCat.Size = New System.Drawing.Size(100, 13)
+        Me.txtItemCat.Size = New System.Drawing.Size(109, 13)
         Me.txtItemCat.TabIndex = 40
         Me.txtItemCat.Text = "Item Category :"
         '
@@ -808,7 +808,7 @@ Partial Class frm_Item_Master
         '
         Me.Label26.AutoSize = True
         Me.Label26.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label26.Location = New System.Drawing.Point(715, 18)
+        Me.Label26.Location = New System.Drawing.Point(352, 208)
         Me.Label26.Name = "Label26"
         Me.Label26.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label26.Size = New System.Drawing.Size(96, 13)
