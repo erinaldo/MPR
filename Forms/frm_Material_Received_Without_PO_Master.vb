@@ -550,7 +550,7 @@ Public Class frm_Material_Received_Without_PO_Master
 
                 End If
                 obj.Clear_All_TextBox(Me.GroupBox1.Controls)
-                obj.Clear_All_ComoBox(Me.GroupBox1.Controls)
+                'obj.Clear_All_ComoBox(Me.GroupBox1.Controls)
                 new_initilization()
 
             End If

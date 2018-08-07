@@ -134,7 +134,7 @@ Public Class frm_Supplier_Rate_List_Master
         If Validation() = False Then
             Exit Sub
         End If
-        If grdSupplier.Rows.Count >= 1 And Not grdSupplier.Rows(0).Cells(1).Value = Trim("") Then
+        If grdSupplier.Rows.Count >= 1 And Not Convert.ToString(grdSupplier.Rows(0).Cells(1).Value) = Trim("") Then
             Dim stringArr() As String = New String() {"Rate"}
             If obj.ValidatingDGV(grdSupplier, stringArr) = False Then
                 MsgBox("Please Enter All The Records In Datagrid", vbExclamation, gblMessageHeading)

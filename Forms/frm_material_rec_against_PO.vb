@@ -226,7 +226,7 @@ Public Class frm_material_rec_against_PO
                     End If
                 End If
                 obj.Clear_All_TextBox(Me.GroupBox1.Controls)
-                obj.Clear_All_ComoBox(Me.GroupBox1.Controls)
+                'obj.Clear_All_ComoBox(Me.GroupBox1.Controls)
                 new_initilization()
             End If
         Catch ex As Exception
