@@ -78,6 +78,10 @@ Partial Class frm_material_rec_against_PO
         Me.Label14 = New System.Windows.Forms.Label()
         Me.lblexciseamt = New System.Windows.Forms.Label()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.cmbCapitalAccount = New System.Windows.Forms.ComboBox()
+        Me.lblSelectCapitalAccount = New System.Windows.Forms.Label()
+        Me.cmbITCEligibility = New System.Windows.Forms.ComboBox()
+        Me.lblITCEligibility = New System.Windows.Forms.Label()
         Me.lblcustid = New System.Windows.Forms.Label()
         Me.lblSupplier = New System.Windows.Forms.Label()
         Me.lblSupplierAddress = New System.Windows.Forms.Label()
@@ -96,10 +100,6 @@ Partial Class frm_material_rec_against_PO
         Me.FLXGRD_PO_NON_STOCKABLEITEMS = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
         Me.C1FlexGrid1 = New C1.Win.C1FlexGrid.C1FlexGrid()
-        Me.cmbCapitalAccount = New System.Windows.Forms.ComboBox()
-        Me.lblSelectCapitalAccount = New System.Windows.Forms.Label()
-        Me.cmbITCEligibility = New System.Windows.Forms.ComboBox()
-        Me.lblITCEligibility = New System.Windows.Forms.Label()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
@@ -840,6 +840,52 @@ Partial Class frm_material_rec_against_PO
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         '
+        'cmbCapitalAccount
+        '
+        Me.cmbCapitalAccount.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.cmbCapitalAccount.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbCapitalAccount.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmbCapitalAccount.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmbCapitalAccount.ForeColor = System.Drawing.Color.White
+        Me.cmbCapitalAccount.Location = New System.Drawing.Point(412, 86)
+        Me.cmbCapitalAccount.Name = "cmbCapitalAccount"
+        Me.cmbCapitalAccount.Size = New System.Drawing.Size(251, 23)
+        Me.cmbCapitalAccount.TabIndex = 4
+        '
+        'lblSelectCapitalAccount
+        '
+        Me.lblSelectCapitalAccount.AutoSize = True
+        Me.lblSelectCapitalAccount.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblSelectCapitalAccount.ForeColor = System.Drawing.Color.White
+        Me.lblSelectCapitalAccount.Location = New System.Drawing.Point(310, 88)
+        Me.lblSelectCapitalAccount.Name = "lblSelectCapitalAccount"
+        Me.lblSelectCapitalAccount.Size = New System.Drawing.Size(92, 15)
+        Me.lblSelectCapitalAccount.TabIndex = 43
+        Me.lblSelectCapitalAccount.Text = "Select Account :"
+        '
+        'cmbITCEligibility
+        '
+        Me.cmbITCEligibility.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.cmbITCEligibility.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbITCEligibility.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmbITCEligibility.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmbITCEligibility.ForeColor = System.Drawing.Color.White
+        Me.cmbITCEligibility.Location = New System.Drawing.Point(98, 86)
+        Me.cmbITCEligibility.Name = "cmbITCEligibility"
+        Me.cmbITCEligibility.Size = New System.Drawing.Size(177, 23)
+        Me.cmbITCEligibility.TabIndex = 3
+        '
+        'lblITCEligibility
+        '
+        Me.lblITCEligibility.AutoSize = True
+        Me.lblITCEligibility.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblITCEligibility.ForeColor = System.Drawing.Color.White
+        Me.lblITCEligibility.Location = New System.Drawing.Point(13, 88)
+        Me.lblITCEligibility.Name = "lblITCEligibility"
+        Me.lblITCEligibility.Size = New System.Drawing.Size(83, 15)
+        Me.lblITCEligibility.TabIndex = 41
+        Me.lblITCEligibility.Text = "ITC Eligibility :"
+        '
         'lblcustid
         '
         Me.lblcustid.AutoSize = True
@@ -1034,52 +1080,6 @@ Partial Class frm_material_rec_against_PO
         Me.C1FlexGrid1.Size = New System.Drawing.Size(0, 0)
         Me.C1FlexGrid1.Styles = New C1.Win.C1FlexGrid.CellStyleCollection(resources.GetString("C1FlexGrid1.Styles"))
         Me.C1FlexGrid1.TabIndex = 0
-        '
-        'cmbCapitalAccount
-        '
-        Me.cmbCapitalAccount.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.cmbCapitalAccount.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cmbCapitalAccount.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmbCapitalAccount.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmbCapitalAccount.ForeColor = System.Drawing.Color.White
-        Me.cmbCapitalAccount.Location = New System.Drawing.Point(412, 83)
-        Me.cmbCapitalAccount.Name = "cmbCapitalAccount"
-        Me.cmbCapitalAccount.Size = New System.Drawing.Size(177, 23)
-        Me.cmbCapitalAccount.TabIndex = 42
-        '
-        'lblSelectCapitalAccount
-        '
-        Me.lblSelectCapitalAccount.AutoSize = True
-        Me.lblSelectCapitalAccount.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblSelectCapitalAccount.ForeColor = System.Drawing.Color.White
-        Me.lblSelectCapitalAccount.Location = New System.Drawing.Point(313, 88)
-        Me.lblSelectCapitalAccount.Name = "lblSelectCapitalAccount"
-        Me.lblSelectCapitalAccount.Size = New System.Drawing.Size(92, 15)
-        Me.lblSelectCapitalAccount.TabIndex = 43
-        Me.lblSelectCapitalAccount.Text = "Select Account :"
-        '
-        'cmbITCEligibility
-        '
-        Me.cmbITCEligibility.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.cmbITCEligibility.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cmbITCEligibility.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmbITCEligibility.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmbITCEligibility.ForeColor = System.Drawing.Color.White
-        Me.cmbITCEligibility.Location = New System.Drawing.Point(96, 85)
-        Me.cmbITCEligibility.Name = "cmbITCEligibility"
-        Me.cmbITCEligibility.Size = New System.Drawing.Size(177, 23)
-        Me.cmbITCEligibility.TabIndex = 40
-        '
-        'lblITCEligibility
-        '
-        Me.lblITCEligibility.AutoSize = True
-        Me.lblITCEligibility.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblITCEligibility.ForeColor = System.Drawing.Color.White
-        Me.lblITCEligibility.Location = New System.Drawing.Point(13, 88)
-        Me.lblITCEligibility.Name = "lblITCEligibility"
-        Me.lblITCEligibility.Size = New System.Drawing.Size(83, 15)
-        Me.lblITCEligibility.TabIndex = 41
-        Me.lblITCEligibility.Text = "ITC Eligibility :"
         '
         'frm_material_rec_against_PO
         '
