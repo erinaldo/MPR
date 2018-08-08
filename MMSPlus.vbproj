@@ -897,6 +897,11 @@
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Reports\Cry_DeliveryNote - Copy.vb">
+      <DependentUpon>Cry_DeliveryNote - Copy.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Reports\Cry_DeliveryNote.vb">
       <DependentUpon>Cry_DeliveryNote.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -1869,6 +1874,10 @@
     <EmbeddedResource Include="Reports\Cry_Debit_Note_WO_Item.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>Cry_Debit_Note_WO_Item.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Cry_DeliveryNote - Copy.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Cry_DeliveryNote - Copy.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\Cry_DeliveryNote.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
