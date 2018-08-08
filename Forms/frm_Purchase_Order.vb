@@ -972,7 +972,7 @@ restart:
                     drItem = frm_Indent_Items.dTable_POItems_Copy.NewRow
 
                     Dim ds As New DataSet
-                    ds = Obj.Fill_DataSet("SELECT ITEM_ID,BARCODE_VCH as ITEM_CODE, ITEM_NAME, UM_Name, UNIT_MASTER.UM_ID, ISNULL(pk_CessId_num,0) AS Cess_Id, ISNULL(CessName_vch,'0%') + ' CESS'  AS Cess_Name, ISNULL(CessPercentage_num,0.00) AS Cess_Per  FROM item_master" &
+                    ds = Obj.Fill_DataSet("SELECT ITEM_ID,BARCODE_VCH as ITEM_CODE, ITEM_NAME, UM_Name, UNIT_MASTER.UM_ID, ISNULL(pk_CessId_num,0) AS Cess_Id, ISNULL(CessName_vch,'0%') + ' CESS'  AS Cess_Name, ISNULL(CessPercentage_num,0.00) AS CessPercentage_num  FROM item_master" &
                                     " INNER JOIN dbo.UNIT_MASTER ON dbo.UNIT_MASTER .UM_ID = dbo.ITEM_MASTER .UM_ID Left JOIN dbo.CessMaster ON dbo.CessMaster.pk_CessId_num = dbo.ITEM_MASTER.fk_CessId_num " &
                                     " WHERE ITEM_ID=" & Convert.ToInt32(element) & "")
 
@@ -1049,7 +1049,7 @@ restart:
                         dr("Vat_Id") = 0
                         dr("Vat_Name") = "0% GST"
                     Else
-                        dr("Vat_Per") = ds.Tables(0).Rows(0)("VAT_PERCENTAGE")
+                        dr("Vat_Per") = ds.Tables(0).Rows(0)(0)
                         dr("Vat_Id") = ds.Tables(1).Rows(0)("PURCHASE_VAT_ID")
                         dr("Vat_Name") = ds.Tables(1).Rows(0)("VAT_NAME")
 
