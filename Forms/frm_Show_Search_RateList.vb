@@ -260,7 +260,7 @@ Public Class frm_Show_Search_RateList
     End Sub
 
     Private Sub SelectItemAndCloseForm()
-
+        search_result = ""
         For Each Row As DataGridViewRow In grdSearch.Rows
             If CType(Row.Cells("chkBxSelect"), DataGridViewCheckBoxCell).Value = True Then
                 search_result = search_result & Row.Cells(ret_column).Value & ","
@@ -273,7 +273,7 @@ Public Class frm_Show_Search_RateList
         Next
 
         'If String.IsNullOrEmpty(search_result) Then
-        If String.IsNullOrEmpty(search_result) Or search_result = "-1" Or search_result Is Nothing Then
+        If String.IsNullOrEmpty(search_result) Or search_result Is Nothing Then
             If grdSearch.SelectedRows.Count > 0 Then
                 search_result = grdSearch.SelectedRows.Item(0).Cells(ret_column).Value
                 If Not String.IsNullOrEmpty(item_rate_column) Then
@@ -838,4 +838,5 @@ Public Class frm_Show_Search_RateList
             cmbCategory.DroppedDown = True
         End If
     End Sub
+
 End Class

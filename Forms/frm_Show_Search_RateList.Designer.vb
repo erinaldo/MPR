@@ -72,7 +72,7 @@ Partial Class frm_Show_Search_RateList
         Me.gpAdvanceSearch.Location = New System.Drawing.Point(-5, -1)
         Me.gpAdvanceSearch.Name = "gpAdvanceSearch"
         Me.gpAdvanceSearch.Size = New System.Drawing.Size(808, 175)
-        Me.gpAdvanceSearch.TabIndex = 0
+        Me.gpAdvanceSearch.TabIndex = 1
         Me.gpAdvanceSearch.TabStop = False
         Me.gpAdvanceSearch.Text = "Filter Options"
         '
@@ -140,7 +140,7 @@ Partial Class frm_Show_Search_RateList
         Me.txtSearch.Location = New System.Drawing.Point(162, 140)
         Me.txtSearch.Name = "txtSearch"
         Me.txtSearch.Size = New System.Drawing.Size(587, 18)
-        Me.txtSearch.TabIndex = 5
+        Me.txtSearch.TabIndex = 0
         '
         'lblMRP
         '
@@ -224,7 +224,7 @@ Partial Class frm_Show_Search_RateList
         Me.grdSearch.ScrollBars = System.Windows.Forms.ScrollBars.None
         Me.grdSearch.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.grdSearch.Size = New System.Drawing.Size(806, 253)
-        Me.grdSearch.TabIndex = 1
+        Me.grdSearch.TabIndex = 0
         '
         'chkBxSelect
         '

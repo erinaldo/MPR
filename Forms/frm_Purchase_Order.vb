@@ -963,6 +963,7 @@ restart:
 
                 Dim stringSeparators() As String = {","}
                 Dim result() As String
+
                 result = frm_Show_Search_RateList.search_result.Split(stringSeparators, StringSplitOptions.RemoveEmptyEntries)
 
                 For Each element As String In result
@@ -972,6 +973,7 @@ restart:
                     drItem = frm_Indent_Items.dTable_POItems_Copy.NewRow
 
                     Dim ds As New DataSet
+
                     ds = Obj.Fill_DataSet("SELECT ITEM_ID,BARCODE_VCH as ITEM_CODE, ITEM_NAME, UM_Name, UNIT_MASTER.UM_ID, ISNULL(pk_CessId_num,0) AS Cess_Id, ISNULL(CessName_vch,'0%') + ' CESS'  AS Cess_Name, ISNULL(CessPercentage_num,0.00) AS CessPercentage_num  FROM item_master" &
                                     " INNER JOIN dbo.UNIT_MASTER ON dbo.UNIT_MASTER .UM_ID = dbo.ITEM_MASTER .UM_ID Left JOIN dbo.CessMaster ON dbo.CessMaster.pk_CessId_num = dbo.ITEM_MASTER.fk_CessId_num " &
                                     " WHERE ITEM_ID=" & Convert.ToInt32(element) & "")
@@ -1016,6 +1018,8 @@ restart:
                         dr("Cess_Id") = ds.Tables(0).Rows(0)("Cess_Id")
                         dr("Cess_Name") = ds.Tables(0).Rows(0)("Cess_Name")
                     End If
+
+
 
                     dr("Item_id") = ds.Tables(0).Rows(0)("ITEM_ID").ToString
                     dr("Item_Code") = ds.Tables(0).Rows(0)("ITEM_CODE").ToString
