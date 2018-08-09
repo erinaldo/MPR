@@ -559,8 +559,14 @@ Public Class frm_Purchase_Order
                         exice_per = IIf((.Item("Exice_Per")) Is DBNull.Value, 0, .Item("Exice_Per"))
                         exice_per = exice_per / 100
                         total_exice_amount = total_exice_amount + itmVal * exice_per
-                        total_vat_amount = total_vat_amount + ((((.Item("PO_Qty") * .Item("Item_Rate")) - discamt) * .Item("Vat_Per")) / 100)
+                        total_vat_amount = total_vat_amount + (((.Item("PO_Qty") * .Item("Item_Rate")) - discamt) * (.Item("Vat_per")) / 100) '((((.Item("PO_Qty") * .Item("Item_Rate")) - discamt) * .Item("Vat_Per")) / 100)
                         total_cess_amount = total_cess_amount + ((((.Item("PO_Qty") * .Item("Item_Rate")) - discamt) * .Item("Cess_Per")) / 100)
+
+                        Dim testqty, vat, Rate, Total As Decimal
+                        testqty = .Item("PO_Qty")
+                        Rate = .Item("Item_Rate")
+                        vat = .Item("Vat_per")
+
                     End If
                 End With
             Next
@@ -976,6 +982,7 @@ restart:
                                     " INNER JOIN dbo.UNIT_MASTER ON dbo.UNIT_MASTER .UM_ID = dbo.ITEM_MASTER .UM_ID Left JOIN dbo.CessMaster ON dbo.CessMaster.pk_CessId_num = dbo.ITEM_MASTER.fk_CessId_num " &
                                     " WHERE ITEM_ID=" & Convert.ToInt32(element) & "")
 
+
                     Dim dv_Items As DataView
                     Dim tempdt As DataTable
                     tempdt = frm_Indent_Items.dTable_POItems.Copy
@@ -1049,7 +1056,7 @@ restart:
                         dr("Vat_Id") = 0
                         dr("Vat_Name") = "0% GST"
                     Else
-                        dr("Vat_Per") = ds.Tables(0).Rows(0)(0)
+                        dr("Vat_Per") = ds.Tables(1).Rows(0)("VAT_PERCENTAGE")
                         dr("Vat_Id") = ds.Tables(1).Rows(0)("PURCHASE_VAT_ID")
                         dr("Vat_Name") = ds.Tables(1).Rows(0)("VAT_NAME")
 
