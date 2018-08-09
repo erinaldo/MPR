@@ -53,11 +53,9 @@ Namespace material_recieved_without_po_master
         Dim _NET_AMOUNT As Double
         Dim _Item_Cess As Double
         Dim _A_Cess As Double
-
         Dim _Special_Scheme As String
         Dim _Freight_TaxApplied As String
         Dim _Freight_TaxValue As String
-
         Dim _FK_ITCEligibility_ID As Double
         Dim _Reference_ID As Double
 
@@ -141,6 +139,7 @@ Namespace material_recieved_without_po_master
                 _Received_Date = value
             End Set
         End Property
+
         Public Property Invoice_Date() As DateTime
             Get
                 Invoice_Date = _Invoice_Date
@@ -176,6 +175,7 @@ Namespace material_recieved_without_po_master
                 _Remarks = value
             End Set
         End Property
+
         Public Property Invoice_No() As String
             Get
                 Invoice_No = _Invoice_No
@@ -184,6 +184,7 @@ Namespace material_recieved_without_po_master
                 _Invoice_No = value
             End Set
         End Property
+
         Public Property Batch_No() As String
             Get
                 Batch_No = _Batch_no
@@ -413,7 +414,6 @@ Namespace material_recieved_without_po_master
             End Set
         End Property
 
-
         Public Property Item_exice() As Double
             Get
                 Item_exice = _Item_Exice
@@ -422,6 +422,7 @@ Namespace material_recieved_without_po_master
                 _Item_Exice = value
             End Set
         End Property
+
         Public Property TransactionType() As Int32
             Get
                 TransactionType = _TransactionType
@@ -430,6 +431,7 @@ Namespace material_recieved_without_po_master
                 _TransactionType = value
             End Set
         End Property
+
         Public Property CostCenter_ID() As Int32
             Get
                 CostCenter_ID = _CostCenter_ID
@@ -474,6 +476,7 @@ Namespace material_recieved_without_po_master
                 _MRNType = value
             End Set
         End Property
+
         Public Property GROSS_AMOUNT() As Double
             Get
                 GROSS_AMOUNT = _GROSS_AMOUNT
@@ -482,6 +485,7 @@ Namespace material_recieved_without_po_master
                 _GROSS_AMOUNT = value
             End Set
         End Property
+
         Public Property GST_AMOUNT() As Double
             Get
                 GST_AMOUNT = _GST_AMOUNT
@@ -490,6 +494,7 @@ Namespace material_recieved_without_po_master
                 _GST_AMOUNT = value
             End Set
         End Property
+
         Public Property CESS_AMOUNT() As Double
             Get
                 CESS_AMOUNT = _CESS_AMOUNT

@@ -20,7 +20,7 @@ Partial Class frm_Account_Payment
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frm_Account_Payment))
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.List = New System.Windows.Forms.TabPage()
@@ -36,7 +36,7 @@ Partial Class frm_Account_Payment
         Me.lblGSTPercentage = New System.Windows.Forms.Label()
         Me.chk_GSTApplicable = New System.Windows.Forms.CheckBox()
         Me.cmbGSTNature = New System.Windows.Forms.ComboBox()
-        Me.Label6 = New System.Windows.Forms.Label()
+        Me.lblGSTNature = New System.Windows.Forms.Label()
         Me.lblAdvanceAmount = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.lblPendingAmount = New System.Windows.Forms.Label()
@@ -59,6 +59,7 @@ Partial Class frm_Account_Payment
         Me.lblCap1 = New System.Windows.Forms.Label()
         Me.lblFormHeading = New System.Windows.Forms.Label()
         Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
+        Me.chk_GSTApplicable_BankId = New System.Windows.Forms.CheckBox()
         Me.TabControl1.SuspendLayout()
         Me.List.SuspendLayout()
         Me.GBMRSDetail.SuspendLayout()
@@ -123,12 +124,12 @@ Partial Class frm_Account_Payment
         Me.flxList.Location = New System.Drawing.Point(3, 16)
         Me.flxList.Name = "flxList"
         Me.flxList.RowHeadersVisible = False
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black
-        Me.flxList.RowsDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle3.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black
+        Me.flxList.RowsDefaultCellStyle = DataGridViewCellStyle3
         Me.flxList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.flxList.Size = New System.Drawing.Size(871, 418)
         Me.flxList.TabIndex = 0
@@ -179,11 +180,12 @@ Partial Class frm_Account_Payment
         '
         'GBDCMASTER
         '
+        Me.GBDCMASTER.Controls.Add(Me.chk_GSTApplicable_BankId)
         Me.GBDCMASTER.Controls.Add(Me.lblGSTPercentageValue)
         Me.GBDCMASTER.Controls.Add(Me.lblGSTPercentage)
         Me.GBDCMASTER.Controls.Add(Me.chk_GSTApplicable)
         Me.GBDCMASTER.Controls.Add(Me.cmbGSTNature)
-        Me.GBDCMASTER.Controls.Add(Me.Label6)
+        Me.GBDCMASTER.Controls.Add(Me.lblGSTNature)
         Me.GBDCMASTER.Controls.Add(Me.lblAdvanceAmount)
         Me.GBDCMASTER.Controls.Add(Me.Label5)
         Me.GBDCMASTER.Controls.Add(Me.lblPendingAmount)
@@ -260,15 +262,15 @@ Partial Class frm_Account_Payment
         Me.cmbGSTNature.Size = New System.Drawing.Size(306, 23)
         Me.cmbGSTNature.TabIndex = 62
         '
-        'Label6
+        'lblGSTNature
         '
-        Me.Label6.AutoSize = True
-        Me.Label6.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label6.Location = New System.Drawing.Point(34, 268)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(77, 15)
-        Me.Label6.TabIndex = 63
-        Me.Label6.Text = "GST Nature :"
+        Me.lblGSTNature.AutoSize = True
+        Me.lblGSTNature.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblGSTNature.Location = New System.Drawing.Point(34, 268)
+        Me.lblGSTNature.Name = "lblGSTNature"
+        Me.lblGSTNature.Size = New System.Drawing.Size(77, 15)
+        Me.lblGSTNature.TabIndex = 63
+        Me.lblGSTNature.Text = "GST Nature :"
         '
         'lblAdvanceAmount
         '
@@ -329,7 +331,7 @@ Partial Class frm_Account_Payment
         Me.txtRemarks.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtRemarks.Font = New System.Drawing.Font("Arial Narrow", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtRemarks.ForeColor = System.Drawing.Color.White
-        Me.txtRemarks.Location = New System.Drawing.Point(134, 300)
+        Me.txtRemarks.Location = New System.Drawing.Point(134, 319)
         Me.txtRemarks.MaxLength = 0
         Me.txtRemarks.Multiline = True
         Me.txtRemarks.Name = "txtRemarks"
@@ -340,7 +342,7 @@ Partial Class frm_Account_Payment
         '
         Me.Label10.AutoSize = True
         Me.Label10.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label10.Location = New System.Drawing.Point(35, 300)
+        Me.Label10.Location = New System.Drawing.Point(35, 319)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(63, 15)
         Me.Label10.TabIndex = 55
@@ -512,6 +514,21 @@ Partial Class frm_Account_Payment
         Me.ImageList1.Images.SetKeyName(0, "Zoom_search_find_magnifying_glass.png")
         Me.ImageList1.Images.SetKeyName(1, "Inventory_box_shipment_product.png")
         '
+        'chk_GSTApplicable_BankId
+        '
+        Me.chk_GSTApplicable_BankId.AutoSize = True
+        Me.chk_GSTApplicable_BankId.BackColor = System.Drawing.Color.Transparent
+        Me.chk_GSTApplicable_BankId.Enabled = False
+        Me.chk_GSTApplicable_BankId.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!)
+        Me.chk_GSTApplicable_BankId.ForeColor = System.Drawing.Color.White
+        Me.chk_GSTApplicable_BankId.Location = New System.Drawing.Point(510, 294)
+        Me.chk_GSTApplicable_BankId.Name = "chk_GSTApplicable_BankId"
+        Me.chk_GSTApplicable_BankId.Size = New System.Drawing.Size(128, 19)
+        Me.chk_GSTApplicable_BankId.TabIndex = 70
+        Me.chk_GSTApplicable_BankId.Text = "GST Applicable Cr."
+        Me.chk_GSTApplicable_BankId.UseVisualStyleBackColor = False
+        Me.chk_GSTApplicable_BankId.Visible = False
+        '
         'frm_Account_Payment
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -566,8 +583,9 @@ Partial Class frm_Account_Payment
     Friend WithEvents ImageList1 As System.Windows.Forms.ImageList
     Friend WithEvents BtnCancelInv As Button
     Friend WithEvents cmbGSTNature As ComboBox
-    Friend WithEvents Label6 As Label
+    Friend WithEvents lblGSTNature As Label
     Friend WithEvents lblGSTPercentageValue As Label
     Friend WithEvents lblGSTPercentage As Label
     Friend WithEvents chk_GSTApplicable As CheckBox
+    Friend WithEvents chk_GSTApplicable_BankId As CheckBox
 End Class

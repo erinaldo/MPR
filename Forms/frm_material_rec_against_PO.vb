@@ -183,7 +183,7 @@ Public Class frm_material_rec_against_PO
                 prop.freight = Convert.ToDouble(txtAmount.Text)
                 prop.Other_Charges = Convert.ToDouble(txtotherchrgs.Text)
                 prop.Discount_amt = Convert.ToDouble(txtdiscount.Text)
-                prop.GROSS_AMOUNT = Convert.ToDouble(lblgrossamt.Text)
+                prop.GROSS_AMOUNT = (Convert.ToDouble(lblgrossamt.Text) - Convert.ToDouble(txtAmount.Text))
                 prop.GST_AMOUNT = Convert.ToDouble(lblvatamt.Text)
                 prop.CESS_AMOUNT = Convert.ToDouble(lblcessamt.Text)
                 prop.NET_AMOUNT = Convert.ToDouble(lblnetamt.Text)
@@ -902,6 +902,7 @@ Public Class frm_material_rec_against_PO
         End If
         Calculate_Amount()
     End Sub
+
 
     'Sub NumericValueDGVIndentItem(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyPressEventArgs)
 
