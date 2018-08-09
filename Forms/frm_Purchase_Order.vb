@@ -561,12 +561,6 @@ Public Class frm_Purchase_Order
                         total_exice_amount = total_exice_amount + itmVal * exice_per
                         total_vat_amount = total_vat_amount + (((.Item("PO_Qty") * .Item("Item_Rate")) - discamt) * (.Item("Vat_per")) / 100) '((((.Item("PO_Qty") * .Item("Item_Rate")) - discamt) * .Item("Vat_Per")) / 100)
                         total_cess_amount = total_cess_amount + ((((.Item("PO_Qty") * .Item("Item_Rate")) - discamt) * .Item("Cess_Per")) / 100)
-
-                        Dim testqty, vat, Rate, Total As Decimal
-                        testqty = .Item("PO_Qty")
-                        Rate = .Item("Item_Rate")
-                        vat = .Item("Vat_per")
-
                     End If
                 End With
             Next
@@ -1444,5 +1438,6 @@ restart:
     Private Sub cmbFilterSupp_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbFilterSupp.SelectedIndexChanged
 
     End Sub
+
 
 End Class
