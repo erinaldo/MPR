@@ -92,14 +92,14 @@ Public Class frm_GSTR_3
     End Function
 
     Private Function Add3_1SectionData(xlWorkSheet As Object) As Object
-        row = Get3_1_SectionData("  AND (invd.VAT_PER)>0")
+        row = Get3_1_SectionData(" AND(VAT_PER)>0")
         xlWorkSheet.Cells(11, 2) = row("Taxable_Value")
         xlWorkSheet.Cells(11, 5) = row("integrated_tax")
         xlWorkSheet.Cells(11, 8) = row("non_integrated_tax") / 2
         xlWorkSheet.Cells(11, 11) = row("non_integrated_tax") / 2
         xlWorkSheet.Cells(11, 14) = row("Cess_Amount")
 
-        row = Get3_1_SectionData("  AND (invd.VAT_PER)= 0")
+        row = Get3_1_SectionData(" AND(VAT_PER)=0")
         xlWorkSheet.Cells(13, 2) = row("Taxable_Value")
         xlWorkSheet.Cells(13, 5) = row("integrated_tax")
         xlWorkSheet.Cells(13, 8) = row("non_integrated_tax") / 2
@@ -584,7 +584,20 @@ FROM    ( SELECT    SUM(ISNULL(IntraState_TaxableValue, 0)) AS IntraState_Taxabl
                     INNER Join dbo.ACCOUNT_MASTER am ON pt.AccountId = am.ACC_ID
                     INNER Join dbo.CITY_MASTER cm ON cm.CITY_ID = am.CITY_ID
             WHERE     CAST(pt.PaymentDate As Date) between CAST('" & txtFromDate.Value.ToString("dd-MMM-yyyy") & "' AS date) AND CAST('" & txtToDate.Value.ToString("dd-MMM-yyyy") & "' AS date) " & "
-             ) As temp"
+            
+
+            UNION 
+            SELECT 	CASE WHEN cm.STATE_ID = " & stateId & " THEN pt.GSTPerAmt END AS non_integrated_tax ,                    
+                    CASE WHEN cm.STATE_ID <> " & stateId & " THEN pt.GSTPerAmt END AS integrated_tax ,
+                    0.00 AS CessAmt
+            FROM      dbo.PaymentTransaction AS pt
+                    INNER JOIN dbo.ACCOUNT_MASTER am ON pt.AccountId = am.ACC_ID
+                    INNER JOIN dbo.CITY_MASTER cm ON cm.CITY_ID = am.CITY_ID
+            WHERE     CAST(pt.PaymentDate AS DATE) between CAST('" & txtFromDate.Value.ToString("dd-MMM-yyyy") & "' AS date) AND CAST('" & txtToDate.Value.ToString("dd-MMM-yyyy") & "' AS date) " & "
+					AND pt.GST_Applicable_Acc = 'Dr.' 
+
+
+) As temp"
         Return objCommFunction.Fill_DataSet(Qry).Tables(0).Rows(0)
     End Function
 
@@ -630,6 +643,48 @@ FROM    ( SELECT    STATE_CODE ,
                                 STATE_NAME ,
                                 GSTPaid ,
                                 VAT_PER
+
+                      UNION
+
+
+                      SELECT    STATE_CODE ,
+                                STATE_NAME ,
+                                Taxable_Value ,
+                                CASE WHEN Inv_Type = 'I' THEN GSTPerAmt
+                                END AS integrated_tax ,
+                                GSTPaid ,
+                                VAT_PER
+                      FROM      ( SELECT    STATE_CODE ,
+                                            STATE_NAME ,
+                                            pt.GSTPerAmt ,
+                                            pt.TotalAmountReceived AS Taxable_Value ,
+                                            '' AS GSTPaid ,
+                                            CASE WHEN pt.fk_GST_ID = 1
+                                                 THEN 0.00
+                                                 WHEN pt.fk_GST_ID = 2
+                                                 THEN 5.00
+                                                 WHEN pt.fk_GST_ID = 3
+                                                 THEN 12.00
+                                                 WHEN pt.fk_GST_ID = 4 THEN 18
+                                                 WHEN pt.fk_GST_ID = 5
+                                                 THEN 28.00
+                                                 WHEN pt.fk_GST_ID = 6
+                                                 THEN 3.00
+                                            END AS VAT_PER ,
+                                            CASE WHEN cm.STATE_ID = " & stateId & " THEN 'S'
+                                                 ELSE 'I'
+                                            END AS Inv_Type
+                                  FROM      dbo.PaymentTransaction AS pt
+                                            INNER JOIN dbo.ACCOUNT_MASTER am ON pt.AccountId = am.ACC_ID
+                                            INNER JOIN dbo.CITY_MASTER cm ON cm.CITY_ID = am.CITY_ID
+                                            INNER JOIN dbo.STATE_MASTER sm ON sm.STATE_ID = cm.STATE_ID
+                                  WHERE     CAST(pt.PaymentDate AS DATE) between CAST('" & txtFromDate.Value.ToString("dd-MMM-yyyy") & "' AS date) AND CAST('" & txtToDate.Value.ToString("dd-MMM-yyyy") & "' AS date) " & "
+                                            And GST_Applicable_Acc = 'Cr.'
+                                            And Len(ISNULL(VAT_NO, '')) = 0
+                      ) subquery
+                      WHERE     Inv_Type = 'I'
+
+
                     ) tb
           GROUP BY  STATE_CODE ,
                     STATE_NAME
@@ -655,21 +710,9 @@ FROM    ( SELECT    STATE_CODE ,
           GROUP BY  STATE_CODE ,
                     STATE_NAME
         ) tb
-GROUP BY STATE_CODE ,
+        GROUP BY STATE_CODE ,
         STATE_NAME "
 
-        'Qry = " SELECT STATE_CODE, STATE_NAME, " &
-        '     " SUM(((BAL_ITEM_QTY * BAL_ITEM_RATE) - ISNULL(ITEM_DISCOUNT,0))) As Taxable_Value, " &
-        '     " SUM(invd.VAT_AMOUNT) as integrated_tax " &
-        '     " FROM dbo.SALE_INVOICE_MASTER inv " &
-        '     " INNER JOIN dbo.SALE_INVOICE_DETAIL invd ON invd.SI_ID = inv.SI_ID" &
-        '     " INNER JOIN dbo.ACCOUNT_MASTER am ON am.ACC_ID = inv.CUST_ID " &
-        '     " INNER JOIN dbo.CITY_MASTER cm ON cm.CITY_ID = am.CITY_ID " &
-        '     " INNER JOIN dbo.STATE_MASTER sm ON sm.STATE_ID = cm.STATE_ID " &
-        '     " WHERE MONTH(SI_DATE) =  " & txtFromDate.Value.Month &
-        '     " And YEAR(SI_DATE) =  " & txtFromDate.Value.Year &
-        '     " AND inv.INV_TYPE='I' " &
-        '     " AND len(isnull(VAT_NO,''))=0 Group By STATE_CODE, STATE_NAME"
         Return objCommFunction.Fill_DataSet(Qry).Tables(0)
     End Function
 
@@ -714,19 +757,41 @@ GROUP BY STATE_CODE ,
           WHERE     INV.INVOICE_STATUS <> 4 
                     AND cast(SI_DATE AS date) between CAST('" & txtFromDate.Value.ToString("dd-MMM-yyyy") & "' AS date) AND CAST('" & txtToDate.Value.ToString("dd-MMM-yyyy") & "' AS date) "
 
-        ''Qry = " SELECT " &
-        ''     " isnull(SUM(((BAL_ITEM_QTY * BAL_ITEM_RATE) - ISNULL(ITEM_DISCOUNT,0))),0) As Taxable_Value, SUM(0) Cess_Amount, " &
-        ''     " isnull(SUM(CASE WHEN inv.INV_TYPE <>'I' THEN invd.VAT_AMOUNT ELSE 0 END),0) AS non_integrated_tax, " &
-        ''     " isnull(SUM(CASE WHEN inv.INV_TYPE = 'I' THEN invd.VAT_AMOUNT ELSE 0 END),0) AS integrated_tax " &
-        ''     " FROM    dbo.SALE_INVOICE_MASTER inv " &
-        ''     " INNER JOIN dbo.SALE_INVOICE_DETAIL invd ON invd.SI_ID = inv.SI_ID" &
-        ''     " INNER JOIN dbo.ACCOUNT_MASTER am ON am.ACC_ID = inv.CUST_ID " &
-        ''     " INNER JOIN dbo.CITY_MASTER cm ON cm.CITY_ID = am.CITY_ID " &
-        ''     " INNER JOIN dbo.STATE_MASTER sm ON sm.STATE_ID = cm.STATE_ID " &
-        ''     " WHERE MONTH(SI_DATE) =  " & txtFromDate.Value.Month &
-        ''     " And YEAR(SI_DATE)=  " & txtFromDate.Value.Year
-        Qry = Qry + condition + " GROUP BY  GSTPaid ,VAT_PER) tb UNION ALL
-          SELECT    SUM(CAST(( d.Item_Qty * d.Item_Rate ) AS NUMERIC(18, 2)))
+        Qry = Qry & condition & " GROUP BY GSTPaid, VAT_PER) tb "
+
+        Qry = Qry & "
+        UNION ALL 
+              Select Taxable_Value ,
+                        CessAmt ,
+                        non_integrated_tax ,
+                        integrated_tax 
+              from(
+              SELECT * From (
+              SELECT    pt.TotalAmountReceived AS Taxable_Value , 
+						0.00 AS CessAmt ,
+						CASE WHEN cm.STATE_ID = " & stateId & " THEN pt.GSTPerAmt
+                        END AS non_integrated_tax ,
+                        CASE WHEN cm.STATE_ID <> " & stateId & " THEN pt.GSTPerAmt
+                        END AS integrated_tax,
+                         CASE WHEN pt.fk_GST_ID = 1 THEN 0.00
+                                         WHEN pt.fk_GST_ID = 2 THEN 5.00
+                                         WHEN pt.fk_GST_ID = 3 THEN 12.00
+                                         WHEN pt.fk_GST_ID = 4 THEN 18
+                                         WHEN pt.fk_GST_ID = 5 THEN 28.00
+                                         WHEN pt.fk_GST_ID = 6 THEN 3.00
+                                    END AS Vat_per ,
+                        pt.PaymentDate,
+                        pt.GST_Applicable_Acc,
+                        am.VAT_NO 
+              FROM      dbo.PaymentTransaction AS pt
+                        INNER JOIN dbo.ACCOUNT_MASTER am ON pt.AccountId = am.ACC_ID
+                        INNER JOIN dbo.CITY_MASTER cm ON cm.CITY_ID = am.CITY_ID ) subquery
+              WHERE     CAST(PaymentDate AS DATE) between CAST('" & txtFromDate.Value.ToString("dd-MMM-yyyy") & "' AS date) AND CAST('" & txtToDate.Value.ToString("dd-MMM-yyyy") & "' AS date) " & "
+                        AND GST_Applicable_Acc = 'Cr.' AND LEN(VAT_NO) > 0 " & condition & " 
+               ) tb " & "
+
+        UNION ALL
+        SELECT    SUM(CAST(( d.Item_Qty * d.Item_Rate ) AS NUMERIC(18, 2)))
                     * (-1) AS Taxable_Value ,
                     ISNULL(SUM(CAST(( d.Item_Qty * d.Item_Rate )
                                          * Item_Cess / 100 AS NUMERIC(18, 2))), 0) * (-1) As Cess_Amount ,
@@ -746,15 +811,14 @@ GROUP BY STATE_CODE ,
           WHERE     cast(CreditNote_Date AS date) between CAST('" & txtFromDate.Value.ToString("dd-MMM-yyyy") & "' AS date) AND CAST('" & txtToDate.Value.ToString("dd-MMM-yyyy") & "' AS date) "
 
 
-        If condition = "  AND (invd.VAT_PER)>0" Then
-            Qry = Qry + " AND ITEM_TAX > 0 "
+        If condition = " AND(VAT_PER)>0" Then
+            Qry = Qry & " AND ITEM_TAX > 0 "
 
-        ElseIf condition = "  AND (invd.VAT_PER)= 0" Then
-            Qry = Qry + " AND ITEM_TAX = 0"
-
+        ElseIf condition = " AND(VAT_PER)=0" Then
+            Qry = Qry & " AND ITEM_TAX = 0"
         End If
 
-        Qry = Qry + " ) tb"
+        Qry = Qry & " ) tb"
 
         Return objCommFunction.Fill_DataSet(Qry).Tables(0).Rows(0)
     End Function

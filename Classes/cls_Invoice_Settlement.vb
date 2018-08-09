@@ -25,6 +25,7 @@ Public Class cls_Invoice_Settlement_prop
     Public Fk_HSN_ID As Int32
     Public GSTPerAmt As Decimal
     Public Fk_GSTNature_ID As Int32
+    Public GST_Applicable_Acc As String
 
 
     ''''''''''''''''''''''''''''''''''''''
@@ -80,6 +81,7 @@ Public Class cls_Invoice_Settlement
         cmd.Parameters.AddWithValue("@Fk_HSN_ID", clsObj.Fk_HSN_ID)
         cmd.Parameters.AddWithValue("@GSTPerAmt", clsObj.GSTPerAmt)
         cmd.Parameters.AddWithValue("@Fk_GSTNature_ID", clsObj.Fk_GSTNature_ID)
+        cmd.Parameters.AddWithValue("@GST_Applicable_Acc", clsObj.GST_Applicable_Acc)
         cmd.Parameters.AddWithValue("@ProcedureStatus", 0)
 
         cmd.ExecuteNonQuery()
