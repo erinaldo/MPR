@@ -1054,8 +1054,8 @@ FROM    ( SELECT    inv.NET_AMOUNT ,
                     INNER JOIN dbo.CITY_MASTER cm ON cm.CITY_ID = am.CITY_ID
                     INNER JOIN dbo.STATE_MASTER sm ON sm.STATE_ID = cm.STATE_ID
           WHERE     inv.INVOICE_STATUS <> 4
-                    AND cast(SI_DATE AS date) between CAST('" & txtFromDate.Value.ToString("dd-MMM-yyyy") & "' AS date) AND CAST('" & txtToDate.Value.ToString("dd-MMM-yyyy") & "' AS date) " &
-                    " And invd.VAT_AMOUNT > 0
+                    AND cast(SI_DATE AS date) between CAST('" & txtFromDate.Value.ToString("dd-MMM-yyyy") & "' AS date) AND CAST('" & txtToDate.Value.ToString("dd-MMM-yyyy") & "' AS date) " & "
+                    And invd.VAT_AMOUNT > 0
                     And LEN(ISNULL(VAT_NO,'')) > 0
           GROUP BY  inv.NET_AMOUNT ,
                     VAT_NO ,
@@ -1076,7 +1076,7 @@ FROM    ( SELECT    inv.NET_AMOUNT ,
                     ISNULL(am.VAT_NO, '') AS VAT_NO ,
                     pt.ChequeDraftNo AS SI_CODE ,
                     0 AS SI_NO ,
-                    pt.PaymentDate AS SI_DATE ,
+                    cast(pt.PaymentDate as date) AS SI_DATE ,
                     STATE_CODE ,
                     STATE_NAME ,
                     CASE WHEN pt.fk_GST_ID = 1 THEN 0.00
@@ -1098,10 +1098,11 @@ FROM    ( SELECT    inv.NET_AMOUNT ,
                     INNER JOIN dbo.STATE_MASTER sm ON sm.STATE_ID = cm.STATE_ID
           WHERE     CAST(pt.PaymentDate AS DATE) between CAST('" & txtFromDate.Value.ToString("dd-MMM-yyyy") & "' AS date) AND CAST('" & txtToDate.Value.ToString("dd-MMM-yyyy") & "' AS date) " & "
                     And pt.GST_Applicable_Acc = 'Cr.'
+                    AND pt.GSTPerAmt > 0
                     And Len(ISNULL(VAT_NO, '')) > 0
           GROUP BY  VAT_NO ,
                     pt.ChequeDraftNo ,
-                    pt.PaymentDate ,
+                    cast(pt.PaymentDate as date) ,
                     STATE_CODE ,
                     STATE_NAME ,
                     cm.STATE_ID ,
@@ -1163,8 +1164,8 @@ FROM    ( SELECT    inv.NET_AMOUNT ,
                     INNER JOIN dbo.CITY_MASTER cm ON cm.CITY_ID = am.CITY_ID
                     INNER JOIN dbo.STATE_MASTER sm ON sm.STATE_ID = cm.STATE_ID
           WHERE     inv.INVOICE_STATUS <> 4
-                    AND cast(SI_DATE AS date) between CAST('" & txtFromDate.Value.ToString("dd-MMM-yyyy") & "' AS date) AND CAST('" & txtToDate.Value.ToString("dd-MMM-yyyy") & "' AS date) " &
-                    " And invd.VAT_AMOUNT > 0
+                    AND cast(SI_DATE AS date) between CAST('" & txtFromDate.Value.ToString("dd-MMM-yyyy") & "' AS date) AND CAST('" & txtToDate.Value.ToString("dd-MMM-yyyy") & "' AS date) " & "
+                    And invd.VAT_AMOUNT > 0
                     And LEN(ISNULL(VAT_NO,'')) = 0 and inv.NET_AMOUNT > 250000 and inv.Inv_type='I'
           GROUP BY  inv.NET_AMOUNT ,
                     VAT_NO ,
@@ -1185,7 +1186,7 @@ FROM    ( SELECT    inv.NET_AMOUNT ,
                     ISNULL(am.VAT_NO, '') AS VAT_NO ,
                     pt.ChequeDraftNo AS SI_CODE ,
                     0 AS SI_NO ,
-                    pt.PaymentDate AS SI_DATE ,
+                    cast(pt.PaymentDate as date) AS SI_DATE ,
                     STATE_CODE ,
                     STATE_NAME ,
                     CASE WHEN pt.fk_GST_ID = 1 THEN 0.00
@@ -1207,10 +1208,12 @@ FROM    ( SELECT    inv.NET_AMOUNT ,
                     INNER JOIN dbo.STATE_MASTER sm ON sm.STATE_ID = cm.STATE_ID
           WHERE     CAST(pt.PaymentDate AS DATE) between CAST('" & txtFromDate.Value.ToString("dd-MMM-yyyy") & "' AS date) AND CAST('" & txtToDate.Value.ToString("dd-MMM-yyyy") & "' AS date) " & "
                     And pt.GST_Applicable_Acc = 'Cr.'
-                    And LEN(ISNULL(VAT_NO,'')) = 0 and ((ISNULL(pt.TotalAmountReceived, 0)) + (ISNULL(pt.GSTPerAmt, 0))) > 250000
+                    And LEN(ISNULL(VAT_NO,'')) = 0 
+                    AND pt.GSTPerAmt > 0
+                    and ((ISNULL(pt.TotalAmountReceived, 0)) + (ISNULL(pt.GSTPerAmt, 0))) > 250000
           GROUP BY  VAT_NO ,
                     pt.ChequeDraftNo ,
-                    pt.PaymentDate ,
+                    cast(pt.PaymentDate as date) ,
                     STATE_CODE ,
                     STATE_NAME ,
                     cm.STATE_ID ,
@@ -1523,9 +1526,7 @@ GROUP BY main.STATE_CODE ,
         Isnull(SUM(Cess_Amount),0.00)  AS Cess_Amount ,
         SUM(non_integrated_tax) AS non_integrated_tax ,
         SUM(integrated_tax)  AS integrated_tax 
- FROM (
-
-
+        FROM (
 
         SELECT HsnCode_vch ,
         SUM(Qty) AS Qty ,
@@ -1620,12 +1621,6 @@ GROUP BY main.STATE_CODE ,
                                             hsn.HsnCode_vch,
                                             pt.fk_GST_ID
                                 ) subquery
-
-
-
-
-
-
 
 
         ) tb GROUP BY HsnCode_vch 

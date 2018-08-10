@@ -576,16 +576,7 @@ FROM    ( SELECT    SUM(ISNULL(IntraState_TaxableValue, 0)) AS IntraState_Taxabl
             " INNER JOIN dbo.ACCOUNT_MASTER am ON mrn.CUST_ID = am.ACC_ID" &
             " INNER JOIN dbo.CITY_MASTER cm ON cm.CITY_ID = am.CITY_ID" &
             " WHERE MRN_STATUS <> 2 AND LEN(am.VAT_NO) > 0 and cast(Receipt_Date AS date) between CAST('" & txtFromDate.Value.ToString("dd-MMM-yyyy") & "' AS date) AND CAST('" & txtToDate.Value.ToString("dd-MMM-yyyy") & "' AS date) " & "
-            UNION
-            Select Case WHEN cm.STATE_ID = " & stateId & " THEN pt.GSTPerAmt END AS non_integrated_tax ,                    
-                    Case WHEN cm.STATE_ID <> " & stateId & " THEN pt.GSTPerAmt END AS integrated_tax ,
-                    0.00 AS CessAmt
-            From dbo.PaymentTransaction AS pt
-                    INNER Join dbo.ACCOUNT_MASTER am ON pt.AccountId = am.ACC_ID
-                    INNER Join dbo.CITY_MASTER cm ON cm.CITY_ID = am.CITY_ID
-            WHERE     CAST(pt.PaymentDate As Date) between CAST('" & txtFromDate.Value.ToString("dd-MMM-yyyy") & "' AS date) AND CAST('" & txtToDate.Value.ToString("dd-MMM-yyyy") & "' AS date) " & "
-            
-
+           
             UNION 
             SELECT 	CASE WHEN cm.STATE_ID = " & stateId & " THEN pt.GSTPerAmt END AS non_integrated_tax ,                    
                     CASE WHEN cm.STATE_ID <> " & stateId & " THEN pt.GSTPerAmt END AS integrated_tax ,
@@ -755,7 +746,8 @@ FROM    ( SELECT    STATE_CODE ,
                     INNER JOIN dbo.CITY_MASTER cm ON cm.CITY_ID = am.CITY_ID
                     INNER JOIN dbo.STATE_MASTER sm ON sm.STATE_ID = cm.STATE_ID
           WHERE     INV.INVOICE_STATUS <> 4 
-                    AND cast(SI_DATE AS date) between CAST('" & txtFromDate.Value.ToString("dd-MMM-yyyy") & "' AS date) AND CAST('" & txtToDate.Value.ToString("dd-MMM-yyyy") & "' AS date) "
+                    AND cast(SI_DATE AS date) between CAST('" & txtFromDate.Value.ToString("dd-MMM-yyyy") & "' AS date) 
+                    AND CAST('" & txtToDate.Value.ToString("dd-MMM-yyyy") & "' AS date) "
 
         Qry = Qry & condition & " GROUP BY GSTPaid, VAT_PER) tb "
 
