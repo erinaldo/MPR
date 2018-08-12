@@ -44,7 +44,7 @@ Public Class frm_Account_Payment
         End If
         query += " Order by ACC_NAME"
         clsObj.ComboBindForPayment(cmbAccountToDebit, query, "ACC_NAME", "ACC_ID", True)
-        clsObj.ComboBindForPayment(testCombo, "Select ACC_ID,ACC_NAME from ACCOUNT_MASTER", "ACC_NAME", "ACC_ID", True)
+
 
         query = "Select [PaymentTypeId], PaymentTypeName from [PaymentTypeMaster] WHERE [IsActive_bit] = 1 and IsApprovalRequired_bit=0"
         clsObj.ComboBind(cmbPaymentType, query, "PaymentTypeName", "PaymentTypeId", True)

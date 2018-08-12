@@ -180,7 +180,7 @@ Partial Class frm_Account_Payment
         '
         'GBDCMASTER
         '
-
+        Me.GBDCMASTER.Controls.Add(Me.testCombo)
         Me.GBDCMASTER.Controls.Add(Me.chk_GSTApplicable_BankId)
         Me.GBDCMASTER.Controls.Add(Me.lblGSTPercentageValue)
         Me.GBDCMASTER.Controls.Add(Me.lblGSTPercentage)
