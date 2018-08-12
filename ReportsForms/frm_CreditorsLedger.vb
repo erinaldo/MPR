@@ -107,7 +107,8 @@ Public Class frm_CreditorsLedger
 
     Private Sub btnShow_Click(sender As Object, e As EventArgs) Handles btnShow.Click
         Try
-            If cmbSupplier.SelectedIndex <= 0 Then
+            Dim a = cmbSupplier.SelectedText
+            If cmbSupplier.SelectedValue <> 0 Then
                 MsgBox("Please select Supplier.", MsgBoxStyle.Information, gblMessageHeading)
                 Exit Sub
             End If
@@ -117,9 +118,4 @@ Public Class frm_CreditorsLedger
         End Try
     End Sub
 
-    Private Sub cmbSupplier_Enter(sender As Object, e As EventArgs) Handles cmbSupplier.Enter
-        If Not cmbSupplier.DroppedDown Then
-            cmbSupplier.DroppedDown = True
-        End If
-    End Sub
 End Class

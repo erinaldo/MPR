@@ -28,20 +28,20 @@ Partial Class frm_CreditorsLedger
         Me.lblFormHeading = New System.Windows.Forms.Label()
         Me.txtFromDate = New System.Windows.Forms.DateTimePicker()
         Me.btnShow = New System.Windows.Forms.Button()
-        Me.cmbSupplier = New System.Windows.Forms.ComboBox()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.Label13 = New System.Windows.Forms.Label()
+        Me.cmbSupplier = New MMSPlus.AutoCompleteCombo()
         Me.GroupBox6.SuspendLayout()
         Me.SuspendLayout()
         '
         'GroupBox6
         '
+        Me.GroupBox6.Controls.Add(Me.cmbSupplier)
         Me.GroupBox6.Controls.Add(Me.txtTodate)
         Me.GroupBox6.Controls.Add(Me.Label1)
         Me.GroupBox6.Controls.Add(Me.lblFormHeading)
         Me.GroupBox6.Controls.Add(Me.txtFromDate)
         Me.GroupBox6.Controls.Add(Me.btnShow)
-        Me.GroupBox6.Controls.Add(Me.cmbSupplier)
         Me.GroupBox6.Controls.Add(Me.Label14)
         Me.GroupBox6.Controls.Add(Me.Label13)
         Me.GroupBox6.ForeColor = System.Drawing.Color.White
@@ -106,18 +106,6 @@ Partial Class frm_CreditorsLedger
         Me.btnShow.Text = "SHOW LEDGER"
         Me.btnShow.UseVisualStyleBackColor = False
         '
-        'cmbSupplier
-        '
-        Me.cmbSupplier.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.cmbSupplier.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmbSupplier.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmbSupplier.ForeColor = System.Drawing.Color.White
-        Me.cmbSupplier.FormattingEnabled = True
-        Me.cmbSupplier.Location = New System.Drawing.Point(143, 76)
-        Me.cmbSupplier.Name = "cmbSupplier"
-        Me.cmbSupplier.Size = New System.Drawing.Size(708, 25)
-        Me.cmbSupplier.TabIndex = 0
-        '
         'Label14
         '
         Me.Label14.AutoSize = True
@@ -138,6 +126,19 @@ Partial Class frm_CreditorsLedger
         Me.Label13.TabIndex = 0
         Me.Label13.Text = "Select Supplier :"
         '
+        'cmbSupplier
+        '
+        Me.cmbSupplier.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.cmbSupplier.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmbSupplier.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmbSupplier.ForeColor = System.Drawing.Color.White
+        Me.cmbSupplier.FormattingEnabled = True
+        Me.cmbSupplier.Location = New System.Drawing.Point(143, 79)
+        Me.cmbSupplier.Name = "cmbSupplier"
+        Me.cmbSupplier.ResetOnClear = False
+        Me.cmbSupplier.Size = New System.Drawing.Size(708, 24)
+        Me.cmbSupplier.TabIndex = 0
+        '
         'frm_CreditorsLedger
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -155,10 +156,10 @@ Partial Class frm_CreditorsLedger
     Friend WithEvents GroupBox6 As GroupBox
     Friend WithEvents txtFromDate As DateTimePicker
     Friend WithEvents btnShow As Button
-    Friend WithEvents cmbSupplier As ComboBox
     Friend WithEvents Label14 As Label
     Friend WithEvents Label13 As Label
     Friend WithEvents lblFormHeading As Label
     Friend WithEvents txtTodate As System.Windows.Forms.DateTimePicker
     Friend WithEvents Label1 As System.Windows.Forms.Label
+    Friend WithEvents cmbSupplier As AutoCompleteCombo
 End Class
