@@ -311,5 +311,23 @@ Module GlobalModule
     Public Sub main()
 
     End Sub
+    Dim _OriginalHeight As Int32
+    Public Property OriginalHeight() As Integer
+        Get
+            Return _OriginalHeight
+        End Get
+        Set(ByVal value As Integer)
+            _OriginalHeight = value
+        End Set
+    End Property
 
+    Dim _OriginalWidth As Int32
+    Public Property OriginalWidth() As Integer
+        Get
+            Return _OriginalWidth
+        End Get
+        Set(ByVal value As Integer)
+            _OriginalWidth = value
+        End Set
+    End Property
 End Module
