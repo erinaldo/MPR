@@ -190,7 +190,7 @@ Partial Class LoginForm
         Me.BackgroundImage = Global.MMSPlus.My.Resources.Resources.MMS_Login_background
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.CancelButton = Me.Cancel
-        Me.ClientSize = New System.Drawing.Size(1018, 762)
+        Me.ClientSize = New System.Drawing.Size(1024, 768)
         Me.ControlBox = False
         Me.Controls.Add(Me.cmbCostCenter)
         Me.Controls.Add(Me.PasswordTextBox)

@@ -13,14 +13,32 @@ Namespace My
         ''********************************************************************''
         Dim PrimaryThread As Threading.Thread
         Dim BackUpThread As New Threading.Thread(AddressOf TakeBackUp)
+        Dim TempHeight As Int32 = 1024
+        Dim TempWidth As Int32 = 768
 
         Private Sub MyApplication_Shutdown(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Shutdown
+            If Not (System.Diagnostics.Debugger.IsAttached) Then
+                Dim ChangeRes As Resolution.CResolution = New Resolution.CResolution(OriginalHeight, OriginalWidth)
+            End If
             BackUpThread.Abort()
         End Sub
 
         Private Sub Application_StartUp(ByVal sender As Object, ByVal e As ApplicationServices.StartupEventArgs) Handles Me.Startup
+            Dim Srn As Screen = Screen.PrimaryScreen
+            OriginalHeight = Srn.Bounds.Width
+            OriginalWidth = Srn.Bounds.Height
+
+            'Dim ChangeRes As Resolution.CResolution = New Resolution.CResolution(TempHeight, TempWidth)
+            If Not (System.Diagnostics.Debugger.IsAttached) Then
+                Dim ChangeRes As Resolution.CResolution = New Resolution.CResolution(TempHeight, TempWidth)
+            End If
+
+
             PrimaryThread = Threading.Thread.CurrentThread
             BackUpThread.Start()
+
+
+
         End Sub
 
         Private Sub TakeBackUp()

@@ -19,6 +19,7 @@ Public Class frm_Account_Payment
 
     Private Sub frm_Account_Payment_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         InitializeControls()
+
     End Sub
 
     Private Sub InitializeControls()
