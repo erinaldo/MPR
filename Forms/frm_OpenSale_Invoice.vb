@@ -1109,7 +1109,7 @@ restart:
         Dim strSql As String
         Dim Accdata As DataSet
 
-        If cmbSupplier.SelectedValue <> -1 Then
+        If cmbSupplier.SelectedValue > 0 Then
             strSql = "SELECT ISNULL(ACCOUNT_MASTER.ADDRESS_PRIM,'') + ' - {'  + ISNULL(CITY_MASTER.CITY_NAME,'') + '}', ISNULL(PHONE_PRIM,'')As PHONE_PRIM, ISNULL(VAT_NO,'')as VAT_NO,ACCOUNT_MASTER.CITY_ID,ISNULL(case when ISNULL(ADDRESS_SEC,'')='' then ISNULL(ADDRESS_PRIM,'') + ' - {'  + ISNULL(CITY_MASTER.CITY_NAME,'') + '}' else ADDRESS_SEC end,'') as Shipping"
             strSql = strSql & " FROM ACCOUNT_MASTER LEFT OUTER JOIN"
             strSql = strSql & " CITY_MASTER ON ACCOUNT_MASTER.CITY_ID = CITY_MASTER.CITY_ID"

@@ -20,7 +20,7 @@ Partial Class frm_Account_Payment
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frm_Account_Payment))
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.List = New System.Windows.Forms.TabPage()
@@ -32,6 +32,7 @@ Partial Class frm_Account_Payment
         Me.Label1 = New System.Windows.Forms.Label()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.GBDCMASTER = New System.Windows.Forms.GroupBox()
+        Me.chk_GSTApplicable_BankId = New System.Windows.Forms.CheckBox()
         Me.lblGSTPercentageValue = New System.Windows.Forms.Label()
         Me.lblGSTPercentage = New System.Windows.Forms.Label()
         Me.chk_GSTApplicable = New System.Windows.Forms.CheckBox()
@@ -59,7 +60,7 @@ Partial Class frm_Account_Payment
         Me.lblCap1 = New System.Windows.Forms.Label()
         Me.lblFormHeading = New System.Windows.Forms.Label()
         Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
-        Me.chk_GSTApplicable_BankId = New System.Windows.Forms.CheckBox()
+        Me.testCombo = New MMSPlus.AutoCompleteCombo()
         Me.TabControl1.SuspendLayout()
         Me.List.SuspendLayout()
         Me.GBMRSDetail.SuspendLayout()
@@ -124,12 +125,12 @@ Partial Class frm_Account_Payment
         Me.flxList.Location = New System.Drawing.Point(3, 16)
         Me.flxList.Name = "flxList"
         Me.flxList.RowHeadersVisible = False
-        DataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black
-        Me.flxList.RowsDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black
+        Me.flxList.RowsDefaultCellStyle = DataGridViewCellStyle1
         Me.flxList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.flxList.Size = New System.Drawing.Size(871, 418)
         Me.flxList.TabIndex = 0
@@ -180,6 +181,7 @@ Partial Class frm_Account_Payment
         '
         'GBDCMASTER
         '
+        Me.GBDCMASTER.Controls.Add(Me.testCombo)
         Me.GBDCMASTER.Controls.Add(Me.chk_GSTApplicable_BankId)
         Me.GBDCMASTER.Controls.Add(Me.lblGSTPercentageValue)
         Me.GBDCMASTER.Controls.Add(Me.lblGSTPercentage)
@@ -211,6 +213,21 @@ Partial Class frm_Account_Payment
         Me.GBDCMASTER.Size = New System.Drawing.Size(859, 532)
         Me.GBDCMASTER.TabIndex = 0
         Me.GBDCMASTER.TabStop = False
+        '
+        'chk_GSTApplicable_BankId
+        '
+        Me.chk_GSTApplicable_BankId.AutoSize = True
+        Me.chk_GSTApplicable_BankId.BackColor = System.Drawing.Color.Transparent
+        Me.chk_GSTApplicable_BankId.Enabled = False
+        Me.chk_GSTApplicable_BankId.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!)
+        Me.chk_GSTApplicable_BankId.ForeColor = System.Drawing.Color.White
+        Me.chk_GSTApplicable_BankId.Location = New System.Drawing.Point(510, 294)
+        Me.chk_GSTApplicable_BankId.Name = "chk_GSTApplicable_BankId"
+        Me.chk_GSTApplicable_BankId.Size = New System.Drawing.Size(128, 19)
+        Me.chk_GSTApplicable_BankId.TabIndex = 70
+        Me.chk_GSTApplicable_BankId.Text = "GST Applicable Cr."
+        Me.chk_GSTApplicable_BankId.UseVisualStyleBackColor = False
+        Me.chk_GSTApplicable_BankId.Visible = False
         '
         'lblGSTPercentageValue
         '
@@ -514,20 +531,14 @@ Partial Class frm_Account_Payment
         Me.ImageList1.Images.SetKeyName(0, "Zoom_search_find_magnifying_glass.png")
         Me.ImageList1.Images.SetKeyName(1, "Inventory_box_shipment_product.png")
         '
-        'chk_GSTApplicable_BankId
+        'testCombo
         '
-        Me.chk_GSTApplicable_BankId.AutoSize = True
-        Me.chk_GSTApplicable_BankId.BackColor = System.Drawing.Color.Transparent
-        Me.chk_GSTApplicable_BankId.Enabled = False
-        Me.chk_GSTApplicable_BankId.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!)
-        Me.chk_GSTApplicable_BankId.ForeColor = System.Drawing.Color.White
-        Me.chk_GSTApplicable_BankId.Location = New System.Drawing.Point(510, 294)
-        Me.chk_GSTApplicable_BankId.Name = "chk_GSTApplicable_BankId"
-        Me.chk_GSTApplicable_BankId.Size = New System.Drawing.Size(128, 19)
-        Me.chk_GSTApplicable_BankId.TabIndex = 70
-        Me.chk_GSTApplicable_BankId.Text = "GST Applicable Cr."
-        Me.chk_GSTApplicable_BankId.UseVisualStyleBackColor = False
-        Me.chk_GSTApplicable_BankId.Visible = False
+        Me.testCombo.FormattingEnabled = True
+        Me.testCombo.Location = New System.Drawing.Point(134, 424)
+        Me.testCombo.Name = "testCombo"
+        Me.testCombo.ResetOnClear = False
+        Me.testCombo.Size = New System.Drawing.Size(337, 21)
+        Me.testCombo.TabIndex = 72
         '
         'frm_Account_Payment
         '
@@ -588,4 +599,5 @@ Partial Class frm_Account_Payment
     Friend WithEvents lblGSTPercentage As Label
     Friend WithEvents chk_GSTApplicable As CheckBox
     Friend WithEvents chk_GSTApplicable_BankId As CheckBox
+    Friend WithEvents testCombo As AutoCompleteCombo
 End Class

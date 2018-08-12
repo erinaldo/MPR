@@ -29,6 +29,8 @@ Public Class frm_Account_Payment
         If entryType = PaymentType.Contra Then
             query += " where AG_ID IN( " + Convert.ToString(AccountGroups.Bank_Accounts) + ", " + Convert.ToString(AccountGroups.Cash_in_hand) + " )"
 
+
+
             lblGSTNature.Visible = False
             cmbGSTNature.Visible = False
             chk_GSTApplicable.Visible = False
@@ -42,9 +44,13 @@ Public Class frm_Account_Payment
         End If
         query += " Order by ACC_NAME"
         clsObj.ComboBindForPayment(cmbAccountToDebit, query, "ACC_NAME", "ACC_ID", True)
+        clsObj.ComboBindForPayment(testCombo, "Select ACC_ID,ACC_NAME from ACCOUNT_MASTER", "ACC_NAME", "ACC_ID", True)
 
         query = "Select [PaymentTypeId], PaymentTypeName from [PaymentTypeMaster] WHERE [IsActive_bit] = 1 and IsApprovalRequired_bit=0"
         clsObj.ComboBind(cmbPaymentType, query, "PaymentTypeName", "PaymentTypeId", True)
+
+
+
 
 
         query = "Select ID, Type from GST_Nature where Is_Active = 1"
@@ -62,6 +68,10 @@ Public Class frm_Account_Payment
     Dim GSTPercentageCalculationBankId As DataTable = Nothing
 
     Private Sub cmbAccountToDebit_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbAccountToDebit.SelectedIndexChanged
+
+
+
+
         query = "Select ACC_ID,ACC_NAME from ACCOUNT_MASTER where ACC_ID <> " + cmbAccountToDebit.SelectedValue.ToString
         If entryType = PaymentType.Contra Then
             query += " and AG_ID IN(" + Convert.ToString(AccountGroups.Bank_Accounts) + ", " + Convert.ToString(AccountGroups.Cash_in_hand) + " )"
@@ -427,8 +437,11 @@ Public Class frm_Account_Payment
     End Sub
 
     Private Sub cmbAccountToDebit_Enter(sender As Object, e As EventArgs) Handles cmbAccountToDebit.Enter
-        If Not cmbAccountToDebit.DroppedDown Then
-            cmbAccountToDebit.DroppedDown = True
+
+        If (cmbAccountToDebit.Text.Length) > 0 And cmbAccountToDebit.SelectedIndex > 0 Then
+            If Not cmbAccountToDebit.DroppedDown Then
+                cmbAccountToDebit.DroppedDown = True
+            End If
         End If
     End Sub
 
@@ -556,5 +569,16 @@ Public Class frm_Account_Payment
             End If
         End If
     End Sub
+
+    Private Sub cmbAccountToDebit_KeyUp(sender As Object, e As KeyEventArgs) Handles cmbAccountToDebit.KeyUp
+        'If cmbAccountToDebit.SelectedIndex <> 0 Then
+        '    If Not cmbAccountToDebit.DroppedDown Then
+        '        cmbAccountToDebit.DroppedDown = True
+
+        '    End If
+        'End If
+
+    End Sub
+
 
 End Class

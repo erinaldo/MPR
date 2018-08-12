@@ -193,7 +193,7 @@ Partial Class MDIMain
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional
-        Me.MenuStrip1.Size = New System.Drawing.Size(105, 768)
+        Me.MenuStrip1.Size = New System.Drawing.Size(105, 686)
         Me.MenuStrip1.TabIndex = 0
         Me.MenuStrip1.TabStop = True
         Me.MenuStrip1.Text = "MenuStrip1"
@@ -1652,7 +1652,7 @@ Partial Class MDIMain
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 1
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(1024, 768)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(1022, 686)
         Me.TableLayoutPanel1.TabIndex = 5
         '
         'picLogo
@@ -1662,9 +1662,9 @@ Partial Class MDIMain
         Me.picLogo.Dock = System.Windows.Forms.DockStyle.Right
         Me.picLogo.Image = Global.MMSPlus.My.Resources.Resources.whicon
         Me.picLogo.InitialImage = Global.MMSPlus.My.Resources.Resources.whicon1
-        Me.picLogo.Location = New System.Drawing.Point(409, 3)
+        Me.picLogo.Location = New System.Drawing.Point(407, 3)
         Me.picLogo.Name = "picLogo"
-        Me.picLogo.Size = New System.Drawing.Size(612, 762)
+        Me.picLogo.Size = New System.Drawing.Size(612, 680)
         Me.picLogo.TabIndex = 4
         Me.picLogo.TabStop = False
         '
@@ -1690,7 +1690,7 @@ Partial Class MDIMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1024, 768)
+        Me.ClientSize = New System.Drawing.Size(1022, 686)
         Me.Controls.Add(Me.toolbar)
         Me.Controls.Add(Me.MenuStrip1)
         Me.Controls.Add(Me.TableLayoutPanel1)
