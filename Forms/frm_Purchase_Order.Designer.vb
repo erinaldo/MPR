@@ -229,12 +229,11 @@ Partial Class frm_Purchase_Order
         '
         Me.txtPONumber.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.txtPONumber.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.txtPONumber.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtPONumber.Font = New System.Drawing.Font("Arial", 12.0!)
         Me.txtPONumber.ForeColor = System.Drawing.Color.White
-        Me.txtPONumber.Location = New System.Drawing.Point(455, 63)
-        Me.txtPONumber.Multiline = True
+        Me.txtPONumber.Location = New System.Drawing.Point(455, 68)
         Me.txtPONumber.Name = "txtPONumber"
-        Me.txtPONumber.Size = New System.Drawing.Size(143, 23)
+        Me.txtPONumber.Size = New System.Drawing.Size(143, 19)
         Me.txtPONumber.TabIndex = 3
         '
         'dtpoToDate
@@ -379,7 +378,7 @@ Partial Class frm_Purchase_Order
         Me.lblGST3.AutoSize = True
         Me.lblGST3.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblGST3.ForeColor = System.Drawing.Color.White
-        Me.lblGST3.Location = New System.Drawing.Point(492, 446)
+        Me.lblGST3.Location = New System.Drawing.Point(481, 447)
         Me.lblGST3.Name = "lblGST3"
         Me.lblGST3.Size = New System.Drawing.Size(107, 14)
         Me.lblGST3.TabIndex = 273
@@ -390,7 +389,7 @@ Partial Class frm_Purchase_Order
         Me.lblGST28.AutoSize = True
         Me.lblGST28.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblGST28.ForeColor = System.Drawing.Color.White
-        Me.lblGST28.Location = New System.Drawing.Point(491, 564)
+        Me.lblGST28.Location = New System.Drawing.Point(480, 565)
         Me.lblGST28.Name = "lblGST28"
         Me.lblGST28.Size = New System.Drawing.Size(115, 14)
         Me.lblGST28.TabIndex = 272
@@ -401,7 +400,7 @@ Partial Class frm_Purchase_Order
         Me.lblGST18.AutoSize = True
         Me.lblGST18.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblGST18.ForeColor = System.Drawing.Color.White
-        Me.lblGST18.Location = New System.Drawing.Point(491, 534)
+        Me.lblGST18.Location = New System.Drawing.Point(480, 535)
         Me.lblGST18.Name = "lblGST18"
         Me.lblGST18.Size = New System.Drawing.Size(115, 14)
         Me.lblGST18.TabIndex = 271
@@ -412,7 +411,7 @@ Partial Class frm_Purchase_Order
         Me.lblGST12.AutoSize = True
         Me.lblGST12.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblGST12.ForeColor = System.Drawing.Color.White
-        Me.lblGST12.Location = New System.Drawing.Point(491, 506)
+        Me.lblGST12.Location = New System.Drawing.Point(480, 507)
         Me.lblGST12.Name = "lblGST12"
         Me.lblGST12.Size = New System.Drawing.Size(115, 14)
         Me.lblGST12.TabIndex = 270
@@ -423,7 +422,7 @@ Partial Class frm_Purchase_Order
         Me.lblGST5.AutoSize = True
         Me.lblGST5.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblGST5.ForeColor = System.Drawing.Color.White
-        Me.lblGST5.Location = New System.Drawing.Point(492, 476)
+        Me.lblGST5.Location = New System.Drawing.Point(481, 477)
         Me.lblGST5.Name = "lblGST5"
         Me.lblGST5.Size = New System.Drawing.Size(107, 14)
         Me.lblGST5.TabIndex = 269
@@ -434,7 +433,7 @@ Partial Class frm_Purchase_Order
         Me.lblGST0.AutoSize = True
         Me.lblGST0.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblGST0.ForeColor = System.Drawing.Color.White
-        Me.lblGST0.Location = New System.Drawing.Point(492, 418)
+        Me.lblGST0.Location = New System.Drawing.Point(481, 419)
         Me.lblGST0.Name = "lblGST0"
         Me.lblGST0.Size = New System.Drawing.Size(107, 14)
         Me.lblGST0.TabIndex = 268
@@ -445,7 +444,7 @@ Partial Class frm_Purchase_Order
         Me.lblGSTHeader.AutoSize = True
         Me.lblGSTHeader.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblGSTHeader.ForeColor = System.Drawing.Color.White
-        Me.lblGSTHeader.Location = New System.Drawing.Point(491, 387)
+        Me.lblGSTHeader.Location = New System.Drawing.Point(480, 388)
         Me.lblGSTHeader.Name = "lblGSTHeader"
         Me.lblGSTHeader.Size = New System.Drawing.Size(116, 14)
         Me.lblGSTHeader.TabIndex = 267
@@ -455,7 +454,7 @@ Partial Class frm_Purchase_Order
         '
         Me.Panel7.BackColor = System.Drawing.Color.White
         Me.Panel7.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.Panel7.Location = New System.Drawing.Point(676, 388)
+        Me.Panel7.Location = New System.Drawing.Point(681, 388)
         Me.Panel7.Name = "Panel7"
         Me.Panel7.Size = New System.Drawing.Size(1, 200)
         Me.Panel7.TabIndex = 45
@@ -475,7 +474,7 @@ Partial Class frm_Purchase_Order
         '
         Me.Label16.AutoSize = True
         Me.Label16.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label16.Location = New System.Drawing.Point(682, 491)
+        Me.Label16.Location = New System.Drawing.Point(683, 491)
         Me.Label16.Name = "Label16"
         Me.Label16.Size = New System.Drawing.Size(93, 15)
         Me.Label16.TabIndex = 44
@@ -648,7 +647,7 @@ Partial Class frm_Purchase_Order
         '
         Me.Panel1.BackColor = System.Drawing.Color.White
         Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.Panel1.Location = New System.Drawing.Point(484, 388)
+        Me.Panel1.Location = New System.Drawing.Point(479, 388)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(1, 200)
         Me.Panel1.TabIndex = 11
@@ -821,9 +820,8 @@ Partial Class frm_Purchase_Order
         Me.txtBarcodeSearch.ForeColor = System.Drawing.Color.White
         Me.txtBarcodeSearch.Location = New System.Drawing.Point(63, 98)
         Me.txtBarcodeSearch.MaxLength = 100
-        Me.txtBarcodeSearch.Multiline = True
         Me.txtBarcodeSearch.Name = "txtBarcodeSearch"
-        Me.txtBarcodeSearch.Size = New System.Drawing.Size(635, 20)
+        Me.txtBarcodeSearch.Size = New System.Drawing.Size(635, 19)
         Me.txtBarcodeSearch.TabIndex = 6
         '
         'Label52
@@ -1077,7 +1075,7 @@ Partial Class frm_Purchase_Order
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(682, 573)
+        Me.Label3.Location = New System.Drawing.Point(683, 573)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(76, 15)
         Me.Label3.TabIndex = 0
@@ -1087,7 +1085,7 @@ Partial Class frm_Purchase_Order
         '
         Me.Label6.AutoSize = True
         Me.Label6.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label6.Location = New System.Drawing.Point(682, 548)
+        Me.Label6.Location = New System.Drawing.Point(683, 548)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(85, 15)
         Me.Label6.TabIndex = 0
@@ -1108,7 +1106,7 @@ Partial Class frm_Purchase_Order
         '
         Me.Label5.AutoSize = True
         Me.Label5.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label5.Location = New System.Drawing.Point(682, 523)
+        Me.Label5.Location = New System.Drawing.Point(683, 523)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(94, 15)
         Me.Label5.TabIndex = 0
@@ -1129,7 +1127,7 @@ Partial Class frm_Purchase_Order
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(682, 415)
+        Me.Label2.Location = New System.Drawing.Point(683, 415)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(84, 15)
         Me.Label2.TabIndex = 0
@@ -1139,7 +1137,7 @@ Partial Class frm_Purchase_Order
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(682, 387)
+        Me.Label1.Location = New System.Drawing.Point(683, 387)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(99, 15)
         Me.Label1.TabIndex = 0

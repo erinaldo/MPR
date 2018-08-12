@@ -99,6 +99,7 @@ Partial Class frmStockValue
         'cmbItemCatId
         '
         Me.cmbItemCatId.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.cmbItemCatId.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmbItemCatId.ForeColor = System.Drawing.Color.White
         Me.cmbItemCatId.FormattingEnabled = True
         Me.cmbItemCatId.Location = New System.Drawing.Point(102, 21)
@@ -117,13 +118,14 @@ Partial Class frmStockValue
         '
         'cmd_Show
         '
+        Me.cmd_Show.BackColor = System.Drawing.Color.FromArgb(CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmd_Show.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmd_Show.Location = New System.Drawing.Point(556, 114)
         Me.cmd_Show.Name = "cmd_Show"
-        Me.cmd_Show.Size = New System.Drawing.Size(98, 31)
+        Me.cmd_Show.Size = New System.Drawing.Size(100, 25)
         Me.cmd_Show.TabIndex = 27
         Me.cmd_Show.Text = "Show"
-        Me.cmd_Show.UseVisualStyleBackColor = True
+        Me.cmd_Show.UseVisualStyleBackColor = False
         '
         'chkCalculateAllData
         '
@@ -173,6 +175,7 @@ Partial Class frmStockValue
         'cmbBrand
         '
         Me.cmbBrand.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.cmbBrand.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmbBrand.ForeColor = System.Drawing.Color.White
         Me.cmbBrand.FormattingEnabled = True
         Me.cmbBrand.Location = New System.Drawing.Point(102, 86)
@@ -203,6 +206,7 @@ Partial Class frmStockValue
         '
         Me.cmb_subCategory.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.cmb_subCategory.Enabled = False
+        Me.cmb_subCategory.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmb_subCategory.ForeColor = System.Drawing.Color.White
         Me.cmb_subCategory.FormattingEnabled = True
         Me.cmb_subCategory.Location = New System.Drawing.Point(102, 54)

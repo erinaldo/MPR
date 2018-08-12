@@ -288,14 +288,13 @@ Partial Class frm_BillBook
         '
         Me.txtEwayBillNo.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.txtEwayBillNo.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.txtEwayBillNo.Font = New System.Drawing.Font("Arial Narrow", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtEwayBillNo.Font = New System.Drawing.Font("Arial", 12.0!)
         Me.txtEwayBillNo.ForeColor = System.Drawing.Color.White
         Me.txtEwayBillNo.Location = New System.Drawing.Point(109, 310)
         Me.txtEwayBillNo.MaxLength = 0
-        Me.txtEwayBillNo.Multiline = True
         Me.txtEwayBillNo.Name = "txtEwayBillNo"
         Me.txtEwayBillNo.ReadOnly = True
-        Me.txtEwayBillNo.Size = New System.Drawing.Size(221, 20)
+        Me.txtEwayBillNo.Size = New System.Drawing.Size(221, 19)
         Me.txtEwayBillNo.TabIndex = 2
         '
         'Label20
@@ -536,13 +535,12 @@ Partial Class frm_BillBook
         '
         Me.txtLRNO.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.txtLRNO.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.txtLRNO.Font = New System.Drawing.Font("Arial Narrow", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtLRNO.Font = New System.Drawing.Font("Arial", 12.0!)
         Me.txtLRNO.ForeColor = System.Drawing.Color.White
         Me.txtLRNO.Location = New System.Drawing.Point(109, 401)
         Me.txtLRNO.MaxLength = 0
-        Me.txtLRNO.Multiline = True
         Me.txtLRNO.Name = "txtLRNO"
-        Me.txtLRNO.Size = New System.Drawing.Size(221, 20)
+        Me.txtLRNO.Size = New System.Drawing.Size(221, 19)
         Me.txtLRNO.TabIndex = 5
         '
         'Label12
@@ -581,13 +579,12 @@ Partial Class frm_BillBook
         '
         Me.txtTransport.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.txtTransport.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.txtTransport.Font = New System.Drawing.Font("Arial Narrow", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtTransport.Font = New System.Drawing.Font("Arial", 12.0!)
         Me.txtTransport.ForeColor = System.Drawing.Color.White
         Me.txtTransport.Location = New System.Drawing.Point(109, 370)
         Me.txtTransport.MaxLength = 0
-        Me.txtTransport.Multiline = True
         Me.txtTransport.Name = "txtTransport"
-        Me.txtTransport.Size = New System.Drawing.Size(221, 20)
+        Me.txtTransport.Size = New System.Drawing.Size(221, 19)
         Me.txtTransport.TabIndex = 4
         '
         'Label11
@@ -640,13 +637,12 @@ Partial Class frm_BillBook
         '
         Me.txtvechicle_no.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.txtvechicle_no.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.txtvechicle_no.Font = New System.Drawing.Font("Arial Narrow", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtvechicle_no.Font = New System.Drawing.Font("Arial", 12.0!)
         Me.txtvechicle_no.ForeColor = System.Drawing.Color.White
         Me.txtvechicle_no.Location = New System.Drawing.Point(109, 340)
         Me.txtvechicle_no.MaxLength = 0
-        Me.txtvechicle_no.Multiline = True
         Me.txtvechicle_no.Name = "txtvechicle_no"
-        Me.txtvechicle_no.Size = New System.Drawing.Size(221, 20)
+        Me.txtvechicle_no.Size = New System.Drawing.Size(221, 19)
         Me.txtvechicle_no.TabIndex = 3
         '
         'Label2
@@ -829,14 +825,13 @@ Partial Class frm_BillBook
         '
         Me.txtGstNo.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.txtGstNo.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.txtGstNo.Font = New System.Drawing.Font("Arial Narrow", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtGstNo.Font = New System.Drawing.Font("Arial", 12.0!)
         Me.txtGstNo.ForeColor = System.Drawing.Color.White
         Me.txtGstNo.Location = New System.Drawing.Point(97, 118)
         Me.txtGstNo.MaxLength = 0
-        Me.txtGstNo.Multiline = True
         Me.txtGstNo.Name = "txtGstNo"
         Me.txtGstNo.ReadOnly = True
-        Me.txtGstNo.Size = New System.Drawing.Size(150, 20)
+        Me.txtGstNo.Size = New System.Drawing.Size(150, 19)
         Me.txtGstNo.TabIndex = 7
         '
         'Label9
@@ -935,14 +930,13 @@ Partial Class frm_BillBook
         '
         Me.txt_txtphoneNo.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.txt_txtphoneNo.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.txt_txtphoneNo.Font = New System.Drawing.Font("Arial Narrow", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txt_txtphoneNo.Font = New System.Drawing.Font("Arial", 12.0!)
         Me.txt_txtphoneNo.ForeColor = System.Drawing.Color.White
         Me.txt_txtphoneNo.Location = New System.Drawing.Point(343, 118)
         Me.txt_txtphoneNo.MaxLength = 0
-        Me.txt_txtphoneNo.Multiline = True
         Me.txt_txtphoneNo.Name = "txt_txtphoneNo"
         Me.txt_txtphoneNo.ReadOnly = True
-        Me.txt_txtphoneNo.Size = New System.Drawing.Size(150, 20)
+        Me.txt_txtphoneNo.Size = New System.Drawing.Size(150, 19)
         Me.txt_txtphoneNo.TabIndex = 8
         '
         'Label3

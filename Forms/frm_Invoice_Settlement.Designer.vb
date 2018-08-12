@@ -20,8 +20,8 @@ Partial Class frm_Invoice_Settlement
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frm_Invoice_Settlement))
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.List = New System.Windows.Forms.TabPage()
@@ -182,12 +182,12 @@ Partial Class frm_Invoice_Settlement
         Me.flxList.Location = New System.Drawing.Point(3, 16)
         Me.flxList.Name = "flxList"
         Me.flxList.RowHeadersVisible = False
-        DataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle6.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
-        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.Black
-        Me.flxList.RowsDefaultCellStyle = DataGridViewCellStyle6
+        DataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle3.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black
+        Me.flxList.RowsDefaultCellStyle = DataGridViewCellStyle3
         Me.flxList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.flxList.Size = New System.Drawing.Size(871, 418)
         Me.flxList.TabIndex = 0
@@ -465,9 +465,8 @@ Partial Class frm_Invoice_Settlement
         Me.txtAmount.ForeColor = System.Drawing.Color.White
         Me.txtAmount.Location = New System.Drawing.Point(133, 261)
         Me.txtAmount.MaxLength = 0
-        Me.txtAmount.Multiline = True
         Me.txtAmount.Name = "txtAmount"
-        Me.txtAmount.Size = New System.Drawing.Size(289, 23)
+        Me.txtAmount.Size = New System.Drawing.Size(289, 19)
         Me.txtAmount.TabIndex = 7
         '
         'Label2
@@ -488,9 +487,8 @@ Partial Class frm_Invoice_Settlement
         Me.txtReferenceNo.ForeColor = System.Drawing.Color.White
         Me.txtReferenceNo.Location = New System.Drawing.Point(133, 181)
         Me.txtReferenceNo.MaxLength = 0
-        Me.txtReferenceNo.Multiline = True
         Me.txtReferenceNo.Name = "txtReferenceNo"
-        Me.txtReferenceNo.Size = New System.Drawing.Size(289, 23)
+        Me.txtReferenceNo.Size = New System.Drawing.Size(289, 19)
         Me.txtReferenceNo.TabIndex = 3
         '
         'Label3
@@ -681,9 +679,8 @@ Partial Class frm_Invoice_Settlement
         Me.txtCancellationCharges.ForeColor = System.Drawing.Color.White
         Me.txtCancellationCharges.Location = New System.Drawing.Point(501, 291)
         Me.txtCancellationCharges.MaxLength = 0
-        Me.txtCancellationCharges.Multiline = True
         Me.txtCancellationCharges.Name = "txtCancellationCharges"
-        Me.txtCancellationCharges.Size = New System.Drawing.Size(161, 23)
+        Me.txtCancellationCharges.Size = New System.Drawing.Size(161, 19)
         Me.txtCancellationCharges.TabIndex = 2
         '
         'Label17
@@ -972,12 +969,12 @@ Partial Class frm_Invoice_Settlement
         Me.dgvInvoiceToSettle.Location = New System.Drawing.Point(1, 121)
         Me.dgvInvoiceToSettle.Name = "dgvInvoiceToSettle"
         Me.dgvInvoiceToSettle.RowHeadersVisible = False
-        DataGridViewCellStyle5.BackColor = System.Drawing.Color.WhiteSmoke
-        DataGridViewCellStyle5.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle5.ForeColor = System.Drawing.Color.Black
-        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.DarkOrange
-        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.White
-        Me.dgvInvoiceToSettle.RowsDefaultCellStyle = DataGridViewCellStyle5
+        DataGridViewCellStyle4.BackColor = System.Drawing.Color.WhiteSmoke
+        DataGridViewCellStyle4.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle4.ForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.DarkOrange
+        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.White
+        Me.dgvInvoiceToSettle.RowsDefaultCellStyle = DataGridViewCellStyle4
         Me.dgvInvoiceToSettle.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvInvoiceToSettle.Size = New System.Drawing.Size(884, 349)
         Me.dgvInvoiceToSettle.TabIndex = 1

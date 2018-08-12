@@ -60,7 +60,6 @@ Partial Class frm_Account_Payment
         Me.lblCap1 = New System.Windows.Forms.Label()
         Me.lblFormHeading = New System.Windows.Forms.Label()
         Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
-        Me.testCombo = New MMSPlus.AutoCompleteCombo()
         Me.TabControl1.SuspendLayout()
         Me.List.SuspendLayout()
         Me.GBMRSDetail.SuspendLayout()
@@ -452,9 +451,8 @@ Partial Class frm_Account_Payment
         Me.txtAmount.ForeColor = System.Drawing.Color.White
         Me.txtAmount.Location = New System.Drawing.Point(134, 223)
         Me.txtAmount.MaxLength = 0
-        Me.txtAmount.Multiline = True
         Me.txtAmount.Name = "txtAmount"
-        Me.txtAmount.Size = New System.Drawing.Size(306, 23)
+        Me.txtAmount.Size = New System.Drawing.Size(306, 19)
         Me.txtAmount.TabIndex = 6
         '
         'Label2
@@ -475,9 +473,8 @@ Partial Class frm_Account_Payment
         Me.txtReferenceNo.ForeColor = System.Drawing.Color.White
         Me.txtReferenceNo.Location = New System.Drawing.Point(134, 182)
         Me.txtReferenceNo.MaxLength = 0
-        Me.txtReferenceNo.Multiline = True
         Me.txtReferenceNo.Name = "txtReferenceNo"
-        Me.txtReferenceNo.Size = New System.Drawing.Size(306, 23)
+        Me.txtReferenceNo.Size = New System.Drawing.Size(306, 19)
         Me.txtReferenceNo.TabIndex = 4
         '
         'Label3
@@ -530,15 +527,6 @@ Partial Class frm_Account_Payment
         Me.ImageList1.TransparentColor = System.Drawing.Color.Transparent
         Me.ImageList1.Images.SetKeyName(0, "Zoom_search_find_magnifying_glass.png")
         Me.ImageList1.Images.SetKeyName(1, "Inventory_box_shipment_product.png")
-        '
-        'testCombo
-        '
-        Me.testCombo.FormattingEnabled = True
-        Me.testCombo.Location = New System.Drawing.Point(134, 424)
-        Me.testCombo.Name = "testCombo"
-        Me.testCombo.ResetOnClear = False
-        Me.testCombo.Size = New System.Drawing.Size(337, 21)
-        Me.testCombo.TabIndex = 72
         '
         'frm_Account_Payment
         '
@@ -599,5 +587,4 @@ Partial Class frm_Account_Payment
     Friend WithEvents lblGSTPercentage As Label
     Friend WithEvents chk_GSTApplicable As CheckBox
     Friend WithEvents chk_GSTApplicable_BankId As CheckBox
-    Friend WithEvents testCombo As AutoCompleteCombo
 End Class
