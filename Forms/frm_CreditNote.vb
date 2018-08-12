@@ -539,7 +539,7 @@ Public Class frm_CreditNote
         '    lblAddress.Text = ds.Tables(0).Rows(0)(0)
         'End If
 
-        Query = "  SELECT SI_ID,SI_CODE+CAST(SI_NO as varchar(20)) AS SiNo FROM dbo.SALE_INVOICE_MASTER WHERE CUST_ID=" & cmbCustomer.SelectedValue & " and DIVISION_ID = " & v_the_current_division_id
+        Query = "  SELECT SI_ID,SI_CODE+CAST(SI_NO as varchar(20)) AS SiNo FROM dbo.SALE_INVOICE_MASTER WHERE INVOICE_STATUS <> 4 and CUST_ID=" & cmbCustomer.SelectedValue & " and DIVISION_ID = " & v_the_current_division_id
         Dt = clsObj.Fill_DataSet(Query).Tables(0)
         Dtrow = Dt.NewRow
         Dtrow("SI_ID") = -1

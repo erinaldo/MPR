@@ -1097,7 +1097,7 @@ FROM    ( SELECT    inv.NET_AMOUNT ,
                     INNER JOIN dbo.CITY_MASTER cm ON cm.CITY_ID = am.CITY_ID
                     INNER JOIN dbo.STATE_MASTER sm ON sm.STATE_ID = cm.STATE_ID
           WHERE     CAST(pt.PaymentDate AS DATE) between CAST('" & txtFromDate.Value.ToString("dd-MMM-yyyy") & "' AS date) AND CAST('" & txtToDate.Value.ToString("dd-MMM-yyyy") & "' AS date) " & "
-                    And pt.GST_Applicable_Acc = 'Cr.'
+                    And pt.GST_Applicable_Acc = 'Cr.' and pt.StatusId <> 3
                     AND pt.GSTPerAmt > 0
                     And Len(ISNULL(VAT_NO, '')) > 0
           GROUP BY  VAT_NO ,
@@ -1207,7 +1207,7 @@ FROM    ( SELECT    inv.NET_AMOUNT ,
                     INNER JOIN dbo.CITY_MASTER cm ON cm.CITY_ID = am.CITY_ID
                     INNER JOIN dbo.STATE_MASTER sm ON sm.STATE_ID = cm.STATE_ID
           WHERE     CAST(pt.PaymentDate AS DATE) between CAST('" & txtFromDate.Value.ToString("dd-MMM-yyyy") & "' AS date) AND CAST('" & txtToDate.Value.ToString("dd-MMM-yyyy") & "' AS date) " & "
-                    And pt.GST_Applicable_Acc = 'Cr.'
+                    And pt.GST_Applicable_Acc = 'Cr.' and pt.StatusId <> 3
                     And LEN(ISNULL(VAT_NO,'')) = 0 
                     AND pt.GSTPerAmt > 0
                     and ((ISNULL(pt.TotalAmountReceived, 0)) + (ISNULL(pt.GSTPerAmt, 0))) > 250000
@@ -1326,7 +1326,7 @@ FROM    ( SELECT    STATE_CODE ,
                                                         INNER JOIN dbo.CITY_MASTER cm ON cm.CITY_ID = am.CITY_ID
                                                         INNER JOIN dbo.STATE_MASTER sm ON sm.STATE_ID = cm.STATE_ID
                                               WHERE     CAST(pt.PaymentDate AS DATE) between CAST('" & txtFromDate.Value.ToString("dd-MMM-yyyy") & "' AS date) AND CAST('" & txtToDate.Value.ToString("dd-MMM-yyyy") & "' AS date) " & "
-                                                        AND pt.GST_Applicable_Acc = 'Cr.'
+                                                        AND pt.GST_Applicable_Acc = 'Cr.' and pt.StatusId <> 3
                                                         AND LEN(ISNULL(VAT_NO,
                                                               '')) = 0
                                                         AND ( ( ISNULL(pt.TotalAmountReceived,
@@ -1464,7 +1464,7 @@ FROM    ( SELECT    STATE_CODE ,
                                                         INNER JOIN dbo.CITY_MASTER cm ON cm.CITY_ID = am.CITY_ID
                                                         INNER JOIN dbo.STATE_MASTER sm ON sm.STATE_ID = cm.STATE_ID
                                               WHERE     CAST(pt.PaymentDate AS DATE) between CAST('" & txtFromDate.Value.ToString("dd-MMM-yyyy") & "' AS date) AND CAST('" & txtToDate.Value.ToString("dd-MMM-yyyy") & "' AS date) " & "
-                                                        AND pt.GST_Applicable_Acc = 'Cr.'
+                                                        AND pt.GST_Applicable_Acc = 'Cr.' and pt.StatusId <> 3
                                                         AND LEN(ISNULL(VAT_NO,
                                                               '')) = 0
                                                         AND pt.GSTPerAmt > 0
@@ -1613,7 +1613,7 @@ GROUP BY main.STATE_CODE ,
                                             INNER JOIN dbo.STATE_MASTER sm ON sm.STATE_ID = cm.STATE_ID
                                             INNER JOIN dbo.HsnCode_Master hsn ON hsn.Pk_HsnId_num = pt.Fk_HSN_ID
                                   WHERE     CAST(pt.PaymentDate AS DATE) between CAST('" & txtFromDate.Value.ToString("dd-MMM-yyyy") & "' AS date) AND CAST('" & txtToDate.Value.ToString("dd-MMM-yyyy") & "' AS date) " & "
-                                            And pt.GST_Applicable_Acc = 'Cr.'
+                                            And pt.GST_Applicable_Acc = 'Cr.' and pt.StatusId <> 3
                                   GROUP BY  VAT_NO ,
                                             STATE_CODE ,
                                             STATE_NAME ,
