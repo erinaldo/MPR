@@ -283,13 +283,12 @@ Partial Class frm_OpeningBalance
         '
         Me.txtAmount.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.txtAmount.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.txtAmount.Font = New System.Drawing.Font("Arial Narrow", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtAmount.Font = New System.Drawing.Font("Arial", 12.0!)
         Me.txtAmount.ForeColor = System.Drawing.Color.White
         Me.txtAmount.Location = New System.Drawing.Point(192, 190)
         Me.txtAmount.MaxLength = 14
-        Me.txtAmount.Multiline = True
         Me.txtAmount.Name = "txtAmount"
-        Me.txtAmount.Size = New System.Drawing.Size(201, 23)
+        Me.txtAmount.Size = New System.Drawing.Size(201, 19)
         Me.txtAmount.TabIndex = 2
         '
         'Label3

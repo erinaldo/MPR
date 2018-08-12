@@ -836,9 +836,8 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.txtBarcodeSearch.ForeColor = System.Drawing.Color.White
         Me.txtBarcodeSearch.Location = New System.Drawing.Point(112, 128)
         Me.txtBarcodeSearch.MaxLength = 100
-        Me.txtBarcodeSearch.Multiline = True
         Me.txtBarcodeSearch.Name = "txtBarcodeSearch"
-        Me.txtBarcodeSearch.Size = New System.Drawing.Size(552, 23)
+        Me.txtBarcodeSearch.Size = New System.Drawing.Size(552, 19)
         Me.txtBarcodeSearch.TabIndex = 7
         '
         'Label52
@@ -891,12 +890,11 @@ Partial Class frm_Material_Received_Without_PO_Master
         '
         Me.txt_Invoice_No.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.txt_Invoice_No.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.txt_Invoice_No.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txt_Invoice_No.Font = New System.Drawing.Font("Arial", 12.0!)
         Me.txt_Invoice_No.ForeColor = System.Drawing.Color.White
         Me.txt_Invoice_No.Location = New System.Drawing.Point(112, 73)
-        Me.txt_Invoice_No.Multiline = True
         Me.txt_Invoice_No.Name = "txt_Invoice_No"
-        Me.txt_Invoice_No.Size = New System.Drawing.Size(177, 23)
+        Me.txt_Invoice_No.Size = New System.Drawing.Size(177, 19)
         Me.txt_Invoice_No.TabIndex = 3
         '
         'dt_Invoice_Date

@@ -83,9 +83,9 @@ Partial Class frm_PurchaseTaxRegister
         Me.btnGenerate.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnGenerate.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnGenerate.ForeColor = System.Drawing.Color.ForestGreen
-        Me.btnGenerate.Location = New System.Drawing.Point(608, 46)
+        Me.btnGenerate.Location = New System.Drawing.Point(626, 51)
         Me.btnGenerate.Name = "btnGenerate"
-        Me.btnGenerate.Size = New System.Drawing.Size(133, 34)
+        Me.btnGenerate.Size = New System.Drawing.Size(110, 25)
         Me.btnGenerate.TabIndex = 2
         Me.btnGenerate.Text = "Generate"
         Me.btnGenerate.UseVisualStyleBackColor = False
@@ -130,9 +130,9 @@ Partial Class frm_PurchaseTaxRegister
         Me.btnShow.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnShow.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnShow.ForeColor = System.Drawing.Color.Red
-        Me.btnShow.Location = New System.Drawing.Point(747, 46)
+        Me.btnShow.Location = New System.Drawing.Point(742, 51)
         Me.btnShow.Name = "btnShow"
-        Me.btnShow.Size = New System.Drawing.Size(133, 34)
+        Me.btnShow.Size = New System.Drawing.Size(110, 25)
         Me.btnShow.TabIndex = 3
         Me.btnShow.Text = "Export to Excel"
         Me.btnShow.UseVisualStyleBackColor = False

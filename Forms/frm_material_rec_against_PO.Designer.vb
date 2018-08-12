@@ -166,9 +166,8 @@ Partial Class frm_material_rec_against_PO
         Me.txtSearch.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtSearch.ForeColor = System.Drawing.Color.White
         Me.txtSearch.Location = New System.Drawing.Point(170, 20)
-        Me.txtSearch.Multiline = True
         Me.txtSearch.Name = "txtSearch"
-        Me.txtSearch.Size = New System.Drawing.Size(614, 23)
+        Me.txtSearch.Size = New System.Drawing.Size(614, 19)
         Me.txtSearch.TabIndex = 1
         '
         'Label8
@@ -185,7 +184,7 @@ Partial Class frm_material_rec_against_PO
         'btnIssueSlip
         '
         Me.btnIssueSlip.BackColor = System.Drawing.Color.FromArgb(CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.btnIssueSlip.Location = New System.Drawing.Point(681, 58)
+        Me.btnIssueSlip.Location = New System.Drawing.Point(681, 56)
         Me.btnIssueSlip.Name = "btnIssueSlip"
         Me.btnIssueSlip.Size = New System.Drawing.Size(103, 26)
         Me.btnIssueSlip.TabIndex = 4
@@ -198,7 +197,7 @@ Partial Class frm_material_rec_against_PO
         Me.dtpTo.CalendarMonthBackground = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.dtpTo.CustomFormat = "dd-MMM-yyyy"
         Me.dtpTo.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpTo.Location = New System.Drawing.Point(426, 58)
+        Me.dtpTo.Location = New System.Drawing.Point(426, 56)
         Me.dtpTo.Name = "dtpTo"
         Me.dtpTo.Size = New System.Drawing.Size(180, 21)
         Me.dtpTo.TabIndex = 3
@@ -209,7 +208,7 @@ Partial Class frm_material_rec_against_PO
         Me.dtpFrom.CalendarMonthBackground = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.dtpFrom.CustomFormat = "dd-MMM-yyyy"
         Me.dtpFrom.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpFrom.Location = New System.Drawing.Point(170, 57)
+        Me.dtpFrom.Location = New System.Drawing.Point(170, 55)
         Me.dtpFrom.Name = "dtpFrom"
         Me.dtpFrom.Size = New System.Drawing.Size(180, 21)
         Me.dtpFrom.TabIndex = 2
@@ -218,7 +217,7 @@ Partial Class frm_material_rec_against_PO
         '
         Me.Label6.AutoSize = True
         Me.Label6.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label6.Location = New System.Drawing.Point(384, 60)
+        Me.Label6.Location = New System.Drawing.Point(384, 58)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(20, 15)
         Me.Label6.TabIndex = 20
@@ -229,7 +228,7 @@ Partial Class frm_material_rec_against_PO
         Me.Label7.AutoSize = True
         Me.Label7.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label7.ForeColor = System.Drawing.Color.White
-        Me.Label7.Location = New System.Drawing.Point(19, 60)
+        Me.Label7.Location = New System.Drawing.Point(19, 58)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(116, 15)
         Me.Label7.TabIndex = 20
@@ -731,12 +730,11 @@ Partial Class frm_material_rec_against_PO
         '
         Me.txt_Invoice_No.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.txt_Invoice_No.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.txt_Invoice_No.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txt_Invoice_No.Font = New System.Drawing.Font("Arial", 12.0!)
         Me.txt_Invoice_No.ForeColor = System.Drawing.Color.White
         Me.txt_Invoice_No.Location = New System.Drawing.Point(97, 417)
-        Me.txt_Invoice_No.Multiline = True
         Me.txt_Invoice_No.Name = "txt_Invoice_No"
-        Me.txt_Invoice_No.Size = New System.Drawing.Size(137, 23)
+        Me.txt_Invoice_No.Size = New System.Drawing.Size(137, 19)
         Me.txt_Invoice_No.TabIndex = 2
         '
         'Label12

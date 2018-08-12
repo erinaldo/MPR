@@ -33,12 +33,12 @@ Partial Class frm_Synchronization
         '
         'btnSynchronize
         '
-        Me.btnSynchronize.BackColor = System.Drawing.Color.ForestGreen
+        Me.btnSynchronize.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.btnSynchronize.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnSynchronize.ForeColor = System.Drawing.Color.White
-        Me.btnSynchronize.Location = New System.Drawing.Point(12, 82)
+        Me.btnSynchronize.Location = New System.Drawing.Point(12, 22)
         Me.btnSynchronize.Name = "btnSynchronize"
-        Me.btnSynchronize.Size = New System.Drawing.Size(309, 50)
+        Me.btnSynchronize.Size = New System.Drawing.Size(312, 50)
         Me.btnSynchronize.TabIndex = 0
         Me.btnSynchronize.Text = "Synchronize All..."
         Me.btnSynchronize.UseVisualStyleBackColor = False
@@ -62,9 +62,9 @@ Partial Class frm_Synchronization
         '
         'PbarDataTransfer
         '
-        Me.PbarDataTransfer.Location = New System.Drawing.Point(12, 176)
+        Me.PbarDataTransfer.Location = New System.Drawing.Point(11, 78)
         Me.PbarDataTransfer.Name = "PbarDataTransfer"
-        Me.PbarDataTransfer.Size = New System.Drawing.Size(309, 38)
+        Me.PbarDataTransfer.Size = New System.Drawing.Size(312, 38)
         Me.PbarDataTransfer.TabIndex = 2
         '
         'btn_Cancel
@@ -73,7 +73,7 @@ Partial Class frm_Synchronization
         Me.btn_Cancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btn_Cancel.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btn_Cancel.ForeColor = System.Drawing.Color.White
-        Me.btn_Cancel.Location = New System.Drawing.Point(235, 320)
+        Me.btn_Cancel.Location = New System.Drawing.Point(235, 322)
         Me.btn_Cancel.Name = "btn_Cancel"
         Me.btn_Cancel.Size = New System.Drawing.Size(86, 25)
         Me.btn_Cancel.TabIndex = 5
@@ -85,20 +85,21 @@ Partial Class frm_Synchronization
         Me.btnQuickSync.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.btnQuickSync.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnQuickSync.ForeColor = System.Drawing.Color.White
-        Me.btnQuickSync.Location = New System.Drawing.Point(12, 12)
+        Me.btnQuickSync.Location = New System.Drawing.Point(15, 79)
         Me.btnQuickSync.Name = "btnQuickSync"
-        Me.btnQuickSync.Size = New System.Drawing.Size(309, 50)
+        Me.btnQuickSync.Size = New System.Drawing.Size(309, 36)
         Me.btnQuickSync.TabIndex = 6
         Me.btnQuickSync.Text = "Quick Synchronize..."
         Me.btnQuickSync.UseVisualStyleBackColor = False
+        Me.btnQuickSync.Visible = False
         '
         'txtBxProgressDetail
         '
-        Me.txtBxProgressDetail.Location = New System.Drawing.Point(12, 216)
+        Me.txtBxProgressDetail.Location = New System.Drawing.Point(12, 122)
         Me.txtBxProgressDetail.Multiline = True
         Me.txtBxProgressDetail.Name = "txtBxProgressDetail"
         Me.txtBxProgressDetail.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtBxProgressDetail.Size = New System.Drawing.Size(309, 100)
+        Me.txtBxProgressDetail.Size = New System.Drawing.Size(309, 192)
         Me.txtBxProgressDetail.TabIndex = 7
         '
         'frm_Synchronization
@@ -109,11 +110,11 @@ Partial Class frm_Synchronization
         Me.ClientSize = New System.Drawing.Size(333, 357)
         Me.ControlBox = False
         Me.Controls.Add(Me.txtBxProgressDetail)
-        Me.Controls.Add(Me.btnQuickSync)
         Me.Controls.Add(Me.btn_Cancel)
         Me.Controls.Add(Me.PbarDataTransfer)
         Me.Controls.Add(Me.lblProgressDetail)
         Me.Controls.Add(Me.btnSynchronize)
+        Me.Controls.Add(Me.btnQuickSync)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
