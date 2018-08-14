@@ -2320,6 +2320,7 @@
     <Content Include="Scripts\2018Update\0026_26_July_2018_user_Rights.sql" />
     <Content Include="Scripts\2018Update\0026_27_July_2018_DebitNote_Modify.sql" />
     <Content Include="Scripts\2018Update\0029_02_August_2018_GSTNature.sql" />
+    <Content Include="Scripts\2018Update\0034_14_August_2018_DeliveryNoteCorrectionScript.sql" />
     <Content Include="Scripts\2018Update\0033_08_August_2018_StockEntryCorrectionForCapitalGoodsInPurchaseandMRNFreightEnty.sql" />
     <Content Include="Scripts\2018Update\0032_08_August_2018_GSTTypeChangesForRent.sql" />
     <Content Include="Scripts\2018Update\0031_05_August_2018_mrnLedgerEntry.sql" />
