@@ -144,6 +144,11 @@ Module SyncronizeData
         Table.TableName = "OutletMaster"
         GlobalTables.Tables.Add(Table.Copy())
 
+        Query = "select * from DivisionMaster"
+        Table = Get_Remote_DataSet(Query).Tables(0)
+        Table.TableName = "DivisionMaster"
+        GlobalTables.Tables.Add(Table.Copy())
+
         ''25)
         Query = "select * from Hsncode_master"
         Table = Get_Remote_DataSet(Query).Tables(0)
@@ -423,6 +428,12 @@ Module SyncronizeData
             'cmd.ExecuteNonQuery()
 
             cmd = New SqlCommand("delete from OutletMaster")
+            cmd.Transaction = tran
+            cmd.Connection = con
+            cmd.ExecuteNonQuery()
+
+
+            cmd = New SqlCommand("delete from DivisionMaster")
             cmd.Transaction = tran
             cmd.Connection = con
             cmd.ExecuteNonQuery()
