@@ -29,9 +29,9 @@ Namespace My
             OriginalWidth = Srn.Bounds.Height
 
             'Dim ChangeRes As Resolution.CResolution = New Resolution.CResolution(TempHeight, TempWidth)
-            If Not (System.Diagnostics.Debugger.IsAttached) Then
-                Dim ChangeRes As Resolution.CResolution = New Resolution.CResolution(TempHeight, TempWidth)
-            End If
+            'If Not (System.Diagnostics.Debugger.IsAttached) Then
+            '    Dim ChangeRes As Resolution.CResolution = New Resolution.CResolution(TempHeight, TempWidth)
+            'End If
 
 
             PrimaryThread = Threading.Thread.CurrentThread

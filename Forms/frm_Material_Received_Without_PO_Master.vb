@@ -82,7 +82,7 @@ Public Class frm_Material_Received_Without_PO_Master
         cmbMRNType.SelectedIndex = 0
         'cmbVendor.Enabled = False
         If flag = "save" Then
-            lbl_PODate.Text = Now.ToString("dd/MMM/yyyy")
+            MRNdtDate.Text = Now.ToString("dd/MMM/yyyy")
             lblMrnStatus.Text = "FRESH"
         End If
     End Sub
@@ -301,12 +301,12 @@ Public Class frm_Material_Received_Without_PO_Master
                     prpty.Received_ID = Convert.ToInt32(RECEIVEDID)
                     prpty.Received_Code = MRN_Code ' GetReceivedCode()
                     prpty.Received_No = MRN_No ' Convert.ToInt32(RECEIVEDID)
-                    prpty.Received_Date = Now 'Convert.ToDateTime(lbl_PODate.Text).ToString()
+                    prpty.Received_Date = Convert.ToDateTime(MRNdtDate.Text) 'Now '
                 Else
                     prpty.Received_ID = Convert.ToInt32(receive_Id)
                     prpty.Received_Code = ""
                     prpty.Received_No = 0
-                    prpty.Received_Date = Now
+                    prpty.Received_Date = Convert.ToDateTime(MRNdtDate.Text) 'Now
                     MRN_Code = ""
                 End If
 
@@ -1216,7 +1216,7 @@ restart:
             If dtMRN.Rows(0)("Purchase_Type") = 2 Then
                 cmbVendor.SelectedValue = dtMRN.Rows(0)("Vendor_Id")
             End If
-            lbl_PODate.Text = dtMRN.Rows(0)("Received_Date")
+            MRNdtDate.Text = dtMRN.Rows(0)("Received_Date")
             txtMrnRemarks.Text = dtMRN.Rows(0)("Remarks")
             If dtMRN.Rows(0)("MRN_Status") = MRNStatus.cancel Then
                 lblMrnStatus.Text = "Cancel"

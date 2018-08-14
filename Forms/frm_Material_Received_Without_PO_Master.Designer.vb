@@ -62,6 +62,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.Label10 = New System.Windows.Forms.Label()
         Me.Panel17 = New System.Windows.Forms.Panel()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.MRNdtDate = New System.Windows.Forms.DateTimePicker()
         Me.cmbCapitalAccount = New System.Windows.Forms.ComboBox()
         Me.lblSelectCapitalAccount = New System.Windows.Forms.Label()
         Me.cmbITCEligibility = New System.Windows.Forms.ComboBox()
@@ -339,7 +340,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.dgvList.BackgroundColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.dgvList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvList.GridColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.dgvList.Location = New System.Drawing.Point(3, 16)
+        Me.dgvList.Location = New System.Drawing.Point(2, 16)
         Me.dgvList.Name = "dgvList"
         Me.dgvList.ReadOnly = True
         Me.dgvList.RowHeadersVisible = False
@@ -741,6 +742,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.MRNdtDate)
         Me.GroupBox1.Controls.Add(Me.cmbCapitalAccount)
         Me.GroupBox1.Controls.Add(Me.lblSelectCapitalAccount)
         Me.GroupBox1.Controls.Add(Me.cmbITCEligibility)
@@ -770,6 +772,17 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         '
+        'MRNdtDate
+        '
+        Me.MRNdtDate.CalendarForeColor = System.Drawing.Color.White
+        Me.MRNdtDate.CalendarMonthBackground = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.MRNdtDate.CustomFormat = "dd-MMM-yyyy"
+        Me.MRNdtDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.MRNdtDate.Location = New System.Drawing.Point(363, 17)
+        Me.MRNdtDate.Name = "MRNdtDate"
+        Me.MRNdtDate.Size = New System.Drawing.Size(112, 21)
+        Me.MRNdtDate.TabIndex = 1
+        '
         'cmbCapitalAccount
         '
         Me.cmbCapitalAccount.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
@@ -780,14 +793,14 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.cmbCapitalAccount.Location = New System.Drawing.Point(438, 101)
         Me.cmbCapitalAccount.Name = "cmbCapitalAccount"
         Me.cmbCapitalAccount.Size = New System.Drawing.Size(226, 23)
-        Me.cmbCapitalAccount.TabIndex = 6
+        Me.cmbCapitalAccount.TabIndex = 7
         '
         'lblSelectCapitalAccount
         '
         Me.lblSelectCapitalAccount.AutoSize = True
         Me.lblSelectCapitalAccount.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblSelectCapitalAccount.ForeColor = System.Drawing.Color.White
-        Me.lblSelectCapitalAccount.Location = New System.Drawing.Point(313, 106)
+        Me.lblSelectCapitalAccount.Location = New System.Drawing.Point(315, 106)
         Me.lblSelectCapitalAccount.Name = "lblSelectCapitalAccount"
         Me.lblSelectCapitalAccount.Size = New System.Drawing.Size(92, 15)
         Me.lblSelectCapitalAccount.TabIndex = 39
@@ -803,7 +816,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.cmbITCEligibility.Location = New System.Drawing.Point(112, 101)
         Me.cmbITCEligibility.Name = "cmbITCEligibility"
         Me.cmbITCEligibility.Size = New System.Drawing.Size(177, 23)
-        Me.cmbITCEligibility.TabIndex = 5
+        Me.cmbITCEligibility.TabIndex = 6
         '
         'lblITCEligibility
         '
@@ -838,7 +851,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.txtBarcodeSearch.MaxLength = 100
         Me.txtBarcodeSearch.Name = "txtBarcodeSearch"
         Me.txtBarcodeSearch.Size = New System.Drawing.Size(552, 19)
-        Me.txtBarcodeSearch.TabIndex = 7
+        Me.txtBarcodeSearch.TabIndex = 8
         '
         'Label52
         '
@@ -862,14 +875,14 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.cmbMRNType.Location = New System.Drawing.Point(544, 16)
         Me.cmbMRNType.Name = "cmbMRNType"
         Me.cmbMRNType.Size = New System.Drawing.Size(120, 23)
-        Me.cmbMRNType.TabIndex = 1
+        Me.cmbMRNType.TabIndex = 2
         '
         'Label49
         '
         Me.Label49.AutoSize = True
         Me.Label49.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label49.ForeColor = System.Drawing.Color.White
-        Me.Label49.Location = New System.Drawing.Point(473, 21)
+        Me.Label49.Location = New System.Drawing.Point(479, 21)
         Me.Label49.Name = "Label49"
         Me.Label49.Size = New System.Drawing.Size(68, 15)
         Me.Label49.TabIndex = 34
@@ -880,7 +893,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.Label7.AutoSize = True
         Me.Label7.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label7.ForeColor = System.Drawing.Color.White
-        Me.Label7.Location = New System.Drawing.Point(313, 79)
+        Me.Label7.Location = New System.Drawing.Point(315, 79)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(80, 15)
         Me.Label7.TabIndex = 30
@@ -895,7 +908,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.txt_Invoice_No.Location = New System.Drawing.Point(112, 73)
         Me.txt_Invoice_No.Name = "txt_Invoice_No"
         Me.txt_Invoice_No.Size = New System.Drawing.Size(177, 19)
-        Me.txt_Invoice_No.TabIndex = 3
+        Me.txt_Invoice_No.TabIndex = 4
         '
         'dt_Invoice_Date
         '
@@ -904,7 +917,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.dt_Invoice_Date.Location = New System.Drawing.Point(438, 74)
         Me.dt_Invoice_Date.Name = "dt_Invoice_Date"
         Me.dt_Invoice_Date.Size = New System.Drawing.Size(226, 21)
-        Me.dt_Invoice_Date.TabIndex = 4
+        Me.dt_Invoice_Date.TabIndex = 5
         '
         'Label6
         '
@@ -922,18 +935,19 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.lbl_PODate.AutoSize = True
         Me.lbl_PODate.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_PODate.ForeColor = System.Drawing.Color.Orange
-        Me.lbl_PODate.Location = New System.Drawing.Point(379, 21)
+        Me.lbl_PODate.Location = New System.Drawing.Point(795, 85)
         Me.lbl_PODate.Name = "lbl_PODate"
         Me.lbl_PODate.Size = New System.Drawing.Size(88, 15)
         Me.lbl_PODate.TabIndex = 26
         Me.lbl_PODate.Text = "Received Date"
+        Me.lbl_PODate.Visible = False
         '
         'Label3
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label3.ForeColor = System.Drawing.Color.White
-        Me.Label3.Location = New System.Drawing.Point(313, 21)
+        Me.Label3.Location = New System.Drawing.Point(295, 21)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(69, 15)
         Me.Label3.TabIndex = 11
@@ -961,7 +975,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.cmbVendor.Location = New System.Drawing.Point(112, 45)
         Me.cmbVendor.Name = "cmbVendor"
         Me.cmbVendor.Size = New System.Drawing.Size(552, 23)
-        Me.cmbVendor.TabIndex = 2
+        Me.cmbVendor.TabIndex = 3
         '
         'Label2
         '
@@ -2540,4 +2554,5 @@ Partial Class frm_Material_Received_Without_PO_Master
     Friend WithEvents lblSelectCapitalAccount As Label
     Friend WithEvents cmbITCEligibility As ComboBox
     Friend WithEvents lblITCEligibility As Label
+    Friend WithEvents MRNdtDate As DateTimePicker
 End Class
