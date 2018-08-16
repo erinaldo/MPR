@@ -9,6 +9,7 @@ Imports System.Xml
 Imports System.IO
 Imports Microsoft.Office.Interop
 
+
 Public Class CommonClass
     Inherits Connection
 
@@ -1768,81 +1769,83 @@ again:
 End Class
 
 Public Class AutoCompleteCombo
-        Inherits ComboBox
-        Private mResetOnClear As Boolean = False
+    Inherits ComboBox
 
-        Protected Overrides Sub RefreshItem(ByVal index As Integer)
-            MyBase.RefreshItem(index)
-        End Sub
+    Private mResetOnClear As Boolean = False
 
-        Protected Overrides Sub SetItemsCore(ByVal items As System.Collections.IList)
-            MyBase.SetItemsCore(items)
-        End Sub
+    Protected Overrides Sub RefreshItem(ByVal index As Integer)
+        MyBase.RefreshItem(index)
+    End Sub
 
-        Public Shadows Sub KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles MyBase.KeyPress
-            Dim intIndex As Integer
-            Dim strEntry As String
+    Protected Overrides Sub SetItemsCore(ByVal items As System.Collections.IList)
+        MyBase.SetItemsCore(items)
+    End Sub
 
-            Me.DroppedDown = True
+    Public Shadows Sub KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles MyBase.KeyPress
+        Dim intIndex As Integer
+        Dim strEntry As String
 
-            If Char.IsControl(e.KeyChar) Then
-                If MyBase.SelectionStart <= 1 Then
-                    If mResetOnClear Then
-                        MyBase.SelectedIndex = 0
-                        MyBase.SelectAll()
-                    Else
-                        MyBase.Text = String.Empty
-                        MyBase.SelectedIndex = -1
-                        MyBase.SelectedIndex = -1
-                    End If
-                    e.Handled = True
-                    Exit Sub
-                End If
-                If MyBase.SelectionLength = 0 Then
-                    strEntry = MyBase.Text.Substring(0, MyBase.Text.Length - 1)
+        Me.DroppedDown = True
+
+        If Char.IsControl(e.KeyChar) Then
+            If MyBase.SelectionStart <= 1 Then
+                If mResetOnClear Then
+                    MyBase.SelectedIndex = 0
+                    MyBase.SelectAll()
                 Else
-                    strEntry = MyBase.Text.Substring(0, MyBase.SelectionStart - 1)
+                    MyBase.Text = String.Empty
+                    MyBase.SelectedIndex = -1
+                    MyBase.SelectedIndex = -1
                 End If
-            ElseIf (Not Char.IsLetterOrDigit(e.KeyChar)) And (Not Char.IsWhiteSpace(e.KeyChar)) Then  '< 32 Or KeyAscii > 127 Then
+                e.Handled = True
                 Exit Sub
+            End If
+            If MyBase.SelectionLength = 0 Then
+                strEntry = MyBase.Text.Substring(0, MyBase.Text.Length - 1)
             Else
-                If MyBase.SelectionLength = 0 Then
-                    strEntry = UCase(MyBase.Text & e.KeyChar)
-                Else
-                    strEntry = MyBase.Text.Substring(0, MyBase.SelectionStart) & e.KeyChar
-                End If
+                strEntry = MyBase.Text.Substring(0, MyBase.SelectionStart - 1)
             End If
-
-            intIndex = MyBase.FindString(strEntry)
-
-            If intIndex <> -1 Then
-                MyBase.SelectedIndex = intIndex
-                MyBase.SelectionStart = strEntry.Length
-                MyBase.SelectionLength = MyBase.Text.Length - MyBase.SelectionStart
-            End If
-            e.Handled = True
+        ElseIf (Not Char.IsLetterOrDigit(e.KeyChar)) And (Not Char.IsWhiteSpace(e.KeyChar)) Then  '< 32 Or KeyAscii > 127 Then
             Exit Sub
-        End Sub
-
-        'Make the Enter key work like the Tab key 
-        Protected Overrides Function ProcessCmdKey(ByRef msg As System.Windows.Forms.Message, ByVal keyData As System.Windows.Forms.Keys) As Boolean
-
-            If msg.WParam.ToInt32() = CInt(Keys.Enter) Then
-                SendKeys.Send("{Tab}")
-                Return True
+        Else
+            If MyBase.SelectionLength = 0 Then
+                strEntry = UCase(MyBase.Text & e.KeyChar)
+            Else
+                strEntry = MyBase.Text.Substring(0, MyBase.SelectionStart) & e.KeyChar
             End If
+        End If
 
-            Return MyBase.ProcessCmdKey(msg, keyData)
+        intIndex = MyBase.FindString(strEntry)
 
-        End Function
+        If intIndex <> -1 Then
+            MyBase.SelectedIndex = intIndex
+            MyBase.SelectionStart = strEntry.Length
+            MyBase.SelectionLength = MyBase.Text.Length - MyBase.SelectionStart
 
-        Public Property ResetOnClear() As Boolean
-            Get
-                Return mResetOnClear
-            End Get
-            Set(ByVal Value As Boolean)
-                mResetOnClear = Value
-            End Set
-        End Property
+        End If
+        e.Handled = True
+        Exit Sub
+    End Sub
+
+    'Make the Enter key work like the Tab key 
+    Protected Overrides Function ProcessCmdKey(ByRef msg As System.Windows.Forms.Message, ByVal keyData As System.Windows.Forms.Keys) As Boolean
+
+        If msg.WParam.ToInt32() = CInt(Keys.Enter) Then
+            SendKeys.Send("{Tab}")
+            Return True
+        End If
+
+        Return MyBase.ProcessCmdKey(msg, keyData)
+
+    End Function
+
+    Public Property ResetOnClear() As Boolean
+        Get
+            Return mResetOnClear
+        End Get
+        Set(ByVal Value As Boolean)
+            mResetOnClear = Value
+        End Set
+    End Property
 
 End Class

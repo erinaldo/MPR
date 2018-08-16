@@ -2,6 +2,7 @@
 Imports CrystalDecisions.CrystalReports.Engine
 Imports CrystalDecisions.ReportSource
 Imports CrystalDecisions.Shared
+
 Public Class frm_CreditorsLedger
 
     Implements IForm
@@ -12,6 +13,8 @@ Public Class frm_CreditorsLedger
     Dim flag As String
     Dim _call_type As Integer
     Dim _report_name As String
+
+
     Public Sub New(ByVal rights As Form_Rights)
         _rights = rights
         InitializeComponent()
@@ -101,13 +104,14 @@ Public Class frm_CreditorsLedger
         End Try
     End Sub
 
+
     Private Sub frm_DebtorsOS_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         CustomerBind()
     End Sub
 
     Private Sub btnShow_Click(sender As Object, e As EventArgs) Handles btnShow.Click
         Try
-            Dim a = cmbSupplier.SelectedText
+
             If cmbSupplier.SelectedValue <> 0 Then
                 MsgBox("Please select Supplier.", MsgBoxStyle.Information, gblMessageHeading)
                 Exit Sub
