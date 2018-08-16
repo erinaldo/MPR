@@ -1069,7 +1069,7 @@ FROM    ( SELECT    inv.NET_AMOUNT ,
                     DISCOUNT_VALUE ,
                     GSTPaid
 
-           UNION
+           UNION ALL
           
            SELECT    ( SUM(ISNULL(pt.TotalAmountReceived, 0))
                       + SUM(ISNULL(pt.GSTPerAmt, 0)) ) AS NET_AMOUNT ,
@@ -1082,7 +1082,7 @@ FROM    ( SELECT    inv.NET_AMOUNT ,
                     CASE WHEN pt.fk_GST_ID = 1 THEN 0.00
                          WHEN pt.fk_GST_ID = 2 THEN 5.00
                          WHEN pt.fk_GST_ID = 3 THEN 12.00
-                         WHEN pt.fk_GST_ID = 4 THEN 18
+                         WHEN pt.fk_GST_ID = 4 THEN 18.00
                          WHEN pt.fk_GST_ID = 5 THEN 28.00
                          WHEN pt.fk_GST_ID = 6 THEN 3.00
                     END AS VAT_PER ,
@@ -1179,7 +1179,7 @@ FROM    ( SELECT    inv.NET_AMOUNT ,
                     DISCOUNT_VALUE ,
                     GSTPaid
 
-          UNION
+          UNION ALL
           
           SELECT    ( SUM(ISNULL(pt.TotalAmountReceived, 0))
                       + SUM(ISNULL(pt.GSTPerAmt, 0)) ) AS NET_AMOUNT ,
@@ -1192,7 +1192,7 @@ FROM    ( SELECT    inv.NET_AMOUNT ,
                     CASE WHEN pt.fk_GST_ID = 1 THEN 0.00
                          WHEN pt.fk_GST_ID = 2 THEN 5.00
                          WHEN pt.fk_GST_ID = 3 THEN 12.00
-                         WHEN pt.fk_GST_ID = 4 THEN 18
+                         WHEN pt.fk_GST_ID = 4 THEN 18.00
                          WHEN pt.fk_GST_ID = 5 THEN 28.00
                          WHEN pt.fk_GST_ID = 6 THEN 3.00
                     END AS VAT_PER ,
@@ -1288,7 +1288,8 @@ FROM    ( SELECT    STATE_CODE ,
                                             inv.SI_ID
 
 
-                                  UNION
+                                  UNION ALL
+
                                   SELECT    SI_ID ,
                                             STATE_CODE ,
                                             STATE_NAME ,
@@ -1306,7 +1307,7 @@ FROM    ( SELECT    STATE_CODE ,
                                                              WHEN pt.fk_GST_ID = 3
                                                              THEN 12.00
                                                              WHEN pt.fk_GST_ID = 4
-                                                             THEN 18
+                                                             THEN 18.00
                                                              WHEN pt.fk_GST_ID = 5
                                                              THEN 28.00
                                                              WHEN pt.fk_GST_ID = 6
@@ -1426,7 +1427,7 @@ FROM    ( SELECT    STATE_CODE ,
                                             GSTPaid ,
                                             inv.SI_ID
 
-                                  UNION
+                                  UNION ALL
                                   SELECT    SI_ID ,
                                             STATE_CODE ,
                                             STATE_NAME ,
@@ -1444,7 +1445,7 @@ FROM    ( SELECT    STATE_CODE ,
                                                              WHEN pt.fk_GST_ID = 3
                                                              THEN 12.00
                                                              WHEN pt.fk_GST_ID = 4
-                                                             THEN 18
+                                                             THEN 18.00
                                                              WHEN pt.fk_GST_ID = 5
                                                              THEN 28.00
                                                              WHEN pt.fk_GST_ID = 6
@@ -1572,7 +1573,7 @@ GROUP BY main.STATE_CODE ,
 
 
 
-          UNION
+          UNION ALL
                       SELECT    HsnCode_vch ,
                                 Qty ,
                                 Taxable_Value ,
@@ -1601,7 +1602,8 @@ GROUP BY main.STATE_CODE ,
                                                  THEN 5.00
                                                  WHEN pt.fk_GST_ID = 3
                                                  THEN 12.00
-                                                 WHEN pt.fk_GST_ID = 4 THEN 18
+                                                 WHEN pt.fk_GST_ID = 4 
+                                                 THEN 18.00
                                                  WHEN pt.fk_GST_ID = 5
                                                  THEN 28.00
                                                  WHEN pt.fk_GST_ID = 6
@@ -1659,10 +1661,7 @@ UNION ALL
 
         ) tb GROUP BY HsnCode_vch 
         
-        )main GROUP BY HsnCode_vch ORDER BY HsnCode_vch
-
-
-"
+        )main GROUP BY HsnCode_vch ORDER BY HsnCode_vch"
 
         'Qry = " SELECT HsnCode_vch, SUM(invd.BAL_ITEM_QTY) AS Qty, " &
         '    " SUM(((BAL_ITEM_QTY * BAL_ITEM_RATE) - ISNULL(ITEM_DISCOUNT,0))) AS Taxable_Value, SUM(0) Cess_Amount," &

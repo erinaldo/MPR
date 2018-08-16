@@ -190,7 +190,13 @@ Public Class frm_GSTR_3
                     ISNULL(SUM(CASE WHEN INV_TYPE = 'I' THEN Taxable_Value
                         ELSE 0
                    END), 0) AS InterState_TaxableValue
-          FROM   ( SELECT    0.00 AS VAT_PER ,
+          FROM   ( SELECT   CASE WHEN pt.fk_GST_ID = 1 THEN 0.00
+                         WHEN pt.fk_GST_ID = 2 THEN 5.00
+                         WHEN pt.fk_GST_ID = 3 THEN 12.00
+                         WHEN pt.fk_GST_ID = 4 THEN 18.00
+                         WHEN pt.fk_GST_ID = 5 THEN 28.00
+                         WHEN pt.fk_GST_ID = 6 THEN 3.00
+                    END AS VAT_PER ,
                     SUM(( ISNULL(pt.TotalAmountReceived, 0) )) AS Taxable_Value ,
                     CASE WHEN cm.STATE_ID = " & stateId & " THEN 'S'
                          ELSE 'I'
@@ -201,7 +207,7 @@ Public Class frm_GSTR_3
                     INNER JOIN dbo.STATE_MASTER sm ON sm.STATE_ID = cm.STATE_ID
           WHERE     am.FK_GST_TYPE_ID = 3
                     AND CAST(pt.PaymentDate AS DATE) between CAST('" & txtFromDate.Value.ToString("dd-MMM-yyyy") & "' AS date) AND CAST('" & txtToDate.Value.ToString("dd-MMM-yyyy") & "' AS date) " & "
-          GROUP BY  cm.STATE_ID
+          GROUP BY  cm.STATE_ID, pt.fk_GST_ID
         ) tb"
 
         Return objCommFunction.Fill_DataSet(Qry).Tables(0).Rows(0)
@@ -488,6 +494,28 @@ FROM    ( SELECT    SUM(ISNULL(IntraState_TaxableValue, 0)) AS IntraState_Taxabl
                     ) main1
           UNION ALL
           SELECT    SUM(IntraState_TaxableValue) AS IntraState_TaxableValue ,
+                    SUM(InterState_TaxableValue) AS InterState_TaxableValue 
+          FROM      ( SELECT    CASE WHEN sm.STATE_ID <> " & stateId & "
+                                                THEN SUM(( ISNULL(pt.TotalAmountReceived, 0) ))
+                                                ELSE 0
+                                           END  AS IntraState_TaxableValue ,
+                                CASE WHEN sm.STATE_ID = " & stateId & "
+                                                THEN SUM(( ISNULL(pt.TotalAmountReceived, 0) ))
+                                                ELSE 0
+                                           END  AS InterState_TaxableValue 
+                      FROM      dbo.PaymentTransaction pt
+								INNER JOIN dbo.ACCOUNT_MASTER am ON am.ACC_ID = pt.AccountId
+								INNER JOIN dbo.CITY_MASTER cm ON cm.CITY_ID = am.CITY_ID
+								INNER JOIN dbo.STATE_MASTER sm ON sm.STATE_ID = cm.STATE_ID
+                      WHERE     pt.GST_Applicable_Acc = 'Dr.'
+								AND pt.StatusId <> 3
+								AND pt.fk_GST_ID = 1
+                                AND cast(pt.PaymentDate AS date) between CAST('" & txtFromDate.Value.ToString("dd-MMM-yyyy") & "' AS date) AND CAST('" & txtToDate.Value.ToString("dd-MMM-yyyy") & "' AS date) " & "
+								GROUP BY sm.STATE_ID 
+                    ) tb 
+
+          UNION ALL
+          SELECT    SUM(IntraState_TaxableValue) AS IntraState_TaxableValue ,
                     SUM(InterState_TaxableValue) AS InterState_TaxableValue
           FROM      ( SELECT    ISNULL(SUM(CASE WHEN MRN_TYPE <> 2
                                                 THEN CAST(( d.Item_Qty
@@ -524,7 +552,7 @@ FROM    ( SELECT    SUM(ISNULL(IntraState_TaxableValue, 0)) AS IntraState_Taxabl
                                 JOIN dbo.DebitNote_Detail D ON M.DebitNote_Id = D.DebitNote_Id
                       WHERE     cast(DebitNote_Date AS date) between CAST('" & txtFromDate.Value.ToString("dd-MMM-yyyy") & "' AS date) AND CAST('" & txtToDate.Value.ToString("dd-MMM-yyyy") & "' AS date) " & "
                                 AND Item_Tax = 0
-                    ) tb
+                    ) tb1
         ) TB"
 
 
@@ -577,7 +605,7 @@ FROM    ( SELECT    SUM(ISNULL(IntraState_TaxableValue, 0)) AS IntraState_Taxabl
             " INNER JOIN dbo.CITY_MASTER cm ON cm.CITY_ID = am.CITY_ID" &
             " WHERE MRN_STATUS <> 2 AND LEN(am.VAT_NO) > 0 and cast(Receipt_Date AS date) between CAST('" & txtFromDate.Value.ToString("dd-MMM-yyyy") & "' AS date) AND CAST('" & txtToDate.Value.ToString("dd-MMM-yyyy") & "' AS date) " & "
            
-            UNION 
+            UNION ALL
             SELECT 	CASE WHEN cm.STATE_ID = " & stateId & " THEN pt.GSTPerAmt END AS non_integrated_tax ,                    
                     CASE WHEN cm.STATE_ID <> " & stateId & " THEN pt.GSTPerAmt END AS integrated_tax ,
                     0.00 AS CessAmt
@@ -635,7 +663,7 @@ FROM    ( SELECT    STATE_CODE ,
                                 GSTPaid ,
                                 VAT_PER
 
-                      UNION
+                      UNION ALL
 
 
                       SELECT    STATE_CODE ,
@@ -656,7 +684,8 @@ FROM    ( SELECT    STATE_CODE ,
                                                  THEN 5.00
                                                  WHEN pt.fk_GST_ID = 3
                                                  THEN 12.00
-                                                 WHEN pt.fk_GST_ID = 4 THEN 18
+                                                 WHEN pt.fk_GST_ID = 4 
+                                                 THEN 18.00
                                                  WHEN pt.fk_GST_ID = 5
                                                  THEN 28.00
                                                  WHEN pt.fk_GST_ID = 6
@@ -768,7 +797,7 @@ FROM    ( SELECT    STATE_CODE ,
                          CASE WHEN pt.fk_GST_ID = 1 THEN 0.00
                                          WHEN pt.fk_GST_ID = 2 THEN 5.00
                                          WHEN pt.fk_GST_ID = 3 THEN 12.00
-                                         WHEN pt.fk_GST_ID = 4 THEN 18
+                                         WHEN pt.fk_GST_ID = 4 THEN 18.00
                                          WHEN pt.fk_GST_ID = 5 THEN 28.00
                                          WHEN pt.fk_GST_ID = 6 THEN 3.00
                                     END AS Vat_per ,
