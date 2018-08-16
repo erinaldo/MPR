@@ -1774,6 +1774,7 @@ End Class
 Public Class AutoCompleteCombo
 
     Inherits ComboBox
+
     Private mResetOnClear As Boolean = False
 
     Protected Overrides Sub RefreshItem(ByVal index As Integer)
@@ -1824,6 +1825,7 @@ Public Class AutoCompleteCombo
             MyBase.SelectedIndex = intIndex
             MyBase.SelectionStart = strEntry.Length
             MyBase.SelectionLength = MyBase.Text.Length - MyBase.SelectionStart
+
         End If
         e.Handled = True
         Exit Sub

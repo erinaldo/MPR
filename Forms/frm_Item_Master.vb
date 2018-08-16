@@ -328,18 +328,23 @@ Public Class frm_Item_Master
                 dtpExpiryOpening.Value = drv("Expiry_date").ToString()
                 Dim ds_new As DataSet
 
-                ds_new = Obj.fill_Data_set_val("get_count_Item_Issued", "@Item_ID", "", Convert.ToString(ItemID), "")
-                If (ds_new.Tables.Count > 0) Then
-                    If (Convert.ToString(ds_new.Tables(0).Rows(0)(0)) = "0") Then
-                        txt_OpeningRate.ReadOnly = False
-                        txtOpeningStock.ReadOnly = False
-                        txt_OpeningRate.Text = drv("OPENING_RATE").ToString()
-                    Else
-                        txt_OpeningRate.ReadOnly = True
-                        txtOpeningStock.ReadOnly = True
-                        txt_OpeningRate.Text = drv("OPENING_RATE").ToString()
-                    End If
-                End If
+                'ds_new = Obj.fill_Data_set_val("get_count_Item_Issued", "@Item_ID", "", Convert.ToString(ItemID), "")
+                'If (ds_new.Tables.Count > 0) Then
+                '    If (Convert.ToString(ds_new.Tables(0).Rows(0)(0)) = "0") Then
+                '        txt_OpeningRate.ReadOnly = False
+                '        txtOpeningStock.ReadOnly = False
+                '        txt_OpeningRate.Text = drv("OPENING_RATE").ToString()
+                '    Else
+                '        txt_OpeningRate.ReadOnly = True
+                '        txtOpeningStock.ReadOnly = True
+                '        txt_OpeningRate.Text = drv("OPENING_RATE").ToString()
+                '    End If
+                'End If
+
+
+                txt_OpeningRate.ReadOnly = True
+                txtOpeningStock.ReadOnly = True
+                txt_OpeningRate.Text = drv("OPENING_RATE").ToString()
 
                 txtReorderLevel.Text = drv("RE_ORDER_LEVEL").ToString()
                 txtReorderQty.Text = drv("RE_ORDER_QTY").ToString()
