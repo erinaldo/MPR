@@ -69,13 +69,13 @@ Partial Class frm_openSale_Invoice
         Me.txtvechicle_no = New System.Windows.Forms.TextBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.GBDCMASTER = New System.Windows.Forms.GroupBox()
+        Me.cmbSupplier = New MMSPlus.AutoCompleteCombo()
         Me.txtBarcodeSearch = New System.Windows.Forms.TextBox()
         Me.Label15 = New System.Windows.Forms.Label()
         Me.txtShippingAddress = New System.Windows.Forms.TextBox()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.cmbCity = New System.Windows.Forms.ComboBox()
         Me.Label13 = New System.Windows.Forms.Label()
-        Me.cmbSupplier = New System.Windows.Forms.ComboBox()
         Me.btnAddNew = New System.Windows.Forms.Button()
         Me.txtGstNo = New System.Windows.Forms.TextBox()
         Me.Label9 = New System.Windows.Forms.Label()
@@ -655,13 +655,13 @@ Partial Class frm_openSale_Invoice
         '
         'GBDCMASTER
         '
+        Me.GBDCMASTER.Controls.Add(Me.cmbSupplier)
         Me.GBDCMASTER.Controls.Add(Me.txtBarcodeSearch)
         Me.GBDCMASTER.Controls.Add(Me.Label15)
         Me.GBDCMASTER.Controls.Add(Me.txtShippingAddress)
         Me.GBDCMASTER.Controls.Add(Me.Label14)
         Me.GBDCMASTER.Controls.Add(Me.cmbCity)
         Me.GBDCMASTER.Controls.Add(Me.Label13)
-        Me.GBDCMASTER.Controls.Add(Me.cmbSupplier)
         Me.GBDCMASTER.Controls.Add(Me.btnAddNew)
         Me.GBDCMASTER.Controls.Add(Me.txtGstNo)
         Me.GBDCMASTER.Controls.Add(Me.Label9)
@@ -686,6 +686,19 @@ Partial Class frm_openSale_Invoice
         Me.GBDCMASTER.Size = New System.Drawing.Size(896, 158)
         Me.GBDCMASTER.TabIndex = 0
         Me.GBDCMASTER.TabStop = False
+        '
+        'cmbSupplier
+        '
+        Me.cmbSupplier.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.cmbSupplier.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmbSupplier.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmbSupplier.ForeColor = System.Drawing.Color.White
+        Me.cmbSupplier.FormattingEnabled = True
+        Me.cmbSupplier.Location = New System.Drawing.Point(90, 29)
+        Me.cmbSupplier.Name = "cmbSupplier"
+        Me.cmbSupplier.ResetOnClear = False
+        Me.cmbSupplier.Size = New System.Drawing.Size(647, 24)
+        Me.cmbSupplier.TabIndex = 60
         '
         'txtBarcodeSearch
         '
@@ -758,18 +771,6 @@ Partial Class frm_openSale_Invoice
         Me.Label13.TabIndex = 56
         Me.Label13.Text = "City :"
         Me.Label13.Visible = False
-        '
-        'cmbSupplier
-        '
-        Me.cmbSupplier.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.cmbSupplier.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmbSupplier.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmbSupplier.ForeColor = System.Drawing.Color.White
-        Me.cmbSupplier.FormattingEnabled = True
-        Me.cmbSupplier.Location = New System.Drawing.Point(89, 30)
-        Me.cmbSupplier.Name = "cmbSupplier"
-        Me.cmbSupplier.Size = New System.Drawing.Size(648, 23)
-        Me.cmbSupplier.TabIndex = 0
         '
         'btnAddNew
         '
@@ -1071,7 +1072,6 @@ Partial Class frm_openSale_Invoice
     Friend WithEvents txtShippingAddress As TextBox
     Friend WithEvents Label15 As System.Windows.Forms.Label
     Friend WithEvents txtBarcodeSearch As System.Windows.Forms.TextBox
-    Friend WithEvents cmbSupplier As System.Windows.Forms.ComboBox
     Friend WithEvents lblTotalQty As Label
     Friend WithEvents lblCessAmount As Label
     Friend WithEvents Label16 As Label
@@ -1090,4 +1090,5 @@ Partial Class frm_openSale_Invoice
     Friend WithEvents lblGSTHeader As Label
     Friend WithEvents Panel1 As Panel
     Friend WithEvents Panel15 As Panel
+    Friend WithEvents cmbSupplier As AutoCompleteCombo
 End Class

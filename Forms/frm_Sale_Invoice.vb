@@ -1004,7 +1004,7 @@ WHERE   ( SUPPLIER_RATE_LIST_DETAIL.ITEM_ID =" & Convert.ToInt32(item_id) & " )
 
     Private Sub SetGSTAndCessHeader(TotalGst As Decimal, TotalCess As Decimal)
         Dim PartialGst As Decimal = Math.Round(TotalGst / 2, 2)
-        If cmbinvtype.Text = "" Then
+        If cmbinvtype.Text = "---Select---" Then
             lblGSTDetail.Text = String.Format("Total GST - {0}", Math.Round(TotalGst, 2))
             lblGSTDetail.Tag = Math.Round(TotalGst, 2)
         ElseIf cmbinvtype.Text = "UGST" Then

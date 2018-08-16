@@ -108,12 +108,11 @@ Public Class frm_CreditorsLedger
 
     Private Sub frm_DebtorsOS_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         CustomerBind()
-        'cmbSupplier.SelectedIndex = 0
     End Sub
 
     Private Sub btnShow_Click(sender As Object, e As EventArgs) Handles btnShow.Click
         Try
-            ' cmbSupplier.SelectedIndex = cmbSupplier.FindStringExact(cmbSupplier.Text)
+            cmbSupplier.SelectedIndex = cmbSupplier.FindStringExact(cmbSupplier.Text)
 
             Dim a = cmbSupplier.SelectedIndex
             If cmbSupplier.SelectedIndex <= 0 Then
@@ -125,8 +124,4 @@ Public Class frm_CreditorsLedger
             MsgBox(ex.Message)
         End Try
     End Sub
-
-    'Private Sub cmbSupplier_Leave(sender As Object, e As EventArgs) Handles cmbSupplier.Leave
-    '    cmbSupplier.SelectedIndex = cmbSupplier.FindStringExact(cmbSupplier.Text)
-    'End Sub
 End Class
