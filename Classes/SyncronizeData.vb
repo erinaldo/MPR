@@ -186,6 +186,21 @@ Module SyncronizeData
         Table.TableName = "CESSMASTER"
         GlobalTables.Tables.Add(Table.Copy())
 
+        Query = "select * from ITC_Eligibility"
+        Table = Get_Remote_DataSet(Query).Tables(0)
+        Table.TableName = "ITC_Eligibility"
+        GlobalTables.Tables.Add(Table.Copy())
+
+        Query = "select * from GST_Type"
+        Table = Get_Remote_DataSet(Query).Tables(0)
+        Table.TableName = "GST_Type"
+        GlobalTables.Tables.Add(Table.Copy())
+
+        Query = "select * from GST_Nature"
+        Table = Get_Remote_DataSet(Query).Tables(0)
+        Table.TableName = "GST_Nature"
+        GlobalTables.Tables.Add(Table.Copy())
+
 
         If NEW_OUTLET Then
 
@@ -465,6 +480,21 @@ Module SyncronizeData
             cmd.ExecuteNonQuery()
 
             cmd = New SqlCommand("delete from CessMaster")
+            cmd.Transaction = tran
+            cmd.Connection = con
+            cmd.ExecuteNonQuery()
+
+            cmd = New SqlCommand("delete from ITC_Eligibility")
+            cmd.Transaction = tran
+            cmd.Connection = con
+            cmd.ExecuteNonQuery()
+
+            cmd = New SqlCommand("delete from GST_Type")
+            cmd.Transaction = tran
+            cmd.Connection = con
+            cmd.ExecuteNonQuery()
+
+            cmd = New SqlCommand("delete from GST_Nature")
             cmd.Transaction = tran
             cmd.Connection = con
             cmd.ExecuteNonQuery()
