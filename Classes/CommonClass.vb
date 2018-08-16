@@ -9,9 +9,9 @@ Imports System.Xml
 Imports System.IO
 Imports Microsoft.Office.Interop
 
-
 Public Class CommonClass
     Inherits Connection
+
 
     Public Sub fill_GridCombo(ByVal qry As String, ByVal grdcmb As DataGridViewComboBoxColumn, ByVal vm As String, ByVal dm As String)
 
@@ -1768,7 +1768,11 @@ again:
 
 End Class
 
+'Option Strict On
+'Option Explicit On
+'Imports System.Windows.Forms
 Public Class AutoCompleteCombo
+
     Inherits ComboBox
 
     Private mResetOnClear As Boolean = False

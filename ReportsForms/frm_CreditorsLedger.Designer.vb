@@ -23,6 +23,7 @@ Partial Class frm_CreditorsLedger
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.GroupBox6 = New System.Windows.Forms.GroupBox()
+        Me.cmbSupplier = New MMSPlus.AutoCompleteCombo()
         Me.txtTodate = New System.Windows.Forms.DateTimePicker()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.lblFormHeading = New System.Windows.Forms.Label()
@@ -30,7 +31,6 @@ Partial Class frm_CreditorsLedger
         Me.btnShow = New System.Windows.Forms.Button()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.Label13 = New System.Windows.Forms.Label()
-        Me.cmbSupplier = New MMSPlus.AutoCompleteCombo()
         Me.GroupBox6.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -50,6 +50,19 @@ Partial Class frm_CreditorsLedger
         Me.GroupBox6.Size = New System.Drawing.Size(890, 211)
         Me.GroupBox6.TabIndex = 0
         Me.GroupBox6.TabStop = False
+        '
+        'cmbSupplier
+        '
+        Me.cmbSupplier.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.cmbSupplier.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmbSupplier.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmbSupplier.ForeColor = System.Drawing.Color.White
+        Me.cmbSupplier.FormattingEnabled = True
+        Me.cmbSupplier.Location = New System.Drawing.Point(143, 79)
+        Me.cmbSupplier.Name = "cmbSupplier"
+        Me.cmbSupplier.ResetOnClear = False
+        Me.cmbSupplier.Size = New System.Drawing.Size(708, 24)
+        Me.cmbSupplier.TabIndex = 0
         '
         'txtTodate
         '
@@ -125,19 +138,6 @@ Partial Class frm_CreditorsLedger
         Me.Label13.Size = New System.Drawing.Size(96, 15)
         Me.Label13.TabIndex = 0
         Me.Label13.Text = "Select Supplier :"
-        '
-        'cmbSupplier
-        '
-        Me.cmbSupplier.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.cmbSupplier.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmbSupplier.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmbSupplier.ForeColor = System.Drawing.Color.White
-        Me.cmbSupplier.FormattingEnabled = True
-        Me.cmbSupplier.Location = New System.Drawing.Point(143, 79)
-        Me.cmbSupplier.Name = "cmbSupplier"
-        Me.cmbSupplier.ResetOnClear = False
-        Me.cmbSupplier.Size = New System.Drawing.Size(708, 24)
-        Me.cmbSupplier.TabIndex = 0
         '
         'frm_CreditorsLedger
         '

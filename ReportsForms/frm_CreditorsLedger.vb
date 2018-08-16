@@ -2,10 +2,12 @@
 Imports CrystalDecisions.CrystalReports.Engine
 Imports CrystalDecisions.ReportSource
 Imports CrystalDecisions.Shared
+Imports System.Windows.Forms
 
 Public Class frm_CreditorsLedger
 
     Implements IForm
+
     Dim obj As New CommonClass
     Dim clsObj As New cls_Supplier_Invoice_Settlement
     Dim _rights As Form_Rights
@@ -13,14 +15,14 @@ Public Class frm_CreditorsLedger
     Dim flag As String
     Dim _call_type As Integer
     Dim _report_name As String
-
-
     Public Sub New(ByVal rights As Form_Rights)
         _rights = rights
         InitializeComponent()
     End Sub
     Public Sub CustomerBind()
+
         clsObj.ComboBind(cmbSupplier, "Select ACC_ID,ACC_NAME from ACCOUNT_MASTER WHERE AG_ID=" & AccountGroups.Sundry_Creditors & " Order by ACC_NAME", "ACC_NAME", "ACC_ID", True)
+
     End Sub
     Public Sub ReportOS()
         Dim filepath As String = ""
@@ -104,15 +106,17 @@ Public Class frm_CreditorsLedger
         End Try
     End Sub
 
-
     Private Sub frm_DebtorsOS_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         CustomerBind()
+        'cmbSupplier.SelectedIndex = 0
     End Sub
 
     Private Sub btnShow_Click(sender As Object, e As EventArgs) Handles btnShow.Click
         Try
+            ' cmbSupplier.SelectedIndex = cmbSupplier.FindStringExact(cmbSupplier.Text)
 
-            If cmbSupplier.SelectedValue <> 0 Then
+            Dim a = cmbSupplier.SelectedIndex
+            If cmbSupplier.SelectedIndex <= 0 Then
                 MsgBox("Please select Supplier.", MsgBoxStyle.Information, gblMessageHeading)
                 Exit Sub
             End If
@@ -122,4 +126,7 @@ Public Class frm_CreditorsLedger
         End Try
     End Sub
 
+    'Private Sub cmbSupplier_Leave(sender As Object, e As EventArgs) Handles cmbSupplier.Leave
+    '    cmbSupplier.SelectedIndex = cmbSupplier.FindStringExact(cmbSupplier.Text)
+    'End Sub
 End Class

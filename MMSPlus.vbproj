@@ -52,7 +52,7 @@
     <OutputPath>bin\Debug\</OutputPath>
     <DocumentationFile>MMSPlus.xml</DocumentationFile>
     <NoWarn>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036,42353,42354,42355</NoWarn>
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <WarningsAsErrors>
     </WarningsAsErrors>
   </PropertyGroup>
@@ -69,6 +69,9 @@
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionStrict>Off</OptionStrict>
   </PropertyGroup>
   <PropertyGroup>
     <OptionStrict>Off</OptionStrict>
@@ -2327,10 +2330,12 @@
     <Content Include="Scripts\2018Update\0026_26_July_2018_user_Rights.sql" />
     <Content Include="Scripts\2018Update\0026_27_July_2018_DebitNote_Modify.sql" />
     <Content Include="Scripts\2018Update\0029_02_August_2018_GSTNature.sql" />
+    <Content Include="Scripts\2018Update\0034_14_August_2018_DeliveryNoteCorrectionScript.sql" />
     <Content Include="Scripts\2018Update\0033_08_August_2018_StockEntryCorrectionForCapitalGoodsInPurchaseandMRNFreightEnty.sql" />
     <Content Include="Scripts\2018Update\0032_08_August_2018_GSTTypeChangesForRent.sql" />
     <Content Include="Scripts\2018Update\0031_05_August_2018_mrnLedgerEntry.sql" />
     <Content Include="Scripts\2018Update\0032_09_August_2018_Function.sql" />
+    <Content Include="Scripts\2018Update\0034_13_August_2018_Stock_and_Opening.sql" />
     <Content Include="Scripts\Updates\00001_29_Dec_Add_Duty_And_Taxes.sql" />
     <Content Include="Scripts\Updates\0001_04_Jan_2018_Stock_Transfer.sql" />
     <Content Include="Scripts\Updates\0001_16_JAN_2018.sql" />
