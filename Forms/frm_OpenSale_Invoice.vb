@@ -72,6 +72,7 @@ Public Class frm_openSale_Invoice
 
     Public Sub CustomerBind()
         clsObj.ComboBind(cmbSupplier, "Select ACC_ID,ACC_NAME from ACCOUNT_MASTER WHERE AG_ID in (1,2,3,6) Order by ACC_NAME", "ACC_NAME", "ACC_ID", True)
+        cmbSupplier.SelectedIndex = cmbSupplier.FindStringExact(cmbSupplier.Text)
     End Sub
 
     Public Sub CityBind()
@@ -148,7 +149,7 @@ Public Class frm_openSale_Invoice
                 prpty.SI_NO = Si_No
             End If
 
-
+            ' cmbSupplier.SelectedIndex = cmbSupplier.FindStringExact(cmbSupplier.Text)
             If NEWCUST = 0 Then
                 prpty.CUST_ID = cmbSupplier.SelectedValue
             Else
@@ -258,6 +259,7 @@ Public Class frm_openSale_Invoice
         lblNetAmount.Text = 0.00
         lblTotalDisc.Text = 0.00
         lblTotalQty.Text = 0.000
+        lblGSTDetail.Text = ""
         '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         ''''''''''''''''''''''''''TO GET Inv NO'''''''''''''''''''''''''''''
         '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -538,6 +540,7 @@ again:
 
     Private Sub flxItems_KeyDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles flxItems.KeyDown
         Try
+
             If cmbSupplier.SelectedIndex > 0 Then
 
                 Dim iRowindex As Int32
@@ -656,9 +659,9 @@ restart:
                                             " SD.Batch_no , " &
                                             " dbo.fn_Format(SD.Expiry_date) AS Expiry_Date, " &
                                             " dbo.Get_Average_Rate_as_on_date(IM.ITEM_ID,'" & Now.ToString("dd-MMM-yyyy") & "'," & v_the_current_division_id & ",0) as Item_Rate," &
-                                            " SD.Balance_Qty, " &
+                                            "CAST(SD.Balance_Qty AS NUMERIC(18, 2)) as Balance_Qty, " &
                                             " 0.00  as transfer_qty, " &
-                                            " SD.STOCK_DETAIL_ID  ,fk_HsnId_num, IM.MRP_Num" &
+                                            " SD.STOCK_DETAIL_ID  ,fk_HsnId_num,CAST(IM.MRP_Num AS NUMERIC(18, 2)) as MRP_Num" &
                                     " FROM " &
                                             " ITEM_MASTER  IM " &
                                             " INNER JOIN ITEM_DETAIL ID ON IM.ITEM_ID = ID.ITEM_ID " &
@@ -937,7 +940,7 @@ restart:
 
     Private Sub SetGSTAndCessHeader(TotalGst As Decimal, TotalCess As Decimal)
         Dim PartialGst As Decimal = Math.Round(TotalGst / 2, 2)
-        If cmbinvtype.Text = "" Then
+        If cmbinvtype.Text = "---Select---" Then
             lblGSTDetail.Text = String.Format("Total GST - {0}", Math.Round(TotalGst, 2))
             lblGSTDetail.Tag = Math.Round(TotalGst, 2)
         ElseIf cmbinvtype.Text = "UGST" Then
@@ -1104,7 +1107,7 @@ restart:
         txtcustomer_name.Focus()
     End Sub
 
-    Private Sub cmbSupplier_SelectedIndexChanged_1(sender As Object, e As EventArgs) Handles cmbSupplier.SelectionChangeCommitted, cmbSupplier.SelectedIndexChanged
+    Private Sub cmbSupplier_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbSupplier.SelectedIndexChanged
 
         Dim strSql As String
         Dim Accdata As DataSet
@@ -1195,7 +1198,7 @@ restart:
 
     End Sub
 
-    Private Sub cmbSupplier_Enter(sender As Object, e As EventArgs) Handles cmbSupplier.Enter
+    Private Sub cmbSupplier_Enter(sender As Object, e As EventArgs)
         If Not cmbSupplier.DroppedDown Then
             cmbSupplier.DroppedDown = True
         End If
@@ -1204,5 +1207,6 @@ restart:
     Private Sub txtEwayBillNo_TextChanged(sender As Object, e As EventArgs) Handles txtEwayBillNo.TextChanged
         txtEwayBillNo.CharacterCasing = CharacterCasing.Upper
     End Sub
+
 
 End Class
