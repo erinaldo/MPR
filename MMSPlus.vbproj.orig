@@ -51,8 +51,14 @@
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\Debug\</OutputPath>
     <DocumentationFile>MMSPlus.xml</DocumentationFile>
-    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022,42353,42354,42355</NoWarn>
+    <NoWarn>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036,42353,42354,42355</NoWarn>
+<<<<<<< HEAD
     <PlatformTarget>x86</PlatformTarget>
+=======
+    <PlatformTarget>AnyCPU</PlatformTarget>
+>>>>>>> ce1e1938e6859a08727653d8f7b81cfc103b96c7
+    <WarningsAsErrors>
+    </WarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -61,10 +67,15 @@
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DocumentationFile>MMSPlus.xml</DocumentationFile>
-    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022,42353,42354,42355</NoWarn>
+    <NoWarn>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036,42353,42354,42355</NoWarn>
+    <WarningsAsErrors>
+    </WarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionStrict>Off</OptionStrict>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="adodb, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
@@ -204,6 +215,7 @@
     <Compile Include="Classes\MyReportDocument.vb">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Classes\Resolution.vb" />
     <Compile Include="Classes\SyncronizeData.vb" />
     <Compile Include="CostCenterForms\frm_Accept_Stock.Designer.vb">
       <DependentUpon>frm_Accept_Stock.vb</DependentUpon>
@@ -306,6 +318,24 @@
     </Compile>
     <Compile Include="Forms\frm_Show_Search_RateList.vb">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReportsForms\frm_CashBook.Designer.vb">
+      <DependentUpon>frm_CashBook.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ReportsForms\frm_CashBook.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ReportsForms\frm_GeneralLedger.Designer.vb">
+      <DependentUpon>frm_GeneralLedger.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ReportsForms\frm_GeneralLedger.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ReportsForms\frm_DayBook.Designer.vb">
+      <DependentUpon>frm_DayBook.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ReportsForms\frm_DayBook.vb">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="ReportsForms\frm_MRN_Print_Barcode.Designer.vb">
       <DependentUpon>frm_MRN_Print_Barcode.vb</DependentUpon>
@@ -825,6 +855,24 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
+    <Compile Include="Reports\CryCashBook.vb">
+      <DependentUpon>CryCashBook.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reports\CryGeneralLedger.vb">
+      <DependentUpon>CryGeneralLedger.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reports\CryDayBook.vb">
+      <DependentUpon>CryDayBook.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Reports\CryCreditorsLedger.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -881,6 +929,12 @@
     </Compile>
     <Compile Include="Reports\cry_Brand_Wise_Sale.vb">
       <DependentUpon>cry_Brand_Wise_Sale.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reports\cry_Purchase_Summary.vb">
+      <DependentUpon>cry_Purchase_Summary.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
@@ -1623,8 +1677,17 @@
       <DependentUpon>frm_Semi_Finished_Recipe_Master.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="ReportsForms\frm_GeneralLedger.resx">
+      <DependentUpon>frm_GeneralLedger.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ReportsForms\frm_CreditorsLedger.resx">
       <DependentUpon>frm_CreditorsLedger.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportsForms\frm_CashBook.resx">
+      <DependentUpon>frm_CashBook.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportsForms\frm_DayBook.resx">
+      <DependentUpon>frm_DayBook.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ReportsForms\frm_DebtorsLedger.resx">
       <DependentUpon>frm_DebtorsLedger.vb</DependentUpon>
@@ -1783,6 +1846,18 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>AccountPayment1.vb</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Reports\CryCashBook.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CryCashBook.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\CryGeneralLedger.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CryGeneralLedger.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\CryDayBook.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CryDayBook.vb</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reports\CryCreditorsLedger.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>CryCreditorsLedger.vb</LastGenOutput>
@@ -1822,6 +1897,10 @@
     <EmbeddedResource Include="Reports\cry_Brand_Wise_Sale.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>cry_Brand_Wise_Sale.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\cry_Purchase_Summary.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cry_Purchase_Summary.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\PaymentVoucher.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
@@ -2232,7 +2311,6 @@
     <Content Include="Scripts\2018Update\0013_24_May_2018_EditFormsFunctionality.sql" />
     <Content Include="Scripts\2018Update\0012_11_May_2018_ACESS.sql" />
     <Content Include="Scripts\2018Update\0015_19_June_2018_SynchronizationCorrection.sql" />
-    <Content Include="Scripts\2018Update\0020_03_July_2018_DrCrReportsCorrection - Copy.sql" />
     <Content Include="Scripts\2018Update\0020_03_July_2018_DrCrReportsCorrection .sql" />
     <Content Include="Scripts\2018Update\0022_06_July_2018_CancelSaleInvoiceCorrection.sql" />
     <Content Include="Scripts\2018Update\0021_05_July_2018_InvoiceDateCorrectionInPurchase.sql" />
@@ -2242,6 +2320,23 @@
     <Content Include="Scripts\2018Update\0016_20_June_2018_SynchronizationDynamicQuery.sql" />
     <Content Include="Scripts\2018Update\0015_30_May_2018_AccountBugFixing.sql" />
     <Content Include="Scripts\2018Update\0020_05_July_2018_PurcgaseRegisterModified.sql" />
+    <Content Include="Scripts\2018Update\0023_17_July_2018_MRN_WPO_LANDING_AMOUNT.sql" />
+    <Content Include="Scripts\2018Update\0024_23_July_2018_Add_Partial_PO.sql" />
+    <Content Include="Scripts\2018Update\0028_01_August_2018_FreightTaxChanges.sql" />
+    <Content Include="Scripts\2018Update\0030_04_August_2018_ITCEligibilityChanges.sql" />
+    <Content Include="Scripts\2018Update\0029_02_August_2018_EwayBill.sql" />
+    <Content Include="Scripts\2018Update\0027_30_July_2018_PurchaseOrderCompositionChanges.sql" />
+    <Content Include="Scripts\2018Update\0026_26_July_2018_CompositionChanges.sql" />
+    <Content Include="Scripts\2018Update\0025_24_July_2018_Change_PO_and_Ratelist.sql" />
+    <Content Include="Scripts\2018Update\0026_26_July_2018_user_Rights.sql" />
+    <Content Include="Scripts\2018Update\0026_27_July_2018_DebitNote_Modify.sql" />
+    <Content Include="Scripts\2018Update\0029_02_August_2018_GSTNature.sql" />
+    <Content Include="Scripts\2018Update\0034_14_August_2018_DeliveryNoteCorrectionScript.sql" />
+    <Content Include="Scripts\2018Update\0033_08_August_2018_StockEntryCorrectionForCapitalGoodsInPurchaseandMRNFreightEnty.sql" />
+    <Content Include="Scripts\2018Update\0032_08_August_2018_GSTTypeChangesForRent.sql" />
+    <Content Include="Scripts\2018Update\0031_05_August_2018_mrnLedgerEntry.sql" />
+    <Content Include="Scripts\2018Update\0032_09_August_2018_Function.sql" />
+    <Content Include="Scripts\2018Update\0034_13_August_2018_Stock_and_Opening.sql" />
     <Content Include="Scripts\Updates\00001_29_Dec_Add_Duty_And_Taxes.sql" />
     <Content Include="Scripts\Updates\0001_04_Jan_2018_Stock_Transfer.sql" />
     <Content Include="Scripts\Updates\0001_16_JAN_2018.sql" />

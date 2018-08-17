@@ -326,8 +326,8 @@ Public Class frm_Item_Master
                 txtBatchNo.Text = drv("Batch_no").ToString()
                 dtpExpiryOpening.Checked = True
                 dtpExpiryOpening.Value = drv("Expiry_date").ToString()
-                Dim ds_new As DataSet
 
+                'Dim ds_new As DataSet
                 'ds_new = Obj.fill_Data_set_val("get_count_Item_Issued", "@Item_ID", "", Convert.ToString(ItemID), "")
                 'If (ds_new.Tables.Count > 0) Then
                 '    If (Convert.ToString(ds_new.Tables(0).Rows(0)(0)) = "0") Then
