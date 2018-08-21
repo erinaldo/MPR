@@ -50,7 +50,6 @@ Public Class frm_PurchaseTaxRegister
     Public Sub RefreshClick(sender As Object, e As EventArgs) Implements IForm.RefreshClick
     End Sub
 
-
     Private Sub btnShow_Click(sender As Object, e As EventArgs) Handles btnShow.Click
         objCommFunction.ExportGridToExcel(grdTaxReport)
     End Sub
