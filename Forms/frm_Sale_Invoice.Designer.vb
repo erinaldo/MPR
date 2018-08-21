@@ -738,7 +738,7 @@ Partial Class frm_Sale_Invoice
         Me.txtGstNo.MaxLength = 0
         Me.txtGstNo.Name = "txtGstNo"
         Me.txtGstNo.ReadOnly = True
-        Me.txtGstNo.Size = New System.Drawing.Size(150, 19)
+        Me.txtGstNo.Size = New System.Drawing.Size(160, 19)
         Me.txtGstNo.TabIndex = 4
         '
         'Label9

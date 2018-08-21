@@ -149,7 +149,8 @@ Public Class frm_openSale_Invoice
                 prpty.SI_NO = Si_No
             End If
 
-            ' cmbSupplier.SelectedIndex = cmbSupplier.FindStringExact(cmbSupplier.Text)
+            cmbSupplier.SelectedIndex = cmbSupplier.FindStringExact(cmbSupplier.Text)
+
             If NEWCUST = 0 Then
                 prpty.CUST_ID = cmbSupplier.SelectedValue
             Else
@@ -293,6 +294,8 @@ Public Class frm_openSale_Invoice
     End Sub
 
     Private Function Validation() As Boolean
+
+        cmbSupplier.SelectedIndex = cmbSupplier.FindStringExact(cmbSupplier.Text)
 
         If cmbSupplier.SelectedIndex = 0 And NEWCUST = 0 Then
             MsgBox("Select Customer to Invoice.", MsgBoxStyle.Information, gblMessageHeading)
@@ -540,6 +543,8 @@ again:
 
     Private Sub flxItems_KeyDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles flxItems.KeyDown
         Try
+
+            cmbSupplier.SelectedIndex = cmbSupplier.FindStringExact(cmbSupplier.Text)
 
             If cmbSupplier.SelectedIndex > 0 Then
 
@@ -1112,6 +1117,8 @@ restart:
         Dim strSql As String
         Dim Accdata As DataSet
 
+        cmbSupplier.SelectedIndex = cmbSupplier.FindStringExact(cmbSupplier.Text)
+
         If cmbSupplier.SelectedValue > 0 Then
             strSql = "SELECT ISNULL(ACCOUNT_MASTER.ADDRESS_PRIM,'') + ' - {'  + ISNULL(CITY_MASTER.CITY_NAME,'') + '}', ISNULL(PHONE_PRIM,'')As PHONE_PRIM, ISNULL(VAT_NO,'')as VAT_NO,ACCOUNT_MASTER.CITY_ID,ISNULL(case when ISNULL(ADDRESS_SEC,'')='' then ISNULL(ADDRESS_PRIM,'') + ' - {'  + ISNULL(CITY_MASTER.CITY_NAME,'') + '}' else ADDRESS_SEC end,'') as Shipping"
             strSql = strSql & " FROM ACCOUNT_MASTER LEFT OUTER JOIN"
@@ -1198,11 +1205,11 @@ restart:
 
     End Sub
 
-    Private Sub cmbSupplier_Enter(sender As Object, e As EventArgs)
-        If Not cmbSupplier.DroppedDown Then
-            cmbSupplier.DroppedDown = True
-        End If
-    End Sub
+    'Private Sub cmbSupplier_Enter(sender As Object, e As EventArgs)
+    '    If Not cmbSupplier.DroppedDown Then
+    '        cmbSupplier.DroppedDown = True
+    '    End If
+    'End Sub
 
     Private Sub txtEwayBillNo_TextChanged(sender As Object, e As EventArgs) Handles txtEwayBillNo.TextChanged
         txtEwayBillNo.CharacterCasing = CharacterCasing.Upper
