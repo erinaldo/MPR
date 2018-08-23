@@ -559,6 +559,7 @@ Public Class frm_CreditNote
     Private Sub cmbCustomer_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbCustomer.SelectedIndexChanged
         BindINVCombo()
     End Sub
+
     Private Sub SetGstLabels()
 
         Dim GSTAmount0 As Decimal = 0
@@ -653,6 +654,7 @@ Public Class frm_CreditNote
         End If
 
     End Sub
+
     Private Function CalculateAmount() As String
         Dim i As Integer
         Dim Str As String
@@ -734,4 +736,5 @@ Public Class frm_CreditNote
             cmbCustomer.DroppedDown = True
         End If
     End Sub
+
 End Class

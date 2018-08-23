@@ -2331,6 +2331,8 @@
     <Content Include="Scripts\2018Update\0026_27_July_2018_DebitNote_Modify.sql" />
     <Content Include="Scripts\2018Update\0029_02_August_2018_GSTNature.sql" />
     <Content Include="Scripts\2018Update\0034_14_August_2018_DeliveryNoteCorrectionScript - Copy.sql" />
+    <Content Include="Scripts\2018Update\0037_23_August_2018_DebitandCreditNoteNullErrorCorrection.sql" />
+    <Content Include="Scripts\2018Update\0036_22_August_2018_DebtorCreditorLedgerCorrection.sql" />
     <Content Include="Scripts\2018Update\0035_21_August_2018_PaymentTransactionCorrection.sql" />
     <Content Include="Scripts\2018Update\0033_08_August_2018_StockEntryCorrectionForCapitalGoodsInPurchaseandMRNFreightEnty.sql" />
     <Content Include="Scripts\2018Update\0032_08_August_2018_GSTTypeChangesForRent.sql" />

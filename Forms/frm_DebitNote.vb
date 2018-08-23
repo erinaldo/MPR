@@ -774,4 +774,5 @@ Public Class frm_DebitNote
             cmbsupplier.DroppedDown = True
         End If
     End Sub
+
 End Class
