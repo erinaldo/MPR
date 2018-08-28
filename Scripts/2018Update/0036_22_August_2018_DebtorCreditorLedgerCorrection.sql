@@ -2,7 +2,7 @@
         ( LogFileName ,
           ExecuteDateTime
         )
-VALUES  ( '0035_21_August_2018_PaymentTransactionCorrection' ,
+VALUES  ( '0036_22_August_2018_DebtorCreditorLedgerCorrection' ,
           GETDATE()
         )
 Go
@@ -18,8 +18,8 @@ AS
       
 -----------------------------------Party Details With Opening Balance--------------------------------------------------------------------       
    
-        DECLARE @OpeningBalance NUMERIC(18, 2)      
-      
+        DECLARE @OpeningBalance NUMERIC(18, 2)     
+     
         SET @OpeningBalance = ( SELECT  ISNULL(SUM(CASHIN - CASHOUT), 0) AS OpeningBalance
                                 FROM    dbo.LedgerMaster
                                         LEFT OUTER  JOIN dbo.LedgerDetail ON dbo.LedgerMaster.LedgerId = dbo.LedgerDetail.LedgerId
