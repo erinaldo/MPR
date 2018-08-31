@@ -225,7 +225,7 @@ Public Class frm_GSTR_1
             xlWorkSheet.Cells(rowIndex, colIndex) = "01-Sales Return"
             xlWorkSheet.Cells(rowIndex, colIndex) = row("STATE_CODE") + "-" + row("STATE_NAME")
             xlWorkSheet.Cells(rowIndex, colIndex) = row("CN_Amount")
-            xlWorkSheet.Cells(rowIndex, colIndex) = row("Item_Tax")
+            xlWorkSheet.Cells(rowIndex, colIndex) = row("ItemTaxPerc")
             xlWorkSheet.Cells(rowIndex, colIndex) = row("Taxable_Value")
             xlWorkSheet.Cells(rowIndex, colIndex) = row("Cess_Amount")
             xlWorkSheet.Cells(rowIndex, colIndex) = "N"
@@ -266,7 +266,7 @@ Public Class frm_GSTR_1
             xlWorkSheet.Cells(rowIndex, colIndex) = "01-Sales Return"
             xlWorkSheet.Cells(rowIndex, colIndex) = row("STATE_CODE") + "-" + row("STATE_NAME")
             xlWorkSheet.Cells(rowIndex, colIndex) = row("CN_Amount")
-            xlWorkSheet.Cells(rowIndex, colIndex) = row("Item_Tax")
+            xlWorkSheet.Cells(rowIndex, colIndex) = row("ItemTaxPerc")
             xlWorkSheet.Cells(rowIndex, colIndex) = row("Taxable_Value")
             xlWorkSheet.Cells(rowIndex, colIndex) = row("Cess_Amount")
             xlWorkSheet.Cells(rowIndex, colIndex) = "N"
@@ -1695,7 +1695,7 @@ UNION ALL
         hsnTable = objCommFunction.Fill_DataSet(Qry).Tables(0)
 
         Qry = " SELECT  ISNULL(VAT_NO,'') As VAT_NO, ACC_NAME, CreditNote_Code, CreditNote_No, CreditNote_Date, cnm.CN_Amount, SI_CODE, SI_NO," &
-        " SI_DATE, STATE_CODE , STATE_NAME , Tax_Amt As Item_Tax, CAST(SUM(( Item_Rate * Item_Qty )) AS DECIMAL(18,2)) AS Taxable_Value , Cess_Amt As Cess_Amount " &
+        " SI_DATE, STATE_CODE , STATE_NAME , Tax_Amt As Item_Tax, CAST(SUM(( Item_Rate * Item_Qty )) AS DECIMAL(18,2)) AS Taxable_Value , Cess_Amt As Cess_Amount, cnd.Item_Tax AS ItemTaxPerc " &
         " FROM    dbo.CreditNote_Master cnm " &
         " INNER JOIN dbo.SALE_INVOICE_MASTER sim ON sim.SI_ID = cnm.INVId " &
         " INNER JOIN dbo.CreditNote_DETAIL cnd ON cnd.CreditNote_Id = cnm.CreditNote_Id " &
@@ -1705,13 +1705,13 @@ UNION ALL
         " WHERE cast(CreditNote_Date AS date) between CAST('" & txtFromDate.Value.ToString("dd-MMM-yyyy") & "' AS date) AND CAST('" & txtToDate.Value.ToString("dd-MMM-yyyy") & "' AS date) " &
         " AND LEN(ISNULL(VAT_NO,'')) > 0" &
         " GROUP BY VAT_NO, ACC_NAME, CreditNote_Code, CreditNote_No, CreditNote_Date, cnm.CN_Amount, SI_CODE, SI_NO," &
-        " SI_DATE, STATE_CODE, STATE_NAME, Tax_Amt, Cess_Amt ORDER BY cnm.CreditNote_No"
+        " SI_DATE, STATE_CODE, STATE_NAME, Tax_Amt, Cess_Amt, cnd.Item_Tax ORDER BY cnm.CreditNote_No"
 
         cdnrTable = objCommFunction.Fill_DataSet(Qry).Tables(0)
 
 
         Qry = " SELECT ISNULL(VAT_NO,'') As VAT_NO, ACC_NAME ,CreditNote_Code ,CreditNote_No,CreditNote_Date ,cnm.CN_Amount,SI_CODE, SI_NO," &
-        " SI_DATE,STATE_CODE ,STATE_NAME , Tax_Amt As Item_Tax, CAST(SUM(( Item_Rate * Item_Qty )) AS DECIMAL(18,2)) AS Taxable_Value , Cess_Amt As Cess_Amount " &
+        " SI_DATE,STATE_CODE ,STATE_NAME , Tax_Amt As Item_Tax, CAST(SUM(( Item_Rate * Item_Qty )) AS DECIMAL(18,2)) AS Taxable_Value , Cess_Amt As Cess_Amount, cnd.Item_Tax AS ItemTaxPerc " &
         " FROM    dbo.CreditNote_Master cnm " &
         " INNER JOIN dbo.SALE_INVOICE_MASTER sim ON sim.SI_ID = cnm.INVId " &
         " INNER JOIN dbo.CreditNote_DETAIL cnd ON cnd.CreditNote_Id = cnm.CreditNote_Id " &
@@ -1721,7 +1721,7 @@ UNION ALL
         " WHERE cast(CreditNote_Date AS date) between CAST('" & txtFromDate.Value.ToString("dd-MMM-yyyy") & "' AS date) AND CAST('" & txtToDate.Value.ToString("dd-MMM-yyyy") & "' AS date) " &
         " AND LEN(ISNULL(VAT_NO,''))= 0 and sim.NET_AMOUNT > 250000 and sim.Inv_type='I' " &
          " GROUP BY  VAT_NO, ACC_NAME ,CreditNote_Code ,CreditNote_No,CreditNote_Date ,cnm.CN_Amount,SI_CODE, SI_NO," &
-        " SI_DATE,STATE_CODE ,STATE_NAME ,Tax_Amt, Cess_Amt ORDER BY cnm.CreditNote_No"
+        " SI_DATE,STATE_CODE ,STATE_NAME ,Tax_Amt, Cess_Amt, cnd.Item_Tax ORDER BY cnm.CreditNote_No"
 
 
         cdnurTable = objCommFunction.Fill_DataSet(Qry).Tables(0)

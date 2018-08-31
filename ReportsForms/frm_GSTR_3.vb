@@ -205,7 +205,7 @@ Public Class frm_GSTR_3
                     INNER JOIN dbo.ACCOUNT_MASTER am ON am.ACC_ID = pt.AccountId
                     INNER JOIN dbo.CITY_MASTER cm ON cm.CITY_ID = am.CITY_ID
                     INNER JOIN dbo.STATE_MASTER sm ON sm.STATE_ID = cm.STATE_ID
-          WHERE     pt.FK_GST_TYPE_ID = 3
+          WHERE     pt.FK_GST_TYPE_ID = 3 AND pt.StatusId <> 3
                     AND CAST(pt.PaymentDate AS DATE) between CAST('" & txtFromDate.Value.ToString("dd-MMM-yyyy") & "' AS date) AND CAST('" & txtToDate.Value.ToString("dd-MMM-yyyy") & "' AS date) " & "
           GROUP BY  cm.STATE_ID, sm.IsUT_Bit, pt.fk_GST_ID
         ) tb"

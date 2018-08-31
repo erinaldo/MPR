@@ -836,9 +836,9 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.chk_Composition.ForeColor = System.Drawing.Color.White
         Me.chk_Composition.Location = New System.Drawing.Point(681, 103)
         Me.chk_Composition.Name = "chk_Composition"
-        Me.chk_Composition.Size = New System.Drawing.Size(127, 19)
+        Me.chk_Composition.Size = New System.Drawing.Size(141, 19)
         Me.chk_Composition.TabIndex = 6
-        Me.chk_Composition.Text = "Composite Dealer"
+        Me.chk_Composition.Text = "Composite / UN / Nill"
         Me.chk_Composition.UseVisualStyleBackColor = True
         '
         'txtBarcodeSearch

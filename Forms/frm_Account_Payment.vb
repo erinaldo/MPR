@@ -139,9 +139,8 @@ Public Class frm_Account_Payment
             prpty.DivisionId = v_the_current_division_id
             prpty.PM_Type = entryType
 
-            If chk_GSTApplicable.Checked Then
+            If (GSTTypeCalculation.Rows.Count > 0) Then
                 prpty.FK_GST_TYPE_ID = GSTTypeCalculation.Rows(0)("FK_GST_TYPE_ID")
-
                 query = "SELECT am.Vat_no FROM dbo.ACCOUNT_MASTER am WHERE ACC_ID = " + cmbAccountToCredit.SelectedValue.ToString
                 GSTAmountZero = clsObj.FillDataSet(query).Tables(0)
 
@@ -158,10 +157,10 @@ Public Class frm_Account_Payment
                 'prpty.fk_GST_ID = GSTTypeCalculation.Rows(0)("fk_GST_ID")
                 prpty.Fk_HSN_ID = GSTTypeCalculation.Rows(0)("Fk_HSN_ID")
                 prpty.GSTPerAmt = lblGSTPercentageValue.Text
-                prpty.GST_Applicable_Acc = "Dr."
+                'prpty.GST_Applicable_Acc = "Dr."
 
 
-            ElseIf chk_GSTApplicable_BankId.Checked Then
+            ElseIf (GSTTypeCalculationBankId.Rows.Count > 0) Then
                 prpty.FK_GST_TYPE_ID = GSTTypeCalculationBankId.Rows(0)("FK_GST_TYPE_ID_BankId")
 
                 query = "SELECT am.Vat_no FROM dbo.ACCOUNT_MASTER am WHERE ACC_ID = " + cmbAccountToDebit.SelectedValue.ToString
@@ -181,15 +180,23 @@ Public Class frm_Account_Payment
                 'prpty.fk_GST_ID = GSTTypeCalculationBankId.Rows(0)("fk_GST_ID_BankId")
                 prpty.Fk_HSN_ID = GSTTypeCalculationBankId.Rows(0)("Fk_HSN_ID_BankId")
                 prpty.GSTPerAmt = lblGSTPercentageValue.Text
-                prpty.GST_Applicable_Acc = "Cr."
+                'prpty.GST_Applicable_Acc = "Cr."
 
             Else
                 prpty.FK_GST_TYPE_ID = 0
                 prpty.fk_GST_ID = 0
                 prpty.Fk_HSN_ID = 0
                 prpty.GSTPerAmt = 0.00
-                prpty.GST_Applicable_Acc = ""
+                'prpty.GST_Applicable_Acc = ""
 
+            End If
+
+            If chk_GSTApplicable.Checked Then
+                prpty.GST_Applicable_Acc = "Dr."
+            ElseIf chk_GSTApplicable_BankId.Checked Then
+                prpty.GST_Applicable_Acc = "Cr."
+            Else
+                prpty.GST_Applicable_Acc = ""
             End If
 
             prpty.Fk_GSTNature_ID = cmbGSTNature.SelectedValue
