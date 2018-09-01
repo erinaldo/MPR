@@ -130,7 +130,7 @@ Public Class frm_GSTR_3
             noOfRowsInserted = table.Rows.Count
             For Each row As DataRow In table.Rows
                 'CType(xlWorkSheet.Rows(20), Range).Select()
-                ' CType(xlWorkSheet.Rows(rowIndex), Excel.Range).Insert(Excel.XlInsertShiftDirection.xlShiftDown, True)
+                CType(xlWorkSheet.Rows(rowIndex), Excel.Range).Insert(Excel.XlInsertShiftDirection.xlShiftDown, True)
                 xlWorkSheet.Range("B" & rowIndex.ToString & ":F" & rowIndex.ToString).MergeCells = True
                 xlWorkSheet.Range("G" & rowIndex.ToString & ":K" & rowIndex.ToString).MergeCells = True
                 xlWorkSheet.Range("L" & rowIndex.ToString & ":P" & rowIndex.ToString).MergeCells = True
@@ -388,11 +388,11 @@ FROM    ( SELECT    SUM(ISNULL(IntraState_TaxableValue, 0)) AS IntraState_Taxabl
           UNION ALL
           SELECT    SUM(IntraState_TaxableValue) AS IntraState_TaxableValue ,
                     SUM(InterState_TaxableValue) AS InterState_TaxableValue 
-          FROM      ( SELECT    CASE WHEN sm.STATE_ID <> " & stateId & "
+          FROM      ( SELECT    CASE WHEN sm.STATE_ID = sm1.STATE_ID
                                                 THEN SUM(( ISNULL(pt.TotalAmountReceived, 0) ))
                                                 ELSE 0
                                            END  AS IntraState_TaxableValue ,
-                                CASE WHEN sm.STATE_ID = " & stateId & "
+                                CASE WHEN sm.STATE_ID <> sm1.STATE_ID
                                                 THEN SUM(( ISNULL(pt.TotalAmountReceived, 0) ))
                                                 ELSE 0
                                            END  AS InterState_TaxableValue 
@@ -400,11 +400,15 @@ FROM    ( SELECT    SUM(ISNULL(IntraState_TaxableValue, 0)) AS IntraState_Taxabl
 								INNER JOIN dbo.ACCOUNT_MASTER am ON am.ACC_ID = pt.BankId
 								INNER JOIN dbo.CITY_MASTER cm ON cm.CITY_ID = am.CITY_ID
 								INNER JOIN dbo.STATE_MASTER sm ON sm.STATE_ID = cm.STATE_ID
+                                INNER JOIN dbo.ACCOUNT_MASTER am1 ON pt.AccountId = am1.ACC_ID
+                                INNER JOIN dbo.CITY_MASTER cm1 ON cm1.CITY_ID = am1.CITY_ID
+                                INNER JOIN dbo.STATE_MASTER sm1 ON sm1.STATE_ID = cm1.STATE_ID
                       WHERE     pt.GST_Applicable_Acc = 'Dr.'
-								and pt.FK_GST_TYPE_ID = 2 and pt.StatusId <> 3
+								and pt.FK_GST_TYPE_ID = 2 
+                                and pt.StatusId <> 3
 								AND pt.fk_GST_ID = 1
                                 AND cast(pt.PaymentDate AS date) between CAST('" & txtFromDate.Value.ToString("dd-MMM-yyyy") & "' AS date) AND CAST('" & txtToDate.Value.ToString("dd-MMM-yyyy") & "' AS date) " & "
-								GROUP BY sm.STATE_ID 
+								GROUP BY sm.STATE_ID , sm1.STATE_ID 
                     ) tb 
 
           UNION ALL
@@ -497,12 +501,14 @@ FROM    ( SELECT    SUM(ISNULL(IntraState_TaxableValue, 0)) AS IntraState_Taxabl
             " WHERE MRN_STATUS <> 2 AND LEN(am.VAT_NO) > 0 and cast(Receipt_Date AS date) between CAST('" & txtFromDate.Value.ToString("dd-MMM-yyyy") & "' AS date) AND CAST('" & txtToDate.Value.ToString("dd-MMM-yyyy") & "' AS date) " & "
            
             UNION ALL
-            SELECT 	CASE WHEN cm.STATE_ID = " & stateId & " THEN pt.GSTPerAmt END AS non_integrated_tax ,                    
-                    CASE WHEN cm.STATE_ID <> " & stateId & " THEN pt.GSTPerAmt END AS integrated_tax ,
+            SELECT 	CASE WHEN cm.STATE_ID = cm1.STATE_ID THEN pt.GSTPerAmt END AS non_integrated_tax ,                    
+                    CASE WHEN cm.STATE_ID <> cm1.STATE_ID THEN pt.GSTPerAmt END AS integrated_tax ,
                     0.00 AS CessAmt
             FROM    dbo.PaymentTransaction AS pt
                     INNER JOIN dbo.ACCOUNT_MASTER am ON pt.BankId = am.ACC_ID
                     INNER JOIN dbo.CITY_MASTER cm ON cm.CITY_ID = am.CITY_ID
+                    INNER JOIN dbo.ACCOUNT_MASTER am1 ON pt.AccountId = am1.ACC_ID
+                    INNER JOIN dbo.CITY_MASTER cm1 ON cm1.CITY_ID = am1.CITY_ID
             WHERE   CAST(pt.PaymentDate AS DATE) between CAST('" & txtFromDate.Value.ToString("dd-MMM-yyyy") & "' AS date) AND CAST('" & txtToDate.Value.ToString("dd-MMM-yyyy") & "' AS date) " & "
 					AND pt.GST_Applicable_Acc = 'Dr.' and pt.FK_GST_TYPE_ID = 2 and pt.StatusId <> 3 AND LEN(am.VAT_NO) > 0
 
@@ -563,8 +569,8 @@ FROM    ( SELECT    STATE_CODE ,
                                 END AS integrated_tax ,
                                 GSTPaid ,
                                 VAT_PER
-                      FROM      ( SELECT    STATE_CODE ,
-                                            STATE_NAME ,
+                      FROM      ( SELECT    sm.STATE_CODE ,
+                                            sm.STATE_NAME ,
                                             pt.GSTPerAmt ,
                                             pt.TotalAmountReceived AS Taxable_Value ,
                                             '' AS GSTPaid ,
@@ -581,16 +587,19 @@ FROM    ( SELECT    STATE_CODE ,
                                                  WHEN pt.fk_GST_ID = 6
                                                  THEN 3.00
                                             END AS VAT_PER ,
-                                            CASE WHEN cm.STATE_ID <> " & stateId & " THEN 'I'
-                                                 WHEN cm.STATE_ID =  " & stateId & " THEN 'S'          
+                                            CASE WHEN cm.STATE_ID <> cm1.STATE_ID THEN 'I'
+                                                 WHEN cm.STATE_ID =  cm1.STATE_ID THEN 'S'          
                                             END AS Inv_Type
                                   FROM      dbo.PaymentTransaction AS pt
                                             INNER JOIN dbo.ACCOUNT_MASTER am ON pt.AccountId = am.ACC_ID
                                             INNER JOIN dbo.CITY_MASTER cm ON cm.CITY_ID = am.CITY_ID
                                             INNER JOIN dbo.STATE_MASTER sm ON sm.STATE_ID = cm.STATE_ID
+                                            INNER JOIN dbo.ACCOUNT_MASTER am1 ON pt.BankId = am1.ACC_ID
+                                            INNER JOIN dbo.CITY_MASTER cm1 ON cm1.CITY_ID = am1.CITY_ID
+                                            INNER JOIN dbo.STATE_MASTER sm1 ON sm1.STATE_ID = cm1.STATE_ID
                                   WHERE     CAST(pt.PaymentDate AS DATE) between CAST('" & txtFromDate.Value.ToString("dd-MMM-yyyy") & "' AS date) AND CAST('" & txtToDate.Value.ToString("dd-MMM-yyyy") & "' AS date) " & "
                                             And pt.GST_Applicable_Acc = 'Cr.' and pt.FK_GST_TYPE_ID = 2 and pt.StatusId <> 3
-                                            And Len(ISNULL(VAT_NO, '')) = 0
+                                            And Len(ISNULL(am.VAT_NO, '')) = 0
                       ) subquery
                       WHERE     Inv_Type = 'I'
 
@@ -680,9 +689,9 @@ FROM    ( SELECT    STATE_CODE ,
               SELECT * From (
               SELECT    pt.TotalAmountReceived AS Taxable_Value , 
 						0.00 AS CessAmt ,
-						CASE WHEN cm.STATE_ID = " & stateId & " THEN pt.GSTPerAmt
+						CASE WHEN cm.STATE_ID = cm1.STATE_ID THEN pt.GSTPerAmt
                         END AS non_integrated_tax ,
-                        CASE WHEN cm.STATE_ID <> " & stateId & " THEN pt.GSTPerAmt
+                        CASE WHEN cm.STATE_ID <> cm1.STATE_ID THEN pt.GSTPerAmt
                         END AS integrated_tax,
                          CASE WHEN pt.fk_GST_ID = 1 THEN 0.00
                                          WHEN pt.fk_GST_ID = 2 THEN 5.00
@@ -698,7 +707,11 @@ FROM    ( SELECT    STATE_CODE ,
                         am.VAT_NO 
               FROM      dbo.PaymentTransaction AS pt
                         INNER JOIN dbo.ACCOUNT_MASTER am ON pt.AccountId = am.ACC_ID
-                        INNER JOIN dbo.CITY_MASTER cm ON cm.CITY_ID = am.CITY_ID ) subquery
+                        INNER JOIN dbo.CITY_MASTER cm ON cm.CITY_ID = am.CITY_ID
+                        INNER JOIN dbo.ACCOUNT_MASTER am1 ON pt.BankId = am1.ACC_ID
+                        INNER JOIN dbo.CITY_MASTER cm1 ON cm1.CITY_ID = am1.CITY_ID
+                        
+                        ) subquery
               WHERE     CAST(PaymentDate AS DATE) between CAST('" & txtFromDate.Value.ToString("dd-MMM-yyyy") & "' AS date) AND CAST('" & txtToDate.Value.ToString("dd-MMM-yyyy") & "' AS date) " & "
                         AND GST_Applicable_Acc = 'Cr.' and FK_GST_TYPE_ID = 2 and StatusId <> 3 " & condition & " 
                ) tb " & "
@@ -721,7 +734,7 @@ FROM    ( SELECT    STATE_CODE ,
           FROM      dbo.SALE_INVOICE_MASTER
                     JOIN dbo.CreditNote_Master M ON M.INVId = dbo.SALE_INVOICE_MASTER.SI_ID
                     JOIN dbo.CreditNote_DETAIL D ON M.CreditNote_Id = D.CreditNote_Id
-          WHERE     cast(CreditNote_Date AS date) between CAST('" & txtFromDate.Value.ToString("dd-MMM-yyyy") & "' AS date) AND CAST('" & txtToDate.Value.ToString("dd-MMM-yyyy") & "' AS date) "
+          WHERE     SALE_INVOICE_MASTER.INVOICE_STATUS <> 4 AND cast(CreditNote_Date AS date) between CAST('" & txtFromDate.Value.ToString("dd-MMM-yyyy") & "' AS date) AND CAST('" & txtToDate.Value.ToString("dd-MMM-yyyy") & "' AS date) "
 
 
         If condition = " AND(VAT_PER)>0" Then
