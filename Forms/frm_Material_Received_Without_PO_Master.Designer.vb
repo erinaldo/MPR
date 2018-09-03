@@ -777,6 +777,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.MRNdtDate.CalendarForeColor = System.Drawing.Color.White
         Me.MRNdtDate.CalendarMonthBackground = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.MRNdtDate.CustomFormat = "dd-MMM-yyyy"
+        Me.MRNdtDate.Enabled = False
         Me.MRNdtDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.MRNdtDate.Location = New System.Drawing.Point(363, 17)
         Me.MRNdtDate.Name = "MRNdtDate"
