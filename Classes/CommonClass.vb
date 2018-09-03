@@ -1762,8 +1762,8 @@ again:
         'Export Each Row End
 
         workbook.SaveAs(excelLocation)
-        APP.Workbooks.Open(excelLocation)
-        APP.Visible = True
+        'APP.Workbooks.Open(excelLocation)
+        ' APP.Visible = True
     End Sub
 
 End Class
