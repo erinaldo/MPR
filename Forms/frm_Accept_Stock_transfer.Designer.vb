@@ -66,6 +66,7 @@ Partial Class frm_Accept_stock_transfer
         Me.Label18 = New System.Windows.Forms.Label()
         Me.Label19 = New System.Windows.Forms.Label()
         Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
+        Me.Label12 = New System.Windows.Forms.Label()
         Me.TabPage2.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.TabControl1.SuspendLayout()
@@ -382,31 +383,31 @@ Partial Class frm_Accept_stock_transfer
         Me.GB_Items.Controls.Add(Me.flxItems)
         Me.GB_Items.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GB_Items.ForeColor = System.Drawing.Color.White
-        Me.GB_Items.Location = New System.Drawing.Point(3, 237)
+        Me.GB_Items.Location = New System.Drawing.Point(-1, 224)
         Me.GB_Items.Name = "GB_Items"
-        Me.GB_Items.Size = New System.Drawing.Size(896, 357)
+        Me.GB_Items.Size = New System.Drawing.Size(907, 380)
         Me.GB_Items.TabIndex = 10
         Me.GB_Items.TabStop = False
-        Me.GB_Items.Text = "List of Items"
         '
         'flxItems
         '
         Me.flxItems.AllowEditing = False
         Me.flxItems.BackColor = System.Drawing.Color.Silver
-        Me.flxItems.BorderStyle = C1.Win.C1FlexGrid.Util.BaseControls.BorderStyleEnum.Light3D
+        Me.flxItems.BorderStyle = C1.Win.C1FlexGrid.Util.BaseControls.BorderStyleEnum.None
         Me.flxItems.ColumnInfo = "10,1,0,0,0,85,Columns:"
-        Me.flxItems.Dock = System.Windows.Forms.DockStyle.Fill
         Me.flxItems.FocusRect = C1.Win.C1FlexGrid.FocusRectEnum.Solid
-        Me.flxItems.Location = New System.Drawing.Point(3, 16)
+        Me.flxItems.Location = New System.Drawing.Point(4, 9)
         Me.flxItems.Name = "flxItems"
         Me.flxItems.Rows.DefaultSize = 17
-        Me.flxItems.Size = New System.Drawing.Size(890, 338)
+        Me.flxItems.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
+        Me.flxItems.Size = New System.Drawing.Size(897, 360)
         Me.flxItems.Styles = New C1.Win.C1FlexGrid.CellStyleCollection(resources.GetString("flxItems.Styles"))
         Me.flxItems.TabIndex = 1
         '
         'GroupBox3
         '
         Me.GroupBox3.BackColor = System.Drawing.Color.DimGray
+        Me.GroupBox3.Controls.Add(Me.Label12)
         Me.GroupBox3.Controls.Add(Me.lbl_DivName)
         Me.GroupBox3.Controls.Add(Me.txt_MrnRemarks)
         Me.GroupBox3.Controls.Add(Me.Label9)
@@ -422,9 +423,9 @@ Partial Class frm_Accept_stock_transfer
         Me.GroupBox3.Controls.Add(Me.Label18)
         Me.GroupBox3.Controls.Add(Me.Label19)
         Me.GroupBox3.ForeColor = System.Drawing.Color.White
-        Me.GroupBox3.Location = New System.Drawing.Point(3, 6)
+        Me.GroupBox3.Location = New System.Drawing.Point(-4, -10)
         Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Size = New System.Drawing.Size(893, 225)
+        Me.GroupBox3.Size = New System.Drawing.Size(910, 240)
         Me.GroupBox3.TabIndex = 9
         Me.GroupBox3.TabStop = False
         '
@@ -433,7 +434,7 @@ Partial Class frm_Accept_stock_transfer
         Me.lbl_DivName.AutoSize = True
         Me.lbl_DivName.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_DivName.ForeColor = System.Drawing.Color.Orange
-        Me.lbl_DivName.Location = New System.Drawing.Point(534, 48)
+        Me.lbl_DivName.Location = New System.Drawing.Point(125, 92)
         Me.lbl_DivName.Name = "lbl_DivName"
         Me.lbl_DivName.Size = New System.Drawing.Size(52, 15)
         Me.lbl_DivName.TabIndex = 14
@@ -445,18 +446,18 @@ Partial Class frm_Accept_stock_transfer
         Me.txt_MrnRemarks.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txt_MrnRemarks.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txt_MrnRemarks.ForeColor = System.Drawing.Color.White
-        Me.txt_MrnRemarks.Location = New System.Drawing.Point(117, 148)
+        Me.txt_MrnRemarks.Location = New System.Drawing.Point(128, 167)
         Me.txt_MrnRemarks.Multiline = True
         Me.txt_MrnRemarks.Name = "txt_MrnRemarks"
         Me.txt_MrnRemarks.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txt_MrnRemarks.Size = New System.Drawing.Size(747, 58)
+        Me.txt_MrnRemarks.Size = New System.Drawing.Size(741, 58)
         Me.txt_MrnRemarks.TabIndex = 13
         '
         'Label9
         '
         Me.Label9.AutoSize = True
         Me.Label9.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label9.Location = New System.Drawing.Point(15, 145)
+        Me.Label9.Location = New System.Drawing.Point(14, 166)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(94, 15)
         Me.Label9.TabIndex = 12
@@ -466,7 +467,7 @@ Partial Class frm_Accept_stock_transfer
         '
         Me.lbl_DcRemarks.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_DcRemarks.ForeColor = System.Drawing.Color.Orange
-        Me.lbl_DcRemarks.Location = New System.Drawing.Point(118, 102)
+        Me.lbl_DcRemarks.Location = New System.Drawing.Point(125, 124)
         Me.lbl_DcRemarks.Name = "lbl_DcRemarks"
         Me.lbl_DcRemarks.Size = New System.Drawing.Size(746, 40)
         Me.lbl_DcRemarks.TabIndex = 11
@@ -476,7 +477,7 @@ Partial Class frm_Accept_stock_transfer
         '
         Me.Label11.AutoSize = True
         Me.Label11.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label11.Location = New System.Drawing.Point(15, 103)
+        Me.Label11.Location = New System.Drawing.Point(15, 124)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(85, 15)
         Me.Label11.TabIndex = 10
@@ -487,7 +488,7 @@ Partial Class frm_Accept_stock_transfer
         Me.lbl_DCDate.AutoSize = True
         Me.lbl_DCDate.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_DCDate.ForeColor = System.Drawing.Color.Orange
-        Me.lbl_DCDate.Location = New System.Drawing.Point(118, 75)
+        Me.lbl_DCDate.Location = New System.Drawing.Point(486, 59)
         Me.lbl_DCDate.Name = "lbl_DCDate"
         Me.lbl_DCDate.Size = New System.Drawing.Size(61, 15)
         Me.lbl_DCDate.TabIndex = 9
@@ -497,7 +498,7 @@ Partial Class frm_Accept_stock_transfer
         '
         Me.Label13.AutoSize = True
         Me.Label13.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label13.Location = New System.Drawing.Point(15, 75)
+        Me.Label13.Location = New System.Drawing.Point(383, 59)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(60, 15)
         Me.Label13.TabIndex = 8
@@ -508,7 +509,7 @@ Partial Class frm_Accept_stock_transfer
         Me.lbl_MrnDate.AutoSize = True
         Me.lbl_MrnDate.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_MrnDate.ForeColor = System.Drawing.Color.Orange
-        Me.lbl_MrnDate.Location = New System.Drawing.Point(534, 20)
+        Me.lbl_MrnDate.Location = New System.Drawing.Point(486, 28)
         Me.lbl_MrnDate.Name = "lbl_MrnDate"
         Me.lbl_MrnDate.Size = New System.Drawing.Size(67, 15)
         Me.lbl_MrnDate.TabIndex = 6
@@ -518,7 +519,7 @@ Partial Class frm_Accept_stock_transfer
         '
         Me.Label15.AutoSize = True
         Me.Label15.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label15.Location = New System.Drawing.Point(383, 48)
+        Me.Label15.Location = New System.Drawing.Point(14, 92)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(112, 15)
         Me.Label15.TabIndex = 5
@@ -528,7 +529,7 @@ Partial Class frm_Accept_stock_transfer
         '
         Me.Label16.AutoSize = True
         Me.Label16.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label16.Location = New System.Drawing.Point(383, 21)
+        Me.Label16.Location = New System.Drawing.Point(383, 28)
         Me.Label16.Name = "Label16"
         Me.Label16.Size = New System.Drawing.Size(69, 15)
         Me.Label16.TabIndex = 4
@@ -537,11 +538,11 @@ Partial Class frm_Accept_stock_transfer
         'cmb_DcNo
         '
         Me.cmb_DcNo.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.cmb_DcNo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmb_DcNo.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmb_DcNo.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmb_DcNo.ForeColor = System.Drawing.Color.White
         Me.cmb_DcNo.FormattingEnabled = True
-        Me.cmb_DcNo.Location = New System.Drawing.Point(119, 44)
+        Me.cmb_DcNo.Location = New System.Drawing.Point(128, 56)
         Me.cmb_DcNo.Name = "cmb_DcNo"
         Me.cmb_DcNo.Size = New System.Drawing.Size(206, 23)
         Me.cmb_DcNo.TabIndex = 3
@@ -551,7 +552,7 @@ Partial Class frm_Accept_stock_transfer
         Me.lbl_MrnNo.AutoSize = True
         Me.lbl_MrnNo.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_MrnNo.ForeColor = System.Drawing.Color.Orange
-        Me.lbl_MrnNo.Location = New System.Drawing.Point(116, 19)
+        Me.lbl_MrnNo.Location = New System.Drawing.Point(125, 26)
         Me.lbl_MrnNo.Name = "lbl_MrnNo"
         Me.lbl_MrnNo.Size = New System.Drawing.Size(55, 15)
         Me.lbl_MrnNo.TabIndex = 2
@@ -561,17 +562,17 @@ Partial Class frm_Accept_stock_transfer
         '
         Me.Label18.AutoSize = True
         Me.Label18.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label18.Location = New System.Drawing.Point(15, 44)
+        Me.Label18.Location = New System.Drawing.Point(15, 58)
         Me.Label18.Name = "Label18"
-        Me.Label18.Size = New System.Drawing.Size(52, 15)
+        Me.Label18.Size = New System.Drawing.Size(107, 15)
         Me.Label18.TabIndex = 1
-        Me.Label18.Text = "DC NO :"
+        Me.Label18.Text = "Delivery Note No. :"
         '
         'Label19
         '
         Me.Label19.AutoSize = True
         Me.Label19.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label19.Location = New System.Drawing.Point(14, 18)
+        Me.Label19.Location = New System.Drawing.Point(15, 26)
         Me.Label19.Name = "Label19"
         Me.Label19.Size = New System.Drawing.Size(61, 15)
         Me.Label19.TabIndex = 0
@@ -583,6 +584,18 @@ Partial Class frm_Accept_stock_transfer
         Me.ImageList1.TransparentColor = System.Drawing.Color.Transparent
         Me.ImageList1.Images.SetKeyName(0, "Zoom_search_find_magnifying_glass.png")
         Me.ImageList1.Images.SetKeyName(1, "Inventory_box_shipment_product.png")
+        '
+        'Label12
+        '
+        Me.Label12.BackColor = System.Drawing.Color.FromArgb(CType(CType(88, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(88, Byte), Integer))
+        Me.Label12.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label12.ForeColor = System.Drawing.Color.OrangeRed
+        Me.Label12.Location = New System.Drawing.Point(892, 11)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(14, 228)
+        Me.Label12.TabIndex = 18
+        Me.Label12.Text = "Delivery  Note  IN"
+        Me.Label12.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
         'frm_Accept_stock_transfer
         '
@@ -656,4 +669,5 @@ Partial Class frm_Accept_stock_transfer
     Friend WithEvents GBMRSDetail As System.Windows.Forms.GroupBox
     Friend WithEvents flxGridItems As C1.Win.C1FlexGrid.C1FlexGrid
     Friend WithEvents ImageList1 As ImageList
+    Friend WithEvents Label12 As Label
 End Class

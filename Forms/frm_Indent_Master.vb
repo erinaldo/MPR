@@ -389,7 +389,7 @@ Public Class frm_Indent_Master
                 .DataPropertyName = "ITEM_CODE"
                 .ReadOnly = True
                 .Visible = True
-                .Width = 110
+                .Width = 100
             End With
             DGVIndentItem.Columns.Add(txtbCol1)
 
@@ -628,7 +628,7 @@ Public Class frm_Indent_Master
                     frm_Show_search.column_name4 = "LABELITEMNAME_VCH"
                     frm_Show_search.column_name5 = "ITEM_CAT_NAME"
                     frm_Show_search.cols_no_for_width = "1,2,3,4,5,6"
-                    frm_Show_search.cols_width = "100,350,60,60,100,100"
+                    frm_Show_search.cols_width = "100,340,70,70,100,105"
                     frm_Show_search.extra_condition = ""
                     frm_Show_search.ret_column = "ITEM_ID"
                     frm_Show_search.item_rate_column = ""

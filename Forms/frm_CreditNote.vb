@@ -153,6 +153,12 @@ Public Class frm_CreditNote
         Dim blnIsExist As Boolean
         blnIsExist = False
 
+        If cmbCustomer.Text = Nothing Then
+            MsgBox("Please Select valid Customer first.")
+            validate_data = False
+            Exit Function
+        End If
+
         If String.IsNullOrEmpty(txtRemarks.Text) Then
             MsgBox("Please fill the Remarks", vbExclamation, gblMessageHeading)
             txtRemarks.Focus()
@@ -210,6 +216,7 @@ Public Class frm_CreditNote
                 prpty.Modification_Date = NULL_DATE
                 prpty.Division_ID = v_the_current_division_id
                 prpty.Cn_Amount = lblCredit.Text
+                cmbCustomer.SelectedIndex = cmbCustomer.FindStringExact(cmbCustomer.Text)
                 prpty.CN_CustId = cmbCustomer.SelectedValue
                 prpty.INV_No = txt_INVNo.Text
                 prpty.INV_Date = txt_INVDate.Text
@@ -282,6 +289,7 @@ Public Class frm_CreditNote
                 prpty.Modification_Date = Now
                 prpty.Division_ID = v_the_current_division_id
                 prpty.Cn_Amount = lblCredit.Text
+                cmbCustomer.SelectedIndex = cmbCustomer.FindStringExact(cmbCustomer.Text)
                 prpty.CN_CustId = cmbCustomer.SelectedValue
                 prpty.INV_No = txt_INVNo.Text
                 prpty.INV_Date = txt_INVDate.Text
@@ -397,17 +405,17 @@ Public Class frm_CreditNote
     Private Sub SetGridSettingValues()
 
         FLXGRD_MaterialItem.Cols("Item_ID").Visible = False
-        FLXGRD_MaterialItem.Cols("Item_Code").Caption = "Item Code"
+        FLXGRD_MaterialItem.Cols("Item_Code").Caption = "BarCode"
         FLXGRD_MaterialItem.Cols("Item_Name").Caption = "Item Name"
         FLXGRD_MaterialItem.Cols("UM_Name").Caption = "UOM"
         FLXGRD_MaterialItem.Cols("Prev_Item_Qty").Caption = "Current Stock"
-        FLXGRD_MaterialItem.Cols("INV_Qty").Caption = "INV Item Qty"
+        FLXGRD_MaterialItem.Cols("INV_Qty").Caption = "Invoice Qty"
         FLXGRD_MaterialItem.Cols("Item_Rate").Caption = "Item Rate"
         FLXGRD_MaterialItem.Cols("Vat_Per").Caption = "Tax %"
         FLXGRD_MaterialItem.Cols("Cess_Per").Caption = "Cess %"
 
 
-        FLXGRD_MaterialItem.Cols("Item_Qty").Caption = "Item Qty"
+        FLXGRD_MaterialItem.Cols("Item_Qty").Caption = "Return Qty"
 
         FLXGRD_MaterialItem.Cols("Stock_Detail_Id").Visible = False
 
@@ -427,17 +435,17 @@ Public Class frm_CreditNote
         FLXGRD_MaterialItem.Cols("SiNo").Visible = False
         FLXGRD_MaterialItem.Cols("INV_TYPE").Visible = False
 
-        FLXGRD_MaterialItem.Cols("Item_Code").Width = 70
-        FLXGRD_MaterialItem.Cols("Item_Name").Width = 290
+        FLXGRD_MaterialItem.Cols("Item_Code").Width = 100
+        FLXGRD_MaterialItem.Cols("Item_Name").Width = 300
         FLXGRD_MaterialItem.Cols("UM_Name").Width = 40
         FLXGRD_MaterialItem.Cols("Prev_Item_Qty").Width = 90
 
         FLXGRD_MaterialItem.Cols("INV_Qty").Width = 70
         FLXGRD_MaterialItem.Cols("Item_Rate").Width = 70
-        FLXGRD_MaterialItem.Cols("Vat_Per").Width = 65
-        FLXGRD_MaterialItem.Cols("Cess_Per").Width = 65
+        FLXGRD_MaterialItem.Cols("Vat_Per").Width = 50
+        FLXGRD_MaterialItem.Cols("Cess_Per").Width = 50
 
-        FLXGRD_MaterialItem.Cols("Item_Qty").Width = 80
+        FLXGRD_MaterialItem.Cols("Item_Qty").Width = 100
         FLXGRD_MaterialItem.Cols("Stock_Detail_Id").Width = 10
 
         Dim cs As C1.Win.C1FlexGrid.CellStyle
@@ -538,18 +546,23 @@ Public Class frm_CreditNote
         'If ds.Tables(0).Rows.Count > 0 Then
         '    lblAddress.Text = ds.Tables(0).Rows(0)(0)
         'End If
+        cmbCustomer.SelectedIndex = cmbCustomer.FindStringExact(cmbCustomer.Text)
 
-        Query = "  SELECT SI_ID,SI_CODE+CAST(SI_NO as varchar(20)) AS SiNo FROM dbo.SALE_INVOICE_MASTER WHERE INVOICE_STATUS <> 4 and CUST_ID=" & cmbCustomer.SelectedValue & " and DIVISION_ID = " & v_the_current_division_id
-        Dt = clsObj.Fill_DataSet(Query).Tables(0)
-        Dtrow = Dt.NewRow
-        Dtrow("SI_ID") = -1
-        Dtrow("SiNo") = "Select INV No"
-        Dt.Rows.InsertAt(Dtrow, 0)
-        cmbINVNo.DisplayMember = "SiNo"
-        cmbINVNo.ValueMember = "SI_ID"
-        cmbINVNo.DataSource = Dt
-        cmbINVNo.SelectedIndex = 0
-        cmbINVNo.Focus()
+        If cmbCustomer.SelectedValue > 0 Then
+
+            Query = "  SELECT SI_ID,SI_CODE+CAST(SI_NO as varchar(20)) AS SiNo FROM dbo.SALE_INVOICE_MASTER WHERE INVOICE_STATUS <> 4 and CUST_ID=" & cmbCustomer.SelectedValue & " and DIVISION_ID = " & v_the_current_division_id
+            Dt = clsObj.Fill_DataSet(Query).Tables(0)
+            Dtrow = Dt.NewRow
+            Dtrow("SI_ID") = -1
+            Dtrow("SiNo") = "Select INV No"
+            Dt.Rows.InsertAt(Dtrow, 0)
+            cmbINVNo.DisplayMember = "SiNo"
+            cmbINVNo.ValueMember = "SI_ID"
+            cmbINVNo.DataSource = Dt
+            cmbINVNo.SelectedIndex = 0
+            ' cmbINVNo.Focus()
+        End If
+
     End Sub
 
     Private Sub txtSearch_KeyUp(sender As Object, e As KeyEventArgs) Handles txtSearch.KeyUp
@@ -731,10 +744,5 @@ Public Class frm_CreditNote
         End If
     End Sub
 
-    Private Sub cmbCustomer_Enter(sender As Object, e As EventArgs) Handles cmbCustomer.Enter
-        If Not cmbCustomer.DroppedDown Then
-            cmbCustomer.DroppedDown = True
-        End If
-    End Sub
 
 End Class

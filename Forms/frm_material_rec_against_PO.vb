@@ -631,7 +631,7 @@ Public Class frm_material_rec_against_PO
 
         FLXGRD_PO_Items.Cols("BATCH_NO").Caption = "BatchNo"
         FLXGRD_PO_Items.Cols("expiry_date").Caption = "ExpiryDate"
-        FLXGRD_PO_Items.Cols("BATCH_QTY").Caption = "BatchQty"
+        FLXGRD_PO_Items.Cols("BATCH_QTY").Caption = "Quantity"
         FLXGRD_PO_Items.Cols("Net_amount").Caption = "NetAmount"
         FLXGRD_PO_Items.Cols("Gross_amount").Caption = "GrossAmount"
 
@@ -639,18 +639,18 @@ Public Class frm_material_rec_against_PO
         FLXGRD_PO_Items.Cols(0).Width = 8
         FLXGRD_PO_Items.Cols("item_id").Width = 40
         FLXGRD_PO_Items.Cols("item_code").Width = 60
-        FLXGRD_PO_Items.Cols("item_name").Width = 190
+        FLXGRD_PO_Items.Cols("item_name").Width = 235
         FLXGRD_PO_Items.Cols("um_name").Width = 30
-        FLXGRD_PO_Items.Cols("PO_QTY").Width = 50
-        FLXGRD_PO_Items.Cols("item_rate").Width = 50
+        FLXGRD_PO_Items.Cols("PO_QTY").Width = 70
+        FLXGRD_PO_Items.Cols("item_rate").Width = 60
         FLXGRD_PO_Items.Cols("DType").Width = 40
         FLXGRD_PO_Items.Cols("DISC").Width = 50
         FLXGRD_PO_Items.Cols("VAT_PER").Width = 40
-        FLXGRD_PO_Items.Cols("CESS_PER").Width = 60
+        FLXGRD_PO_Items.Cols("CESS_PER").Width = 50
         FLXGRD_PO_Items.Cols("exice_per").Width = 40
         'FLXGRD_PO_Items.Cols("BATCH_NO").Width = 70
-        FLXGRD_PO_Items.Cols("expiry_date").Width = 70
-        FLXGRD_PO_Items.Cols("BATCH_QTY").Width = 60
+        FLXGRD_PO_Items.Cols("expiry_date").Width = 10
+        FLXGRD_PO_Items.Cols("BATCH_QTY").Width = 70
         FLXGRD_PO_Items.Cols("Net_amount").Width = 80
         FLXGRD_PO_Items.Cols("Gross_amount").Width = 80
 
@@ -676,6 +676,7 @@ Public Class frm_material_rec_against_PO
 
         FLXGRD_PO_Items.Cols("po_id").Visible = False
         FLXGRD_PO_Items.Cols("um_id").Visible = False
+        FLXGRD_PO_Items.Cols("expiry_date").Visible = False
         FLXGRD_PO_Items.Cols("item_id").Visible = False
         FLXGRD_PO_Items.Cols("IS_STOCKABLE").Visible = False
         FLXGRD_PO_Items.Cols("CostCenter_ID").Visible = False
@@ -1423,5 +1424,6 @@ restart:
             cmbCapitalAccount.Visible = False
         End If
     End Sub
+
 
 End Class

@@ -46,6 +46,7 @@ Public Class frm_Customer_Rate_List_Master
             FillGrid()
             obj.ComboBind(cmbSupplier, "select 0 as ACC_ID,'--Select--' as ACC_NAME union Select ACC_ID,ACC_NAME from ACCOUNT_MASTER WHERE AG_ID in (1,2,3,6) Order by ACC_NAME ", "ACC_NAME", "ACC_ID")
             grid_style()
+            TabControl1.SelectedIndex = 1
         Catch ex As Exception
             MsgBox(gblMessageHeading_Error & vbCrLf & gblMessage_ContactInfo & vbCrLf & ex.Message, MsgBoxStyle.Critical, gblMessageHeading)
         End Try
@@ -87,13 +88,10 @@ Public Class frm_Customer_Rate_List_Master
             Validation = False
             Exit Function
         End If
-        'If cmbSupplier.SelectedIndex <= 0 Then
-        '    MsgBox("Select supplier name.", vbExclamation, gblMessageHeading)
-        '    cmbSupplier.Focus()
-        '    Validation = False
-        '    Exit Function
-        'End If
-
+        If cmbSupplier.Text = Nothing Then
+            MsgBox("Please Select valid Customer first.")
+            Return False
+        End If
         If Chk_DuplicateRateListName() = False Then
             MsgBox("Name Already Exists,Please Give Another Name", vbExclamation, gblMessageHeading)
 
@@ -141,7 +139,9 @@ Public Class frm_Customer_Rate_List_Master
             cmd = obj.MyCon_BeginTransaction
 
             Try
+
                 lblFormHeading.Focus()
+                cmbSupplier.SelectedIndex = cmbSupplier.FindStringExact(cmbSupplier.Text)
                 If flag = "save" Then
                     Dim int_MaxSRL_Id As Integer
 
@@ -353,7 +353,7 @@ Public Class frm_Customer_Rate_List_Master
             .Name = "Item_Name"
             .ReadOnly = True
             .Visible = True
-            .Width = 400
+            .Width = 420
             .DefaultCellStyle.SelectionBackColor = Color.Orange
             .DefaultCellStyle.SelectionForeColor = Color.Black
         End With
@@ -460,6 +460,7 @@ Public Class frm_Customer_Rate_List_Master
                 End If
             Next iRow
             If IsInsert = True Then
+                cmbSupplier.SelectedIndex = cmbSupplier.FindStringExact(cmbSupplier.Text)
                 grdSupplier.Rows(grdSupplier.CurrentCell.RowIndex).Cells(0).Value = cmbSupplier.SelectedValue
                 grdSupplier.Rows(grdSupplier.CurrentCell.RowIndex).Cells(1).Value = drv(1)
                 grdSupplier.Rows(grdSupplier.CurrentCell.RowIndex).Cells(3).Value = drv(4)
@@ -793,9 +794,13 @@ Public Class frm_Customer_Rate_List_Master
         End If
     End Sub
 
-    Private Sub cmbSupplier_Enter(sender As Object, e As EventArgs) Handles cmbSupplier.Enter
-        If Not cmbSupplier.DroppedDown Then
-            cmbSupplier.DroppedDown = True
-        End If
-    End Sub
+
+
+    'Private Sub cmbSupplier_Enter(sender As Object, e As EventArgs)
+    '    If Not cmbSupplier.DroppedDown Then
+    '        cmbSupplier.DroppedDown = True
+    '    End If
+    'End Sub
+
+
 End Class

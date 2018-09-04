@@ -68,6 +68,7 @@ Public Class frm_Purchase_Order
         Else
             erp.Clear()
         End If
+        cmbSupplier.SelectedIndex = cmbSupplier.FindStringExact(cmbSupplier.Text)
 
         If cmbSupplier.SelectedIndex <= 0 Then
             erp.SetError(cmbSupplier, "Please Select supplier first.")
@@ -138,6 +139,7 @@ Public Class frm_Purchase_Order
                 clsPropObj.PO_START_DATE = Convert.ToDateTime(dtpStartDate.Value.ToString("dd-MMM-yyyy"))
                 clsPropObj.PO_END_DATE = Convert.ToDateTime(dtpEndDate.Value.ToString("dd-MMM-yyyy"))
                 clsPropObj.PO_REMARKS = txtPORemarks.Text.ToUpper()
+                cmbSupplier.SelectedIndex = cmbSupplier.FindStringExact(cmbSupplier.Text)
                 clsPropObj.PO_SUPP_ID = Convert.ToInt32(cmbSupplier.SelectedValue)
                 clsPropObj.PO_QUALITY_ID = Convert.ToInt32(cmbQualityRate.SelectedValue)
                 clsPropObj.PO_DELIVERY_ID = Convert.ToInt32(cmbDeliveryRate.SelectedValue)
@@ -364,7 +366,7 @@ Public Class frm_Purchase_Order
         flxItemList.Cols("Item_Value").AllowEditing = False
 
 
-        flxItemList.Cols("Item_Code").Width = 90
+        flxItemList.Cols("Item_Code").Width = 100
         flxItemList.Cols("Item_Name").Width = 255
         flxItemList.Cols("UM_Name").Width = 35
         flxItemList.Cols("Req_Qty").Width = 60
@@ -388,6 +390,7 @@ Public Class frm_Purchase_Order
     End Sub
 
     Private Sub lnkSelectItems_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lnkSelectItems.LinkClicked
+        cmbSupplier.SelectedIndex = cmbSupplier.FindStringExact(cmbSupplier.Text)
         If cmbSupplier.SelectedIndex > 0 Then
             'dtable_Item_List.Rows.Clear()
             frm_Indent_Items.v_supp_id = cmbSupplier.SelectedValue
@@ -600,8 +603,9 @@ Public Class frm_Purchase_Order
 
             param = "@v_supp_id,@v_po_number,@v_po_date_from,@v_po_date_to,@v_po_status,@v_div_id"
 
+            cmbFilterSupp.SelectedIndex = cmbFilterSupp.FindStringExact(cmbFilterSupp.Text)
 
-            If cmbFilterSupp.SelectedIndex <> -1 Then
+            If cmbFilterSupp.SelectedIndex > 0 Then
                 val += Convert.ToString(cmbFilterSupp.SelectedValue)
             Else
                 val += "-1"
@@ -674,8 +678,9 @@ Public Class frm_Purchase_Order
         Dim ds As DataSet
         Dim i As Integer
         Dim strSql As String
+        cmbSupplier.SelectedIndex = cmbSupplier.FindStringExact(cmbSupplier.Text)
 
-        If cmbSupplier.SelectedValue <> -1 Then
+        If cmbSupplier.SelectedValue > 0 Then
             strSql = "SELECT ACCOUNT_MASTER.ADDRESS_PRIM + ' - {'  + ISNULL(CITY_MASTER.CITY_NAME,'') + '}'"
             strSql = strSql & " FROM ACCOUNT_MASTER LEFT OUTER JOIN"
             strSql = strSql & " CITY_MASTER ON ACCOUNT_MASTER.CITY_ID = CITY_MASTER.CITY_ID"
@@ -894,6 +899,7 @@ restart:
     End Sub
 
     Private Sub lnkSelectItemswithoutIndent_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lnkSelectItemswithoutIndent.LinkClicked
+        cmbSupplier.SelectedIndex = cmbSupplier.FindStringExact(cmbSupplier.Text)
         If cmbSupplier.SelectedIndex > 0 Then
 
             'frm_Show_search.qry = "SELECT IM.ITEM_ID,IM.ITEM_CODE," & _
@@ -1093,6 +1099,8 @@ restart:
         Dim dr As DataRow
         'Dim drItemCopy As DataRow
         Dim ds As DataSet
+        cmbSupplier.SelectedIndex = cmbSupplier.FindStringExact(cmbSupplier.Text)
+
         frm_Indent_Items.dTable_POItems = flxItemList.DataSource
 
         'frm_Indent_Items.dTable_POItems_Copy = flxItemList.DataSource
@@ -1179,6 +1187,7 @@ restart:
 
     Private Sub txtBarcodeSearch_KeyDown(sender As Object, e As KeyEventArgs) Handles txtBarcodeSearch.KeyDown
         If e.KeyCode = Keys.Enter Then
+            cmbSupplier.SelectedIndex = cmbSupplier.FindStringExact(cmbSupplier.Text)
             If Not String.IsNullOrEmpty(txtBarcodeSearch.Text) Then
 
                 Dim qry As String = "SELECT  IM.ITEM_ID,BarCode_vch FROM    ITEM_MASTER AS IM INNER JOIN dbo.SUPPLIER_RATE_LIST_DETAIL AS SRLD ON SRLD.ITEM_ID = IM.ITEM_ID INNER JOIN dbo.SUPPLIER_RATE_LIST AS  srl ON srl.SRL_ID = SRLD.SRL_ID  WHERE srl.active = 1 AND srl.supp_id =" + cmbSupplier.SelectedValue.ToString() + " And   Barcode_vch = '" + txtBarcodeSearch.Text + "'"
@@ -1425,22 +1434,6 @@ restart:
     Public Sub AddItemRate(ByVal stringToAdd As String, ByVal i As Integer)
         ReDim Preserve itemrate(i)
         itemrate(i) = stringToAdd
-    End Sub
-
-    Private Sub cmbFilterSupp_Enter(sender As Object, e As EventArgs) Handles cmbFilterSupp.Enter
-        If Not cmbFilterSupp.DroppedDown Then
-            cmbFilterSupp.DroppedDown = True
-        End If
-    End Sub
-
-    Private Sub cmbSupplier_Enter(sender As Object, e As EventArgs) Handles cmbSupplier.Enter
-        If Not cmbSupplier.DroppedDown Then
-            cmbSupplier.DroppedDown = True
-        End If
-    End Sub
-
-    Private Sub cmbFilterSupp_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbFilterSupp.SelectedIndexChanged
-
     End Sub
 
 

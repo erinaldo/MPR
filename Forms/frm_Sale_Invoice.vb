@@ -136,6 +136,7 @@ Public Class frm_Sale_Invoice
                 prpty.SI_NO = Si_No
             End If
 
+            cmbSupplier.SelectedIndex = cmbSupplier.FindStringExact(cmbSupplier.Text)
 
             prpty.CUST_ID = cmbSupplier.SelectedValue
             prpty.INVOICE_STATUS = Convert.ToInt32(GlobalModule.InvoiceStatus.Clear)
@@ -269,11 +270,16 @@ Public Class frm_Sale_Invoice
 
     Private Function Validation() As Boolean
 
+        cmbSupplier.SelectedIndex = cmbSupplier.FindStringExact(cmbSupplier.Text)
+
         If cmbSupplier.SelectedIndex = 0 Then
             MsgBox("Select Customer to Invoice.", MsgBoxStyle.Information, gblMessageHeading)
             Return False
         End If
-
+        If cmbSupplier.Text = Nothing Then
+            MsgBox("Please Select valid Customer first.")
+            Return False
+        End If
         'If Not String.IsNullOrEmpty(txt_txtphoneNo.Text.Trim) Then
         '    If Not mobileRegex.IsMatch(txt_txtphoneNo.Text) Then
         '        MsgBox("Phone number is not valid. Try again after entering valid number.", MsgBoxStyle.Information, "Invalid Phone Format!!!")
@@ -422,7 +428,7 @@ again:
         flxItems.Cols("UM_Name").Width = 32
         'flxItems.Cols("Batch_No").Width = 70
         flxItems.Cols("Amount").Width = 60
-        flxItems.Cols("Batch_Qty").Width = 45
+        flxItems.Cols("Batch_Qty").Width = 50
         flxItems.Cols("Stock_Detail_Id").Width = 10
         flxItems.Cols("transfer_Qty").Width = 50
         flxItems.Cols("Item_Rate").Width = 55
@@ -431,7 +437,7 @@ again:
         flxItems.Cols("DISC").Width = 40
         flxItems.Cols("GPAID").Width = 55
         flxItems.Cols("GST").Width = 40
-        flxItems.Cols("GST_Amount").Width = 55
+        flxItems.Cols("GST_Amount").Width = 60
         flxItems.Cols("Cess").Width = 40
         flxItems.Cols("ACess").Width = 55
         flxItems.Cols("Cess_Amount").Width = 1
@@ -511,6 +517,8 @@ again:
 
 
         Try
+            cmbSupplier.SelectedIndex = cmbSupplier.FindStringExact(cmbSupplier.Text)
+
             If cmbSupplier.SelectedIndex > 0 Then
 
                 Dim iRowindex As Int32
@@ -585,7 +593,7 @@ again:
                         frm_Show_search.column_name4 = "LABELITEMNAME_VCH"
                         frm_Show_search.column_name5 = "ITEM_CAT_NAME"
                         frm_Show_search.cols_no_for_width = "1,2,3,4,5,6"
-                        frm_Show_search.cols_width = "100,350,60,60,100,100"
+                        frm_Show_search.cols_width = "100,340,70,70,100,105"
                         frm_Show_search.extra_condition = ""
                         frm_Show_search.ret_column = "ITEM_ID"
                         frm_Show_search.item_rate_column = "RATE"
@@ -660,6 +668,8 @@ restart:
 
                 Dim i As Integer
                 Dim dr As DataRow
+
+                cmbSupplier.SelectedIndex = cmbSupplier.FindStringExact(cmbSupplier.Text)
 
                 If ds.Tables(0).Rows.Count > 0 Then
                     'obj.RemoveBlankRow(dtable_Item_List, "item_id")
@@ -875,7 +885,9 @@ WHERE   ( SUPPLIER_RATE_LIST_DETAIL.ITEM_ID =" & Convert.ToInt32(item_id) & " )
         Dim NewstrSql As String
         Dim dsdata As DataSet
 
-        If cmbSupplier.SelectedValue <> -1 Then
+        cmbSupplier.SelectedIndex = cmbSupplier.FindStringExact(cmbSupplier.Text)
+
+        If cmbSupplier.SelectedValue > 0 Then
             strSql = "SELECT ISNULL(ACCOUNT_MASTER.ADDRESS_PRIM,'') + ' - {'  + ISNULL(CITY_MASTER.CITY_NAME,'') + '}', ISNULL(PHONE_PRIM,''), ISNULL(VAT_NO,''),ACCOUNT_MASTER.CITY_ID,case when ISNULL(ADDRESS_SEC,'')='' then ISNULL(ADDRESS_PRIM,'') + ' - {'  + ISNULL(CITY_MASTER.CITY_NAME,'') + '}' else ADDRESS_SEC end as Shipping"
             strSql = strSql & " FROM ACCOUNT_MASTER LEFT OUTER JOIN"
             strSql = strSql & " CITY_MASTER ON ACCOUNT_MASTER.CITY_ID = CITY_MASTER.CITY_ID"
@@ -1165,6 +1177,8 @@ WHERE   ( SUPPLIER_RATE_LIST_DETAIL.ITEM_ID =" & Convert.ToInt32(item_id) & " )
 
     Private Sub txtBarcodeSearch_KeyDown(sender As Object, e As KeyEventArgs) Handles txtBarcodeSearch.KeyDown
         If e.KeyCode = Keys.Enter Then
+            cmbSupplier.SelectedIndex = cmbSupplier.FindStringExact(cmbSupplier.Text)
+
             If Not String.IsNullOrEmpty(txtBarcodeSearch.Text) Then
 
                 Dim qry As String = "SELECT  IM.ITEM_ID FROM  ITEM_MASTER AS IM INNER JOIN dbo.SUPPLIER_RATE_LIST_DETAIL AS SRLD ON SRLD.ITEM_ID = IM.ITEM_ID INNER JOIN dbo.SUPPLIER_RATE_LIST AS SRL ON SRL.SRL_ID = SRLD.SRL_ID  INNER JOIN dbo.CUSTOMER_RATE_LIST_MAPPING AS RLM ON RLM.SRL_ID = SRL.SRL_ID WHERE   srl.active = 1 AND rlm.supp_id =" + cmbSupplier.SelectedValue.ToString() + " And   Barcode_vch = '" + txtBarcodeSearch.Text + "'"
@@ -1182,16 +1196,6 @@ WHERE   ( SUPPLIER_RATE_LIST_DETAIL.ITEM_ID =" & Convert.ToInt32(item_id) & " )
                 txtBarcodeSearch.Focus()
             End If
         End If
-    End Sub
-
-    Private Sub cmbSupplier_Enter(sender As Object, e As EventArgs) Handles cmbSupplier.Enter
-        If Not cmbSupplier.DroppedDown Then
-            cmbSupplier.DroppedDown = True
-        End If
-    End Sub
-
-    Private Sub txtEwayBillNo_TextChanged(sender As Object, e As EventArgs) Handles txtEwayBillNo.TextChanged
-        txtEwayBillNo.CharacterCasing = CharacterCasing.Upper
     End Sub
 
 End Class

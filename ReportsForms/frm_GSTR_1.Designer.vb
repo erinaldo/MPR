@@ -27,8 +27,8 @@ Partial Class frm_GSTR_1
         Me.Label2 = New System.Windows.Forms.Label()
         Me.txtFromDate = New System.Windows.Forms.DateTimePicker()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.lblFormHeading = New System.Windows.Forms.Label()
         Me.btnShow = New System.Windows.Forms.Button()
+        Me.Label22 = New System.Windows.Forms.Label()
         Me.GroupBox6.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -38,12 +38,11 @@ Partial Class frm_GSTR_1
         Me.GroupBox6.Controls.Add(Me.Label2)
         Me.GroupBox6.Controls.Add(Me.txtFromDate)
         Me.GroupBox6.Controls.Add(Me.Label1)
-        Me.GroupBox6.Controls.Add(Me.lblFormHeading)
         Me.GroupBox6.Controls.Add(Me.btnShow)
         Me.GroupBox6.ForeColor = System.Drawing.Color.White
-        Me.GroupBox6.Location = New System.Drawing.Point(9, 8)
+        Me.GroupBox6.Location = New System.Drawing.Point(15, 9)
         Me.GroupBox6.Name = "GroupBox6"
-        Me.GroupBox6.Size = New System.Drawing.Size(890, 211)
+        Me.GroupBox6.Size = New System.Drawing.Size(866, 211)
         Me.GroupBox6.TabIndex = 0
         Me.GroupBox6.TabStop = False
         '
@@ -53,7 +52,7 @@ Partial Class frm_GSTR_1
         Me.txtToDate.CalendarMonthBackground = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.txtToDate.CustomFormat = "dd-MMM-yyyy"
         Me.txtToDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.txtToDate.Location = New System.Drawing.Point(528, 80)
+        Me.txtToDate.Location = New System.Drawing.Point(546, 62)
         Me.txtToDate.MaxDate = New Date(2999, 12, 31, 0, 0, 0, 0)
         Me.txtToDate.Name = "txtToDate"
         Me.txtToDate.Size = New System.Drawing.Size(142, 20)
@@ -63,7 +62,7 @@ Partial Class frm_GSTR_1
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(429, 83)
+        Me.Label2.Location = New System.Drawing.Point(447, 65)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(93, 15)
         Me.Label2.TabIndex = 46
@@ -75,7 +74,7 @@ Partial Class frm_GSTR_1
         Me.txtFromDate.CalendarMonthBackground = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.txtFromDate.CustomFormat = "dd-MMM-yyyy"
         Me.txtFromDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.txtFromDate.Location = New System.Drawing.Point(227, 80)
+        Me.txtFromDate.Location = New System.Drawing.Point(245, 62)
         Me.txtFromDate.MaxDate = New Date(2999, 12, 31, 0, 0, 0, 0)
         Me.txtFromDate.Name = "txtFromDate"
         Me.txtFromDate.Size = New System.Drawing.Size(142, 20)
@@ -85,22 +84,11 @@ Partial Class frm_GSTR_1
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(112, 83)
+        Me.Label1.Location = New System.Drawing.Point(130, 65)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(109, 15)
         Me.Label1.TabIndex = 44
         Me.Label1.Text = "Select From Month"
-        '
-        'lblFormHeading
-        '
-        Me.lblFormHeading.AutoSize = True
-        Me.lblFormHeading.Font = New System.Drawing.Font("Verdana", 15.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblFormHeading.ForeColor = System.Drawing.Color.White
-        Me.lblFormHeading.Location = New System.Drawing.Point(782, 16)
-        Me.lblFormHeading.Name = "lblFormHeading"
-        Me.lblFormHeading.Size = New System.Drawing.Size(93, 25)
-        Me.lblFormHeading.TabIndex = 43
-        Me.lblFormHeading.Text = "GSTR 1"
         '
         'btnShow
         '
@@ -108,18 +96,32 @@ Partial Class frm_GSTR_1
         Me.btnShow.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnShow.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnShow.ForeColor = System.Drawing.Color.White
-        Me.btnShow.Location = New System.Drawing.Point(356, 146)
+        Me.btnShow.Location = New System.Drawing.Point(374, 128)
         Me.btnShow.Name = "btnShow"
         Me.btnShow.Size = New System.Drawing.Size(133, 27)
         Me.btnShow.TabIndex = 2
         Me.btnShow.Text = "GENERATE GSTR 1"
         Me.btnShow.UseVisualStyleBackColor = False
         '
+        'Label22
+        '
+        Me.Label22.BackColor = System.Drawing.Color.FromArgb(CType(CType(88, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(88, Byte), Integer))
+        Me.Label22.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.Label22.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label22.ForeColor = System.Drawing.Color.OrangeRed
+        Me.Label22.Location = New System.Drawing.Point(894, 1)
+        Me.Label22.Name = "Label22"
+        Me.Label22.Size = New System.Drawing.Size(15, 220)
+        Me.Label22.TabIndex = 58
+        Me.Label22.Text = "GSTR  1"
+        Me.Label22.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        '
         'frm_GSTR_1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.DimGray
+        Me.Controls.Add(Me.Label22)
         Me.Controls.Add(Me.GroupBox6)
         Me.Name = "frm_GSTR_1"
         Me.Size = New System.Drawing.Size(910, 630)
@@ -131,9 +133,9 @@ Partial Class frm_GSTR_1
 
     Friend WithEvents GroupBox6 As GroupBox
     Friend WithEvents btnShow As Button
-    Friend WithEvents lblFormHeading As Label
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents txtFromDate As DateTimePicker
     Friend WithEvents txtToDate As DateTimePicker
     Friend WithEvents Label2 As Label
+    Friend WithEvents Label22 As Label
 End Class

@@ -20,9 +20,9 @@ Partial Class frm_Supplier_Rate_List_Master
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frm_Supplier_Rate_List_Master))
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
@@ -32,38 +32,38 @@ Partial Class frm_Supplier_Rate_List_Master
         Me.txtSearch = New System.Windows.Forms.TextBox()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.cmbSuppSrch = New System.Windows.Forms.ComboBox()
         Me.chkActive = New System.Windows.Forms.CheckBox()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
-        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
-        Me.grdSupplier = New System.Windows.Forms.DataGridView()
-        Me.txt_search = New System.Windows.Forms.TextBox()
-        Me.Label3 = New System.Windows.Forms.Label()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.lblFormHeading = New System.Windows.Forms.Label()
         Me.txtBarcodeSearch = New System.Windows.Forms.TextBox()
         Me.Label15 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.lblFormHeading = New System.Windows.Forms.Label()
         Me.dtpDate = New System.Windows.Forms.DateTimePicker()
         Me.CheckBox1 = New System.Windows.Forms.CheckBox()
         Me.txtDesc = New System.Windows.Forms.TextBox()
-        Me.cmbSupplier = New System.Windows.Forms.ComboBox()
         Me.lblCap1 = New System.Windows.Forms.Label()
         Me.lblCap4 = New System.Windows.Forms.Label()
         Me.txtSupName = New System.Windows.Forms.TextBox()
         Me.lblCap3 = New System.Windows.Forms.Label()
         Me.lblCap2 = New System.Windows.Forms.Label()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.grdSupplier = New System.Windows.Forms.DataGridView()
+        Me.txt_search = New System.Windows.Forms.TextBox()
+        Me.Label3 = New System.Windows.Forms.Label()
         Me.lblCap5 = New System.Windows.Forms.Label()
         Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
+        Me.cmbSuppSrch = New MMSPlus.AutoCompleteCombo()
+        Me.cmbSupplier = New MMSPlus.AutoCompleteCombo()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
         CType(Me.grdSupplierList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox3.SuspendLayout()
         Me.TabPage2.SuspendLayout()
+        Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         CType(Me.grdSupplier, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
         'TabControl1
@@ -108,36 +108,36 @@ Partial Class frm_Supplier_Rate_List_Master
         Me.grdSupplierList.AllowUserToAddRows = False
         Me.grdSupplierList.AllowUserToDeleteRows = False
         Me.grdSupplierList.BackgroundColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle7.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.grdSupplierList.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle7
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.grdSupplierList.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle4
         Me.grdSupplierList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle8.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle8.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.grdSupplierList.DefaultCellStyle = DataGridViewCellStyle8
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle5.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.grdSupplierList.DefaultCellStyle = DataGridViewCellStyle5
         Me.grdSupplierList.Dock = System.Windows.Forms.DockStyle.Fill
         Me.grdSupplierList.GridColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.grdSupplierList.Location = New System.Drawing.Point(3, 16)
         Me.grdSupplierList.Name = "grdSupplierList"
         Me.grdSupplierList.ReadOnly = True
-        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle9.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.grdSupplierList.RowHeadersDefaultCellStyle = DataGridViewCellStyle9
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.grdSupplierList.RowHeadersDefaultCellStyle = DataGridViewCellStyle6
         Me.grdSupplierList.RowHeadersVisible = False
         Me.grdSupplierList.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.grdSupplierList.RowTemplate.DefaultCellStyle.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -150,10 +150,10 @@ Partial Class frm_Supplier_Rate_List_Master
         '
         'GroupBox3
         '
+        Me.GroupBox3.Controls.Add(Me.cmbSuppSrch)
         Me.GroupBox3.Controls.Add(Me.txtSearch)
         Me.GroupBox3.Controls.Add(Me.Label13)
         Me.GroupBox3.Controls.Add(Me.Label2)
-        Me.GroupBox3.Controls.Add(Me.cmbSuppSrch)
         Me.GroupBox3.Controls.Add(Me.chkActive)
         Me.GroupBox3.ForeColor = System.Drawing.Color.White
         Me.GroupBox3.Location = New System.Drawing.Point(22, 10)
@@ -171,8 +171,8 @@ Partial Class frm_Supplier_Rate_List_Master
         Me.txtSearch.ForeColor = System.Drawing.Color.White
         Me.txtSearch.Location = New System.Drawing.Point(150, 48)
         Me.txtSearch.Name = "txtSearch"
-        Me.txtSearch.Size = New System.Drawing.Size(606, 18)
-        Me.txtSearch.TabIndex = 1
+        Me.txtSearch.Size = New System.Drawing.Size(623, 18)
+        Me.txtSearch.TabIndex = 3
         '
         'Label13
         '
@@ -193,22 +193,10 @@ Partial Class frm_Supplier_Rate_List_Master
         Me.Label2.TabIndex = 5
         Me.Label2.Text = "Item Rate List Search"
         '
-        'cmbSuppSrch
-        '
-        Me.cmbSuppSrch.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.cmbSuppSrch.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmbSuppSrch.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmbSuppSrch.ForeColor = System.Drawing.Color.White
-        Me.cmbSuppSrch.FormattingEnabled = True
-        Me.cmbSuppSrch.Location = New System.Drawing.Point(150, 17)
-        Me.cmbSuppSrch.Name = "cmbSuppSrch"
-        Me.cmbSuppSrch.Size = New System.Drawing.Size(606, 23)
-        Me.cmbSuppSrch.TabIndex = 0
-        '
         'chkActive
         '
         Me.chkActive.AutoSize = True
-        Me.chkActive.Location = New System.Drawing.Point(779, 20)
+        Me.chkActive.Location = New System.Drawing.Point(794, 20)
         Me.chkActive.Name = "chkActive"
         Me.chkActive.Size = New System.Drawing.Size(56, 17)
         Me.chkActive.TabIndex = 2
@@ -218,8 +206,8 @@ Partial Class frm_Supplier_Rate_List_Master
         'TabPage2
         '
         Me.TabPage2.BackColor = System.Drawing.Color.DimGray
-        Me.TabPage2.Controls.Add(Me.GroupBox2)
         Me.TabPage2.Controls.Add(Me.GroupBox1)
+        Me.TabPage2.Controls.Add(Me.GroupBox2)
         Me.TabPage2.Controls.Add(Me.lblCap5)
         Me.TabPage2.ImageIndex = 1
         Me.TabPage2.Location = New System.Drawing.Point(4, 26)
@@ -228,70 +216,16 @@ Partial Class frm_Supplier_Rate_List_Master
         Me.TabPage2.Size = New System.Drawing.Size(902, 600)
         Me.TabPage2.TabIndex = 1
         '
-        'GroupBox2
-        '
-        Me.GroupBox2.Controls.Add(Me.grdSupplier)
-        Me.GroupBox2.Controls.Add(Me.txt_search)
-        Me.GroupBox2.Controls.Add(Me.Label3)
-        Me.GroupBox2.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupBox2.ForeColor = System.Drawing.Color.White
-        Me.GroupBox2.Location = New System.Drawing.Point(6, 185)
-        Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(890, 409)
-        Me.GroupBox2.TabIndex = 1
-        Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = "List of Items"
-        '
-        'grdSupplier
-        '
-        Me.grdSupplier.BackgroundColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.grdSupplier.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.grdSupplier.GridColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.grdSupplier.Location = New System.Drawing.Point(5, 15)
-        Me.grdSupplier.Name = "grdSupplier"
-        Me.grdSupplier.RowHeadersVisible = False
-        Me.grdSupplier.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.grdSupplier.RowTemplate.DefaultCellStyle.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.grdSupplier.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.White
-        Me.grdSupplier.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.grdSupplier.Size = New System.Drawing.Size(880, 388)
-        Me.grdSupplier.TabIndex = 0
-        '
-        'txt_search
-        '
-        Me.txt_search.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.txt_search.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.txt_search.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txt_search.ForeColor = System.Drawing.Color.White
-        Me.txt_search.Location = New System.Drawing.Point(174, 20)
-        Me.txt_search.MaxLength = 100
-        Me.txt_search.Name = "txt_search"
-        Me.txt_search.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txt_search.Size = New System.Drawing.Size(679, 19)
-        Me.txt_search.TabIndex = 66
-        Me.txt_search.Visible = False
-        '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(6, 23)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(160, 15)
-        Me.Label3.TabIndex = 65
-        Me.Label3.Text = "Serach By Name / Barcode :"
-        Me.Label3.Visible = False
-        '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.cmbSupplier)
+        Me.GroupBox1.Controls.Add(Me.lblFormHeading)
         Me.GroupBox1.Controls.Add(Me.txtBarcodeSearch)
         Me.GroupBox1.Controls.Add(Me.Label15)
         Me.GroupBox1.Controls.Add(Me.Label1)
-        Me.GroupBox1.Controls.Add(Me.lblFormHeading)
         Me.GroupBox1.Controls.Add(Me.dtpDate)
         Me.GroupBox1.Controls.Add(Me.CheckBox1)
         Me.GroupBox1.Controls.Add(Me.txtDesc)
-        Me.GroupBox1.Controls.Add(Me.cmbSupplier)
         Me.GroupBox1.Controls.Add(Me.lblCap1)
         Me.GroupBox1.Controls.Add(Me.lblCap4)
         Me.GroupBox1.Controls.Add(Me.txtSupName)
@@ -299,12 +233,22 @@ Partial Class frm_Supplier_Rate_List_Master
         Me.GroupBox1.Controls.Add(Me.lblCap2)
         Me.GroupBox1.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GroupBox1.ForeColor = System.Drawing.Color.White
-        Me.GroupBox1.Location = New System.Drawing.Point(6, 6)
+        Me.GroupBox1.Location = New System.Drawing.Point(-4, -9)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(890, 178)
+        Me.GroupBox1.Size = New System.Drawing.Size(910, 242)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Supplier Rate List"
+        '
+        'lblFormHeading
+        '
+        Me.lblFormHeading.BackColor = System.Drawing.Color.FromArgb(CType(CType(88, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(88, Byte), Integer))
+        Me.lblFormHeading.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblFormHeading.ForeColor = System.Drawing.Color.OrangeRed
+        Me.lblFormHeading.Location = New System.Drawing.Point(891, 10)
+        Me.lblFormHeading.Name = "lblFormHeading"
+        Me.lblFormHeading.Size = New System.Drawing.Size(14, 230)
+        Me.lblFormHeading.TabIndex = 9
+        Me.lblFormHeading.Text = "Supplier  RateList"
         '
         'txtBarcodeSearch
         '
@@ -312,17 +256,17 @@ Partial Class frm_Supplier_Rate_List_Master
         Me.txtBarcodeSearch.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtBarcodeSearch.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtBarcodeSearch.ForeColor = System.Drawing.Color.White
-        Me.txtBarcodeSearch.Location = New System.Drawing.Point(107, 137)
+        Me.txtBarcodeSearch.Location = New System.Drawing.Point(130, 202)
         Me.txtBarcodeSearch.MaxLength = 100
         Me.txtBarcodeSearch.Name = "txtBarcodeSearch"
-        Me.txtBarcodeSearch.Size = New System.Drawing.Size(664, 19)
+        Me.txtBarcodeSearch.Size = New System.Drawing.Size(699, 19)
         Me.txtBarcodeSearch.TabIndex = 5
         '
         'Label15
         '
         Me.Label15.AutoSize = True
         Me.Label15.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label15.Location = New System.Drawing.Point(8, 138)
+        Me.Label15.Location = New System.Drawing.Point(31, 203)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(62, 15)
         Me.Label15.TabIndex = 63
@@ -331,22 +275,11 @@ Partial Class frm_Supplier_Rate_List_Master
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(780, 112)
+        Me.Label1.Location = New System.Drawing.Point(851, 131)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(44, 15)
+        Me.Label1.Size = New System.Drawing.Size(38, 15)
         Me.Label1.TabIndex = 4
-        Me.Label1.Text = "Active :"
-        '
-        'lblFormHeading
-        '
-        Me.lblFormHeading.BackColor = System.Drawing.Color.Transparent
-        Me.lblFormHeading.Font = New System.Drawing.Font("Verdana", 15.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblFormHeading.ForeColor = System.Drawing.Color.White
-        Me.lblFormHeading.Location = New System.Drawing.Point(778, 9)
-        Me.lblFormHeading.Name = "lblFormHeading"
-        Me.lblFormHeading.Size = New System.Drawing.Size(112, 63)
-        Me.lblFormHeading.TabIndex = 9
-        Me.lblFormHeading.Text = "Supplier Rate List"
+        Me.Label1.Text = "Active"
         '
         'dtpDate
         '
@@ -354,15 +287,15 @@ Partial Class frm_Supplier_Rate_List_Master
         Me.dtpDate.CalendarMonthBackground = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.dtpDate.CustomFormat = "dd-MMM-yyyy"
         Me.dtpDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpDate.Location = New System.Drawing.Point(659, 25)
+        Me.dtpDate.Location = New System.Drawing.Point(691, 36)
         Me.dtpDate.Name = "dtpDate"
-        Me.dtpDate.Size = New System.Drawing.Size(112, 21)
+        Me.dtpDate.Size = New System.Drawing.Size(138, 21)
         Me.dtpDate.TabIndex = 1
         '
         'CheckBox1
         '
         Me.CheckBox1.AutoSize = True
-        Me.CheckBox1.Location = New System.Drawing.Point(830, 113)
+        Me.CheckBox1.Location = New System.Drawing.Point(837, 133)
         Me.CheckBox1.Name = "CheckBox1"
         Me.CheckBox1.Size = New System.Drawing.Size(15, 14)
         Me.CheckBox1.TabIndex = 4
@@ -374,30 +307,17 @@ Partial Class frm_Supplier_Rate_List_Master
         Me.txtDesc.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtDesc.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtDesc.ForeColor = System.Drawing.Color.White
-        Me.txtDesc.Location = New System.Drawing.Point(107, 87)
+        Me.txtDesc.Location = New System.Drawing.Point(130, 133)
         Me.txtDesc.Multiline = True
         Me.txtDesc.Name = "txtDesc"
-        Me.txtDesc.Size = New System.Drawing.Size(664, 42)
+        Me.txtDesc.Size = New System.Drawing.Size(699, 42)
         Me.txtDesc.TabIndex = 3
-        '
-        'cmbSupplier
-        '
-        Me.cmbSupplier.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append
-        Me.cmbSupplier.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.cmbSupplier.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmbSupplier.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmbSupplier.ForeColor = System.Drawing.Color.White
-        Me.cmbSupplier.FormattingEnabled = True
-        Me.cmbSupplier.Location = New System.Drawing.Point(107, 54)
-        Me.cmbSupplier.Name = "cmbSupplier"
-        Me.cmbSupplier.Size = New System.Drawing.Size(664, 23)
-        Me.cmbSupplier.TabIndex = 2
         '
         'lblCap1
         '
         Me.lblCap1.AutoSize = True
         Me.lblCap1.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblCap1.Location = New System.Drawing.Point(8, 27)
+        Me.lblCap1.Location = New System.Drawing.Point(31, 38)
         Me.lblCap1.Name = "lblCap1"
         Me.lblCap1.Size = New System.Drawing.Size(99, 15)
         Me.lblCap1.TabIndex = 0
@@ -407,7 +327,7 @@ Partial Class frm_Supplier_Rate_List_Master
         '
         Me.lblCap4.AutoSize = True
         Me.lblCap4.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblCap4.Location = New System.Drawing.Point(8, 87)
+        Me.lblCap4.Location = New System.Drawing.Point(31, 133)
         Me.lblCap4.Name = "lblCap4"
         Me.lblCap4.Size = New System.Drawing.Size(76, 15)
         Me.lblCap4.TabIndex = 3
@@ -419,7 +339,7 @@ Partial Class frm_Supplier_Rate_List_Master
         Me.txtSupName.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtSupName.Font = New System.Drawing.Font("Arial", 12.0!)
         Me.txtSupName.ForeColor = System.Drawing.Color.White
-        Me.txtSupName.Location = New System.Drawing.Point(107, 25)
+        Me.txtSupName.Location = New System.Drawing.Point(130, 36)
         Me.txtSupName.Name = "txtSupName"
         Me.txtSupName.Size = New System.Drawing.Size(454, 19)
         Me.txtSupName.TabIndex = 0
@@ -428,7 +348,7 @@ Partial Class frm_Supplier_Rate_List_Master
         '
         Me.lblCap3.AutoSize = True
         Me.lblCap3.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblCap3.Location = New System.Drawing.Point(8, 54)
+        Me.lblCap3.Location = New System.Drawing.Point(31, 85)
         Me.lblCap3.Name = "lblCap3"
         Me.lblCap3.Size = New System.Drawing.Size(96, 15)
         Me.lblCap3.TabIndex = 2
@@ -438,11 +358,64 @@ Partial Class frm_Supplier_Rate_List_Master
         '
         Me.lblCap2.AutoSize = True
         Me.lblCap2.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblCap2.Location = New System.Drawing.Point(565, 27)
+        Me.lblCap2.Location = New System.Drawing.Point(597, 38)
         Me.lblCap2.Name = "lblCap2"
         Me.lblCap2.Size = New System.Drawing.Size(91, 15)
         Me.lblCap2.TabIndex = 1
         Me.lblCap2.Text = "Rate List Date :"
+        '
+        'GroupBox2
+        '
+        Me.GroupBox2.Controls.Add(Me.grdSupplier)
+        Me.GroupBox2.Controls.Add(Me.txt_search)
+        Me.GroupBox2.Controls.Add(Me.Label3)
+        Me.GroupBox2.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GroupBox2.ForeColor = System.Drawing.Color.White
+        Me.GroupBox2.Location = New System.Drawing.Point(-4, 214)
+        Me.GroupBox2.Name = "GroupBox2"
+        Me.GroupBox2.Size = New System.Drawing.Size(907, 390)
+        Me.GroupBox2.TabIndex = 1
+        Me.GroupBox2.TabStop = False
+        '
+        'grdSupplier
+        '
+        Me.grdSupplier.BackgroundColor = System.Drawing.Color.DarkGray
+        Me.grdSupplier.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.grdSupplier.GridColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.grdSupplier.Location = New System.Drawing.Point(5, 20)
+        Me.grdSupplier.Name = "grdSupplier"
+        Me.grdSupplier.RowHeadersVisible = False
+        Me.grdSupplier.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.grdSupplier.RowTemplate.DefaultCellStyle.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grdSupplier.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.White
+        Me.grdSupplier.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.grdSupplier.Size = New System.Drawing.Size(898, 360)
+        Me.grdSupplier.TabIndex = 0
+        '
+        'txt_search
+        '
+        Me.txt_search.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.txt_search.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.txt_search.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txt_search.ForeColor = System.Drawing.Color.White
+        Me.txt_search.Location = New System.Drawing.Point(177, 34)
+        Me.txt_search.MaxLength = 100
+        Me.txt_search.Name = "txt_search"
+        Me.txt_search.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
+        Me.txt_search.Size = New System.Drawing.Size(679, 19)
+        Me.txt_search.TabIndex = 66
+        Me.txt_search.Visible = False
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label3.Location = New System.Drawing.Point(9, 37)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(160, 15)
+        Me.Label3.TabIndex = 65
+        Me.Label3.Text = "Serach By Name / Barcode :"
+        Me.Label3.Visible = False
         '
         'lblCap5
         '
@@ -460,6 +433,32 @@ Partial Class frm_Supplier_Rate_List_Master
         Me.ImageList1.Images.SetKeyName(0, "Zoom_search_find_magnifying_glass.png")
         Me.ImageList1.Images.SetKeyName(1, "Inventory_box_shipment_product.png")
         '
+        'cmbSuppSrch
+        '
+        Me.cmbSuppSrch.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.cmbSuppSrch.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmbSuppSrch.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmbSuppSrch.ForeColor = System.Drawing.Color.White
+        Me.cmbSuppSrch.FormattingEnabled = True
+        Me.cmbSuppSrch.Location = New System.Drawing.Point(150, 16)
+        Me.cmbSuppSrch.Name = "cmbSuppSrch"
+        Me.cmbSuppSrch.ResetOnClear = False
+        Me.cmbSuppSrch.Size = New System.Drawing.Size(623, 24)
+        Me.cmbSuppSrch.TabIndex = 1
+        '
+        'cmbSupplier
+        '
+        Me.cmbSupplier.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.cmbSupplier.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmbSupplier.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmbSupplier.ForeColor = System.Drawing.Color.White
+        Me.cmbSupplier.FormattingEnabled = True
+        Me.cmbSupplier.Location = New System.Drawing.Point(130, 81)
+        Me.cmbSupplier.Name = "cmbSupplier"
+        Me.cmbSupplier.ResetOnClear = False
+        Me.cmbSupplier.Size = New System.Drawing.Size(699, 24)
+        Me.cmbSupplier.TabIndex = 2
+        '
         'frm_Supplier_Rate_List_Master
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -476,11 +475,11 @@ Partial Class frm_Supplier_Rate_List_Master
         Me.GroupBox3.PerformLayout()
         Me.TabPage2.ResumeLayout(False)
         Me.TabPage2.PerformLayout()
+        Me.GroupBox1.ResumeLayout(False)
+        Me.GroupBox1.PerformLayout()
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
         CType(Me.grdSupplier, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.GroupBox1.ResumeLayout(False)
-        Me.GroupBox1.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -494,7 +493,6 @@ Partial Class frm_Supplier_Rate_List_Master
     Friend WithEvents lblCap5 As System.Windows.Forms.Label
     Friend WithEvents lblCap4 As System.Windows.Forms.Label
     Friend WithEvents lblCap3 As System.Windows.Forms.Label
-    Friend WithEvents cmbSupplier As System.Windows.Forms.ComboBox
     Friend WithEvents txtDesc As System.Windows.Forms.TextBox
     Friend WithEvents CheckBox1 As System.Windows.Forms.CheckBox
     Friend WithEvents GroupBox2 As System.Windows.Forms.GroupBox
@@ -506,7 +504,6 @@ Partial Class frm_Supplier_Rate_List_Master
     Friend WithEvents lblFormHeading As System.Windows.Forms.Label
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents chkActive As System.Windows.Forms.CheckBox
-    Friend WithEvents cmbSuppSrch As System.Windows.Forms.ComboBox
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents txtSearch As System.Windows.Forms.TextBox
     Friend WithEvents Label13 As System.Windows.Forms.Label
@@ -515,4 +512,6 @@ Partial Class frm_Supplier_Rate_List_Master
     Friend WithEvents Label15 As Label
     Friend WithEvents txt_search As TextBox
     Friend WithEvents Label3 As Label
+    Friend WithEvents cmbSupplier As AutoCompleteCombo
+    Friend WithEvents cmbSuppSrch As AutoCompleteCombo
 End Class

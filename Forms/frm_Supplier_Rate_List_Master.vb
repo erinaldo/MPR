@@ -47,6 +47,7 @@ Public Class frm_Supplier_Rate_List_Master
             FillGrid()
             obj.ComboBind(cmbSupplier, "select 0 as ACC_ID,'--Select--' as ACC_NAME union Select ACC_ID,ACC_NAME from ACCOUNT_MASTER WHERE AG_ID in (1,2,3,6) Order by ACC_NAME ", "ACC_NAME", "ACC_ID")
             grid_style()
+            TabControl1.SelectedIndex = 1
         Catch ex As Exception
             MsgBox(gblMessageHeading_Error & vbCrLf & gblMessage_ContactInfo & vbCrLf & ex.Message, MsgBoxStyle.Critical, gblMessageHeading)
         End Try
@@ -83,6 +84,8 @@ Public Class frm_Supplier_Rate_List_Master
 
     Private Function Validation() As Boolean
         Validation = True
+        cmbSupplier.SelectedIndex = cmbSupplier.FindStringExact(cmbSupplier.Text)
+
         If Trim(txtSupName.Text) = "" Then
             MsgBox("Rate List Name should not be blank. ", vbExclamation, gblMessageHeading)
             txtSupName.Focus()
@@ -152,6 +155,7 @@ Public Class frm_Supplier_Rate_List_Master
                     prpty.SRL_NAME = txtSupName.Text
                     prpty.SRL_DATE = Convert.ToDateTime(dtpDate.Text).ToString()
                     prpty.SRL_DESC = txtDesc.Text
+                    cmbSupplier.SelectedIndex = cmbSupplier.FindStringExact(cmbSupplier.Text)
                     prpty.SUPP_ID = cmbSupplier.SelectedValue
                     If CheckBox1.Checked Then
                         prpty.ACTIVE = True
@@ -196,6 +200,7 @@ Public Class frm_Supplier_Rate_List_Master
                     prpty.SRL_NAME = txtSupName.Text
                     prpty.SRL_DATE = Convert.ToDateTime(dtpDate.Text).ToString()
                     prpty.SRL_DESC = txtDesc.Text
+                    cmbSupplier.SelectedIndex = cmbSupplier.FindStringExact(cmbSupplier.Text)
                     prpty.SUPP_ID = cmbSupplier.SelectedValue
                     If CheckBox1.Checked Then
                         prpty.ACTIVE = True
@@ -348,7 +353,7 @@ Public Class frm_Supplier_Rate_List_Master
             .Name = "Item_Name"
             .ReadOnly = True
             .Visible = True
-            .Width = 400
+            .Width = 420
             .DefaultCellStyle.SelectionBackColor = Color.Orange
             .DefaultCellStyle.SelectionForeColor = Color.Black
         End With
@@ -462,6 +467,7 @@ Public Class frm_Supplier_Rate_List_Master
                 End If
             Next iRow
             If IsInsert = True Then
+                cmbSupplier.SelectedIndex = cmbSupplier.FindStringExact(cmbSupplier.Text)
                 grdSupplier.Rows(grdSupplier.CurrentCell.RowIndex).Cells(0).Value = cmbSupplier.SelectedValue
                 grdSupplier.Rows(grdSupplier.CurrentCell.RowIndex).Cells(1).Value = drv(1)
                 grdSupplier.Rows(grdSupplier.CurrentCell.RowIndex).Cells(3).Value = drv(4)
@@ -518,8 +524,10 @@ Public Class frm_Supplier_Rate_List_Master
         End Try
     End Sub
 
-    Private Sub ComboBox2_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmbSuppSrch.SelectedIndexChanged
+    Private Sub ComboBox2_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Try
+            cmbSuppSrch.SelectedIndex = cmbSuppSrch.FindStringExact(cmbSuppSrch.Text)
+
             If cmbSuppSrch.SelectedValue = 0 Then
                 obj.GridBind(grdSupplierList, "SELECT SRL_ID,SRL_NAME,SRL_DESC,ACTIVE,SRL_date,ACCOUNT_MASTER.ACC_NAME,ACCOUNT_MASTER.ACC_ID FROM SUPPLIER_RATE_LIST INNER JOIN ACCOUNT_MASTER ON SUPPLIER_RATE_LIST.SUPP_ID = ACCOUNT_MASTER.ACC_ID where AG_ID in (1,2,3,6) AND SRL_ID NOT IN(SELECT SRL_ID FROM dbo.CUSTOMER_RATE_LIST_MAPPING)")
             Else
@@ -668,7 +676,7 @@ Public Class frm_Supplier_Rate_List_Master
                 frm_Show_Search_RateList.column_name4 = "LABELITEMNAME_VCH"
                 frm_Show_Search_RateList.column_name5 = "ITEM_CAT_NAME"
                 frm_Show_Search_RateList.cols_no_for_width = "1,2,3,4,5,6"
-                frm_Show_Search_RateList.cols_width = "100,320,70,70,100,105"
+                frm_Show_Search_RateList.cols_width = "100,320,70,70,100,100"
                 frm_Show_Search_RateList.extra_condition = ""
                 frm_Show_Search_RateList.ret_column = "ITEM_ID"
                 frm_Show_Search_RateList.item_rate_column = ""
@@ -850,15 +858,4 @@ Public Class frm_Supplier_Rate_List_Master
 
     End Sub
 
-    Private Sub cmbSuppSrch_Enter(sender As Object, e As EventArgs) Handles cmbSuppSrch.Enter
-        If Not cmbSuppSrch.DroppedDown Then
-            cmbSuppSrch.DroppedDown = True
-        End If
-    End Sub
-
-    Private Sub cmbSupplier_Enter(sender As Object, e As EventArgs) Handles cmbSupplier.Enter
-        If Not cmbSupplier.DroppedDown Then
-            cmbSupplier.DroppedDown = True
-        End If
-    End Sub
 End Class

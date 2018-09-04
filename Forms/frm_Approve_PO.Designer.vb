@@ -20,10 +20,10 @@ Partial Class frm_Approve_PO
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.lblFormHeading = New System.Windows.Forms.Label()
         Me.btnShow = New System.Windows.Forms.Button()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.lblFormHeading = New System.Windows.Forms.Label()
         Me.dtpIndentTo = New System.Windows.Forms.DateTimePicker()
         Me.dtpIndentFrom = New System.Windows.Forms.DateTimePicker()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
@@ -39,24 +39,37 @@ Partial Class frm_Approve_PO
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.lblFormHeading)
         Me.GroupBox1.Controls.Add(Me.btnShow)
         Me.GroupBox1.Controls.Add(Me.Label3)
         Me.GroupBox1.Controls.Add(Me.Label2)
-        Me.GroupBox1.Controls.Add(Me.lblFormHeading)
         Me.GroupBox1.Controls.Add(Me.dtpIndentTo)
         Me.GroupBox1.Controls.Add(Me.dtpIndentFrom)
-        Me.GroupBox1.Location = New System.Drawing.Point(3, 3)
+        Me.GroupBox1.Location = New System.Drawing.Point(-8, -8)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(904, 103)
+        Me.GroupBox1.Size = New System.Drawing.Size(925, 148)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
+        '
+        'lblFormHeading
+        '
+        Me.lblFormHeading.BackColor = System.Drawing.Color.FromArgb(CType(CType(88, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(88, Byte), Integer))
+        Me.lblFormHeading.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.lblFormHeading.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblFormHeading.ForeColor = System.Drawing.Color.OrangeRed
+        Me.lblFormHeading.Location = New System.Drawing.Point(902, 10)
+        Me.lblFormHeading.Name = "lblFormHeading"
+        Me.lblFormHeading.Size = New System.Drawing.Size(15, 135)
+        Me.lblFormHeading.TabIndex = 17
+        Me.lblFormHeading.Text = "Approve PO"
+        Me.lblFormHeading.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
         'btnShow
         '
         Me.btnShow.BackColor = System.Drawing.Color.FromArgb(CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.btnShow.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnShow.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnShow.Location = New System.Drawing.Point(441, 43)
+        Me.btnShow.Location = New System.Drawing.Point(514, 57)
         Me.btnShow.Name = "btnShow"
         Me.btnShow.Size = New System.Drawing.Size(100, 25)
         Me.btnShow.TabIndex = 3
@@ -67,7 +80,7 @@ Partial Class frm_Approve_PO
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(235, 45)
+        Me.Label3.Location = New System.Drawing.Point(285, 62)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(26, 15)
         Me.Label3.TabIndex = 12
@@ -77,23 +90,11 @@ Partial Class frm_Approve_PO
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(16, 45)
+        Me.Label2.Location = New System.Drawing.Point(66, 62)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(42, 15)
         Me.Label2.TabIndex = 11
         Me.Label2.Text = "From :"
-        '
-        'lblFormHeading
-        '
-        Me.lblFormHeading.BackColor = System.Drawing.Color.Transparent
-        Me.lblFormHeading.Font = New System.Drawing.Font("Verdana", 15.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblFormHeading.ForeColor = System.Drawing.Color.White
-        Me.lblFormHeading.Location = New System.Drawing.Point(607, 10)
-        Me.lblFormHeading.Name = "lblFormHeading"
-        Me.lblFormHeading.Size = New System.Drawing.Size(294, 88)
-        Me.lblFormHeading.TabIndex = 13
-        Me.lblFormHeading.Text = "Approve Purchase Order"
-        Me.lblFormHeading.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
         'dtpIndentTo
         '
@@ -102,7 +103,7 @@ Partial Class frm_Approve_PO
         Me.dtpIndentTo.CustomFormat = "dd-MMM-yyyy"
         Me.dtpIndentTo.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.dtpIndentTo.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpIndentTo.Location = New System.Drawing.Point(267, 43)
+        Me.dtpIndentTo.Location = New System.Drawing.Point(317, 60)
         Me.dtpIndentTo.Name = "dtpIndentTo"
         Me.dtpIndentTo.Size = New System.Drawing.Size(156, 21)
         Me.dtpIndentTo.TabIndex = 2
@@ -114,31 +115,27 @@ Partial Class frm_Approve_PO
         Me.dtpIndentFrom.CustomFormat = "dd-MMM-yyyy"
         Me.dtpIndentFrom.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.dtpIndentFrom.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpIndentFrom.Location = New System.Drawing.Point(64, 43)
+        Me.dtpIndentFrom.Location = New System.Drawing.Point(114, 60)
         Me.dtpIndentFrom.Name = "dtpIndentFrom"
         Me.dtpIndentFrom.Size = New System.Drawing.Size(156, 21)
         Me.dtpIndentFrom.TabIndex = 1
         '
         'GroupBox2
         '
-        Me.GroupBox2.Controls.Add(Me.btnUpdatePO)
-        Me.GroupBox2.Controls.Add(Me.btnSelectAll)
-        Me.GroupBox2.Controls.Add(Me.btnDeselectAll)
-        Me.GroupBox2.Controls.Add(Me.btInverseSelect)
         Me.GroupBox2.Controls.Add(Me.grdPOList)
-        Me.GroupBox2.Location = New System.Drawing.Point(3, 113)
+        Me.GroupBox2.Location = New System.Drawing.Point(-2, 127)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(904, 514)
+        Me.GroupBox2.Size = New System.Drawing.Size(919, 437)
         Me.GroupBox2.TabIndex = 4
         Me.GroupBox2.TabStop = False
         '
         'grdPOList
         '
         Me.grdPOList.AllowUserToAddRows = False
-        Me.grdPOList.BackgroundColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.grdPOList.BackgroundColor = System.Drawing.Color.DarkGray
         Me.grdPOList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.grdPOList.GridColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.grdPOList.Location = New System.Drawing.Point(3, 17)
+        Me.grdPOList.Location = New System.Drawing.Point(3, 14)
         Me.grdPOList.Name = "grdPOList"
         Me.grdPOList.RowHeadersVisible = False
         Me.grdPOList.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
@@ -147,7 +144,7 @@ Partial Class frm_Approve_PO
         Me.grdPOList.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.DarkOrange
         Me.grdPOList.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black
         Me.grdPOList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.grdPOList.Size = New System.Drawing.Size(898, 450)
+        Me.grdPOList.Size = New System.Drawing.Size(908, 422)
         Me.grdPOList.TabIndex = 5
         '
         'btnUpdatePO
@@ -155,10 +152,10 @@ Partial Class frm_Approve_PO
         Me.btnUpdatePO.BackColor = System.Drawing.Color.Green
         Me.btnUpdatePO.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnUpdatePO.Font = New System.Drawing.Font("Arial Narrow", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnUpdatePO.Location = New System.Drawing.Point(480, 478)
+        Me.btnUpdatePO.Location = New System.Drawing.Point(480, 584)
         Me.btnUpdatePO.Name = "btnUpdatePO"
         Me.btnUpdatePO.Size = New System.Drawing.Size(100, 25)
-        Me.btnUpdatePO.TabIndex = 6
+        Me.btnUpdatePO.TabIndex = 10
         Me.btnUpdatePO.Text = "Update PO"
         Me.btnUpdatePO.UseVisualStyleBackColor = False
         '
@@ -167,10 +164,10 @@ Partial Class frm_Approve_PO
         Me.btnSelectAll.BackColor = System.Drawing.Color.FromArgb(CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.btnSelectAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnSelectAll.Font = New System.Drawing.Font("Arial Narrow", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnSelectAll.Location = New System.Drawing.Point(586, 478)
+        Me.btnSelectAll.Location = New System.Drawing.Point(586, 584)
         Me.btnSelectAll.Name = "btnSelectAll"
         Me.btnSelectAll.Size = New System.Drawing.Size(100, 25)
-        Me.btnSelectAll.TabIndex = 7
+        Me.btnSelectAll.TabIndex = 11
         Me.btnSelectAll.Text = "Select All"
         Me.btnSelectAll.UseVisualStyleBackColor = False
         '
@@ -179,10 +176,10 @@ Partial Class frm_Approve_PO
         Me.btnDeselectAll.BackColor = System.Drawing.Color.Maroon
         Me.btnDeselectAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnDeselectAll.Font = New System.Drawing.Font("Arial Narrow", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnDeselectAll.Location = New System.Drawing.Point(692, 478)
+        Me.btnDeselectAll.Location = New System.Drawing.Point(692, 584)
         Me.btnDeselectAll.Name = "btnDeselectAll"
         Me.btnDeselectAll.Size = New System.Drawing.Size(100, 25)
-        Me.btnDeselectAll.TabIndex = 8
+        Me.btnDeselectAll.TabIndex = 12
         Me.btnDeselectAll.Text = "Deselect All"
         Me.btnDeselectAll.UseVisualStyleBackColor = False
         '
@@ -191,10 +188,10 @@ Partial Class frm_Approve_PO
         Me.btInverseSelect.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.btInverseSelect.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btInverseSelect.Font = New System.Drawing.Font("Arial Narrow", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btInverseSelect.Location = New System.Drawing.Point(798, 478)
+        Me.btInverseSelect.Location = New System.Drawing.Point(798, 584)
         Me.btInverseSelect.Name = "btInverseSelect"
         Me.btInverseSelect.Size = New System.Drawing.Size(100, 25)
-        Me.btInverseSelect.TabIndex = 9
+        Me.btInverseSelect.TabIndex = 13
         Me.btInverseSelect.Text = "Inverse Select"
         Me.btInverseSelect.UseVisualStyleBackColor = False
         '
@@ -203,8 +200,12 @@ Partial Class frm_Approve_PO
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.DimGray
-        Me.Controls.Add(Me.GroupBox2)
+        Me.Controls.Add(Me.btnUpdatePO)
+        Me.Controls.Add(Me.btnSelectAll)
+        Me.Controls.Add(Me.btnDeselectAll)
+        Me.Controls.Add(Me.btInverseSelect)
         Me.Controls.Add(Me.GroupBox1)
+        Me.Controls.Add(Me.GroupBox2)
         Me.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ForeColor = System.Drawing.Color.White
         Me.Name = "frm_Approve_PO"
@@ -224,10 +225,9 @@ Partial Class frm_Approve_PO
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents GroupBox2 As System.Windows.Forms.GroupBox
     Friend WithEvents grdPOList As System.Windows.Forms.DataGridView
-    Friend WithEvents btnUpdatePO As System.Windows.Forms.Button
-    Friend WithEvents btnSelectAll As System.Windows.Forms.Button
-    Friend WithEvents btnDeselectAll As System.Windows.Forms.Button
-    Friend WithEvents btInverseSelect As System.Windows.Forms.Button
-    Friend WithEvents lblFormHeading As System.Windows.Forms.Label
-
+    Friend WithEvents lblFormHeading As Label
+    Friend WithEvents btnUpdatePO As Button
+    Friend WithEvents btnSelectAll As Button
+    Friend WithEvents btnDeselectAll As Button
+    Friend WithEvents btInverseSelect As Button
 End Class

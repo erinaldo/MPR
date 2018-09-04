@@ -24,9 +24,9 @@ Partial Class frm_RateList_Mapping
         Me.btn_Cancel = New System.Windows.Forms.Button()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.cmbSupplier = New System.Windows.Forms.ComboBox()
-        Me.cmbratelist = New System.Windows.Forms.ComboBox()
         Me.lblFormHeading = New System.Windows.Forms.Label()
+        Me.cmbSupplier = New MMSPlus.AutoCompleteCombo()
+        Me.cmbratelist = New MMSPlus.AutoCompleteCombo()
         Me.SuspendLayout()
         '
         'btn_save
@@ -71,30 +71,6 @@ Partial Class frm_RateList_Mapping
         Me.Label2.TabIndex = 7
         Me.Label2.Text = "Rate List Name :"
         '
-        'cmbSupplier
-        '
-        Me.cmbSupplier.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.cmbSupplier.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmbSupplier.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmbSupplier.ForeColor = System.Drawing.Color.White
-        Me.cmbSupplier.FormattingEnabled = True
-        Me.cmbSupplier.Location = New System.Drawing.Point(123, 99)
-        Me.cmbSupplier.Name = "cmbSupplier"
-        Me.cmbSupplier.Size = New System.Drawing.Size(486, 23)
-        Me.cmbSupplier.TabIndex = 1
-        '
-        'cmbratelist
-        '
-        Me.cmbratelist.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.cmbratelist.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmbratelist.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmbratelist.ForeColor = System.Drawing.Color.White
-        Me.cmbratelist.FormattingEnabled = True
-        Me.cmbratelist.Location = New System.Drawing.Point(123, 56)
-        Me.cmbratelist.Name = "cmbratelist"
-        Me.cmbratelist.Size = New System.Drawing.Size(486, 23)
-        Me.cmbratelist.TabIndex = 0
-        '
         'lblFormHeading
         '
         Me.lblFormHeading.BackColor = System.Drawing.Color.Transparent
@@ -106,6 +82,32 @@ Partial Class frm_RateList_Mapping
         Me.lblFormHeading.TabIndex = 11
         Me.lblFormHeading.Text = "Rate List Mapping"
         '
+        'cmbSupplier
+        '
+        Me.cmbSupplier.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.cmbSupplier.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmbSupplier.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmbSupplier.ForeColor = System.Drawing.Color.White
+        Me.cmbSupplier.FormattingEnabled = True
+        Me.cmbSupplier.Location = New System.Drawing.Point(122, 98)
+        Me.cmbSupplier.Name = "cmbSupplier"
+        Me.cmbSupplier.ResetOnClear = False
+        Me.cmbSupplier.Size = New System.Drawing.Size(487, 24)
+        Me.cmbSupplier.TabIndex = 1
+        '
+        'cmbratelist
+        '
+        Me.cmbratelist.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.cmbratelist.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmbratelist.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmbratelist.ForeColor = System.Drawing.Color.White
+        Me.cmbratelist.FormattingEnabled = True
+        Me.cmbratelist.Location = New System.Drawing.Point(122, 52)
+        Me.cmbratelist.Name = "cmbratelist"
+        Me.cmbratelist.ResetOnClear = False
+        Me.cmbratelist.Size = New System.Drawing.Size(487, 24)
+        Me.cmbratelist.TabIndex = 0
+        '
         'frm_RateList_Mapping
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -113,9 +115,9 @@ Partial Class frm_RateList_Mapping
         Me.BackColor = System.Drawing.Color.Gray
         Me.ClientSize = New System.Drawing.Size(634, 200)
         Me.ControlBox = False
-        Me.Controls.Add(Me.lblFormHeading)
         Me.Controls.Add(Me.cmbratelist)
         Me.Controls.Add(Me.cmbSupplier)
+        Me.Controls.Add(Me.lblFormHeading)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.btn_Cancel)
@@ -133,7 +135,7 @@ Partial Class frm_RateList_Mapping
     Friend WithEvents btn_Cancel As System.Windows.Forms.Button
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents Label2 As System.Windows.Forms.Label
-    Friend WithEvents cmbSupplier As System.Windows.Forms.ComboBox
-    Friend WithEvents cmbratelist As System.Windows.Forms.ComboBox
     Friend WithEvents lblFormHeading As Label
+    Friend WithEvents cmbSupplier As AutoCompleteCombo
+    Friend WithEvents cmbratelist As AutoCompleteCombo
 End Class

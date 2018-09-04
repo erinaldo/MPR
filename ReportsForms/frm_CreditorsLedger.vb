@@ -114,7 +114,6 @@ Public Class frm_CreditorsLedger
         Try
             cmbSupplier.SelectedIndex = cmbSupplier.FindStringExact(cmbSupplier.Text)
 
-            Dim a = cmbSupplier.SelectedIndex
             If cmbSupplier.SelectedIndex <= 0 Then
                 MsgBox("Please select Supplier.", MsgBoxStyle.Information, gblMessageHeading)
                 Exit Sub

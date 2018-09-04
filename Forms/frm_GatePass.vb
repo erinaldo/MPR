@@ -175,7 +175,7 @@ Public Class frm_GatePass
     End Sub
 
     Private Sub new_initilization()
-
+        TabControl1.SelectedIndex = 1
         lbl_GPDate.Text = Now.ToString("dd-MMM-yyyy")
         txtCustomer.Text = ""
         cmbBillNo.SelectedIndex = 0
@@ -250,5 +250,37 @@ Public Class frm_GatePass
             lblvehicleNo.Text = obj.Fill_DataSet(strSql).Tables(0).Rows(0)(2)
             lblAccId.Text = obj.Fill_DataSet(strSql).Tables(0).Rows(0)(3)
         End If
+    End Sub
+
+    Private Sub Label9_Click(sender As Object, e As EventArgs)
+
+    End Sub
+
+    Private Sub Label10_Click(sender As Object, e As EventArgs)
+
+    End Sub
+
+    Private Sub Label11_Click(sender As Object, e As EventArgs)
+
+    End Sub
+
+    Private Sub Label14_Click(sender As Object, e As EventArgs)
+
+    End Sub
+
+    Private Sub Label15_Click(sender As Object, e As EventArgs)
+
+    End Sub
+
+    Private Sub MaskedTextBox1_MaskInputRejected(sender As Object, e As MaskInputRejectedEventArgs)
+
+    End Sub
+
+    Private Sub Label16_Click(sender As Object, e As EventArgs)
+
+    End Sub
+
+    Private Sub MaskedTextBox2_MaskInputRejected(sender As Object, e As MaskInputRejectedEventArgs)
+
     End Sub
 End Class

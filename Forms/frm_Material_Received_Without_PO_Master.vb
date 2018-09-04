@@ -265,8 +265,13 @@ Public Class frm_Material_Received_Without_PO_Master
                     Exit Sub
                 End If
 
-                If flag = "save" Then
+                If cmbVendor.Text = Nothing Then
+                    MsgBox("Please Select valid Supplier first.")
+                    Exit Sub
+                End If
 
+                If flag = "save" Then
+                    cmbVendor.SelectedIndex = cmbVendor.FindStringExact(cmbVendor.Text)
                     If txt_Invoice_No.Text <> "" Then
                         Dim invoicecount = Convert.ToInt32(obj.ExecuteScalar("SELECT COUNT(Received_ID) FROM dbo.MATERIAL_RECIEVED_WITHOUT_PO_MASTER WHERE Vendor_ID=" & cmbVendor.SelectedValue & " AND Invoice_No='" & txt_Invoice_No.Text & "'"))
                         If invoicecount > 0 Then
@@ -314,6 +319,7 @@ Public Class frm_Material_Received_Without_PO_Master
                 prpty.Invoice_Date = Convert.ToDateTime(dt_Invoice_Date.Value)
                 prpty.Invoice_No = txt_Invoice_No.Text
                 If cmbVendor.Enabled Then
+                    cmbVendor.SelectedIndex = cmbVendor.FindStringExact(cmbVendor.Text)
                     prpty.Vendor_ID = Convert.ToInt32(cmbVendor.SelectedValue)
                 Else
                     prpty.Vendor_ID = -1
@@ -907,7 +913,7 @@ Public Class frm_Material_Received_Without_PO_Master
                 frm_Show_search.column_name4 = "LABELITEMNAME_VCH"
                 frm_Show_search.column_name5 = "ITEM_CAT_NAME"
                 frm_Show_search.cols_no_for_width = "1,2,3,4,5,6"
-                frm_Show_search.cols_width = "100,350,60,60,100,100"
+                frm_Show_search.cols_width = "100,340,70,70,100,105"
                 frm_Show_search.extra_condition = ""
                 frm_Show_search.ret_column = "ITEM_ID"
                 frm_Show_search.item_rate_column = ""
@@ -1910,21 +1916,25 @@ restart:
         Dim NewstrSql As String
         Dim dsdata As DataSet
         Try
-            NewstrSql = "SELECT STATE_ID,isUT_bit FROM dbo.STATE_MASTER WHERE STATE_ID IN(SELECT STATE_ID FROM dbo.CITY_MASTER WHERE CITY_ID IN(SELECT CITY_ID FROM dbo.DIVISION_SETTINGS))"
-            NewstrSql = NewstrSql & " SELECT STATE_ID,isUT_bit FROM dbo.STATE_MASTER WHERE STATE_ID IN(SELECT STATE_ID FROM dbo.CITY_MASTER WHERE CITY_ID IN(SELECT CITY_ID FROM dbo.ACCOUNT_MASTER WHERE ACC_ID=" & cmbVendor.SelectedValue & "))"
+            cmbVendor.SelectedIndex = cmbVendor.FindStringExact(cmbVendor.Text)
 
-            dsdata = clsObj.Fill_DataSet(NewstrSql)
-            'SCGST
-            'IGST
-            'UGST
             If cmbVendor.SelectedValue > 0 Then
-                If dsdata.Tables(0).Rows(0)(0) <> dsdata.Tables(1).Rows(0)(0) Then
-                    cmbMRNType.Text = "IGST"
-                Else
-                    If dsdata.Tables(0).Rows(0)(1) = True Then
-                        cmbMRNType.Text = "UGST"
+                NewstrSql = "SELECT STATE_ID,isUT_bit FROM dbo.STATE_MASTER WHERE STATE_ID IN(SELECT STATE_ID FROM dbo.CITY_MASTER WHERE CITY_ID IN(SELECT CITY_ID FROM dbo.DIVISION_SETTINGS))"
+                NewstrSql = NewstrSql & " SELECT STATE_ID,isUT_bit FROM dbo.STATE_MASTER WHERE STATE_ID IN(SELECT STATE_ID FROM dbo.CITY_MASTER WHERE CITY_ID IN(SELECT CITY_ID FROM dbo.ACCOUNT_MASTER WHERE ACC_ID=" & cmbVendor.SelectedValue & "))"
+
+                dsdata = clsObj.Fill_DataSet(NewstrSql)
+                'SCGST
+                'IGST
+                'UGST
+                If cmbVendor.SelectedValue > 0 Then
+                    If dsdata.Tables(0).Rows(0)(0) <> dsdata.Tables(1).Rows(0)(0) Then
+                        cmbMRNType.Text = "IGST"
                     Else
-                        cmbMRNType.Text = "SGST"
+                        If dsdata.Tables(0).Rows(0)(1) = True Then
+                            cmbMRNType.Text = "UGST"
+                        Else
+                            cmbMRNType.Text = "SGST"
+                        End If
                     End If
                 End If
             End If
@@ -2078,13 +2088,6 @@ restart:
             Calculate_Amount()
         End If
     End Sub
-
-    Private Sub cmbVendor_Enter(sender As Object, e As EventArgs) Handles cmbVendor.Enter
-        If Not cmbVendor.DroppedDown Then
-            cmbVendor.DroppedDown = True
-        End If
-    End Sub
-
     Private Sub txtCashDiscount_Leave(sender As Object, e As EventArgs) Handles txtCashDiscount.Leave
 
         If String.IsNullOrEmpty(txtCashDiscount.Text) Then
@@ -2105,5 +2108,6 @@ restart:
             cmbCapitalAccount.Visible = False
         End If
     End Sub
+
 
 End Class

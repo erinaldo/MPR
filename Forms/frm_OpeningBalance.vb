@@ -52,7 +52,7 @@ Public Class frm_OpeningBalance
     End Sub
 
     Private Sub BindCustomerCombo()
-
+        cmbAccountGroup.SelectedIndex = cmbAccountGroup.FindStringExact(cmbAccountGroup.Text)
         'If cmbAccountGroup.SelectedValue > 0 Then
 
         clsObj.ComboBindForPayment(cmbCustomer, "select 0 as ACC_ID,'--Select--' as ACC_NAME union Select ACC_ID,ACC_NAME from ACCOUNT_MASTER WHERE AG_ID=" & cmbAccountGroup.SelectedValue & " Order by ACC_NAME ", "ACC_NAME", "ACC_ID")
@@ -80,7 +80,11 @@ Public Class frm_OpeningBalance
 
     Public Sub SaveClick(ByVal sender As Object, ByVal e As System.EventArgs) Implements IForm.SaveClick
 
-        If cmbCustomer.SelectedIndex = 0 Then
+        cmbAccountGroup.SelectedIndex = cmbAccountGroup.FindStringExact(cmbAccountGroup.Text)
+        cmbCustomer.SelectedIndex = cmbCustomer.FindStringExact(cmbCustomer.Text)
+
+
+        If cmbCustomer.SelectedIndex <= 0 Then
             MsgBox("Select Account  to Opening Balance.", MsgBoxStyle.Information, gblMessageHeading)
             Exit Sub
         ElseIf txtAmount.Text.Length <= 0 Then
@@ -144,9 +148,13 @@ Public Class frm_OpeningBalance
         txtAmount.Text = ""
         dtpOpeningDate.Value = Now
         flag = "save"
+        TabControl1.SelectedIndex = 1
     End Sub
 
     Private Function Validation() As Boolean
+
+        cmbAccountGroup.SelectedIndex = cmbAccountGroup.FindStringExact(cmbAccountGroup.Text)
+        cmbCustomer.SelectedIndex = cmbCustomer.FindStringExact(cmbCustomer.Text)
 
         If cmbCustomer.SelectedIndex = 0 Then
             MsgBox("Select Account  to Opening Balance.", MsgBoxStyle.Information, gblMessageHeading)
@@ -166,7 +174,9 @@ Public Class frm_OpeningBalance
     End Sub
 
     Private Sub cmbAccountGroup_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbAccountGroup.SelectedIndexChanged
-        BindCustomerCombo()
+        If cmbAccountGroup.SelectedValue > 0 Then
+            BindCustomerCombo()
+        End If
     End Sub
 
     Private Sub txtSearch_KeyUp(sender As Object, e As KeyEventArgs) Handles txtSearch.KeyUp
@@ -202,18 +212,6 @@ Public Class frm_OpeningBalance
                 cmbopbaltype.SelectedItem = "Cr."
             End If
 
-        End If
-    End Sub
-
-    Private Sub cmbAccountGroup_Enter(sender As Object, e As EventArgs) Handles cmbAccountGroup.Enter
-        If Not cmbAccountGroup.DroppedDown Then
-            cmbAccountGroup.DroppedDown = True
-        End If
-    End Sub
-
-    Private Sub cmbCustomer_Enter(sender As Object, e As EventArgs) Handles cmbCustomer.Enter
-        If Not cmbCustomer.DroppedDown Then
-            cmbCustomer.DroppedDown = True
         End If
     End Sub
 

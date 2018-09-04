@@ -17,6 +17,10 @@ Public Class frm_RateList_Mapping
 
     Dim clsObj As New supplier_rate_list.cls_supplier_rate_list
     Private Sub btn_save_Click(sender As Object, e As EventArgs) Handles btn_save.Click
+
+        cmbSupplier.SelectedIndex = cmbSupplier.FindStringExact(cmbSupplier.Text)
+        cmbSupplier.SelectedIndex = cmbSupplier.FindStringExact(cmbSupplier.Text)
+
         If cmbratelist.SelectedValue > 0 And cmbSupplier.SelectedValue > 0 Then
 
             Dim Query As String = String.Format("exec UpdateCustomerRateListMapping {0},{1}", cmbSupplier.SelectedValue, cmbratelist.SelectedValue)
@@ -39,18 +43,6 @@ Public Class frm_RateList_Mapping
         obj.ComboBind(cmbratelist, query, "srl_name", "srl_id")
         obj.ComboBind(cmbSupplier, "select 0 as ACC_ID,'--Select--' as ACC_NAME union Select ACC_ID,ACC_NAME from ACCOUNT_MASTER WHERE AG_ID in (1,2,3,6) Order by ACC_NAME ", "ACC_NAME", "ACC_ID")
 
-    End Sub
-
-    Private Sub cmbratelist_Enter(sender As Object, e As EventArgs) Handles cmbratelist.Enter
-        If Not cmbratelist.DroppedDown Then
-            cmbratelist.DroppedDown = True
-        End If
-    End Sub
-
-    Private Sub cmbSupplier_Enter(sender As Object, e As EventArgs) Handles cmbSupplier.Enter
-        If Not cmbSupplier.DroppedDown Then
-            cmbSupplier.DroppedDown = True
-        End If
     End Sub
 
     Private Sub frm_RateList_Mapping_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown

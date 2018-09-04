@@ -20,7 +20,7 @@ Partial Class frm_Indent_Master
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frm_Indent_Master))
         Me.TBCIndentMaster = New System.Windows.Forms.TabControl()
         Me.List = New System.Windows.Forms.TabPage()
@@ -32,7 +32,7 @@ Partial Class frm_Indent_Master
         Me.Detail = New System.Windows.Forms.TabPage()
         Me.lblErrorMsg = New System.Windows.Forms.Label()
         Me.GBIndentMaster = New System.Windows.Forms.GroupBox()
-        Me.lblFormHeading = New System.Windows.Forms.Label()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.lbl_IndentStatus = New System.Windows.Forms.Label()
         Me.lblIndentStatus = New System.Windows.Forms.Label()
         Me.lbl_IndentDate = New System.Windows.Forms.Label()
@@ -135,14 +135,14 @@ Partial Class frm_Indent_Master
         Me.DGVIdnetMaster.AllowUserToAddRows = False
         Me.DGVIdnetMaster.AllowUserToDeleteRows = False
         Me.DGVIdnetMaster.BackgroundColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DGVIdnetMaster.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DGVIdnetMaster.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         Me.DGVIdnetMaster.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DGVIdnetMaster.GridColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.DGVIdnetMaster.Location = New System.Drawing.Point(3, 15)
@@ -185,7 +185,7 @@ Partial Class frm_Indent_Master
         '
         'GBIndentMaster
         '
-        Me.GBIndentMaster.Controls.Add(Me.lblFormHeading)
+        Me.GBIndentMaster.Controls.Add(Me.Label1)
         Me.GBIndentMaster.Controls.Add(Me.lbl_IndentStatus)
         Me.GBIndentMaster.Controls.Add(Me.lblIndentStatus)
         Me.GBIndentMaster.Controls.Add(Me.lbl_IndentDate)
@@ -196,32 +196,32 @@ Partial Class frm_Indent_Master
         Me.GBIndentMaster.Controls.Add(Me.lblRequiredDate)
         Me.GBIndentMaster.Controls.Add(Me.lblIndentRemarks)
         Me.GBIndentMaster.Controls.Add(Me.lblIndentCode)
-        Me.GBIndentMaster.Dock = System.Windows.Forms.DockStyle.Top
         Me.GBIndentMaster.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GBIndentMaster.ForeColor = System.Drawing.Color.White
-        Me.GBIndentMaster.Location = New System.Drawing.Point(3, 3)
+        Me.GBIndentMaster.Location = New System.Drawing.Point(-4, -12)
         Me.GBIndentMaster.Name = "GBIndentMaster"
-        Me.GBIndentMaster.Size = New System.Drawing.Size(896, 189)
+        Me.GBIndentMaster.Size = New System.Drawing.Size(910, 190)
         Me.GBIndentMaster.TabIndex = 0
         Me.GBIndentMaster.TabStop = False
-        Me.GBIndentMaster.Text = "Indent  Master"
         '
-        'lblFormHeading
+        'Label1
         '
-        Me.lblFormHeading.AutoSize = True
-        Me.lblFormHeading.Font = New System.Drawing.Font("Verdana", 15.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblFormHeading.ForeColor = System.Drawing.Color.White
-        Me.lblFormHeading.Location = New System.Drawing.Point(721, 13)
-        Me.lblFormHeading.Name = "lblFormHeading"
-        Me.lblFormHeading.Size = New System.Drawing.Size(170, 25)
-        Me.lblFormHeading.TabIndex = 29
-        Me.lblFormHeading.Text = "Indent Master"
+        Me.Label1.BackColor = System.Drawing.Color.FromArgb(CType(CType(88, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(88, Byte), Integer))
+        Me.Label1.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.Label1.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.ForeColor = System.Drawing.Color.OrangeRed
+        Me.Label1.Location = New System.Drawing.Point(891, 12)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(15, 175)
+        Me.Label1.TabIndex = 51
+        Me.Label1.Text = "Indent  Master"
+        Me.Label1.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
         'lbl_IndentStatus
         '
         Me.lbl_IndentStatus.AutoSize = True
         Me.lbl_IndentStatus.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lbl_IndentStatus.Location = New System.Drawing.Point(476, 32)
+        Me.lbl_IndentStatus.Location = New System.Drawing.Point(485, 35)
         Me.lbl_IndentStatus.Name = "lbl_IndentStatus"
         Me.lbl_IndentStatus.Size = New System.Drawing.Size(70, 13)
         Me.lbl_IndentStatus.TabIndex = 9
@@ -231,7 +231,7 @@ Partial Class frm_Indent_Master
         '
         Me.lblIndentStatus.AutoSize = True
         Me.lblIndentStatus.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblIndentStatus.Location = New System.Drawing.Point(378, 32)
+        Me.lblIndentStatus.Location = New System.Drawing.Point(387, 35)
         Me.lblIndentStatus.Name = "lblIndentStatus"
         Me.lblIndentStatus.Size = New System.Drawing.Size(85, 15)
         Me.lblIndentStatus.TabIndex = 8
@@ -241,7 +241,7 @@ Partial Class frm_Indent_Master
         '
         Me.lbl_IndentDate.AutoSize = True
         Me.lbl_IndentDate.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lbl_IndentDate.Location = New System.Drawing.Point(155, 69)
+        Me.lbl_IndentDate.Location = New System.Drawing.Point(164, 67)
         Me.lbl_IndentDate.Name = "lbl_IndentDate"
         Me.lbl_IndentDate.Size = New System.Drawing.Size(63, 13)
         Me.lbl_IndentDate.TabIndex = 7
@@ -251,7 +251,7 @@ Partial Class frm_Indent_Master
         '
         Me.lblIndentDate.AutoSize = True
         Me.lblIndentDate.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblIndentDate.Location = New System.Drawing.Point(23, 69)
+        Me.lblIndentDate.Location = New System.Drawing.Point(32, 67)
         Me.lblIndentDate.Name = "lblIndentDate"
         Me.lblIndentDate.Size = New System.Drawing.Size(76, 15)
         Me.lblIndentDate.TabIndex = 6
@@ -263,7 +263,7 @@ Partial Class frm_Indent_Master
         Me.txtIndentReamrks.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtIndentReamrks.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtIndentReamrks.ForeColor = System.Drawing.Color.White
-        Me.txtIndentReamrks.Location = New System.Drawing.Point(158, 101)
+        Me.txtIndentReamrks.Location = New System.Drawing.Point(167, 98)
         Me.txtIndentReamrks.MaxLength = 500
         Me.txtIndentReamrks.Multiline = True
         Me.txtIndentReamrks.Name = "txtIndentReamrks"
@@ -278,7 +278,7 @@ Partial Class frm_Indent_Master
         Me.dtpRequiredDate.CustomFormat = "dd/MMM/yyyy"
         Me.dtpRequiredDate.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.dtpRequiredDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpRequiredDate.Location = New System.Drawing.Point(476, 64)
+        Me.dtpRequiredDate.Location = New System.Drawing.Point(485, 62)
         Me.dtpRequiredDate.Name = "dtpRequiredDate"
         Me.dtpRequiredDate.Size = New System.Drawing.Size(121, 20)
         Me.dtpRequiredDate.TabIndex = 1
@@ -287,7 +287,7 @@ Partial Class frm_Indent_Master
         '
         Me.lbl_IndentCode.AutoSize = True
         Me.lbl_IndentCode.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lbl_IndentCode.Location = New System.Drawing.Point(155, 32)
+        Me.lbl_IndentCode.Location = New System.Drawing.Point(164, 35)
         Me.lbl_IndentCode.Name = "lbl_IndentCode"
         Me.lbl_IndentCode.Size = New System.Drawing.Size(65, 13)
         Me.lbl_IndentCode.TabIndex = 5
@@ -297,7 +297,7 @@ Partial Class frm_Indent_Master
         '
         Me.lblRequiredDate.AutoSize = True
         Me.lblRequiredDate.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblRequiredDate.Location = New System.Drawing.Point(378, 70)
+        Me.lblRequiredDate.Location = New System.Drawing.Point(387, 68)
         Me.lblRequiredDate.Name = "lblRequiredDate"
         Me.lblRequiredDate.Size = New System.Drawing.Size(93, 15)
         Me.lblRequiredDate.TabIndex = 20
@@ -307,7 +307,7 @@ Partial Class frm_Indent_Master
         '
         Me.lblIndentRemarks.AutoSize = True
         Me.lblIndentRemarks.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblIndentRemarks.Location = New System.Drawing.Point(23, 106)
+        Me.lblIndentRemarks.Location = New System.Drawing.Point(32, 103)
         Me.lblIndentRemarks.Name = "lblIndentRemarks"
         Me.lblIndentRemarks.Size = New System.Drawing.Size(101, 15)
         Me.lblIndentRemarks.TabIndex = 10
@@ -317,7 +317,7 @@ Partial Class frm_Indent_Master
         '
         Me.lblIndentCode.AutoSize = True
         Me.lblIndentCode.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblIndentCode.Location = New System.Drawing.Point(23, 32)
+        Me.lblIndentCode.Location = New System.Drawing.Point(32, 35)
         Me.lblIndentCode.Name = "lblIndentCode"
         Me.lblIndentCode.Size = New System.Drawing.Size(80, 15)
         Me.lblIndentCode.TabIndex = 50
@@ -326,25 +326,22 @@ Partial Class frm_Indent_Master
         'GBIndentItem
         '
         Me.GBIndentItem.Controls.Add(Me.DGVIndentItem)
-        Me.GBIndentItem.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.GBIndentItem.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GBIndentItem.ForeColor = System.Drawing.Color.White
-        Me.GBIndentItem.Location = New System.Drawing.Point(3, 198)
+        Me.GBIndentItem.Location = New System.Drawing.Point(-4, 167)
         Me.GBIndentItem.Name = "GBIndentItem"
-        Me.GBIndentItem.Size = New System.Drawing.Size(896, 399)
+        Me.GBIndentItem.Size = New System.Drawing.Size(907, 437)
         Me.GBIndentItem.TabIndex = 3
         Me.GBIndentItem.TabStop = False
-        Me.GBIndentItem.Text = "List of Items"
         '
         'DGVIndentItem
         '
         Me.DGVIndentItem.AllowUserToAddRows = False
         Me.DGVIndentItem.AllowUserToOrderColumns = True
-        Me.DGVIndentItem.BackgroundColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.DGVIndentItem.BackgroundColor = System.Drawing.Color.DarkGray
         Me.DGVIndentItem.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DGVIndentItem.Dock = System.Windows.Forms.DockStyle.Fill
         Me.DGVIndentItem.GridColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.DGVIndentItem.Location = New System.Drawing.Point(3, 17)
+        Me.DGVIndentItem.Location = New System.Drawing.Point(7, 12)
         Me.DGVIndentItem.Name = "DGVIndentItem"
         Me.DGVIndentItem.RowHeadersVisible = False
         Me.DGVIndentItem.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
@@ -353,7 +350,7 @@ Partial Class frm_Indent_Master
         Me.DGVIndentItem.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.DarkOrange
         Me.DGVIndentItem.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black
         Me.DGVIndentItem.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.DGVIndentItem.Size = New System.Drawing.Size(890, 379)
+        Me.DGVIndentItem.Size = New System.Drawing.Size(896, 415)
         Me.DGVIndentItem.TabIndex = 4
         '
         'ImageList1
@@ -405,9 +402,9 @@ Partial Class frm_Indent_Master
     Friend WithEvents GBIndentItem As System.Windows.Forms.GroupBox
     Friend WithEvents DGVIndentItem As System.Windows.Forms.DataGridView
     Friend WithEvents lblErrorMsg As System.Windows.Forms.Label
-    Friend WithEvents lblFormHeading As System.Windows.Forms.Label
     Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
     Friend WithEvents txtSearch As System.Windows.Forms.TextBox
     Friend WithEvents Label13 As System.Windows.Forms.Label
     Friend WithEvents ImageList1 As ImageList
+    Friend WithEvents Label1 As Label
 End Class

@@ -107,6 +107,7 @@ Public Class frm_DebtorsLedger
 
     Private Sub btnShow_Click(sender As Object, e As EventArgs) Handles btnShow.Click
         Try
+            cmbSupplier.SelectedIndex = cmbSupplier.FindStringExact(cmbSupplier.Text)
             If cmbSupplier.SelectedIndex <= 0 Then
                 MsgBox("Please select Customer.", MsgBoxStyle.Information, gblMessageHeading)
                 Exit Sub
@@ -117,9 +118,4 @@ Public Class frm_DebtorsLedger
         End Try
     End Sub
 
-    Private Sub cmbSupplier_Enter(sender As Object, e As EventArgs) Handles cmbSupplier.Enter
-        If Not cmbSupplier.DroppedDown Then
-            cmbSupplier.DroppedDown = True
-        End If
-    End Sub
 End Class

@@ -153,6 +153,7 @@ Public Class frm_BillBook
                 prpty.SI_DATE = Convert.ToDateTime(dtDate.Text)
             End If
 
+            cmbSupplier.SelectedIndex = cmbSupplier.FindStringExact(cmbSupplier.Text)
 
             If NEWCUST = 0 Then
                 prpty.CUST_ID = cmbSupplier.SelectedValue
@@ -299,6 +300,8 @@ Public Class frm_BillBook
     End Sub
     Private Function Validation() As Boolean
 
+        cmbSupplier.SelectedIndex = cmbSupplier.FindStringExact(cmbSupplier.Text)
+
         If cmbSupplier.SelectedIndex = 0 And NEWCUST = 0 Then
             MsgBox("Select Customer to Invoice.", MsgBoxStyle.Information, gblMessageHeading)
             Return False
@@ -306,7 +309,10 @@ Public Class frm_BillBook
             MsgBox("Enter New Customer to Invoice.", MsgBoxStyle.Information, gblMessageHeading)
             Return False
         End If
-
+        If cmbSupplier.Text = Nothing Then
+            MsgBox("Please Select valid Customer first.")
+            Return False
+        End If
         'If Not String.IsNullOrEmpty(txt_txtphoneNo.Text.Trim) Then
         '    If Not mobileRegex.IsMatch(txt_txtphoneNo.Text) Then
         '        MsgBox("Phone number is not valid. Try again after entering valid number.", MsgBoxStyle.Information, "Invalid Phone Format!!!")
@@ -460,7 +466,7 @@ again:
         flxItems.Cols("UM_Name").Width = 32
         'flxItems.Cols("Batch_No").Width = 70
         flxItems.Cols("Amount").Width = 60
-        flxItems.Cols("Batch_Qty").Width = 45
+        flxItems.Cols("Batch_Qty").Width = 50
         flxItems.Cols("Stock_Detail_Id").Width = 10
         flxItems.Cols("transfer_Qty").Width = 50
         flxItems.Cols("Item_Rate").Width = 55
@@ -469,7 +475,7 @@ again:
         flxItems.Cols("DISC").Width = 40
         flxItems.Cols("GPAID").Width = 55
         flxItems.Cols("GST").Width = 40
-        flxItems.Cols("GST_Amount").Width = 55
+        flxItems.Cols("GST_Amount").Width = 60
         flxItems.Cols("Cess").Width = 40
         flxItems.Cols("ACess").Width = 55
         flxItems.Cols("Cess_Amount").Width = 1
@@ -547,6 +553,8 @@ again:
 
     Private Sub flxItems_KeyDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles flxItems.KeyDown
         Try
+            cmbSupplier.SelectedIndex = cmbSupplier.FindStringExact(cmbSupplier.Text)
+
             If cmbSupplier.SelectedIndex > 0 Then
 
                 Dim iRowindex As Int32
@@ -604,7 +612,7 @@ again:
                         frm_Show_search.column_name4 = "LABELITEMNAME_VCH"
                         frm_Show_search.column_name5 = "ITEM_CAT_NAME"
                         frm_Show_search.cols_no_for_width = "1,2,3,4,5,6"
-                        frm_Show_search.cols_width = "100,350,60,60,100,100"
+                        frm_Show_search.cols_width = "100,340,70,70,100,105"
                         frm_Show_search.extra_condition = ""
                         frm_Show_search.ret_column = "ITEM_ID"
                         frm_Show_search.item_rate_column = "RATE"
@@ -1113,12 +1121,14 @@ restart:
         txtcustomer_name.Focus()
     End Sub
 
-    Private Sub cmbSupplier_SelectedIndexChanged_1(sender As Object, e As EventArgs) Handles cmbSupplier.SelectionChangeCommitted, cmbSupplier.SelectedIndexChanged
+    Private Sub cmbSupplier_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbSupplier.SelectedIndexChanged
 
         Dim strSql As String
         Dim Accdata As DataSet
 
-        If cmbSupplier.SelectedValue <> -1 Then
+        cmbSupplier.SelectedIndex = cmbSupplier.FindStringExact(cmbSupplier.Text)
+
+        If cmbSupplier.SelectedValue > 0 Then
             strSql = "SELECT ISNULL(ACCOUNT_MASTER.ADDRESS_PRIM,'') + ' - {'  + ISNULL(CITY_MASTER.CITY_NAME,'') + '}', ISNULL(PHONE_PRIM,'')As PHONE_PRIM, ISNULL(VAT_NO,'')as VAT_NO,ACCOUNT_MASTER.CITY_ID,ISNULL(case when ISNULL(ADDRESS_SEC,'')='' then ISNULL(ADDRESS_PRIM,'') + ' - {'  + ISNULL(CITY_MASTER.CITY_NAME,'') + '}' else ADDRESS_SEC end,'') as Shipping"
             strSql = strSql & " FROM ACCOUNT_MASTER LEFT OUTER JOIN"
             strSql = strSql & " CITY_MASTER ON ACCOUNT_MASTER.CITY_ID = CITY_MASTER.CITY_ID"
@@ -1210,14 +1220,7 @@ restart:
         lbl_INVNo.Text = id.ToString
     End Sub
 
-    Private Sub cmbSupplier_Enter(sender As Object, e As EventArgs) Handles cmbSupplier.Enter
-        If Not cmbSupplier.DroppedDown Then
-            cmbSupplier.DroppedDown = True
-        End If
-    End Sub
-
     Private Sub txtEwayBillNo_TextChanged(sender As Object, e As EventArgs) Handles txtEwayBillNo.TextChanged
         txtEwayBillNo.CharacterCasing = CharacterCasing.Upper
     End Sub
-
 End Class

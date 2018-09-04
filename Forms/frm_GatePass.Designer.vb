@@ -23,8 +23,8 @@ Partial Class frm_GatePass
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frm_GatePass))
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
@@ -50,7 +50,6 @@ Partial Class frm_GatePass
         Me.lbl_GPNo = New System.Windows.Forms.Label()
         Me.lblMRSDate = New System.Windows.Forms.Label()
         Me.lblMRSCode = New System.Windows.Forms.Label()
-        Me.lblFormHeading = New System.Windows.Forms.Label()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.cmbBillNo = New System.Windows.Forms.ComboBox()
         Me.Label1 = New System.Windows.Forms.Label()
@@ -58,6 +57,7 @@ Partial Class frm_GatePass
         Me.txtCustomer = New System.Windows.Forms.TextBox()
         Me.Label20 = New System.Windows.Forms.Label()
         Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
+        Me.Label5 = New System.Windows.Forms.Label()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -112,27 +112,27 @@ Partial Class frm_GatePass
         Me.grdGatePass.AllowUserToDeleteRows = False
         Me.grdGatePass.BackgroundColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.grdGatePass.BorderStyle = System.Windows.Forms.BorderStyle.None
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle5.BackColor = System.Drawing.Color.White
-        DataGridViewCellStyle5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle5.ForeColor = System.Drawing.Color.DarkGray
-        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.grdGatePass.DefaultCellStyle = DataGridViewCellStyle5
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle3.BackColor = System.Drawing.Color.White
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle3.ForeColor = System.Drawing.Color.DarkGray
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.grdGatePass.DefaultCellStyle = DataGridViewCellStyle3
         Me.grdGatePass.Dock = System.Windows.Forms.DockStyle.Fill
         Me.grdGatePass.GridColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.grdGatePass.Location = New System.Drawing.Point(3, 16)
         Me.grdGatePass.Name = "grdGatePass"
         Me.grdGatePass.ReadOnly = True
-        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle6.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.grdGatePass.RowHeadersDefaultCellStyle = DataGridViewCellStyle6
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        DataGridViewCellStyle4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle4.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.grdGatePass.RowHeadersDefaultCellStyle = DataGridViewCellStyle4
         Me.grdGatePass.RowHeadersVisible = False
         Me.grdGatePass.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.grdGatePass.RowTemplate.DefaultCellStyle.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -193,6 +193,7 @@ Partial Class frm_GatePass
         '
         'GroupBox4
         '
+        Me.GroupBox4.Controls.Add(Me.Label5)
         Me.GroupBox4.Controls.Add(Me.lblAccId)
         Me.GroupBox4.Controls.Add(Me.mtxtOutTime)
         Me.GroupBox4.Controls.Add(Me.Label12)
@@ -208,18 +209,16 @@ Partial Class frm_GatePass
         Me.GroupBox4.Controls.Add(Me.lbl_GPNo)
         Me.GroupBox4.Controls.Add(Me.lblMRSDate)
         Me.GroupBox4.Controls.Add(Me.lblMRSCode)
-        Me.GroupBox4.Controls.Add(Me.lblFormHeading)
         Me.GroupBox4.Controls.Add(Me.Label7)
         Me.GroupBox4.Controls.Add(Me.cmbBillNo)
         Me.GroupBox4.Controls.Add(Me.Label1)
         Me.GroupBox4.Controls.Add(Me.txtRemarks)
         Me.GroupBox4.Controls.Add(Me.txtCustomer)
         Me.GroupBox4.Controls.Add(Me.Label20)
-        Me.GroupBox4.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.GroupBox4.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold)
-        Me.GroupBox4.Location = New System.Drawing.Point(3, 0)
+        Me.GroupBox4.Location = New System.Drawing.Point(-4, -9)
         Me.GroupBox4.Name = "GroupBox4"
-        Me.GroupBox4.Size = New System.Drawing.Size(896, 597)
+        Me.GroupBox4.Size = New System.Drawing.Size(910, 613)
         Me.GroupBox4.TabIndex = 0
         Me.GroupBox4.TabStop = False
         '
@@ -236,7 +235,7 @@ Partial Class frm_GatePass
         '
         'mtxtOutTime
         '
-        Me.mtxtOutTime.Location = New System.Drawing.Point(677, 183)
+        Me.mtxtOutTime.Location = New System.Drawing.Point(749, 183)
         Me.mtxtOutTime.Mask = "00:00 LL"
         Me.mtxtOutTime.Name = "mtxtOutTime"
         Me.mtxtOutTime.Size = New System.Drawing.Size(95, 22)
@@ -246,7 +245,7 @@ Partial Class frm_GatePass
         '
         Me.Label12.AutoSize = True
         Me.Label12.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label12.Location = New System.Drawing.Point(592, 190)
+        Me.Label12.Location = New System.Drawing.Point(664, 190)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(68, 13)
         Me.Label12.TabIndex = 55
@@ -254,7 +253,7 @@ Partial Class frm_GatePass
         '
         'mtxtInTime
         '
-        Me.mtxtInTime.Location = New System.Drawing.Point(456, 185)
+        Me.mtxtInTime.Location = New System.Drawing.Point(501, 185)
         Me.mtxtInTime.Mask = "00:00 LL"
         Me.mtxtInTime.Name = "mtxtInTime"
         Me.mtxtInTime.Size = New System.Drawing.Size(91, 22)
@@ -264,7 +263,7 @@ Partial Class frm_GatePass
         '
         Me.Label6.AutoSize = True
         Me.Label6.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label6.Location = New System.Drawing.Point(343, 190)
+        Me.Label6.Location = New System.Drawing.Point(388, 190)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(60, 13)
         Me.Label6.TabIndex = 53
@@ -298,7 +297,7 @@ Partial Class frm_GatePass
         Me.lblvehicleNo.AutoSize = True
         Me.lblvehicleNo.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblvehicleNo.ForeColor = System.Drawing.Color.Orange
-        Me.lblvehicleNo.Location = New System.Drawing.Point(674, 86)
+        Me.lblvehicleNo.Location = New System.Drawing.Point(746, 86)
         Me.lblvehicleNo.Name = "lblvehicleNo"
         Me.lblvehicleNo.Size = New System.Drawing.Size(67, 15)
         Me.lblvehicleNo.TabIndex = 49
@@ -308,7 +307,7 @@ Partial Class frm_GatePass
         '
         Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(592, 86)
+        Me.Label4.Location = New System.Drawing.Point(664, 86)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(71, 15)
         Me.Label4.TabIndex = 50
@@ -319,7 +318,7 @@ Partial Class frm_GatePass
         Me.lblBillDate.AutoSize = True
         Me.lblBillDate.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblBillDate.ForeColor = System.Drawing.Color.Orange
-        Me.lblBillDate.Location = New System.Drawing.Point(453, 86)
+        Me.lblBillDate.Location = New System.Drawing.Point(498, 86)
         Me.lblBillDate.Name = "lblBillDate"
         Me.lblBillDate.Size = New System.Drawing.Size(53, 15)
         Me.lblBillDate.TabIndex = 47
@@ -329,7 +328,7 @@ Partial Class frm_GatePass
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(343, 86)
+        Me.Label3.Location = New System.Drawing.Point(388, 86)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(59, 15)
         Me.Label3.TabIndex = 48
@@ -340,7 +339,7 @@ Partial Class frm_GatePass
         Me.lbl_GPDate.AutoSize = True
         Me.lbl_GPDate.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_GPDate.ForeColor = System.Drawing.Color.Orange
-        Me.lbl_GPDate.Location = New System.Drawing.Point(453, 39)
+        Me.lbl_GPDate.Location = New System.Drawing.Point(498, 39)
         Me.lbl_GPDate.Name = "lbl_GPDate"
         Me.lbl_GPDate.Size = New System.Drawing.Size(91, 15)
         Me.lbl_GPDate.TabIndex = 43
@@ -361,7 +360,7 @@ Partial Class frm_GatePass
         '
         Me.lblMRSDate.AutoSize = True
         Me.lblMRSDate.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblMRSDate.Location = New System.Drawing.Point(343, 39)
+        Me.lblMRSDate.Location = New System.Drawing.Point(388, 39)
         Me.lblMRSDate.Name = "lblMRSDate"
         Me.lblMRSDate.Size = New System.Drawing.Size(97, 15)
         Me.lblMRSDate.TabIndex = 45
@@ -377,17 +376,6 @@ Partial Class frm_GatePass
         Me.lblMRSCode.TabIndex = 46
         Me.lblMRSCode.Text = "GatePass NO :"
         '
-        'lblFormHeading
-        '
-        Me.lblFormHeading.AutoSize = True
-        Me.lblFormHeading.Font = New System.Drawing.Font("Verdana", 15.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblFormHeading.ForeColor = System.Drawing.Color.White
-        Me.lblFormHeading.Location = New System.Drawing.Point(771, 10)
-        Me.lblFormHeading.Name = "lblFormHeading"
-        Me.lblFormHeading.Size = New System.Drawing.Size(122, 25)
-        Me.lblFormHeading.TabIndex = 42
-        Me.lblFormHeading.Text = "Gate Pass"
-        '
         'Label7
         '
         Me.Label7.AutoSize = True
@@ -402,6 +390,7 @@ Partial Class frm_GatePass
         '
         Me.cmbBillNo.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.cmbBillNo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbBillNo.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmbBillNo.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmbBillNo.ForeColor = System.Drawing.Color.White
         Me.cmbBillNo.FormattingEnabled = True
@@ -431,7 +420,7 @@ Partial Class frm_GatePass
         Me.txtRemarks.MaxLength = 0
         Me.txtRemarks.Multiline = True
         Me.txtRemarks.Name = "txtRemarks"
-        Me.txtRemarks.Size = New System.Drawing.Size(639, 152)
+        Me.txtRemarks.Size = New System.Drawing.Size(711, 111)
         Me.txtRemarks.TabIndex = 5
         '
         'txtCustomer
@@ -445,7 +434,7 @@ Partial Class frm_GatePass
         Me.txtCustomer.Multiline = True
         Me.txtCustomer.Name = "txtCustomer"
         Me.txtCustomer.ReadOnly = True
-        Me.txtCustomer.Size = New System.Drawing.Size(639, 28)
+        Me.txtCustomer.Size = New System.Drawing.Size(711, 28)
         Me.txtCustomer.TabIndex = 1
         '
         'Label20
@@ -464,6 +453,18 @@ Partial Class frm_GatePass
         Me.ImageList1.TransparentColor = System.Drawing.Color.Transparent
         Me.ImageList1.Images.SetKeyName(0, "Zoom_search_find_magnifying_glass.png")
         Me.ImageList1.Images.SetKeyName(1, "Inventory_box_shipment_product.png")
+        '
+        'Label5
+        '
+        Me.Label5.BackColor = System.Drawing.Color.FromArgb(CType(CType(88, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(88, Byte), Integer))
+        Me.Label5.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label5.ForeColor = System.Drawing.Color.OrangeRed
+        Me.Label5.Location = New System.Drawing.Point(891, 10)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(14, 120)
+        Me.Label5.TabIndex = 58
+        Me.Label5.Text = "Gate Pass"
+        Me.Label5.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
         'frm_GatePass
         '
@@ -509,7 +510,6 @@ Partial Class frm_GatePass
     Friend WithEvents lbl_GPNo As Label
     Friend WithEvents lblMRSDate As Label
     Friend WithEvents lblMRSCode As Label
-    Friend WithEvents lblFormHeading As Label
     Friend WithEvents Label7 As Label
     Friend WithEvents cmbBillNo As ComboBox
     Friend WithEvents Label1 As Label
@@ -517,4 +517,5 @@ Partial Class frm_GatePass
     Friend WithEvents txtCustomer As TextBox
     Friend WithEvents Label20 As Label
     Friend WithEvents lblAccId As Label
+    Friend WithEvents Label5 As Label
 End Class

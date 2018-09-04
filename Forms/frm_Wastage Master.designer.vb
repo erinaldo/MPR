@@ -41,7 +41,6 @@ Partial Class frm_Wastage_Master
         Me.GBWastageItem = New System.Windows.Forms.GroupBox()
         Me.grdWastageItem = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.GBWastageMasterInfo = New System.Windows.Forms.GroupBox()
-        Me.lblFormHeading = New System.Windows.Forms.Label()
         Me.lbl_WastageDate = New System.Windows.Forms.Label()
         Me.lblWastageDate = New System.Windows.Forms.Label()
         Me.txtWatageReamrks = New System.Windows.Forms.TextBox()
@@ -61,6 +60,7 @@ Partial Class frm_Wastage_Master
         Me.lblIndentCode = New System.Windows.Forms.Label()
         Me.DGVIndentItem = New System.Windows.Forms.DataGridView()
         Me.C1FlexGrid1 = New C1.Win.C1FlexGrid.C1FlexGrid()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.GBIndentDetail.SuspendLayout()
         CType(Me.DGVIdnetMaster, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TBCWastageMaster.SuspendLayout()
@@ -222,9 +222,9 @@ Partial Class frm_Wastage_Master
         'Detail
         '
         Me.Detail.BackColor = System.Drawing.Color.DimGray
+        Me.Detail.Controls.Add(Me.GBWastageMasterInfo)
         Me.Detail.Controls.Add(Me.lblErrorMsg)
         Me.Detail.Controls.Add(Me.GBWastageItem)
-        Me.Detail.Controls.Add(Me.GBWastageMasterInfo)
         Me.Detail.ImageIndex = 1
         Me.Detail.Location = New System.Drawing.Point(4, 26)
         Me.Detail.Name = "Detail"
@@ -244,68 +244,53 @@ Partial Class frm_Wastage_Master
         'GBWastageItem
         '
         Me.GBWastageItem.Controls.Add(Me.grdWastageItem)
-        Me.GBWastageItem.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.GBWastageItem.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GBWastageItem.ForeColor = System.Drawing.Color.White
-        Me.GBWastageItem.Location = New System.Drawing.Point(3, 164)
+        Me.GBWastageItem.Location = New System.Drawing.Point(-4, 164)
         Me.GBWastageItem.Name = "GBWastageItem"
-        Me.GBWastageItem.Size = New System.Drawing.Size(896, 433)
+        Me.GBWastageItem.Size = New System.Drawing.Size(910, 440)
         Me.GBWastageItem.TabIndex = 7
         Me.GBWastageItem.TabStop = False
-        Me.GBWastageItem.Text = "List of Items"
         '
         'grdWastageItem
         '
         Me.grdWastageItem.AllowSorting = C1.Win.C1FlexGrid.AllowSortingEnum.None
         Me.grdWastageItem.BackColor = System.Drawing.Color.Silver
+        Me.grdWastageItem.BorderStyle = C1.Win.C1FlexGrid.Util.BaseControls.BorderStyleEnum.None
         Me.grdWastageItem.ColumnInfo = "1,1,0,0,0,90,Columns:0{Width:26;AllowSorting:False;AllowDragging:False;AllowResiz" &
     "ing:False;AllowMerging:True;AllowEditing:False;}" & Global.Microsoft.VisualBasic.ChrW(9)
-        Me.grdWastageItem.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.grdWastageItem.Location = New System.Drawing.Point(3, 17)
+        Me.grdWastageItem.Location = New System.Drawing.Point(10, 25)
         Me.grdWastageItem.Name = "grdWastageItem"
         Me.grdWastageItem.Rows.Count = 2
         Me.grdWastageItem.Rows.DefaultSize = 18
         Me.grdWastageItem.SelectionMode = C1.Win.C1FlexGrid.SelectionModeEnum.Row
-        Me.grdWastageItem.Size = New System.Drawing.Size(890, 413)
+        Me.grdWastageItem.Size = New System.Drawing.Size(890, 404)
         Me.grdWastageItem.Styles = New C1.Win.C1FlexGrid.CellStyleCollection(resources.GetString("grdWastageItem.Styles"))
         Me.grdWastageItem.TabIndex = 1
         '
         'GBWastageMasterInfo
         '
-        Me.GBWastageMasterInfo.Controls.Add(Me.lblFormHeading)
+        Me.GBWastageMasterInfo.Controls.Add(Me.Label1)
         Me.GBWastageMasterInfo.Controls.Add(Me.lbl_WastageDate)
         Me.GBWastageMasterInfo.Controls.Add(Me.lblWastageDate)
         Me.GBWastageMasterInfo.Controls.Add(Me.txtWatageReamrks)
         Me.GBWastageMasterInfo.Controls.Add(Me.lbl_WastageCode)
         Me.GBWastageMasterInfo.Controls.Add(Me.lblWastageRemarks)
         Me.GBWastageMasterInfo.Controls.Add(Me.lblWastageCode)
-        Me.GBWastageMasterInfo.Dock = System.Windows.Forms.DockStyle.Top
         Me.GBWastageMasterInfo.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GBWastageMasterInfo.ForeColor = System.Drawing.Color.White
-        Me.GBWastageMasterInfo.Location = New System.Drawing.Point(3, 3)
+        Me.GBWastageMasterInfo.Location = New System.Drawing.Point(-4, -9)
         Me.GBWastageMasterInfo.Name = "GBWastageMasterInfo"
-        Me.GBWastageMasterInfo.Size = New System.Drawing.Size(896, 155)
+        Me.GBWastageMasterInfo.Size = New System.Drawing.Size(910, 198)
         Me.GBWastageMasterInfo.TabIndex = 5
         Me.GBWastageMasterInfo.TabStop = False
-        Me.GBWastageMasterInfo.Text = "Wastage  Master"
-        '
-        'lblFormHeading
-        '
-        Me.lblFormHeading.AutoSize = True
-        Me.lblFormHeading.Font = New System.Drawing.Font("Verdana", 15.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblFormHeading.ForeColor = System.Drawing.Color.White
-        Me.lblFormHeading.Location = New System.Drawing.Point(701, 12)
-        Me.lblFormHeading.Name = "lblFormHeading"
-        Me.lblFormHeading.Size = New System.Drawing.Size(192, 25)
-        Me.lblFormHeading.TabIndex = 28
-        Me.lblFormHeading.Text = "Wastage Master"
         '
         'lbl_WastageDate
         '
         Me.lbl_WastageDate.AutoSize = True
         Me.lbl_WastageDate.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_WastageDate.ForeColor = System.Drawing.Color.Orange
-        Me.lbl_WastageDate.Location = New System.Drawing.Point(152, 54)
+        Me.lbl_WastageDate.Location = New System.Drawing.Point(147, 76)
         Me.lbl_WastageDate.Name = "lbl_WastageDate"
         Me.lbl_WastageDate.Size = New System.Drawing.Size(88, 13)
         Me.lbl_WastageDate.TabIndex = 7
@@ -314,7 +299,7 @@ Partial Class frm_Wastage_Master
         'lblWastageDate
         '
         Me.lblWastageDate.AutoSize = True
-        Me.lblWastageDate.Location = New System.Drawing.Point(24, 53)
+        Me.lblWastageDate.Location = New System.Drawing.Point(19, 75)
         Me.lblWastageDate.Name = "lblWastageDate"
         Me.lblWastageDate.Size = New System.Drawing.Size(94, 15)
         Me.lblWastageDate.TabIndex = 6
@@ -326,12 +311,12 @@ Partial Class frm_Wastage_Master
         Me.txtWatageReamrks.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtWatageReamrks.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtWatageReamrks.ForeColor = System.Drawing.Color.White
-        Me.txtWatageReamrks.Location = New System.Drawing.Point(155, 80)
+        Me.txtWatageReamrks.Location = New System.Drawing.Point(150, 114)
         Me.txtWatageReamrks.MaxLength = 100
         Me.txtWatageReamrks.Multiline = True
         Me.txtWatageReamrks.Name = "txtWatageReamrks"
         Me.txtWatageReamrks.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtWatageReamrks.Size = New System.Drawing.Size(526, 63)
+        Me.txtWatageReamrks.Size = New System.Drawing.Size(683, 63)
         Me.txtWatageReamrks.TabIndex = 5
         '
         'lbl_WastageCode
@@ -339,7 +324,7 @@ Partial Class frm_Wastage_Master
         Me.lbl_WastageCode.AutoSize = True
         Me.lbl_WastageCode.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_WastageCode.ForeColor = System.Drawing.Color.Orange
-        Me.lbl_WastageCode.Location = New System.Drawing.Point(152, 24)
+        Me.lbl_WastageCode.Location = New System.Drawing.Point(147, 40)
         Me.lbl_WastageCode.Name = "lbl_WastageCode"
         Me.lbl_WastageCode.Size = New System.Drawing.Size(90, 13)
         Me.lbl_WastageCode.TabIndex = 3
@@ -348,7 +333,7 @@ Partial Class frm_Wastage_Master
         'lblWastageRemarks
         '
         Me.lblWastageRemarks.AutoSize = True
-        Me.lblWastageRemarks.Location = New System.Drawing.Point(24, 80)
+        Me.lblWastageRemarks.Location = New System.Drawing.Point(19, 114)
         Me.lblWastageRemarks.Name = "lblWastageRemarks"
         Me.lblWastageRemarks.Size = New System.Drawing.Size(119, 15)
         Me.lblWastageRemarks.TabIndex = 1
@@ -357,7 +342,7 @@ Partial Class frm_Wastage_Master
         'lblWastageCode
         '
         Me.lblWastageCode.AutoSize = True
-        Me.lblWastageCode.Location = New System.Drawing.Point(24, 21)
+        Me.lblWastageCode.Location = New System.Drawing.Point(19, 37)
         Me.lblWastageCode.Name = "lblWastageCode"
         Me.lblWastageCode.Size = New System.Drawing.Size(95, 15)
         Me.lblWastageCode.TabIndex = 0
@@ -506,6 +491,19 @@ Partial Class frm_Wastage_Master
         Me.C1FlexGrid1.Styles = New C1.Win.C1FlexGrid.CellStyleCollection(resources.GetString("C1FlexGrid1.Styles"))
         Me.C1FlexGrid1.TabIndex = 0
         '
+        'Label1
+        '
+        Me.Label1.BackColor = System.Drawing.Color.FromArgb(CType(CType(88, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(88, Byte), Integer))
+        Me.Label1.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.Label1.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.ForeColor = System.Drawing.Color.OrangeRed
+        Me.Label1.Location = New System.Drawing.Point(890, 10)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(15, 185)
+        Me.Label1.TabIndex = 29
+        Me.Label1.Text = "Wastage  Master"
+        Me.Label1.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        '
         'frm_Wastage_Master
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -559,11 +557,11 @@ Partial Class frm_Wastage_Master
     Friend WithEvents lblWastageCode As System.Windows.Forms.Label
     Friend WithEvents GBWastageItem As System.Windows.Forms.GroupBox
     Friend WithEvents lblErrorMsg As System.Windows.Forms.Label
-    Friend WithEvents lblFormHeading As System.Windows.Forms.Label
     Friend WithEvents C1FlexGrid1 As C1.Win.C1FlexGrid.C1FlexGrid
     Friend WithEvents grdWastageItem As C1.Win.C1FlexGrid.C1FlexGrid
     Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
     Friend WithEvents Label13 As System.Windows.Forms.Label
     Friend WithEvents txtSearch As System.Windows.Forms.TextBox
     Friend WithEvents ImageList1 As ImageList
+    Friend WithEvents Label1 As Label
 End Class

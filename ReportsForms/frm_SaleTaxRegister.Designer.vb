@@ -31,10 +31,10 @@ Partial Class frm_SaleTaxRegister
         Me.txtFromDate = New System.Windows.Forms.DateTimePicker()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.btnGenerate = New System.Windows.Forms.Button()
-        Me.lblFormHeading = New System.Windows.Forms.Label()
         Me.btnShow = New System.Windows.Forms.Button()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.grdTaxReport = New System.Windows.Forms.DataGridView()
+        Me.Label22 = New System.Windows.Forms.Label()
         Me.GroupBox6.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         CType(Me.grdTaxReport, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -47,12 +47,11 @@ Partial Class frm_SaleTaxRegister
         Me.GroupBox6.Controls.Add(Me.txtFromDate)
         Me.GroupBox6.Controls.Add(Me.Label1)
         Me.GroupBox6.Controls.Add(Me.btnGenerate)
-        Me.GroupBox6.Controls.Add(Me.lblFormHeading)
         Me.GroupBox6.Controls.Add(Me.btnShow)
         Me.GroupBox6.ForeColor = System.Drawing.Color.White
         Me.GroupBox6.Location = New System.Drawing.Point(9, 6)
         Me.GroupBox6.Name = "GroupBox6"
-        Me.GroupBox6.Size = New System.Drawing.Size(890, 113)
+        Me.GroupBox6.Size = New System.Drawing.Size(876, 113)
         Me.GroupBox6.TabIndex = 0
         Me.GroupBox6.TabStop = False
         '
@@ -62,7 +61,7 @@ Partial Class frm_SaleTaxRegister
         Me.txtToDate.CalendarMonthBackground = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.txtToDate.CustomFormat = "dd-MMM-yyyy"
         Me.txtToDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.txtToDate.Location = New System.Drawing.Point(450, 60)
+        Me.txtToDate.Location = New System.Drawing.Point(449, 49)
         Me.txtToDate.MaxDate = New Date(2999, 12, 31, 0, 0, 0, 0)
         Me.txtToDate.Name = "txtToDate"
         Me.txtToDate.Size = New System.Drawing.Size(142, 20)
@@ -72,7 +71,7 @@ Partial Class frm_SaleTaxRegister
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(342, 65)
+        Me.Label2.Location = New System.Drawing.Point(341, 54)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(93, 15)
         Me.Label2.TabIndex = 54
@@ -84,7 +83,7 @@ Partial Class frm_SaleTaxRegister
         Me.txtFromDate.CalendarMonthBackground = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.txtFromDate.CustomFormat = "dd-MMM-yyyy"
         Me.txtFromDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.txtFromDate.Location = New System.Drawing.Point(150, 60)
+        Me.txtFromDate.Location = New System.Drawing.Point(149, 49)
         Me.txtFromDate.MaxDate = New Date(2999, 12, 31, 0, 0, 0, 0)
         Me.txtFromDate.Name = "txtFromDate"
         Me.txtFromDate.Size = New System.Drawing.Size(142, 20)
@@ -94,7 +93,7 @@ Partial Class frm_SaleTaxRegister
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(27, 63)
+        Me.Label1.Location = New System.Drawing.Point(26, 52)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(109, 15)
         Me.Label1.TabIndex = 52
@@ -106,24 +105,12 @@ Partial Class frm_SaleTaxRegister
         Me.btnGenerate.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnGenerate.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnGenerate.ForeColor = System.Drawing.Color.ForestGreen
-        Me.btnGenerate.Location = New System.Drawing.Point(653, 58)
+        Me.btnGenerate.Location = New System.Drawing.Point(624, 47)
         Me.btnGenerate.Name = "btnGenerate"
         Me.btnGenerate.Size = New System.Drawing.Size(110, 25)
         Me.btnGenerate.TabIndex = 2
         Me.btnGenerate.Text = "Generate"
         Me.btnGenerate.UseVisualStyleBackColor = False
-        '
-        'lblFormHeading
-        '
-        Me.lblFormHeading.AutoSize = True
-        Me.lblFormHeading.BackColor = System.Drawing.Color.Transparent
-        Me.lblFormHeading.Font = New System.Drawing.Font("Verdana", 15.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblFormHeading.ForeColor = System.Drawing.Color.White
-        Me.lblFormHeading.Location = New System.Drawing.Point(674, 9)
-        Me.lblFormHeading.Name = "lblFormHeading"
-        Me.lblFormHeading.Size = New System.Drawing.Size(211, 25)
-        Me.lblFormHeading.TabIndex = 43
-        Me.lblFormHeading.Text = "GST Sale Register"
         '
         'btnShow
         '
@@ -131,7 +118,7 @@ Partial Class frm_SaleTaxRegister
         Me.btnShow.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnShow.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnShow.ForeColor = System.Drawing.Color.Red
-        Me.btnShow.Location = New System.Drawing.Point(769, 58)
+        Me.btnShow.Location = New System.Drawing.Point(740, 47)
         Me.btnShow.Name = "btnShow"
         Me.btnShow.Size = New System.Drawing.Size(110, 25)
         Me.btnShow.TabIndex = 3
@@ -145,7 +132,7 @@ Partial Class frm_SaleTaxRegister
         Me.GroupBox2.ForeColor = System.Drawing.Color.DarkGray
         Me.GroupBox2.Location = New System.Drawing.Point(9, 125)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(890, 490)
+        Me.GroupBox2.Size = New System.Drawing.Size(876, 490)
         Me.GroupBox2.TabIndex = 1
         Me.GroupBox2.TabStop = False
         '
@@ -168,9 +155,8 @@ Partial Class frm_SaleTaxRegister
         DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
         Me.grdTaxReport.DefaultCellStyle = DataGridViewCellStyle5
-        Me.grdTaxReport.Dock = System.Windows.Forms.DockStyle.Fill
         Me.grdTaxReport.GridColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.grdTaxReport.Location = New System.Drawing.Point(3, 16)
+        Me.grdTaxReport.Location = New System.Drawing.Point(3, 8)
         Me.grdTaxReport.Name = "grdTaxReport"
         Me.grdTaxReport.ReadOnly = True
         DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
@@ -188,14 +174,28 @@ Partial Class frm_SaleTaxRegister
         Me.grdTaxReport.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.DarkOrange
         Me.grdTaxReport.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black
         Me.grdTaxReport.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.grdTaxReport.Size = New System.Drawing.Size(884, 471)
+        Me.grdTaxReport.Size = New System.Drawing.Size(870, 480)
         Me.grdTaxReport.TabIndex = 0
+        '
+        'Label22
+        '
+        Me.Label22.BackColor = System.Drawing.Color.FromArgb(CType(CType(88, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(88, Byte), Integer))
+        Me.Label22.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.Label22.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label22.ForeColor = System.Drawing.Color.OrangeRed
+        Me.Label22.Location = New System.Drawing.Point(894, 1)
+        Me.Label22.Name = "Label22"
+        Me.Label22.Size = New System.Drawing.Size(15, 220)
+        Me.Label22.TabIndex = 58
+        Me.Label22.Text = "GST  Sale  Register"
+        Me.Label22.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
         'frm_SaleTaxRegister
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.DimGray
+        Me.Controls.Add(Me.Label22)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox6)
         Me.Name = "frm_SaleTaxRegister"
@@ -210,7 +210,6 @@ Partial Class frm_SaleTaxRegister
 
     Friend WithEvents GroupBox6 As GroupBox
     Friend WithEvents btnShow As Button
-    Friend WithEvents lblFormHeading As Label
     Friend WithEvents btnGenerate As Button
     Friend WithEvents GroupBox2 As GroupBox
     Friend WithEvents grdTaxReport As DataGridView
@@ -218,4 +217,5 @@ Partial Class frm_SaleTaxRegister
     Friend WithEvents Label2 As Label
     Friend WithEvents txtFromDate As DateTimePicker
     Friend WithEvents Label1 As Label
+    Friend WithEvents Label22 As Label
 End Class

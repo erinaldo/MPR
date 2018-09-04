@@ -35,6 +35,9 @@ Partial Class frm_OpeningBalance
         Me.Label13 = New System.Windows.Forms.Label()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.cmbAccountGroup = New MMSPlus.AutoCompleteCombo()
+        Me.cmbCustomer = New MMSPlus.AutoCompleteCombo()
         Me.dtpOpeningDate = New System.Windows.Forms.DateTimePicker()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
@@ -43,11 +46,8 @@ Partial Class frm_OpeningBalance
         Me.cmbopbaltype = New System.Windows.Forms.ComboBox()
         Me.txtAmount = New System.Windows.Forms.TextBox()
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.cmbAccountGroup = New System.Windows.Forms.ComboBox()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.cmbCustomer = New System.Windows.Forms.ComboBox()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.lblFormHeading = New System.Windows.Forms.Label()
         Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
@@ -185,6 +185,9 @@ Partial Class frm_OpeningBalance
         '
         'GroupBox4
         '
+        Me.GroupBox4.Controls.Add(Me.Label8)
+        Me.GroupBox4.Controls.Add(Me.cmbAccountGroup)
+        Me.GroupBox4.Controls.Add(Me.cmbCustomer)
         Me.GroupBox4.Controls.Add(Me.dtpOpeningDate)
         Me.GroupBox4.Controls.Add(Me.Label7)
         Me.GroupBox4.Controls.Add(Me.Label6)
@@ -193,18 +196,53 @@ Partial Class frm_OpeningBalance
         Me.GroupBox4.Controls.Add(Me.cmbopbaltype)
         Me.GroupBox4.Controls.Add(Me.txtAmount)
         Me.GroupBox4.Controls.Add(Me.Label3)
-        Me.GroupBox4.Controls.Add(Me.cmbAccountGroup)
         Me.GroupBox4.Controls.Add(Me.Label1)
-        Me.GroupBox4.Controls.Add(Me.cmbCustomer)
         Me.GroupBox4.Controls.Add(Me.Label2)
-        Me.GroupBox4.Controls.Add(Me.lblFormHeading)
-        Me.GroupBox4.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.GroupBox4.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold)
-        Me.GroupBox4.Location = New System.Drawing.Point(3, 0)
+        Me.GroupBox4.Location = New System.Drawing.Point(-4, -9)
         Me.GroupBox4.Name = "GroupBox4"
-        Me.GroupBox4.Size = New System.Drawing.Size(896, 597)
+        Me.GroupBox4.Size = New System.Drawing.Size(910, 613)
         Me.GroupBox4.TabIndex = 0
         Me.GroupBox4.TabStop = False
+        '
+        'Label8
+        '
+        Me.Label8.BackColor = System.Drawing.Color.FromArgb(CType(CType(88, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(88, Byte), Integer))
+        Me.Label8.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.Label8.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label8.ForeColor = System.Drawing.Color.OrangeRed
+        Me.Label8.Location = New System.Drawing.Point(891, 10)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(15, 250)
+        Me.Label8.TabIndex = 56
+        Me.Label8.Text = "A/c  Opening  Balance"
+        Me.Label8.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        '
+        'cmbAccountGroup
+        '
+        Me.cmbAccountGroup.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.cmbAccountGroup.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmbAccountGroup.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmbAccountGroup.ForeColor = System.Drawing.Color.White
+        Me.cmbAccountGroup.FormattingEnabled = True
+        Me.cmbAccountGroup.Location = New System.Drawing.Point(176, 55)
+        Me.cmbAccountGroup.Name = "cmbAccountGroup"
+        Me.cmbAccountGroup.ResetOnClear = False
+        Me.cmbAccountGroup.Size = New System.Drawing.Size(651, 24)
+        Me.cmbAccountGroup.TabIndex = 0
+        '
+        'cmbCustomer
+        '
+        Me.cmbCustomer.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.cmbCustomer.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmbCustomer.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmbCustomer.ForeColor = System.Drawing.Color.White
+        Me.cmbCustomer.FormattingEnabled = True
+        Me.cmbCustomer.Location = New System.Drawing.Point(176, 108)
+        Me.cmbCustomer.Name = "cmbCustomer"
+        Me.cmbCustomer.ResetOnClear = False
+        Me.cmbCustomer.Size = New System.Drawing.Size(651, 24)
+        Me.cmbCustomer.TabIndex = 1
         '
         'dtpOpeningDate
         '
@@ -212,7 +250,7 @@ Partial Class frm_OpeningBalance
         Me.dtpOpeningDate.CalendarMonthBackground = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.dtpOpeningDate.CustomFormat = "dd-MMM-yyyy"
         Me.dtpOpeningDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpOpeningDate.Location = New System.Drawing.Point(192, 228)
+        Me.dtpOpeningDate.Location = New System.Drawing.Point(178, 208)
         Me.dtpOpeningDate.Name = "dtpOpeningDate"
         Me.dtpOpeningDate.Size = New System.Drawing.Size(201, 22)
         Me.dtpOpeningDate.TabIndex = 4
@@ -222,7 +260,7 @@ Partial Class frm_OpeningBalance
         '
         Me.Label7.AutoSize = True
         Me.Label7.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label7.Location = New System.Drawing.Point(73, 228)
+        Me.Label7.Location = New System.Drawing.Point(59, 213)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(89, 15)
         Me.Label7.TabIndex = 53
@@ -235,7 +273,7 @@ Partial Class frm_OpeningBalance
         Me.Label6.BackColor = System.Drawing.Color.Transparent
         Me.Label6.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label6.ForeColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.Label6.Location = New System.Drawing.Point(676, 235)
+        Me.Label6.Location = New System.Drawing.Point(747, 217)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(80, 15)
         Me.Label6.TabIndex = 52
@@ -247,7 +285,7 @@ Partial Class frm_OpeningBalance
         Me.Label5.BackColor = System.Drawing.Color.Transparent
         Me.Label5.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label5.ForeColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.Label5.Location = New System.Drawing.Point(552, 235)
+        Me.Label5.Location = New System.Drawing.Point(623, 217)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(109, 15)
         Me.Label5.TabIndex = 51
@@ -259,7 +297,7 @@ Partial Class frm_OpeningBalance
         Me.Label4.BackColor = System.Drawing.Color.Transparent
         Me.Label4.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label4.ForeColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.Label4.Location = New System.Drawing.Point(551, 190)
+        Me.Label4.Location = New System.Drawing.Point(622, 164)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(68, 19)
         Me.Label4.TabIndex = 50
@@ -274,7 +312,7 @@ Partial Class frm_OpeningBalance
         Me.cmbopbaltype.ForeColor = System.Drawing.Color.White
         Me.cmbopbaltype.FormattingEnabled = True
         Me.cmbopbaltype.Items.AddRange(New Object() {"Dr.", "Cr."})
-        Me.cmbopbaltype.Location = New System.Drawing.Point(625, 186)
+        Me.cmbopbaltype.Location = New System.Drawing.Point(696, 160)
         Me.cmbopbaltype.Name = "cmbopbaltype"
         Me.cmbopbaltype.Size = New System.Drawing.Size(131, 23)
         Me.cmbopbaltype.TabIndex = 3
@@ -285,7 +323,7 @@ Partial Class frm_OpeningBalance
         Me.txtAmount.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtAmount.Font = New System.Drawing.Font("Arial", 12.0!)
         Me.txtAmount.ForeColor = System.Drawing.Color.White
-        Me.txtAmount.Location = New System.Drawing.Point(192, 190)
+        Me.txtAmount.Location = New System.Drawing.Point(178, 162)
         Me.txtAmount.MaxLength = 14
         Me.txtAmount.Name = "txtAmount"
         Me.txtAmount.Size = New System.Drawing.Size(201, 19)
@@ -295,67 +333,31 @@ Partial Class frm_OpeningBalance
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(73, 190)
+        Me.Label3.Location = New System.Drawing.Point(59, 162)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(108, 15)
         Me.Label3.TabIndex = 48
         Me.Label3.Text = "Opening Balance :"
         '
-        'cmbAccountGroup
-        '
-        Me.cmbAccountGroup.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.cmbAccountGroup.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmbAccountGroup.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmbAccountGroup.ForeColor = System.Drawing.Color.White
-        Me.cmbAccountGroup.FormattingEnabled = True
-        Me.cmbAccountGroup.Location = New System.Drawing.Point(190, 101)
-        Me.cmbAccountGroup.Name = "cmbAccountGroup"
-        Me.cmbAccountGroup.Size = New System.Drawing.Size(566, 23)
-        Me.cmbAccountGroup.TabIndex = 0
-        '
         'Label1
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(73, 101)
+        Me.Label1.Location = New System.Drawing.Point(59, 59)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(90, 15)
         Me.Label1.TabIndex = 45
         Me.Label1.Text = "Account Group:"
         '
-        'cmbCustomer
-        '
-        Me.cmbCustomer.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.cmbCustomer.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmbCustomer.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmbCustomer.ForeColor = System.Drawing.Color.White
-        Me.cmbCustomer.FormattingEnabled = True
-        Me.cmbCustomer.Location = New System.Drawing.Point(190, 147)
-        Me.cmbCustomer.Name = "cmbCustomer"
-        Me.cmbCustomer.Size = New System.Drawing.Size(566, 23)
-        Me.cmbCustomer.TabIndex = 1
-        '
         'Label2
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(73, 150)
+        Me.Label2.Location = New System.Drawing.Point(59, 112)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(92, 15)
         Me.Label2.TabIndex = 43
         Me.Label2.Text = "Select Account :"
-        '
-        'lblFormHeading
-        '
-        Me.lblFormHeading.BackColor = System.Drawing.Color.Transparent
-        Me.lblFormHeading.Font = New System.Drawing.Font("Verdana", 15.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblFormHeading.ForeColor = System.Drawing.Color.White
-        Me.lblFormHeading.Location = New System.Drawing.Point(277, 18)
-        Me.lblFormHeading.Name = "lblFormHeading"
-        Me.lblFormHeading.Size = New System.Drawing.Size(358, 38)
-        Me.lblFormHeading.TabIndex = 42
-        Me.lblFormHeading.Text = "Account Opening Balance"
-        Me.lblFormHeading.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
         'ImageList1
         '
@@ -394,10 +396,7 @@ Partial Class frm_OpeningBalance
     Friend WithEvents TabPage2 As TabPage
     Friend WithEvents ImageList1 As ImageList
     Friend WithEvents GroupBox4 As GroupBox
-    Friend WithEvents lblFormHeading As Label
-    Friend WithEvents cmbAccountGroup As System.Windows.Forms.ComboBox
     Friend WithEvents Label1 As System.Windows.Forms.Label
-    Friend WithEvents cmbCustomer As System.Windows.Forms.ComboBox
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents cmbopbaltype As System.Windows.Forms.ComboBox
     Friend WithEvents txtAmount As System.Windows.Forms.TextBox
@@ -407,4 +406,7 @@ Partial Class frm_OpeningBalance
     Friend WithEvents Label4 As System.Windows.Forms.Label
     Friend WithEvents Label7 As System.Windows.Forms.Label
     Friend WithEvents dtpOpeningDate As System.Windows.Forms.DateTimePicker
+    Friend WithEvents cmbAccountGroup As AutoCompleteCombo
+    Friend WithEvents cmbCustomer As AutoCompleteCombo
+    Friend WithEvents Label8 As Label
 End Class

@@ -30,13 +30,12 @@ Partial Class frm_Stock_Transfer
         Me.txtSearch = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
-        Me.GBItemInfo = New System.Windows.Forms.GroupBox()
-        Me.flxItems = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.GBDCMASTER = New System.Windows.Forms.GroupBox()
+        Me.cmbOutlet = New MMSPlus.AutoCompleteCombo()
+        Me.Label4 = New System.Windows.Forms.Label()
         Me.txtBarcodeSearch = New System.Windows.Forms.TextBox()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.cmbOutlet = New System.Windows.Forms.ComboBox()
         Me.lbl_Outlet = New System.Windows.Forms.Label()
         Me.lbl_Status = New System.Windows.Forms.Label()
         Me.lblStatus = New System.Windows.Forms.Label()
@@ -46,7 +45,8 @@ Partial Class frm_Stock_Transfer
         Me.lblMRSRemarks = New System.Windows.Forms.Label()
         Me.lblMRSDate = New System.Windows.Forms.Label()
         Me.lblMRSCode = New System.Windows.Forms.Label()
-        Me.lblFormHeading = New System.Windows.Forms.Label()
+        Me.GBItemInfo = New System.Windows.Forms.GroupBox()
+        Me.flxItems = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
         Me.TabControl1.SuspendLayout()
         Me.List.SuspendLayout()
@@ -54,9 +54,9 @@ Partial Class frm_Stock_Transfer
         CType(Me.flxList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox2.SuspendLayout()
         Me.TabPage2.SuspendLayout()
+        Me.GBDCMASTER.SuspendLayout()
         Me.GBItemInfo.SuspendLayout()
         CType(Me.flxItems, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.GBDCMASTER.SuspendLayout()
         Me.SuspendLayout()
         '
         'TabControl1
@@ -146,8 +146,8 @@ Partial Class frm_Stock_Transfer
         'TabPage2
         '
         Me.TabPage2.BackColor = System.Drawing.Color.DimGray
-        Me.TabPage2.Controls.Add(Me.GBItemInfo)
         Me.TabPage2.Controls.Add(Me.GBDCMASTER)
+        Me.TabPage2.Controls.Add(Me.GBItemInfo)
         Me.TabPage2.ForeColor = System.Drawing.Color.White
         Me.TabPage2.ImageIndex = 1
         Me.TabPage2.Location = New System.Drawing.Point(4, 26)
@@ -156,41 +156,13 @@ Partial Class frm_Stock_Transfer
         Me.TabPage2.Size = New System.Drawing.Size(902, 600)
         Me.TabPage2.TabIndex = 1
         '
-        'GBItemInfo
-        '
-        Me.GBItemInfo.Controls.Add(Me.flxItems)
-        Me.GBItemInfo.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.GBItemInfo.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GBItemInfo.ForeColor = System.Drawing.Color.White
-        Me.GBItemInfo.Location = New System.Drawing.Point(3, 185)
-        Me.GBItemInfo.Name = "GBItemInfo"
-        Me.GBItemInfo.Size = New System.Drawing.Size(896, 412)
-        Me.GBItemInfo.TabIndex = 1
-        Me.GBItemInfo.TabStop = False
-        Me.GBItemInfo.Text = "List of Items"
-        '
-        'flxItems
-        '
-        Me.flxItems.AllowSorting = C1.Win.C1FlexGrid.AllowSortingEnum.None
-        Me.flxItems.BackColor = System.Drawing.Color.Silver
-        Me.flxItems.ColumnInfo = "1,1,0,0,0,90,Columns:0{Width:26;AllowSorting:False;AllowDragging:False;AllowResiz" &
-    "ing:False;AllowMerging:True;AllowEditing:False;}" & Global.Microsoft.VisualBasic.ChrW(9)
-        Me.flxItems.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.flxItems.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.flxItems.Location = New System.Drawing.Point(3, 17)
-        Me.flxItems.Name = "flxItems"
-        Me.flxItems.Rows.Count = 2
-        Me.flxItems.Rows.DefaultSize = 18
-        Me.flxItems.Size = New System.Drawing.Size(890, 392)
-        Me.flxItems.Styles = New C1.Win.C1FlexGrid.CellStyleCollection(resources.GetString("flxItems.Styles"))
-        Me.flxItems.TabIndex = 0
-        '
         'GBDCMASTER
         '
+        Me.GBDCMASTER.Controls.Add(Me.cmbOutlet)
+        Me.GBDCMASTER.Controls.Add(Me.Label4)
         Me.GBDCMASTER.Controls.Add(Me.txtBarcodeSearch)
         Me.GBDCMASTER.Controls.Add(Me.Label3)
         Me.GBDCMASTER.Controls.Add(Me.Label2)
-        Me.GBDCMASTER.Controls.Add(Me.cmbOutlet)
         Me.GBDCMASTER.Controls.Add(Me.lbl_Outlet)
         Me.GBDCMASTER.Controls.Add(Me.lbl_Status)
         Me.GBDCMASTER.Controls.Add(Me.lblStatus)
@@ -200,13 +172,36 @@ Partial Class frm_Stock_Transfer
         Me.GBDCMASTER.Controls.Add(Me.lblMRSRemarks)
         Me.GBDCMASTER.Controls.Add(Me.lblMRSDate)
         Me.GBDCMASTER.Controls.Add(Me.lblMRSCode)
-        Me.GBDCMASTER.Controls.Add(Me.lblFormHeading)
-        Me.GBDCMASTER.Dock = System.Windows.Forms.DockStyle.Top
-        Me.GBDCMASTER.Location = New System.Drawing.Point(3, 3)
+        Me.GBDCMASTER.Location = New System.Drawing.Point(-4, -6)
         Me.GBDCMASTER.Name = "GBDCMASTER"
-        Me.GBDCMASTER.Size = New System.Drawing.Size(896, 176)
+        Me.GBDCMASTER.Size = New System.Drawing.Size(910, 185)
         Me.GBDCMASTER.TabIndex = 0
         Me.GBDCMASTER.TabStop = False
+        '
+        'cmbOutlet
+        '
+        Me.cmbOutlet.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.cmbOutlet.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmbOutlet.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmbOutlet.ForeColor = System.Drawing.Color.White
+        Me.cmbOutlet.FormattingEnabled = True
+        Me.cmbOutlet.Location = New System.Drawing.Point(110, 55)
+        Me.cmbOutlet.Name = "cmbOutlet"
+        Me.cmbOutlet.ResetOnClear = False
+        Me.cmbOutlet.Size = New System.Drawing.Size(732, 24)
+        Me.cmbOutlet.TabIndex = 0
+        '
+        'Label4
+        '
+        Me.Label4.BackColor = System.Drawing.Color.FromArgb(CType(CType(88, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(88, Byte), Integer))
+        Me.Label4.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label4.ForeColor = System.Drawing.Color.OrangeRed
+        Me.Label4.Location = New System.Drawing.Point(891, 9)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(14, 173)
+        Me.Label4.TabIndex = 17
+        Me.Label4.Text = "Delivery  Note"
+        Me.Label4.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
         'txtBarcodeSearch
         '
@@ -218,14 +213,14 @@ Partial Class frm_Stock_Transfer
         Me.txtBarcodeSearch.MaxLength = 100
         Me.txtBarcodeSearch.Name = "txtBarcodeSearch"
         Me.txtBarcodeSearch.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtBarcodeSearch.Size = New System.Drawing.Size(599, 19)
+        Me.txtBarcodeSearch.Size = New System.Drawing.Size(732, 19)
         Me.txtBarcodeSearch.TabIndex = 2
         '
         'Label3
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(30, 148)
+        Me.Label3.Location = New System.Drawing.Point(35, 151)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(62, 15)
         Me.Label3.TabIndex = 16
@@ -238,21 +233,8 @@ Partial Class frm_Stock_Transfer
         Me.Label2.ForeColor = System.Drawing.Color.White
         Me.Label2.Location = New System.Drawing.Point(719, 36)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(165, 25)
+        Me.Label2.Size = New System.Drawing.Size(0, 25)
         Me.Label2.TabIndex = 15
-        Me.Label2.Text = "Delivery Note"
-        '
-        'cmbOutlet
-        '
-        Me.cmbOutlet.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.cmbOutlet.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmbOutlet.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmbOutlet.ForeColor = System.Drawing.Color.White
-        Me.cmbOutlet.FormattingEnabled = True
-        Me.cmbOutlet.Location = New System.Drawing.Point(109, 56)
-        Me.cmbOutlet.Name = "cmbOutlet"
-        Me.cmbOutlet.Size = New System.Drawing.Size(600, 23)
-        Me.cmbOutlet.TabIndex = 0
         '
         'lbl_Outlet
         '
@@ -269,7 +251,7 @@ Partial Class frm_Stock_Transfer
         Me.lbl_Status.AutoSize = True
         Me.lbl_Status.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_Status.ForeColor = System.Drawing.Color.Orange
-        Me.lbl_Status.Location = New System.Drawing.Point(618, 24)
+        Me.lbl_Status.Location = New System.Drawing.Point(751, 24)
         Me.lbl_Status.Name = "lbl_Status"
         Me.lbl_Status.Size = New System.Drawing.Size(91, 15)
         Me.lbl_Status.TabIndex = 12
@@ -279,7 +261,7 @@ Partial Class frm_Stock_Transfer
         '
         Me.lblStatus.AutoSize = True
         Me.lblStatus.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblStatus.Location = New System.Drawing.Point(515, 24)
+        Me.lblStatus.Location = New System.Drawing.Point(648, 24)
         Me.lblStatus.Name = "lblStatus"
         Me.lblStatus.Size = New System.Drawing.Size(97, 15)
         Me.lblStatus.TabIndex = 11
@@ -294,7 +276,7 @@ Partial Class frm_Stock_Transfer
         Me.txtDCRemarks.Location = New System.Drawing.Point(110, 91)
         Me.txtDCRemarks.Multiline = True
         Me.txtDCRemarks.Name = "txtDCRemarks"
-        Me.txtDCRemarks.Size = New System.Drawing.Size(599, 48)
+        Me.txtDCRemarks.Size = New System.Drawing.Size(732, 48)
         Me.txtDCRemarks.TabIndex = 1
         '
         'lbl_TransferDate
@@ -302,7 +284,7 @@ Partial Class frm_Stock_Transfer
         Me.lbl_TransferDate.AutoSize = True
         Me.lbl_TransferDate.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_TransferDate.ForeColor = System.Drawing.Color.Orange
-        Me.lbl_TransferDate.Location = New System.Drawing.Point(347, 24)
+        Me.lbl_TransferDate.Location = New System.Drawing.Point(407, 24)
         Me.lbl_TransferDate.Name = "lbl_TransferDate"
         Me.lbl_TransferDate.Size = New System.Drawing.Size(82, 15)
         Me.lbl_TransferDate.TabIndex = 9
@@ -333,7 +315,7 @@ Partial Class frm_Stock_Transfer
         '
         Me.lblMRSDate.AutoSize = True
         Me.lblMRSDate.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblMRSDate.Location = New System.Drawing.Point(253, 24)
+        Me.lblMRSDate.Location = New System.Drawing.Point(313, 24)
         Me.lblMRSDate.Name = "lblMRSDate"
         Me.lblMRSDate.Size = New System.Drawing.Size(88, 15)
         Me.lblMRSDate.TabIndex = 7
@@ -349,16 +331,32 @@ Partial Class frm_Stock_Transfer
         Me.lblMRSCode.TabIndex = 5
         Me.lblMRSCode.Text = "D.N. NO :"
         '
-        'lblFormHeading
+        'GBItemInfo
         '
-        Me.lblFormHeading.AutoSize = True
-        Me.lblFormHeading.Font = New System.Drawing.Font("Verdana", 15.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblFormHeading.ForeColor = System.Drawing.Color.White
-        Me.lblFormHeading.Location = New System.Drawing.Point(719, 10)
-        Me.lblFormHeading.Name = "lblFormHeading"
-        Me.lblFormHeading.Size = New System.Drawing.Size(175, 25)
-        Me.lblFormHeading.TabIndex = 4
-        Me.lblFormHeading.Text = "Stock Transfer"
+        Me.GBItemInfo.Controls.Add(Me.flxItems)
+        Me.GBItemInfo.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GBItemInfo.ForeColor = System.Drawing.Color.White
+        Me.GBItemInfo.Location = New System.Drawing.Point(-1, 167)
+        Me.GBItemInfo.Name = "GBItemInfo"
+        Me.GBItemInfo.Size = New System.Drawing.Size(904, 437)
+        Me.GBItemInfo.TabIndex = 1
+        Me.GBItemInfo.TabStop = False
+        '
+        'flxItems
+        '
+        Me.flxItems.AllowSorting = C1.Win.C1FlexGrid.AllowSortingEnum.None
+        Me.flxItems.BackColor = System.Drawing.Color.Silver
+        Me.flxItems.BorderStyle = C1.Win.C1FlexGrid.Util.BaseControls.BorderStyleEnum.None
+        Me.flxItems.ColumnInfo = "1,1,0,0,0,90,Columns:0{Width:26;AllowSorting:False;AllowDragging:False;AllowResiz" &
+    "ing:False;AllowMerging:True;AllowEditing:False;}" & Global.Microsoft.VisualBasic.ChrW(9)
+        Me.flxItems.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.flxItems.Location = New System.Drawing.Point(4, 13)
+        Me.flxItems.Name = "flxItems"
+        Me.flxItems.Rows.Count = 2
+        Me.flxItems.Rows.DefaultSize = 18
+        Me.flxItems.Size = New System.Drawing.Size(895, 411)
+        Me.flxItems.Styles = New C1.Win.C1FlexGrid.CellStyleCollection(resources.GetString("flxItems.Styles"))
+        Me.flxItems.TabIndex = 0
         '
         'ImageList1
         '
@@ -382,10 +380,10 @@ Partial Class frm_Stock_Transfer
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
         Me.TabPage2.ResumeLayout(False)
-        Me.GBItemInfo.ResumeLayout(False)
-        CType(Me.flxItems, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GBDCMASTER.ResumeLayout(False)
         Me.GBDCMASTER.PerformLayout()
+        Me.GBItemInfo.ResumeLayout(False)
+        CType(Me.flxItems, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -393,7 +391,6 @@ Partial Class frm_Stock_Transfer
     Friend WithEvents List As System.Windows.Forms.TabPage
     Friend WithEvents TabPage2 As System.Windows.Forms.TabPage
     Friend WithEvents GBDCMASTER As System.Windows.Forms.GroupBox
-    Friend WithEvents lblFormHeading As System.Windows.Forms.Label
     Friend WithEvents GroupBox2 As System.Windows.Forms.GroupBox
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents txtSearch As System.Windows.Forms.TextBox
@@ -408,11 +405,12 @@ Partial Class frm_Stock_Transfer
     Friend WithEvents lbl_Status As System.Windows.Forms.Label
     Friend WithEvents lbl_Outlet As System.Windows.Forms.Label
     Friend WithEvents GBItemInfo As System.Windows.Forms.GroupBox
-    Friend WithEvents cmbOutlet As System.Windows.Forms.ComboBox
     Friend WithEvents flxItems As C1.Win.C1FlexGrid.C1FlexGrid
     Friend WithEvents ImageList1 As ImageList
     Friend WithEvents Label2 As Label
     Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents txtBarcodeSearch As System.Windows.Forms.TextBox
     Friend WithEvents flxList As System.Windows.Forms.DataGridView
+    Friend WithEvents Label4 As Label
+    Friend WithEvents cmbOutlet As AutoCompleteCombo
 End Class

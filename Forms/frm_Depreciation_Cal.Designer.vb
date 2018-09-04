@@ -30,8 +30,8 @@ Partial Class frm_Depreciation_Cal
         Me.GBDCMASTER = New System.Windows.Forms.GroupBox()
         Me.lblFY = New System.Windows.Forms.Label()
         Me.lblCap1 = New System.Windows.Forms.Label()
-        Me.lblFormHeading = New System.Windows.Forms.Label()
         Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.TabControl1.SuspendLayout()
         Me.TabPage2.SuspendLayout()
         CType(Me.dgvDepreciation, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -53,10 +53,10 @@ Partial Class frm_Depreciation_Cal
         'TabPage2
         '
         Me.TabPage2.BackColor = System.Drawing.Color.DimGray
+        Me.TabPage2.Controls.Add(Me.Label1)
         Me.TabPage2.Controls.Add(Me.dgvDepreciation)
         Me.TabPage2.Controls.Add(Me.Label2)
         Me.TabPage2.Controls.Add(Me.GBDCMASTER)
-        Me.TabPage2.Controls.Add(Me.lblFormHeading)
         Me.TabPage2.ForeColor = System.Drawing.Color.White
         Me.TabPage2.ImageIndex = 1
         Me.TabPage2.Location = New System.Drawing.Point(4, 26)
@@ -79,7 +79,7 @@ Partial Class frm_Depreciation_Cal
         DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.dgvDepreciation.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         Me.dgvDepreciation.GridColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.dgvDepreciation.Location = New System.Drawing.Point(6, 135)
+        Me.dgvDepreciation.Location = New System.Drawing.Point(11, 75)
         Me.dgvDepreciation.Name = "dgvDepreciation"
         Me.dgvDepreciation.RowHeadersVisible = False
         DataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
@@ -89,7 +89,7 @@ Partial Class frm_Depreciation_Cal
         DataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black
         Me.dgvDepreciation.RowsDefaultCellStyle = DataGridViewCellStyle2
         Me.dgvDepreciation.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvDepreciation.Size = New System.Drawing.Size(890, 400)
+        Me.dgvDepreciation.Size = New System.Drawing.Size(864, 479)
         Me.dgvDepreciation.TabIndex = 1
         '
         'Label2
@@ -107,9 +107,9 @@ Partial Class frm_Depreciation_Cal
         '
         Me.GBDCMASTER.Controls.Add(Me.lblFY)
         Me.GBDCMASTER.Controls.Add(Me.lblCap1)
-        Me.GBDCMASTER.Location = New System.Drawing.Point(6, 59)
+        Me.GBDCMASTER.Location = New System.Drawing.Point(11, 7)
         Me.GBDCMASTER.Name = "GBDCMASTER"
-        Me.GBDCMASTER.Size = New System.Drawing.Size(893, 60)
+        Me.GBDCMASTER.Size = New System.Drawing.Size(864, 60)
         Me.GBDCMASTER.TabIndex = 0
         Me.GBDCMASTER.TabStop = False
         '
@@ -133,23 +133,25 @@ Partial Class frm_Depreciation_Cal
         Me.lblCap1.TabIndex = 10
         Me.lblCap1.Text = "Financial Year:"
         '
-        'lblFormHeading
-        '
-        Me.lblFormHeading.AutoSize = True
-        Me.lblFormHeading.Font = New System.Drawing.Font("Verdana", 15.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblFormHeading.ForeColor = System.Drawing.Color.White
-        Me.lblFormHeading.Location = New System.Drawing.Point(333, 24)
-        Me.lblFormHeading.Name = "lblFormHeading"
-        Me.lblFormHeading.Size = New System.Drawing.Size(222, 25)
-        Me.lblFormHeading.TabIndex = 9
-        Me.lblFormHeading.Text = "Depreciation Chart"
-        '
         'ImageList1
         '
         Me.ImageList1.ImageStream = CType(resources.GetObject("ImageList1.ImageStream"), System.Windows.Forms.ImageListStreamer)
         Me.ImageList1.TransparentColor = System.Drawing.Color.Transparent
         Me.ImageList1.Images.SetKeyName(0, "Zoom_search_find_magnifying_glass.png")
         Me.ImageList1.Images.SetKeyName(1, "Inventory_box_shipment_product.png")
+        '
+        'Label1
+        '
+        Me.Label1.BackColor = System.Drawing.Color.FromArgb(CType(CType(88, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(88, Byte), Integer))
+        Me.Label1.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.Label1.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.ForeColor = System.Drawing.Color.OrangeRed
+        Me.Label1.Location = New System.Drawing.Point(886, 1)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(15, 250)
+        Me.Label1.TabIndex = 14
+        Me.Label1.Text = "Depreciation  Chart"
+        Me.Label1.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
         'frm_Depreciation_Cal
         '
@@ -173,8 +175,8 @@ Partial Class frm_Depreciation_Cal
     Friend WithEvents Label2 As Label
     Friend WithEvents GBDCMASTER As GroupBox
     Friend WithEvents lblCap1 As Label
-    Friend WithEvents lblFormHeading As Label
     Friend WithEvents lblFY As Label
     Friend WithEvents dgvDepreciation As DataGridView
     Friend WithEvents ImageList1 As ImageList
+    Friend WithEvents Label1 As Label
 End Class

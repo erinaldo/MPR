@@ -34,16 +34,16 @@ Partial Class frm_Material_Issue_To_Cost_Center_Master
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.flx_Material_Issue_List = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
-        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
-        Me.flxItemList = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.lblFormHeading = New System.Windows.Forms.Label()
+        Me.Label26 = New System.Windows.Forms.Label()
         Me.cmbMRSDetail = New System.Windows.Forms.ComboBox()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.txtRemarks = New System.Windows.Forms.TextBox()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.cmbCostCenter = New System.Windows.Forms.ComboBox()
         Me.Label1 = New System.Windows.Forms.Label()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.flxItemList = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
         Me.C1FlexGrid1 = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.TBCMaterialIssueToCosCenter.SuspendLayout()
@@ -52,9 +52,9 @@ Partial Class frm_Material_Issue_To_Cost_Center_Master
         Me.GroupBox3.SuspendLayout()
         CType(Me.flx_Material_Issue_List, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabPage2.SuspendLayout()
+        Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         CType(Me.flxItemList, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.GroupBox1.SuspendLayout()
         CType(Me.C1FlexGrid1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -104,12 +104,14 @@ Partial Class frm_Material_Issue_To_Cost_Center_Master
         '
         'btnIssueSlip
         '
-        Me.btnIssueSlip.Location = New System.Drawing.Point(429, 65)
+        Me.btnIssueSlip.BackColor = System.Drawing.Color.FromArgb(CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.btnIssueSlip.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnIssueSlip.Location = New System.Drawing.Point(630, 68)
         Me.btnIssueSlip.Name = "btnIssueSlip"
         Me.btnIssueSlip.Size = New System.Drawing.Size(106, 23)
         Me.btnIssueSlip.TabIndex = 23
         Me.btnIssueSlip.Text = "Show Issue Slips"
-        Me.btnIssueSlip.UseVisualStyleBackColor = True
+        Me.btnIssueSlip.UseVisualStyleBackColor = False
         '
         'dtpTo
         '
@@ -117,7 +119,7 @@ Partial Class frm_Material_Issue_To_Cost_Center_Master
         Me.dtpTo.CalendarMonthBackground = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.dtpTo.CustomFormat = "dd-MMM-yyyy"
         Me.dtpTo.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpTo.Location = New System.Drawing.Point(291, 68)
+        Me.dtpTo.Location = New System.Drawing.Point(479, 70)
         Me.dtpTo.Name = "dtpTo"
         Me.dtpTo.Size = New System.Drawing.Size(114, 21)
         Me.dtpTo.TabIndex = 22
@@ -128,7 +130,7 @@ Partial Class frm_Material_Issue_To_Cost_Center_Master
         Me.dtpFrom.CalendarMonthBackground = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.dtpFrom.CustomFormat = "dd-MMM-yyyy"
         Me.dtpFrom.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpFrom.Location = New System.Drawing.Point(130, 68)
+        Me.dtpFrom.Location = New System.Drawing.Point(250, 69)
         Me.dtpFrom.Name = "dtpFrom"
         Me.dtpFrom.Size = New System.Drawing.Size(131, 21)
         Me.dtpFrom.TabIndex = 22
@@ -139,16 +141,16 @@ Partial Class frm_Material_Issue_To_Cost_Center_Master
         Me.cmbLCostCenter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbLCostCenter.ForeColor = System.Drawing.Color.White
         Me.cmbLCostCenter.FormattingEnabled = True
-        Me.cmbLCostCenter.Location = New System.Drawing.Point(126, 29)
+        Me.cmbLCostCenter.Location = New System.Drawing.Point(246, 30)
         Me.cmbLCostCenter.Name = "cmbLCostCenter"
-        Me.cmbLCostCenter.Size = New System.Drawing.Size(279, 23)
+        Me.cmbLCostCenter.Size = New System.Drawing.Size(347, 23)
         Me.cmbLCostCenter.TabIndex = 21
         '
         'Label4
         '
         Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(267, 72)
+        Me.Label4.Location = New System.Drawing.Point(455, 74)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(18, 13)
         Me.Label4.TabIndex = 20
@@ -158,7 +160,7 @@ Partial Class frm_Material_Issue_To_Cost_Center_Master
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(22, 72)
+        Me.Label3.Location = New System.Drawing.Point(142, 73)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(99, 15)
         Me.Label3.TabIndex = 20
@@ -168,7 +170,7 @@ Partial Class frm_Material_Issue_To_Cost_Center_Master
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(22, 32)
+        Me.Label2.Location = New System.Drawing.Point(142, 33)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(79, 15)
         Me.Label2.TabIndex = 20
@@ -203,8 +205,8 @@ Partial Class frm_Material_Issue_To_Cost_Center_Master
         'TabPage2
         '
         Me.TabPage2.BackColor = System.Drawing.Color.DimGray
-        Me.TabPage2.Controls.Add(Me.GroupBox2)
         Me.TabPage2.Controls.Add(Me.GroupBox1)
+        Me.TabPage2.Controls.Add(Me.GroupBox2)
         Me.TabPage2.ForeColor = System.Drawing.Color.White
         Me.TabPage2.ImageIndex = 1
         Me.TabPage2.Location = New System.Drawing.Point(4, 26)
@@ -213,74 +215,52 @@ Partial Class frm_Material_Issue_To_Cost_Center_Master
         Me.TabPage2.Size = New System.Drawing.Size(902, 600)
         Me.TabPage2.TabIndex = 1
         '
-        'GroupBox2
-        '
-        Me.GroupBox2.Controls.Add(Me.flxItemList)
-        Me.GroupBox2.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupBox2.ForeColor = System.Drawing.Color.White
-        Me.GroupBox2.Location = New System.Drawing.Point(9, 120)
-        Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(887, 474)
-        Me.GroupBox2.TabIndex = 1
-        Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = "Item List"
-        '
-        'flxItemList
-        '
-        Me.flxItemList.BackColor = System.Drawing.Color.Silver
-        Me.flxItemList.ColumnInfo = "10,1,0,0,0,90,Columns:"
-        Me.flxItemList.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.flxItemList.Location = New System.Drawing.Point(3, 17)
-        Me.flxItemList.Name = "flxItemList"
-        Me.flxItemList.Rows.DefaultSize = 18
-        Me.flxItemList.Size = New System.Drawing.Size(881, 454)
-        Me.flxItemList.Styles = New C1.Win.C1FlexGrid.CellStyleCollection(resources.GetString("flxItemList.Styles"))
-        Me.flxItemList.TabIndex = 0
-        '
         'GroupBox1
         '
-        Me.GroupBox1.Controls.Add(Me.lblFormHeading)
+        Me.GroupBox1.Controls.Add(Me.Label26)
         Me.GroupBox1.Controls.Add(Me.cmbMRSDetail)
         Me.GroupBox1.Controls.Add(Me.Label7)
         Me.GroupBox1.Controls.Add(Me.txtRemarks)
         Me.GroupBox1.Controls.Add(Me.Label6)
         Me.GroupBox1.Controls.Add(Me.cmbCostCenter)
         Me.GroupBox1.Controls.Add(Me.Label1)
-        Me.GroupBox1.Location = New System.Drawing.Point(7, 7)
+        Me.GroupBox1.Location = New System.Drawing.Point(-4, -8)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(889, 107)
+        Me.GroupBox1.Size = New System.Drawing.Size(910, 201)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         '
-        'lblFormHeading
+        'Label26
         '
-        Me.lblFormHeading.AutoSize = True
-        Me.lblFormHeading.Font = New System.Drawing.Font("Verdana", 15.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblFormHeading.ForeColor = System.Drawing.Color.White
-        Me.lblFormHeading.Location = New System.Drawing.Point(711, 16)
-        Me.lblFormHeading.Name = "lblFormHeading"
-        Me.lblFormHeading.Size = New System.Drawing.Size(172, 75)
-        Me.lblFormHeading.TabIndex = 25
-        Me.lblFormHeading.Text = "Material Issue" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "to" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Cost Center"
-        Me.lblFormHeading.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.Label26.BackColor = System.Drawing.Color.FromArgb(CType(CType(88, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(88, Byte), Integer))
+        Me.Label26.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.Label26.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label26.ForeColor = System.Drawing.Color.OrangeRed
+        Me.Label26.Location = New System.Drawing.Point(891, 9)
+        Me.Label26.Name = "Label26"
+        Me.Label26.Size = New System.Drawing.Size(15, 190)
+        Me.Label26.TabIndex = 60
+        Me.Label26.Text = "Material   Issue"
+        Me.Label26.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
         'cmbMRSDetail
         '
         Me.cmbMRSDetail.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.cmbMRSDetail.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbMRSDetail.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmbMRSDetail.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmbMRSDetail.ForeColor = System.Drawing.Color.White
         Me.cmbMRSDetail.FormattingEnabled = True
-        Me.cmbMRSDetail.Location = New System.Drawing.Point(431, 17)
+        Me.cmbMRSDetail.Location = New System.Drawing.Point(532, 48)
         Me.cmbMRSDetail.Name = "cmbMRSDetail"
-        Me.cmbMRSDetail.Size = New System.Drawing.Size(221, 23)
-        Me.cmbMRSDetail.TabIndex = 2
+        Me.cmbMRSDetail.Size = New System.Drawing.Size(310, 23)
+        Me.cmbMRSDetail.TabIndex = 1
         '
         'Label7
         '
         Me.Label7.AutoSize = True
         Me.Label7.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label7.Location = New System.Drawing.Point(337, 20)
+        Me.Label7.Location = New System.Drawing.Point(457, 51)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(76, 15)
         Me.Label7.TabIndex = 1
@@ -292,18 +272,18 @@ Partial Class frm_Material_Issue_To_Cost_Center_Master
         Me.txtRemarks.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtRemarks.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtRemarks.ForeColor = System.Drawing.Color.White
-        Me.txtRemarks.Location = New System.Drawing.Point(96, 52)
+        Me.txtRemarks.Location = New System.Drawing.Point(121, 102)
         Me.txtRemarks.Multiline = True
         Me.txtRemarks.Name = "txtRemarks"
         Me.txtRemarks.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtRemarks.Size = New System.Drawing.Size(556, 44)
-        Me.txtRemarks.TabIndex = 24
+        Me.txtRemarks.Size = New System.Drawing.Size(721, 63)
+        Me.txtRemarks.TabIndex = 2
         '
         'Label6
         '
         Me.Label6.AutoSize = True
         Me.Label6.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label6.Location = New System.Drawing.Point(6, 50)
+        Me.Label6.Location = New System.Drawing.Point(31, 100)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(64, 15)
         Me.Label6.TabIndex = 23
@@ -313,23 +293,47 @@ Partial Class frm_Material_Issue_To_Cost_Center_Master
         '
         Me.cmbCostCenter.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.cmbCostCenter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbCostCenter.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmbCostCenter.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmbCostCenter.ForeColor = System.Drawing.Color.White
         Me.cmbCostCenter.FormattingEnabled = True
-        Me.cmbCostCenter.Location = New System.Drawing.Point(96, 17)
+        Me.cmbCostCenter.Location = New System.Drawing.Point(121, 48)
         Me.cmbCostCenter.Name = "cmbCostCenter"
-        Me.cmbCostCenter.Size = New System.Drawing.Size(235, 23)
-        Me.cmbCostCenter.TabIndex = 19
+        Me.cmbCostCenter.Size = New System.Drawing.Size(310, 23)
+        Me.cmbCostCenter.TabIndex = 0
         '
         'Label1
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(6, 20)
+        Me.Label1.Location = New System.Drawing.Point(31, 51)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(79, 15)
         Me.Label1.TabIndex = 14
         Me.Label1.Text = "Cost Center :"
+        '
+        'GroupBox2
+        '
+        Me.GroupBox2.Controls.Add(Me.flxItemList)
+        Me.GroupBox2.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GroupBox2.ForeColor = System.Drawing.Color.White
+        Me.GroupBox2.Location = New System.Drawing.Point(-4, 179)
+        Me.GroupBox2.Name = "GroupBox2"
+        Me.GroupBox2.Size = New System.Drawing.Size(910, 411)
+        Me.GroupBox2.TabIndex = 1
+        Me.GroupBox2.TabStop = False
+        '
+        'flxItemList
+        '
+        Me.flxItemList.BackColor = System.Drawing.Color.Silver
+        Me.flxItemList.ColumnInfo = "10,1,0,0,0,90,Columns:"
+        Me.flxItemList.Location = New System.Drawing.Point(4, 15)
+        Me.flxItemList.Name = "flxItemList"
+        Me.flxItemList.Rows.DefaultSize = 18
+        Me.flxItemList.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
+        Me.flxItemList.Size = New System.Drawing.Size(901, 400)
+        Me.flxItemList.Styles = New C1.Win.C1FlexGrid.CellStyleCollection(resources.GetString("flxItemList.Styles"))
+        Me.flxItemList.TabIndex = 0
         '
         'ImageList1
         '
@@ -363,10 +367,10 @@ Partial Class frm_Material_Issue_To_Cost_Center_Master
         Me.GroupBox3.ResumeLayout(False)
         CType(Me.flx_Material_Issue_List, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabPage2.ResumeLayout(False)
-        Me.GroupBox2.ResumeLayout(False)
-        CType(Me.flxItemList, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
+        Me.GroupBox2.ResumeLayout(False)
+        CType(Me.flxItemList, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.C1FlexGrid1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
@@ -386,7 +390,6 @@ Partial Class frm_Material_Issue_To_Cost_Center_Master
     Friend WithEvents C1FlexGrid1 As C1.Win.C1FlexGrid.C1FlexGrid
     Friend WithEvents flxItemList As C1.Win.C1FlexGrid.C1FlexGrid
     Friend WithEvents flx_Material_Issue_List As C1.Win.C1FlexGrid.C1FlexGrid
-    Friend WithEvents lblFormHeading As System.Windows.Forms.Label
     Friend WithEvents GroupBox4 As System.Windows.Forms.GroupBox
     Friend WithEvents dtpFrom As System.Windows.Forms.DateTimePicker
     Friend WithEvents cmbLCostCenter As System.Windows.Forms.ComboBox
@@ -396,4 +399,5 @@ Partial Class frm_Material_Issue_To_Cost_Center_Master
     Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents ImageList1 As ImageList
+    Friend WithEvents Label26 As Label
 End Class

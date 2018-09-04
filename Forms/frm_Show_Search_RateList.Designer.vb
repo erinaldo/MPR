@@ -31,11 +31,11 @@ Partial Class frm_Show_Search_RateList
         Me.txtSearch = New System.Windows.Forms.TextBox()
         Me.lblMRP = New System.Windows.Forms.Label()
         Me.lblCategory = New System.Windows.Forms.Label()
-        Me.cmbCategory = New System.Windows.Forms.ComboBox()
         Me.lblBrand = New System.Windows.Forms.Label()
-        Me.cmbBrand = New System.Windows.Forms.ComboBox()
         Me.grdSearch = New System.Windows.Forms.DataGridView()
         Me.chkBxSelect = New System.Windows.Forms.DataGridViewCheckBoxColumn()
+        Me.cmbCategory = New MMSPlus.AutoCompleteCombo()
+        Me.cmbBrand = New MMSPlus.AutoCompleteCombo()
         Me.Panel1.SuspendLayout()
         Me.gpAdvanceSearch.SuspendLayout()
         CType(Me.grdSearch, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -50,12 +50,14 @@ Partial Class frm_Show_Search_RateList
         Me.Panel1.Font = New System.Drawing.Font("Microsoft Sans Serif", 100.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(10, Byte))
         Me.Panel1.Location = New System.Drawing.Point(-1, -2)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(805, 431)
+        Me.Panel1.Size = New System.Drawing.Size(808, 431)
         Me.Panel1.TabIndex = 3
         '
         'gpAdvanceSearch
         '
         Me.gpAdvanceSearch.BackColor = System.Drawing.Color.DarkGray
+        Me.gpAdvanceSearch.Controls.Add(Me.cmbCategory)
+        Me.gpAdvanceSearch.Controls.Add(Me.cmbBrand)
         Me.gpAdvanceSearch.Controls.Add(Me.btnExit)
         Me.gpAdvanceSearch.Controls.Add(Me.lblItem)
         Me.gpAdvanceSearch.Controls.Add(Me.txtRate)
@@ -64,15 +66,13 @@ Partial Class frm_Show_Search_RateList
         Me.gpAdvanceSearch.Controls.Add(Me.txtSearch)
         Me.gpAdvanceSearch.Controls.Add(Me.lblMRP)
         Me.gpAdvanceSearch.Controls.Add(Me.lblCategory)
-        Me.gpAdvanceSearch.Controls.Add(Me.cmbCategory)
         Me.gpAdvanceSearch.Controls.Add(Me.lblBrand)
-        Me.gpAdvanceSearch.Controls.Add(Me.cmbBrand)
         Me.gpAdvanceSearch.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.gpAdvanceSearch.ForeColor = System.Drawing.Color.White
-        Me.gpAdvanceSearch.Location = New System.Drawing.Point(-5, -1)
+        Me.gpAdvanceSearch.Location = New System.Drawing.Point(-1, -1)
         Me.gpAdvanceSearch.Name = "gpAdvanceSearch"
         Me.gpAdvanceSearch.Size = New System.Drawing.Size(808, 175)
-        Me.gpAdvanceSearch.TabIndex = 1
+        Me.gpAdvanceSearch.TabIndex = 0
         Me.gpAdvanceSearch.TabStop = False
         Me.gpAdvanceSearch.Text = "Filter Options"
         '
@@ -85,7 +85,7 @@ Partial Class frm_Show_Search_RateList
         Me.btnExit.Location = New System.Drawing.Point(777, 13)
         Me.btnExit.Name = "btnExit"
         Me.btnExit.Size = New System.Drawing.Size(25, 23)
-        Me.btnExit.TabIndex = 10
+        Me.btnExit.TabIndex = 5
         Me.btnExit.Text = "X"
         Me.btnExit.UseVisualStyleBackColor = False
         '
@@ -108,7 +108,7 @@ Partial Class frm_Show_Search_RateList
         Me.txtRate.Location = New System.Drawing.Point(499, 104)
         Me.txtRate.Name = "txtRate"
         Me.txtRate.Size = New System.Drawing.Size(250, 18)
-        Me.txtRate.TabIndex = 3
+        Me.txtRate.TabIndex = 4
         '
         'lblRate
         '
@@ -129,7 +129,7 @@ Partial Class frm_Show_Search_RateList
         Me.txtMRP.Location = New System.Drawing.Point(162, 105)
         Me.txtMRP.Name = "txtMRP"
         Me.txtMRP.Size = New System.Drawing.Size(250, 18)
-        Me.txtMRP.TabIndex = 2
+        Me.txtMRP.TabIndex = 3
         '
         'txtSearch
         '
@@ -162,18 +162,6 @@ Partial Class frm_Show_Search_RateList
         Me.lblCategory.TabIndex = 3
         Me.lblCategory.Text = "Category :"
         '
-        'cmbCategory
-        '
-        Me.cmbCategory.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append
-        Me.cmbCategory.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.cmbCategory.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmbCategory.ForeColor = System.Drawing.Color.White
-        Me.cmbCategory.FormattingEnabled = True
-        Me.cmbCategory.Location = New System.Drawing.Point(162, 67)
-        Me.cmbCategory.Name = "cmbCategory"
-        Me.cmbCategory.Size = New System.Drawing.Size(587, 21)
-        Me.cmbCategory.TabIndex = 1
-        '
         'lblBrand
         '
         Me.lblBrand.AutoSize = True
@@ -183,17 +171,6 @@ Partial Class frm_Show_Search_RateList
         Me.lblBrand.Size = New System.Drawing.Size(46, 15)
         Me.lblBrand.TabIndex = 1
         Me.lblBrand.Text = "Brand :"
-        '
-        'cmbBrand
-        '
-        Me.cmbBrand.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append
-        Me.cmbBrand.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.cmbBrand.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmbBrand.ForeColor = System.Drawing.Color.White
-        Me.cmbBrand.Location = New System.Drawing.Point(162, 29)
-        Me.cmbBrand.Name = "cmbBrand"
-        Me.cmbBrand.Size = New System.Drawing.Size(587, 21)
-        Me.cmbBrand.TabIndex = 0
         '
         'grdSearch
         '
@@ -212,7 +189,7 @@ Partial Class frm_Show_Search_RateList
         Me.grdSearch.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         Me.grdSearch.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.chkBxSelect})
         Me.grdSearch.GridColor = System.Drawing.Color.FromArgb(CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.grdSearch.Location = New System.Drawing.Point(-3, 177)
+        Me.grdSearch.Location = New System.Drawing.Point(-1, 176)
         Me.grdSearch.Name = "grdSearch"
         Me.grdSearch.RowHeadersVisible = False
         Me.grdSearch.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
@@ -223,8 +200,8 @@ Partial Class frm_Show_Search_RateList
         Me.grdSearch.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.White
         Me.grdSearch.ScrollBars = System.Windows.Forms.ScrollBars.None
         Me.grdSearch.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.grdSearch.Size = New System.Drawing.Size(806, 253)
-        Me.grdSearch.TabIndex = 0
+        Me.grdSearch.Size = New System.Drawing.Size(806, 245)
+        Me.grdSearch.TabIndex = 1
         '
         'chkBxSelect
         '
@@ -232,12 +209,38 @@ Partial Class frm_Show_Search_RateList
         Me.chkBxSelect.Name = "chkBxSelect"
         Me.chkBxSelect.Width = 25
         '
+        'cmbCategory
+        '
+        Me.cmbCategory.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.cmbCategory.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmbCategory.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmbCategory.ForeColor = System.Drawing.Color.White
+        Me.cmbCategory.FormattingEnabled = True
+        Me.cmbCategory.Location = New System.Drawing.Point(162, 65)
+        Me.cmbCategory.Name = "cmbCategory"
+        Me.cmbCategory.ResetOnClear = False
+        Me.cmbCategory.Size = New System.Drawing.Size(587, 24)
+        Me.cmbCategory.TabIndex = 2
+        '
+        'cmbBrand
+        '
+        Me.cmbBrand.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.cmbBrand.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmbBrand.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmbBrand.ForeColor = System.Drawing.Color.White
+        Me.cmbBrand.FormattingEnabled = True
+        Me.cmbBrand.Location = New System.Drawing.Point(162, 27)
+        Me.cmbBrand.Name = "cmbBrand"
+        Me.cmbBrand.ResetOnClear = False
+        Me.cmbBrand.Size = New System.Drawing.Size(587, 24)
+        Me.cmbBrand.TabIndex = 1
+        '
         'frm_Show_Search_RateList
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.LightGray
-        Me.ClientSize = New System.Drawing.Size(804, 430)
+        Me.ClientSize = New System.Drawing.Size(804, 425)
         Me.ControlBox = False
         Me.Controls.Add(Me.Panel1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D
@@ -262,9 +265,9 @@ Partial Class frm_Show_Search_RateList
     Public WithEvents txtSearch As TextBox
     Friend WithEvents lblMRP As Label
     Friend WithEvents lblCategory As Label
-    Friend WithEvents cmbCategory As ComboBox
     Friend WithEvents lblBrand As Label
-    Friend WithEvents cmbBrand As ComboBox
     Private WithEvents grdSearch As DataGridView
     Friend WithEvents chkBxSelect As DataGridViewCheckBoxColumn
+    Friend WithEvents cmbBrand As AutoCompleteCombo
+    Friend WithEvents cmbCategory As AutoCompleteCombo
 End Class

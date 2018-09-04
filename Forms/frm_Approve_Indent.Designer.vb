@@ -20,10 +20,10 @@ Partial Class frm_Approve_Indent
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.lblFormHeading = New System.Windows.Forms.Label()
         Me.btnShow = New System.Windows.Forms.Button()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.lblFormHeading = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.rdoRequiredDate = New System.Windows.Forms.RadioButton()
         Me.rdoIndentDate = New System.Windows.Forms.RadioButton()
@@ -42,26 +42,40 @@ Partial Class frm_Approve_Indent
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.lblFormHeading)
         Me.GroupBox1.Controls.Add(Me.btnShow)
         Me.GroupBox1.Controls.Add(Me.Label3)
         Me.GroupBox1.Controls.Add(Me.Label2)
-        Me.GroupBox1.Controls.Add(Me.lblFormHeading)
         Me.GroupBox1.Controls.Add(Me.Label1)
         Me.GroupBox1.Controls.Add(Me.rdoRequiredDate)
         Me.GroupBox1.Controls.Add(Me.rdoIndentDate)
         Me.GroupBox1.Controls.Add(Me.dtpIndentTo)
         Me.GroupBox1.Controls.Add(Me.dtpIndentFrom)
-        Me.GroupBox1.Location = New System.Drawing.Point(3, 3)
+        Me.GroupBox1.Location = New System.Drawing.Point(-8, -8)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(904, 125)
+        Me.GroupBox1.Size = New System.Drawing.Size(926, 197)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
+        '
+        'lblFormHeading
+        '
+        Me.lblFormHeading.BackColor = System.Drawing.Color.FromArgb(CType(CType(88, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(88, Byte), Integer))
+        Me.lblFormHeading.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.lblFormHeading.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblFormHeading.ForeColor = System.Drawing.Color.OrangeRed
+        Me.lblFormHeading.Location = New System.Drawing.Point(902, 10)
+        Me.lblFormHeading.Name = "lblFormHeading"
+        Me.lblFormHeading.Size = New System.Drawing.Size(15, 185)
+        Me.lblFormHeading.TabIndex = 15
+        Me.lblFormHeading.Text = "Approve Indent"
+        Me.lblFormHeading.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
         'btnShow
         '
         Me.btnShow.BackColor = System.Drawing.Color.FromArgb(CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.btnShow.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnShow.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnShow.Location = New System.Drawing.Point(472, 71)
+        Me.btnShow.Location = New System.Drawing.Point(557, 126)
         Me.btnShow.Name = "btnShow"
         Me.btnShow.Size = New System.Drawing.Size(100, 25)
         Me.btnShow.TabIndex = 5
@@ -72,7 +86,7 @@ Partial Class frm_Approve_Indent
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(284, 76)
+        Me.Label3.Location = New System.Drawing.Point(369, 131)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(26, 15)
         Me.Label3.TabIndex = 3
@@ -82,28 +96,17 @@ Partial Class frm_Approve_Indent
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(28, 76)
+        Me.Label2.Location = New System.Drawing.Point(113, 131)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(42, 15)
         Me.Label2.TabIndex = 13
         Me.Label2.Text = "From :"
         '
-        'lblFormHeading
-        '
-        Me.lblFormHeading.AutoSize = True
-        Me.lblFormHeading.Font = New System.Drawing.Font("Verdana", 15.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblFormHeading.ForeColor = System.Drawing.Color.White
-        Me.lblFormHeading.Location = New System.Drawing.Point(710, 12)
-        Me.lblFormHeading.Name = "lblFormHeading"
-        Me.lblFormHeading.Size = New System.Drawing.Size(188, 25)
-        Me.lblFormHeading.TabIndex = 14
-        Me.lblFormHeading.Text = "Approve Indent"
-        '
         'Label1
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(28, 31)
+        Me.Label1.Location = New System.Drawing.Point(113, 60)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(65, 15)
         Me.Label1.TabIndex = 12
@@ -113,7 +116,7 @@ Partial Class frm_Approve_Indent
         '
         Me.rdoRequiredDate.AutoSize = True
         Me.rdoRequiredDate.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.rdoRequiredDate.Location = New System.Drawing.Point(287, 27)
+        Me.rdoRequiredDate.Location = New System.Drawing.Point(372, 56)
         Me.rdoRequiredDate.Name = "rdoRequiredDate"
         Me.rdoRequiredDate.Size = New System.Drawing.Size(105, 19)
         Me.rdoRequiredDate.TabIndex = 2
@@ -125,7 +128,7 @@ Partial Class frm_Approve_Indent
         Me.rdoIndentDate.AutoSize = True
         Me.rdoIndentDate.Checked = True
         Me.rdoIndentDate.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.rdoIndentDate.Location = New System.Drawing.Point(112, 31)
+        Me.rdoIndentDate.Location = New System.Drawing.Point(197, 60)
         Me.rdoIndentDate.Name = "rdoIndentDate"
         Me.rdoIndentDate.Size = New System.Drawing.Size(88, 19)
         Me.rdoIndentDate.TabIndex = 1
@@ -140,7 +143,7 @@ Partial Class frm_Approve_Indent
         Me.dtpIndentTo.CustomFormat = "dd-MMM-yyyy"
         Me.dtpIndentTo.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.dtpIndentTo.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpIndentTo.Location = New System.Drawing.Point(328, 72)
+        Me.dtpIndentTo.Location = New System.Drawing.Point(413, 127)
         Me.dtpIndentTo.Name = "dtpIndentTo"
         Me.dtpIndentTo.Size = New System.Drawing.Size(114, 21)
         Me.dtpIndentTo.TabIndex = 4
@@ -152,7 +155,7 @@ Partial Class frm_Approve_Indent
         Me.dtpIndentFrom.CustomFormat = "dd-MMM-yyyy"
         Me.dtpIndentFrom.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.dtpIndentFrom.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpIndentFrom.Location = New System.Drawing.Point(112, 72)
+        Me.dtpIndentFrom.Location = New System.Drawing.Point(197, 127)
         Me.dtpIndentFrom.Name = "dtpIndentFrom"
         Me.dtpIndentFrom.Size = New System.Drawing.Size(115, 21)
         Me.dtpIndentFrom.TabIndex = 3
@@ -160,19 +163,19 @@ Partial Class frm_Approve_Indent
         'GroupBox2
         '
         Me.GroupBox2.Controls.Add(Me.grdIndentList)
-        Me.GroupBox2.Location = New System.Drawing.Point(3, 135)
+        Me.GroupBox2.Location = New System.Drawing.Point(-2, 179)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(904, 445)
+        Me.GroupBox2.Size = New System.Drawing.Size(914, 396)
         Me.GroupBox2.TabIndex = 6
         Me.GroupBox2.TabStop = False
         '
         'grdIndentList
         '
         Me.grdIndentList.AllowUserToAddRows = False
-        Me.grdIndentList.BackgroundColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.grdIndentList.BackgroundColor = System.Drawing.Color.DarkGray
         Me.grdIndentList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.grdIndentList.GridColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.grdIndentList.Location = New System.Drawing.Point(7, 12)
+        Me.grdIndentList.Location = New System.Drawing.Point(5, 10)
         Me.grdIndentList.Name = "grdIndentList"
         Me.grdIndentList.RowHeadersVisible = False
         Me.grdIndentList.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
@@ -180,7 +183,7 @@ Partial Class frm_Approve_Indent
         Me.grdIndentList.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.White
         Me.grdIndentList.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.DarkOrange
         Me.grdIndentList.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black
-        Me.grdIndentList.Size = New System.Drawing.Size(891, 424)
+        Me.grdIndentList.Size = New System.Drawing.Size(904, 384)
         Me.grdIndentList.TabIndex = 7
         '
         'btnApproveIndent
@@ -236,10 +239,10 @@ Partial Class frm_Approve_Indent
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.DimGray
+        Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.btInverseSelect)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.btnDeselectAll)
-        Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.btnApproveIndent)
         Me.Controls.Add(Me.btnSelectAll)
         Me.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -268,6 +271,5 @@ Partial Class frm_Approve_Indent
     Friend WithEvents btnSelectAll As System.Windows.Forms.Button
     Friend WithEvents btnDeselectAll As System.Windows.Forms.Button
     Friend WithEvents btInverseSelect As System.Windows.Forms.Button
-    Friend WithEvents lblFormHeading As System.Windows.Forms.Label
-
+    Friend WithEvents lblFormHeading As Label
 End Class

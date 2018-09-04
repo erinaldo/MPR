@@ -34,6 +34,7 @@ Partial Class frm_Synchronization
         'btnSynchronize
         '
         Me.btnSynchronize.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.btnSynchronize.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnSynchronize.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnSynchronize.ForeColor = System.Drawing.Color.White
         Me.btnSynchronize.Location = New System.Drawing.Point(12, 22)

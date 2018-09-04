@@ -154,6 +154,12 @@ Public Class frm_DebitNote
         Dim blnIsExist As Boolean
         blnIsExist = False
 
+        If cmbSupplier.Text = Nothing Then
+            MsgBox("Please Select valid Supplier first.")
+            validate_data = False
+            Exit Function
+        End If
+
         If String.IsNullOrEmpty(txtRemarks.Text) Then
             MsgBox("Please fill the Remarks", vbExclamation, gblMessageHeading)
             txtRemarks.Focus()
@@ -218,6 +224,7 @@ Public Class frm_DebitNote
                 prpty.Modification_Date = NULL_DATE
                 prpty.Division_ID = v_the_current_division_id
                 prpty.Dn_Amount = lblDebit.Text
+                cmbSupplier.SelectedIndex = cmbSupplier.FindStringExact(cmbSupplier.Text)
                 prpty.DN_CustId = cmbsupplier.SelectedValue
                 prpty.INV_No = txt_INVNo.Text
                 prpty.INV_Date = txt_INVDate.Text
@@ -290,6 +297,7 @@ Public Class frm_DebitNote
                 prpty.Modification_Date = Now
                 prpty.Division_ID = v_the_current_division_id
                 prpty.Dn_Amount = lblDebit.Text
+                cmbSupplier.SelectedIndex = cmbSupplier.FindStringExact(cmbSupplier.Text)
                 prpty.DN_CustId = cmbsupplier.SelectedValue
                 prpty.INV_No = txt_INVNo.Text
                 prpty.INV_Date = txt_INVDate.Text
@@ -403,7 +411,7 @@ Public Class frm_DebitNote
     Private Sub SetGridSettingValues()
 
         FLXGRD_MaterialItem.Cols("Item_ID").Visible = False
-        FLXGRD_MaterialItem.Cols("Item_Code").Caption = "Item Code"
+        FLXGRD_MaterialItem.Cols("Item_Code").Caption = "BarCode"
         FLXGRD_MaterialItem.Cols("Item_Name").Caption = "Item Name"
         FLXGRD_MaterialItem.Cols("UM_Name").Caption = "UOM"
         FLXGRD_MaterialItem.Cols("Prev_Item_Qty").Caption = "Current Stock"
@@ -412,7 +420,7 @@ Public Class frm_DebitNote
         FLXGRD_MaterialItem.Cols("Vat_Per").Caption = "Tax %"
         FLXGRD_MaterialItem.Cols("Cess_Per").Caption = "Cess %"
 
-        FLXGRD_MaterialItem.Cols("Item_Qty").Caption = "Item Qty"
+        FLXGRD_MaterialItem.Cols("Item_Qty").Caption = "Return Qty"
 
         FLXGRD_MaterialItem.Cols("Stock_Detail_Id").Visible = False
 
@@ -429,18 +437,18 @@ Public Class frm_DebitNote
 
         FLXGRD_MaterialItem.Cols("Stock_Detail_Id").AllowEditing = False
 
-        FLXGRD_MaterialItem.Cols("Item_Code").Width = 60
+        FLXGRD_MaterialItem.Cols("Item_Code").Width = 100
         FLXGRD_MaterialItem.Cols("Item_Name").Width = 300
         FLXGRD_MaterialItem.Cols("UM_Name").Width = 40
         FLXGRD_MaterialItem.Cols("Prev_Item_Qty").Width = 90
 
         FLXGRD_MaterialItem.Cols("MRN_Qty").Width = 75
         FLXGRD_MaterialItem.Cols("Item_Rate").Width = 70
-        FLXGRD_MaterialItem.Cols("Vat_Per").Width = 65
-        FLXGRD_MaterialItem.Cols("Cess_Per").Width = 65
+        FLXGRD_MaterialItem.Cols("Vat_Per").Width = 50
+        FLXGRD_MaterialItem.Cols("Cess_Per").Width = 50
 
-        FLXGRD_MaterialItem.Cols("Item_Qty").Width = 100
-        FLXGRD_MaterialItem.Cols("Stock_Detail_Id").Width = 200
+        FLXGRD_MaterialItem.Cols("Item_Qty").Width = 90
+        FLXGRD_MaterialItem.Cols("Stock_Detail_Id").Width = 10
 
 
 
@@ -552,18 +560,25 @@ Public Class frm_DebitNote
         Dim Query As String
         Dim Dt As DataTable
         Dim Dtrow As DataRow
-        Query = " SELECT MRN_NO AS MRN_ID,MRN_PREFIX+CAST(MRN_NO AS VARCHAR(20))AS MRN_NO FROM dbo.MATERIAL_RECEIVED_AGAINST_PO_MASTER WHERE PO_ID IN (SELECT PO_ID FROM dbo.PO_MASTER WHERE PO_SUPP_ID=" & cmbsupplier.SelectedValue & ") AND Division_ID =   " & v_the_current_division_id &
-            "UNION ALL SELECT MRN_NO AS MRN_ID , MRN_PREFIX + CAST(MRN_NO AS VARCHAR(20)) AS MRN_NO FROM dbo.MATERIAL_RECIEVED_WITHOUT_PO_MASTER WHERE Vendor_ID=" & cmbsupplier.SelectedValue & " ORDER BY MRN_id"
-        Dt = clsObj.Fill_DataSet(Query).Tables(0)
-        Dtrow = Dt.NewRow
-        Dtrow("MRN_ID") = -1
-        Dtrow("MRN_NO") = "Select MRN No"
-        Dt.Rows.InsertAt(Dtrow, 0)
-        cmbMRNNo.DisplayMember = "MRN_NO"
-        cmbMRNNo.ValueMember = "MRN_ID"
-        cmbMRNNo.DataSource = Dt
-        cmbMRNNo.SelectedIndex = 0
-        cmbMRNNo.Focus()
+
+        cmbSupplier.SelectedIndex = cmbSupplier.FindStringExact(cmbSupplier.Text)
+
+        If cmbSupplier.SelectedValue > 0 Then
+
+            Query = " SELECT MRN_NO AS MRN_ID,MRN_PREFIX+CAST(MRN_NO AS VARCHAR(20))AS MRN_NO FROM dbo.MATERIAL_RECEIVED_AGAINST_PO_MASTER WHERE PO_ID IN (SELECT PO_ID FROM dbo.PO_MASTER WHERE PO_SUPP_ID=" & cmbSupplier.SelectedValue & ") AND Division_ID =   " & v_the_current_division_id &
+            "UNION ALL SELECT MRN_NO AS MRN_ID , MRN_PREFIX + CAST(MRN_NO AS VARCHAR(20)) AS MRN_NO FROM dbo.MATERIAL_RECIEVED_WITHOUT_PO_MASTER WHERE Vendor_ID=" & cmbSupplier.SelectedValue & " ORDER BY MRN_id"
+            Dt = clsObj.Fill_DataSet(Query).Tables(0)
+            Dtrow = Dt.NewRow
+            Dtrow("MRN_ID") = -1
+            Dtrow("MRN_NO") = "Select MRN No"
+            Dt.Rows.InsertAt(Dtrow, 0)
+            cmbMRNNo.DisplayMember = "MRN_NO"
+            cmbMRNNo.ValueMember = "MRN_ID"
+            cmbMRNNo.DataSource = Dt
+            cmbMRNNo.SelectedIndex = 0
+            'cmbMRNNo.Focus()
+        End If
+
     End Sub
 
     Private Sub BindSupplierCombo()
@@ -575,7 +590,7 @@ Public Class frm_DebitNote
         FillGrid(txtSearch.Text.Trim())
     End Sub
 
-    Private Sub cmbsupplier_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbsupplier.SelectedIndexChanged
+    Private Sub cmbsupplier_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbSupplier.SelectedIndexChanged
 
         BindMRNCombo()
         lblAmount.Text = 0
@@ -766,12 +781,6 @@ Public Class frm_DebitNote
                 CalculateAmount()
             End If
 
-        End If
-    End Sub
-
-    Private Sub cmbsupplier_Enter(sender As Object, e As EventArgs) Handles cmbsupplier.Enter
-        If Not cmbsupplier.DroppedDown Then
-            cmbsupplier.DroppedDown = True
         End If
     End Sub
 

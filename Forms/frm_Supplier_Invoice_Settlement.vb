@@ -89,6 +89,7 @@ Public Class frm_Supplier_Invoice_Settlement
         txtRemarks.Text = ""
         flag = "save"
         cmbGSTNature.SelectedIndex = 0
+        TabControl1.SelectedIndex = 1
     End Sub
 
     Private Sub cmbPaymentType_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbPaymentType.SelectedIndexChanged
@@ -160,6 +161,8 @@ Public Class frm_Supplier_Invoice_Settlement
                 RightsMsg()
                 Exit Sub
             End If
+
+            cmbCustomer.SelectedIndex = cmbCustomer.FindStringExact(cmbCustomer.Text)
 
             prpty = New cls_Invoice_Settlement_prop
             prpty.PaymentTransactionId = PaymentId
@@ -236,6 +239,7 @@ Public Class frm_Supplier_Invoice_Settlement
             Return False
             Exit Function
         End If
+        cmbCustomer.SelectedIndex = cmbCustomer.FindStringExact(cmbCustomer.Text)
 
         If cmbCustomer.SelectedIndex <= 0 Then
             MsgBox("Select Account to enter payment.", vbExclamation, gblMessageHeading)
@@ -331,9 +335,13 @@ Public Class frm_Supplier_Invoice_Settlement
     End Sub
 
     Private Sub cmbCustomerApprovePayment_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbCustomerApprovePayment.SelectedIndexChanged
-        Dim query As String = "SELECT PaymentTransactionID, PaymentTransactionNo + ' - ' + CONVERT(VARCHAR(20), PaymentDate, 107) as PaymentTransactionNo" &
+        cmbCustomerApprovePayment.SelectedIndex = cmbCustomerApprovePayment.FindStringExact(cmbCustomerApprovePayment.Text)
+
+        If cmbCustomerApprovePayment.SelectedIndex > 0 Then
+            Dim query As String = "SELECT PaymentTransactionID, PaymentTransactionNo + ' - ' + CONVERT(VARCHAR(20), PaymentDate, 107) as PaymentTransactionNo" &
             " FROM dbo.PaymentTransaction where StatusId = 1 AND AccountId = " & cmbCustomerApprovePayment.SelectedValue
-        clsObj.ComboBind(cmbPendingPayment, query, "PaymentTransactionNo", "PaymentTransactionID", True)
+            clsObj.ComboBind(cmbPendingPayment, query, "PaymentTransactionNo", "PaymentTransactionID", True)
+        End If
     End Sub
 
     Private Sub btnApproved_Click(sender As Object, e As EventArgs) Handles btnApproved.Click
@@ -349,7 +357,7 @@ Public Class frm_Supplier_Invoice_Settlement
         If ApprovalValidation() = False Then
             Exit Sub
         End If
-
+        cmbCustomerApprovePayment.SelectedIndex = cmbCustomerApprovePayment.FindStringExact(cmbCustomerApprovePayment.Text)
         prpty = New cls_Invoice_Settlement_prop
         prpty.PaymentTransactionId = cmbPendingPayment.SelectedValue
         prpty.StatusId = _paymentApprovalStatus
@@ -390,7 +398,7 @@ Public Class frm_Supplier_Invoice_Settlement
     End Sub
 
     Private Function ApprovalValidation() As Boolean
-
+        cmbCustomerApprovePayment.SelectedIndex = cmbCustomerApprovePayment.FindStringExact(cmbCustomerApprovePayment.Text)
         If cmbCustomerApprovePayment.SelectedIndex <= 0 Then
             MsgBox("Select Account to approve/disapprove payment.", vbExclamation, gblMessageHeading)
             cmbCustomerApprovePayment.Focus()
@@ -419,27 +427,32 @@ Public Class frm_Supplier_Invoice_Settlement
         Return True
     End Function
 
-    Private Sub tabDistributePayment_Click(sender As Object, e As EventArgs) Handles tabDistributePayment.Click
-
-    End Sub
-
     Private Sub cmbCustomerSettleInvoice_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbCustomerSettleInvoice.SelectedIndexChanged
-        FillGrid()
-        SetUndistributedAmount()
+        cmbCustomerSettleInvoice.SelectedIndex = cmbCustomerSettleInvoice.FindStringExact(cmbCustomerSettleInvoice.Text)
+
+        If cmbCustomerSettleInvoice.SelectedIndex > 0 Then
+            FillGrid()
+            SetUndistributedAmount()
+        End If
+
     End Sub
 
     Dim UndistributedAmount As Decimal
     Private Sub SetUndistributedAmount()
-        Dim query As String = "DECLARE @UndistributedAmount DECIMAL(18, 2) SELECT @UndistributedAmount= isnull(SUM(UndistributedAmount), 0) FROM dbo.PaymentTransaction WHERE StatusId =2 AND AccountId=" & cmbCustomerSettleInvoice.SelectedValue &
+        cmbCustomerSettleInvoice.SelectedIndex = cmbCustomerSettleInvoice.FindStringExact(cmbCustomerSettleInvoice.Text)
+        If cmbCustomerSettleInvoice.SelectedIndex > 0 Then
+            Dim query As String = "DECLARE @UndistributedAmount DECIMAL(18, 2) SELECT @UndistributedAmount= isnull(SUM(UndistributedAmount), 0) FROM dbo.PaymentTransaction WHERE StatusId =2 AND AccountId=" & cmbCustomerSettleInvoice.SelectedValue &
             " SET @UndistributedAmount=ISNULL(@UndistributedAmount,0)+ISNULL((SELECT ISNULL(MAX(OpeningAmount),0)- ISNULL(sum(AmountSettled),0) FROM dbo.OpeningBalance left JOIN dbo.SettlementDetail" &
        " ON OpeningBalanceId=PaymentTransactionId WHERE TYPE=1 AND FkAccountId=" & cmbCustomerSettleInvoice.SelectedValue & " ),0) SELECT @UndistributedAmount"
-        UndistributedAmount = clsObj.ExecuteScalar(query)
-        lblUndistributedAmount.Text = UndistributedAmount.ToString("0.00")
+            UndistributedAmount = clsObj.ExecuteScalar(query)
+            lblUndistributedAmount.Text = UndistributedAmount.ToString("0.00")
+        End If
     End Sub
 
     Private Sub FillGrid()
-
-        Dim query As String = " SELECT MRN_NO AS MRN_ID ,MRN_PREFIX , MRN_NO , dbo.MATERIAL_RECEIVED_AGAINST_PO_MASTER.Creation_Date AS date , " &
+        cmbCustomerSettleInvoice.SelectedIndex = cmbCustomerSettleInvoice.FindStringExact(cmbCustomerSettleInvoice.Text)
+        If cmbCustomerSettleInvoice.SelectedIndex > 0 Then
+            Dim query As String = " SELECT MRN_NO AS MRN_ID ,MRN_PREFIX , MRN_NO , dbo.MATERIAL_RECEIVED_AGAINST_PO_MASTER.Creation_Date AS date , " &
             " MATERIAL_RECEIVED_AGAINST_PO_MASTER.NET_AMOUNT ,ISNULL(( SELECT SUM(AmountSettled) FROM   dbo.SettlementDetail  JOIN dbo.PaymentTransaction  ON dbo.PaymentTransaction.PaymentTransactionId = dbo.SettlementDetail.PaymentTransactionId WHERE  InvoiceId = Mrn_No AND AccountId=" & cmbCustomerSettleInvoice.SelectedValue & " ), 0)" &
             " + ISNULL(( SELECT SUM(AmountSettled) FROM   dbo.SettlementDetail  JOIN dbo.OpeningBalance  ON dbo.OpeningBalance.OpeningBalanceId = dbo.SettlementDetail.PaymentTransactionId WHERE  InvoiceId = Mrn_No AND fkAccountId=" & cmbCustomerSettleInvoice.SelectedValue & " ), 0) AS ReceivedAmount ," &
             " ISNULL(dn_amount, 0) AS DnAmount,Invoice_No FROM   dbo.MATERIAL_RECEIVED_AGAINST_PO_MASTER  JOIN dbo.PO_MASTER ON dbo.PO_MASTER.PO_ID = dbo.MATERIAL_RECEIVED_AGAINST_PO_MASTER.PO_ID " &
@@ -452,30 +465,32 @@ Public Class frm_Supplier_Invoice_Settlement
             " ON dbo.PaymentTransaction.PaymentTransactionId = dbo.SettlementDetail.PaymentTransactionId  WHERE  InvoiceId = OpeningBalanceId  AND AccountId = " & cmbCustomerSettleInvoice.SelectedValue &
             " ), 0) AS ReceivedAmount ,0,'Opening Balance'+CAST(OpeningBalanceId as varchar(20)) FROM dbo.OpeningBalance WHERE TYPE=2 AND FkAccountId=" & cmbCustomerSettleInvoice.SelectedValue
 
-        Dim dt As DataTable = clsObj.Fill_DataSet(query).Tables(0)
-        dgvInvoiceToSettle.RowCount = 0
+            Dim dt As DataTable = clsObj.Fill_DataSet(query).Tables(0)
+            dgvInvoiceToSettle.RowCount = 0
 
-        Dim index As Int16 = 0
-        For Each dr As DataRow In dt.Rows
-            If (dr("NET_AMOUNT") - dr("ReceivedAmount") - dr("DnAmount")) = 0 Then
-                Continue For
-            End If
-            dgvInvoiceToSettle.RowCount += 1
-            dgvInvoiceToSettle.Rows(index).Cells("MrnId").Value = dr("MRN_ID")
-            dgvInvoiceToSettle.Rows(index).Cells("MrnNo").Value = dr("MRN_PREFIX") & dr("MRN_NO")
-            dgvInvoiceToSettle.Rows(index).Cells("InvoiceNo").Value = dr("Invoice_No")
-            dgvInvoiceToSettle.Rows(index).Cells("MRNDate").Value = dr("date")
-            dgvInvoiceToSettle.Rows(index).Cells("InvoiceAmount").Value = dr("NET_AMOUNT")
+            Dim index As Int16 = 0
+            For Each dr As DataRow In dt.Rows
+                If (dr("NET_AMOUNT") - dr("ReceivedAmount") - dr("DnAmount")) = 0 Then
+                    Continue For
+                End If
+                dgvInvoiceToSettle.RowCount += 1
+                dgvInvoiceToSettle.Rows(index).Cells("MrnId").Value = dr("MRN_ID")
+                dgvInvoiceToSettle.Rows(index).Cells("MrnNo").Value = dr("MRN_PREFIX") & dr("MRN_NO")
+                dgvInvoiceToSettle.Rows(index).Cells("InvoiceNo").Value = dr("Invoice_No")
+                dgvInvoiceToSettle.Rows(index).Cells("MRNDate").Value = dr("date")
+                dgvInvoiceToSettle.Rows(index).Cells("InvoiceAmount").Value = dr("NET_AMOUNT")
 
-            dgvInvoiceToSettle.Rows(index).Cells("ReceivedAmount").Value = dr("ReceivedAmount")
-            dgvInvoiceToSettle.Rows(index).Cells("DebitedAmount").Value = dr("DnAmount")
-            dgvInvoiceToSettle.Rows(index).Cells("PendingAmount").Value = dr("NET_AMOUNT") - dr("ReceivedAmount") - dr("DnAmount")
-            dgvInvoiceToSettle.Rows(index).Cells("AmountToReceive").Value = 0
-            index = index + 1
-        Next
+                dgvInvoiceToSettle.Rows(index).Cells("ReceivedAmount").Value = dr("ReceivedAmount")
+                dgvInvoiceToSettle.Rows(index).Cells("DebitedAmount").Value = dr("DnAmount")
+                dgvInvoiceToSettle.Rows(index).Cells("PendingAmount").Value = dr("NET_AMOUNT") - dr("ReceivedAmount") - dr("DnAmount")
+                dgvInvoiceToSettle.Rows(index).Cells("AmountToReceive").Value = 0
+                index = index + 1
+            Next
+        End If
     End Sub
 
     Private Sub btnDistributeAmount_Click(sender As Object, e As EventArgs) Handles btnDistributeAmount.Click
+
         dgvInvoiceToSettle.Sort(MRNDate, System.ComponentModel.ListSortDirection.Ascending)
         SetUndistributedAmount()
         For Each row As DataGridViewRow In dgvInvoiceToSettle.Rows
@@ -493,6 +508,11 @@ Public Class frm_Supplier_Invoice_Settlement
     End Sub
 
     Private Sub btnSettleInvoice_Click(sender As Object, e As EventArgs) Handles btnSettleInvoice.Click
+        cmbCustomerSettleInvoice.SelectedIndex = cmbCustomerSettleInvoice.FindStringExact(cmbCustomerSettleInvoice.Text)
+        If cmbCustomerSettleInvoice.SelectedIndex <= 0 Then
+            MsgBox("Select Account to Settle payment.", MsgBoxStyle.Information, gblMessageHeading)
+            Exit Sub
+        End If
         Dim query As String = "SELECT PaymentTransactionId, UndistributedAmount, PaymentTransactionNo FROM dbo.PaymentTransaction" &
             " WHERE StatusId =2 AND UndistributedAmount > 0 AND AccountId=" & cmbCustomerSettleInvoice.SelectedValue &
             " UNION ALL SELECT OpeningBalanceId,ISNULL(MAX(OpeningAmount), 0) - ISNULL(SUM(AmountSettled), 0) AS OpeningAmount, 'OPBL'  FROM dbo.OpeningBalance LEFT JOIN dbo.SettlementDetail ON OpeningBalanceId = PaymentTransactionId WHERE TYPE=1 AND FkAccountId= " & cmbCustomerSettleInvoice.SelectedValue &
@@ -605,40 +625,44 @@ Public Class frm_Supplier_Invoice_Settlement
     Dim GSTTypeCalculation As DataTable = Nothing
     Dim GSTPercentageCalculation As DataTable = Nothing
     Private Sub cmbCustomer_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbCustomer.SelectedIndexChanged
-        Dim query As String = "DECLARE @AmountInHand DECIMAL(18,2) DECLARE @UndistributedAmount DECIMAL(18,2) SELECT @AmountInHand= isnull( sum(AmountInHand),0) FROM dbo.LedgerMaster WHERE AccountId=" & cmbCustomer.SelectedValue &
+
+        cmbCustomer.SelectedIndex = cmbCustomer.FindStringExact(cmbCustomer.Text)
+
+        If cmbCustomer.SelectedIndex > 0 Then
+            Dim query As String = "DECLARE @AmountInHand DECIMAL(18,2) DECLARE @UndistributedAmount DECIMAL(18,2) SELECT @AmountInHand= isnull( sum(AmountInHand),0) FROM dbo.LedgerMaster WHERE AccountId=" & cmbCustomer.SelectedValue &
        " SELECT  @UndistributedAmount=isnull(SUM(UndistributedAmount), 0) FROM dbo.PaymentTransaction WHERE StatusId =2 AND AccountId=" & cmbCustomer.SelectedValue &
        " SET @UndistributedAmount=ISNULL(@UndistributedAmount,0)+ISNULL((SELECT ISNULL(MAX(OpeningAmount),0)- ISNULL(sum(AmountSettled),0) FROM dbo.OpeningBalance left JOIN dbo.SettlementDetail" &
        " ON OpeningBalanceId=PaymentTransactionId WHERE TYPE=1 AND FkAccountId=" & cmbCustomer.SelectedValue & " ),0)" &
        " SELECT @AmountInHand AS AmountInHand,@UndistributedAmount AS UndistributedAmount"
 
-        Dim dt As DataTable = clsObj.Fill_DataSet(query).Tables(0)
+            Dim dt As DataTable = clsObj.Fill_DataSet(query).Tables(0)
 
-        If (dt.Rows(0)(0) < 0) Then
+            If (dt.Rows(0)(0) < 0) Then
 
-            lblPendingAmount.Text = "0.00"
-            lblAdvanceAmount.Text = -dt.Rows(0)(0)
-
-
-        Else
-            lblPendingAmount.Text = (dt.Rows(0)(0))
-            lblAdvanceAmount.Text = "0.00"
-        End If
-        lblUnDistributeAmount.Text = dt.Rows(0)(1)
+                lblPendingAmount.Text = "0.00"
+                lblAdvanceAmount.Text = -dt.Rows(0)(0)
 
 
-        chk_GSTApplicable.Checked = False
-        txtAmount.Text = ""
-        lblGSTPercentageValue.Text = "0.00"
+            Else
+                lblPendingAmount.Text = (dt.Rows(0)(0))
+                lblAdvanceAmount.Text = "0.00"
+            End If
+            lblUnDistributeAmount.Text = dt.Rows(0)(1)
 
-        query = "Select isnull(FK_GST_TYPE_ID,0) As FK_GST_TYPE_ID, isnull(fk_GST_ID,0) As fk_GST_ID, Isnull(Fk_HSN_ID,0) As Fk_HSN_ID from ACCOUNT_MASTER where AG_ID in (10,11,12) and ACC_ID = " + cmbCustomer.SelectedValue.ToString
-        GSTTypeCalculation = clsObj.FillDataSet(query).Tables(0)
-        If (GSTTypeCalculation.Rows.Count > 0) Then
-            If (GSTTypeCalculation.Rows(0)("FK_GST_TYPE_ID").ToString = "2") Then
-                chk_GSTApplicable.Checked = True
-                chk_GSTApplicable.ForeColor = Color.White
+
+            chk_GSTApplicable.Checked = False
+            txtAmount.Text = ""
+            lblGSTPercentageValue.Text = "0.00"
+
+            query = "Select isnull(FK_GST_TYPE_ID,0) As FK_GST_TYPE_ID, isnull(fk_GST_ID,0) As fk_GST_ID, Isnull(Fk_HSN_ID,0) As Fk_HSN_ID from ACCOUNT_MASTER where AG_ID in (10,11,12) and ACC_ID = " + cmbCustomer.SelectedValue.ToString
+            GSTTypeCalculation = clsObj.FillDataSet(query).Tables(0)
+            If (GSTTypeCalculation.Rows.Count > 0) Then
+                If (GSTTypeCalculation.Rows(0)("FK_GST_TYPE_ID").ToString = "2") Then
+                    chk_GSTApplicable.Checked = True
+                    chk_GSTApplicable.ForeColor = Color.White
+                End If
             End If
         End If
-
     End Sub
 
     Private Sub flxList_DoubleClick(sender As Object, e As EventArgs) Handles flxList.DoubleClick
@@ -706,11 +730,6 @@ Public Class frm_Supplier_Invoice_Settlement
 
     End Sub
 
-    Private Sub cmbCustomer_Enter(sender As Object, e As EventArgs) Handles cmbCustomer.Enter
-        If Not cmbCustomer.DroppedDown Then
-            cmbCustomer.DroppedDown = True
-        End If
-    End Sub
 
     Private Sub cmbPaymentType_Enter(sender As Object, e As EventArgs) Handles cmbPaymentType.Enter
         If Not cmbPaymentType.DroppedDown Then
@@ -724,11 +743,7 @@ Public Class frm_Supplier_Invoice_Settlement
         End If
     End Sub
 
-    Private Sub cmbCustomerApprovePayment_Enter(sender As Object, e As EventArgs) Handles cmbCustomerApprovePayment.Enter
-        If Not cmbCustomerApprovePayment.DroppedDown Then
-            cmbCustomerApprovePayment.DroppedDown = True
-        End If
-    End Sub
+
 
     Private Sub cmbPendingPayment_Enter(sender As Object, e As EventArgs) Handles cmbPendingPayment.Enter
         If Not cmbPendingPayment.DroppedDown Then
@@ -736,11 +751,7 @@ Public Class frm_Supplier_Invoice_Settlement
         End If
     End Sub
 
-    Private Sub cmbCustomerSettleInvoice_Enter(sender As Object, e As EventArgs) Handles cmbCustomerSettleInvoice.Enter
-        If Not cmbCustomerSettleInvoice.DroppedDown Then
-            cmbCustomerSettleInvoice.DroppedDown = True
-        End If
-    End Sub
+
 
     Private Sub txtAmount_TextChanged(sender As Object, e As EventArgs) Handles txtAmount.TextChanged
         If String.IsNullOrEmpty(txtAmount.Text) Then

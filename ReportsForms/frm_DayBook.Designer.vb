@@ -25,10 +25,10 @@ Partial Class frm_DayBook
         Me.GroupBox6 = New System.Windows.Forms.GroupBox()
         Me.txtTodate = New System.Windows.Forms.DateTimePicker()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.lblFormHeading = New System.Windows.Forms.Label()
         Me.txtFromDate = New System.Windows.Forms.DateTimePicker()
         Me.btnShow = New System.Windows.Forms.Button()
         Me.Label14 = New System.Windows.Forms.Label()
+        Me.Label2 = New System.Windows.Forms.Label()
         Me.GroupBox6.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -36,14 +36,13 @@ Partial Class frm_DayBook
         '
         Me.GroupBox6.Controls.Add(Me.txtTodate)
         Me.GroupBox6.Controls.Add(Me.Label1)
-        Me.GroupBox6.Controls.Add(Me.lblFormHeading)
         Me.GroupBox6.Controls.Add(Me.txtFromDate)
         Me.GroupBox6.Controls.Add(Me.btnShow)
         Me.GroupBox6.Controls.Add(Me.Label14)
         Me.GroupBox6.ForeColor = System.Drawing.Color.White
-        Me.GroupBox6.Location = New System.Drawing.Point(8, 15)
+        Me.GroupBox6.Location = New System.Drawing.Point(42, 31)
         Me.GroupBox6.Name = "GroupBox6"
-        Me.GroupBox6.Size = New System.Drawing.Size(890, 172)
+        Me.GroupBox6.Size = New System.Drawing.Size(815, 105)
         Me.GroupBox6.TabIndex = 0
         Me.GroupBox6.TabStop = False
         '
@@ -53,7 +52,7 @@ Partial Class frm_DayBook
         Me.txtTodate.CalendarMonthBackground = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.txtTodate.CustomFormat = "dd-MMM-yyyy"
         Me.txtTodate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.txtTodate.Location = New System.Drawing.Point(462, 82)
+        Me.txtTodate.Location = New System.Drawing.Point(448, 44)
         Me.txtTodate.Name = "txtTodate"
         Me.txtTodate.Size = New System.Drawing.Size(142, 20)
         Me.txtTodate.TabIndex = 1
@@ -62,22 +61,11 @@ Partial Class frm_DayBook
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(351, 86)
+        Me.Label1.Location = New System.Drawing.Point(337, 48)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(52, 15)
         Me.Label1.TabIndex = 44
         Me.Label1.Text = "To Date:"
-        '
-        'lblFormHeading
-        '
-        Me.lblFormHeading.AutoSize = True
-        Me.lblFormHeading.Font = New System.Drawing.Font("Verdana", 15.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblFormHeading.ForeColor = System.Drawing.Color.White
-        Me.lblFormHeading.Location = New System.Drawing.Point(739, 26)
-        Me.lblFormHeading.Name = "lblFormHeading"
-        Me.lblFormHeading.Size = New System.Drawing.Size(131, 25)
-        Me.lblFormHeading.TabIndex = 43
-        Me.lblFormHeading.Text = "DAY BOOK"
         '
         'txtFromDate
         '
@@ -85,7 +73,7 @@ Partial Class frm_DayBook
         Me.txtFromDate.CalendarMonthBackground = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.txtFromDate.CustomFormat = "dd-MMM-yyyy"
         Me.txtFromDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.txtFromDate.Location = New System.Drawing.Point(162, 81)
+        Me.txtFromDate.Location = New System.Drawing.Point(148, 43)
         Me.txtFromDate.Name = "txtFromDate"
         Me.txtFromDate.Size = New System.Drawing.Size(142, 20)
         Me.txtFromDate.TabIndex = 0
@@ -93,9 +81,10 @@ Partial Class frm_DayBook
         'btnShow
         '
         Me.btnShow.BackColor = System.Drawing.Color.FromArgb(CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.btnShow.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnShow.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnShow.ForeColor = System.Drawing.Color.White
-        Me.btnShow.Location = New System.Drawing.Point(737, 80)
+        Me.btnShow.Location = New System.Drawing.Point(640, 42)
         Me.btnShow.Name = "btnShow"
         Me.btnShow.Size = New System.Drawing.Size(133, 27)
         Me.btnShow.TabIndex = 2
@@ -106,17 +95,31 @@ Partial Class frm_DayBook
         '
         Me.Label14.AutoSize = True
         Me.Label14.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label14.Location = New System.Drawing.Point(51, 86)
+        Me.Label14.Location = New System.Drawing.Point(37, 48)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(68, 15)
         Me.Label14.TabIndex = 1
         Me.Label14.Text = "From Date:"
+        '
+        'Label2
+        '
+        Me.Label2.BackColor = System.Drawing.Color.FromArgb(CType(CType(88, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(88, Byte), Integer))
+        Me.Label2.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.Label2.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.ForeColor = System.Drawing.Color.OrangeRed
+        Me.Label2.Location = New System.Drawing.Point(894, 1)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(15, 115)
+        Me.Label2.TabIndex = 5
+        Me.Label2.Text = "Day  Book"
+        Me.Label2.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
         'frm_DayBook
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.DimGray
+        Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.GroupBox6)
         Me.Name = "frm_DayBook"
         Me.Size = New System.Drawing.Size(910, 630)
@@ -130,7 +133,7 @@ Partial Class frm_DayBook
     Friend WithEvents txtFromDate As DateTimePicker
     Friend WithEvents btnShow As Button
     Friend WithEvents Label14 As Label
-    Friend WithEvents lblFormHeading As Label
     Friend WithEvents txtTodate As System.Windows.Forms.DateTimePicker
     Friend WithEvents Label1 As System.Windows.Forms.Label
+    Friend WithEvents Label2 As Label
 End Class

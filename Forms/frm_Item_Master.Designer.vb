@@ -43,6 +43,7 @@ Partial Class frm_Item_Master
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.txtTransferRate = New System.Windows.Forms.TextBox()
+        Me.txtCurrentStock = New System.Windows.Forms.Label()
         Me.cmbSaleVat = New System.Windows.Forms.ComboBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.txtBatchNo = New System.Windows.Forms.TextBox()
@@ -53,6 +54,7 @@ Partial Class frm_Item_Master
         Me.txtReorderLevel = New System.Windows.Forms.TextBox()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.Label11 = New System.Windows.Forms.Label()
+        Me.Label26 = New System.Windows.Forms.Label()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.lblbrandname = New System.Windows.Forms.Label()
         Me.lblbarcode = New System.Windows.Forms.Label()
@@ -64,7 +66,6 @@ Partial Class frm_Item_Master
         Me.Label28 = New System.Windows.Forms.Label()
         Me.Label29 = New System.Windows.Forms.Label()
         Me.Label30 = New System.Windows.Forms.Label()
-        Me.txtCurrentStock = New System.Windows.Forms.Label()
         Me.lblConvReciepe = New System.Windows.Forms.Label()
         Me.lblConvIssue = New System.Windows.Forms.Label()
         Me.lbl_Recipeunit = New System.Windows.Forms.Label()
@@ -79,7 +80,6 @@ Partial Class frm_Item_Master
         Me.Label12 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Label17 = New System.Windows.Forms.Label()
-        Me.Label26 = New System.Windows.Forms.Label()
         Me.Label16 = New System.Windows.Forms.Label()
         Me.Label15 = New System.Windows.Forms.Label()
         Me.Label14 = New System.Windows.Forms.Label()
@@ -379,10 +379,22 @@ Partial Class frm_Item_Master
         Me.txtTransferRate.Size = New System.Drawing.Size(169, 19)
         Me.txtTransferRate.TabIndex = 10
         '
+        'txtCurrentStock
+        '
+        Me.txtCurrentStock.AutoSize = True
+        Me.txtCurrentStock.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtCurrentStock.ForeColor = System.Drawing.Color.Gold
+        Me.txtCurrentStock.Location = New System.Drawing.Point(474, 206)
+        Me.txtCurrentStock.Name = "txtCurrentStock"
+        Me.txtCurrentStock.Size = New System.Drawing.Size(65, 16)
+        Me.txtCurrentStock.TabIndex = 40
+        Me.txtCurrentStock.Text = "Label12"
+        '
         'cmbSaleVat
         '
         Me.cmbSaleVat.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.cmbSaleVat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbSaleVat.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmbSaleVat.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmbSaleVat.ForeColor = System.Drawing.Color.White
         Me.cmbSaleVat.FormattingEnabled = True
@@ -490,6 +502,17 @@ Partial Class frm_Item_Master
         Me.Label11.TabIndex = 31
         Me.Label11.Text = "Average  Rate :"
         '
+        'Label26
+        '
+        Me.Label26.AutoSize = True
+        Me.Label26.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label26.Location = New System.Drawing.Point(352, 208)
+        Me.Label26.Name = "Label26"
+        Me.Label26.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.Label26.Size = New System.Drawing.Size(96, 13)
+        Me.Label26.TabIndex = 6
+        Me.Label26.Text = "Current Stock :"
+        '
         'GroupBox3
         '
         Me.GroupBox3.Controls.Add(Me.lblbrandname)
@@ -536,9 +559,9 @@ Partial Class frm_Item_Master
         Me.lblbrandname.ForeColor = System.Drawing.Color.Orange
         Me.lblbrandname.Location = New System.Drawing.Point(646, 28)
         Me.lblbrandname.Name = "lblbrandname"
-        Me.lblbrandname.Size = New System.Drawing.Size(53, 13)
+        Me.lblbrandname.Size = New System.Drawing.Size(45, 13)
         Me.lblbrandname.TabIndex = 46
-        Me.lblbrandname.Text = "brand :"
+        Me.lblbrandname.Text = "brand"
         '
         'lblbarcode
         '
@@ -547,9 +570,9 @@ Partial Class frm_Item_Master
         Me.lblbarcode.ForeColor = System.Drawing.Color.Orange
         Me.lblbarcode.Location = New System.Drawing.Point(646, 79)
         Me.lblbarcode.Name = "lblbarcode"
-        Me.lblbarcode.Size = New System.Drawing.Size(73, 13)
+        Me.lblbarcode.Size = New System.Drawing.Size(65, 13)
         Me.lblbarcode.TabIndex = 47
-        Me.lblbarcode.Text = "Bar Code :"
+        Me.lblbarcode.Text = "Bar Code"
         '
         'lblhsn
         '
@@ -558,9 +581,9 @@ Partial Class frm_Item_Master
         Me.lblhsn.ForeColor = System.Drawing.Color.Orange
         Me.lblhsn.Location = New System.Drawing.Point(646, 54)
         Me.lblhsn.Name = "lblhsn"
-        Me.lblhsn.Size = New System.Drawing.Size(41, 13)
+        Me.lblhsn.Size = New System.Drawing.Size(33, 13)
         Me.lblhsn.TabIndex = 48
-        Me.lblhsn.Text = "HSN :"
+        Me.lblhsn.Text = "HSN"
         '
         'lblSalerate
         '
@@ -569,9 +592,9 @@ Partial Class frm_Item_Master
         Me.lblSalerate.ForeColor = System.Drawing.Color.Orange
         Me.lblSalerate.Location = New System.Drawing.Point(646, 131)
         Me.lblSalerate.Name = "lblSalerate"
-        Me.lblSalerate.Size = New System.Drawing.Size(76, 13)
+        Me.lblSalerate.Size = New System.Drawing.Size(68, 13)
         Me.lblSalerate.TabIndex = 49
-        Me.lblSalerate.Text = "Sale Rate :"
+        Me.lblSalerate.Text = "Sale Rate"
         '
         'lblmrp
         '
@@ -580,9 +603,9 @@ Partial Class frm_Item_Master
         Me.lblmrp.ForeColor = System.Drawing.Color.Orange
         Me.lblmrp.Location = New System.Drawing.Point(646, 105)
         Me.lblmrp.Name = "lblmrp"
-        Me.lblmrp.Size = New System.Drawing.Size(41, 13)
+        Me.lblmrp.Size = New System.Drawing.Size(33, 13)
         Me.lblmrp.TabIndex = 50
-        Me.lblmrp.Text = "MRP :"
+        Me.lblmrp.Text = "MRP"
         '
         'Label25
         '
@@ -639,17 +662,6 @@ Partial Class frm_Item_Master
         Me.Label30.TabIndex = 45
         Me.Label30.Text = "BRAND :"
         '
-        'txtCurrentStock
-        '
-        Me.txtCurrentStock.AutoSize = True
-        Me.txtCurrentStock.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtCurrentStock.ForeColor = System.Drawing.Color.Gold
-        Me.txtCurrentStock.Location = New System.Drawing.Point(474, 206)
-        Me.txtCurrentStock.Name = "txtCurrentStock"
-        Me.txtCurrentStock.Size = New System.Drawing.Size(65, 16)
-        Me.txtCurrentStock.TabIndex = 40
-        Me.txtCurrentStock.Text = "Label12"
-        '
         'lblConvReciepe
         '
         Me.lblConvReciepe.AutoSize = True
@@ -657,9 +669,9 @@ Partial Class frm_Item_Master
         Me.lblConvReciepe.ForeColor = System.Drawing.Color.Orange
         Me.lblConvReciepe.Location = New System.Drawing.Point(646, 184)
         Me.lblConvReciepe.Name = "lblConvReciepe"
-        Me.lblConvReciepe.Size = New System.Drawing.Size(127, 13)
+        Me.lblConvReciepe.Size = New System.Drawing.Size(118, 13)
         Me.lblConvReciepe.TabIndex = 40
-        Me.lblConvReciepe.Text = "Conv Factor Recipe :"
+        Me.lblConvReciepe.Text = "Conv Factor Recipe"
         '
         'lblConvIssue
         '
@@ -668,9 +680,9 @@ Partial Class frm_Item_Master
         Me.lblConvIssue.ForeColor = System.Drawing.Color.Orange
         Me.lblConvIssue.Location = New System.Drawing.Point(646, 158)
         Me.lblConvIssue.Name = "lblConvIssue"
-        Me.lblConvIssue.Size = New System.Drawing.Size(120, 13)
+        Me.lblConvIssue.Size = New System.Drawing.Size(111, 13)
         Me.lblConvIssue.TabIndex = 40
-        Me.lblConvIssue.Text = "Conv Factor Issue :"
+        Me.lblConvIssue.Text = "Conv Factor Issue"
         '
         'lbl_Recipeunit
         '
@@ -679,9 +691,9 @@ Partial Class frm_Item_Master
         Me.lbl_Recipeunit.ForeColor = System.Drawing.Color.Orange
         Me.lbl_Recipeunit.Location = New System.Drawing.Point(124, 184)
         Me.lbl_Recipeunit.Name = "lbl_Recipeunit"
-        Me.lbl_Recipeunit.Size = New System.Drawing.Size(87, 13)
+        Me.lbl_Recipeunit.Size = New System.Drawing.Size(78, 13)
         Me.lbl_Recipeunit.TabIndex = 40
-        Me.lbl_Recipeunit.Text = "Reciepe Unit :"
+        Me.lbl_Recipeunit.Text = "Reciepe Unit"
         '
         'lblIssueUnit
         '
@@ -690,9 +702,9 @@ Partial Class frm_Item_Master
         Me.lblIssueUnit.ForeColor = System.Drawing.Color.Orange
         Me.lblIssueUnit.Location = New System.Drawing.Point(124, 158)
         Me.lblIssueUnit.Name = "lblIssueUnit"
-        Me.lblIssueUnit.Size = New System.Drawing.Size(73, 13)
+        Me.lblIssueUnit.Size = New System.Drawing.Size(64, 13)
         Me.lblIssueUnit.TabIndex = 40
-        Me.lblIssueUnit.Text = "Issue Unit :"
+        Me.lblIssueUnit.Text = "Issue Unit"
         '
         'txt_UMID
         '
@@ -701,9 +713,9 @@ Partial Class frm_Item_Master
         Me.txt_UMID.ForeColor = System.Drawing.Color.Orange
         Me.txt_UMID.Location = New System.Drawing.Point(124, 132)
         Me.txt_UMID.Name = "txt_UMID"
-        Me.txt_UMID.Size = New System.Drawing.Size(76, 13)
+        Me.txt_UMID.Size = New System.Drawing.Size(68, 13)
         Me.txt_UMID.TabIndex = 40
-        Me.txt_UMID.Text = "Item Unit :"
+        Me.txt_UMID.Text = "Item Unit"
         '
         'lblItemDesc
         '
@@ -712,9 +724,9 @@ Partial Class frm_Item_Master
         Me.lblItemDesc.ForeColor = System.Drawing.Color.Orange
         Me.lblItemDesc.Location = New System.Drawing.Point(124, 106)
         Me.lblItemDesc.Name = "lblItemDesc"
-        Me.lblItemDesc.Size = New System.Drawing.Size(81, 13)
+        Me.lblItemDesc.Size = New System.Drawing.Size(73, 13)
         Me.lblItemDesc.TabIndex = 40
-        Me.lblItemDesc.Text = "Item Desc :"
+        Me.lblItemDesc.Text = "Item Desc"
         '
         'txtItemName
         '
@@ -723,9 +735,9 @@ Partial Class frm_Item_Master
         Me.txtItemName.ForeColor = System.Drawing.Color.Orange
         Me.txtItemName.Location = New System.Drawing.Point(124, 80)
         Me.txtItemName.Name = "txtItemName"
-        Me.txtItemName.Size = New System.Drawing.Size(87, 13)
+        Me.txtItemName.Size = New System.Drawing.Size(79, 13)
         Me.txtItemName.TabIndex = 40
-        Me.txtItemName.Text = "Item Name :"
+        Me.txtItemName.Text = "Item Name"
         '
         'txtItemCode
         '
@@ -734,9 +746,9 @@ Partial Class frm_Item_Master
         Me.txtItemCode.ForeColor = System.Drawing.Color.Orange
         Me.txtItemCode.Location = New System.Drawing.Point(124, 54)
         Me.txtItemCode.Name = "txtItemCode"
-        Me.txtItemCode.Size = New System.Drawing.Size(82, 13)
+        Me.txtItemCode.Size = New System.Drawing.Size(74, 13)
         Me.txtItemCode.TabIndex = 40
-        Me.txtItemCode.Text = "Item Code :"
+        Me.txtItemCode.Text = "Item Code"
         '
         'txtItemCat
         '
@@ -745,9 +757,9 @@ Partial Class frm_Item_Master
         Me.txtItemCat.ForeColor = System.Drawing.Color.Orange
         Me.txtItemCat.Location = New System.Drawing.Point(124, 28)
         Me.txtItemCat.Name = "txtItemCat"
-        Me.txtItemCat.Size = New System.Drawing.Size(109, 13)
+        Me.txtItemCat.Size = New System.Drawing.Size(101, 13)
         Me.txtItemCat.TabIndex = 40
-        Me.txtItemCat.Text = "Item Category :"
+        Me.txtItemCat.Text = "Item Category"
         '
         'Label2
         '
@@ -803,17 +815,6 @@ Partial Class frm_Item_Master
         Me.Label17.Size = New System.Drawing.Size(138, 13)
         Me.Label17.TabIndex = 6
         Me.Label17.Text = "Conv. Factor Reciepe :"
-        '
-        'Label26
-        '
-        Me.Label26.AutoSize = True
-        Me.Label26.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label26.Location = New System.Drawing.Point(352, 208)
-        Me.Label26.Name = "Label26"
-        Me.Label26.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Label26.Size = New System.Drawing.Size(96, 13)
-        Me.Label26.TabIndex = 6
-        Me.Label26.Text = "Current Stock :"
         '
         'Label16
         '

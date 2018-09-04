@@ -160,6 +160,7 @@ Public Class frm_Stock_Transfer
                 ''''''''''''''''''''''''''TO GET DC NO'''''''''''''''''''''''''''''
                 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
+                cmbOutlet.SelectedIndex = cmbOutlet.FindStringExact(cmbOutlet.Text)
 
                 Dim ar() As String = cmbOutlet.SelectedValue.ToString().Split("-")
                 Dim a As String = ar(0)
@@ -260,6 +261,8 @@ Public Class frm_Stock_Transfer
     End Sub
     Private Function Validation() As Boolean
 
+        cmbOutlet.SelectedIndex = cmbOutlet.FindStringExact(cmbOutlet.Text)
+
         If cmbOutlet.SelectedIndex = 0 Then
             MsgBox("Select Outlet/Warehouse to Transfer.", MsgBoxStyle.Information, gblMessageHeading)
             Return False
@@ -346,7 +349,7 @@ again:
 
         flxItems.Cols("Item_Id").Width = 10
         flxItems.Cols("Item_Code").Width = 120
-        flxItems.Cols("Item_Name").Width = 380
+        flxItems.Cols("Item_Name").Width = 400
         flxItems.Cols("UM_Name").Width = 50
         flxItems.Cols("Batch_No").Width = 10
         flxItems.Cols("Expiry_date").Width = 10
@@ -443,7 +446,7 @@ again:
                     frm_Show_search.column_name4 = "LABELITEMNAME_VCH"
                     frm_Show_search.column_name5 = "ITEM_CAT_NAME"
                     frm_Show_search.cols_no_for_width = "1,2,3,4,5,6"
-                    frm_Show_search.cols_width = "100,320,70,70,100,105"
+                    frm_Show_search.cols_width = "100,340,70,70,100,105"
                     frm_Show_search.extra_condition = ""
                     frm_Show_search.ret_column = "ITEM_ID"
                     frm_Show_search.item_rate_column = ""
@@ -615,13 +618,4 @@ restart:
         End If
     End Sub
 
-    Private Sub cmbOutlet_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbOutlet.SelectedIndexChanged
-
-    End Sub
-
-    Private Sub cmbOutlet_Enter(sender As Object, e As EventArgs) Handles cmbOutlet.Enter
-        If Not cmbOutlet.DroppedDown Then
-            cmbOutlet.DroppedDown = True
-        End If
-    End Sub
 End Class

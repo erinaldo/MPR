@@ -477,7 +477,7 @@ Partial Class MDIMain
         Me.frm_Material_Received_Without_PO_Master.Image = Global.MMSPlus.My.Resources.Resources.Stock_In
         Me.frm_Material_Received_Without_PO_Master.Name = "frm_Material_Received_Without_PO_Master"
         Me.frm_Material_Received_Without_PO_Master.Size = New System.Drawing.Size(285, 22)
-        Me.frm_Material_Received_Without_PO_Master.Text = "MRN Without P.O."
+        Me.frm_Material_Received_Without_PO_Master.Text = "MRN W/O P.O."
         '
         'frm_material_rec_against_PO
         '
@@ -486,7 +486,7 @@ Partial Class MDIMain
         Me.frm_material_rec_against_PO.Image = Global.MMSPlus.My.Resources.Resources.Loading_throbber_time_loader
         Me.frm_material_rec_against_PO.Name = "frm_material_rec_against_PO"
         Me.frm_material_rec_against_PO.Size = New System.Drawing.Size(285, 22)
-        Me.frm_material_rec_against_PO.Text = "MRN Against P.O."
+        Me.frm_material_rec_against_PO.Text = "MRN A/S P.O."
         '
         'frm_DebitNote
         '

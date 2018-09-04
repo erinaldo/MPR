@@ -32,9 +32,9 @@ Partial Class frm_Show_search
         Me.txtSearch = New System.Windows.Forms.TextBox()
         Me.lblMRP = New System.Windows.Forms.Label()
         Me.lblCategory = New System.Windows.Forms.Label()
-        Me.cmbCategory = New System.Windows.Forms.ComboBox()
         Me.lblBrand = New System.Windows.Forms.Label()
-        Me.cmbBrand = New System.Windows.Forms.ComboBox()
+        Me.cmbCategory = New MMSPlus.AutoCompleteCombo()
+        Me.cmbBrand = New MMSPlus.AutoCompleteCombo()
         Me.Panel1.SuspendLayout()
         CType(Me.grdSearch, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.gpAdvanceSearch.SuspendLayout()
@@ -49,7 +49,7 @@ Partial Class frm_Show_search
         Me.Panel1.Font = New System.Drawing.Font("Microsoft Sans Serif", 100.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(10, Byte))
         Me.Panel1.Location = New System.Drawing.Point(-1, -1)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(813, 434)
+        Me.Panel1.Size = New System.Drawing.Size(813, 441)
         Me.Panel1.TabIndex = 3
         '
         'grdSearch
@@ -67,7 +67,7 @@ Partial Class frm_Show_search
         DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.grdSearch.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         Me.grdSearch.GridColor = System.Drawing.Color.FromArgb(CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.grdSearch.Location = New System.Drawing.Point(1, 176)
+        Me.grdSearch.Location = New System.Drawing.Point(2, 181)
         Me.grdSearch.Name = "grdSearch"
         Me.grdSearch.ReadOnly = True
         Me.grdSearch.RowHeadersVisible = False
@@ -77,12 +77,14 @@ Partial Class frm_Show_search
         Me.grdSearch.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.DarkOrange
         Me.grdSearch.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.White
         Me.grdSearch.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.grdSearch.Size = New System.Drawing.Size(806, 253)
+        Me.grdSearch.Size = New System.Drawing.Size(806, 245)
         Me.grdSearch.TabIndex = 1
         '
         'gpAdvanceSearch
         '
         Me.gpAdvanceSearch.BackColor = System.Drawing.Color.DarkGray
+        Me.gpAdvanceSearch.Controls.Add(Me.cmbCategory)
+        Me.gpAdvanceSearch.Controls.Add(Me.cmbBrand)
         Me.gpAdvanceSearch.Controls.Add(Me.btnExit)
         Me.gpAdvanceSearch.Controls.Add(Me.lblItem)
         Me.gpAdvanceSearch.Controls.Add(Me.txtRate)
@@ -91,9 +93,7 @@ Partial Class frm_Show_search
         Me.gpAdvanceSearch.Controls.Add(Me.txtSearch)
         Me.gpAdvanceSearch.Controls.Add(Me.lblMRP)
         Me.gpAdvanceSearch.Controls.Add(Me.lblCategory)
-        Me.gpAdvanceSearch.Controls.Add(Me.cmbCategory)
         Me.gpAdvanceSearch.Controls.Add(Me.lblBrand)
-        Me.gpAdvanceSearch.Controls.Add(Me.cmbBrand)
         Me.gpAdvanceSearch.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.gpAdvanceSearch.ForeColor = System.Drawing.Color.White
         Me.gpAdvanceSearch.Location = New System.Drawing.Point(1, -2)
@@ -112,7 +112,7 @@ Partial Class frm_Show_search
         Me.btnExit.Location = New System.Drawing.Point(777, 13)
         Me.btnExit.Name = "btnExit"
         Me.btnExit.Size = New System.Drawing.Size(25, 23)
-        Me.btnExit.TabIndex = 10
+        Me.btnExit.TabIndex = 5
         Me.btnExit.Text = "X"
         Me.btnExit.UseVisualStyleBackColor = False
         '
@@ -135,7 +135,7 @@ Partial Class frm_Show_search
         Me.txtRate.Location = New System.Drawing.Point(499, 104)
         Me.txtRate.Name = "txtRate"
         Me.txtRate.Size = New System.Drawing.Size(250, 18)
-        Me.txtRate.TabIndex = 5
+        Me.txtRate.TabIndex = 4
         '
         'lblRate
         '
@@ -156,7 +156,7 @@ Partial Class frm_Show_search
         Me.txtMRP.Location = New System.Drawing.Point(162, 105)
         Me.txtMRP.Name = "txtMRP"
         Me.txtMRP.Size = New System.Drawing.Size(250, 18)
-        Me.txtMRP.TabIndex = 4
+        Me.txtMRP.TabIndex = 3
         '
         'txtSearch
         '
@@ -167,7 +167,7 @@ Partial Class frm_Show_search
         Me.txtSearch.Location = New System.Drawing.Point(162, 140)
         Me.txtSearch.Name = "txtSearch"
         Me.txtSearch.Size = New System.Drawing.Size(587, 18)
-        Me.txtSearch.TabIndex = 6
+        Me.txtSearch.TabIndex = 0
         '
         'lblMRP
         '
@@ -189,18 +189,6 @@ Partial Class frm_Show_search
         Me.lblCategory.TabIndex = 3
         Me.lblCategory.Text = "Category :"
         '
-        'cmbCategory
-        '
-        Me.cmbCategory.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append
-        Me.cmbCategory.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.cmbCategory.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmbCategory.ForeColor = System.Drawing.Color.White
-        Me.cmbCategory.FormattingEnabled = True
-        Me.cmbCategory.Location = New System.Drawing.Point(162, 67)
-        Me.cmbCategory.Name = "cmbCategory"
-        Me.cmbCategory.Size = New System.Drawing.Size(587, 21)
-        Me.cmbCategory.TabIndex = 2
-        '
         'lblBrand
         '
         Me.lblBrand.AutoSize = True
@@ -211,16 +199,30 @@ Partial Class frm_Show_search
         Me.lblBrand.TabIndex = 1
         Me.lblBrand.Text = "Brand :"
         '
+        'cmbCategory
+        '
+        Me.cmbCategory.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.cmbCategory.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmbCategory.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmbCategory.ForeColor = System.Drawing.Color.White
+        Me.cmbCategory.FormattingEnabled = True
+        Me.cmbCategory.Location = New System.Drawing.Point(162, 65)
+        Me.cmbCategory.Name = "cmbCategory"
+        Me.cmbCategory.ResetOnClear = False
+        Me.cmbCategory.Size = New System.Drawing.Size(587, 24)
+        Me.cmbCategory.TabIndex = 2
+        '
         'cmbBrand
         '
-        Me.cmbBrand.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append
         Me.cmbBrand.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.cmbBrand.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmbBrand.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmbBrand.ForeColor = System.Drawing.Color.White
         Me.cmbBrand.FormattingEnabled = True
-        Me.cmbBrand.Location = New System.Drawing.Point(162, 29)
+        Me.cmbBrand.Location = New System.Drawing.Point(162, 27)
         Me.cmbBrand.Name = "cmbBrand"
-        Me.cmbBrand.Size = New System.Drawing.Size(587, 21)
+        Me.cmbBrand.ResetOnClear = False
+        Me.cmbBrand.Size = New System.Drawing.Size(587, 24)
         Me.cmbBrand.TabIndex = 1
         '
         'frm_Show_search
@@ -253,8 +255,8 @@ Partial Class frm_Show_search
     Public WithEvents txtSearch As TextBox
     Friend WithEvents lblMRP As Label
     Friend WithEvents lblCategory As Label
-    Friend WithEvents cmbCategory As ComboBox
     Friend WithEvents lblBrand As Label
-    Friend WithEvents cmbBrand As ComboBox
     Friend WithEvents btnExit As Button
+    Friend WithEvents cmbBrand As AutoCompleteCombo
+    Friend WithEvents cmbCategory As AutoCompleteCombo
 End Class

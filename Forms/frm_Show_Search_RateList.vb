@@ -106,10 +106,10 @@ Public Class frm_Show_Search_RateList
 
 
 
-            'If grdSearch.RowCount > 0 Then
-            '    Dim checkBox As DataGridViewCheckBoxCell = (TryCast(grdSearch.Rows(0).Cells("chkBxSelect"), DataGridViewCheckBoxCell))
-            '    checkBox.Value = False
-            'End If
+            If grdSearch.RowCount > 0 Then
+                Dim checkBox As DataGridViewCheckBoxCell = (TryCast(grdSearch.Rows(0).Cells("chkBxSelect"), DataGridViewCheckBoxCell))
+                checkBox.Value = False
+            End If
 
         Catch ex As Exception
             MsgBox(gblMessageHeading_Error & vbCrLf & gblMessage_ContactInfo & vbCrLf & ex.Message, MsgBoxStyle.Critical, gblMessageHeading)
@@ -305,6 +305,9 @@ Public Class frm_Show_Search_RateList
     Private Sub txtSearch_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtSearch.TextChanged
         Try
             Dim search_qry As String
+            cmbBrand.SelectedIndex = cmbBrand.FindStringExact(cmbBrand.Text)
+            cmbCategory.SelectedIndex = cmbCategory.FindStringExact(cmbCategory.Text)
+
             If extra_condition <> "" Then
                 search_qry = qry & extra_condition & " and ( upper(" & column_name & ") like '%" & txtSearch.Text & "%'" & " or upper(" & column_name1 & ") like '%" & txtSearch.Text & "%')"
                 If (txtMRP.Text <> "") Then
@@ -452,6 +455,9 @@ Public Class frm_Show_Search_RateList
 
         Try
             Dim search_qry As String
+            cmbBrand.SelectedIndex = cmbBrand.FindStringExact(cmbBrand.Text)
+            cmbCategory.SelectedIndex = cmbCategory.FindStringExact(cmbCategory.Text)
+
             If extra_condition <> "" Then
                 search_qry = qry & extra_condition
                 If (txtMRP.Text <> "") Then
@@ -535,6 +541,9 @@ Public Class frm_Show_Search_RateList
 
         Try
             Dim search_qry As String
+            cmbBrand.SelectedIndex = cmbBrand.FindStringExact(cmbBrand.Text)
+            cmbCategory.SelectedIndex = cmbCategory.FindStringExact(cmbCategory.Text)
+
             If extra_condition <> "" Then
                 search_qry = qry & extra_condition
                 If (txtRate.Text <> "") Then
@@ -617,6 +626,9 @@ Public Class frm_Show_Search_RateList
     Private Sub cmbBrand_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbBrand.SelectedIndexChanged
         Try
             Dim search_qry As String
+            cmbBrand.SelectedIndex = cmbBrand.FindStringExact(cmbBrand.Text)
+            cmbCategory.SelectedIndex = cmbCategory.FindStringExact(cmbCategory.Text)
+
             If extra_condition <> "" Then
                 If (cmbBrand.SelectedIndex <> 0) Then
                     search_qry = qry & extra_condition & " and upper(" & column_name4 & ") Like '%" & cmbBrand.SelectedValue & "%'"
@@ -696,6 +708,9 @@ Public Class frm_Show_Search_RateList
     Private Sub cmbCategory_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbCategory.SelectedIndexChanged
         Try
             Dim search_qry As String
+            cmbBrand.SelectedIndex = cmbBrand.FindStringExact(cmbBrand.Text)
+            cmbCategory.SelectedIndex = cmbCategory.FindStringExact(cmbCategory.Text)
+
             If extra_condition <> "" Then
                 If (cmbCategory.SelectedIndex <> 0) Then
                     search_qry = qry & extra_condition & " and upper(" & column_name5 & ") Like '%" & cmbCategory.SelectedValue & "%'"
@@ -827,16 +842,5 @@ Public Class frm_Show_Search_RateList
         End If
     End Sub
 
-    Private Sub cmbBrand_Enter(sender As Object, e As EventArgs) Handles cmbBrand.Enter
-        If Not cmbBrand.DroppedDown Then
-            cmbBrand.DroppedDown = True
-        End If
-    End Sub
-
-    Private Sub cmbCategory_Enter(sender As Object, e As EventArgs) Handles cmbCategory.Enter
-        If Not cmbCategory.DroppedDown Then
-            cmbCategory.DroppedDown = True
-        End If
-    End Sub
 
 End Class
