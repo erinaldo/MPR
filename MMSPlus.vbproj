@@ -908,6 +908,12 @@
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Reports\cry_Tax_Invoice .vb">
+      <DependentUpon>cry_Tax_Invoice .rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Reports\Cry_Debit_Note_WO_Item.vb">
       <DependentUpon>Cry_Debit_Note_WO_Item.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -1880,6 +1886,10 @@
     <EmbeddedResource Include="Reports\Cry_Credit_Note_WO_Item.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>Cry_Credit_Note_WO_Item.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\cry_Tax_Invoice .rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cry_Tax_Invoice .vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\Cry_Debit_Note_WO_Item.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

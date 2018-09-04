@@ -1488,7 +1488,15 @@ Public MustInherit Class Connection
             ElseIf RptNo = enmReportName.RptAccPaymentPrint Then
                 filepath = ReportFilePath & "PaymentVoucher.rpt"
 
+            ElseIf RptNo = enmReportName.RptAccPaymentInvoicerint Then
+                filepath = ReportFilePath & "cry_Tax_Invoice .rpt"
+
             End If
+
+
+
+
+            '
 
             Dim callType As Integer = 0
 
@@ -1593,6 +1601,11 @@ Public MustInherit Class Connection
                     ElseIf RptNo = enmReportName.RptAccPaymentPrint Then
                         PInteger = CInt(value(ArrIndex))
                         rep.SetParameterValue("PaymentId", CInt(value(ArrIndex)))
+
+                    ElseIf RptNo = enmReportName.RptAccPaymentInvoicerint Then
+                        PInteger = CInt(value(ArrIndex))
+                        rep.SetParameterValue("PaymentTransactionId", CInt(value(ArrIndex)))
+                        '
 
                     ElseIf RptNo = enmReportName.RptDeliveryNotePrint Then
                         PInteger = CInt(value(ArrIndex))
@@ -1762,8 +1775,8 @@ again:
         'Export Each Row End
 
         workbook.SaveAs(excelLocation)
-        APP.Workbooks.Open(excelLocation)
-        APP.Visible = True
+        'APP.Workbooks.Open(excelLocation)
+        ' APP.Visible = True
     End Sub
 
 End Class

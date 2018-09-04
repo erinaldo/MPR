@@ -85,6 +85,7 @@ Partial Class frm_Account_Payment
         'List
         '
         Me.List.BackColor = System.Drawing.Color.DimGray
+        Me.List.Controls.Add(Me.btnPrintInvoice)
         Me.List.Controls.Add(Me.BtnCancelInv)
         Me.List.Controls.Add(Me.GBMRSDetail)
         Me.List.Controls.Add(Me.GroupBox2)
@@ -514,6 +515,15 @@ Partial Class frm_Account_Payment
         Me.cmbAccountToCredit.Name = "cmbAccountToCredit"
         Me.cmbAccountToCredit.ResetOnClear = False
         Me.cmbAccountToCredit.Size = New System.Drawing.Size(681, 24)
+        Me.btnPrintInvoice.BackColor = System.Drawing.Color.IndianRed
+        Me.btnPrintInvoice.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnPrintInvoice.Location = New System.Drawing.Point(622, 549)
+        Me.btnPrintInvoice.Name = "btnPrintInvoice"
+        Me.btnPrintInvoice.Size = New System.Drawing.Size(128, 25)
+        Me.btnPrintInvoice.TabIndex = 3
+        Me.btnPrintInvoice.Text = "Print Invoice"
+        Me.btnPrintInvoice.UseVisualStyleBackColor = False
+        '
         Me.cmbAccountToCredit.TabIndex = 1
         '
         'cmbAccountToDebit
@@ -585,6 +595,7 @@ Partial Class frm_Account_Payment
     Friend WithEvents chk_GSTApplicable As CheckBox
     Friend WithEvents chk_GSTApplicable_BankId As CheckBox
     Friend WithEvents cmbAccountToCredit As AutoCompleteCombo
+    Friend WithEvents btnPrintInvoice As Button
     Friend WithEvents cmbAccountToDebit As AutoCompleteCombo
     Friend WithEvents lblFormHeading As Label
 End Class

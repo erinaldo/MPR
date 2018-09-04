@@ -928,6 +928,7 @@ Partial Class frm_Purchase_Order
         Me.cmbDeliveryRate.Size = New System.Drawing.Size(133, 23)
         Me.cmbDeliveryRate.TabIndex = 4
         '
+        Me.chk_Composition.Text = "Composite / UN / Nill"
         'cmbQualityRate
         '
         Me.cmbQualityRate.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend

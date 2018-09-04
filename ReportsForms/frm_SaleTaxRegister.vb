@@ -783,5 +783,6 @@ FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY SIM.SI_ID ) AS [S. No.] ,
 
     Private Sub btnShow_Click(sender As Object, e As EventArgs) Handles btnShow.Click
         objCommFunction.ExportGridToExcel(grdTaxReport)
+        MsgBox("Sale Register export successfully.", MsgBoxStyle.Information, gblMessageHeading)
     End Sub
 End Class

@@ -1049,6 +1049,8 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.Panel17.Size = New System.Drawing.Size(117, 1)
         Me.Panel17.TabIndex = 6
         '
+        Me.MRNdtDate.Enabled = False
+        Me.chk_Composition.Text = "Composite / UN / Nill"
         'txtotherchrgs
         '
         Me.txtotherchrgs.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))

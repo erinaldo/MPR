@@ -52,6 +52,7 @@ Public Class frm_PurchaseTaxRegister
 
     Private Sub btnShow_Click(sender As Object, e As EventArgs) Handles btnShow.Click
         objCommFunction.ExportGridToExcel(grdTaxReport)
+        MsgBox("Purchase Register export successfully.", MsgBoxStyle.Information, gblMessageHeading)
     End Sub
 
     Private Sub btnGenerate_Click_1(sender As Object, e As EventArgs) Handles btnGenerate.Click
