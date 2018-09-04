@@ -41,7 +41,7 @@ Public Class frm_GatePass
             grdGatePass.Columns(1).Width = 150
             grdGatePass.Columns(2).Width = 150
             grdGatePass.Columns(3).Width = 150
-            grdGatePass.Columns(4).Width = 300
+            grdGatePass.Columns(4).Width = 275
 
 
         Catch ex As Exception

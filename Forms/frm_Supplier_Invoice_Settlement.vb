@@ -757,6 +757,8 @@ Public Class frm_Supplier_Invoice_Settlement
         If String.IsNullOrEmpty(txtAmount.Text) Then
             txtAmount.Text = 0
         End If
+        If GSTTypeCalculation Is Nothing Then Exit Sub
+
         If (GSTTypeCalculation.Rows.Count > 0) Then
             If (GSTTypeCalculation.Rows(0)("FK_GST_TYPE_ID") = "2") Then
 
@@ -775,6 +777,7 @@ Public Class frm_Supplier_Invoice_Settlement
         If String.IsNullOrEmpty(txtAmount.Text) Then
             txtAmount.Text = 0
         End If
+        If GSTTypeCalculation Is Nothing Then Exit Sub
         If (GSTTypeCalculation.Rows.Count > 0) Then
             If (GSTTypeCalculation.Rows(0)("FK_GST_TYPE_ID") = "2") Then
 

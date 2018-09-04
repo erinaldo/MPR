@@ -111,7 +111,7 @@ Partial Class frm_GSTR_1
         Me.Label22.ForeColor = System.Drawing.Color.OrangeRed
         Me.Label22.Location = New System.Drawing.Point(894, 1)
         Me.Label22.Name = "Label22"
-        Me.Label22.Size = New System.Drawing.Size(15, 220)
+        Me.Label22.Size = New System.Drawing.Size(15, 85)
         Me.Label22.TabIndex = 58
         Me.Label22.Text = "GSTR  1"
         Me.Label22.TextAlign = System.Drawing.ContentAlignment.TopCenter

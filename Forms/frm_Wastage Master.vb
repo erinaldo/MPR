@@ -379,6 +379,8 @@ restart:
 
     Private Sub grdWastageItem_AfterEdit(ByVal sender As System.Object, ByVal e As C1.Win.C1FlexGrid.RowColEventArgs) Handles grdWastageItem.AfterEdit
         If grdWastageItem.Rows(e.Row).IsNode Then Exit Sub
+        If IsDBNull(grdWastageItem.Rows(e.Row)("wastage_qty")) Or IsDBNull(grdWastageItem.Rows(e.Row)("Batch_Qty")) Then Exit Sub
+
         If Convert.ToDecimal(grdWastageItem.Rows(e.Row)("wastage_qty")) > Convert.ToDecimal(grdWastageItem.Rows(e.Row)("Batch_Qty")) Then
             grdWastageItem.Rows(e.Row)("wastage_qty") = 0.0
         End If

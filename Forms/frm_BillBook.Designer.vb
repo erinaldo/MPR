@@ -20,7 +20,7 @@ Partial Class frm_BillBook
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frm_BillBook))
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.List = New System.Windows.Forms.TabPage()
@@ -141,16 +141,18 @@ Partial Class frm_BillBook
         'BtnCancelInv
         '
         Me.BtnCancelInv.BackColor = System.Drawing.Color.Tomato
+        Me.BtnCancelInv.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnCancelInv.Location = New System.Drawing.Point(473, 545)
         Me.BtnCancelInv.Name = "BtnCancelInv"
         Me.BtnCancelInv.Size = New System.Drawing.Size(141, 30)
-        Me.BtnCancelInv.TabIndex = 2
+        Me.BtnCancelInv.TabIndex = 4
         Me.BtnCancelInv.Text = "Cancel Bill"
         Me.BtnCancelInv.UseVisualStyleBackColor = False
         '
         'BtnInvoice
         '
         Me.BtnInvoice.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.BtnInvoice.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnInvoice.Location = New System.Drawing.Point(621, 545)
         Me.BtnInvoice.Name = "BtnInvoice"
         Me.BtnInvoice.Size = New System.Drawing.Size(128, 30)
@@ -161,10 +163,11 @@ Partial Class frm_BillBook
         'BtnDc
         '
         Me.BtnDc.BackColor = System.Drawing.Color.Green
+        Me.BtnDc.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnDc.Location = New System.Drawing.Point(755, 545)
         Me.BtnDc.Name = "BtnDc"
         Me.BtnDc.Size = New System.Drawing.Size(128, 30)
-        Me.BtnDc.TabIndex = 4
+        Me.BtnDc.TabIndex = 2
         Me.BtnDc.Text = "Print Dc"
         Me.BtnDc.UseVisualStyleBackColor = False
         '
@@ -185,12 +188,12 @@ Partial Class frm_BillBook
         Me.flxList.Location = New System.Drawing.Point(3, 16)
         Me.flxList.Name = "flxList"
         Me.flxList.RowHeadersVisible = False
-        DataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black
-        Me.flxList.RowsDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black
+        Me.flxList.RowsDefaultCellStyle = DataGridViewCellStyle1
         Me.flxList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.flxList.Size = New System.Drawing.Size(858, 422)
         Me.flxList.TabIndex = 0

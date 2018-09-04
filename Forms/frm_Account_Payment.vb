@@ -617,8 +617,7 @@ Public Class frm_Account_Payment
         End If
 
     End Sub
-
-    Private Sub btnPrintInvoice_Click(sender As Object, e As EventArgs) Handles btnPrintInvoice.Click
+    Private Sub btnPrint_Invoice_Click(sender As Object, e As EventArgs) Handles btnPrint_Invoice.Click
         Try
             If TabControl1.SelectedIndex = 0 Then
                 If flxList.SelectedRows.Count > 0 Then

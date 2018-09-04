@@ -20,10 +20,11 @@ Partial Class frm_Account_Payment
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frm_Account_Payment))
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.List = New System.Windows.Forms.TabPage()
+        Me.btnPrint_Invoice = New System.Windows.Forms.Button()
         Me.BtnCancelInv = New System.Windows.Forms.Button()
         Me.GBMRSDetail = New System.Windows.Forms.GroupBox()
         Me.flxList = New System.Windows.Forms.DataGridView()
@@ -33,6 +34,8 @@ Partial Class frm_Account_Payment
         Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.lblFormHeading = New System.Windows.Forms.Label()
         Me.GBDCMASTER = New System.Windows.Forms.GroupBox()
+        Me.cmbAccountToCredit = New MMSPlus.AutoCompleteCombo()
+        Me.cmbAccountToDebit = New MMSPlus.AutoCompleteCombo()
         Me.chk_GSTApplicable_BankId = New System.Windows.Forms.CheckBox()
         Me.lblGSTPercentageValue = New System.Windows.Forms.Label()
         Me.lblGSTPercentage = New System.Windows.Forms.Label()
@@ -58,8 +61,6 @@ Partial Class frm_Account_Payment
         Me.Label3 = New System.Windows.Forms.Label()
         Me.lblCap1 = New System.Windows.Forms.Label()
         Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
-        Me.cmbAccountToCredit = New MMSPlus.AutoCompleteCombo()
-        Me.cmbAccountToDebit = New MMSPlus.AutoCompleteCombo()
         Me.TabControl1.SuspendLayout()
         Me.List.SuspendLayout()
         Me.GBMRSDetail.SuspendLayout()
@@ -85,7 +86,7 @@ Partial Class frm_Account_Payment
         'List
         '
         Me.List.BackColor = System.Drawing.Color.DimGray
-        Me.List.Controls.Add(Me.btnPrintInvoice)
+        Me.List.Controls.Add(Me.btnPrint_Invoice)
         Me.List.Controls.Add(Me.BtnCancelInv)
         Me.List.Controls.Add(Me.GBMRSDetail)
         Me.List.Controls.Add(Me.GroupBox2)
@@ -97,13 +98,25 @@ Partial Class frm_Account_Payment
         Me.List.Size = New System.Drawing.Size(902, 600)
         Me.List.TabIndex = 0
         '
+        'btnPrint_Invoice
+        '
+        Me.btnPrint_Invoice.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.btnPrint_Invoice.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnPrint_Invoice.Location = New System.Drawing.Point(633, 544)
+        Me.btnPrint_Invoice.Name = "btnPrint_Invoice"
+        Me.btnPrint_Invoice.Size = New System.Drawing.Size(127, 30)
+        Me.btnPrint_Invoice.TabIndex = 2
+        Me.btnPrint_Invoice.Text = "Print Bill"
+        Me.btnPrint_Invoice.UseVisualStyleBackColor = False
+        '
         'BtnCancelInv
         '
         Me.BtnCancelInv.BackColor = System.Drawing.Color.Tomato
+        Me.BtnCancelInv.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnCancelInv.Location = New System.Drawing.Point(766, 544)
         Me.BtnCancelInv.Name = "BtnCancelInv"
         Me.BtnCancelInv.Size = New System.Drawing.Size(127, 30)
-        Me.BtnCancelInv.TabIndex = 2
+        Me.BtnCancelInv.TabIndex = 3
         Me.BtnCancelInv.Text = "Cancel "
         Me.BtnCancelInv.UseVisualStyleBackColor = False
         '
@@ -125,12 +138,12 @@ Partial Class frm_Account_Payment
         Me.flxList.Location = New System.Drawing.Point(3, 16)
         Me.flxList.Name = "flxList"
         Me.flxList.RowHeadersVisible = False
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black
-        Me.flxList.RowsDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black
+        Me.flxList.RowsDefaultCellStyle = DataGridViewCellStyle2
         Me.flxList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.flxList.Size = New System.Drawing.Size(871, 418)
         Me.flxList.TabIndex = 0
@@ -225,6 +238,32 @@ Partial Class frm_Account_Payment
         Me.GBDCMASTER.Size = New System.Drawing.Size(910, 617)
         Me.GBDCMASTER.TabIndex = 0
         Me.GBDCMASTER.TabStop = False
+        '
+        'cmbAccountToCredit
+        '
+        Me.cmbAccountToCredit.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.cmbAccountToCredit.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmbAccountToCredit.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmbAccountToCredit.ForeColor = System.Drawing.Color.White
+        Me.cmbAccountToCredit.FormattingEnabled = True
+        Me.cmbAccountToCredit.Location = New System.Drawing.Point(149, 114)
+        Me.cmbAccountToCredit.Name = "cmbAccountToCredit"
+        Me.cmbAccountToCredit.ResetOnClear = False
+        Me.cmbAccountToCredit.Size = New System.Drawing.Size(681, 24)
+        Me.cmbAccountToCredit.TabIndex = 1
+        '
+        'cmbAccountToDebit
+        '
+        Me.cmbAccountToDebit.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.cmbAccountToDebit.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmbAccountToDebit.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmbAccountToDebit.ForeColor = System.Drawing.Color.White
+        Me.cmbAccountToDebit.FormattingEnabled = True
+        Me.cmbAccountToDebit.Location = New System.Drawing.Point(149, 59)
+        Me.cmbAccountToDebit.Name = "cmbAccountToDebit"
+        Me.cmbAccountToDebit.ResetOnClear = False
+        Me.cmbAccountToDebit.Size = New System.Drawing.Size(681, 24)
+        Me.cmbAccountToDebit.TabIndex = 0
         '
         'chk_GSTApplicable_BankId
         '
@@ -504,41 +543,6 @@ Partial Class frm_Account_Payment
         Me.ImageList1.Images.SetKeyName(0, "Zoom_search_find_magnifying_glass.png")
         Me.ImageList1.Images.SetKeyName(1, "Inventory_box_shipment_product.png")
         '
-        'cmbAccountToCredit
-        '
-        Me.cmbAccountToCredit.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.cmbAccountToCredit.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmbAccountToCredit.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmbAccountToCredit.ForeColor = System.Drawing.Color.White
-        Me.cmbAccountToCredit.FormattingEnabled = True
-        Me.cmbAccountToCredit.Location = New System.Drawing.Point(149, 114)
-        Me.cmbAccountToCredit.Name = "cmbAccountToCredit"
-        Me.cmbAccountToCredit.ResetOnClear = False
-        Me.cmbAccountToCredit.Size = New System.Drawing.Size(681, 24)
-        Me.btnPrintInvoice.BackColor = System.Drawing.Color.IndianRed
-        Me.btnPrintInvoice.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnPrintInvoice.Location = New System.Drawing.Point(622, 549)
-        Me.btnPrintInvoice.Name = "btnPrintInvoice"
-        Me.btnPrintInvoice.Size = New System.Drawing.Size(128, 25)
-        Me.btnPrintInvoice.TabIndex = 3
-        Me.btnPrintInvoice.Text = "Print Invoice"
-        Me.btnPrintInvoice.UseVisualStyleBackColor = False
-        '
-        Me.cmbAccountToCredit.TabIndex = 1
-        '
-        'cmbAccountToDebit
-        '
-        Me.cmbAccountToDebit.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.cmbAccountToDebit.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmbAccountToDebit.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmbAccountToDebit.ForeColor = System.Drawing.Color.White
-        Me.cmbAccountToDebit.FormattingEnabled = True
-        Me.cmbAccountToDebit.Location = New System.Drawing.Point(149, 59)
-        Me.cmbAccountToDebit.Name = "cmbAccountToDebit"
-        Me.cmbAccountToDebit.ResetOnClear = False
-        Me.cmbAccountToDebit.Size = New System.Drawing.Size(681, 24)
-        Me.cmbAccountToDebit.TabIndex = 0
-        '
         'frm_Account_Payment
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -595,7 +599,7 @@ Partial Class frm_Account_Payment
     Friend WithEvents chk_GSTApplicable As CheckBox
     Friend WithEvents chk_GSTApplicable_BankId As CheckBox
     Friend WithEvents cmbAccountToCredit As AutoCompleteCombo
-    Friend WithEvents btnPrintInvoice As Button
     Friend WithEvents cmbAccountToDebit As AutoCompleteCombo
     Friend WithEvents lblFormHeading As Label
+    Friend WithEvents btnPrint_Invoice As Button
 End Class

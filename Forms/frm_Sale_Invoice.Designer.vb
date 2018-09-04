@@ -136,16 +136,18 @@ Partial Class frm_Sale_Invoice
         'BtnCancelInv
         '
         Me.BtnCancelInv.BackColor = System.Drawing.Color.Tomato
+        Me.BtnCancelInv.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnCancelInv.Location = New System.Drawing.Point(473, 544)
         Me.BtnCancelInv.Name = "BtnCancelInv"
         Me.BtnCancelInv.Size = New System.Drawing.Size(141, 30)
-        Me.BtnCancelInv.TabIndex = 2
+        Me.BtnCancelInv.TabIndex = 4
         Me.BtnCancelInv.Text = "Cancel Invoice"
         Me.BtnCancelInv.UseVisualStyleBackColor = False
         '
         'BtnInvoice
         '
         Me.BtnInvoice.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.BtnInvoice.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnInvoice.Location = New System.Drawing.Point(621, 544)
         Me.BtnInvoice.Name = "BtnInvoice"
         Me.BtnInvoice.Size = New System.Drawing.Size(128, 30)
@@ -156,10 +158,11 @@ Partial Class frm_Sale_Invoice
         'BtnDc
         '
         Me.BtnDc.BackColor = System.Drawing.Color.Green
+        Me.BtnDc.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnDc.Location = New System.Drawing.Point(755, 544)
         Me.BtnDc.Name = "BtnDc"
         Me.BtnDc.Size = New System.Drawing.Size(128, 30)
-        Me.BtnDc.TabIndex = 4
+        Me.BtnDc.TabIndex = 2
         Me.BtnDc.Text = "Print Dc"
         Me.BtnDc.UseVisualStyleBackColor = False
         '
