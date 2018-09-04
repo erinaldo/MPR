@@ -622,4 +622,17 @@ Public Class frm_Account_Payment
     End Sub
 
 
+    Private Sub btnPrintInvoice_Click(sender As Object, e As EventArgs) Handles btnPrintInvoice.Click
+        Try
+            If TabControl1.SelectedIndex = 0 Then
+                If flxList.SelectedRows.Count > 0 Then
+                    obj.RptShow(enmReportName.RptAccPaymentInvoicerint, "PaymentId", CStr(flxList("PaymentId", flxList.CurrentCell.RowIndex).Value()), CStr(enmDataType.D_int))
+                End If
+            Else
+                MsgBox("Please select record to view.", MsgBoxStyle.Information + MsgBoxStyle.OkOnly, gblMessageHeading)
+            End If
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+    End Sub
 End Class

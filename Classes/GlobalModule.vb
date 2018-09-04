@@ -141,6 +141,7 @@ Module GlobalModule
         RptCreditNoteWOItemPrint = 80
         RptBrandWiseSale = 81
         RptPurchaseSummary_itemwise = 82
+        RptAccPaymentInvoicerint = 83
 
     End Enum
     Public Enum IndentStatus As Integer

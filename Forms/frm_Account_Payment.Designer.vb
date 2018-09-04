@@ -60,6 +60,7 @@ Partial Class frm_Account_Payment
         Me.lblCap1 = New System.Windows.Forms.Label()
         Me.lblFormHeading = New System.Windows.Forms.Label()
         Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
+        Me.btnPrintInvoice = New System.Windows.Forms.Button()
         Me.TabControl1.SuspendLayout()
         Me.List.SuspendLayout()
         Me.GBMRSDetail.SuspendLayout()
@@ -85,6 +86,7 @@ Partial Class frm_Account_Payment
         'List
         '
         Me.List.BackColor = System.Drawing.Color.DimGray
+        Me.List.Controls.Add(Me.btnPrintInvoice)
         Me.List.Controls.Add(Me.BtnCancelInv)
         Me.List.Controls.Add(Me.GBMRSDetail)
         Me.List.Controls.Add(Me.GroupBox2)
@@ -180,7 +182,6 @@ Partial Class frm_Account_Payment
         '
         'GBDCMASTER
         '
-
         Me.GBDCMASTER.Controls.Add(Me.chk_GSTApplicable_BankId)
         Me.GBDCMASTER.Controls.Add(Me.lblGSTPercentageValue)
         Me.GBDCMASTER.Controls.Add(Me.lblGSTPercentage)
@@ -528,6 +529,17 @@ Partial Class frm_Account_Payment
         Me.ImageList1.Images.SetKeyName(0, "Zoom_search_find_magnifying_glass.png")
         Me.ImageList1.Images.SetKeyName(1, "Inventory_box_shipment_product.png")
         '
+        'btnPrintInvoice
+        '
+        Me.btnPrintInvoice.BackColor = System.Drawing.Color.IndianRed
+        Me.btnPrintInvoice.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnPrintInvoice.Location = New System.Drawing.Point(622, 549)
+        Me.btnPrintInvoice.Name = "btnPrintInvoice"
+        Me.btnPrintInvoice.Size = New System.Drawing.Size(128, 25)
+        Me.btnPrintInvoice.TabIndex = 3
+        Me.btnPrintInvoice.Text = "Print Invoice"
+        Me.btnPrintInvoice.UseVisualStyleBackColor = False
+        '
         'frm_Account_Payment
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -587,4 +599,5 @@ Partial Class frm_Account_Payment
     Friend WithEvents lblGSTPercentage As Label
     Friend WithEvents chk_GSTApplicable As CheckBox
     Friend WithEvents chk_GSTApplicable_BankId As CheckBox
+    Friend WithEvents btnPrintInvoice As Button
 End Class
