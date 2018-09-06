@@ -193,6 +193,7 @@ Public Class frm_openSale_Invoice
             prpty.LR_NO = txtLRNO.Text
             prpty.Flag = 1
             prpty.dtable_Item_List = dtable_Item_List
+            prpty.REMARKS = txtRemarks.Text
 
             If flag = "save" Then
                 clsObj.Insert_SALE_INVOICE_MASTER(prpty)
@@ -245,6 +246,7 @@ Public Class frm_openSale_Invoice
         txtTransport.Text = ""
         txtLRNO.Text = ""
         txtEwayBillNo.Text = ""
+        txtRemarks.Text = ""
         txtcustomer_name.Text = ""
         cmbinvtype.SelectedIndex = 0
         cmbCity.SelectedIndex = 0
@@ -1213,5 +1215,4 @@ restart:
     Private Sub txtEwayBillNo_TextChanged(sender As Object, e As EventArgs) Handles txtEwayBillNo.TextChanged
         txtEwayBillNo.CharacterCasing = CharacterCasing.Upper
     End Sub
-
 End Class

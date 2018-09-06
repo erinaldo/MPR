@@ -195,6 +195,7 @@ Public Class frm_BillBook
             prpty.SHIPP_ADD_ID = 0
             prpty.INV_TYPE = cmbinvtype.SelectedItem
             prpty.LR_NO = txtLRNO.Text
+            prpty.REMARKS = txtRemarks.Text
             prpty.Flag = 2
             prpty.dtable_Item_List = dtable_Item_List
 
@@ -248,6 +249,7 @@ Public Class frm_BillBook
         txtGstNo.Text = ""
         txtTransport.Text = ""
         txtLRNO.Text = ""
+        txtRemarks.Text = ""
         txtcustomer_name.Text = ""
         cmbinvtype.SelectedIndex = 0
         cmbCity.SelectedIndex = 0

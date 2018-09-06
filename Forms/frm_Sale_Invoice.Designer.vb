@@ -93,6 +93,8 @@ Partial Class frm_Sale_Invoice
         Me.flxItems = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
         Me.CachedCryCustomerrateList1 = New MMSPlus.CachedCryCustomerrateList()
+        Me.txtRemarks = New System.Windows.Forms.TextBox()
+        Me.Label20 = New System.Windows.Forms.Label()
         Me.TabControl1.SuspendLayout()
         Me.List.SuspendLayout()
         Me.GBMRSDetail.SuspendLayout()
@@ -115,7 +117,7 @@ Partial Class frm_Sale_Invoice
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
         Me.TabControl1.Size = New System.Drawing.Size(910, 630)
-        Me.TabControl1.TabIndex = 1
+        Me.TabControl1.TabIndex = 0
         '
         'List
         '
@@ -279,7 +281,7 @@ Partial Class frm_Sale_Invoice
         Me.cmbSupplier.Name = "cmbSupplier"
         Me.cmbSupplier.ResetOnClear = False
         Me.cmbSupplier.Size = New System.Drawing.Size(742, 24)
-        Me.cmbSupplier.TabIndex = 3
+        Me.cmbSupplier.TabIndex = 0
         '
         'lblFormHeading
         '
@@ -304,7 +306,7 @@ Partial Class frm_Sale_Invoice
         Me.txtBarcodeSearch.Name = "txtBarcodeSearch"
         Me.txtBarcodeSearch.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.txtBarcodeSearch.Size = New System.Drawing.Size(743, 19)
-        Me.txtBarcodeSearch.TabIndex = 9
+        Me.txtBarcodeSearch.TabIndex = 6
         '
         'Label15
         '
@@ -328,7 +330,7 @@ Partial Class frm_Sale_Invoice
         Me.txtShippingAddress.Name = "txtShippingAddress"
         Me.txtShippingAddress.ReadOnly = True
         Me.txtShippingAddress.Size = New System.Drawing.Size(743, 25)
-        Me.txtShippingAddress.TabIndex = 5
+        Me.txtShippingAddress.TabIndex = 2
         '
         'Label14
         '
@@ -351,7 +353,7 @@ Partial Class frm_Sale_Invoice
         Me.txtGstNo.Name = "txtGstNo"
         Me.txtGstNo.ReadOnly = True
         Me.txtGstNo.Size = New System.Drawing.Size(180, 19)
-        Me.txtGstNo.TabIndex = 6
+        Me.txtGstNo.TabIndex = 3
         '
         'Label9
         '
@@ -374,7 +376,7 @@ Partial Class frm_Sale_Invoice
         Me.txt_txtphoneNo.Name = "txt_txtphoneNo"
         Me.txt_txtphoneNo.ReadOnly = True
         Me.txt_txtphoneNo.Size = New System.Drawing.Size(150, 19)
-        Me.txt_txtphoneNo.TabIndex = 7
+        Me.txt_txtphoneNo.TabIndex = 4
         '
         'Label10
         '
@@ -430,7 +432,7 @@ Partial Class frm_Sale_Invoice
         Me.cmbinvtype.Location = New System.Drawing.Point(683, 116)
         Me.cmbinvtype.Name = "cmbinvtype"
         Me.cmbinvtype.Size = New System.Drawing.Size(150, 23)
-        Me.cmbinvtype.TabIndex = 8
+        Me.cmbinvtype.TabIndex = 5
         '
         'Label4
         '
@@ -450,7 +452,7 @@ Partial Class frm_Sale_Invoice
         Me.lblAddress.Location = New System.Drawing.Point(89, 62)
         Me.lblAddress.Name = "lblAddress"
         Me.lblAddress.Size = New System.Drawing.Size(744, 25)
-        Me.lblAddress.TabIndex = 4
+        Me.lblAddress.TabIndex = 1
         '
         'lblCap2
         '
@@ -516,6 +518,8 @@ Partial Class frm_Sale_Invoice
         '
         'GBItemInfo
         '
+        Me.GBItemInfo.Controls.Add(Me.txtRemarks)
+        Me.GBItemInfo.Controls.Add(Me.Label20)
         Me.GBItemInfo.Controls.Add(Me.txtEwayBillNo)
         Me.GBItemInfo.Controls.Add(Me.Label18)
         Me.GBItemInfo.Controls.Add(Me.lblGSTDetail)
@@ -555,7 +559,7 @@ Partial Class frm_Sale_Invoice
         Me.GBItemInfo.Location = New System.Drawing.Point(-4, 148)
         Me.GBItemInfo.Name = "GBItemInfo"
         Me.GBItemInfo.Size = New System.Drawing.Size(910, 456)
-        Me.GBItemInfo.TabIndex = 1
+        Me.GBItemInfo.TabIndex = 0
         Me.GBItemInfo.TabStop = False
         '
         'txtEwayBillNo
@@ -564,18 +568,18 @@ Partial Class frm_Sale_Invoice
         Me.txtEwayBillNo.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtEwayBillNo.Font = New System.Drawing.Font("Arial", 12.0!)
         Me.txtEwayBillNo.ForeColor = System.Drawing.Color.White
-        Me.txtEwayBillNo.Location = New System.Drawing.Point(110, 319)
+        Me.txtEwayBillNo.Location = New System.Drawing.Point(110, 304)
         Me.txtEwayBillNo.MaxLength = 0
         Me.txtEwayBillNo.Name = "txtEwayBillNo"
         Me.txtEwayBillNo.ReadOnly = True
-        Me.txtEwayBillNo.Size = New System.Drawing.Size(283, 19)
+        Me.txtEwayBillNo.Size = New System.Drawing.Size(289, 19)
         Me.txtEwayBillNo.TabIndex = 2
         '
         'Label18
         '
         Me.Label18.AutoSize = True
         Me.Label18.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label18.Location = New System.Drawing.Point(16, 319)
+        Me.Label18.Location = New System.Drawing.Point(16, 304)
         Me.Label18.Name = "Label18"
         Me.Label18.Size = New System.Drawing.Size(90, 15)
         Me.Label18.TabIndex = 279
@@ -653,17 +657,17 @@ Partial Class frm_Sale_Invoice
         Me.txtTransport.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtTransport.Font = New System.Drawing.Font("Arial", 12.0!)
         Me.txtTransport.ForeColor = System.Drawing.Color.White
-        Me.txtTransport.Location = New System.Drawing.Point(110, 349)
+        Me.txtTransport.Location = New System.Drawing.Point(110, 328)
         Me.txtTransport.MaxLength = 0
         Me.txtTransport.Name = "txtTransport"
-        Me.txtTransport.Size = New System.Drawing.Size(283, 19)
+        Me.txtTransport.Size = New System.Drawing.Size(289, 19)
         Me.txtTransport.TabIndex = 3
         '
         'Label11
         '
         Me.Label11.AutoSize = True
         Me.Label11.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label11.Location = New System.Drawing.Point(16, 347)
+        Me.Label11.Location = New System.Drawing.Point(16, 326)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(66, 15)
         Me.Label11.TabIndex = 56
@@ -705,17 +709,17 @@ Partial Class frm_Sale_Invoice
         Me.txt_LRNO.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txt_LRNO.Font = New System.Drawing.Font("Arial", 12.0!)
         Me.txt_LRNO.ForeColor = System.Drawing.Color.White
-        Me.txt_LRNO.Location = New System.Drawing.Point(110, 408)
+        Me.txt_LRNO.Location = New System.Drawing.Point(110, 376)
         Me.txt_LRNO.MaxLength = 0
         Me.txt_LRNO.Name = "txt_LRNO"
-        Me.txt_LRNO.Size = New System.Drawing.Size(283, 19)
+        Me.txt_LRNO.Size = New System.Drawing.Size(289, 19)
         Me.txt_LRNO.TabIndex = 5
         '
         'Label3
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(16, 411)
+        Me.Label3.Location = New System.Drawing.Point(16, 379)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(50, 15)
         Me.Label3.TabIndex = 0
@@ -733,7 +737,7 @@ Partial Class frm_Sale_Invoice
         '
         Me.Label16.AutoSize = True
         Me.Label16.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label16.Location = New System.Drawing.Point(244, 274)
+        Me.Label16.Location = New System.Drawing.Point(244, 273)
         Me.Label16.Name = "Label16"
         Me.Label16.Size = New System.Drawing.Size(90, 15)
         Me.Label16.TabIndex = 27
@@ -766,17 +770,17 @@ Partial Class frm_Sale_Invoice
         Me.txtvechicle_no.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtvechicle_no.Font = New System.Drawing.Font("Arial", 12.0!)
         Me.txtvechicle_no.ForeColor = System.Drawing.Color.White
-        Me.txtvechicle_no.Location = New System.Drawing.Point(110, 379)
+        Me.txtvechicle_no.Location = New System.Drawing.Point(110, 352)
         Me.txtvechicle_no.MaxLength = 0
         Me.txtvechicle_no.Name = "txtvechicle_no"
-        Me.txtvechicle_no.Size = New System.Drawing.Size(283, 19)
+        Me.txtvechicle_no.Size = New System.Drawing.Size(289, 19)
         Me.txtvechicle_no.TabIndex = 4
         '
         'Label2
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(16, 380)
+        Me.Label2.Location = New System.Drawing.Point(16, 353)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(73, 15)
         Me.Label2.TabIndex = 0
@@ -807,7 +811,7 @@ Partial Class frm_Sale_Invoice
         '
         Me.lblTotalQty.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblTotalQty.ForeColor = System.Drawing.Color.Lime
-        Me.lblTotalQty.Location = New System.Drawing.Point(332, 272)
+        Me.lblTotalQty.Location = New System.Drawing.Point(332, 271)
         Me.lblTotalQty.Name = "lblTotalQty"
         Me.lblTotalQty.Size = New System.Drawing.Size(79, 20)
         Me.lblTotalQty.TabIndex = 19
@@ -842,7 +846,7 @@ Partial Class frm_Sale_Invoice
         Me.lnkCalculatePOAmt.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lnkCalculatePOAmt.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline
         Me.lnkCalculatePOAmt.LinkColor = System.Drawing.Color.OrangeRed
-        Me.lnkCalculatePOAmt.Location = New System.Drawing.Point(19, 274)
+        Me.lnkCalculatePOAmt.Location = New System.Drawing.Point(19, 273)
         Me.lnkCalculatePOAmt.Name = "lnkCalculatePOAmt"
         Me.lnkCalculatePOAmt.Size = New System.Drawing.Size(200, 25)
         Me.lnkCalculatePOAmt.TabIndex = 1
@@ -936,6 +940,29 @@ Partial Class frm_Sale_Invoice
         Me.ImageList1.TransparentColor = System.Drawing.Color.Transparent
         Me.ImageList1.Images.SetKeyName(0, "Zoom_search_find_magnifying_glass.png")
         Me.ImageList1.Images.SetKeyName(1, "Inventory_box_shipment_product.png")
+        '
+        'txtRemarks
+        '
+        Me.txtRemarks.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.txtRemarks.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.txtRemarks.Font = New System.Drawing.Font("Arial", 12.0!)
+        Me.txtRemarks.ForeColor = System.Drawing.Color.White
+        Me.txtRemarks.Location = New System.Drawing.Point(110, 400)
+        Me.txtRemarks.MaxLength = 0
+        Me.txtRemarks.Multiline = True
+        Me.txtRemarks.Name = "txtRemarks"
+        Me.txtRemarks.Size = New System.Drawing.Size(289, 40)
+        Me.txtRemarks.TabIndex = 6
+        '
+        'Label20
+        '
+        Me.Label20.AutoSize = True
+        Me.Label20.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label20.Location = New System.Drawing.Point(15, 403)
+        Me.Label20.Name = "Label20"
+        Me.Label20.Size = New System.Drawing.Size(64, 15)
+        Me.Label20.TabIndex = 295
+        Me.Label20.Text = "Remarks :"
         '
         'frm_Sale_Invoice
         '
@@ -1031,4 +1058,6 @@ Partial Class frm_Sale_Invoice
     Friend WithEvents Label18 As Label
     Friend WithEvents lblGSTDetail As Label
     Friend WithEvents cmbSupplier As AutoCompleteCombo
+    Friend WithEvents txtRemarks As TextBox
+    Friend WithEvents Label20 As Label
 End Class
