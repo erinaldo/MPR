@@ -908,6 +908,12 @@
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Reports\cry_PL_Sale_Invoice.vb">
+      <DependentUpon>cry_PL_Sale_Invoice.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Reports\cry_Tax_Invoice .vb">
       <DependentUpon>cry_Tax_Invoice .rpt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -1887,6 +1893,10 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>Cry_Credit_Note_WO_Item.vb</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Reports\cry_PL_Sale_Invoice.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cry_PL_Sale_Invoice.vb</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reports\cry_Tax_Invoice .rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>cry_Tax_Invoice .vb</LastGenOutput>
@@ -2341,6 +2351,8 @@
     <Content Include="Scripts\2018Update\0026_27_July_2018_DebitNote_Modify.sql" />
     <Content Include="Scripts\2018Update\0029_02_August_2018_GSTNature.sql" />
     <Content Include="Scripts\2018Update\0034_14_August_2018_DeliveryNoteCorrectionScript - Copy.sql" />
+    <Content Include="Scripts\2018Update\0035_16_August_2018_ItemDetail.sql" />
+    <Content Include="Scripts\2018Update\0036_18_August_2018_ALL View Proc function.sql" />
     <Content Include="Scripts\2018Update\0037_23_August_2018_DebitandCreditNoteNullErrorCorrection.sql" />
     <Content Include="Scripts\2018Update\0036_22_August_2018_DebtorCreditorLedgerCorrection.sql" />
     <Content Include="Scripts\2018Update\0035_21_August_2018_PaymentTransactionCorrection.sql" />
