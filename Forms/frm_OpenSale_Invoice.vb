@@ -59,6 +59,7 @@ Public Class frm_openSale_Invoice
             'obj.FormatGrid(flxItems)
             table_style()
             cmbCity.Enabled = False
+
             CustomerBind()
             cmbSupplier.Visible = True
             txtcustomer_name.Visible = False
@@ -193,7 +194,6 @@ Public Class frm_openSale_Invoice
             prpty.LR_NO = txtLRNO.Text
             prpty.Flag = 1
             prpty.dtable_Item_List = dtable_Item_List
-            prpty.REMARKS = txtRemarks.Text
 
             If flag = "save" Then
                 clsObj.Insert_SALE_INVOICE_MASTER(prpty)
@@ -246,7 +246,6 @@ Public Class frm_openSale_Invoice
         txtTransport.Text = ""
         txtLRNO.Text = ""
         txtEwayBillNo.Text = ""
-        txtRemarks.Text = ""
         txtcustomer_name.Text = ""
         cmbinvtype.SelectedIndex = 0
         cmbCity.SelectedIndex = 0
@@ -306,10 +305,7 @@ Public Class frm_openSale_Invoice
             MsgBox("Enter New Customer to Invoice.", MsgBoxStyle.Information, gblMessageHeading)
             Return False
         End If
-        If cmbSupplier.Text = Nothing Then
-            MsgBox("Please Select valid Customer first.")
-            Return False
-        End If
+
         'If Not String.IsNullOrEmpty(txt_txtphoneNo.Text.Trim) Then
         '    If Not mobileRegex.IsMatch(txt_txtphoneNo.Text) Then
         '        MsgBox("Phone number is not valid. Try again after entering valid number.", MsgBoxStyle.Information, "Invalid Phone Format!!!")
@@ -461,7 +457,7 @@ again:
         flxItems.Cols("UM_Name").Width = 32
         'flxItems.Cols("Batch_No").Width = 70
         flxItems.Cols("Amount").Width = 60
-        flxItems.Cols("Batch_Qty").Width = 50
+        flxItems.Cols("Batch_Qty").Width = 45
         flxItems.Cols("Stock_Detail_Id").Width = 10
         flxItems.Cols("transfer_Qty").Width = 50
         flxItems.Cols("Item_Rate").Width = 55
@@ -470,7 +466,7 @@ again:
         flxItems.Cols("DISC").Width = 40
         flxItems.Cols("GPAID").Width = 55
         flxItems.Cols("GST").Width = 40
-        flxItems.Cols("GST_Amount").Width = 60
+        flxItems.Cols("GST_Amount").Width = 55
         flxItems.Cols("Cess").Width = 40
         flxItems.Cols("ACess").Width = 55
         flxItems.Cols("Cess_Amount").Width = 1
@@ -608,7 +604,7 @@ again:
                         frm_Show_search.column_name4 = "LABELITEMNAME_VCH"
                         frm_Show_search.column_name5 = "ITEM_CAT_NAME"
                         frm_Show_search.cols_no_for_width = "1,2,3,4,5,6"
-                        frm_Show_search.cols_width = "100,340,70,70,100,105"
+                        frm_Show_search.cols_width = "100,350,60,60,100,100"
                         frm_Show_search.extra_condition = ""
                         frm_Show_search.ret_column = "ITEM_ID"
                         frm_Show_search.item_rate_column = "RATE"
@@ -698,6 +694,7 @@ restart:
                         'dr("Item_Rate") = ds.Tables(0).Rows(0)("Item_Rate")
 
                         ds2 = obj.Fill_DataSet("SELECT VAT_MASTER.VAT_PERCENTAGE FROM ITEM_DETAIL INNER JOIN VAT_MASTER ON ITEM_DETAIL.PURCHASE_VAT_ID = VAT_MASTER.VAT_ID WHERE (ITEM_DETAIL.ITEM_ID = " & Convert.ToInt32(item_id) & " )")
+                        'ds2 = obj.Fill_DataSet("SELECT VAT_MASTER.VAT_PERCENTAGE FROM ITEM_MASTER INNER JOIN VAT_MASTER ON ITEM_MASTER.VAT_ID = VAT_MASTER.VAT_ID WHERE (ITEM_MASTER.ITEM_ID = " & Convert.ToInt32(item_id) & " )")
                         dr("Item_Rate") = itemRate.ToString("#0.00")
                         dr("MRP") = ds.Tables(0).Rows(0)("MRP_Num")
                         dr("Amount") = 0.0
@@ -1105,7 +1102,6 @@ restart:
 
         NEWCUST = 1
         cmbSupplier.Visible = False
-        cmbCity.Enabled = True
         txtcustomer_name.Visible = True
         txtcustomer_name.Text = ""
         txtAddress.Text = ""
@@ -1211,6 +1207,11 @@ restart:
 
     End Sub
 
+    'Private Sub cmbSupplier_Enter(sender As Object, e As EventArgs)
+    '    If Not cmbSupplier.DroppedDown Then
+    '        cmbSupplier.DroppedDown = True
+    '    End If
+    'End Sub
 
     Private Sub txtEwayBillNo_TextChanged(sender As Object, e As EventArgs) Handles txtEwayBillNo.TextChanged
         txtEwayBillNo.CharacterCasing = CharacterCasing.Upper
