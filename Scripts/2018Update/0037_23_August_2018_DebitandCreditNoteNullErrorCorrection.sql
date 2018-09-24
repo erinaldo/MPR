@@ -6,7 +6,8 @@ VALUES  ( '0037_23_August_2018_DebitandCreditNoteNullErrorCorrection' ,
           GETDATE()
         )
 Go
-
+ALTER TABLE DivisionMaster ADD DivisionAddress varchar(255) 
+go
 ALTER PROCEDURE [dbo].[GetCreditNoteDetails]
     @CreditNoteId NUMERIC(18, 0)
 AS

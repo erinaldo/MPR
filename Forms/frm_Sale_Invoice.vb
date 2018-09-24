@@ -169,6 +169,7 @@ Public Class frm_Sale_Invoice
             prpty.SHIPP_ADD_ID = 0
             prpty.INV_TYPE = cmbinvtype.SelectedItem
             prpty.LR_NO = txt_LRNO.Text
+            prpty.REMARKS = txtRemarks.Text
             prpty.Flag = 0
             prpty.dtable_Item_List = dtable_Item_List
 
@@ -224,6 +225,7 @@ Public Class frm_Sale_Invoice
         txtGstNo.Text = ""
         txtTransport.Text = ""
         txt_LRNO.Text = ""
+        txtRemarks.Text = ""
         cmbinvtype.SelectedIndex = 0
         dtable_Item_List.Rows.Clear()
         'dtable_Item_List.Rows.Add()

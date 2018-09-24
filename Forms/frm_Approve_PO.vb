@@ -105,7 +105,7 @@ Public Class frm_Approve_PO
 
     End Sub
 
-    Private Sub btnApproveIndent_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+    Private Sub btnApproveIndent_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUpdatePO.Click
         Try
             If MsgBox("Are you sure to do this?", MsgBoxStyle.Question + MsgBoxStyle.YesNo, gblMessageHeading) = MsgBoxResult.No Then Exit Sub
             Dim i As Integer
@@ -128,16 +128,15 @@ Public Class frm_Approve_PO
         End Try
     End Sub
 
-    Private Sub btnDeselectAll_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+    Private Sub btnDeselectAll_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeselectAll.Click
         select_deselectAll(False)
     End Sub
 
-    Private Sub btnSelectAll_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+    Private Sub btnSelectAll_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSelectAll.Click
         select_deselectAll(True)
     End Sub
 
-
-    Private Sub btInverseSelect_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+    Private Sub btInverseSelect_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btInverseSelect.Click
         Dim i As Integer
         For i = 0 To grdPOList.Rows.Count - 1
             grdPOList.Rows(i).Cells(8).Value = Not grdPOList.Rows(i).Cells(8).Value
