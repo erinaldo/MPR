@@ -337,7 +337,7 @@ Public Class frm_Material_Received_Without_PO_Master
                 prpty.Other_Charges = Convert.ToDouble(txtotherchrgs.Text)
                 prpty.Discount_amt = Convert.ToDouble(txtdiscount.Text)
                 prpty.CashDiscount_amt = Convert.ToDouble(txtCashDiscount.Text)
-                prpty.GROSS_AMOUNT = (Convert.ToDecimal(lblgrossamt.Text) - Convert.ToDecimal(txtAmount.Text))
+                prpty.GROSS_AMOUNT = (Convert.ToDecimal(lblgrossamt.Text)) '- Convert.ToDecimal(txtAmount.Text))
                 prpty.GST_AMOUNT = Convert.ToDouble(lblvatamt.Text)
                 prpty.ACESS_AMOUNT = Convert.ToDouble(lblAcess.Text)
                 prpty.CESS_AMOUNT = Convert.ToDouble(lblcessamt.Text)
