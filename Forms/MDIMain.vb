@@ -470,7 +470,7 @@ Public Class MDIMain
 
                     Case UCase("frm_DebitNote")
                         tbp.Text = " Debit Note"
-                        tbp.Controls.Add(New frm_DebitNote(prpty_form_rights))
+                        tbp.Controls.Add(New frm_DebitNoteNew(prpty_form_rights))
 
                         'Work done on 6-03-2018 
                     Case UCase("frm_DebitNote_WO_Items")
