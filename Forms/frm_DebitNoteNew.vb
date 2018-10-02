@@ -56,17 +56,18 @@ Public Class frm_DebitNoteNew
         dtable_Item_List = FLXGRD_MaterialItem.DataSource
         txt_INVNo.Visible = False
         txt_INVNo.Text = ""
+        txtRoundOff.Text = 0
         lblAmount.Text = 0
         lblVatAmount.Text = 0
         lblCessAmount.Text = 0
         lblDebit.Text = 0
         If Not dtable_Item_List Is Nothing Then dtable_Item_List.Rows.Clear()
-        TbRMRN.SelectTab(1)
-
         ' intColumnIndex = -1
         FillGrid()
         SetGstLabels()
         flag = "save"
+        TbRMRN.SelectTab(1)
+        TbRMRN.Focus()
     End Sub
 
     Private Sub GetDNCode()
@@ -118,7 +119,19 @@ Public Class frm_DebitNoteNew
 
     Private Sub FillGrid(Optional ByVal condition As String = "")
         Try
-            obj.GridBind(dgvList, "SELECT * FROM ( SELECT DebitNote_Id, DebitNote_Code + CAST(DebitNote_No AS VARCHAR(10)) AS DebitNote_No ,dbo.fn_format(DebitNote_Date) AS DebitNote_Date,DN_Amount ,MRNId ,MM.MRN_PREFIX + CAST(MM.MRN_NO AS VARCHAR(10)) AS MRNNo ,ACC_NAME,DM.Remarks,DM.Created_by FROM DebitNote_Master Dm INNER JOIN MATERIAL_RECEIVED_AGAINST_PO_MASTER MM ON DM.MRNId = MM.MRN_NO INNER JOIN dbo.ACCOUNT_MASTER AM ON am.ACC_ID=dm.DN_CustId UNION ALL SELECT    DebitNote_Id ,DebitNote_Code + CAST(DebitNote_No AS VARCHAR(10)) AS DebitNote_No ,dbo.fn_format(DebitNote_Date) AS DebitNote_Date,DN_Amount ,MRNId ,MM.MRN_PREFIX + CAST(MM.MRN_NO AS VARCHAR(10)) AS MRNNo ,ACC_NAME ,DM.Remarks ,DM.Created_by FROM      DebitNote_Master Dm INNER JOIN dbo.MATERIAL_RECIEVED_WITHOUT_PO_MASTER MM ON DM.MRNId = MM.MRN_NO INNER JOIN dbo.ACCOUNT_MASTER AM ON am.ACC_ID = dm.DN_CustId) tb  WHERE (tb.DebitNote_No+tb.DebitNote_Date+MRNNo+tb.Remarks+tb.Created_by+ACC_NAME + CAST(DN_Amount as varchar(50)) + tb.ACC_NAME + tb.Created_by)  LIKE '%" & condition & "%'")
+            obj.GridBind(dgvList, "SELECT * FROM ( SELECT DebitNote_Id, DebitNote_Code + CAST(DebitNote_No AS VARCHAR(10)) AS DebitNote_No ,dbo.fn_format(DebitNote_Date) AS DebitNote_Date,DN_Amount ,MRNId ,MM.MRN_PREFIX + CAST(MM.MRN_NO AS VARCHAR(10)) AS MRNNo ,ACC_NAME,DM.Remarks,DM.Created_by FROM DebitNote_Master Dm INNER JOIN MATERIAL_RECEIVED_AGAINST_PO_MASTER MM ON DM.MRNId = MM.MRN_NO INNER JOIN dbo.ACCOUNT_MASTER AM ON am.ACC_ID=dm.DN_CustId UNION ALL SELECT    DebitNote_Id ,DebitNote_Code + CAST(DebitNote_No AS VARCHAR(10)) AS DebitNote_No ,dbo.fn_format(DebitNote_Date) AS DebitNote_Date,DN_Amount ,MRNId ,MM.MRN_PREFIX + CAST(MM.MRN_NO AS VARCHAR(10)) AS MRNNo ,ACC_NAME ,DM.Remarks ,DM.Created_by FROM      DebitNote_Master Dm INNER JOIN dbo.MATERIAL_RECIEVED_WITHOUT_PO_MASTER MM ON DM.MRNId = MM.MRN_NO INNER JOIN dbo.ACCOUNT_MASTER AM ON am.ACC_ID = dm.DN_CustId UNION ALL
+          SELECT    DebitNote_Id ,
+                    DebitNote_Code + CAST(DebitNote_No AS VARCHAR(10)) AS DebitNote_No ,
+                    dbo.fn_format(DebitNote_Date) AS DebitNote_Date ,
+                    DN_Amount ,
+                    MRNId ,
+                    'OPEN' AS MRNNo ,
+                    ACC_NAME ,
+                    DM.Remarks ,
+                    DM.Created_by
+          FROM      DebitNote_Master Dm
+                    INNER JOIN dbo.ACCOUNT_MASTER AM ON am.ACC_ID = dm.DN_CustId
+          WHERE     MRNId <=0) tb  WHERE (tb.DebitNote_No+tb.DebitNote_Date+MRNNo+tb.Remarks+tb.Created_by+ACC_NAME + CAST(DN_Amount as varchar(50)) + tb.ACC_NAME + tb.Created_by)  LIKE '%" & condition & "%' order by tb.DebitNote_Id")
             ' dgvList.Width = 100
             dgvList.Columns(0).Visible = False 'Reverse_ID
             dgvList.Columns(0).Width = 100
@@ -169,28 +182,33 @@ Public Class frm_DebitNoteNew
             Exit Function
         End If
 
-        If cmbBillNo.SelectedIndex <= 0 Then
-            MsgBox("Select MRN to create debit note.", vbExclamation, gblMessageHeading)
-            cmbBillNo.Focus()
-            validate_data = False
-            Exit Function
-        End If
-
-        dtCheck = FLXGRD_MaterialItem.DataSource
-        int_RowIndex = dtCheck.Rows.Count
-        For iRow = 0 To int_RowIndex - 1
-            If dtCheck.Rows(iRow)("Item_Qty") > 0 Then
-                blnIsExist = True
+        If Not cbSetOpen.Checked Then
+            If cmbBillNo.SelectedIndex <= 0 Then
+                MsgBox("Select MRN to create debit note.", vbExclamation, gblMessageHeading)
+                cmbBillNo.Focus()
+                validate_data = False
+                Exit Function
             End If
-        Next iRow
 
-        If blnIsExist = False Then
-            validate_data = False
-            MsgBox("Enter atleast one debit quantity.", vbExclamation, gblMessageHeading)
-            Exit Function
+            dtCheck = FLXGRD_MaterialItem.DataSource
+            int_RowIndex = dtCheck.Rows.Count
+            For iRow = 0 To int_RowIndex - 1
+                If dtCheck.Rows(iRow)("Item_Qty") > 0 Then
+                    blnIsExist = True
+                End If
+            Next iRow
+
+            If blnIsExist = False Then
+                validate_data = False
+                MsgBox("Enter atleast one debit quantity.", vbExclamation, gblMessageHeading)
+                Exit Function
+            Else
+                validate_data = True
+            End If
         Else
             validate_data = True
         End If
+
     End Function
 
     Public Sub SaveClick(ByVal sender As Object, ByVal e As System.EventArgs) Implements IForm.SaveClick
@@ -225,6 +243,7 @@ Public Class frm_DebitNoteNew
                 prpty.Modified_By = ""
                 prpty.Modification_Date = NULL_DATE
                 prpty.Division_ID = v_the_current_division_id
+                prpty.RoundOff = txtRoundOff.Text
                 prpty.Dn_Amount = lblDebit.Text
                 cmbSupplier.SelectedIndex = cmbSupplier.FindStringExact(cmbSupplier.Text)
                 prpty.DN_CustId = cmbsupplier.SelectedValue
@@ -233,7 +252,13 @@ Public Class frm_DebitNoteNew
                 prpty.DN_ItemValue = lblAmount.Text
                 prpty.DN_ItemTax = lblVatAmount.Text
                 prpty.DN_ItemCess = lblCessAmount.Text
-                prpty.DN_Type = ""
+
+                If (cbSetOpen.Checked) Then
+                    prpty.DN_Type = "Open"
+                Else
+                    prpty.DN_Type = ""
+                End If
+
                 prpty.Ref_No = ""
                 prpty.Ref_Date = NULL_DATE
                 prpty.Proctype = 1
@@ -245,7 +270,7 @@ Public Class frm_DebitNoteNew
                 iRowCount = FLXGRD_MaterialItem.Rows.Count - 1
 
                 For iRow = 1 To iRowCount
-                    If FLXGRD_MaterialItem.Item(iRow, "Item_Qty") > 0 Then
+                    If FLXGRD_MaterialItem.Item(iRow, "TaxableAmt") > 0 Then
                         prpty.DebitNote_ID = Convert.ToInt32(DN_Id)
                         prpty.Item_ID = FLXGRD_MaterialItem.Item(iRow, "Item_Id")
                         prpty.Item_Qty = Convert.ToDouble(FLXGRD_MaterialItem.Item(iRow, "Item_Qty")).ToString()
@@ -253,6 +278,11 @@ Public Class frm_DebitNoteNew
                         prpty.Item_Tax = Convert.ToDouble(FLXGRD_MaterialItem.Item(iRow, "Vat_Per")).ToString()
                         prpty.Item_Cess = Convert.ToDouble(FLXGRD_MaterialItem.Item(iRow, "Cess_Per")).ToString()
                         prpty.Stock_Detail_ID = Convert.ToDouble(FLXGRD_MaterialItem.Item(iRow, "Stock_Detail_Id")).ToString()
+                        prpty.TaxableAmt = Convert.ToDouble(FLXGRD_MaterialItem.Item(iRow, "TaxableAmt")).ToString()
+                        prpty.TaxAmt = Convert.ToDouble(FLXGRD_MaterialItem.Item(iRow, "GST")).ToString()
+                        prpty.CessAmt = Convert.ToDouble(FLXGRD_MaterialItem.Item(iRow, "Cess")).ToString()
+                        prpty.DebitAmt = Convert.ToDouble(FLXGRD_MaterialItem.Item(iRow, "TaxableAmt")) + Convert.ToDouble(FLXGRD_MaterialItem.Item(iRow, "GST")).ToString() + Convert.ToDouble(FLXGRD_MaterialItem.Item(iRow, "Cess")).ToString()
+
                         prpty.Created_By = v_the_current_logged_in_user_name
                         prpty.Creation_Date = Now
                         prpty.Modified_By = v_the_current_logged_in_user_name
@@ -299,6 +329,7 @@ Public Class frm_DebitNoteNew
                 prpty.Modification_Date = Now
                 prpty.Division_ID = v_the_current_division_id
                 prpty.Dn_Amount = lblDebit.Text
+                prpty.RoundOff = txtRoundOff.Text
                 cmbSupplier.SelectedIndex = cmbSupplier.FindStringExact(cmbSupplier.Text)
                 prpty.DN_CustId = cmbsupplier.SelectedValue
                 prpty.INV_No = txt_INVNo.Text
@@ -318,7 +349,7 @@ Public Class frm_DebitNoteNew
                 iRowCount = FLXGRD_MaterialItem.Rows.Count - 1
 
                 For iRow = 1 To iRowCount
-                    If FLXGRD_MaterialItem.Item(iRow, "Item_Qty") > 0 Then
+                    If FLXGRD_MaterialItem.Item(iRow, "TaxableAmt") > 0 Then
                         prpty.DebitNote_ID = Convert.ToInt32(DebitNoteId)
                         prpty.Item_ID = FLXGRD_MaterialItem.Item(iRow, "Item_Id")
                         prpty.Item_Qty = Convert.ToDouble(FLXGRD_MaterialItem.Item(iRow, "Item_Qty")).ToString()
@@ -326,6 +357,11 @@ Public Class frm_DebitNoteNew
                         prpty.Item_Tax = Convert.ToDouble(FLXGRD_MaterialItem.Item(iRow, "Vat_Per")).ToString()
                         prpty.Item_Cess = Convert.ToDouble(FLXGRD_MaterialItem.Item(iRow, "Cess_Per")).ToString()
                         prpty.Stock_Detail_ID = Convert.ToDouble(FLXGRD_MaterialItem.Item(iRow, "Stock_Detail_Id")).ToString()
+                        prpty.TaxableAmt = Convert.ToDouble(FLXGRD_MaterialItem.Item(iRow, "TaxableAmt")).ToString()
+                        prpty.TaxAmt = Convert.ToDouble(FLXGRD_MaterialItem.Item(iRow, "GST")).ToString()
+                        prpty.CessAmt = Convert.ToDouble(FLXGRD_MaterialItem.Item(iRow, "Cess")).ToString()
+                        prpty.DebitAmt = Convert.ToDouble(FLXGRD_MaterialItem.Item(iRow, "TaxableAmt")) + Convert.ToDouble(FLXGRD_MaterialItem.Item(iRow, "GST")).ToString() + Convert.ToDouble(FLXGRD_MaterialItem.Item(iRow, "Cess")).ToString()
+
                         prpty.Created_By = v_the_current_logged_in_user_name
                         prpty.Creation_Date = Now
                         prpty.Modified_By = v_the_current_logged_in_user_name
@@ -350,6 +386,7 @@ Public Class frm_DebitNoteNew
                 set_new_initilize()
                 cmbsupplier.SelectedValue = 0
                 cmbBillNo.SelectedValue = 0
+                cbSetOpen.Checked = False
             End If
         Catch ex As Exception
             obj.MyCon_RollBackTransaction(cmd)
@@ -451,6 +488,10 @@ Public Class frm_DebitNoteNew
         FLXGRD_MaterialItem.Cols("Cess").AllowEditing = False
         FLXGRD_MaterialItem.Cols("Item_Qty").AllowEditing = True
 
+        FLXGRD_MaterialItem.Cols("Amount").Visible = False
+        FLXGRD_MaterialItem.Cols("GST").Visible = False
+        FLXGRD_MaterialItem.Cols("Cess").Visible = False
+
         FLXGRD_MaterialItem.Cols("Stock_Detail_Id").AllowEditing = False
 
         FLXGRD_MaterialItem.Cols("Item_Name").Width = 230
@@ -480,7 +521,7 @@ Public Class frm_DebitNoteNew
         FLXGRD_MaterialItem.Cols("Vat_Per").Width = 50
         FLXGRD_MaterialItem.Cols("Cess_Per").Width = 50
         FLXGRD_MaterialItem.Cols("Item_Qty").Width = 70
-        FLXGRD_MaterialItem.Cols("TaxableAmt").Width = 70
+        FLXGRD_MaterialItem.Cols("TaxableAmt").Width = 90
         FLXGRD_MaterialItem.Cols("Amount").Width = 50
         FLXGRD_MaterialItem.Cols("GST").Width = 50
         FLXGRD_MaterialItem.Cols("Cess").Width = 50
@@ -710,6 +751,7 @@ Public Class frm_DebitNoteNew
 
         Dim pqty As Double
         Dim qty As Double
+        Dim rate As Double
         Dim pgst As Double
         Dim gst As Double
         Dim pcess As Double
@@ -740,9 +782,10 @@ Public Class frm_DebitNoteNew
 
         For i = 1 To FLXGRD_MaterialItem.Rows.Count - 1
 
-            famt = 0
-            fgst = 0
-            fcess = 0
+            rate = 0
+            amt = 0
+            gst = 0
+            cess = 0
 
             'If Not cbSetOpen.Checked Then
             '    If Convert.ToDouble(IIf(FLXGRD_MaterialItem.Rows(i).Item("Prv_Rate") Is DBNull.Value, 0, FLXGRD_MaterialItem.Rows(i).Item("Prv_Rate"))) > 0 Then
@@ -765,52 +808,50 @@ Public Class frm_DebitNoteNew
 
                 If Convert.ToDouble(IIf(FLXGRD_MaterialItem.Rows(i).Item("Item_Qty") Is DBNull.Value, 0, FLXGRD_MaterialItem.Rows(i).Item("Item_Qty"))) > 0 Then
                     qty = FLXGRD_MaterialItem.Rows(i).Item("Item_Qty")
+                    If cbSetOpen.Checked Then
+                        rate = FLXGRD_MaterialItem.Rows(i).Item("item_rate")
+                        pgst = FLXGRD_MaterialItem.Rows(i).Item("Vat_Per")
+                        pcess = FLXGRD_MaterialItem.Rows(i).Item("Cess_Per")
+                    End If
                 ElseIf Convert.ToDouble(IIf(FLXGRD_MaterialItem.Rows(i).Item("MRN_Qty") Is DBNull.Value, 0, FLXGRD_MaterialItem.Rows(i).Item("MRN_Qty"))) > 0 Then
                     qty = FLXGRD_MaterialItem.Rows(i).Item("MRN_Qty")
                 End If
 
-                amt = qty * FLXGRD_MaterialItem.Rows(i).Item("item_rate")
-                gst = ((FLXGRD_MaterialItem.Rows(i).Item("item_rate") * qty) * FLXGRD_MaterialItem.Rows(i).Item("Vat_Per") / 100)
-                cess = ((FLXGRD_MaterialItem.Rows(i).Item("item_rate") * qty) * FLXGRD_MaterialItem.Rows(i).Item("Cess_Per") / 100)
+                If FLXGRD_MaterialItem.Rows(i).Item("Prv_Rate") <> FLXGRD_MaterialItem.Rows(i).Item("item_rate") Or FLXGRD_MaterialItem.Rows(i).Item("Prv_Vat_Per") <> FLXGRD_MaterialItem.Rows(i).Item("Vat_Per") Or FLXGRD_MaterialItem.Rows(i).Item("Prv_Cess_Per") <> FLXGRD_MaterialItem.Rows(i).Item("Cess_Per") Then
+                    rate = FLXGRD_MaterialItem.Rows(i).Item("item_rate")
+                    pgst = FLXGRD_MaterialItem.Rows(i).Item("Vat_Per")
+                    pcess = FLXGRD_MaterialItem.Rows(i).Item("Cess_Per")
+                End If
+
+                If Not cbSetOpen.Checked Then
+                    rate = FLXGRD_MaterialItem.Rows(i).Item("item_rate")
+                    pgst = FLXGRD_MaterialItem.Rows(i).Item("Vat_Per")
+                    pcess = FLXGRD_MaterialItem.Rows(i).Item("Cess_Per")
+                End If
+
+                amt = qty * rate
+                gst = ((rate * qty) * pgst / 100)
+                cess = ((rate * qty) * pcess / 100)
             Else
                 FLXGRD_MaterialItem.Rows(i).Item("Amount") = 0.00
             End If
 
-            famt = Math.Abs(pamt - amt)
-
-            'If pamt > amt Then
-
-            'ElseIf pgst <> gst Then
-            '    famt = amt
-            'ElseIf pcess <> cess Then
-            '    famt = amt
-            'End If
-
-            fgst = Math.Abs(pgst - gst)
-            fcess = Math.Abs(pcess - cess)
-
-            If Convert.ToDouble(IIf(FLXGRD_MaterialItem.Rows(i).Item("Item_Qty") Is DBNull.Value, 0, FLXGRD_MaterialItem.Rows(i).Item("Item_Qty"))) > 0 Then
-                'If Not cbSetOpen.Checked Then
-                '    famt = famt + amt
-                'End If
-            Else
+            If Convert.ToDouble(IIf(FLXGRD_MaterialItem.Rows(i).Item("Item_Qty") Is DBNull.Value, 0, FLXGRD_MaterialItem.Rows(i).Item("Item_Qty"))) <= 0 Then
                 If Not cbSetOpen.Checked Then
                     amt = 0
-                    famt = 0
-                    fgst = 0
-                    fcess = 0
+                    gst = 0
+                    cess = 0
                 End If
             End If
 
-                FLXGRD_MaterialItem.Rows(i).Item("TaxableAmt") = Math.Round(amt, 2)
-            FLXGRD_MaterialItem.Rows(i).Item("Amount") = Math.Round(famt, 2)
-            FLXGRD_MaterialItem.Rows(i).Item("GST") = Math.Round(fgst, 2)
-            FLXGRD_MaterialItem.Rows(i).Item("Cess") = Math.Round(fcess, 2)
+            FLXGRD_MaterialItem.Rows(i).Item("TaxableAmt") = Math.Round(amt, 2)
+            FLXGRD_MaterialItem.Rows(i).Item("Amount") = Math.Round(amt, 2)
+            FLXGRD_MaterialItem.Rows(i).Item("GST") = Math.Round(gst, 2)
+            FLXGRD_MaterialItem.Rows(i).Item("Cess") = Math.Round(cess, 2)
 
-            total_item_value = total_item_value + famt
-            total_vat_amount = total_vat_amount + fgst
-            total_cess_amount = total_cess_amount + fcess
-
+            total_item_value = total_item_value + Math.Round(amt, 2)
+            total_vat_amount = total_vat_amount + Math.Round(gst, 2)
+            total_cess_amount = total_cess_amount + Math.Round(cess, 2)
         Next
 
 
@@ -834,7 +875,7 @@ Public Class frm_DebitNoteNew
         lblAmount.Text = total_item_value.ToString("#0.00")
         lblVatAmount.Text = total_vat_amount.ToString("#0.00")
         lblCessAmount.Text = total_cess_amount.ToString("#0.00")
-        lblDebit.Text = (total_item_value + total_vat_amount + total_cess_amount + total_exice_amount).ToString("#0.00")
+        lblDebit.Text = (total_item_value + total_vat_amount + total_cess_amount + Convert.ToDouble(IIf(IsNumeric(txtRoundOff.Text), txtRoundOff.Text, 0))).ToString("#0.00")
         Str = total_item_value.ToString("#0.00") + "," + total_vat_amount.ToString("#0.00") + "," + total_cess_amount.ToString("#0.00") + "," + total_exice_amount.ToString()
         SetGstLabels()
         Return Str
@@ -857,43 +898,70 @@ Public Class frm_DebitNoteNew
         Dim GSTTax28 As Decimal = 0
         Dim GSTTaxTotal As Decimal = 0
         Dim CessTotal As Decimal = 0
-        Dim Tax As Decimal = 0
-        Dim qty As Double = 1
+        Dim totalAmount As Decimal
+        Dim Tax As Decimal
+        Dim Rate As Decimal
+        Dim pgst As Decimal = 0
+        Dim pcess As Decimal = 0
+        Dim qty As Double = 0
         Dim iRow As Integer = 0
 
+
         For iRow = 1 To FLXGRD_MaterialItem.Rows.Count - 1
+            Rate = 0
+            Tax = 0
+            totalAmount = 0
+
+            If cbSetOpen.Checked Then
+                qty = 1
+
+                If FLXGRD_MaterialItem.Rows(iRow).Item("Prv_Rate") <> FLXGRD_MaterialItem.Rows(iRow).Item("item_rate") Or FLXGRD_MaterialItem.Rows(iRow).Item("Prv_Vat_Per") <> FLXGRD_MaterialItem.Rows(iRow).Item("Vat_Per") Or FLXGRD_MaterialItem.Rows(iRow).Item("Prv_Cess_Per") <> FLXGRD_MaterialItem.Rows(iRow).Item("Cess_Per") Then
+                    Rate = FLXGRD_MaterialItem.Rows(iRow).Item("item_rate")
+                    pgst = FLXGRD_MaterialItem.Rows(iRow).Item("Vat_Per")
+                End If
+            Else
+                Rate = FLXGRD_MaterialItem.Rows(iRow).Item("item_rate")
+                pgst = FLXGRD_MaterialItem.Rows(iRow).Item("Vat_Per")
+            End If
 
             If Convert.ToDouble(IIf(FLXGRD_MaterialItem.Item(iRow, "Item_Qty") Is DBNull.Value, 0, FLXGRD_MaterialItem.Item(iRow, "Item_Qty"))) > 0 Then
                 qty = FLXGRD_MaterialItem.Item(iRow, "Item_Qty")
+                If cbSetOpen.Checked Then
+                    Rate = FLXGRD_MaterialItem.Rows(iRow).Item("item_rate")
+                    pgst = FLXGRD_MaterialItem.Rows(iRow).Item("Vat_Per")
+                End If
+            Else
+                If Not cbSetOpen.Checked Then
+                    qty = 0
+                End If
             End If
 
-            Dim totalAmount As Decimal = qty * FLXGRD_MaterialItem.Item(iRow, "item_rate")
+            totalAmount = qty * Rate
 
+            Tax = totalAmount * pgst / 100
 
-            Tax = totalAmount * FLXGRD_MaterialItem.Item(iRow, "vat_per") / 100
+            GSTTaxTotal += Tax
 
-                GSTTaxTotal += Tax
-
-                Select Case FLXGRD_MaterialItem.Item(iRow, "vat_per")
-                    Case 0
-                        GSTAmount0 += totalAmount
-                        GSTTax0 += Tax
-                    Case 3
-                        GSTAmount3 += totalAmount
-                        GSTTax3 += Tax
-                    Case 5
-                        GSTAmount5 += totalAmount
-                        GSTTax5 += Tax
-                    Case 12
-                        GSTAmount12 += totalAmount
-                        GSTTax12 += Tax
-                    Case 18
-                        GSTAmount18 += totalAmount
-                        GSTTax18 += Tax
-                    Case 28
-                        GSTAmount28 += totalAmount
-                        GSTTax28 += Tax
-                End Select
+            Select Case pgst
+                Case 0
+                    GSTAmount0 += totalAmount
+                    GSTTax0 += Tax
+                Case 3
+                    GSTAmount3 += totalAmount
+                    GSTTax3 += Tax
+                Case 5
+                    GSTAmount5 += totalAmount
+                    GSTTax5 += Tax
+                Case 12
+                    GSTAmount12 += totalAmount
+                    GSTTax12 += Tax
+                Case 18
+                    GSTAmount18 += totalAmount
+                    GSTTax18 += Tax
+                Case 28
+                    GSTAmount28 += totalAmount
+                    GSTTax28 += Tax
+            End Select
 
         Next
 
@@ -964,6 +1032,13 @@ Public Class frm_DebitNoteNew
             txtRemarks.Text = dr("Remarks")
             lblMRN_TYPE.Text = dr("MRN_TYPE")
 
+            If dr("MRNo").ToString = "0" Then
+                cbSetOpen.Checked = True
+            Else
+                cbSetOpen.Checked = False
+            End If
+            txtRoundOff.Text = dr("RoundOff")
+
             Dim ds As DataSet
             ds = clsObj.fill_Data_set("GetDebitNoteDetails", "@DebitNoteId", DebitNoteId)
             If ds.Tables(0).Rows.Count > 0 Then
@@ -977,9 +1052,11 @@ Public Class frm_DebitNoteNew
     End Sub
 
     Private Sub cbSetOpen_CheckedChanged(sender As Object, e As EventArgs) Handles cbSetOpen.CheckedChanged
-        set_new_initilize()
-        BindSupplierCombo()
 
+        If cmbBillNo.SelectedIndex > 0 Then
+            set_new_initilize()
+            BindSupplierCombo()
+        End If
         cmbBillNo.Visible = False
         txt_INVNo.Visible = False
         If cbSetOpen.Checked Then
@@ -1074,7 +1151,7 @@ restart:
                                             " UM.UM_Name , " &
                                             " SD.Batch_no , " &
                                             " dbo.fn_Format(SD.Expiry_date) AS Expiry_Date, " &
-                                            " dbo.Get_Average_Rate_as_on_date(IM.ITEM_ID,'" & Now.ToString("dd-MMM-yyyy") & "'," & v_the_current_division_id & ",0) as Item_Rate," &
+                                            " 0.00 as Item_Rate," & '" dbo.Get_Average_Rate_as_on_date(IM.ITEM_ID,'" & Now.ToString("dd-MMM-yyyy") & "'," & v_the_current_division_id & ",0) as Item_Rate," &
                                             "CAST(dbo.Get_Current_Stock(IM.ITEM_ID) AS NUMERIC(18, 2)) as Balance_Qty, " &
                                             " 0.00  as transfer_qty, " &
                                             " SD.STOCK_DETAIL_ID  ,isnull(vm.VAT_PERCENTAGE,0) as VAT_PERCENTAGE,isnull(cm.CessPercentage_num,0) as CessPercentage_num" &
@@ -1145,5 +1222,19 @@ restart:
         End Try
     End Sub
 
+    'Private Sub txtRoundOff_TextChanged(sender As Object, e As EventArgs) Handles txtRoundOff.TextChanged
+    '    If String.IsNullOrEmpty(txtRoundOff.Text) Then
+    '        txtRoundOff.Text = "0.00"
+    '    Else
+    '        ' CalculateAmount()
+    '    End If
+    'End Sub
 
+    Private Sub txtRoundOff_Leave(sender As Object, e As EventArgs) Handles txtRoundOff.Leave
+        If String.IsNullOrEmpty(txtRoundOff.Text) Then
+            txtRoundOff.Text = "0.00"
+        Else
+            CalculateAmount()
+        End If
+    End Sub
 End Class

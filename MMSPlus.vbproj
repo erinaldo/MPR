@@ -2370,6 +2370,7 @@
     <Content Include="Scripts\2018Update\0031_05_August_2018_mrnLedgerEntry.sql" />
     <Content Include="Scripts\2018Update\0032_09_August_2018_Function.sql" />
     <Content Include="Scripts\2018Update\0034_13_August_2018_Stock_and_Opening.sql" />
+    <Content Include="Scripts\2018Update\0038_2_Oct_2018_OpenDebitNote.sql" />
     <Content Include="Scripts\Updates\00001_29_Dec_Add_Duty_And_Taxes.sql" />
     <Content Include="Scripts\Updates\0001_04_Jan_2018_Stock_Transfer.sql" />
     <Content Include="Scripts\Updates\0001_16_JAN_2018.sql" />
