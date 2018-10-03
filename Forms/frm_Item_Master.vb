@@ -144,7 +144,7 @@ Public Class frm_Item_Master
             '    & " INNER JOIN  UNIT_MASTER ON ITEM_MASTER.UM_ID = UNIT_MASTER.UM_ID INNER JOIN ITEM_CATEGORY " _
             '    & " ON ITEM_MASTER.ITEM_CATEGORY_ID = ITEM_CATEGORY.ITEM_CAT_ID order by Item_Master.Item_Code")
 
-            Call Obj.GridBind(grdItemMaster, " SELECT    ITEM_MASTER.ITEM_ID ,
+            Call Obj.GridBind(grdItemMaster, " SELECT top(100) ITEM_MASTER.ITEM_ID ,
             ITEM_MASTER.ITEM_CODE ,
             Barcode_Vch ,
             ITEM_MASTER.ITEM_NAME ,
@@ -210,7 +210,7 @@ Public Class frm_Item_Master
             '& "item_master.ITEM_DESC+ item_master.item_name + ITEM_CATEGORY.item_cat_name + UNIT_MASTER.um_name + isnull(Barcode_Vch,'')) " _
             '& " like '%" & txtSearch.Text & "%'")
 
-            Call Obj.GridBind(grdItemMaster, "SELECT ITEM_MASTER.ITEM_ID ,
+            Call Obj.GridBind(grdItemMaster, "SELECT top(100) ITEM_MASTER.ITEM_ID ,
                                                 ITEM_MASTER.ITEM_CODE ,
                                                 ITEM_MASTER.Barcode_Vch ,
                                                 ITEM_MASTER.ITEM_NAME ,

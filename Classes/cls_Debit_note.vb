@@ -25,6 +25,11 @@ Namespace DebitNote
         Dim _Item_Tax As Double
         Dim _Item_Cess As Double
         Dim _DN_Amount As Double
+        Dim _RoundOff As Double
+        Dim _TaxableAmt As Double
+        Dim _TaxAmt As Double
+        Dim _CessAmt As Double
+        Dim _DebitAmt As Double
         Dim _DN_CustId As Int32
         Dim _Stock_Detail_Id As Double
         Dim _INV_No As String
@@ -182,6 +187,39 @@ Namespace DebitNote
             End Set
         End Property
 
+        Public Property TaxableAmt() As Double
+            Get
+                TaxableAmt = _TaxableAmt
+            End Get
+            Set(ByVal value As Double)
+                _TaxableAmt = value
+            End Set
+        End Property
+        Public Property TaxAmt() As Double
+            Get
+                TaxAmt = _TaxAmt
+            End Get
+            Set(ByVal value As Double)
+                _TaxAmt = value
+            End Set
+        End Property
+        Public Property CessAmt() As Double
+            Get
+                CessAmt = _CessAmt
+            End Get
+            Set(ByVal value As Double)
+                _CessAmt = value
+            End Set
+        End Property
+        Public Property DebitAmt() As Double
+            Get
+                DebitAmt = _DebitAmt
+            End Get
+            Set(ByVal value As Double)
+                _DebitAmt = value
+            End Set
+        End Property
+
         Public Property Item_Cess() As Double
             Get
                 Item_Cess = _Item_Cess
@@ -191,6 +229,14 @@ Namespace DebitNote
             End Set
         End Property
 
+        Public Property RoundOff() As Double
+            Get
+                RoundOff = _RoundOff
+            End Get
+            Set(ByVal value As Double)
+                _RoundOff = value
+            End Set
+        End Property
         Public Property Dn_Amount() As Double
             Get
                 Dn_Amount = _DN_Amount
@@ -199,6 +245,7 @@ Namespace DebitNote
                 _DN_Amount = value
             End Set
         End Property
+
 
         Public Property DN_CustId() As Integer
             Get
@@ -331,6 +378,7 @@ Namespace DebitNote
             cmd.Parameters.AddWithValue("@v_DN_ItemTax", clsObj.DN_ItemTax)
             cmd.Parameters.AddWithValue("@v_DN_ItemCess", clsObj.DN_ItemCess)
             cmd.Parameters.AddWithValue("@v_DebitNote_Type", clsObj.DN_Type)
+            cmd.Parameters.AddWithValue("@v_RoundOff", clsObj.RoundOff)
             cmd.Parameters.AddWithValue("@v_RefNo", clsObj.Ref_No)
             cmd.Parameters.AddWithValue("@v_RefDate_dt", clsObj.Ref_Date)
             cmd.Parameters.AddWithValue("@V_Trans_Type", Transaction_Type.DebitNote)
@@ -357,6 +405,10 @@ Namespace DebitNote
             cmd.Parameters.AddWithValue("@v_Item_Rate", clsObj.Item_Rate)
             cmd.Parameters.AddWithValue("@v_Item_Tax", clsObj.Item_Tax)
             cmd.Parameters.AddWithValue("@v_Item_Cess", clsObj.Item_Cess)
+            cmd.Parameters.AddWithValue("@v_TaxableAmt", clsObj.TaxableAmt)
+            cmd.Parameters.AddWithValue("@v_TaxAmt", clsObj.TaxAmt)
+            cmd.Parameters.AddWithValue("@v_CessAmt", clsObj.CessAmt)
+            cmd.Parameters.AddWithValue("@v_DebitAmt", clsObj.DebitAmt)
             cmd.Parameters.AddWithValue("@V_Trans_Type", Transaction_Type.DebitNote)
             cmd.Parameters.AddWithValue("@V_PROC_TYPE", clsObj.Proctype)
             cmd.ExecuteNonQuery()
@@ -407,6 +459,7 @@ Namespace DebitNote
             cmd.Parameters.AddWithValue("@V_Division_ID", clsObj.Division_ID)
             cmd.Parameters.AddWithValue("@v_DN_Amount", clsObj.Dn_Amount)
             cmd.Parameters.AddWithValue("@v_DN_CustId", clsObj.DN_CustId)
+            cmd.Parameters.AddWithValue("@v_RoundOff", clsObj.RoundOff)
             cmd.Parameters.AddWithValue("@v_INV_No", clsObj.INV_No)
             cmd.Parameters.AddWithValue("@v_INV_Date", clsObj.INV_Date)
             cmd.Parameters.AddWithValue("@V_PROC_TYPE", 2)

@@ -228,7 +228,7 @@ Public Class MDI_Warehouse
                         ''''''''''''''MRN With PO'''''''''''''''
                     Case UCase("frm_DebitNote")
                         tbp.Text = " Debit Note"
-                        tbp.Controls.Add(New frm_DebitNote(prpty_form_rights))
+                        tbp.Controls.Add(New frm_DebitNoteNew(prpty_form_rights))
 
                     Case UCase("ItemWiseMaterialIssueToCostCenterToolStripMenuItem")
                         tbp.Text = "Item Wise Material Issue To Cost Center"
