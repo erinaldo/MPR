@@ -67,7 +67,7 @@ Public Class frm_DebitNoteNew
         SetGstLabels()
         flag = "save"
         TbRMRN.SelectTab(1)
-        TbRMRN.Focus()
+        'TbRMRN.Focus()
     End Sub
 
     Private Sub GetDNCode()
@@ -460,7 +460,7 @@ Public Class frm_DebitNoteNew
         FLXGRD_MaterialItem.Cols("UM_Name").Caption = "UOM"
         FLXGRD_MaterialItem.Cols("Prev_Item_Qty").Caption = "Current Stock"
         FLXGRD_MaterialItem.Cols("MRN_Qty").Caption = "MRN Item Qty"
-        FLXGRD_MaterialItem.Cols("Item_Rate").Caption = "Item Rate"
+        FLXGRD_MaterialItem.Cols("Item_Rate").Caption = "Cost Rate"
         FLXGRD_MaterialItem.Cols("Vat_Per").Caption = "Tax %"
         FLXGRD_MaterialItem.Cols("Cess_Per").Caption = "Cess %"
         FLXGRD_MaterialItem.Cols("Amount").Caption = "Amount"
