@@ -67,7 +67,7 @@ Public Class frm_DebitNoteNew
         SetGstLabels()
         flag = "save"
         TbRMRN.SelectTab(1)
-        TbRMRN.Focus()
+        'TbRMRN.Focus()
     End Sub
 
     Private Sub GetDNCode()
