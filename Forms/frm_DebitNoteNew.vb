@@ -246,7 +246,7 @@ Public Class frm_DebitNoteNew
                 prpty.RoundOff = txtRoundOff.Text
                 prpty.Dn_Amount = lblDebit.Text
                 cmbSupplier.SelectedIndex = cmbSupplier.FindStringExact(cmbSupplier.Text)
-                prpty.DN_CustId = cmbsupplier.SelectedValue
+                prpty.DN_CustId = cmbSupplier.SelectedValue
                 prpty.INV_No = txt_INVNo.Text
                 prpty.INV_Date = txt_INVDate.Text
                 prpty.DN_ItemValue = lblAmount.Text
@@ -305,7 +305,7 @@ Public Class frm_DebitNoteNew
                 End If
 
                 set_new_initilize()
-                cmbsupplier.SelectedValue = 0
+                cmbSupplier.SelectedValue = 0
                 cmbBillNo.SelectedValue = 0
 
             ElseIf flag = "update" And validate_data() Then
@@ -331,7 +331,7 @@ Public Class frm_DebitNoteNew
                 prpty.Dn_Amount = lblDebit.Text
                 prpty.RoundOff = txtRoundOff.Text
                 cmbSupplier.SelectedIndex = cmbSupplier.FindStringExact(cmbSupplier.Text)
-                prpty.DN_CustId = cmbsupplier.SelectedValue
+                prpty.DN_CustId = cmbSupplier.SelectedValue
                 prpty.INV_No = txt_INVNo.Text
                 prpty.INV_Date = txt_INVDate.Text
                 prpty.DN_ItemValue = lblAmount.Text
@@ -384,7 +384,7 @@ Public Class frm_DebitNoteNew
                 End If
 
                 set_new_initilize()
-                cmbsupplier.SelectedValue = 0
+                cmbSupplier.SelectedValue = 0
                 cmbBillNo.SelectedValue = 0
                 cbSetOpen.Checked = False
             End If
@@ -719,7 +719,7 @@ Public Class frm_DebitNoteNew
     End Sub
 
     Private Sub BindSupplierCombo()
-        obj.ComboBind(cmbsupplier, "select 0 as ACC_ID,'--Select--' as ACC_NAME union Select ACC_ID,ACC_NAME from ACCOUNT_MASTER WHERE AG_ID in (1,2,3,6) Order by ACC_NAME ", "ACC_NAME", "ACC_ID")
+        obj.ComboBind(cmbSupplier, "select 0 as ACC_ID,'--Select--' as ACC_NAME union Select ACC_ID,ACC_NAME from ACCOUNT_MASTER WHERE AG_ID in (1,2,3,6) Order by ACC_NAME ", "ACC_NAME", "ACC_ID")
 
     End Sub
 
@@ -1024,7 +1024,7 @@ Public Class frm_DebitNoteNew
             TbRMRN.SelectTab(1)
             lblDN_Code.Text = dr("DebitNoteNumber")
             lbl_DNDate.Text = dr("DebitNote_Date")
-            cmbsupplier.SelectedValue = dr("DN_CustId")
+            cmbSupplier.SelectedValue = dr("DN_CustId")
             BindMRNCombo()
             cmbBillNo.SelectedValue = dr("MRNo").ToString
             txt_INVNo.Text = dr("InvoiceNo")
@@ -1104,7 +1104,11 @@ Public Class frm_DebitNoteNew
                 frm_Show_search.item_rate_column = ""
                 frm_Show_search.ShowDialog()
 
-                get_row(frm_Show_search.search_result)
+                If Not check_item_exist(frm_Show_search.search_result) Then
+                    get_row(frm_Show_search.search_result)
+                End If
+
+
 
                 frm_Show_search.Close()
 
@@ -1136,6 +1140,22 @@ restart:
 
         End Try
     End Sub
+
+    Function check_item_exist(ByVal item_id As Integer) As Boolean
+        Dim iRow As Int32
+        check_item_exist = False
+        For iRow = 1 To FLXGRD_MaterialItem.Rows.Count - 1
+            If FLXGRD_MaterialItem.Item(iRow, "item_id").ToString() <> "" Then
+                If Convert.ToInt32(FLXGRD_MaterialItem.Item(iRow, "item_id")) = item_id Then
+                    MsgBox("Item Already Exist", MsgBoxStyle.Exclamation, gblMessageHeading)
+                    check_item_exist = True
+                    Exit For
+                End If
+            Else
+                check_item_exist = False
+            End If
+        Next iRow
+    End Function
     Public Sub get_row(ByVal item_id As String)
 
         Dim ds As DataSet
@@ -1163,7 +1183,7 @@ restart:
                                             " INNER JOIN STOCK_DETAIL SD ON ID.ITEM_ID = SD.Item_id " &
                                             " INNER JOIN UNIT_MASTER UM ON IM.UM_ID = UM.UM_ID" &
                                     " where " &
-                                            " IM.ITEM_ID = " & item_id & " and SD.Balance_Qty > 0"
+                                            " IM.ITEM_ID = " & item_id '& " and SD.Balance_Qty > 0"
                 ds = clsObj.Fill_DataSet(sqlqry)
 
                 'Dim iRowCount As Int32
