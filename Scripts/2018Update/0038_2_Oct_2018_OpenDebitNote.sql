@@ -553,6 +553,118 @@ AS
     
     GO
     
+    CREATE FUNCTION [dbo].[Get_CostRate]
+    (
+      @rate NUMERIC(18, 2) ,
+      @ItemID NUMERIC(18, 0),
+      @ReceivedID NUMERIC(18, 0),
+      @ID NUMERIC(18, 0)
+    )
+RETURNS NUMERIC(18, 2)
+AS
+    BEGIN  
+      
+        DECLARE @costrate NUMERIC(18, 2)  
+       
+        IF @ID = 1
+            BEGIN             
+                SELECT  @costrate = @rate
+                        - ( SELECT  CAST(( ISNULL(CASE WHEN DType = 'P'
+                                                       THEN CASE
+                                                              WHEN GSTPAID = 'Y'
+                                                              THEN ( ( ( @rate )
+                                                              - ( ROUND(( @rate
+                                                              * DiscountValue )
+                                                              / 100, 2)
+                                                              + ( ( ROUND(@rate,
+                                                              2)
+                                                              - ROUND(( @rate
+                                                              * DiscountValue )
+                                                              / 100, 2) )
+                                                              * DiscountValue1
+                                                              / 100 ) ) )
+                                                              - ( ( ( @rate )
+                                                              - ( ROUND(( @rate
+                                                              * DiscountValue )
+                                                              / 100, 2)
+                                                              + ( ( ROUND(@rate,
+                                                              2)
+                                                              - ROUND(( @rate
+                                                              * DiscountValue )
+                                                              / 100, 2) )
+                                                              * DiscountValue1
+                                                              / 100 ) ) )
+                                                              / ( 1
+                                                              + ( Item_vat
+                                                              / 100 ) ) ) )
+                                                              + ROUND(( @rate
+                                                              * DiscountValue )
+                                                              / 100, 2)
+                                                              + ( ( ROUND(@rate,
+                                                              2)
+                                                              - ROUND(( @rate
+                                                              * DiscountValue )
+                                                              / 100, 2) )
+                                                              * DiscountValue1
+                                                              / 100 )
+                                                              ELSE ROUND(( @rate
+                                                              * DiscountValue )
+                                                              / 100, 2)
+                                                              + ( ( ROUND(@rate,
+                                                              2)
+                                                              - ROUND(( @rate
+                                                              * DiscountValue )
+                                                              / 100, 2) )
+                                                              * DiscountValue1
+                                                              / 100 )
+                                                            END
+                                                       ELSE CASE
+                                                              WHEN GSTPAID = 'Y'
+                                                              THEN ( ( ( @rate )
+                                                              - ROUND(DiscountValue,
+                                                              2)
+                                                              + ROUND(DiscountValue1,
+                                                              2) )
+                                                              - ( ( ( @rate )
+                                                              - ROUND(DiscountValue,
+                                                              2)
+                                                              + ROUND(DiscountValue1,
+                                                              2) ) / ( 1
+                                                              + ( Item_vat
+                                                              / 100 ) ) ) )
+                                                              + ROUND(DiscountValue,
+                                                              2)
+                                                              + ROUND(DiscountValue1,
+                                                              2)
+                                                              ELSE ROUND(DiscountValue,
+                                                              2)
+                                                              + ROUND(DiscountValue1,
+                                                              2)
+                                                            END
+                                                  END, 0) ) AS NUMERIC(18, 2))
+                            FROM    MATERIAL_RECEIVED_WITHOUT_PO_DETAIL WHERE Received_ID=@ReceivedID AND Item_ID=@ItemID
+                          )  
+            END   
+                         
+        ELSE
+            BEGIN              
+                SELECT  @costrate = @rate
+                        - ( SELECT  ( ISNULL(CASE WHEN DType = 'P'
+                                                  THEN ( ( @rate )
+                                                         * DiscountValue )
+                                                       / 100
+                                                  ELSE DiscountValue
+                                             END, 0) )
+                            FROM    dbo.MATERIAL_RECEIVED_AGAINST_PO_DETAIL WHERE Receipt_ID=@ReceivedID AND Item_ID=@ItemID
+                          )
+            END 
+                           
+        RETURN @costrate  
+      
+    END  
+    
+   GO
+    
     ALTER PROCEDURE [dbo].[Get_MRN_Details_DebitNote] @V_MRN_NO NUMERIC(18, 0)  
 AS  
     BEGIN         
@@ -562,7 +674,7 @@ AS
                 IM.UM_Name AS UM_Name ,  
                 CAST(SD.Balance_Qty AS NUMERIC(18,2)) AS Prev_Item_Qty ,  
                CAST(md.Item_Qty AS NUMERIC(18,2)) AS MRN_Qty ,  
-               CAST( md.Item_Rate AS NUMERIC(18,2)) AS Item_Rate,  
+               CAST(dbo.Get_CostRate(md.Item_Rate,IM.ITEM_ID,MM.Receipt_ID,2)  AS NUMERIC(18,2)) AS Item_Rate,  
                CAST( md.Vat_Per AS NUMERIC(18,2))AS Vat_Per ,  
                CAST( md.Cess_Per AS NUMERIC(18,2)) AS Cess_Per,  
                 '0.00' AS Item_Qty , 
@@ -571,7 +683,7 @@ AS
                  0.00 AS GST,  
                   0.00 AS Cess,               
                 MD.Stock_Detail_Id AS Stock_Detail_Id,
-                md.Item_Rate AS Prv_Rate,
+                dbo.Get_CostRate(md.Item_Rate,IM.ITEM_ID,MM.Receipt_ID,2) AS Prv_Rate,
                 md.Vat_Per as Prv_Vat_Per,
                 md.Cess_Per as Prv_Cess_Per 
         FROM    MATERIAL_RECEIVED_AGAINST_PO_MASTER MM  
@@ -586,7 +698,7 @@ AS
                 IM.UM_Name AS UM_Name ,  
                 CAST(SD.Balance_Qty AS NUMERIC(18,2)) AS Prev_Item_Qty ,  
                CAST(md.Item_Qty AS NUMERIC(18,2)) AS MRN_Qty ,  
-               CAST( md.Item_Rate AS NUMERIC(18,2)) AS Item_Rate,  
+               CAST( dbo.Get_CostRate(md.Item_Rate,IM.ITEM_ID,MM.Received_ID,1) AS NUMERIC(18,2)) AS Item_Rate,  
                CAST( md.Item_vat AS NUMERIC(18,2))AS Item_vat ,  
                CAST( md.Item_Cess AS NUMERIC(18,2)) AS Item_Cess,             
                 '0.00' AS Item_Qty , 
@@ -595,7 +707,7 @@ AS
                   0.00 AS GST,  
                   0.00 AS Cess, 
                 MD.Stock_Detail_Id AS Stock_Detail_Id,
-                md.Item_Rate AS Prv_Rate,
+                dbo.Get_CostRate(md.Item_Rate,IM.ITEM_ID,MM.Received_ID,1) AS Prv_Rate,
                 md.Item_vat as Prv_Vat_Per,
                 md.Item_Cess as Prv_Cess_Per
         FROM    MATERIAL_RECIEVED_WITHOUT_PO_MASTER MM  
