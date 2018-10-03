@@ -965,6 +965,10 @@ Public Class frm_material_rec_against_PO
 
     Private Sub dgvList_DoubleClick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles dgvList.DoubleClick
         MsgBox("You can't Edit this MRN." & vbCrLf & "To view this MRN Click on ""Print""")
+        'If _rights.allow_edit = "N" Then
+        '    RightsMsg()
+        '    Exit Sub
+        'End If
         'Dim Receipt_Id As Integer
         'Dim dtMaster As New DataTable
         'Dim dtDetail As New DataTable
@@ -975,24 +979,48 @@ Public Class frm_material_rec_against_PO
         'ds = obj.fill_Data_set("Get_MRN_AgainstPO_Detail", "@V_Receipt_Id", Receipt_Id)
         'If ds.Tables.Count > 0 Then
         '    dtMaster = ds.Tables(0)
-        '    txt_Remarks.Text = obj.NZ(dtMaster.Rows(0)("REMARKS"), True)
+        '    lblMRNType.Text = Convert.ToString(dtMaster.Rows(0)("MRN_TYPE"))
+        '    lblcustid.Text = dtMaster.Rows(0)("CUST_ID")
+        '    cmbPurchaseOrders.SelectedValue = dtMaster.Rows(0)("PO_ID")
 
+        '    txt_Remarks.Text = obj.NZ(dtMaster.Rows(0)("REMARKS"), True)
         '    txtotherchrgs.Text = IIf(String.IsNullOrEmpty(dtMaster.Rows(0)("other_charges")), 0, dtMaster.Rows(0)("other_charges"))
         '    txtdiscount.Text = IIf(String.IsNullOrEmpty(dtMaster.Rows(0)("discount_amt")), 0, dtMaster.Rows(0)("discount_amt"))
-        '    txt_Amount.Text = IIf(String.IsNullOrEmpty(dtMaster.Rows(0)("freight")), 0, dtMaster.Rows(0)("freight"))
+        '    txtAmount.Text = IIf(String.IsNullOrEmpty(dtMaster.Rows(0)("freight")), 0, dtMaster.Rows(0)("freight"))
 
+        '    txtCashDiscount.Text = Convert.ToString(dtMaster.Rows(0)("CashDiscount_amt"))
+        '    dt_Invoice_Date.Value = dtMaster.Rows(0)("Invoice_Date")
+        '    txt_Invoice_No.Text = dtMaster.Rows(0)("Invoice_No")
+        '    dtpReceiveDate.Text = dtMaster.Rows(0)("Receipt_Date")
+
+        '    If (dtMaster.Rows(0)("FK_ITCEligibility_ID").ToString.Trim() = "2") Then
+        '        cmbITCEligibility.SelectedIndex = 1
+        '        lblSelectCapitalAccount.Visible = True
+        '        cmbCapitalAccount.Visible = True
+        '        cmbCapitalAccount.SelectedValue = dtMaster.Rows(0)("REFERENCE_ID")
+        '    End If
+        '    cmb_MRNAgainst.SelectedValue = dtMaster.Rows(0)("MRNCompanies_ID")
         '    dtable_Item_List = ds.Tables(1).Copy
         '    FLXGRD_PO_Items.DataSource = dtable_Item_List
 
         '    datatbl_NonStockable_Items = ds.Tables(2).Copy
         '    FLXGRD_PO_NON_STOCKABLEITEMS.DataSource = datatbl_NonStockable_Items
 
+
+        '    If (dtMaster.Rows(0)("FreightTaxApplied") = True) Then
+        '        Calculate_Amount()
+        '        chk_ApplyTax.Checked = True
+        '    Else
+        '        chk_ApplyTax.Checked = False
+        '    End If
         '    Grid_Formatting()
+
         '    'I = Convert.ToInt32(dtDetail.Rows(0)("PO_Id"))
         '    'cmbPurchaseOrders.SelectedValue = I
         '    TabControl1.SelectTab(1)
         '    ds.Dispose()
         'End If
+        'generate_tree()
         'Calculate_Amount()
     End Sub
 
@@ -1297,9 +1325,11 @@ restart:
 
             If chk_ApplyTax.Checked = True Then
                 'Tax = (totalAmount * FLXGRD_MaterialItem.Item(iRow, "vat_per") / 100) + (totalAmount / Convert.ToDecimal(lblgrossamt.Text) * Convert.ToDecimal(txt_Amount.Text))
+
                 TaxAmount = ((totalAmount / (Convert.ToDouble(IIf(IsNumeric(lblgrossamt.Text), lblgrossamt.Text, 0)))) * Convert.ToDecimal(txtAmount.Text))
                 Tax = (totalAmount + TaxAmount) * FLXGRD_PO_Items.Item(iRow, "vat_per") / 100
                 FreightTaxAmount = Tax - (totalAmount * FLXGRD_PO_Items.Item(iRow, "vat_per") / 100)
+
             Else
                 TaxAmount = 0
                 Tax = totalAmount * FLXGRD_PO_Items.Item(iRow, "vat_per") / 100
