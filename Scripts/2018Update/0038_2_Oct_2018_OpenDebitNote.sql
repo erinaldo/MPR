@@ -84,7 +84,7 @@ ALTER PROCEDURE [dbo].[PROC_DebitNote_MASTER]
       @v_DN_CustId NUMERIC(18, 0) ,
       @v_INV_No VARCHAR(100) ,
       @v_INV_Date DATETIME ,
-      @v_DebitNote_Type VARCHAR(50) = NULL ,
+      @v_DebitNote_Type VARCHAR(20) = NULL ,
       @v_RefNo VARCHAR(50) = NULL ,
       @v_RefDate_dt DATETIME ,
       @V_Trans_Type NUMERIC(18, 0) ,
@@ -256,7 +256,30 @@ AS
             
                 EXECUTE Proc_Ledger_Insert 10073, @v_DN_Amount, 0, @Remarks,
                     @V_Division_ID, @V_DebitNote_ID, @V_Trans_Type,
-                    @v_DebitNote_Date, @V_Created_BY              
+                    @v_DebitNote_Date, @V_Created_BY    
+                    
+                     SET @Remarks = 'Round Off against Debit Note No- '
+                    + CAST(@V_DebitNote_No AS VARCHAR(50))                         
+                
+                IF @v_RoundOff > 0
+                    BEGIN                
+                
+                        EXECUTE Proc_Ledger_Insert 10054, 0, @v_RoundOff,
+                            @Remarks, @V_Division_ID, @V_DebitNote_ID,
+                            @V_Trans_Type, @v_DebitNote_Date, @V_Created_BY            
+                
+                    END                
+                
+                ELSE
+                    BEGIN                
+                
+                        SET @v_RoundOff = -+@v_RoundOff                
+                
+                        EXECUTE Proc_Ledger_Insert 10054, @v_RoundOff, 0,
+                            @Remarks, @V_Division_ID, @V_DebitNote_ID,
+                            @V_Trans_Type, @v_DebitNote_Date, @V_Created_BY            
+                
+                    END            
             
             END            
             

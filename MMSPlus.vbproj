@@ -270,6 +270,12 @@
     <Compile Include="Forms\frm_Account_Payment.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Forms\frm_CreditNoteNew.Designer.vb">
+      <DependentUpon>frm_CreditNoteNew.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frm_CreditNoteNew.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Forms\frm_CreditNote_WO_Items.Designer.vb">
       <DependentUpon>frm_CreditNote_WO_Items.vb</DependentUpon>
     </Compile>
@@ -1514,6 +1520,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frm_Account_Payment.resx">
       <DependentUpon>frm_Account_Payment.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frm_CreditNoteNew.resx">
+      <DependentUpon>frm_CreditNoteNew.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frm_CreditNote_WO_Items.resx">
       <DependentUpon>frm_CreditNote_WO_Items.vb</DependentUpon>

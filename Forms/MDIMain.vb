@@ -229,7 +229,7 @@ Public Class MDIMain
 
                     Case UCase("frm_CreditNote")
                         tbp.Text = "Credit Note"
-                        tbp.Controls.Add(New frm_CreditNote(prpty_form_rights))
+                        tbp.Controls.Add(New frm_CreditNoteNew(prpty_form_rights))
 
 
                     Case UCase("frm_Supplier_Invoice_Settlement")

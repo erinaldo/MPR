@@ -34,6 +34,11 @@ Namespace CreditNote
         Dim _RefDate_dt As DateTime
         Dim _Tax_Amt As Double
         Dim _Proctype As Integer
+        Dim _RoundOff As Double
+        Dim _TaxableAmt As Double
+        Dim _TaxAmt As Double
+        Dim _CessAmt As Double
+        Dim _CreditAmt As Double
         Public Property Proctype() As Integer
             Get
                 Proctype = _Proctype
@@ -42,7 +47,47 @@ Namespace CreditNote
                 _Proctype = value
             End Set
         End Property
+        Public Property RoundOff() As Double
+            Get
+                RoundOff = _RoundOff
+            End Get
+            Set(ByVal value As Double)
+                _RoundOff = value
+            End Set
+        End Property
 
+        Public Property TaxableAmt() As Double
+            Get
+                TaxableAmt = _TaxableAmt
+            End Get
+            Set(ByVal value As Double)
+                _TaxableAmt = value
+            End Set
+        End Property
+        Public Property TaxAmt() As Double
+            Get
+                TaxAmt = _TaxAmt
+            End Get
+            Set(ByVal value As Double)
+                _TaxAmt = value
+            End Set
+        End Property
+        Public Property CessAmt() As Double
+            Get
+                CessAmt = _CessAmt
+            End Get
+            Set(ByVal value As Double)
+                _CessAmt = value
+            End Set
+        End Property
+        Public Property CreditAmt() As Double
+            Get
+                CreditAmt = _CreditAmt
+            End Get
+            Set(ByVal value As Double)
+                _CreditAmt = value
+            End Set
+        End Property
         Public Property CreditNote_ID() As Integer
             Get
                 CreditNote_ID = _CreditNote_ID
@@ -326,6 +371,7 @@ Namespace CreditNote
             cmd.Parameters.AddWithValue("@v_CN_ItemCess", clsObj.CN_ItemCess)
             cmd.Parameters.AddWithValue("@v_CreditNote_Type", clsObj.CN_Type)
             cmd.Parameters.AddWithValue("@v_RefNo", clsObj.Ref_No)
+            cmd.Parameters.AddWithValue("@v_RoundOff", clsObj.RoundOff)
             cmd.Parameters.AddWithValue("@v_RefDate_dt", clsObj.Ref_Date)
             cmd.Parameters.AddWithValue("@V_Trans_Type", Transaction_Type.CreditNote)
             cmd.Parameters.AddWithValue("@V_PROC_TYPE", clsObj.Proctype)
@@ -355,6 +401,10 @@ Namespace CreditNote
             cmd.Parameters.AddWithValue("@v_Stock_Detail_Id", clsObj.Stock_Detail_ID)
             cmd.Parameters.AddWithValue("@V_Trans_Type", Transaction_Type.CreditNote)
             cmd.Parameters.AddWithValue("@V_PROC_TYPE", clsObj.Proctype)
+            cmd.Parameters.AddWithValue("@v_TaxableAmt", clsObj.TaxableAmt)
+            cmd.Parameters.AddWithValue("@v_TaxAmt", clsObj.TaxAmt)
+            cmd.Parameters.AddWithValue("@v_CessAmt", clsObj.CessAmt)
+            cmd.Parameters.AddWithValue("@v_CreditAmt", clsObj.CreditAmt)
             cmd.ExecuteNonQuery()
             cmd.Dispose()
 
@@ -404,11 +454,12 @@ Namespace CreditNote
             cmd.Parameters.AddWithValue("@v_CN_CustId", clsObj.CN_CustId)
             cmd.Parameters.AddWithValue("@v_INV_No", clsObj.INV_No)
             cmd.Parameters.AddWithValue("@v_INV_Date", clsObj.INV_Date)
+            cmd.Parameters.AddWithValue("@v_RoundOff", clsObj.RoundOff)
             cmd.Parameters.AddWithValue("@V_PROC_TYPE", 2)
-
-            cmd.ExecuteNonQuery()
             cmd.Dispose()
 
+
+            cmd.ExecuteNonQuery()
 
         End Sub
 
