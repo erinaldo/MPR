@@ -39,6 +39,7 @@ Namespace CreditNote
         Dim _TaxAmt As Double
         Dim _CessAmt As Double
         Dim _CreditAmt As Double
+
         Public Property Proctype() As Integer
             Get
                 Proctype = _Proctype

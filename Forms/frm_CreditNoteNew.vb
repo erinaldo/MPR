@@ -113,13 +113,25 @@ Public Class frm_CreditNoteNew
 
     Private Sub FillGrid(Optional ByVal condition As String = "")
         Try
-            obj.GridBind(dgvList, "SELECT  *FROM (SELECT CreditNote_Id,  CreditNote_Code + CAST(CreditNote_No AS VARCHAR(10)) AS CreditNoteNo , dbo.fn_format(CreditNote_Date) AS CreditNote_Date , SI_ID, SIM.SI_CODE+CAST(sim.SI_NO AS VARCHAR(50))AS INVNo,CN_Amount , ACC_NAME ,cnm.Remarks, cnm.Created_by FROM CreditNote_Master CNM JOIN dbo.SALE_INVOICE_MASTER SIM ON CNM.INVId=sim.SI_ID  INNER JOIN dbo.ACCOUNT_MASTER AM ON am.ACC_ID = CNM.CN_CustId )tb where (tb.CreditNoteNo+tb.CreditNote_Date+INVNo+tb.Remarks+CAST(tb.CN_Amount AS VARCHAR(20)) +tb.ACC_NAME+tb.Created_by) LIKE '%" & condition & "%'")
+            obj.GridBind(dgvList, "SELECT  *FROM (SELECT CreditNote_Id,  CreditNote_Code + CAST(CreditNote_No AS VARCHAR(10)) AS CreditNoteNo , dbo.fn_format(CreditNote_Date) AS CreditNote_Date , SI_ID, SIM.SI_CODE+CAST(sim.SI_NO AS VARCHAR(50))AS INVNo,CN_Amount , ACC_NAME ,cnm.Remarks, cnm.Created_by FROM CreditNote_Master CNM JOIN dbo.SALE_INVOICE_MASTER SIM ON CNM.INVId=sim.SI_ID  INNER JOIN dbo.ACCOUNT_MASTER AM ON am.ACC_ID = CNM.CN_CustId  UNION ALL
+          SELECT    CreditNote_Id ,
+                    CreditNote_Code + CAST(CreditNote_No AS VARCHAR(10)) AS CreditNoteNo ,
+                    dbo.fn_format(CreditNote_Date) AS CreditNote_Date ,
+                    INVId AS SI_ID ,
+                    INV_No AS INVNo ,
+                    CN_Amount ,
+                    ACC_NAME ,
+                    cnm.Remarks ,
+                    cnm.Created_by
+          FROM      CreditNote_Master CNM
+                    INNER JOIN dbo.ACCOUNT_MASTER AM ON am.ACC_ID = CNM.CN_CustId
+                    WHERE INVId<=0)tb where (tb.CreditNoteNo+tb.CreditNote_Date+INVNo+tb.Remarks+CAST(tb.CN_Amount AS VARCHAR(20)) +tb.ACC_NAME+tb.Created_by) LIKE '%" & condition & "%' ORDER BY tb.CreditNote_Id")
             dgvList.Width = 100
             dgvList.Columns(0).Visible = False 'Reverse_ID
             dgvList.Columns(0).Width = 100
             dgvList.Columns(1).HeaderText = "Credit Note No."
-            dgvList.Columns(1).Width = 100
-            dgvList.Columns(2).HeaderText = "Credit Note Date"
+            dgvList.Columns(1).Width = 120
+            dgvList.Columns(2).HeaderText = "Date"
             dgvList.Columns(2).Width = 100
             dgvList.Columns(3).HeaderText = "INV Id"
             dgvList.Columns(3).Width = 70
@@ -168,28 +180,33 @@ Public Class frm_CreditNoteNew
             Exit Function
         End If
 
-        If cmbBillNo.SelectedIndex <= 0 Then
-            MsgBox("Select INV to create Credit note.", vbExclamation, gblMessageHeading)
-            cmbBillNo.Focus()
-            validate_data = False
-            Exit Function
-        End If
-
-        dtCheck = FLXGRD_MaterialItem.DataSource
-        int_RowIndex = dtCheck.Rows.Count
-        For iRow = 0 To int_RowIndex - 1
-            If dtCheck.Rows(iRow)("Item_Qty") > 0 Then
-                blnIsExist = True
+        If Not cbSetOpen.Checked Then
+            If cmbBillNo.SelectedIndex <= 0 Then
+                MsgBox("Select INV to create Credit note.", vbExclamation, gblMessageHeading)
+                cmbBillNo.Focus()
+                validate_data = False
+                Exit Function
             End If
-        Next iRow
 
-        If blnIsExist = False Then
-            validate_data = False
-            MsgBox("Enter atleast one Credit quantity.", vbExclamation, gblMessageHeading)
-            Exit Function
+            dtCheck = FLXGRD_MaterialItem.DataSource
+            int_RowIndex = dtCheck.Rows.Count
+            For iRow = 0 To int_RowIndex - 1
+                If dtCheck.Rows(iRow)("Item_Qty") > 0 Then
+                    blnIsExist = True
+                End If
+            Next iRow
+
+            If blnIsExist = False Then
+                validate_data = False
+                MsgBox("Enter atleast one Credit quantity.", vbExclamation, gblMessageHeading)
+                Exit Function
+            Else
+                validate_data = True
+            End If
         Else
             validate_data = True
         End If
+
     End Function
 
     Public Sub SaveClick(ByVal sender As Object, ByVal e As System.EventArgs) Implements IForm.SaveClick
@@ -217,7 +234,9 @@ Public Class frm_CreditNoteNew
                 prpty.Modified_By = ""
                 prpty.Modification_Date = NULL_DATE
                 prpty.Division_ID = v_the_current_division_id
+                prpty.RoundOff = txtRoundOff.Text
                 prpty.Cn_Amount = lblCredit.Text
+
                 cmbCustomer.SelectedIndex = cmbCustomer.FindStringExact(cmbCustomer.Text)
                 prpty.CN_CustId = cmbCustomer.SelectedValue
                 prpty.INV_No = txt_INVNo.Text
@@ -225,11 +244,12 @@ Public Class frm_CreditNoteNew
                 prpty.CN_ItemValue = lblAmount.Text
                 prpty.CN_ItemTax = lblVatAmount.Text
                 prpty.CN_ItemCess = lblCessAmount.Text
+
                 prpty.CN_Type = ""
                 prpty.Ref_No = ""
                 prpty.Ref_Date = NULL_DATE
                 prpty.Proctype = 1
-                prpty.RoundOff = txtRoundOff.Text 
+
 
                 If (cbSetOpen.Checked) Then
                     prpty.CN_Type = "Open"
@@ -671,6 +691,9 @@ Public Class frm_CreditNoteNew
             cmbBillNo.DataSource = Dt
             cmbBillNo.SelectedIndex = 0
             ' cmbINVNo.Focus()
+
+            cmbBillNo.Visible = False
+            txt_INVNo.Visible = False
             If cbSetOpen.Checked Then
                 txt_INVNo.Visible = True
             Else
@@ -686,6 +709,9 @@ Public Class frm_CreditNoteNew
 
     Private Sub cmbCustomer_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbCustomer.SelectedIndexChanged
         BindINVCombo()
+        lblAmount.Text = 0
+        lblVatAmount.Text = 0
+        lblCredit.Text = 0
     End Sub
 
     'Private Sub SetGstLabels()
@@ -1051,7 +1077,7 @@ Public Class frm_CreditNoteNew
             txt_INVDate.Text = dr("InvoiceDate")
             txtRemarks.Text = dr("Remarks")
 
-            If dr("InvoiceNo").ToString = "0" Then
+            If Convert.ToInt16(dr("Invid").ToString) <= 0 Then
                 cbSetOpen.Checked = True
             Else
                 cbSetOpen.Checked = False
