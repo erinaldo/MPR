@@ -1371,27 +1371,19 @@ FROM    ( SELECT    STATE_CODE ,
                                 Taxable_Value AS Taxable_Value ,
                                 Cess_Amount AS Cess_Amount
                       FROM      ( SELECT    STATE_CODE ,
-                                            STATE_NAME ,
-                                            cnd.Item_Tax AS VAT_PER ,
-                                            ( CAST(( Item_Rate * Item_Qty ) AS DECIMAL(18,
-                                                              2)) ) * ( -1 ) AS Taxable_Value ,
-                                            ( CAST(( cnd.Item_Qty
-                                                     * cnd.Item_Rate )
-                                              * cnd.Item_Tax / 100 AS NUMERIC(18,
-                                                              2)) ) * ( -1 ) AS VAT_AMOUNT ,
-                                            ( CAST(( cnd.Item_Qty
-                                                     * cnd.Item_Rate )
-                                              * cnd.Item_Cess / 100 AS NUMERIC(18,
-                                                              2)) ) * ( -1 ) AS Cess_Amount
-                                  FROM      dbo.CreditNote_Master cnm
-                                            INNER JOIN dbo.SALE_INVOICE_MASTER sim ON sim.SI_ID = cnm.INVId
+                    STATE_NAME ,
+                    cnd.Item_Tax AS VAT_PER ,
+                    ISNULL(cnd.TaxableAmt, 0) * ( -1 ) AS Taxable_Value ,
+                    ISNULL(cnd.TaxAmt, 0) * ( -1 ) AS VAT_AMOUNT ,
+                    ISNULL(cnd.CessAmt, 0) * ( -1 ) AS Cess_Amount
+                                  FROM      dbo.CreditNote_Master cnm                                            
                                             INNER JOIN dbo.CreditNote_DETAIL cnd ON cnd.CreditNote_Id = cnm.CreditNote_Id
                                             INNER JOIN dbo.ACCOUNT_MASTER am ON am.ACC_ID = cnm.CN_CustId
                                             INNER JOIN dbo.CITY_MASTER cm ON cm.CITY_ID = am.CITY_ID
                                             INNER JOIN dbo.STATE_MASTER sm ON sm.STATE_ID = cm.STATE_ID
                                             where cast(CreditNote_Date AS date) between CAST('" & txtFromDate.Value.ToString("dd-MMM-yyyy") & "' AS date) AND CAST('" & txtToDate.Value.ToString("dd-MMM-yyyy") & "' AS date) " & "
                                             AND LEN(ISNULL(VAT_NO, '')) = 0
-                                            AND sim.Inv_type = 'I'
+                                            AND GSTType = 2
                                 ) tb
                       WHERE     ( -1 ) * VAT_AMOUNT > 0
                     ) tbmain
@@ -1510,27 +1502,19 @@ FROM    ( SELECT    STATE_CODE ,
                                 Taxable_Value AS Taxable_Value ,
                                 Cess_Amount AS Cess_Amount
                       FROM      ( SELECT    STATE_CODE ,
-                                            STATE_NAME ,
-                                            cnd.Item_Tax AS VAT_PER ,
-                                            ( CAST(( Item_Rate * Item_Qty ) AS DECIMAL(18,
-                                                              2)) ) * ( -1 ) AS Taxable_Value ,
-                                            ( CAST(( cnd.Item_Qty
-                                                     * cnd.Item_Rate )
-                                              * cnd.Item_Tax / 100 AS NUMERIC(18,
-                                                              2)) ) * ( -1 ) AS VAT_AMOUNT ,
-                                            ( CAST(( cnd.Item_Qty
-                                                     * cnd.Item_Rate )
-                                              * cnd.Item_Cess / 100 AS NUMERIC(18,
-                                                              2)) ) * ( -1 ) AS Cess_Amount
-                                  FROM      dbo.CreditNote_Master cnm
-                                            INNER JOIN dbo.SALE_INVOICE_MASTER sim ON sim.SI_ID = cnm.INVId
+                    STATE_NAME ,
+                    cnd.Item_Tax AS VAT_PER ,
+                    ISNULL(cnd.TaxableAmt, 0) * ( -1 ) AS Taxable_Value ,
+                    ISNULL(cnd.TaxAmt, 0) * ( -1 ) AS VAT_AMOUNT ,
+                    ISNULL(cnd.CessAmt, 0) * ( -1 ) AS Cess_Amount
+                                  FROM      dbo.CreditNote_Master cnm                                           
                                             INNER JOIN dbo.CreditNote_DETAIL cnd ON cnd.CreditNote_Id = cnm.CreditNote_Id
                                             INNER JOIN dbo.ACCOUNT_MASTER am ON am.ACC_ID = cnm.CN_CustId
                                             INNER JOIN dbo.CITY_MASTER cm ON cm.CITY_ID = am.CITY_ID
                                             INNER JOIN dbo.STATE_MASTER sm ON sm.STATE_ID = cm.STATE_ID
                                   WHERE     cast(CreditNote_Date AS date) between CAST('" & txtFromDate.Value.ToString("dd-MMM-yyyy") & "' AS date) AND CAST('" & txtToDate.Value.ToString("dd-MMM-yyyy") & "' AS date) " & "
                                             AND LEN(ISNULL(VAT_NO, '')) = 0
-                                            AND sim.Inv_type <> 'I'
+                                            AND GSTType <> 2
                                 ) tb
                       WHERE     ( -1 ) * VAT_AMOUNT > 0
                     ) tbmain
@@ -1666,17 +1650,17 @@ UNION ALL
         SUM(integrated_tax) * (-1) AS integrated_tax
         FROM   ( SELECT    HsnCode_vch ,
                     SUM(cnd.Item_Qty) AS Qty ,
-                    SUM(CAST(( cnd.Item_Qty * cnd.Item_Rate ) AS NUMERIC(18, 2))) AS Taxable_Value,
-                    SUM(CAST(((cnd.Item_Qty * cnd.Item_Rate * cnd.Item_Cess)/100) AS DECIMAL(18,2)))  As Cess_Amount ,
-                    SUM(CASE WHEN inv.INV_TYPE <> 'I' THEN CAST(((cnd.Item_Qty * cnd.Item_Rate * cnd.Item_Tax)/100) AS DECIMAL(18,2))
+                    SUM(CAST(( ISNULL(cnd.TaxableAmt, 0)) AS NUMERIC(18, 2))) AS Taxable_Value,
+                    SUM(CAST(( ISNULL(cnd.CessAmt, 0)) AS DECIMAL(18,2)))  As Cess_Amount ,
+                    SUM(CASE WHEN GSTType <> 2 THEN CAST((ISNULL(cnd.TaxAmt, 0)) AS DECIMAL(18,2))
                              ELSE 0
                         END) AS non_integrated_tax ,
-                    SUM(CASE WHEN inv.INV_TYPE = 'I' THEN CAST(((cnd.Item_Qty * cnd.Item_Rate * cnd.Item_Tax)/100) AS DECIMAL(18,2))
+                    SUM(CASE WHEN GSTType = 2 THEN CAST((ISNULL(cnd.TaxAmt, 0)) AS DECIMAL(18,2))
                              ELSE 0
                         END) AS integrated_tax
 
           FROM   dbo.CreditNote_Master cnm
-					INNER JOIN dbo.SALE_INVOICE_MASTER inv ON inv.SI_ID = cnm.INVId
+					--INNER JOIN dbo.SALE_INVOICE_MASTER inv ON inv.SI_ID = cnm.INVId
 					INNER JOIN dbo.CreditNote_DETAIL cnd ON cnd.CreditNote_Id = cnm.CreditNote_Id
                     INNER JOIN dbo.ITEM_MASTER im ON cnd.ITEM_ID = im.ITEM_ID
                     INNER JOIN dbo.UNIT_MASTER um ON um.UM_ID = im.UM_ID
@@ -1684,8 +1668,7 @@ UNION ALL
 					INNER JOIN dbo.CITY_MASTER cm ON cm.CITY_ID = am.CITY_ID
 					INNER JOIN dbo.STATE_MASTER sm ON sm.STATE_ID = cm.STATE_ID
                     INNER JOIN dbo.HsnCode_Master hsn ON hsn.Pk_HsnId_num = im.fk_HsnId_num
-          WHERE     inv.INVOICE_STATUS <> 4
-                    AND cast(CreditNote_Date AS date) between CAST('" & txtFromDate.Value.ToString("dd-MMM-yyyy") & "' AS date) AND CAST('" & txtToDate.Value.ToString("dd-MMM-yyyy") & "' AS date) " &
+          WHERE      cast(CreditNote_Date AS date) between CAST('" & txtFromDate.Value.ToString("dd-MMM-yyyy") & "' AS date) AND CAST('" & txtToDate.Value.ToString("dd-MMM-yyyy") & "' AS date) " &
                     " GROUP BY  HsnCode_vch
 
         ) tb GROUP BY HsnCode_vch 
@@ -1710,24 +1693,23 @@ UNION ALL
 
         hsnTable = objCommFunction.Fill_DataSet(Qry).Tables(0)
 
-        Qry = " SELECT  ISNULL(VAT_NO,'') As VAT_NO, ACC_NAME, CreditNote_Code, CreditNote_No, CreditNote_Date, cnm.CN_Amount, SI_CODE, SI_NO," &
-        " SI_DATE, STATE_CODE , STATE_NAME , Tax_Amt As Item_Tax, CAST(SUM(( Item_Rate * Item_Qty )) AS DECIMAL(18,2)) AS Taxable_Value , Cess_Amt As Cess_Amount, cnd.Item_Tax AS ItemTaxPerc " &
+        Qry = " SELECT  ISNULL(VAT_NO,'') As VAT_NO, ACC_NAME, CreditNote_Code, CreditNote_No, CreditNote_Date, cnm.CN_Amount,INV_No AS SI_CODE,'' AS SI_NO," &
+        " INV_Date AS SI_DATE, STATE_CODE , STATE_NAME , Tax_Amt As Item_Tax, CAST(SUM(( TaxableAmt )) AS DECIMAL(18,2)) AS Taxable_Value , Cess_Amt As Cess_Amount, cnd.Item_Tax AS ItemTaxPerc " &
         " FROM    dbo.CreditNote_Master cnm " &
-        " INNER JOIN dbo.SALE_INVOICE_MASTER sim ON sim.SI_ID = cnm.INVId " &
         " INNER JOIN dbo.CreditNote_DETAIL cnd ON cnd.CreditNote_Id = cnm.CreditNote_Id " &
         " INNER JOIN dbo.ACCOUNT_MASTER am ON am.ACC_ID = cnm.CN_CustId " &
         " INNER JOIN dbo.CITY_MASTER cm ON cm.CITY_ID = am.CITY_ID " &
         " INNER JOIN dbo.STATE_MASTER sm ON sm.STATE_ID = cm.STATE_ID " &
-        " WHERE sim.INVOICE_STATUS <> 4 and cast(CreditNote_Date AS date) between CAST('" & txtFromDate.Value.ToString("dd-MMM-yyyy") & "' AS date) AND CAST('" & txtToDate.Value.ToString("dd-MMM-yyyy") & "' AS date) " &
+        " WHERE cast(CreditNote_Date AS date) between CAST('" & txtFromDate.Value.ToString("dd-MMM-yyyy") & "' AS date) AND CAST('" & txtToDate.Value.ToString("dd-MMM-yyyy") & "' AS date) " &
         " AND LEN(ISNULL(VAT_NO,'')) > 0" &
-        " GROUP BY VAT_NO, ACC_NAME, CreditNote_Code, CreditNote_No, CreditNote_Date, cnm.CN_Amount, SI_CODE, SI_NO," &
-        " SI_DATE, STATE_CODE, STATE_NAME, Tax_Amt, Cess_Amt, cnd.Item_Tax ORDER BY cnm.CreditNote_No"
+        " GROUP BY VAT_NO, ACC_NAME, CreditNote_Code, CreditNote_No, CreditNote_Date, cnm.CN_Amount, INV_No," &
+        " INV_Date , STATE_CODE, STATE_NAME, Tax_Amt, Cess_Amt, cnd.Item_Tax ORDER BY cnm.CreditNote_No"
 
         cdnrTable = objCommFunction.Fill_DataSet(Qry).Tables(0)
 
 
         Qry = " SELECT ISNULL(VAT_NO,'') As VAT_NO, ACC_NAME ,CreditNote_Code ,CreditNote_No,CreditNote_Date ,cnm.CN_Amount,SI_CODE, SI_NO," &
-        " SI_DATE,STATE_CODE ,STATE_NAME , Tax_Amt As Item_Tax, CAST(SUM(( Item_Rate * Item_Qty )) AS DECIMAL(18,2)) AS Taxable_Value , Cess_Amt As Cess_Amount, cnd.Item_Tax AS ItemTaxPerc " &
+        " SI_DATE,STATE_CODE ,STATE_NAME , Tax_Amt As Item_Tax, CAST(SUM(( TaxableAmt )) AS DECIMAL(18,2)) AS Taxable_Value , Cess_Amt As Cess_Amount, cnd.Item_Tax AS ItemTaxPerc " &
         " FROM    dbo.CreditNote_Master cnm " &
         " INNER JOIN dbo.SALE_INVOICE_MASTER sim ON sim.SI_ID = cnm.INVId " &
         " INNER JOIN dbo.CreditNote_DETAIL cnd ON cnd.CreditNote_Id = cnm.CreditNote_Id " &
