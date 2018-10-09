@@ -610,21 +610,21 @@ FROM    ( SELECT    STATE_CODE ,
           UNION ALL
           SELECT    STATE_CODE ,
                     STATE_NAME ,
-                    SUM(CAST(( d.Item_Qty * d.Item_Rate ) AS NUMERIC(18, 2)))
+                    SUM(CAST(( d.TaxableAmt ) AS NUMERIC(18, 2)))
                     * -1 AS Taxable_Value ,
-                    ISNULL(SUM(CASE WHEN INV_TYPE = 'I'
-                                    THEN CAST(( d.Item_Qty * d.Item_Rate )
-                                         * Item_Tax / 100 AS NUMERIC(18, 2))
+                    ISNULL(SUM(CASE WHEN GSTType = 2
+                                    THEN CAST((d.TaxAmt) AS NUMERIC(18, 2))
                                     ELSE 0
                                END), 0) * -1 AS integrated_tax
-          FROM      dbo.SALE_INVOICE_MASTER AS inv
-                    JOIN dbo.CreditNote_Master M ON M.INVId = inv.SI_ID
+          FROM      --dbo.SALE_INVOICE_MASTER AS inv
+                    --JOIN dbo.CreditNote_Master M ON M.INVId = inv.SI_ID
+                      CreditNote_Master M
                     JOIN dbo.CreditNote_DETAIL D ON M.CreditNote_Id = D.CreditNote_Id
-                    INNER JOIN dbo.ACCOUNT_MASTER am ON am.ACC_ID = inv.CUST_ID
+                    INNER JOIN dbo.ACCOUNT_MASTER am ON am.ACC_ID = m.CN_CustId
                     INNER JOIN dbo.CITY_MASTER cm ON cm.CITY_ID = am.CITY_ID
                     INNER JOIN dbo.STATE_MASTER sm ON sm.STATE_ID = cm.STATE_ID
           WHERE     cast(CreditNote_Date AS date) between CAST('" & txtFromDate.Value.ToString("dd-MMM-yyyy") & "' AS date) AND CAST('" & txtToDate.Value.ToString("dd-MMM-yyyy") & "' AS date) " &
-                    " AND INV_TYPE = 'I'
+                    " AND GSTType = 2
                      AND LEN(ISNULL(VAT_NO, '')) = 0
           GROUP BY  STATE_CODE ,
                     STATE_NAME
@@ -717,24 +717,24 @@ FROM    ( SELECT    STATE_CODE ,
                ) tb " & "
 
         UNION ALL
-        SELECT    SUM(CAST(( d.Item_Qty * d.Item_Rate ) AS NUMERIC(18, 2)))
+        SELECT    SUM(CAST(( d.TaxableAmt ) AS NUMERIC(18, 2)))
                     * (-1) AS Taxable_Value ,
-                    ISNULL(SUM(CAST(( d.Item_Qty * d.Item_Rate )
-                                         * Item_Cess / 100 AS NUMERIC(18, 2))), 0) * (-1) As Cess_Amount ,
-                    ISNULL(SUM(CASE WHEN INV_TYPE <> 'I'
-                                    THEN CAST(( d.Item_Qty * d.Item_Rate )
-                                         * Item_Tax / 100 AS NUMERIC(18, 2))
+                    ISNULL(SUM(CAST(( d.CessAmt ) AS NUMERIC(18, 2))), 0) * (-1) As Cess_Amount ,
+                    ISNULL(SUM(CASE WHEN GSTType <> 2
+                                    THEN CAST(( d.TaxAmt )
+                                          AS NUMERIC(18, 2))
                                     ELSE 0
                                END), 0) * (-1) AS non_integrated_tax ,
-                    ISNULL(SUM(CASE WHEN INV_TYPE = 'I'
-                                    THEN CAST(( d.Item_Qty * d.Item_Rate )
-                                         * Item_Tax / 100 AS NUMERIC(18, 2))
+                    ISNULL(SUM(CASE WHEN GSTType = 2
+                                    THEN CAST(( d.TaxAmt )
+                                          AS NUMERIC(18, 2))
                                     ELSE 0
                                END), 0) * (-1) AS integrated_tax
-          FROM      dbo.SALE_INVOICE_MASTER
-                    JOIN dbo.CreditNote_Master M ON M.INVId = dbo.SALE_INVOICE_MASTER.SI_ID
+          FROM     -- dbo.SALE_INVOICE_MASTER
+                    --JOIN dbo.CreditNote_Master M ON M.INVId = dbo.SALE_INVOICE_MASTER.SI_ID
+                    dbo.CreditNote_Master M
                     JOIN dbo.CreditNote_DETAIL D ON M.CreditNote_Id = D.CreditNote_Id
-          WHERE     SALE_INVOICE_MASTER.INVOICE_STATUS <> 4 AND cast(CreditNote_Date AS date) between CAST('" & txtFromDate.Value.ToString("dd-MMM-yyyy") & "' AS date) AND CAST('" & txtToDate.Value.ToString("dd-MMM-yyyy") & "' AS date) "
+          WHERE     cast(CreditNote_Date AS date) between CAST('" & txtFromDate.Value.ToString("dd-MMM-yyyy") & "' AS date) AND CAST('" & txtToDate.Value.ToString("dd-MMM-yyyy") & "' AS date) "
 
 
         If condition = " AND(VAT_PER)>0" Then
