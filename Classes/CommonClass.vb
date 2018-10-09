@@ -1395,6 +1395,8 @@ Public MustInherit Class Connection
 
     Public Sub RptShow(ByVal RptNo As Integer, ByVal Parameters As String, ByVal values As String, ByVal DType As String)
         Try
+
+
             Dim ds As New DataSet
             Dim filepath As String = ""
             Dim dsSubQry As New DataSet
@@ -1453,8 +1455,23 @@ Public MustInherit Class Connection
                 filepath = ReportFilePath & "cryAdjustmentPrint.rpt"
             ElseIf RptNo = enmReportName.RptReverseMaterialAgainstPO Then
                 filepath = ReportFilePath & "CryReverseMaterialReceivedAgainstPOMaster.rpt"
+
             ElseIf RptNo = enmReportName.RptInvoicePrint Then
-                filepath = ReportFilePath & "cry_Sale_Invoice.rpt"
+                Dim dsk As DataSet
+                dsk = Fill_DataSet("SELECT value FROM dbo.MMSSetting WHERE [Key]='InvoicePrint'")
+                If dsk.Tables(0).Rows.Count > 0 Then
+                    If dsk.Tables(0).Rows(0)(0) = "VS" Then
+                        filepath = ReportFilePath & "cry_PL_Sale_Invoice.rpt"
+                    Else
+                        filepath = ReportFilePath & "cry_Sale_Invoice.rpt"
+                    End If
+                Else
+                    filepath = ReportFilePath & "cry_Sale_Invoice.rpt"
+                End If
+
+
+
+
             ElseIf RptNo = enmReportName.RptDCInvoicePrint Then
                 filepath = ReportFilePath & "cry_DC_Sale_Invoice.rpt"
 
@@ -1614,7 +1631,6 @@ Public MustInherit Class Connection
                     ElseIf RptNo = enmReportName.RptInvoicePrint Then
                         PInteger = CInt(value(ArrIndex))
                         rep.SetParameterValue("SI_ID", CInt(value(ArrIndex)))
-
                     ElseIf RptNo = enmReportName.RptDCInvoicePrint Then
                         PInteger = CInt(value(ArrIndex))
                         rep.SetParameterValue("SI_ID", CInt(value(ArrIndex)))

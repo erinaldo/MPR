@@ -28,10 +28,19 @@ Namespace My
             OriginalHeight = Srn.Bounds.Width
             OriginalWidth = Srn.Bounds.Height
 
-            'Dim ChangeRes As Resolution.CResolution = New Resolution.CResolution(TempHeight, TempWidth)
-            'If Not (System.Diagnostics.Debugger.IsAttached) Then
-            '    Dim ChangeRes As Resolution.CResolution = New Resolution.CResolution(TempHeight, TempWidth)
-            'End If
+            Dim CommonFunction As New CommonClass
+            Dim ds As DataSet
+            ds = CommonFunction.FillDataSet("SELECT value FROM dbo.MMSSetting WHERE [Key]='Screen Resolution'")
+            If ds.Tables(0).Rows.Count > 0 Then
+                If ds.Tables(0).Rows(0)(0) = "AutoFit" Then
+                    'Dim ChangeRes As Resolution.CResolution = New Resolution.CResolution(TempHeight, TempWidth)
+                    If Not (System.Diagnostics.Debugger.IsAttached) Then
+                        Dim ChangeRes As Resolution.CResolution = New Resolution.CResolution(TempHeight, TempWidth)
+                    End If
+                End If
+            End If
+
+
 
 
             PrimaryThread = Threading.Thread.CurrentThread

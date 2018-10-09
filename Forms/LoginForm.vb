@@ -142,6 +142,14 @@ Public Class LoginForm
     Private Sub LoginForm_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
 
+        Dim dsk As DataSet
+        dsk = obj.FillDataSet("SELECT value FROM dbo.MMSSetting WHERE [Key]='Screen Resolution'")
+        If dsk.Tables(0).Rows.Count > 0 Then
+            If dsk.Tables(0).Rows(0)(0) = "AutoFit" Then
+                Me.Size = New Size(1024, 768)
+            End If
+        End If
+
 
         Dim year As New DateTime(DateTime.Now.Year, 4, 1)
 
