@@ -630,4 +630,8 @@ Public Class frm_Account_Payment
             MsgBox(ex.Message)
         End Try
     End Sub
+
+    Private Sub txtSearch_KeyUp(sender As Object, e As KeyEventArgs) Handles txtSearch.KeyUp
+        fill_ListPaymentgrid(txtSearch.Text)
+    End Sub
 End Class

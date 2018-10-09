@@ -791,4 +791,6 @@ Public Class frm_Supplier_Invoice_Settlement
             End If
         End If
     End Sub
+
+
 End Class
