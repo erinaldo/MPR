@@ -32,7 +32,6 @@ Partial Class frm_CreditNoteNew
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.txt_INVDate = New System.Windows.Forms.DateTimePicker()
         Me.cbSetOpen = New System.Windows.Forms.CheckBox()
-        Me.cmbCustomer = New MMSPlus.AutoCompleteCombo()
         Me.lblInvType = New System.Windows.Forms.Label()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
@@ -71,6 +70,7 @@ Partial Class frm_CreditNoteNew
         Me.FLXGRD_MaterialItem = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
         Me.C1FlexGrid1 = New C1.Win.C1FlexGrid.C1FlexGrid()
+        Me.cmbCustomer = New MMSPlus.AutoCompleteCombo()
         Me.TbRMRN.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
@@ -230,19 +230,6 @@ Partial Class frm_CreditNoteNew
         Me.cbSetOpen.Text = "Set Open Document"
         Me.cbSetOpen.UseVisualStyleBackColor = True
         '
-        'cmbCustomer
-        '
-        Me.cmbCustomer.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.cmbCustomer.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmbCustomer.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmbCustomer.ForeColor = System.Drawing.Color.White
-        Me.cmbCustomer.FormattingEnabled = True
-        Me.cmbCustomer.Location = New System.Drawing.Point(128, 66)
-        Me.cmbCustomer.Name = "cmbCustomer"
-        Me.cmbCustomer.ResetOnClear = False
-        Me.cmbCustomer.Size = New System.Drawing.Size(714, 24)
-        Me.cmbCustomer.TabIndex = 1
-        '
         'lblInvType
         '
         Me.lblInvType.AutoSize = True
@@ -338,7 +325,7 @@ Partial Class frm_CreditNoteNew
         Me.cmbBillNo.FormattingEnabled = True
         Me.cmbBillNo.Location = New System.Drawing.Point(128, 109)
         Me.cmbBillNo.Name = "cmbBillNo"
-        Me.cmbBillNo.Size = New System.Drawing.Size(159, 23)
+        Me.cmbBillNo.Size = New System.Drawing.Size(183, 23)
         Me.cmbBillNo.TabIndex = 2
         '
         'lblSelectMRNNO
@@ -676,6 +663,19 @@ Partial Class frm_CreditNoteNew
         Me.C1FlexGrid1.Size = New System.Drawing.Size(0, 0)
         Me.C1FlexGrid1.Styles = New C1.Win.C1FlexGrid.CellStyleCollection(resources.GetString("C1FlexGrid1.Styles"))
         Me.C1FlexGrid1.TabIndex = 0
+        '
+        'cmbCustomer
+        '
+        Me.cmbCustomer.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.cmbCustomer.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmbCustomer.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmbCustomer.ForeColor = System.Drawing.Color.White
+        Me.cmbCustomer.FormattingEnabled = True
+        Me.cmbCustomer.Location = New System.Drawing.Point(128, 66)
+        Me.cmbCustomer.Name = "cmbCustomer"
+        Me.cmbCustomer.ResetOnClear = False
+        Me.cmbCustomer.Size = New System.Drawing.Size(714, 24)
+        Me.cmbCustomer.TabIndex = 1
         '
         'frm_CreditNoteNew
         '

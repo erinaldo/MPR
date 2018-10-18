@@ -40,10 +40,19 @@ Public Class frm_CreditNoteNew
     'End Enum
 
     Private Sub set_new_initilize()
-        lbl_CNDate.Text = Now.ToString("dd-MMM-yyyy")
-        GetCNCode()
-        lblCN_Code.Text = CN_Code & CN_No
-        txtRemarks.Text = ""
+
+        If flag = "save" Then
+            GetCNCode()
+            flag = "save"
+            lbl_CNDate.Text = Now.ToString("dd-MMM-yyyy")
+            lblCN_Code.Text = CN_Code & CN_No
+            txt_INVNo.Text = ""
+            txt_INVDate.Text = ""
+            txtRemarks.Text = ""
+            txtRoundOff.Text = 0
+        End If
+
+
         dtable_Item_List = FLXGRD_MaterialItem.DataSource
         If Not dtable_Item_List Is Nothing Then dtable_Item_List.Rows.Clear()
 
@@ -51,16 +60,12 @@ Public Class frm_CreditNoteNew
         FillGrid()
         'lblAddress.Text = ""
         txt_INVNo.Visible = False
-        txt_INVNo.Text = ""
-        txt_INVDate.Text = ""
         lblInvType.Text = ""
-        txtRoundOff.Text = 0
         lblAmount.Text = 0
         lblVatAmount.Text = 0
         lblCessAmount.Text = 0
         lblCredit.Text = 0
         SetGstLabels()
-        flag = "save"
         TbRMRN.SelectTab(1)
     End Sub
 
@@ -298,6 +303,7 @@ Public Class frm_CreditNoteNew
                 Else
                 End If
 
+                flag = "save"
                 set_new_initilize()
                 cmbCustomer.SelectedValue = 0
                 cmbBillNo.SelectedValue = 0
@@ -376,10 +382,12 @@ Public Class frm_CreditNoteNew
                     End If
                 Else
                 End If
+                flag = "save"
                 set_new_initilize()
                 cmbCustomer.SelectedValue = 0
                 cmbBillNo.SelectedValue = 0
                 cbSetOpen.Checked = False
+
             End If
         Catch ex As Exception
             obj.MyCon_RollBackTransaction(cmd)
@@ -594,28 +602,16 @@ Public Class frm_CreditNoteNew
     End Sub
     Private Sub FLXGRD_MaterialItem_AfterEdit(ByVal sender As System.Object, ByVal e As C1.Win.C1FlexGrid.RowColEventArgs) Handles FLXGRD_MaterialItem.AfterEdit
         If IsNumeric(FLXGRD_MaterialItem.Rows(e.Row)("Item_Qty")) = True Then
-            If FLXGRD_MaterialItem.Rows(e.Row)("Item_Qty") > FLXGRD_MaterialItem.Rows(e.Row)("INV_Qty") Then
+            If FLXGRD_MaterialItem.Rows(e.Row)("Item_Qty") > FLXGRD_MaterialItem.Rows(e.Row)("INV_Qty") And cbSetOpen.Checked = False Then
                 FLXGRD_MaterialItem.Rows(e.Row)("Item_Qty") = 0
             Else
-                FLXGRD_MaterialItem.Rows(e.Row)("Item_Qty") = Math.Round(Convert.ToDouble(FLXGRD_MaterialItem.Rows(e.Row)("Item_Qty")), 4)
+                FLXGRD_MaterialItem.Rows(e.Row)("Item_Qty") = Math.Round(Convert.ToDouble(FLXGRD_MaterialItem.Rows(e.Row)("Item_Qty")), 2)
             End If
         Else
             FLXGRD_MaterialItem.Rows(e.Row)("Item_Qty") = 0
-
         End If
+
         CalculateAmount()
-    End Sub
-
-    Private Sub FLXGRD_MaterialItem_EnterCell(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles FLXGRD_MaterialItem.EnterCell
-    End Sub
-
-    Private Sub FLXGRD_MaterialItem_RowColChange(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles FLXGRD_MaterialItem.RowColChange
-        '  intColumnIndex = fl
-
-    End Sub
-
-    Private Sub FLXGRD_MaterialItem_KeyPress(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles FLXGRD_MaterialItem.KeyPress
-
     End Sub
 
     Private Sub getMRNDetail(ByVal Receive_ID As Integer)
@@ -623,37 +619,44 @@ Public Class frm_CreditNoteNew
     End Sub
 
     Private Sub cmbINV_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmbBillNo.SelectedIndexChanged
-        If (CreditNoteId < 1) Then
-            Try
+
+        Try
+            If (CreditNoteId < 1) Then
                 set_new_initilize()
-                Dim ds As DataSet
-                Dim INVNo As Int32
-                INVNo = Convert.ToInt32(cmbBillNo.SelectedValue)
-                ds = clsObj.fill_Data_set("Get_INV_Details_CreditNote", "@Si_ID", INVNo)
-                If ds.Tables(0).Rows.Count > 0 Then
-                    dtable_Item_List = ds.Tables(0).Copy
-                    FLXGRD_MaterialItem.DataSource = dtable_Item_List
-                    txt_INVDate.Text = ds.Tables(0).Rows(0)("INvDate")
-                    txt_INVNo.Text = ds.Tables(0).Rows(0)("SiNo")
-                    lblInvType.Text = ds.Tables(0).Rows(0)("INV_TYPE")
-                    generate_tree()
-                End If
-                TbRMRN.SelectTab(1)
-                If FLXGRD_MaterialItem.Rows.Count - 1 > 0 Then
-                    Dim Index As Int32 = 1
-                    FLXGRD_MaterialItem.Row = Index
-                    FLXGRD_MaterialItem.RowSel = Index
-                    FLXGRD_MaterialItem.Col = 10
-                    FLXGRD_MaterialItem.ColSel = 10
+            End If
+
+            Dim ds As DataSet
+            Dim INVNo As Int32
+            INVNo = Convert.ToInt32(cmbBillNo.SelectedValue)
+            ds = clsObj.fill_Data_set("Get_INV_Details_CreditNote", "@Si_ID", INVNo)
+            If ds.Tables(0).Rows.Count > 0 Then
+                dtable_Item_List = ds.Tables(0).Copy
+                FLXGRD_MaterialItem.DataSource = dtable_Item_List
+                txt_INVDate.Text = ds.Tables(0).Rows(0)("INvDate")
+                txt_INVNo.Text = ds.Tables(0).Rows(0)("SiNo")
+                lblInvType.Text = ds.Tables(0).Rows(0)("INV_TYPE")
+                generate_tree()
+            End If
+            TbRMRN.SelectTab(1)
+            If FLXGRD_MaterialItem.Rows.Count - 1 > 0 Then
+                Dim Index As Int32 = 1
+                FLXGRD_MaterialItem.Row = Index
+                FLXGRD_MaterialItem.RowSel = Index
+                FLXGRD_MaterialItem.Col = 10
+                FLXGRD_MaterialItem.ColSel = 10
+
+                If (CreditNoteId < 1) Then
                     SetGstLabels()
                 End If
-            Catch ex As Exception
-                MsgBox(gblMessageHeading_Error & vbCrLf & gblMessage_ContactInfo & vbCrLf & ex.Message, MsgBoxStyle.Critical, gblMessageHeading)
+            End If
+        Catch ex As Exception
+            MsgBox(gblMessageHeading_Error & vbCrLf & gblMessage_ContactInfo & vbCrLf & ex.Message, MsgBoxStyle.Critical, gblMessageHeading)
             End Try
-        End If
+
     End Sub
 
     Private Sub frm_DebitNote_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        flag = "save"
         set_new_initilize()
         BindCustomerCombo()
         BindINVCombo()
@@ -936,7 +939,6 @@ Public Class frm_CreditNoteNew
         pcess = 0
         cess = 0
         pqty = 1
-        qty = 1
         amt = 0
         pamt = 0
         famt = 0
@@ -950,6 +952,7 @@ Public Class frm_CreditNoteNew
             amt = 0
             gst = 0
             cess = 0
+            qty = 1
 
             If Convert.ToDouble(IIf(FLXGRD_MaterialItem.Rows(i).Item("item_rate") Is DBNull.Value, 0, FLXGRD_MaterialItem.Rows(i).Item("item_rate"))) > 0 Then
 
@@ -1099,15 +1102,16 @@ Public Class frm_CreditNoteNew
     Private Sub cbSetOpen_CheckedChanged(sender As Object, e As EventArgs) Handles cbSetOpen.CheckedChanged
 
         If flag = "save" Then
-            set_new_initilize()
             BindCustomerCombo()
         End If
+        set_new_initilize()
 
         cmbBillNo.Visible = False
         txt_INVNo.Visible = False
 
         If cbSetOpen.Checked Then
             txt_INVNo.Visible = True
+            cmbBillNo.SelectedIndex = 0
         Else
             cmbBillNo.Visible = True
         End If

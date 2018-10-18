@@ -46,17 +46,21 @@ Public Class frm_DebitNoteNew
     End Enum
 
     Private Sub set_new_initilize()
-        lbl_DNDate.Text = Now.ToString("dd-MMM-yyyy")
-        GetDNCode()
-        lblDN_Code.Text = DN_Code & DN_No
-        txtRemarks.Text = ""
-        txt_INVNo.Text = ""
-        txt_INVDate.Text = ""
-        lblMRN_TYPE.Text = "0"
+
+        If flag = "save" Then
+            GetDNCode()
+            flag = "save"
+            lbl_DNDate.Text = Now.ToString("dd-MMM-yyyy")
+            lblDN_Code.Text = DN_Code & DN_No
+            txtRemarks.Text = ""
+            txt_INVNo.Text = ""
+            txt_INVDate.Text = ""
+            lblMRN_TYPE.Text = "0"
+            txtRoundOff.Text = 0
+        End If
+
         dtable_Item_List = FLXGRD_MaterialItem.DataSource
         txt_INVNo.Visible = False
-        txt_INVNo.Text = ""
-        txtRoundOff.Text = 0
         lblAmount.Text = 0
         lblVatAmount.Text = 0
         lblCessAmount.Text = 0
@@ -65,7 +69,7 @@ Public Class frm_DebitNoteNew
         ' intColumnIndex = -1
         FillGrid()
         SetGstLabels()
-        flag = "save"
+
         TbRMRN.SelectTab(1)
         'TbRMRN.Focus()
     End Sub
@@ -304,9 +308,11 @@ Public Class frm_DebitNoteNew
                 Else
                 End If
 
+                flag = "save"
                 set_new_initilize()
                 cmbSupplier.SelectedValue = 0
                 cmbBillNo.SelectedValue = 0
+
 
             ElseIf flag = "update" And validate_data() Then
                 cmd = obj.MyCon_BeginTransaction
@@ -382,11 +388,12 @@ Public Class frm_DebitNoteNew
                     End If
                 Else
                 End If
-
+                flag = "save"
                 set_new_initilize()
                 cmbSupplier.SelectedValue = 0
                 cmbBillNo.SelectedValue = 0
                 cbSetOpen.Checked = False
+
             End If
         Catch ex As Exception
             obj.MyCon_RollBackTransaction(cmd)
@@ -598,12 +605,12 @@ Public Class frm_DebitNoteNew
 
     Private Sub FLXGRD_MaterialItem_AfterEdit(ByVal sender As System.Object, ByVal e As C1.Win.C1FlexGrid.RowColEventArgs) Handles FLXGRD_MaterialItem.AfterEdit
         If IsNumeric(FLXGRD_MaterialItem.Rows(e.Row)("Item_Qty")) = True Then
-            If FLXGRD_MaterialItem.Rows(e.Row)("Item_Qty") > FLXGRD_MaterialItem.Rows(e.Row)("Prev_Item_Qty") Then
+            If FLXGRD_MaterialItem.Rows(e.Row)("Item_Qty") > FLXGRD_MaterialItem.Rows(e.Row)("Prev_Item_Qty") And cbSetOpen.Checked = False Then
                 FLXGRD_MaterialItem.Rows(e.Row)("Item_Qty") = 0
             Else
-                FLXGRD_MaterialItem.Rows(e.Row)("Item_Qty") = Math.Round(Convert.ToDouble(FLXGRD_MaterialItem.Rows(e.Row)("Item_Qty")), 4)
+                FLXGRD_MaterialItem.Rows(e.Row)("Item_Qty") = Math.Round(Convert.ToDouble(FLXGRD_MaterialItem.Rows(e.Row)("Item_Qty")), 2)
 
-                Dim itemqty As Decimal = Math.Round(Convert.ToDouble(FLXGRD_MaterialItem.Rows(e.Row)("Item_Qty")), 4)
+                Dim itemqty As Decimal = Math.Round(Convert.ToDouble(FLXGRD_MaterialItem.Rows(e.Row)("Item_Qty")), 2)
                 Dim itemRate As Decimal = Math.Round(Convert.ToDouble(FLXGRD_MaterialItem.Rows(e.Row)("Item_Rate")), 2)
                 Dim Vat As Decimal = Math.Round(Convert.ToDouble(FLXGRD_MaterialItem.Rows(e.Row)("Vat_Per")), 2)
 
@@ -614,51 +621,43 @@ Public Class frm_DebitNoteNew
             FLXGRD_MaterialItem.Rows(e.Row)("Item_Qty") = 0
         End If
     End Sub
-
-    Private Sub FLXGRD_MaterialItem_EnterCell(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles FLXGRD_MaterialItem.EnterCell
-    End Sub
-
-    Private Sub FLXGRD_MaterialItem_RowColChange(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles FLXGRD_MaterialItem.RowColChange
-
-    End Sub
-
-    Private Sub FLXGRD_MaterialItem_KeyPress(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles FLXGRD_MaterialItem.KeyPress
-
-    End Sub
-
     Private Sub getMRNDetail(ByVal Receive_ID As Integer)
 
 
     End Sub
 
     Private Sub cmbMRNNo_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmbBillNo.SelectedIndexChanged
-        If (DebitNoteId < 1) Then
-            Try
+
+        Try
+
+            If (DebitNoteId < 1) Then
                 set_new_initilize()
-                Dim ds As DataSet
-                Dim ds1 As DataSet
-                Dim MRNNo As Int32
-                MRNNo = Convert.ToInt32(cmbBillNo.SelectedValue)
-                ds = clsObj.fill_Data_set("Get_MRN_Details_DebitNote", "@V_MRN_NO", MRNNo)
-                If ds.Tables(0).Rows.Count > 0 Then
-                    dtable_Item_List = ds.Tables(0).Copy
-                    FLXGRD_MaterialItem.DataSource = dtable_Item_List
-                    generate_tree()
-                End If
+            End If
 
-                Dim Query As String = " Select Invoice_No , Convert(VARCHAR(20), Invoice_date, 106)As Invoice_date, MRN_TYPE FROM dbo.MATERIAL_RECEIVED_AGAINST_PO_MASTER WHERE MRN_NO=" & MRNNo & " And Division_ID =   " & v_the_current_division_id &
-               "UNION ALL Select Invoice_No , Convert(VARCHAR(20), Invoice_date, 106)As Invoice_date, MRN_TYPE FROM dbo.MATERIAL_RECIEVED_WITHOUT_PO_MASTER WHERE MRN_NO=" & MRNNo
+            Dim ds As DataSet
+            Dim ds1 As DataSet
+            Dim MRNNo As Int32
+            MRNNo = Convert.ToInt32(cmbBillNo.SelectedValue)
+            ds = clsObj.fill_Data_set("Get_MRN_Details_DebitNote", "@V_MRN_NO", MRNNo)
+            If ds.Tables(0).Rows.Count > 0 Then
+                dtable_Item_List = ds.Tables(0).Copy
+                FLXGRD_MaterialItem.DataSource = dtable_Item_List
+                generate_tree()
+            End If
+
+            Dim Query As String = " Select Invoice_No , Convert(VARCHAR(20), Invoice_date, 106)As Invoice_date, MRN_TYPE FROM dbo.MATERIAL_RECEIVED_AGAINST_PO_MASTER WHERE MRN_NO=" & MRNNo & " And Division_ID =   " & v_the_current_division_id &
+           "UNION ALL Select Invoice_No , Convert(VARCHAR(20), Invoice_date, 106)As Invoice_date, MRN_TYPE FROM dbo.MATERIAL_RECIEVED_WITHOUT_PO_MASTER WHERE MRN_NO=" & MRNNo
 
 
-                ds1 = clsObj.FillDataSet(Query)
-                If ds1.Tables(0).Rows.Count > 0 Then
-                    txt_INVNo.Text = ds1.Tables(0).Rows(0)(0)
-                    txt_INVDate.Text = ds1.Tables(0).Rows(0)(1)
-                    lblMRN_TYPE.Text = ds1.Tables(0).Rows(0)(2)
-                End If
-                TbRMRN.SelectTab(1)
-            Catch ex As Exception
-                MsgBox(gblMessageHeading_Error & vbCrLf & gblMessage_ContactInfo & vbCrLf & ex.Message, MsgBoxStyle.Critical, gblMessageHeading)
+            ds1 = clsObj.FillDataSet(Query)
+            If ds1.Tables(0).Rows.Count > 0 Then
+                txt_INVNo.Text = ds1.Tables(0).Rows(0)(0)
+                txt_INVDate.Text = ds1.Tables(0).Rows(0)(1)
+                lblMRN_TYPE.Text = ds1.Tables(0).Rows(0)(2)
+            End If
+            TbRMRN.SelectTab(1)
+        Catch ex As Exception
+            MsgBox(gblMessageHeading_Error & vbCrLf & gblMessage_ContactInfo & vbCrLf & ex.Message, MsgBoxStyle.Critical, gblMessageHeading)
             End Try
             lblAmount.Text = 0
             lblVatAmount.Text = 0
@@ -669,14 +668,17 @@ Public Class frm_DebitNoteNew
                 FLXGRD_MaterialItem.Row = Index
                 FLXGRD_MaterialItem.RowSel = Index
                 FLXGRD_MaterialItem.Col = 10
-                FLXGRD_MaterialItem.ColSel = 10
+            FLXGRD_MaterialItem.ColSel = 10
+            If (DebitNoteId < 1) Then
                 SetGstLabels()
             End If
         End If
 
+
     End Sub
 
     Private Sub frm_DebitNote_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        flag = "save"
         set_new_initilize()
         BindSupplierCombo()
         'BindMRNCombo()
@@ -772,7 +774,6 @@ Public Class frm_DebitNoteNew
         pcess = 0
         cess = 0
         pqty = 1
-        qty = 1
         amt = 0
         pamt = 0
         famt = 0
@@ -786,6 +787,7 @@ Public Class frm_DebitNoteNew
             amt = 0
             gst = 0
             cess = 0
+            qty = 1
 
             'If Not cbSetOpen.Checked Then
             '    If Convert.ToDouble(IIf(FLXGRD_MaterialItem.Rows(i).Item("Prv_Rate") Is DBNull.Value, 0, FLXGRD_MaterialItem.Rows(i).Item("Prv_Rate"))) > 0 Then
@@ -906,8 +908,8 @@ Public Class frm_DebitNoteNew
         Dim qty As Double = 0
         Dim iRow As Integer = 0
 
-
-        For iRow = 1 To FLXGRD_MaterialItem.Rows.Count - 1
+        If FLXGRD_MaterialItem.Rows.Count > 1 Then
+            For iRow = 1 To FLXGRD_MaterialItem.Rows.Count - 1
             Rate = 0
             Tax = 0
             totalAmount = 0
@@ -964,7 +966,7 @@ Public Class frm_DebitNoteNew
             End Select
 
         Next
-
+End If
 
 
         lblGST0.Text = String.Format("0% - {0:0.00} @ {1}", Math.Round(GSTAmount0, 2), Math.Round(GSTTax0, 2))
@@ -1063,6 +1065,7 @@ Public Class frm_DebitNoteNew
 
         If cbSetOpen.Checked Then
             txt_INVNo.Visible = True
+            cmbBillNo.SelectedIndex = 0
         Else
             cmbBillNo.Visible = True
         End If
