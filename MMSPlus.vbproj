@@ -968,6 +968,12 @@
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Reports\PaymentDetailCrReport1.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PaymentDetailCrReport.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Reports\PaymentVoucher.vb">
       <DependentUpon>PaymentVoucher.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -1943,6 +1949,10 @@
     <EmbeddedResource Include="Reports\cry_Purchase_Summary.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>cry_Purchase_Summary.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\PaymentDetailCrReport.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>PaymentDetailCrReport1.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\PaymentVoucher.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
