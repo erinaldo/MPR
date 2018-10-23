@@ -1674,6 +1674,7 @@ UNION ALL
         
         )main GROUP BY HsnCode_vch ORDER BY HsnCode_vch"
 
+
         'Qry = " SELECT HsnCode_vch, SUM(invd.BAL_ITEM_QTY) AS Qty, " &
         '    " SUM(((BAL_ITEM_QTY * BAL_ITEM_RATE) - ISNULL(ITEM_DISCOUNT,0))) AS Taxable_Value, SUM(0) Cess_Amount," &
         '    " SUM(CASE WHEN inv.INV_TYPE <> 'I' THEN invd.VAT_AMOUNT ELSE 0 END) AS non_integrated_tax," &

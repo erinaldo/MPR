@@ -22,6 +22,7 @@ Public Class frm_GSTR_3
 
     Private Sub btnShow_Click(sender As Object, e As EventArgs) Handles btnShow.Click
         ImportData()
+
     End Sub
 
     Private Sub ImportData()
