@@ -522,7 +522,6 @@ Public Class frm_Account_Payment
                                     Dim gstAmount As Decimal = Math.Round((Convert.ToDecimal(txtAmount.Text) * Convert.ToDecimal(GSTPercentageCalculation.Rows(0)("VAT_PERCENTAGE")) / 2) / 100, 2)
                                     lblGSTPercentageValue.Text = Math.Round((gstAmount * 2), 2)
                                 End If
-
                             End If
                         Else
                             lblGSTPercentageValue.Text = "0.00"
