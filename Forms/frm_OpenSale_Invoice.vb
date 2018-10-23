@@ -1008,18 +1008,26 @@ restart:
                     If (flxItems.Rows(i).Item("DType")) = "P" Then
                         discamt = (flxItems.Rows(i).Item("Amount") * flxItems.Rows(i).Item("DISC") / 100) + Gpaid
                         totdiscamt = totdiscamt + ((flxItems.Rows(i).Item("transfer_Qty") * flxItems.Rows(i).Item("item_rate")) * flxItems.Rows(i)("DISC") / 100) + Gpaid
-                        total_vat_amount = total_vat_amount + (((flxItems.Rows(i).Item("transfer_Qty") * flxItems.Rows(i).Item("item_rate")) - ((flxItems.Rows(i).Item("transfer_Qty") * flxItems.Rows(i).Item("item_rate")) * flxItems.Rows(i)("DISC") / 100 + Gpaid)) * flxItems.Rows(i)("GST") / 100)
+                        ' total_vat_amount = total_vat_amount + (((flxItems.Rows(i).Item("transfer_Qty") * flxItems.Rows(i).Item("item_rate")) - ((flxItems.Rows(i).Item("transfer_Qty") * flxItems.Rows(i).Item("item_rate")) * flxItems.Rows(i)("DISC") / 100 + Gpaid)) * flxItems.Rows(i)("GST") / 100)
                         total_cess_amount = total_cess_amount + (((flxItems.Rows(i).Item("transfer_Qty") * flxItems.Rows(i).Item("item_rate")) - ((flxItems.Rows(i).Item("transfer_Qty") * flxItems.Rows(i).Item("item_rate")) * flxItems.Rows(i)("DISC") / 100 + Gpaid)) * flxItems.Rows(i)("Cess") / 100)
                         total_Acess_amount = total_Acess_amount + (flxItems.Rows(i).Item("transfer_Qty") * flxItems.Rows(i).Item("ACess"))
                     Else
                         discamt = (flxItems.Rows(i).Item("DISC")) + Gpaid
                         totdiscamt = totdiscamt + flxItems.Rows(i)("DISC") + Gpaid
-                        total_vat_amount = total_vat_amount + (((flxItems.Rows(i).Item("transfer_Qty") * flxItems.Rows(i).Item("item_rate")) - discamt) * flxItems.Rows(i)("GST") / 100)
+                        'total_vat_amount = total_vat_amount + (((flxItems.Rows(i).Item("transfer_Qty") * flxItems.Rows(i).Item("item_rate")) - discamt) * flxItems.Rows(i)("GST") / 100)
                         total_cess_amount = total_cess_amount + (((flxItems.Rows(i).Item("transfer_Qty") * flxItems.Rows(i).Item("item_rate")) - discamt) * flxItems.Rows(i)("Cess") / 100)
                         total_Acess_amount = total_Acess_amount + (flxItems.Rows(i).Item("transfer_Qty") * flxItems.Rows(i).Item("ACess"))
                     End If
 
-                    flxItems.Rows(i).Item("GST_Amount") = Math.Round((flxItems.Rows(i).Item("Amount") - discamt) * (flxItems.Rows(i).Item("GST") / 100), 2)
+                    If cmbinvtype.SelectedItem = "IGST" Then
+                        flxItems.Rows(i).Item("GST_Amount") = Math.Round((flxItems.Rows(i).Item("Amount") - discamt) * (flxItems.Rows(i).Item("GST") / 100), 2)
+                    Else
+                        Dim CgstandSgst As Decimal = Math.Round((flxItems.Rows(i).Item("Amount") - discamt) * ((flxItems.Rows(i).Item("GST") / 2) / 100), 2)
+                        flxItems.Rows(i).Item("GST_Amount") = Math.Round(CgstandSgst * 2, 2)
+                    End If
+
+                    total_vat_amount = total_vat_amount + flxItems.Rows(i).Item("GST_Amount")
+
                     flxItems.Rows(i).Item("Cess_Amount") = Math.Round((flxItems.Rows(i).Item("Amount") - discamt) * (flxItems.Rows(i).Item("Cess") / 100), 2)
                     flxItems.Rows(i).Item("LandingAmt") = Math.Round((flxItems.Rows(i).Item("Amount") - discamt) + (flxItems.Rows(i).Item("GST_Amount")) + (flxItems.Rows(i).Item("Cess_Amount")) + (flxItems.Rows(i).Item("transfer_Qty") * flxItems.Rows(i).Item("ACess")), 2)
 
@@ -1035,7 +1043,7 @@ restart:
 
             lblTotalQty.Text = totQty.ToString("#0.000")
             lblTotalDisc.Text = totdiscamt.ToString("#0.00")
-            lblItemValue.Text = total_item_value.ToString("#0.00")
+            lblItemValue.Text = (total_item_value - totdiscamt).ToString("#0.00")
             lblVatAmount.Text = total_vat_amount.ToString("#0.00")
             lblCessAmount.Text = total_cess_amount.ToString("#0.00")
             lblACessAmount.Text = total_Acess_amount.ToString("#0.00")

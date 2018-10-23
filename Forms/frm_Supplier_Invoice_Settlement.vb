@@ -765,8 +765,18 @@ Public Class frm_Supplier_Invoice_Settlement
                 Dim query As String = "SELECT VAT_PERCENTAGE FROM dbo.VAT_MASTER WHERE VAT_ID = " + GSTTypeCalculation.Rows(0)("fk_GST_ID").ToString
                 GSTPercentageCalculation = clsObj.FillDataSet(query).Tables(0)
 
+                Dim str As String
+                str = " SELECT    dbo.Get_GST_Type(" & cmbCustomer.SelectedValue & ") AS GType "
+                Dim GstyType As String = clsObj.ExecuteScalar(str)
                 If (GSTPercentageCalculation.Rows.Count > 0) Then
-                    lblGSTPercentageValue.Text = Math.Round((Convert.ToDecimal(txtAmount.Text) * Convert.ToDecimal(GSTPercentageCalculation.Rows(0)("VAT_PERCENTAGE"))) / 100, 2)
+                    If GstyType = 2 Then
+                        lblGSTPercentageValue.Text = Math.Round((Convert.ToDecimal(txtAmount.Text) * Convert.ToDecimal(GSTPercentageCalculation.Rows(0)("VAT_PERCENTAGE"))) / 100, 2)
+                    Else
+                        Dim gstAmount As Decimal = Math.Round((Convert.ToDecimal(txtAmount.Text) * Convert.ToDecimal(GSTPercentageCalculation.Rows(0)("VAT_PERCENTAGE")) / 2) / 100, 2)
+                        lblGSTPercentageValue.Text = Math.Round((gstAmount * 2), 2)
+                    End If
+
+
                 End If
 
             End If
@@ -784,8 +794,18 @@ Public Class frm_Supplier_Invoice_Settlement
                 Dim query As String = "SELECT VAT_PERCENTAGE FROM dbo.VAT_MASTER WHERE VAT_ID = " + GSTTypeCalculation.Rows(0)("fk_GST_ID").ToString
                 GSTPercentageCalculation = clsObj.FillDataSet(query).Tables(0)
 
+                Dim str As String
+                str = " SELECT    dbo.Get_GST_Type(" & cmbCustomer.SelectedValue & ") AS GType "
+                Dim GstyType As String = clsObj.ExecuteScalar(str)
+
                 If (GSTPercentageCalculation.Rows.Count > 0) Then
-                    lblGSTPercentageValue.Text = Math.Round((Convert.ToDecimal(txtAmount.Text) * Convert.ToDecimal(GSTPercentageCalculation.Rows(0)("VAT_PERCENTAGE"))) / 100, 2)
+                    'lblGSTPercentageValue.Text = Math.Round((Convert.ToDecimal(txtAmount.Text) * Convert.ToDecimal(GSTPercentageCalculation.Rows(0)("VAT_PERCENTAGE"))) / 100, 2)
+                    If GstyType = 2 Then
+                        lblGSTPercentageValue.Text = Math.Round((Convert.ToDecimal(txtAmount.Text) * Convert.ToDecimal(GSTPercentageCalculation.Rows(0)("VAT_PERCENTAGE"))) / 100, 2)
+                    Else
+                        Dim gstAmount As Decimal = Math.Round((Convert.ToDecimal(txtAmount.Text) * Convert.ToDecimal(GSTPercentageCalculation.Rows(0)("VAT_PERCENTAGE")) / 2) / 100, 2)
+                        lblGSTPercentageValue.Text = Math.Round((gstAmount * 2), 2)
+                    End If
                 End If
 
             End If

@@ -386,6 +386,7 @@ Public Class frm_CreditNoteNew
                 set_new_initilize()
                 cmbCustomer.SelectedValue = 0
                 cmbBillNo.SelectedValue = 0
+                CreditNoteId = 0
                 cbSetOpen.Checked = False
 
             End If
@@ -715,6 +716,16 @@ Public Class frm_CreditNoteNew
         lblAmount.Text = 0
         lblVatAmount.Text = 0
         lblCredit.Text = 0
+
+        If cbSetOpen.Checked Then
+            Dim str As String
+            str = " SELECT CASE WHEN GType = 2 THEN 'I'
+             WHEN GType = 1 THEN 'S'
+             ELSE 'U'
+        END AS Gtype
+ FROM   ( SELECT    dbo.Get_GST_Type(" & cmbCustomer.SelectedValue & ") AS GType  ) tb"
+            lblInvType.Text = clsObj.ExecuteScalar(str)
+        End If
     End Sub
 
     'Private Sub SetGstLabels()
@@ -980,7 +991,13 @@ Public Class frm_CreditNoteNew
                 End If
 
                 amt = qty * rate
-                gst = ((rate * qty) * pgst / 100)
+                If lblInvType.Text = "I" Then
+                    gst = ((rate * qty) * pgst / 100)
+                Else
+                    gst = Math.Round(((rate * qty) * (pgst / 2) / 100), 2)
+                    gst = Math.Round((gst * 2), 2)
+                End If
+
                 cess = ((rate * qty) * pcess / 100)
             Else
                 FLXGRD_MaterialItem.Rows(i).Item("Amount") = 0.00
@@ -1016,6 +1033,7 @@ Public Class frm_CreditNoteNew
         Return Str
 
     End Function
+
     'Private Function CalculateAmount() As String
     '    Dim i As Integer
     '    Dim Str As String

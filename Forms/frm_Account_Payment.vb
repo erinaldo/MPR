@@ -485,7 +485,19 @@ Public Class frm_Account_Payment
 
         cmbAccountToDebit.SelectedIndex = cmbAccountToDebit.FindStringExact(cmbAccountToDebit.Text)
         cmbAccountToCredit.SelectedIndex = cmbAccountToCredit.FindStringExact(cmbAccountToCredit.Text)
+
+
+
+
         If cmbAccountToDebit.SelectedValue > 0 And cmbAccountToCredit.SelectedValue > 0 Then
+
+            Dim AccountToDebitState, AccountToCreditState As Int32
+
+            AccountToDebitState = clsObj.ExecuteScalar("SELECT STATE_ID FROM dbo.STATE_MASTER WHERE STATE_ID IN (SELECT  STATE_ID FROM  dbo.CITY_MASTER  WHERE   CITY_ID IN ( SELECT CITY_ID FROM   dbo.ACCOUNT_MASTER  WHERE  ACC_ID =" & cmbAccountToDebit.SelectedValue & ") )")
+
+            AccountToCreditState = clsObj.ExecuteScalar("SELECT STATE_ID FROM dbo.STATE_MASTER WHERE STATE_ID IN (SELECT  STATE_ID FROM  dbo.CITY_MASTER  WHERE  CITY_ID IN ( SELECT CITY_ID FROM  dbo.ACCOUNT_MASTER  WHERE  ACC_ID =" & cmbAccountToCredit.SelectedValue & ") )")
+
+
             query = "Select isnull(FK_GST_TYPE_ID,0) As FK_GST_TYPE_ID, isnull(fk_GST_ID,0) As fk_GST_ID, Isnull(Fk_HSN_ID,0) As Fk_HSN_ID from ACCOUNT_MASTER where AG_ID in (10,11,12) and ACC_ID = " + cmbAccountToDebit.SelectedValue.ToString
             GSTTypeCalculation = clsObj.FillDataSet(query).Tables(0)
 
@@ -504,7 +516,13 @@ Public Class frm_Account_Payment
                             GSTPercentageCalculation = clsObj.FillDataSet(query).Tables(0)
 
                             If (GSTPercentageCalculation.Rows.Count > 0) Then
-                                lblGSTPercentageValue.Text = Math.Round((Convert.ToDecimal(txtAmount.Text) * Convert.ToDecimal(GSTPercentageCalculation.Rows(0)("VAT_PERCENTAGE"))) / 100, 2)
+                                If AccountToDebitState <> AccountToCreditState Then
+                                    lblGSTPercentageValue.Text = Math.Round((Convert.ToDecimal(txtAmount.Text) * Convert.ToDecimal(GSTPercentageCalculation.Rows(0)("VAT_PERCENTAGE"))) / 100, 2)
+                                Else
+                                    Dim gstAmount As Decimal = Math.Round((Convert.ToDecimal(txtAmount.Text) * Convert.ToDecimal(GSTPercentageCalculation.Rows(0)("VAT_PERCENTAGE")) / 2) / 100, 2)
+                                    lblGSTPercentageValue.Text = Math.Round((gstAmount * 2), 2)
+                                End If
+
                             End If
                         Else
                             lblGSTPercentageValue.Text = "0.00"
@@ -527,7 +545,13 @@ Public Class frm_Account_Payment
                             GSTPercentageCalculationBankId = clsObj.FillDataSet(query).Tables(0)
 
                             If (GSTPercentageCalculationBankId.Rows.Count > 0) Then
-                                lblGSTPercentageValue.Text = Math.Round((Convert.ToDecimal(txtAmount.Text) * Convert.ToDecimal(GSTPercentageCalculationBankId.Rows(0)("VAT_PERCENTAGE"))) / 100, 2)
+                                ' lblGSTPercentageValue.Text = Math.Round((Convert.ToDecimal(txtAmount.Text) * Convert.ToDecimal(GSTPercentageCalculationBankId.Rows(0)("VAT_PERCENTAGE"))) / 100, 2)
+                                If AccountToDebitState <> AccountToCreditState Then
+                                    lblGSTPercentageValue.Text = Math.Round((Convert.ToDecimal(txtAmount.Text) * Convert.ToDecimal(GSTPercentageCalculation.Rows(0)("VAT_PERCENTAGE"))) / 100, 2)
+                                Else
+                                    Dim gstAmount As Decimal = Math.Round((Convert.ToDecimal(txtAmount.Text) * Convert.ToDecimal(GSTPercentageCalculation.Rows(0)("VAT_PERCENTAGE")) / 2) / 100, 2)
+                                    lblGSTPercentageValue.Text = Math.Round((gstAmount * 2), 2)
+                                End If
                             End If
                         Else
                             lblGSTPercentageValue.Text = "0.00"

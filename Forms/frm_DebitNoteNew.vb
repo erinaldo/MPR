@@ -393,7 +393,7 @@ Public Class frm_DebitNoteNew
                 cmbSupplier.SelectedValue = 0
                 cmbBillNo.SelectedValue = 0
                 cbSetOpen.Checked = False
-
+                DebitNoteId = 0
             End If
         Catch ex As Exception
             obj.MyCon_RollBackTransaction(cmd)
@@ -658,16 +658,16 @@ Public Class frm_DebitNoteNew
             TbRMRN.SelectTab(1)
         Catch ex As Exception
             MsgBox(gblMessageHeading_Error & vbCrLf & gblMessage_ContactInfo & vbCrLf & ex.Message, MsgBoxStyle.Critical, gblMessageHeading)
-            End Try
-            lblAmount.Text = 0
-            lblVatAmount.Text = 0
-            lblDebit.Text = 0
+        End Try
+        lblAmount.Text = 0
+        lblVatAmount.Text = 0
+        lblDebit.Text = 0
 
-            If FLXGRD_MaterialItem.Rows.Count - 1 > 0 Then
-                Dim Index As Int32 = 1
-                FLXGRD_MaterialItem.Row = Index
-                FLXGRD_MaterialItem.RowSel = Index
-                FLXGRD_MaterialItem.Col = 10
+        If FLXGRD_MaterialItem.Rows.Count - 1 > 0 Then
+            Dim Index As Int32 = 1
+            FLXGRD_MaterialItem.Row = Index
+            FLXGRD_MaterialItem.RowSel = Index
+            FLXGRD_MaterialItem.Col = 10
             FLXGRD_MaterialItem.ColSel = 10
             If (DebitNoteId < 1) Then
                 SetGstLabels()
@@ -735,6 +735,13 @@ Public Class frm_DebitNoteNew
         lblAmount.Text = 0
         lblVatAmount.Text = 0
         lblDebit.Text = 0
+
+        If cbSetOpen.Checked Then
+            Dim str As String
+            str = "SELECT  dbo.Get_GST_Type(" & cmbSupplier.SelectedValue & ") AS GType "
+            lblMRN_TYPE.Text = clsObj.ExecuteScalar(str)
+        End If
+
     End Sub
 
     Private Sub lnkCalculateDebitAmt_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lnkCalculateDebitAmt.LinkClicked
@@ -831,9 +838,16 @@ Public Class frm_DebitNoteNew
                     pcess = FLXGRD_MaterialItem.Rows(i).Item("Cess_Per")
                 End If
 
+
                 amt = qty * rate
-                gst = ((rate * qty) * pgst / 100)
+                If lblMRN_TYPE.Text = 2 Then
+                    gst = ((rate * qty) * pgst / 100)
+                Else
+                    gst = Math.Round(((rate * qty) * (pgst / 2) / 100), 2)
+                    gst = Math.Round((gst * 2), 2)
+                End If
                 cess = ((rate * qty) * pcess / 100)
+
             Else
                 FLXGRD_MaterialItem.Rows(i).Item("Amount") = 0.00
             End If
@@ -910,63 +924,63 @@ Public Class frm_DebitNoteNew
 
         If FLXGRD_MaterialItem.Rows.Count > 1 Then
             For iRow = 1 To FLXGRD_MaterialItem.Rows.Count - 1
-            Rate = 0
-            Tax = 0
-            totalAmount = 0
+                Rate = 0
+                Tax = 0
+                totalAmount = 0
 
-            If cbSetOpen.Checked Then
-                qty = 1
-
-                If FLXGRD_MaterialItem.Rows(iRow).Item("Prv_Rate") <> FLXGRD_MaterialItem.Rows(iRow).Item("item_rate") Or FLXGRD_MaterialItem.Rows(iRow).Item("Prv_Vat_Per") <> FLXGRD_MaterialItem.Rows(iRow).Item("Vat_Per") Or FLXGRD_MaterialItem.Rows(iRow).Item("Prv_Cess_Per") <> FLXGRD_MaterialItem.Rows(iRow).Item("Cess_Per") Then
-                    Rate = FLXGRD_MaterialItem.Rows(iRow).Item("item_rate")
-                    pgst = FLXGRD_MaterialItem.Rows(iRow).Item("Vat_Per")
-                End If
-            Else
-                Rate = FLXGRD_MaterialItem.Rows(iRow).Item("item_rate")
-                pgst = FLXGRD_MaterialItem.Rows(iRow).Item("Vat_Per")
-            End If
-
-            If Convert.ToDouble(IIf(FLXGRD_MaterialItem.Item(iRow, "Item_Qty") Is DBNull.Value, 0, FLXGRD_MaterialItem.Item(iRow, "Item_Qty"))) > 0 Then
-                qty = FLXGRD_MaterialItem.Item(iRow, "Item_Qty")
                 If cbSetOpen.Checked Then
+                    qty = 1
+
+                    If FLXGRD_MaterialItem.Rows(iRow).Item("Prv_Rate") <> FLXGRD_MaterialItem.Rows(iRow).Item("item_rate") Or FLXGRD_MaterialItem.Rows(iRow).Item("Prv_Vat_Per") <> FLXGRD_MaterialItem.Rows(iRow).Item("Vat_Per") Or FLXGRD_MaterialItem.Rows(iRow).Item("Prv_Cess_Per") <> FLXGRD_MaterialItem.Rows(iRow).Item("Cess_Per") Then
+                        Rate = FLXGRD_MaterialItem.Rows(iRow).Item("item_rate")
+                        pgst = FLXGRD_MaterialItem.Rows(iRow).Item("Vat_Per")
+                    End If
+                Else
                     Rate = FLXGRD_MaterialItem.Rows(iRow).Item("item_rate")
                     pgst = FLXGRD_MaterialItem.Rows(iRow).Item("Vat_Per")
                 End If
-            Else
-                If Not cbSetOpen.Checked Then
-                    qty = 0
+
+                If Convert.ToDouble(IIf(FLXGRD_MaterialItem.Item(iRow, "Item_Qty") Is DBNull.Value, 0, FLXGRD_MaterialItem.Item(iRow, "Item_Qty"))) > 0 Then
+                    qty = FLXGRD_MaterialItem.Item(iRow, "Item_Qty")
+                    If cbSetOpen.Checked Then
+                        Rate = FLXGRD_MaterialItem.Rows(iRow).Item("item_rate")
+                        pgst = FLXGRD_MaterialItem.Rows(iRow).Item("Vat_Per")
+                    End If
+                Else
+                    If Not cbSetOpen.Checked Then
+                        qty = 0
+                    End If
                 End If
-            End If
 
-            totalAmount = qty * Rate
+                totalAmount = qty * Rate
 
-            Tax = totalAmount * pgst / 100
+                Tax = totalAmount * pgst / 100
 
-            GSTTaxTotal += Tax
+                GSTTaxTotal += Tax
 
-            Select Case pgst
-                Case 0
-                    GSTAmount0 += totalAmount
-                    GSTTax0 += Tax
-                Case 3
-                    GSTAmount3 += totalAmount
-                    GSTTax3 += Tax
-                Case 5
-                    GSTAmount5 += totalAmount
-                    GSTTax5 += Tax
-                Case 12
-                    GSTAmount12 += totalAmount
-                    GSTTax12 += Tax
-                Case 18
-                    GSTAmount18 += totalAmount
-                    GSTTax18 += Tax
-                Case 28
-                    GSTAmount28 += totalAmount
-                    GSTTax28 += Tax
-            End Select
+                Select Case pgst
+                    Case 0
+                        GSTAmount0 += totalAmount
+                        GSTTax0 += Tax
+                    Case 3
+                        GSTAmount3 += totalAmount
+                        GSTTax3 += Tax
+                    Case 5
+                        GSTAmount5 += totalAmount
+                        GSTTax5 += Tax
+                    Case 12
+                        GSTAmount12 += totalAmount
+                        GSTTax12 += Tax
+                    Case 18
+                        GSTAmount18 += totalAmount
+                        GSTTax18 += Tax
+                    Case 28
+                        GSTAmount28 += totalAmount
+                        GSTTax28 += Tax
+                End Select
 
-        Next
-End If
+            Next
+        End If
 
 
         lblGST0.Text = String.Format("0% - {0:0.00} @ {1}", Math.Round(GSTAmount0, 2), Math.Round(GSTTax0, 2))

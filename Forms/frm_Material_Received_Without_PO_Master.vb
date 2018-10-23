@@ -1613,13 +1613,32 @@ restart:
 
                 If chk_ApplyTax.Checked = True Then
                     'Tax = (totalAmount * FLXGRD_MaterialItem.Item(iRow, "vat_per") / 100) + (totalAmount / Convert.ToDecimal(lblgrossamt.Text) * Convert.ToDecimal(txt_Amount.Text))
-                    TaxAmount = ((totalAmount / (Convert.ToDouble(IIf(IsNumeric(lblgrossamt.Text), lblgrossamt.Text, 0)))) * Convert.ToDecimal(txtAmount.Text))
-                    Tax = (totalAmount + TaxAmount) * FLXGRD_MaterialItem.Item(iRow, "vat_per") / 100
-                    FreightTaxAmount = Tax - (totalAmount * FLXGRD_MaterialItem.Item(iRow, "vat_per") / 100)
+                    If cmbMRNType.Text = "IGST" Then
+                        TaxAmount = ((totalAmount / (Convert.ToDouble(IIf(IsNumeric(lblgrossamt.Text), lblgrossamt.Text, 0)))) * Convert.ToDecimal(txtAmount.Text))
+                        Tax = (totalAmount + TaxAmount) * FLXGRD_MaterialItem.Item(iRow, "vat_per") / 100
+                        FreightTaxAmount = Tax - (totalAmount * FLXGRD_MaterialItem.Item(iRow, "vat_per") / 100)
+                    Else
+                        TaxAmount = ((totalAmount / (Convert.ToDouble(IIf(IsNumeric(lblgrossamt.Text), lblgrossamt.Text, 0)))) * Convert.ToDecimal(txtAmount.Text))
+                        Tax = Math.Round((totalAmount + TaxAmount) * (FLXGRD_MaterialItem.Item(iRow, "vat_per") / 2) / 100, 2)
+                        Tax = Math.Round((Tax * 2), 2)
+
+                        FreightTaxAmount = Math.Round(Tax - ((totalAmount * FLXGRD_MaterialItem.Item(iRow, "vat_per") / 2) / 100), 2)
+                        FreightTaxAmount = Math.Round((FreightTaxAmount * 2), 2)
+                    End If
+
                 Else
-                    TaxAmount = 0
-                    Tax = totalAmount * FLXGRD_MaterialItem.Item(iRow, "vat_per") / 100
-                    FreightTaxAmount = 0
+
+                    If cmbMRNType.Text = "IGST" Then
+                        TaxAmount = 0
+                        Tax = totalAmount * FLXGRD_MaterialItem.Item(iRow, "vat_per") / 100
+                        FreightTaxAmount = 0
+                    Else
+                        TaxAmount = 0
+                        Tax = Math.Round(totalAmount * (FLXGRD_MaterialItem.Item(iRow, "vat_per") / 2) / 100, 2)
+                        Tax = Math.Round((Tax * 2), 2)
+                        FreightTaxAmount = 0
+                    End If
+
                 End If
 
                 GSTTaxTotal += Tax

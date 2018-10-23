@@ -1121,7 +1121,6 @@ GROUP BY NET_AMOUNT ,
         Cess_Amount
 ORDER BY SI_NO"
 
-
         'Qry = QryTemplate.Replace("1=1", "LEN(ISNULL(VAT_NO,''))>0")
         b2bTable = objCommFunction.Fill_DataSet(Qry).Tables(0)
 
