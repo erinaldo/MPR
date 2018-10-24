@@ -57,6 +57,8 @@ Partial Class frm_Sale_Invoice
         Me.lblMRSDate = New System.Windows.Forms.Label()
         Me.lblMRSCode = New System.Windows.Forms.Label()
         Me.GBItemInfo = New System.Windows.Forms.GroupBox()
+        Me.txtRemarks = New System.Windows.Forms.TextBox()
+        Me.Label20 = New System.Windows.Forms.Label()
         Me.txtEwayBillNo = New System.Windows.Forms.TextBox()
         Me.Label18 = New System.Windows.Forms.Label()
         Me.lblGSTDetail = New System.Windows.Forms.Label()
@@ -93,8 +95,6 @@ Partial Class frm_Sale_Invoice
         Me.flxItems = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
         Me.CachedCryCustomerrateList1 = New MMSPlus.CachedCryCustomerrateList()
-        Me.txtRemarks = New System.Windows.Forms.TextBox()
-        Me.Label20 = New System.Windows.Forms.Label()
         Me.TabControl1.SuspendLayout()
         Me.List.SuspendLayout()
         Me.GBMRSDetail.SuspendLayout()
@@ -139,7 +139,7 @@ Partial Class frm_Sale_Invoice
         '
         Me.BtnCancelInv.BackColor = System.Drawing.Color.Tomato
         Me.BtnCancelInv.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BtnCancelInv.Location = New System.Drawing.Point(473, 544)
+        Me.BtnCancelInv.Location = New System.Drawing.Point(607, 544)
         Me.BtnCancelInv.Name = "BtnCancelInv"
         Me.BtnCancelInv.Size = New System.Drawing.Size(141, 30)
         Me.BtnCancelInv.TabIndex = 4
@@ -150,7 +150,7 @@ Partial Class frm_Sale_Invoice
         '
         Me.BtnInvoice.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.BtnInvoice.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BtnInvoice.Location = New System.Drawing.Point(621, 544)
+        Me.BtnInvoice.Location = New System.Drawing.Point(755, 544)
         Me.BtnInvoice.Name = "BtnInvoice"
         Me.BtnInvoice.Size = New System.Drawing.Size(128, 30)
         Me.BtnInvoice.TabIndex = 3
@@ -161,12 +161,13 @@ Partial Class frm_Sale_Invoice
         '
         Me.BtnDc.BackColor = System.Drawing.Color.Green
         Me.BtnDc.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BtnDc.Location = New System.Drawing.Point(755, 544)
+        Me.BtnDc.Location = New System.Drawing.Point(473, 544)
         Me.BtnDc.Name = "BtnDc"
         Me.BtnDc.Size = New System.Drawing.Size(128, 30)
         Me.BtnDc.TabIndex = 2
         Me.BtnDc.Text = "Print Dc"
         Me.BtnDc.UseVisualStyleBackColor = False
+        Me.BtnDc.Visible = False
         '
         'GBMRSDetail
         '
@@ -562,6 +563,29 @@ Partial Class frm_Sale_Invoice
         Me.GBItemInfo.TabIndex = 0
         Me.GBItemInfo.TabStop = False
         '
+        'txtRemarks
+        '
+        Me.txtRemarks.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.txtRemarks.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.txtRemarks.Font = New System.Drawing.Font("Arial", 12.0!)
+        Me.txtRemarks.ForeColor = System.Drawing.Color.White
+        Me.txtRemarks.Location = New System.Drawing.Point(110, 400)
+        Me.txtRemarks.MaxLength = 0
+        Me.txtRemarks.Multiline = True
+        Me.txtRemarks.Name = "txtRemarks"
+        Me.txtRemarks.Size = New System.Drawing.Size(289, 40)
+        Me.txtRemarks.TabIndex = 6
+        '
+        'Label20
+        '
+        Me.Label20.AutoSize = True
+        Me.Label20.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label20.Location = New System.Drawing.Point(15, 403)
+        Me.Label20.Name = "Label20"
+        Me.Label20.Size = New System.Drawing.Size(64, 15)
+        Me.Label20.TabIndex = 295
+        Me.Label20.Text = "Remarks :"
+        '
         'txtEwayBillNo
         '
         Me.txtEwayBillNo.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
@@ -940,29 +964,6 @@ Partial Class frm_Sale_Invoice
         Me.ImageList1.TransparentColor = System.Drawing.Color.Transparent
         Me.ImageList1.Images.SetKeyName(0, "Zoom_search_find_magnifying_glass.png")
         Me.ImageList1.Images.SetKeyName(1, "Inventory_box_shipment_product.png")
-        '
-        'txtRemarks
-        '
-        Me.txtRemarks.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.txtRemarks.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.txtRemarks.Font = New System.Drawing.Font("Arial", 12.0!)
-        Me.txtRemarks.ForeColor = System.Drawing.Color.White
-        Me.txtRemarks.Location = New System.Drawing.Point(110, 400)
-        Me.txtRemarks.MaxLength = 0
-        Me.txtRemarks.Multiline = True
-        Me.txtRemarks.Name = "txtRemarks"
-        Me.txtRemarks.Size = New System.Drawing.Size(289, 40)
-        Me.txtRemarks.TabIndex = 6
-        '
-        'Label20
-        '
-        Me.Label20.AutoSize = True
-        Me.Label20.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label20.Location = New System.Drawing.Point(15, 403)
-        Me.Label20.Name = "Label20"
-        Me.Label20.Size = New System.Drawing.Size(64, 15)
-        Me.Label20.TabIndex = 295
-        Me.Label20.Text = "Remarks :"
         '
         'frm_Sale_Invoice
         '

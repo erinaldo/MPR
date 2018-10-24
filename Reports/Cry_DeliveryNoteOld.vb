@@ -18,7 +18,7 @@ Imports System
 Imports System.ComponentModel
 
 
-Public Class Cry_DeliveryNote
+Public Class Cry_DeliveryNoteOld
     Inherits ReportClass
     
     Public Sub New()
@@ -27,7 +27,7 @@ Public Class Cry_DeliveryNote
     
     Public Overrides Property ResourceName() As String
         Get
-            Return "Cry_DeliveryNote.rpt"
+            Return "Cry_DeliveryNoteOld.rpt"
         End Get
         Set
             'Do nothing
@@ -45,7 +45,7 @@ Public Class Cry_DeliveryNote
     
     Public Overrides Property FullResourceName() As String
         Get
-            Return "MMSPlus.Cry_DeliveryNote.rpt"
+            Return "MMSPlus.Cry_DeliveryNoteOld.rpt"
         End Get
         Set
             'Do nothing
@@ -70,7 +70,7 @@ Public Class Cry_DeliveryNote
     
     <Browsable(false),  _
      DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)>  _
-    Public ReadOnly Property GroupHeaderSection1() As CrystalDecisions.CrystalReports.Engine.Section
+    Public ReadOnly Property PageHeaderSection1() As CrystalDecisions.CrystalReports.Engine.Section
         Get
             Return Me.ReportDefinition.Sections(2)
         End Get
@@ -86,7 +86,7 @@ Public Class Cry_DeliveryNote
     
     <Browsable(false),  _
      DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)>  _
-    Public ReadOnly Property GroupFooterSection1() As CrystalDecisions.CrystalReports.Engine.Section
+    Public ReadOnly Property Section4() As CrystalDecisions.CrystalReports.Engine.Section
         Get
             Return Me.ReportDefinition.Sections(4)
         End Get
@@ -94,25 +94,9 @@ Public Class Cry_DeliveryNote
     
     <Browsable(false),  _
      DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)>  _
-    Public ReadOnly Property ReportFooterSection4() As CrystalDecisions.CrystalReports.Engine.Section
-        Get
-            Return Me.ReportDefinition.Sections(5)
-        End Get
-    End Property
-    
-    <Browsable(false),  _
-     DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)>  _
-    Public ReadOnly Property ReportFooterSection2() As CrystalDecisions.CrystalReports.Engine.Section
-        Get
-            Return Me.ReportDefinition.Sections(6)
-        End Get
-    End Property
-    
-    <Browsable(false),  _
-     DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)>  _
     Public ReadOnly Property Section5() As CrystalDecisions.CrystalReports.Engine.Section
         Get
-            Return Me.ReportDefinition.Sections(7)
+            Return Me.ReportDefinition.Sections(5)
         End Get
     End Property
     
@@ -126,7 +110,7 @@ Public Class Cry_DeliveryNote
 End Class
 
 <System.Drawing.ToolboxBitmapAttribute(GetType(CrystalDecisions.[Shared].ExportOptions), "report.bmp")>  _
-Public Class CachedCry_DeliveryNote
+Public Class CachedCry_DeliveryNoteOld
     Inherits Component
     Implements ICachedReport
     
@@ -168,7 +152,7 @@ Public Class CachedCry_DeliveryNote
     End Property
     
     Public Overridable Function CreateReport() As CrystalDecisions.CrystalReports.Engine.ReportDocument Implements CrystalDecisions.ReportSource.ICachedReport.CreateReport
-        Dim rpt As Cry_DeliveryNote = New Cry_DeliveryNote()
+        Dim rpt As Cry_DeliveryNoteOld = New Cry_DeliveryNoteOld()
         rpt.Site = Me.Site
         Return rpt
     End Function

@@ -345,7 +345,7 @@ again:
         flxItems.Cols("batch_qty").AllowEditing = False
         flxItems.Cols("Stock_Detail_Id").AllowEditing = False
         flxItems.Cols("transfer_Qty").AllowEditing = True
-        flxItems.Cols("Item_Rate").AllowEditing = False
+        flxItems.Cols("Item_Rate").AllowEditing = True
 
         flxItems.Cols("Item_Id").Width = 10
         flxItems.Cols("Item_Code").Width = 120
@@ -363,13 +363,9 @@ again:
 
     End Sub
 
-
-    Private Sub flxItems_AfterDataRefresh(ByVal sender As System.Object, ByVal e As System.ComponentModel.ListChangedEventArgs) Handles flxItems.AfterDataRefresh
-
-    End Sub
     Private Sub generate_tree()
-        flxItems.DataSource = Nothing
-        flxItems.DataSource = dtable_Item_List
+        'flxItems.DataSource = Nothing
+        'flxItems.DataSource = dtable_Item_List
         format_grid()
 
         If flxItems.Rows.Count > 1 Then
@@ -387,9 +383,18 @@ again:
             cs.BackColor = Color.LimeGreen
             cs.Border.Style = BorderStyleEnum.Raised
 
+            Dim cs1 As C1.Win.C1FlexGrid.CellStyle
+            cs1 = Me.flxItems.Styles.Add("Item_Rate")
+            cs1.ForeColor = Color.Black
+            cs1.BackColor = Color.Gold
+            cs1.Border.Style = BorderStyleEnum.Raised
+
             Dim i As Integer
             For i = 1 To flxItems.Rows.Count - 1
-                If Not flxItems.Rows(i).IsNode Then flxItems.SetCellStyle(i, flxItems.Cols("transfer_Qty").SafeIndex, cs)
+                If Not flxItems.Rows(i).IsNode Then
+                    flxItems.SetCellStyle(i, flxItems.Cols("transfer_Qty").SafeIndex, cs)
+                    flxItems.SetCellStyle(i, flxItems.Cols("Item_Rate").SafeIndex, cs1)
+                End If
             Next
 
 
@@ -483,13 +488,13 @@ restart:
                 generate_tree()
             End If
 
-            If flxItems.Rows.Count - 1 > 0 Then
-                Dim Index As Int32 = flxItems.Row
-                flxItems.Row = Index
-                flxItems.RowSel = Index
-                flxItems.Col = 10
-                flxItems.ColSel = 10
-            End If
+            'If flxItems.Rows.Count - 1 > 0 Then
+            '    Dim Index As Int32 = flxItems.Row
+            '    flxItems.Row = Index
+            '    flxItems.RowSel = Index
+            '    flxItems.Col = 9
+            '    flxItems.ColSel = 9
+            'End If
 
         Catch ex As Exception
         End Try
@@ -554,8 +559,8 @@ restart:
                     Dim Index As Int32 = 1
                     flxItems.Row = Index
                     flxItems.RowSel = Index
-                    flxItems.Col = 10
-                    flxItems.ColSel = 10
+                    flxItems.Col = 9
+                    flxItems.ColSel = 9
                 End If
             Else
                 MsgBox("Stock is not avaialable for this Item.", MsgBoxStyle.Information)
