@@ -1476,7 +1476,7 @@ restart:
         If (cmbITCEligibility.SelectedIndex = 1) Then
             lblSelectCapitalAccount.Visible = True
             cmbCapitalAccount.Visible = True
-            obj.ComboBind(cmbCapitalAccount, "SELECT ACC_ID, ACC_Name FROM dbo.ACCOUNT_MASTER WHERE ag_id = 12", "ACC_NAME", "ACC_ID")
+            obj.ComboBind(cmbCapitalAccount, "SELECT ACC_ID, ACC_Name FROM dbo.ACCOUNT_MASTER WHERE Is_Active=1 And ag_id = 12", "ACC_NAME", "ACC_ID")
         Else
             lblSelectCapitalAccount.Visible = False
             cmbCapitalAccount.Visible = False

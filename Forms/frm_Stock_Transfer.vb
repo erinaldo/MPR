@@ -504,7 +504,9 @@ restart:
     Public Sub get_row(ByVal item_id As Integer, ByVal Wastage_id As Integer)
         Try
             Dim ds As DataSet
+            '"CAST(im.sale_rate AS NUMERIC(18, 2))as Item_Rate," &
             Dim sqlqry As String
+            ' "CAST( dbo.Get_Average_Rate_as_on_date(IM.ITEM_ID,'" & Now.ToString("dd-MMM-yyyy") & "'," & v_the_current_division_id & ",0) AS NUMERIC(18, 2)) as Item_Rate," &
             sqlqry = "SELECT  " &
                                         " IM.ITEM_ID , " &
                                         " IM.BarCode_vch as ITEM_CODE , " &
@@ -512,7 +514,7 @@ restart:
                                         " UM.UM_Name , " &
                                         " SD.Batch_no , " &
                                         " dbo.fn_Format(SD.Expiry_date) AS Expiry_Date, " &
-                                        "CAST( dbo.Get_Average_Rate_as_on_date(IM.ITEM_ID,'" & Now.ToString("dd-MMM-yyyy") & "'," & v_the_current_division_id & ",0) AS NUMERIC(18, 2)) as Item_Rate," &
+                                        "CAST(im.sale_rate AS NUMERIC(18, 2))as Item_Rate," &
                                         " SD.Balance_Qty, " &
                                         " 0.00  as transfer_qty, " &
                                         " SD.STOCK_DETAIL_ID  " &

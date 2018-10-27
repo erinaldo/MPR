@@ -72,7 +72,7 @@ Public Class frm_openSale_Invoice
     End Sub
 
     Public Sub CustomerBind()
-        clsObj.ComboBind(cmbSupplier, "Select ACC_ID,ACC_NAME from ACCOUNT_MASTER WHERE AG_ID in (1,2,3,6) Order by ACC_NAME", "ACC_NAME", "ACC_ID", True)
+        clsObj.ComboBind(cmbSupplier, "Select ACC_ID,ACC_NAME from ACCOUNT_MASTER WHERE Is_Active=1 And AG_ID in (1,2,3,6) Order by ACC_NAME", "ACC_NAME", "ACC_ID", True)
         cmbSupplier.SelectedIndex = cmbSupplier.FindStringExact(cmbSupplier.Text)
     End Sub
 

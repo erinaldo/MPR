@@ -55,7 +55,7 @@ Public Class frm_OpeningBalance
         cmbAccountGroup.SelectedIndex = cmbAccountGroup.FindStringExact(cmbAccountGroup.Text)
         'If cmbAccountGroup.SelectedValue > 0 Then
 
-        clsObj.ComboBindForPayment(cmbCustomer, "select 0 as ACC_ID,'--Select--' as ACC_NAME union Select ACC_ID,ACC_NAME from ACCOUNT_MASTER WHERE AG_ID=" & cmbAccountGroup.SelectedValue & " Order by ACC_NAME ", "ACC_NAME", "ACC_ID")
+        clsObj.ComboBindForPayment(cmbCustomer, "select 0 as ACC_ID,'--Select--' as ACC_NAME union Select ACC_ID,ACC_NAME from ACCOUNT_MASTER WHERE Is_Active=1 And AG_ID=" & cmbAccountGroup.SelectedValue & " Order by ACC_NAME ", "ACC_NAME", "ACC_ID")
         'Else
         '    MsgBox("Please select valid Account Group !!!", MsgBoxStyle.Critical + MsgBoxStyle.OkOnly, gblMessageHeading)
         'End If

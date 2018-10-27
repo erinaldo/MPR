@@ -30,9 +30,9 @@ Public Class frm_Account_Payment
     Private Sub InitializeControls()
         entryTypeName = CType(entryType, PaymentType).ToString
         lblFormHeading.Text = entryTypeName + " Entry"
-        query = "Select ACC_ID,ACC_NAME from ACCOUNT_MASTER "
+        query = "Select ACC_ID,ACC_NAME from ACCOUNT_MASTER where Is_Active=1"
         If entryType = PaymentType.Contra Then
-            query += " where AG_ID IN( " + Convert.ToString(AccountGroups.Bank_Accounts) + ", " + Convert.ToString(AccountGroups.Cash_in_hand) + " )"
+            query += "  And AG_ID IN( " + Convert.ToString(AccountGroups.Bank_Accounts) + ", " + Convert.ToString(AccountGroups.Cash_in_hand) + " )"
 
 
 
@@ -45,7 +45,7 @@ Public Class frm_Account_Payment
 
         ElseIf entryType = PaymentType.Expense Then
             'query += " where AG_ID = " + Convert.ToString(AccountGroups.Bank_Accounts)
-            query += " where AG_ID in (" + Convert.ToString(AccountGroups.Expenses_Direct_Mfg) + ", " + Convert.ToString(AccountGroups.Expenses_Indirect_Admn) + ")"
+            query += "  And AG_ID in (" + Convert.ToString(AccountGroups.Expenses_Direct_Mfg) + ", " + Convert.ToString(AccountGroups.Expenses_Indirect_Admn) + ")"
         End If
         query += " Order by ACC_NAME"
         clsObj.ComboBindForPayment(cmbAccountToDebit, query, "ACC_NAME", "ACC_ID", True)
@@ -66,11 +66,11 @@ Public Class frm_Account_Payment
         cmbAccountToDebit.SelectedIndex = cmbAccountToDebit.FindStringExact(cmbAccountToDebit.Text)
 
         If cmbAccountToDebit.SelectedValue > 0 Then
-            query = "Select ACC_ID,ACC_NAME from ACCOUNT_MASTER where ACC_ID <> " + cmbAccountToDebit.SelectedValue.ToString
+            query = "Select ACC_ID,ACC_NAME from ACCOUNT_MASTER where Is_Active=1 And ACC_ID <> " + cmbAccountToDebit.SelectedValue.ToString
             If entryType = PaymentType.Contra Then
-                query += " and AG_ID IN(" + Convert.ToString(AccountGroups.Bank_Accounts) + ", " + Convert.ToString(AccountGroups.Cash_in_hand) + " )"
+                query += " and  AG_ID IN(" + Convert.ToString(AccountGroups.Bank_Accounts) + ", " + Convert.ToString(AccountGroups.Cash_in_hand) + " )"
             ElseIf entryType = PaymentType.Expense Then
-                query += " and AG_ID in (" + Convert.ToString(AccountGroups.Expenses_Direct_Mfg) + ", " + Convert.ToString(AccountGroups.Expenses_Indirect_Admn) + ")"
+                query += " and  AG_ID in (" + Convert.ToString(AccountGroups.Expenses_Direct_Mfg) + ", " + Convert.ToString(AccountGroups.Expenses_Indirect_Admn) + ")"
             End If
             query += " Order by ACC_NAME"
             clsObj.ComboBindForPayment(cmbAccountToCredit, query, "ACC_NAME", "ACC_ID", True)
