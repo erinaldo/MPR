@@ -192,12 +192,14 @@ Public Class frm_Supplier_Invoice_Settlement
                 prpty.fk_GST_ID = GSTTypeCalculation.Rows(0)("fk_GST_ID")
                 prpty.Fk_HSN_ID = GSTTypeCalculation.Rows(0)("Fk_HSN_ID")
                 prpty.GSTPerAmt = lblGSTPercentageValue.Text
+                prpty.GST_Applicable_Acc = "Dr."
 
             Else
                 prpty.FK_GST_TYPE_ID = 0
                 prpty.fk_GST_ID = 0
                 prpty.Fk_HSN_ID = 0
                 prpty.GSTPerAmt = 0.00
+                prpty.GST_Applicable_Acc = ""
 
             End If
             prpty.Fk_GSTNature_ID = cmbGSTNature.SelectedValue

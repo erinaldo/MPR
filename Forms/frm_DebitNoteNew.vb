@@ -522,7 +522,6 @@ Public Class frm_DebitNoteNew
 
         FLXGRD_MaterialItem.Cols("UM_Name").Width = 40
         FLXGRD_MaterialItem.Cols("Prev_Item_Qty").Width = 90
-
         FLXGRD_MaterialItem.Cols("MRN_Qty").Width = 75
         FLXGRD_MaterialItem.Cols("Item_Rate").Width = 70
         FLXGRD_MaterialItem.Cols("Vat_Per").Width = 50
