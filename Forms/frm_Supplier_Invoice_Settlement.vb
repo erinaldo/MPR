@@ -692,7 +692,6 @@ Public Class frm_Supplier_Invoice_Settlement
                 MessageBox.Show("Cancelled voucher can't be edited.")
                 Return
             End If
-
             TabControl1.SelectedIndex = 1
             cmbCustomer.SelectedValue = dr("AccountId")
             cmbPaymentType.SelectedValue = dr("PaymentTypeId")
