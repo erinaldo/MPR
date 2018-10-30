@@ -565,7 +565,6 @@ Public Class frm_Account_Payment
             Else
                 lblGSTPercentageValue.Text = "0.00"
             End If
-
         End If
 
     End Sub
