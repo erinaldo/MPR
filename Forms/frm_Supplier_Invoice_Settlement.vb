@@ -754,35 +754,7 @@ Public Class frm_Supplier_Invoice_Settlement
 
 
 
-    Private Sub txtAmount_TextChanged(sender As Object, e As EventArgs) Handles txtAmount.TextChanged
-        If String.IsNullOrEmpty(txtAmount.Text) Then
-            txtAmount.Text = 0
-        End If
-        If GSTTypeCalculation Is Nothing Then Exit Sub
 
-        If (GSTTypeCalculation.Rows.Count > 0) Then
-            If (GSTTypeCalculation.Rows(0)("FK_GST_TYPE_ID") = "2") Then
-
-                Dim query As String = "SELECT VAT_PERCENTAGE FROM dbo.VAT_MASTER WHERE VAT_ID = " + GSTTypeCalculation.Rows(0)("fk_GST_ID").ToString
-                GSTPercentageCalculation = clsObj.FillDataSet(query).Tables(0)
-
-                Dim str As String
-                str = " SELECT    dbo.Get_GST_Type(" & cmbCustomer.SelectedValue & ") AS GType "
-                Dim GstyType As String = clsObj.ExecuteScalar(str)
-                If (GSTPercentageCalculation.Rows.Count > 0) Then
-                    If GstyType = 2 Then
-                        lblGSTPercentageValue.Text = Math.Round((Convert.ToDecimal(txtAmount.Text) * Convert.ToDecimal(GSTPercentageCalculation.Rows(0)("VAT_PERCENTAGE"))) / 100, 2)
-                    Else
-                        Dim gstAmount As Decimal = Math.Round((Convert.ToDecimal(txtAmount.Text) * Convert.ToDecimal(GSTPercentageCalculation.Rows(0)("VAT_PERCENTAGE")) / 2) / 100, 2)
-                        lblGSTPercentageValue.Text = Math.Round((gstAmount * 2), 2)
-                    End If
-
-
-                End If
-
-            End If
-        End If
-    End Sub
 
     Private Sub txtAmount_Leave(sender As Object, e As EventArgs) Handles txtAmount.Leave
         If String.IsNullOrEmpty(txtAmount.Text) Then
