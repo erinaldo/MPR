@@ -63,7 +63,7 @@ Public Class frm_Material_Received_Without_PO_Master
         FillGrid()
         clsObj.ComboBind(cmbMRNType, "Select PO_TYPE_ID,PO_TYPE_NAME from PO_TYPE_MASTER", "PO_TYPE_NAME", "PO_TYPE_ID", True)
         obj.ComboBind(cmbPurchaseType, "select pk_PurchaseTypeId ,PurchaseType from PurchaseType_Master ", "PurchaseType", "pk_PurchaseTypeId")
-        clsObj.ComboBind(cmbVendor, "SELECT ACC_NAME, ACC_ID FROM ACCOUNT_MASTER where Is_Active=1 And AG_ID in (1,2,3,6) order by ACC_NAME", "ACC_NAME", "ACC_ID", True)
+        clsObj.ComboBind(cmbVendor, "SELECT LTRIM(ACC_NAME +'  '+ CASE WHEN AG_ID=1 THEN 'Dr ' ELSE CASE WHEN AG_ID=2 THEN 'Cr ' ELSE '' END END +'  '+ VAT_NO) AS ACC_NAME, ACC_ID FROM ACCOUNT_MASTER where Is_Active=1 And AG_ID in (1,2,3,6) order by ACC_NAME", "ACC_NAME", "ACC_ID", True)
         clsObj.ComboBind(cmb_MRNAgainst, "SELECT Company_id, Company_name FROM MRN_COMPANIES", "Company_name", "Company_id")
 
         clsObj.ComboBind(cmbITCEligibility, "Select ID, Type from ITC_Eligibility where Is_Active = 1", "Type", "ID")

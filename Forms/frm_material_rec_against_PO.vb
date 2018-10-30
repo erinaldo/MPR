@@ -605,7 +605,7 @@ Public Class frm_material_rec_against_PO
         lblMRNType.Text = ""
 
 
-        lblSupplier.Text = Convert.ToString(obj.ExecuteScalar("select ACC_NAME from ACCOUNT_MASTER  WHERE Acc_ID = (select po_supp_id from po_master where po_id = " + po_id + ")"))
+        lblSupplier.Text = Convert.ToString(obj.ExecuteScalar("select LTRIM(ACC_NAME +'  '+ CASE WHEN AG_ID=1 THEN 'Dr ' ELSE CASE WHEN AG_ID=2 THEN 'Cr ' ELSE '' END END +'  '+ VAT_NO) AS ACC_NAME from ACCOUNT_MASTER  WHERE Acc_ID = (select po_supp_id from po_master where po_id = " + po_id + ")"))
         lblSupplierAddress.Text = Convert.ToString(obj.ExecuteScalar("select ADDRESS_PRIM from ACCOUNT_MASTER  WHERE Acc_ID = (select po_supp_id from po_master where po_id = " + po_id + ")"))
         lblPODate.Text = Convert.ToString(obj.ExecuteScalar("select dbo.fn_format(po_date) as po_date from po_master where po_id = " + po_id))
         lblMRNType.Text = Convert.ToString(obj.ExecuteScalar("select PO_TYPE from po_master where po_id = " + po_id))

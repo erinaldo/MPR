@@ -19,7 +19,7 @@ Public Class frm_OpeningBalance
     End Sub
 
     Private Sub frm_OpeningBalance_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        clsObj.ComboBindForPayment(cmbAccountGroup, "select 0 as AG_ID,'--Select--' as AG_NAME union Select AG_ID,AG_NAME from ACCOUNT_GROUPS Order by AG_NAME ", "AG_NAME", "AG_ID")
+        clsObj.ComboBindForPayment(cmbAccountGroup, "select 0 as AG_ID,'--Select--' as AG_NAME union Select AG_ID,LTRIM(ACC_NAME +'  '+ CASE WHEN AG_ID=1 THEN 'Dr ' ELSE CASE WHEN AG_ID=2 THEN 'Cr ' ELSE '' END END +'  '+ VAT_NO) AS ACC_NAME from ACCOUNT_GROUPS Order by AG_NAME ", "AG_NAME", "AG_ID")
         BindCustomerCombo()
         cmbopbaltype.Text = "Dr."
         FillGrid()
@@ -55,7 +55,7 @@ Public Class frm_OpeningBalance
         cmbAccountGroup.SelectedIndex = cmbAccountGroup.FindStringExact(cmbAccountGroup.Text)
         'If cmbAccountGroup.SelectedValue > 0 Then
 
-        clsObj.ComboBindForPayment(cmbCustomer, "select 0 as ACC_ID,'--Select--' as ACC_NAME union Select ACC_ID,ACC_NAME from ACCOUNT_MASTER WHERE Is_Active=1 And AG_ID=" & cmbAccountGroup.SelectedValue & " Order by ACC_NAME ", "ACC_NAME", "ACC_ID")
+        clsObj.ComboBindForPayment(cmbCustomer, "select 0 as ACC_ID,'--Select--' as ACC_NAME union Select ACC_ID,LTRIM(ACC_NAME +'  '+ CASE WHEN AG_ID=1 THEN 'Dr ' ELSE CASE WHEN AG_ID=2 THEN 'Cr ' ELSE '' END END +'  '+ VAT_NO) AS ACC_NAME from ACCOUNT_MASTER WHERE Is_Active=1 And AG_ID=" & cmbAccountGroup.SelectedValue & " Order by ACC_NAME ", "ACC_NAME", "ACC_ID")
         'Else
         '    MsgBox("Please select valid Account Group !!!", MsgBoxStyle.Critical + MsgBoxStyle.OkOnly, gblMessageHeading)
         'End If
