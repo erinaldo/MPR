@@ -19,7 +19,7 @@ Public Class frm_OpeningBalance
     End Sub
 
     Private Sub frm_OpeningBalance_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        clsObj.ComboBindForPayment(cmbAccountGroup, "select 0 as AG_ID,'--Select--' as AG_NAME union Select AG_ID,LTRIM(ACC_NAME +'  '+ CASE WHEN AG_ID=1 THEN 'Dr ' ELSE CASE WHEN AG_ID=2 THEN 'Cr ' ELSE '' END END +'  '+ VAT_NO) AS ACC_NAME from dbo.ACCOUNT_MASTER WHERE Is_Active=1 ", "AG_NAME", "AG_ID")
+        clsObj.ComboBindForPayment(cmbAccountGroup, "select 0 as AG_ID,'--Select--' as AG_NAME union Select AG_ID,AG_NAME from dbo.ACCOUNT_GROUPS", "AG_NAME", "AG_ID")
         BindCustomerCombo()
         cmbopbaltype.Text = "Dr."
         FillGrid()
