@@ -546,9 +546,9 @@ Public Class frm_Account_Payment
                             If (GSTPercentageCalculationBankId.Rows.Count > 0) Then
                                 ' lblGSTPercentageValue.Text = Math.Round((Convert.ToDecimal(txtAmount.Text) * Convert.ToDecimal(GSTPercentageCalculationBankId.Rows(0)("VAT_PERCENTAGE"))) / 100, 2)
                                 If AccountToDebitState <> AccountToCreditState Then
-                                    lblGSTPercentageValue.Text = Math.Round((Convert.ToDecimal(txtAmount.Text) * Convert.ToDecimal(GSTPercentageCalculation.Rows(0)("VAT_PERCENTAGE"))) / 100, 2)
+                                    lblGSTPercentageValue.Text = Math.Round((Convert.ToDecimal(txtAmount.Text) * Convert.ToDecimal(GSTPercentageCalculationBankId.Rows(0)("VAT_PERCENTAGE"))) / 100, 2)
                                 Else
-                                    Dim gstAmount As Decimal = Math.Round((Convert.ToDecimal(txtAmount.Text) * Convert.ToDecimal(GSTPercentageCalculation.Rows(0)("VAT_PERCENTAGE")) / 2) / 100, 2)
+                                    Dim gstAmount As Decimal = Math.Round((Convert.ToDecimal(txtAmount.Text) * Convert.ToDecimal(GSTPercentageCalculationBankId.Rows(0)("VAT_PERCENTAGE")) / 2) / 100, 2)
                                     lblGSTPercentageValue.Text = Math.Round((gstAmount * 2), 2)
                                 End If
                             End If
