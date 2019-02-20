@@ -5,6 +5,7 @@ Module GlobalModule
     Public v_logged_in_as_admin As Boolean = False
 
     Public v_the_current_division_id As Integer
+    Public v_the_current_financial_year As Date
     Public v_the_current_selected_division As String
     Public v_the_current_logged_in_user_name As String
     Public v_the_current_logged_in_user_role As String

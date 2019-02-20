@@ -278,6 +278,21 @@ Public Class frm_Supplier_Invoice_Settlement
             Exit Function
         End If
 
+        If Convert.ToDateTime(dtpPaymentDate.Text) > Now Or Convert.ToDateTime(dtpReferenceDate.Text) > Now Or Convert.ToDateTime(dtpBankDate.Text) > Now Then
+            MsgBox("Payment date can't be greater than to current date", vbExclamation, gblMessageHeading)
+            dtpPaymentDate.Focus()
+            Return False
+            Exit Function
+        End If
+
+        If Convert.ToDateTime(dtpPaymentDate.Text) < v_the_current_financial_year Or Convert.ToDateTime(dtpReferenceDate.Text) < v_the_current_financial_year Or Convert.ToDateTime(dtpBankDate.Text) < v_the_current_financial_year Then
+            MsgBox("Payment date can't be Less than to current finicial year date", vbExclamation, gblMessageHeading)
+            dtpPaymentDate.Focus()
+            Return False
+            Exit Function
+        End If
+
+
         Dim amount As Decimal
         If Not Decimal.TryParse(txtAmount.Text, amount) Then
             MsgBox("Amount is not valid.", vbExclamation, gblMessageHeading)
