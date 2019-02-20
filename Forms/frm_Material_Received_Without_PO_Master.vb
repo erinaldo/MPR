@@ -251,7 +251,7 @@ Public Class frm_Material_Received_Without_PO_Master
         Dim cmd As SqlCommand
         'cmd = obj.MyCon_BeginTransaction
 
-        lblMrnStatus.Focus()
+        'lblMrnStatus.Focus()
         Try
             If validate_data() Then
                 Dim RECEIVEDID As Integer
