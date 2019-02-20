@@ -143,7 +143,7 @@ Public Class LoginForm
 
 
         Dim dsk As DataSet
-        dsk = obj.FillDataSet("SELECT value FROM dbo.MMSSetting WHERE [Key]='Screen Resolution'")
+        dsk = obj.FillDataSet("SELECT value FROM dbo.MMSSetting WHERE [Key]='Screen'")
         If dsk.Tables(0).Rows.Count > 0 Then
             If dsk.Tables(0).Rows(0)(0) = "AutoFit" Then
                 Me.Size = New Size(1024, 768)
