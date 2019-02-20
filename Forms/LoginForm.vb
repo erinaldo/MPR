@@ -37,7 +37,7 @@ Public Class LoginForm
             If result > 0 Then
                 result = obj.get_record_count("select * from DIVISION_SETTINGS")
                 If result > 0 Then
-
+                    v_the_current_financial_year = Convert.ToDateTime(obj.ExecuteScalar("SELECT CAST(financialyear_dt as date) FROM dbo.Company_Master"))
                     v_the_current_division_id = Convert.ToInt32(obj.ExecuteScalar("select DIV_ID from DIVISION_SETTINGS"))
                     v_the_current_selected_division = "MMS+ -- " & Convert.ToString(obj.ExecuteScalar("select DIVISION_NAME from DIVISION_SETTINGS"))
                     v_the_current_logged_in_user_name = UsernameTextBox.Text
