@@ -30,7 +30,7 @@ Namespace My
 
             Dim CommonFunction As New CommonClass
             Dim ds As DataSet
-            ds = CommonFunction.FillDataSet("SELECT value FROM dbo.MMSSetting WHERE [Key]='Screen Resolution'")
+            ds = CommonFunction.FillDataSet("SELECT value FROM dbo.MMSSetting WHERE [Key]='Screen'")
             If ds.Tables(0).Rows.Count > 0 Then
                 If ds.Tables(0).Rows(0)(0) = "AutoFit" Then
                     'Dim ChangeRes As Resolution.CResolution = New Resolution.CResolution(TempHeight, TempWidth)
