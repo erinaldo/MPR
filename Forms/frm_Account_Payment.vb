@@ -30,7 +30,7 @@ Public Class frm_Account_Payment
     Private Sub InitializeControls()
         entryTypeName = CType(entryType, PaymentType).ToString
         lblFormHeading.Text = entryTypeName + " Entry"
-        query = "Select ACC_ID,LTRIM(ACC_NAME +'  '+ CASE WHEN AG_ID=1 THEN 'Dr ' ELSE CASE WHEN AG_ID=2 THEN 'Cr ' ELSE '' END END +'  '+ VAT_NO) AS ACC_NAME from ACCOUNT_MASTER where Is_Active=1"
+        query = "Select ACC_ID,LTRIM(ACC_NAME +'  '+ CASE WHEN AG_ID=1 THEN 'Dr ' ELSE CASE WHEN AG_ID=2 THEN 'Cr ' ELSE '' END END +'  '+ ISNULL(VAT_NO,'')) AS ACC_NAME from ACCOUNT_MASTER where Is_Active=1"
         If entryType = PaymentType.Contra Then
             query += "  And AG_ID IN( " + Convert.ToString(AccountGroups.Bank_Accounts) + ", " + Convert.ToString(AccountGroups.Cash_in_hand) + " )"
 
@@ -66,7 +66,7 @@ Public Class frm_Account_Payment
         cmbAccountToDebit.SelectedIndex = cmbAccountToDebit.FindStringExact(cmbAccountToDebit.Text)
 
         If cmbAccountToDebit.SelectedValue > 0 Then
-            query = "Select ACC_ID,LTRIM(ACC_NAME +'  '+ CASE WHEN AG_ID=1 THEN 'Dr ' ELSE CASE WHEN AG_ID=2 THEN 'Cr ' ELSE '' END END +'  '+ VAT_NO) AS ACC_NAME from ACCOUNT_MASTER where Is_Active=1 And ACC_ID <> " + cmbAccountToDebit.SelectedValue.ToString
+            query = "Select ACC_ID,LTRIM(ACC_NAME +'  '+ CASE WHEN AG_ID=1 THEN 'Dr ' ELSE CASE WHEN AG_ID=2 THEN 'Cr ' ELSE '' END END +'  '+ ISNULL(VAT_NO,'')) AS ACC_NAME from ACCOUNT_MASTER where Is_Active=1 And ACC_ID <> " + cmbAccountToDebit.SelectedValue.ToString
             If entryType = PaymentType.Contra Then
                 query += " and  AG_ID IN(" + Convert.ToString(AccountGroups.Bank_Accounts) + ", " + Convert.ToString(AccountGroups.Cash_in_hand) + " )"
             ElseIf entryType = PaymentType.Expense Then

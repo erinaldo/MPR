@@ -176,7 +176,8 @@ Public Class frm_BillBook
                 prpty.SALE_TYPE = "Credit"
             End If
 
-            prpty.GROSS_AMOUNT = Convert.ToDouble(lblItemValue.Text - lblTotalDisc.Text)
+            'prpty.GROSS_AMOUNT = Convert.ToDouble(lblItemValue.Text - lblTotalDisc.Text)
+            prpty.GROSS_AMOUNT = Convert.ToDouble(lblItemValue.Text) 'Convert.ToDouble(lblItemValue.Text - lblTotalDisc.Text)
             prpty.VAT_AMOUNT = Convert.ToDouble(lblVatAmount.Text)
             prpty.CESS_AMOUNT = Convert.ToDouble(lblCessAmount.Text)
             prpty.ACESS_AMOUNT = Convert.ToDouble(lblACessAmount.Text)
