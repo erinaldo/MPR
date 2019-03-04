@@ -21,10 +21,10 @@ Public Class MDIMain
 
     Public Sub MDIMain_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Dim dsk As DataSet
-        dsk = cls_obj.FillDataSet("SELECT value FROM dbo.MMSSetting WHERE [Key]='Screen Resolution'")
+        dsk = cls_obj.FillDataSet("SELECT value FROM dbo.MMSSetting WHERE [Key]='Screen'")
         If dsk.Tables(0).Rows.Count > 0 Then
             If dsk.Tables(0).Rows(0)(0) = "AutoFit" Then
-                Me.Size = New Size(1024, 768)
+                Me.Size = New Size(1024, 768) '1022, 686
             End If
         End If
         MenuStrip1.Focus()

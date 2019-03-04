@@ -19,17 +19,17 @@ Public Class frm_Supplier_Invoice_Settlement
     Dim _paymentStatus As PaymentStatus
 
     Private Sub InitializeControls()
-        clsObj.ComboBindForPayment(cmbCustomer, "Select ACC_ID,LTRIM(ACC_NAME +'  '+ CASE WHEN AG_ID=1 THEN 'Dr ' ELSE CASE WHEN AG_ID=2 THEN 'Cr ' ELSE '' END END +'  '+ VAT_NO) AS ACC_NAME from ACCOUNT_MASTER WHERE Is_Active=1 And AG_ID in (1,2,3,6,10,11,12) Order by ACC_NAME", "ACC_NAME", "ACC_ID", True)
+        clsObj.ComboBindForPayment(cmbCustomer, "Select ACC_ID,LTRIM(ACC_NAME +'  '+ CASE WHEN AG_ID=1 THEN 'Dr ' ELSE CASE WHEN AG_ID=2 THEN 'Cr ' ELSE '' END END +'  '+ ISNULL(VAT_NO,'')) AS ACC_NAME from ACCOUNT_MASTER WHERE Is_Active=1 And AG_ID in (1,2,3,6,10,11,12) Order by ACC_NAME", "ACC_NAME", "ACC_ID", True)
 
-        clsObj.ComboBindForPayment(cmbCustomerApprovePayment, "Select ACC_ID,LTRIM(ACC_NAME +'  '+ CASE WHEN AG_ID=1 THEN 'Dr ' ELSE CASE WHEN AG_ID=2 THEN 'Cr ' ELSE '' END END +'  '+ VAT_NO) AS ACC_NAME from ACCOUNT_MASTER WHERE Is_Active=1 And AG_ID in (1,2,3,6,10,11,12) Order by ACC_NAME", "ACC_NAME", "ACC_ID", True)
+        clsObj.ComboBindForPayment(cmbCustomerApprovePayment, "Select ACC_ID,LTRIM(ACC_NAME +'  '+ CASE WHEN AG_ID=1 THEN 'Dr ' ELSE CASE WHEN AG_ID=2 THEN 'Cr ' ELSE '' END END +'  '+ ISNULL(VAT_NO,'')) AS ACC_NAME from ACCOUNT_MASTER WHERE Is_Active=1 And AG_ID in (1,2,3,6,10,11,12) Order by ACC_NAME", "ACC_NAME", "ACC_ID", True)
 
-        clsObj.ComboBindForPayment(cmbCustomerSettleInvoice, "Select ACC_ID,LTRIM(ACC_NAME +'  '+ CASE WHEN AG_ID=1 THEN 'Dr ' ELSE CASE WHEN AG_ID=2 THEN 'Cr ' ELSE '' END END +'  '+ VAT_NO) AS ACC_NAME from ACCOUNT_MASTER WHERE Is_Active=1 And AG_ID in (1,2,3,6,10,11,12) Order by ACC_NAME", "ACC_NAME", "ACC_ID", True)
+        clsObj.ComboBindForPayment(cmbCustomerSettleInvoice, "Select ACC_ID,LTRIM(ACC_NAME +'  '+ CASE WHEN AG_ID=1 THEN 'Dr ' ELSE CASE WHEN AG_ID=2 THEN 'Cr ' ELSE '' END END +'  '+ ISNULL(VAT_NO,'')) AS ACC_NAME from ACCOUNT_MASTER WHERE Is_Active=1 And AG_ID in (1,2,3,6,10,11,12) Order by ACC_NAME", "ACC_NAME", "ACC_ID", True)
 
         clsObj.ComboBind(cmbPaymentType, "Select [PaymentTypeId], [PaymentTypeName] + CASE WHEN IsApprovalRequired_bit=1" &
                          " THEN ' - Approval Required' ELSE ' - Approval Not Required' END AS PaymentTypeName from [PaymentTypeMaster] WHERE [IsActive_bit] = 1",
                           "PaymentTypeName", "PaymentTypeId", True)
 
-        clsObj.ComboBind(cmbBank, "SELECT ACC_ID,LTRIM(ACC_NAME +'  '+ CASE WHEN AG_ID=1 THEN 'Dr ' ELSE CASE WHEN AG_ID=2 THEN 'Cr ' ELSE '' END END +'  '+ VAT_NO) AS ACC_NAME FROM dbo.ACCOUNT_MASTER WHERE Is_Active=1 And AG_ID IN(" & AccountGroups.Bank_Accounts & "," & AccountGroups.Cash_in_hand & ")",
+        clsObj.ComboBind(cmbBank, "SELECT ACC_ID,LTRIM(ACC_NAME +'  '+ CASE WHEN AG_ID=1 THEN 'Dr ' ELSE CASE WHEN AG_ID=2 THEN 'Cr ' ELSE '' END END +'  '+ ISNULL(VAT_NO,'')) AS ACC_NAME FROM dbo.ACCOUNT_MASTER WHERE Is_Active=1 And AG_ID IN(" & AccountGroups.Bank_Accounts & "," & AccountGroups.Cash_in_hand & ")",
                           "ACC_NAME", "ACC_ID", True)
 
         clsObj.ComboBind(cmbGSTNature, "Select ID,Type from GST_Nature where Is_Active = 1", "Type", "ID", True)
