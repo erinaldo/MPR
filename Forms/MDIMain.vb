@@ -90,6 +90,7 @@ Public Class MDIMain
                             startInfo.FileName = Application.StartupPath & "\acapp\AccountModule.exe"
                             startInfo.Arguments = "header.h"
                             Process.Start(startInfo)
+                            RemoveHandler Me.FormClosing, AddressOf MDIMain_FormClosing
                             Application.Exit()
                         Catch ex As Exception
                             MsgBox("First Configure Account Module.", MsgBoxStyle.Information Or MsgBoxStyle.OkOnly, gblMessageHeading)
