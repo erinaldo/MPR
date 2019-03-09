@@ -1622,8 +1622,10 @@ restart:
                         Tax = Math.Round((totalAmount + TaxAmount) * (FLXGRD_MaterialItem.Item(iRow, "vat_per") / 2) / 100, 2)
                         Tax = Math.Round((Tax * 2), 2)
 
-                        FreightTaxAmount = Math.Round(Tax - ((totalAmount * FLXGRD_MaterialItem.Item(iRow, "vat_per") / 2) / 100), 2)
+                        FreightTaxAmount = Math.Round(((totalAmount * FLXGRD_MaterialItem.Item(iRow, "vat_per") / 2) / 100), 2)
                         FreightTaxAmount = Math.Round((FreightTaxAmount * 2), 2)
+                        FreightTaxAmount = Math.Round((Tax - FreightTaxAmount), 2)
+
                     End If
 
                 Else
