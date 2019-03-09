@@ -65,6 +65,7 @@ Public Class frm_DebitNoteNew
         lblVatAmount.Text = 0
         lblCessAmount.Text = 0
         lblDebit.Text = 0
+        DebitNoteId = 0
         If Not dtable_Item_List Is Nothing Then dtable_Item_List.Rows.Clear()
         ' intColumnIndex = -1
         FillGrid()
@@ -236,6 +237,7 @@ Public Class frm_DebitNoteNew
                 cmd = obj.MyCon_BeginTransaction
                 GetDNCode()
                 DN_Id = Convert.ToInt32(obj.getMaxValue("DebitNote_ID", "DebitNote_MASTER"))
+                DebitNoteId = DN_Id
                 prpty.DebitNote_ID = Convert.ToInt32(DN_Id)
                 prpty.DebitNote_Code = DN_Code ' GetDebitNoteCode()
                 prpty.DebitNote_No = DN_No ' Convert.ToInt32(DebitNoteID)
@@ -1080,9 +1082,9 @@ Public Class frm_DebitNoteNew
             txt_INVNo.Visible = True
             If cmbBillNo.Items.Count() > 0 Then
                 cmbBillNo.SelectedIndex = 0
-                End If
-            Else
-                cmbBillNo.Visible = True
+            End If
+        Else
+            cmbBillNo.Visible = True
         End If
 
     End Sub

@@ -65,6 +65,7 @@ Public Class frm_CreditNoteNew
         lblVatAmount.Text = 0
         lblCessAmount.Text = 0
         lblCredit.Text = 0
+        DebitNoteId = 0
         SetGstLabels()
         TbRMRN.SelectTab(1)
     End Sub
@@ -228,6 +229,7 @@ Public Class frm_CreditNoteNew
                 cmd = obj.MyCon_BeginTransaction
                 GetCNCode()
                 CN_Id = Convert.ToInt32(obj.getMaxValue("CreditNote_ID", "CreditNote_MASTER"))
+                CreditNoteId = CN_Id
                 prpty.CreditNote_ID = Convert.ToInt32(CN_Id)
                 prpty.CreditNote_Code = CN_Code
                 prpty.CreditNote_No = CN_No
