@@ -65,7 +65,7 @@ Public Class frm_CreditNoteNew
         lblVatAmount.Text = 0
         lblCessAmount.Text = 0
         lblCredit.Text = 0
-        DebitNoteId = 0
+        CreditNoteId = 0
         SetGstLabels()
         TbRMRN.SelectTab(1)
     End Sub
