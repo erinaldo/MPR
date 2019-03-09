@@ -1129,7 +1129,9 @@ Public Class frm_CreditNoteNew
 
         If cbSetOpen.Checked Then
             txt_INVNo.Visible = True
-            cmbBillNo.SelectedIndex = 0
+            If cmbBillNo.Items.Count() > 0 Then
+                cmbBillNo.SelectedIndex = 0
+            End If
         Else
             cmbBillNo.Visible = True
         End If
