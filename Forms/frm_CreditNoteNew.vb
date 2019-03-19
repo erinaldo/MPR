@@ -50,6 +50,7 @@ Public Class frm_CreditNoteNew
             txt_INVDate.Text = ""
             txtRemarks.Text = ""
             txtRoundOff.Text = 0
+            CreditNoteId = 0
         End If
 
 
@@ -65,7 +66,7 @@ Public Class frm_CreditNoteNew
         lblVatAmount.Text = 0
         lblCessAmount.Text = 0
         lblCredit.Text = 0
-        CreditNoteId = 0
+
         SetGstLabels()
         TbRMRN.SelectTab(1)
     End Sub
@@ -654,7 +655,7 @@ Public Class frm_CreditNoteNew
             End If
         Catch ex As Exception
             MsgBox(gblMessageHeading_Error & vbCrLf & gblMessage_ContactInfo & vbCrLf & ex.Message, MsgBoxStyle.Critical, gblMessageHeading)
-            End Try
+        End Try
 
     End Sub
 

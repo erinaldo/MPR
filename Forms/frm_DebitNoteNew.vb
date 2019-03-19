@@ -57,6 +57,7 @@ Public Class frm_DebitNoteNew
             txt_INVDate.Text = ""
             lblMRN_TYPE.Text = "0"
             txtRoundOff.Text = 0
+            DebitNoteId = 0
         End If
 
         dtable_Item_List = FLXGRD_MaterialItem.DataSource
@@ -65,7 +66,7 @@ Public Class frm_DebitNoteNew
         lblVatAmount.Text = 0
         lblCessAmount.Text = 0
         lblDebit.Text = 0
-        DebitNoteId = 0
+
         If Not dtable_Item_List Is Nothing Then dtable_Item_List.Rows.Clear()
         ' intColumnIndex = -1
         FillGrid()
