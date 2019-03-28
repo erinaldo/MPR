@@ -17,6 +17,7 @@ Public Class frm_CreditNoteNew
     Dim CN_Code As String
     Dim CN_No As Integer
     Dim CN_Id As Integer
+    Dim AccountId As Integer
     Dim clsObj As New CreditNote.cls_Credit_note_Master
     Dim prpty As New CreditNote.cls_Credit_note_Prop
     Dim _rights As Form_Rights
@@ -245,8 +246,8 @@ Public Class frm_CreditNoteNew
                 prpty.RoundOff = txtRoundOff.Text
                 prpty.Cn_Amount = lblCredit.Text
 
-                cmbCustomer.SelectedIndex = cmbCustomer.FindStringExact(cmbCustomer.Text)
-                prpty.CN_CustId = cmbCustomer.SelectedValue
+                'cmbCustomer.SelectedIndex = cmbCustomer.FindStringExact(cmbCustomer.Text)
+                prpty.CN_CustId = AccountId 'cmbCustomer.SelectedValue
                 prpty.INV_No = txt_INVNo.Text
                 prpty.INV_Date = txt_INVDate.Text
                 prpty.CN_ItemValue = lblAmount.Text
@@ -332,8 +333,8 @@ Public Class frm_CreditNoteNew
                 prpty.Modification_Date = Now
                 prpty.Division_ID = v_the_current_division_id
                 prpty.Cn_Amount = lblCredit.Text
-                cmbCustomer.SelectedIndex = cmbCustomer.FindStringExact(cmbCustomer.Text)
-                prpty.CN_CustId = cmbCustomer.SelectedValue
+                'cmbCustomer.SelectedIndex = cmbCustomer.FindStringExact(cmbCustomer.Text)
+                prpty.CN_CustId = AccountId 'cmbCustomer.SelectedValue
                 prpty.INV_No = txt_INVNo.Text
                 prpty.INV_Date = txt_INVDate.Text
                 prpty.CN_ItemValue = lblAmount.Text
@@ -683,30 +684,33 @@ Public Class frm_CreditNoteNew
         'If ds.Tables(0).Rows.Count > 0 Then
         '    lblAddress.Text = ds.Tables(0).Rows(0)(0)
         'End If
-        cmbCustomer.SelectedIndex = cmbCustomer.FindStringExact(cmbCustomer.Text)
+        'If AccountId > 0 Then
 
-        If cmbCustomer.SelectedValue > 0 Then
+        'End If
+        'cmbCustomer.SelectedIndex = cmbCustomer.FindStringExact(cmbCustomer.Text)
 
-            Query = "  SELECT SI_ID,SI_CODE+CAST(SI_NO as varchar(20)) AS SiNo FROM dbo.SALE_INVOICE_MASTER WHERE INVOICE_STATUS <> 4 and CUST_ID=" & cmbCustomer.SelectedValue & " and DIVISION_ID = " & v_the_current_division_id
+        'If cmbCustomer.SelectedValue > 0 Then
+        If AccountId > 0 Then
+            Query = "  SELECT SI_ID,SI_CODE+CAST(SI_NO as varchar(20)) AS SiNo FROM dbo.SALE_INVOICE_MASTER WHERE INVOICE_STATUS <> 4 and CUST_ID=" & AccountId & " and DIVISION_ID = " & v_the_current_division_id
             Dt = clsObj.Fill_DataSet(Query).Tables(0)
-            Dtrow = Dt.NewRow
-            Dtrow("SI_ID") = -1
-            Dtrow("SiNo") = "Select INV No"
-            Dt.Rows.InsertAt(Dtrow, 0)
-            cmbBillNo.DisplayMember = "SiNo"
-            cmbBillNo.ValueMember = "SI_ID"
-            cmbBillNo.DataSource = Dt
-            cmbBillNo.SelectedIndex = 0
-            ' cmbINVNo.Focus()
+                Dtrow = Dt.NewRow
+                Dtrow("SI_ID") = -1
+                Dtrow("SiNo") = "Select INV No"
+                Dt.Rows.InsertAt(Dtrow, 0)
+                cmbBillNo.DisplayMember = "SiNo"
+                cmbBillNo.ValueMember = "SI_ID"
+                cmbBillNo.DataSource = Dt
+                cmbBillNo.SelectedIndex = 0
+                ' cmbINVNo.Focus()
 
-            cmbBillNo.Visible = False
-            txt_INVNo.Visible = False
-            If cbSetOpen.Checked Then
-                txt_INVNo.Visible = True
-            Else
-                cmbBillNo.Visible = True
+                cmbBillNo.Visible = False
+                txt_INVNo.Visible = False
+                If cbSetOpen.Checked Then
+                    txt_INVNo.Visible = True
+                Else
+                    cmbBillNo.Visible = True
+                End If
             End If
-        End If
 
     End Sub
 
@@ -715,6 +719,7 @@ Public Class frm_CreditNoteNew
     End Sub
 
     Private Sub cmbCustomer_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbCustomer.SelectedIndexChanged
+        AccountId = cmbCustomer.SelectedValue
         BindINVCombo()
         lblAmount.Text = 0
         lblVatAmount.Text = 0
@@ -726,7 +731,7 @@ Public Class frm_CreditNoteNew
              WHEN GType = 1 THEN 'S'
              ELSE 'U'
         END AS Gtype
- FROM   ( SELECT    dbo.Get_GST_Type(" & cmbCustomer.SelectedValue & ") AS GType  ) tb"
+        FROM   ( SELECT    dbo.Get_GST_Type(" & cmbCustomer.SelectedValue & ") AS GType  ) tb"
             lblInvType.Text = clsObj.ExecuteScalar(str)
         End If
     End Sub
