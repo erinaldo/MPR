@@ -22,6 +22,7 @@ Public Class frm_DebitNoteNew
     Dim DN_Code As String
     Dim DN_No As Integer
     Dim DN_Id As Integer
+    Dim AccountId As Integer
     Dim clsObj As New DebitNote.cls_DebitNote_Master
     Dim prpty As New DebitNote.cls_DebitNote_Prop
     Dim _rights As Form_Rights
@@ -252,8 +253,8 @@ Public Class frm_DebitNoteNew
                 prpty.Division_ID = v_the_current_division_id
                 prpty.RoundOff = txtRoundOff.Text
                 prpty.Dn_Amount = lblDebit.Text
-                cmbSupplier.SelectedIndex = cmbSupplier.FindStringExact(cmbSupplier.Text)
-                prpty.DN_CustId = cmbSupplier.SelectedValue
+                'cmbSupplier.SelectedIndex = cmbSupplier.FindStringExact(cmbSupplier.Text)
+                prpty.DN_CustId = AccountId 'cmbSupplier.SelectedValue
                 prpty.INV_No = txt_INVNo.Text
                 prpty.INV_Date = txt_INVDate.Text
                 prpty.DN_ItemValue = lblAmount.Text
@@ -339,8 +340,8 @@ Public Class frm_DebitNoteNew
                 prpty.Division_ID = v_the_current_division_id
                 prpty.Dn_Amount = lblDebit.Text
                 prpty.RoundOff = txtRoundOff.Text
-                cmbSupplier.SelectedIndex = cmbSupplier.FindStringExact(cmbSupplier.Text)
-                prpty.DN_CustId = cmbSupplier.SelectedValue
+                ' cmbSupplier.SelectedIndex = cmbSupplier.FindStringExact(cmbSupplier.Text)
+                prpty.DN_CustId = AccountId 'cmbSupplier.SelectedValue
                 prpty.INV_No = txt_INVNo.Text
                 prpty.INV_Date = txt_INVDate.Text
                 prpty.DN_ItemValue = lblAmount.Text
@@ -695,10 +696,10 @@ Public Class frm_DebitNoteNew
         Dim Dt As DataTable
         Dim Dtrow As DataRow
 
-        cmbSupplier.SelectedIndex = cmbSupplier.FindStringExact(cmbSupplier.Text)
+        'cmbSupplier.SelectedIndex = cmbSupplier.FindStringExact(cmbSupplier.Text)
 
-        If cmbSupplier.SelectedValue > 0 Then
-
+        'If cmbSupplier.SelectedValue > 0 Then
+        If AccountId > 0 Then
             Query = " Select MRN_NO As MRN_ID, Invoice_No AS MRN_NO FROM dbo.MATERIAL_RECEIVED_AGAINST_PO_MASTER WHERE PO_ID IN (SELECT PO_ID FROM dbo.PO_MASTER WHERE PO_SUPP_ID=" & cmbSupplier.SelectedValue & ") AND Division_ID =   " & v_the_current_division_id &
             "UNION ALL SELECT MRN_NO AS MRN_ID , Invoice_No AS MRN_NO FROM dbo.MATERIAL_RECIEVED_WITHOUT_PO_MASTER WHERE Vendor_ID=" & cmbSupplier.SelectedValue & " ORDER BY MRN_id"
             Dt = clsObj.Fill_DataSet(Query).Tables(0)
@@ -732,7 +733,7 @@ Public Class frm_DebitNoteNew
     End Sub
 
     Private Sub cmbsupplier_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbSupplier.SelectedIndexChanged
-
+        AccountId = cmbSupplier.SelectedValue
         BindMRNCombo()
         lblAmount.Text = 0
         lblVatAmount.Text = 0

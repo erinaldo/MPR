@@ -248,6 +248,7 @@ Public Class frm_Material_Received_Without_PO_Master
 
     Public Sub SaveClick(ByVal sender As Object, ByVal e As System.EventArgs) Implements IForm.SaveClick
 
+        Cursor.Current = Cursors.WaitCursor
         Dim cmd As SqlCommand
         'cmd = obj.MyCon_BeginTransaction
 

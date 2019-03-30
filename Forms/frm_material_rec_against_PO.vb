@@ -938,15 +938,14 @@ Public Class frm_material_rec_against_PO
                     " FROM    MATERIAL_RECEIVED_AGAINST_PO_MASTER" &
                     "         INNER JOIN PO_MASTER ON MATERIAL_RECEIVED_AGAINST_PO_MASTER.PO_ID = PO_MASTER.PO_ID" &
                     "         INNER JOIN ACCOUNT_MASTER ON PO_MASTER.PO_SUPP_ID = ACCOUNT_MASTER.ACC_ID" &
-                    " WHERE   cast(dbo.fn_format(Receipt_Date) as datetime) >= '" & dtpFrom.Value.Date & "'" &
-                    "        AND cast(dbo.fn_format(Receipt_Date) as datetime)<= '" & dtpTo.Value.Date & "'" &
+                    " WHERE   cast(dbo.fn_format(Receipt_Date) as date) >= cast('" & dtpFrom.Value.ToString("dd-MMM-yyyy") & "' as date)" &
+                    "        AND cast(dbo.fn_format(Receipt_Date) as date)<= cast('" & dtpTo.Value.ToString("dd-MMM-yyyy") & "' as date)" &
                     " and (MATERIAL_RECEIVED_AGAINST_PO_MASTER.Receipt_Code + CAST(MATERIAL_RECEIVED_AGAINST_PO_MASTER.Receipt_No AS VARCHAR(20)) +dbo.fn_Format(MATERIAL_RECEIVED_AGAINST_PO_MASTER.Receipt_Date) +PO_MASTER.PO_CODE + CAST(PO_MASTER.PO_NO AS VARCHAR) +dbo.fn_Format(PO_MASTER.PO_DATE) + ACCOUNT_MASTER.ACC_NAME) like '%" & txtSearch.Text.Replace(" ", "%") & "%' " &
                     " ORDER BY MATERIAL_RECEIVED_AGAINST_PO_MASTER.Receipt_ID"
 
             'dgvList.DataSource = obj.fill_Data_set("FILL_MATERIAL_Rec_Against_PO_LIST", "@FromDate,@Todate", dtpFrom.Value.Date & "," & dtpTo.Value.Date).Tables(0)
 
             dgvList.DataSource = obj.Fill_DataSet(qry).Tables(0)
-
             dgvList.Cols(0).Width = 10
             dgvList.Cols("Receipt_ID").Visible = False
             dgvList.Cols("OPEN_PO_QTY").Visible = False
