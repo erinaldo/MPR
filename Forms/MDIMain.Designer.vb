@@ -175,6 +175,10 @@ Partial Class MDIMain
         Me.picLogo = New System.Windows.Forms.PictureBox()
         Me.TabControl2 = New System.Windows.Forms.TabControl()
         Me.frm_open_invoice = New System.Windows.Forms.ToolStripMenuItem()
+        Me.tsmAnalysis = New System.Windows.Forms.ToolStripMenuItem()
+        Me.frm_SaleAnalysis = New System.Windows.Forms.ToolStripMenuItem()
+        Me.frm_PurchaseAnalysis = New System.Windows.Forms.ToolStripMenuItem()
+        Me.frm_StockAnalysis = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.toolbar.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
@@ -1028,7 +1032,7 @@ Partial Class MDIMain
         'Reports
         '
         Me.Reports.BackColor = System.Drawing.Color.FromArgb(CType(CType(88, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(88, Byte), Integer))
-        Me.Reports.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.frm_Stock, Me.frm_Item_Ledger, Me.frm_LedgerSummary, Me.NonMovingItemList, Me.frm_Indents, Me.frm_MRS, Me.frm_Wastage, Me.frm_rpt_PurchaseInvoice, Me.frm_rpt_SaleInvoice, Me.frm_MRNDetails, Me.LastPurchaseratelist, Me.AllPurchaseRate, Me.frm_IssueDetail, Me.frm_ReverseMaterial, Me.ItemWiseMaterialIssueToCostCenterToolStripMenuItem, Me.ItemWiseMaterialIssueToCostCenterCatHeadWiseToolStripMenuItem, Me.CostofIssueReport})
+        Me.Reports.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsmAnalysis, Me.frm_Stock, Me.frm_Item_Ledger, Me.frm_LedgerSummary, Me.NonMovingItemList, Me.frm_Indents, Me.frm_MRS, Me.frm_Wastage, Me.frm_rpt_PurchaseInvoice, Me.frm_rpt_SaleInvoice, Me.frm_MRNDetails, Me.LastPurchaseratelist, Me.AllPurchaseRate, Me.frm_IssueDetail, Me.frm_ReverseMaterial, Me.ItemWiseMaterialIssueToCostCenterToolStripMenuItem, Me.ItemWiseMaterialIssueToCostCenterCatHeadWiseToolStripMenuItem, Me.CostofIssueReport})
         Me.Reports.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Reports.ForeColor = System.Drawing.Color.White
         Me.Reports.Image = Global.MMSPlus.My.Resources.Resources.Market_report
@@ -1686,6 +1690,40 @@ Partial Class MDIMain
         Me.frm_open_invoice.Size = New System.Drawing.Size(181, 22)
         Me.frm_open_invoice.Text = "Opne Invoice"
         '
+        'tsmAnalysis
+        '
+        Me.tsmAnalysis.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.tsmAnalysis.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.frm_SaleAnalysis, Me.frm_PurchaseAnalysis, Me.frm_StockAnalysis})
+        Me.tsmAnalysis.ForeColor = System.Drawing.Color.White
+        Me.tsmAnalysis.Image = Global.MMSPlus.My.Resources.Resources.Reports
+        Me.tsmAnalysis.Name = "tsmAnalysis"
+        Me.tsmAnalysis.Size = New System.Drawing.Size(280, 22)
+        Me.tsmAnalysis.Text = "Analysis"
+        '
+        'frm_SaleAnalysis
+        '
+        Me.frm_SaleAnalysis.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.frm_SaleAnalysis.ForeColor = System.Drawing.Color.White
+        Me.frm_SaleAnalysis.Name = "frm_SaleAnalysis"
+        Me.frm_SaleAnalysis.Size = New System.Drawing.Size(176, 22)
+        Me.frm_SaleAnalysis.Text = "Sale Analysis"
+        '
+        'frm_PurchaseAnalysis
+        '
+        Me.frm_PurchaseAnalysis.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.frm_PurchaseAnalysis.ForeColor = System.Drawing.Color.White
+        Me.frm_PurchaseAnalysis.Name = "frm_PurchaseAnalysis"
+        Me.frm_PurchaseAnalysis.Size = New System.Drawing.Size(176, 22)
+        Me.frm_PurchaseAnalysis.Text = "Purchase Analysis"
+        '
+        'frm_StockAnalysis
+        '
+        Me.frm_StockAnalysis.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.frm_StockAnalysis.ForeColor = System.Drawing.Color.White
+        Me.frm_StockAnalysis.Name = "frm_StockAnalysis"
+        Me.frm_StockAnalysis.Size = New System.Drawing.Size(176, 22)
+        Me.frm_StockAnalysis.Text = "Stock Analysis"
+        '
         'MDIMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1867,4 +1905,8 @@ Partial Class MDIMain
     Friend WithEvents frm_MRNWithPOSUPWISEe As ToolStripMenuItem
     Friend WithEvents frm_mrnPOItemWiseSupplier As ToolStripMenuItem
     Friend WithEvents cmd_ItemWiseMRNwithPO As ToolStripMenuItem
+    Friend WithEvents tsmAnalysis As ToolStripMenuItem
+    Friend WithEvents frm_SaleAnalysis As ToolStripMenuItem
+    Friend WithEvents frm_PurchaseAnalysis As ToolStripMenuItem
+    Friend WithEvents frm_StockAnalysis As ToolStripMenuItem
 End Class

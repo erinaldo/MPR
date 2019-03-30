@@ -136,8 +136,17 @@
       <HintPath>C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.dll</HintPath>
     </Reference>
     <Reference Include="System.Configuration" />
+    <Reference Include="System.Core">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\v3.5\System.Core.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data">
       <HintPath>C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <HintPath>..\PPR\bin\Debug\System.Data.DataSetExtensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.Linq">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\v3.5\System.Data.Linq.dll</HintPath>
     </Reference>
     <Reference Include="System.Deployment">
       <HintPath>C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Deployment.dll</HintPath>
@@ -181,6 +190,9 @@
       <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="ApplicationEvents.vb" />
+    <Compile Include="AutoCompleteTextbox.vb">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ClassesRecipe\Cls_Recipe.vb" />
     <Compile Include="ClassesRecipe\Cls_Recipe_Master.vb" />
     <Compile Include="ClassesRecipe\cls_SemiFinished_Recipe_Master.vb" />
@@ -353,6 +365,24 @@
     </Compile>
     <Compile Include="ReportsForms\frm_MRN_Print_Barcode.vb">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReportsForms\frm_Stock_Analysis.Designer.vb">
+      <DependentUpon>frm_Stock_Analysis.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ReportsForms\frm_Stock_Analysis.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ReportsForms\frm_Purchase_Analysis.Designer.vb">
+      <DependentUpon>frm_Purchase_Analysis.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ReportsForms\frm_Purchase_Analysis.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ReportsForms\frm_Sale_Analysis.Designer.vb">
+      <DependentUpon>frm_Sale_Analysis.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ReportsForms\frm_Sale_Analysis.vb">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="ReportsForms\frm_SaleTaxRegister.Designer.vb">
       <DependentUpon>frm_SaleTaxRegister.vb</DependentUpon>
@@ -1747,6 +1777,15 @@
     <EmbeddedResource Include="ReportsForms\frm_MRN_Print_Barcode.resx">
       <DependentUpon>frm_MRN_Print_Barcode.vb</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportsForms\frm_Stock_Analysis.resx">
+      <DependentUpon>frm_Stock_Analysis.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportsForms\frm_Purchase_Analysis.resx">
+      <DependentUpon>frm_Purchase_Analysis.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportsForms\frm_Sale_Analysis.resx">
+      <DependentUpon>frm_Sale_Analysis.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ReportsForms\frm_SaleTaxRegister.resx">
       <DependentUpon>frm_SaleTaxRegister.vb</DependentUpon>
