@@ -24,9 +24,57 @@ Public Class LoginForm
         ' Add any initialization after the InitializeComponent() call.
 
     End Sub
+    Dim LicDate As String
+    Dim Lockkey As String = "$ync-3sh8-sqoy19"
+    Dim IsLicenceValid As Boolean
+    Dim IsOnExpire As Boolean
+    Public Sub LicenceValidate()
+
+        Dim chkDate As Date = obj.ExecuteScalar("SELECT TOP 1 CAST(SI_DATE AS DATE) FROM dbo.SALE_INVOICE_MASTER ORDER BY SI_ID DESC")
+
+        If chkDate.ToString.Length = 0 Then
+            chkDate = Date.Now.ToString("dd-MMM-yyyy")
+        End If
+
+        Dim GetKey As String = obj.ExecuteScalar("SELECT D1 FROM templd")
+
+        If GetKey.ToString.Length > 0 Then
+
+            Dim StrKey() As String = Decrypt(GetKey, Lockkey).Split(",")
+
+            LicDate = StrKey(1)
+
+            If chkDate < Convert.ToDateTime(LicDate).Date Then
+                IsLicenceValid = True
+            Else
+                IsLicenceValid = False
+            End If
+
+            If Convert.ToDateTime(LicDate).Date.Subtract(chkDate).TotalDays < 30 Then
+                IsOnExpire = True
+            Else
+                IsOnExpire = False
+            End If
+
+        End If
+
+    End Sub
 
     Private Sub OK_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OK.Click
         Try
+
+            LicenceValidate()
+
+            If IsLicenceValid = False Then
+                Licence.Show()
+                Me.Close()
+                Exit Sub
+            End If
+
+            If IsOnExpire = True Then
+                Licence.Show()
+            End If
+
 
             Dim result As Integer
             If Not rdoCostCenter.Checked Then
@@ -70,6 +118,7 @@ Public Class LoginForm
                     Dim obj As New frm_DivisionSettings(True, prp)
                     obj.ShowDialog()
                 End If
+
             Else
                 MsgBox("Wrong User Name or Password!", MsgBoxStyle.Information, "Login")
             End If

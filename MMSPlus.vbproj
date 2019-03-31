@@ -342,6 +342,12 @@
     <Compile Include="Forms\frm_Show_Search_RateList.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\Licence.Designer.vb">
+      <DependentUpon>Licence.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Licence.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="ReportsForms\frm_CashBook.Designer.vb">
       <DependentUpon>frm_CashBook.vb</DependentUpon>
     </Compile>
@@ -1714,6 +1720,9 @@
     <EmbeddedResource Include="Forms\frm_transferData_btwn_dates.resx">
       <DependentUpon>frm_transferData_btwn_dates.vb</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Licence.resx">
+      <DependentUpon>Licence.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MDI Warehouse.resx">
       <SubType>Designer</SubType>

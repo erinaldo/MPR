@@ -1,3 +1,6 @@
+Imports System.Security.Cryptography
+Imports System.Text
+
 Module GlobalModule
 
     'Public v_the_current_selected_division_id As Integer
@@ -308,6 +311,30 @@ Module GlobalModule
             sResult = sResult & Chr(Asc(Mid(sTmp, icnt, 1)) - Asc("g"))
         Next
         Decrypt = sResult
+    End Function
+
+
+    Public Function Encrypt(ByVal input As String, ByVal key As String) As String
+        Dim inputArray As Byte() = UTF8Encoding.UTF8.GetBytes(input)
+        Dim tripleDES As TripleDESCryptoServiceProvider = New TripleDESCryptoServiceProvider()
+        tripleDES.Key = UTF8Encoding.UTF8.GetBytes(key)
+        tripleDES.Mode = CipherMode.ECB
+        tripleDES.Padding = PaddingMode.PKCS7
+        Dim cTransform As ICryptoTransform = tripleDES.CreateEncryptor()
+        Dim resultArray As Byte() = cTransform.TransformFinalBlock(inputArray, 0, inputArray.Length)
+        tripleDES.Clear()
+        Return Convert.ToBase64String(resultArray, 0, resultArray.Length)
+    End Function
+    Public Function Decrypt(ByVal input As String, ByVal key As String) As String
+        Dim inputArray As Byte() = Convert.FromBase64String(input)
+        Dim tripleDES As TripleDESCryptoServiceProvider = New TripleDESCryptoServiceProvider()
+        tripleDES.Key = UTF8Encoding.UTF8.GetBytes(key)
+        tripleDES.Mode = CipherMode.ECB
+        tripleDES.Padding = PaddingMode.PKCS7
+        Dim cTransform As ICryptoTransform = tripleDES.CreateDecryptor()
+        Dim resultArray As Byte() = cTransform.TransformFinalBlock(inputArray, 0, inputArray.Length)
+        tripleDES.Clear()
+        Return UTF8Encoding.UTF8.GetString(resultArray)
     End Function
 
     Public Sub main()
