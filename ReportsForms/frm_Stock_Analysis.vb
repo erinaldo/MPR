@@ -52,6 +52,9 @@ Public Class frm_Stock_Analysis
         Dim Filter As String = ""
         Cursor.Current = Cursors.WaitCursor
 
+        Dim FROMDATE As String = dtpFromDate.Value.ToString("dd-MMM-yyyy")
+        Dim TODATE As String = dtpToDate.Value.ToString("dd-MMM-yyyy")
+
         If BrandIds <> "" Then
             BrandIds = BrandIds.Substring(0, BrandIds.Length() - 1)
             If BrandIds.Length > 0 Then
@@ -122,7 +125,7 @@ Public Class frm_Stock_Analysis
         tb.UM_Name AS UOM ,
         CAST(dbo.Get_Stock_as_on_date(tb.pk_ItemID_num," & v_the_current_division_id & ",
                                       dbo.fn_Format(DATEADD(day, -1,
-                                                            '" & dtpFromDate.Value & "')),1) AS NUMERIC(18,
+                                                            '" & FROMDATE & "')),1) AS NUMERIC(18,
                                                               2)) AS Opening ,
         CAST(ISNULL(SUM(Purchase), 0) AS NUMERIC(18, 2)) AS Purchase ,
         CAST(ISNULL(SUM([Purc.Return]), 0) AS NUMERIC(18, 2)) AS [Purc.Return] ,
@@ -132,15 +135,15 @@ Public Class frm_Stock_Analysis
         CAST(ISNULL(SUM([Sale.Return]), 0) AS NUMERIC(18, 2)) AS [Sale.Return] ,
         CAST(ISNULL(SUM(Adjustment), 0) AS NUMERIC(18, 2)) AS Adjustment ,
         CAST(dbo.Get_Stock_as_on_date(tb.pk_ItemID_num," & v_the_current_division_id & ",
-                                      dbo.fn_Format('" & dtpToDate.Value & "'),1) AS NUMERIC(18,
+                                      dbo.fn_Format('" & TODATE & "'),1) AS NUMERIC(18,
                                                               2)) AS Closing ,
         CAST(dbo.Get_Stock_as_on_date(tb.pk_ItemID_num," & v_the_current_division_id & ",
-                                      dbo.fn_Format('" & dtpToDate.Value & "'),1)
-        * CAST(dbo.Get_Average_Rate_as_on_date(tb.pk_ItemID_num, '" & dtpToDate.Value & "',
+                                      dbo.fn_Format('" & TODATE & "'),1)
+        * CAST(dbo.Get_Average_Rate_as_on_date(tb.pk_ItemID_num, '" & TODATE & "',
                                                0, 1) AS DECIMAL(18, 2)) AS NUMERIC(18,
                                                               2)) AS ClosingValue ,
         CAST(CAST(dbo.Get_Average_Rate_as_on_date(tb.pk_ItemID_num,
-                                                  '" & dtpToDate.Value & "', 0, 1) AS DECIMAL(18,
+                                                  '" & TODATE & "', 0, 1) AS DECIMAL(18,
                                                               2)) AS NUMERIC(18,
                                                               2)) AS [Avg.Rate]
 FROM    ( SELECT    pk_ItemID_num ,
@@ -175,8 +178,8 @@ FROM    ( SELECT    pk_ItemID_num ,
                          ELSE 0
                     END AS Adjustment
           FROM      dbo.Item_Analysis
-          WHERE     CAST(TRANSACTION_DATE AS DATETIME) BETWEEN CAST('" & dtpFromDate.Value & "' AS DATETIME)
-                                                       AND    CAST('" & dtpToDate.Value & "' AS DATETIME) " & Filter &
+          WHERE     CAST(TRANSACTION_DATE AS DATETIME) BETWEEN CAST('" & FROMDATE & "' AS DATETIME)
+                                                       AND    CAST('" & TODATE & "' AS DATETIME) " & Filter &
         ") tb
         GROUP BY pk_ItemID_num ,
         BarCode_vch ,
@@ -194,7 +197,7 @@ FROM    ( SELECT    pk_ItemID_num ,
         UM_Name AS UOM ,
         CAST(dbo.Get_Stock_as_on_date(pk_ItemID_num," & v_the_current_division_id & ",
                                       dbo.fn_Format(DATEADD(day, -1,
-                                                            '" & dtpFromDate.Value & "')),1) AS NUMERIC(18,
+                                                            '" & FROMDATE & "')),1) AS NUMERIC(18,
                                                               2)) AS Opening ,
         CAST(ISNULL(SUM(Purchase), 0) AS NUMERIC(18, 2)) AS Purchase ,
         CAST(ISNULL(SUM([Purc.Return]), 0) AS NUMERIC(18, 2)) AS [Purc.Return] ,
@@ -204,15 +207,15 @@ FROM    ( SELECT    pk_ItemID_num ,
         CAST(ISNULL(SUM([Sale.Return]), 0) AS NUMERIC(18, 2)) AS [Sale.Return] ,
         CAST(ISNULL(SUM(Adjustment), 0) AS NUMERIC(18, 2)) AS Adjustment ,
         CAST(dbo.Get_Stock_as_on_date(pk_ItemID_num," & v_the_current_division_id & ",
-                                      dbo.fn_Format('" & dtpToDate.Value & "'),1) AS NUMERIC(18,
+                                      dbo.fn_Format('" & TODATE & "'),1) AS NUMERIC(18,
                                                               2)) AS Closing ,
         CAST(dbo.Get_Stock_as_on_date(pk_ItemID_num," & v_the_current_division_id & ",
-                                      dbo.fn_Format('" & dtpToDate.Value & "'),1)
-        * CAST(dbo.Get_Average_Rate_as_on_date(pk_ItemID_num, '" & dtpToDate.Value & "',
+                                      dbo.fn_Format('" & TODATE & "'),1)
+        * CAST(dbo.Get_Average_Rate_as_on_date(pk_ItemID_num, '" & TODATE & "',
                                                0, 1) AS DECIMAL(18, 2)) AS NUMERIC(18,
                                                               2)) AS ClosingValue ,
         CAST(CAST(dbo.Get_Average_Rate_as_on_date(pk_ItemID_num,
-                                                  '" & dtpToDate.Value & "', 0, 1) AS DECIMAL(18,
+                                                  '" & TODATE & "', 0, 1) AS DECIMAL(18,
                                                               2)) AS NUMERIC(18,
                                                               2)) AS [Avg.Rate]
 FROM    ( SELECT    pk_ItemID_num ,
@@ -250,8 +253,8 @@ FROM    ( SELECT    pk_ItemID_num ,
                          ELSE 0
                     END AS Adjustment
           FROM      dbo.Item_Analysis
-          WHERE     CAST(TRANSACTION_DATE AS DATETIME) BETWEEN CAST('" & dtpFromDate.Value & "' AS DATETIME)
-                                                       AND    CAST('" & dtpToDate.Value & "' AS DATETIME) " & Filter &
+          WHERE     CAST(TRANSACTION_DATE AS DATETIME) BETWEEN CAST('" & FROMDATE & "' AS DATETIME)
+                                                       AND    CAST('" & TODATE & "' AS DATETIME) " & Filter &
         ") tb
        
 GROUP BY fk_CategoryID_num ,
@@ -273,7 +276,7 @@ ORDER BY CategoryName_vch ,
         UM_Name AS UOM ,
         CAST(dbo.Get_Stock_as_on_date(pk_ItemID_num," & v_the_current_division_id & ",
                                       dbo.fn_Format(DATEADD(day, -1,
-                                                            '" & dtpFromDate.Value & "')),1) AS NUMERIC(18,
+                                                            '" & FROMDATE & "')),1) AS NUMERIC(18,
                                                               2)) AS Opening ,
         CAST(ISNULL(SUM(Purchase), 0) AS NUMERIC(18, 2)) AS Purchase ,
         CAST(ISNULL(SUM([Purc.Return]), 0) AS NUMERIC(18, 2)) AS [Purc.Return] ,
@@ -283,15 +286,15 @@ ORDER BY CategoryName_vch ,
         CAST(ISNULL(SUM([Sale.Return]), 0) AS NUMERIC(18, 2)) AS [Sale.Return] ,
         CAST(ISNULL(SUM(Adjustment), 0) AS NUMERIC(18, 2)) AS Adjustment ,
         CAST(dbo.Get_Stock_as_on_date(pk_ItemID_num," & v_the_current_division_id & ",
-                                      dbo.fn_Format('" & dtpToDate.Value & "'),1) AS NUMERIC(18,
+                                      dbo.fn_Format('" & TODATE & "'),1) AS NUMERIC(18,
                                                               2)) AS Closing ,
         CAST(dbo.Get_Stock_as_on_date(pk_ItemID_num," & v_the_current_division_id & ",
-                                      dbo.fn_Format('" & dtpToDate.Value & "'),1)
-        * CAST(dbo.Get_Average_Rate_as_on_date(pk_ItemID_num, '" & dtpToDate.Value & "',
+                                      dbo.fn_Format('" & TODATE & "'),1)
+        * CAST(dbo.Get_Average_Rate_as_on_date(pk_ItemID_num, '" & TODATE & "',
                                                0, 1) AS DECIMAL(18, 2)) AS NUMERIC(18,
                                                               2)) AS ClosingValue ,
         CAST(CAST(dbo.Get_Average_Rate_as_on_date(pk_ItemID_num,
-                                                  '" & dtpToDate.Value & "', 0, 1) AS DECIMAL(18,
+                                                  '" & TODATE & "', 0, 1) AS DECIMAL(18,
                                                               2)) AS NUMERIC(18,
                                                               2)) AS [Avg.Rate]
 FROM    ( SELECT    pk_ItemID_num ,
@@ -329,8 +332,8 @@ FROM    ( SELECT    pk_ItemID_num ,
                          ELSE 0
                     END AS Adjustment
           FROM      dbo.Item_Analysis
-          WHERE     CAST(TRANSACTION_DATE AS DATETIME) BETWEEN CAST('" & dtpFromDate.Value & "' AS DATETIME)
-                                                       AND    CAST('" & dtpToDate.Value & "' AS DATETIME) " & Filter &
+          WHERE     CAST(TRANSACTION_DATE AS DATETIME) BETWEEN CAST('" & FROMDATE & "' AS DATETIME)
+                                                       AND    CAST('" & TODATE & "' AS DATETIME) " & Filter &
         ") tb
        
 GROUP BY tb.BrandId ,
@@ -352,7 +355,7 @@ ORDER BY BrandName ,
         UM_Name AS UOM ,
         CAST(dbo.Get_Stock_as_on_date(pk_ItemID_num," & v_the_current_division_id & ",
                                       dbo.fn_Format(DATEADD(day, -1,
-                                                            '" & dtpFromDate.Value & "')),1) AS NUMERIC(18,
+                                                            '" & FROMDATE & "')),1) AS NUMERIC(18,
                                                               2)) AS Opening ,
         CAST(ISNULL(SUM(Purchase), 0) AS NUMERIC(18, 2)) AS Purchase ,
         CAST(ISNULL(SUM([Purc.Return]), 0) AS NUMERIC(18, 2)) AS [Purc.Return] ,
@@ -362,15 +365,15 @@ ORDER BY BrandName ,
         CAST(ISNULL(SUM([Sale.Return]), 0) AS NUMERIC(18, 2)) AS [Sale.Return] ,
         CAST(ISNULL(SUM(Adjustment), 0) AS NUMERIC(18, 2)) AS Adjustment ,
         CAST(dbo.Get_Stock_as_on_date(pk_ItemID_num," & v_the_current_division_id & ",
-                                      dbo.fn_Format('" & dtpToDate.Value & "'),1) AS NUMERIC(18,
+                                      dbo.fn_Format('" & TODATE & "'),1) AS NUMERIC(18,
                                                               2)) AS Closing ,
         CAST(dbo.Get_Stock_as_on_date(pk_ItemID_num," & v_the_current_division_id & ",
-                                      dbo.fn_Format('" & dtpToDate.Value & "'),1)
-        * CAST(dbo.Get_Average_Rate_as_on_date(pk_ItemID_num, '" & dtpToDate.Value & "',
+                                      dbo.fn_Format('" & TODATE & "'),1)
+        * CAST(dbo.Get_Average_Rate_as_on_date(pk_ItemID_num, '" & TODATE & "',
                                                0, 1) AS DECIMAL(18, 2)) AS NUMERIC(18,
                                                               2)) AS ClosingValue ,
         CAST(CAST(dbo.Get_Average_Rate_as_on_date(pk_ItemID_num,
-                                                  '" & dtpToDate.Value & "', 0, 1) AS DECIMAL(18,
+                                                  '" & TODATE & "', 0, 1) AS DECIMAL(18,
                                                               2)) AS NUMERIC(18,
                                                               2)) AS [Avg.Rate]
 FROM    ( SELECT    pk_ItemID_num ,
@@ -408,8 +411,8 @@ FROM    ( SELECT    pk_ItemID_num ,
                          ELSE 0
                     END AS Adjustment
           FROM      dbo.Item_Analysis
-          WHERE     CAST(TRANSACTION_DATE AS DATETIME) BETWEEN CAST('" & dtpFromDate.Value & "' AS DATETIME)
-                                                       AND    CAST('" & dtpToDate.Value & "' AS DATETIME) " & Filter &
+          WHERE     CAST(TRANSACTION_DATE AS DATETIME) BETWEEN CAST('" & FROMDATE & "' AS DATETIME)
+                                                       AND    CAST('" & TODATE & "' AS DATETIME) " & Filter &
         ") tb
 GROUP BY tb.ColorId ,
         tb.ColorName ,
@@ -430,7 +433,7 @@ ORDER BY ColorName ,
         UM_Name AS UOM ,
         CAST(dbo.Get_Stock_as_on_date(pk_ItemID_num," & v_the_current_division_id & ",
                                       dbo.fn_Format(DATEADD(day, -1,
-                                                            '" & dtpFromDate.Value & "')),1) AS NUMERIC(18,
+                                                            '" & FROMDATE & "')),1) AS NUMERIC(18,
                                                               2)) AS Opening ,
         CAST(ISNULL(SUM(Purchase), 0) AS NUMERIC(18, 2)) AS Purchase ,
         CAST(ISNULL(SUM([Purc.Return]), 0) AS NUMERIC(18, 2)) AS [Purc.Return] ,
@@ -440,15 +443,15 @@ ORDER BY ColorName ,
         CAST(ISNULL(SUM([Sale.Return]), 0) AS NUMERIC(18, 2)) AS [Sale.Return] ,
         CAST(ISNULL(SUM(Adjustment), 0) AS NUMERIC(18, 2)) AS Adjustment ,
         CAST(dbo.Get_Stock_as_on_date(pk_ItemID_num," & v_the_current_division_id & ",
-                                      dbo.fn_Format('" & dtpToDate.Value & "'),1) AS NUMERIC(18,
+                                      dbo.fn_Format('" & TODATE & "'),1) AS NUMERIC(18,
                                                               2)) AS Closing ,
         CAST(dbo.Get_Stock_as_on_date(pk_ItemID_num," & v_the_current_division_id & ",
-                                      dbo.fn_Format('" & dtpToDate.Value & "'),1)
-        * CAST(dbo.Get_Average_Rate_as_on_date(pk_ItemID_num, '" & dtpToDate.Value & "',
+                                      dbo.fn_Format('" & TODATE & "'),1)
+        * CAST(dbo.Get_Average_Rate_as_on_date(pk_ItemID_num, '" & TODATE & "',
                                                0, 1) AS DECIMAL(18, 2)) AS NUMERIC(18,
                                                               2)) AS ClosingValue ,
         CAST(CAST(dbo.Get_Average_Rate_as_on_date(pk_ItemID_num,
-                                                  '" & dtpToDate.Value & "', 0, 1) AS DECIMAL(18,
+                                                  '" & TODATE & "', 0, 1) AS DECIMAL(18,
                                                               2)) AS NUMERIC(18,
                                                               2)) AS [Avg.Rate]
 FROM    ( SELECT    pk_ItemID_num ,
@@ -486,8 +489,8 @@ FROM    ( SELECT    pk_ItemID_num ,
                          ELSE 0
                     END AS Adjustment
           FROM      dbo.Item_Analysis
-          WHERE     CAST(TRANSACTION_DATE AS DATETIME) BETWEEN CAST('" & dtpFromDate.Value & "' AS DATETIME)
-                                                       AND    CAST('" & dtpToDate.Value & "' AS DATETIME) " & Filter &
+          WHERE     CAST(TRANSACTION_DATE AS DATETIME) BETWEEN CAST('" & FROMDATE & "' AS DATETIME)
+                                                       AND    CAST('" & TODATE & "' AS DATETIME) " & Filter &
         ") tb 
 GROUP BY tb.SizeId ,
        tb.SizeName ,
@@ -508,7 +511,7 @@ ORDER BY tb.SizeName ,
         UM_Name AS UOM ,
         CAST(dbo.Get_Stock_as_on_date(pk_ItemID_num," & v_the_current_division_id & ",
                                       dbo.fn_Format(DATEADD(day, -1,
-                                                            '" & dtpFromDate.Value & "')),1) AS NUMERIC(18,
+                                                            '" & FROMDATE & "')),1) AS NUMERIC(18,
                                                               2)) AS Opening ,
         CAST(ISNULL(SUM(Purchase), 0) AS NUMERIC(18, 2)) AS Purchase ,
         CAST(ISNULL(SUM([Purc.Return]), 0) AS NUMERIC(18, 2)) AS [Purc.Return] ,
@@ -518,15 +521,15 @@ ORDER BY tb.SizeName ,
         CAST(ISNULL(SUM([Sale.Return]), 0) AS NUMERIC(18, 2)) AS [Sale.Return] ,
         CAST(ISNULL(SUM(Adjustment), 0) AS NUMERIC(18, 2)) AS Adjustment ,
         CAST(dbo.Get_Stock_as_on_date(pk_ItemID_num," & v_the_current_division_id & ",
-                                      dbo.fn_Format('" & dtpToDate.Value & "'),1) AS NUMERIC(18,
+                                      dbo.fn_Format('" & TODATE & "'),1) AS NUMERIC(18,
                                                               2)) AS Closing ,
         CAST(dbo.Get_Stock_as_on_date(pk_ItemID_num," & v_the_current_division_id & ",
-                                      dbo.fn_Format('" & dtpToDate.Value & "'),1)
-        * CAST(dbo.Get_Average_Rate_as_on_date(pk_ItemID_num, '" & dtpToDate.Value & "',
+                                      dbo.fn_Format('" & TODATE & "'),1)
+        * CAST(dbo.Get_Average_Rate_as_on_date(pk_ItemID_num, '" & TODATE & "',
                                                0, 1) AS DECIMAL(18, 2)) AS NUMERIC(18,
                                                               2)) AS ClosingValue ,
         CAST(CAST(dbo.Get_Average_Rate_as_on_date(pk_ItemID_num,
-                                                  '" & dtpToDate.Value & "', 0, 1) AS DECIMAL(18,
+                                                  '" & TODATE & "', 0, 1) AS DECIMAL(18,
                                                               2)) AS NUMERIC(18,
                                                               2)) AS [Avg.Rate]
 FROM    ( SELECT    pk_ItemID_num ,
@@ -564,8 +567,8 @@ FROM    ( SELECT    pk_ItemID_num ,
                          ELSE 0
                     END AS Adjustment
           FROM      dbo.Item_Analysis
-          WHERE     CAST(TRANSACTION_DATE AS DATETIME) BETWEEN CAST('" & dtpFromDate.Value & "' AS DATETIME)
-                                                       AND    CAST('" & dtpToDate.Value & "' AS DATETIME) " & Filter &
+          WHERE     CAST(TRANSACTION_DATE AS DATETIME) BETWEEN CAST('" & FROMDATE & "' AS DATETIME)
+                                                       AND    CAST('" & TODATE & "' AS DATETIME) " & Filter &
         ") tb
 GROUP BY CompanyId ,
         CompanyName ,
@@ -586,7 +589,7 @@ ORDER BY CompanyName ,
         UM_Name AS UOM ,
         CAST(dbo.Get_Stock_as_on_date(pk_ItemID_num," & v_the_current_division_id & ",
                                       dbo.fn_Format(DATEADD(day, -1,
-                                                            '" & dtpFromDate.Value & "')),1) AS NUMERIC(18,
+                                                            '" & FROMDATE & "')),1) AS NUMERIC(18,
                                                               2)) AS Opening ,
         CAST(ISNULL(SUM(Purchase), 0) AS NUMERIC(18, 2)) AS Purchase ,
         CAST(ISNULL(SUM([Purc.Return]), 0) AS NUMERIC(18, 2)) AS [Purc.Return] ,
@@ -596,15 +599,15 @@ ORDER BY CompanyName ,
         CAST(ISNULL(SUM([Sale.Return]), 0) AS NUMERIC(18, 2)) AS [Sale.Return] ,
         CAST(ISNULL(SUM(Adjustment), 0) AS NUMERIC(18, 2)) AS Adjustment ,
         CAST(dbo.Get_Stock_as_on_date(pk_ItemID_num," & v_the_current_division_id & ",
-                                      dbo.fn_Format('" & dtpToDate.Value & "'),1) AS NUMERIC(18,
+                                      dbo.fn_Format('" & TODATE & "'),1) AS NUMERIC(18,
                                                               2)) AS Closing ,
         CAST(dbo.Get_Stock_as_on_date(pk_ItemID_num," & v_the_current_division_id & ",
-                                      dbo.fn_Format('" & dtpToDate.Value & "'),1)
-        * CAST(dbo.Get_Average_Rate_as_on_date(pk_ItemID_num, '" & dtpToDate.Value & "',
+                                      dbo.fn_Format('" & TODATE & "'),1)
+        * CAST(dbo.Get_Average_Rate_as_on_date(pk_ItemID_num, '" & TODATE & "',
                                                0, 1) AS DECIMAL(18, 2)) AS NUMERIC(18,
                                                               2)) AS ClosingValue ,
         CAST(CAST(dbo.Get_Average_Rate_as_on_date(pk_ItemID_num,
-                                                  '" & dtpToDate.Value & "', 0, 1) AS DECIMAL(18,
+                                                  '" & TODATE & "', 0, 1) AS DECIMAL(18,
                                                               2)) AS NUMERIC(18,
                                                               2)) AS [Avg.Rate]
 FROM    ( SELECT    pk_ItemID_num ,
@@ -642,8 +645,8 @@ FROM    ( SELECT    pk_ItemID_num ,
                          ELSE 0
                     END AS Adjustment
           FROM      dbo.Item_Analysis
-          WHERE     CAST(TRANSACTION_DATE AS DATETIME) BETWEEN CAST('" & dtpFromDate.Value & "' AS DATETIME)
-                                                       AND    CAST('" & dtpToDate.Value & "' AS DATETIME) " & Filter &
+          WHERE     CAST(TRANSACTION_DATE AS DATETIME) BETWEEN CAST('" & FROMDATE & "' AS DATETIME)
+                                                       AND    CAST('" & TODATE & "' AS DATETIME) " & Filter &
         ") tb
 GROUP BY DepartmentId ,
         DepartmentName ,
@@ -664,7 +667,7 @@ ORDER BY DepartmentName ,
         UM_Name AS UOM ,
         CAST(dbo.Get_Stock_as_on_date(pk_ItemID_num," & v_the_current_division_id & ",
                                       dbo.fn_Format(DATEADD(day, -1,
-                                                            '" & dtpFromDate.Value & "')),1) AS NUMERIC(18,
+                                                            '" & FROMDATE & "')),1) AS NUMERIC(18,
                                                               2)) AS Opening ,
         CAST(ISNULL(SUM(Purchase), 0) AS NUMERIC(18, 2)) AS Purchase ,
         CAST(ISNULL(SUM([Purc.Return]), 0) AS NUMERIC(18, 2)) AS [Purc.Return] ,
@@ -674,15 +677,15 @@ ORDER BY DepartmentName ,
         CAST(ISNULL(SUM([Sale.Return]), 0) AS NUMERIC(18, 2)) AS [Sale.Return] ,
         CAST(ISNULL(SUM(Adjustment), 0) AS NUMERIC(18, 2)) AS Adjustment ,
         CAST(dbo.Get_Stock_as_on_date(pk_ItemID_num," & v_the_current_division_id & ",
-                                      dbo.fn_Format('" & dtpToDate.Value & "'),1) AS NUMERIC(18,
+                                      dbo.fn_Format('" & TODATE & "'),1) AS NUMERIC(18,
                                                               2)) AS Closing ,
         CAST(dbo.Get_Stock_as_on_date(pk_ItemID_num," & v_the_current_division_id & ",
-                                      dbo.fn_Format('" & dtpToDate.Value & "'),1)
-        * CAST(dbo.Get_Average_Rate_as_on_date(pk_ItemID_num, '" & dtpToDate.Value & "',
+                                      dbo.fn_Format('" & TODATE & "'),1)
+        * CAST(dbo.Get_Average_Rate_as_on_date(pk_ItemID_num, '" & TODATE & "',
                                                0, 1) AS DECIMAL(18, 2)) AS NUMERIC(18,
                                                               2)) AS ClosingValue ,
         CAST(CAST(dbo.Get_Average_Rate_as_on_date(pk_ItemID_num,
-                                                  '" & dtpToDate.Value & "', 0, 1) AS DECIMAL(18,
+                                                  '" & TODATE & "', 0, 1) AS DECIMAL(18,
                                                               2)) AS NUMERIC(18,
                                                               2)) AS [Avg.Rate]
 FROM    ( SELECT    pk_ItemID_num ,
@@ -720,8 +723,8 @@ FROM    ( SELECT    pk_ItemID_num ,
                          ELSE 0
                     END AS Adjustment
           FROM      dbo.Item_Analysis
-          WHERE     CAST(TRANSACTION_DATE AS DATETIME) BETWEEN CAST('" & dtpFromDate.Value & "' AS DATETIME)
-                                                       AND    CAST('" & dtpToDate.Value & "' AS DATETIME) " & Filter &
+          WHERE     CAST(TRANSACTION_DATE AS DATETIME) BETWEEN CAST('" & FROMDATE & "' AS DATETIME)
+                                                       AND    CAST('" & TODATE & "' AS DATETIME) " & Filter &
         ") tb
 GROUP BY TypeId ,
         TypeName ,
@@ -764,12 +767,12 @@ GROUP BY TypeId ,
         * ISNULL(BasePrice, 0) AS NUMERIC(18, 2))) AS Amount
 INTO    #dt
 FROM    dbo.Item_Analysis
-WHERE   pk_ItemID_num = " & itemId & " AND CAST(TRANSACTION_DATE AS DATETIME) BETWEEN CAST('" & dtpFromDate.Value & "' AS DATETIME)
-                                                       AND    CAST('" & dtpToDate.Value & "' AS DATETIME)
+WHERE   pk_ItemID_num = " & itemId & " AND CAST(TRANSACTION_DATE AS DATETIME) BETWEEN CAST('" & FROMDATE & "' AS DATETIME)
+                                                       AND    CAST('" & TODATE & "' AS DATETIME)
 ORDER BY TRANSACTION_DATE
 
 SELECT  '' ,
-        'From: " & dtpFromDate.Value.ToString("dd-MMM-yyyy") & "  To: " & dtpToDate.Value.ToString("dd-MMM-yyyy") & "' ,
+        'From: " & FROMDATE & "  To: " & TODATE & "' ,
         '' ,
         '' ,
         'ITEM LEDGER' ,
@@ -787,15 +790,15 @@ SELECT TOP ( 1 )
         'Qty. :' ,
         CONVERT(VARCHAR(30), CAST(ISNULL(dbo.Get_Stock_as_on_date(" & itemId & "," & v_the_current_division_id & ",
                                                               dbo.fn_Format(DATEADD(day,
-                                                              -1, '" & dtpFromDate.Value & "')),1),
+                                                              -1, '" & FROMDATE & "')),1),
                                          0) AS NUMERIC(18, 2))) ,
         'Amt. :' ,
         CONVERT(VARCHAR(30), CAST(( ISNULL(dbo.Get_Stock_as_on_date(" & itemId & "," & v_the_current_division_id & ",
                                                               dbo.fn_Format(DATEADD(day,
-                                                              -1, '" & dtpFromDate.Value & "')),1),
+                                                              -1, '" & FROMDATE & "')),1),
                                            0)
                                     * ISNULL(dbo.Get_Average_Rate_as_on_date(" & itemId & ",
-                                                              '" & dtpFromDate.Value & "', 0,
+                                                              '" & FROMDATE & "', 0,
                                                               1), 0) ) AS NUMERIC(18,
                                                               2)))
 FROM    dbo.Item_Analysis
@@ -842,14 +845,14 @@ SELECT TOP ( 1 )
         'Closing' ,
         'Qty. :' ,
         CONVERT(VARCHAR(30), CAST(ISNULL(dbo.Get_Stock_as_on_date(" & itemId & "," & v_the_current_division_id & ",
-                                                              dbo.fn_Format('" & dtpToDate.Value & "'),1),
+                                                              dbo.fn_Format('" & TODATE & "'),1),
                                          0) AS NUMERIC(18, 2))) ,
         'Amt. :' ,
         CONVERT(VARCHAR(30), CAST(( ISNULL(dbo.Get_Stock_as_on_date(" & itemId & "," & v_the_current_division_id & ",
-                                                              dbo.fn_Format('" & dtpToDate.Value & "'),1),
+                                                              dbo.fn_Format('" & TODATE & "'),1),
                                            0)
                                     * ISNULL(dbo.Get_Average_Rate_as_on_date(" & itemId & ",
-                                                              '" & dtpToDate.Value & "', 0,
+                                                              '" & TODATE & "', 0,
                                                               1), 0) ) AS NUMERIC(18,
                                                               2)))
 FROM    dbo.Item_Analysis
@@ -863,15 +866,15 @@ DROP TABLE #dt"
                     dgvReport.ColumnHeadersVisible = False
                     dgvReport.DataSource = dt
 
-                    dgvReport.Columns(0).Width = 45
+                    dgvReport.Columns(0).Width = 40
                     dgvReport.Columns(1).Width = 230
                     dgvReport.Columns(2).Width = 80
                     dgvReport.Columns(3).Width = 60
                     dgvReport.Columns(4).Width = 200
-                    dgvReport.Columns(5).Width = 65
-                    dgvReport.Columns(6).Width = 65
-                    dgvReport.Columns(7).Width = 75
-                    dgvReport.Columns(8).Width = 100
+                    dgvReport.Columns(5).Width = 50
+                    dgvReport.Columns(6).Width = 52
+                    dgvReport.Columns(7).Width = 70
+                    dgvReport.Columns(8).Width = 85
 
                     dgvReport.AlternatingRowsDefaultCellStyle.BackColor = dgvReport.BackgroundColor
                     dgvReport.RowsDefaultCellStyle.BackColor = dgvReport.BackgroundColor
@@ -879,12 +882,12 @@ DROP TABLE #dt"
                     dgvReport.Rows(1).DefaultCellStyle.Font = New Font("Tahoma", 8.2, FontStyle.Bold)
                     dgvReport.Rows(1).DefaultCellStyle.ForeColor = Color.Lime
 
-                    dgvReport.Rows(3).DefaultCellStyle.Font = New Font("Tahoma", 8.4, FontStyle.Bold)
+                    dgvReport.Rows(3).DefaultCellStyle.Font = New Font("Tahoma", 8.2, FontStyle.Bold)
                     ' dgvReport.Rows(2).DefaultCellStyle.ForeColor = Color.DarkOrange
                     dgvReport.Rows(dgvReport.Rows.Count - 1).DefaultCellStyle.Font = New Font("Tahoma", 8.2, FontStyle.Bold)
                     dgvReport.Rows(dgvReport.Rows.Count - 1).DefaultCellStyle.ForeColor = Color.Lime
 
-                    dgvReport.GridColor = Color.LightSlateGray
+                    dgvReport.GridColor = Color.Silver
                     dgvReport.BorderStyle = BorderStyle.FixedSingle
                     Label33.Visible = False
                     txtSearch.Visible = False
