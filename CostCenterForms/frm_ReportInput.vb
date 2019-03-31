@@ -99,7 +99,7 @@ Public Class frm_ReportInput
             Dim Query As String
             Dim Dt As DataTable
             Dim Dtrow As DataRow
-            Query = " SELECT Pk_LabelDetailId_Num ,LabelItemName_vch  FROM dbo.Label_Items ORDER BY LabelItemName_vch "
+            Query = " SELECT Pk_LabelDetailId_Num ,LabelItemName_vch  FROM dbo.Label_Items WHERE fk_LabelId_num=1  ORDER BY LabelItemName_vch "
             Dt = objCommFunction.Fill_DataSet(Query).Tables(0)
             Dtrow = Dt.NewRow
             Dtrow("Pk_LabelDetailId_Num") = -1

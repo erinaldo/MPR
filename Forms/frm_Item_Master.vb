@@ -157,8 +157,15 @@ Public Class frm_Item_Master
 			LEFT OUTER JOIN Item_Detail ON ITEM_MASTER.item_id = Item_Detail.item_id
             INNER JOIN UNIT_MASTER ON ITEM_MASTER.UM_ID = UNIT_MASTER.UM_ID
             INNER JOIN ITEM_CATEGORY ON ITEM_MASTER.ITEM_CATEGORY_ID = ITEM_CATEGORY.ITEM_CAT_ID
-            LEFT OUTER JOIN dbo.LabelItem_Mapping lim ON lim.Fk_ItemId_Num = ITEM_MASTER.ITEM_ID
-            LEFT OUTER JOIN dbo.Label_Items litems ON lim.Fk_LabelDetailId = litems.Pk_LabelDetailId_Num
+            LEFT JOIN dbo.LabelItem_Mapping AS LIM ON LIM.Fk_ItemId_Num = dbo.ITEM_MASTER.ITEM_ID
+                                                  AND LIM.Fk_LabelDetailId IN (
+                                                  SELECT    Pk_LabelDetailId_Num
+                                                  FROM      dbo.Label_Items
+                                                  WHERE     fk_LabelId_num = 1 )
+        LEFT JOIN dbo.Label_Items AS litems ON litems.Pk_LabelDetailId_Num = LIM.Fk_LabelDetailId
+                                               AND litems.fk_LabelId_num = 1
+        LEFT JOIN dbo.Label_Master AS BrandMaster ON BrandMaster.Pk_LabelId_Num = litems.fk_LabelId_num
+                                                     AND BrandMaster.Pk_LabelId_Num = 1
   ORDER BY  Item_Master.Item_Code")
 
             grdItemMaster.Columns(0).Visible = False 'Item Master id
@@ -223,8 +230,16 @@ Public Class frm_Item_Master
 			                                    LEFT OUTER JOIN Item_Detail ON ITEM_MASTER.item_id = Item_Detail.item_id
                                                 INNER JOIN UNIT_MASTER ON ITEM_MASTER.UM_ID = UNIT_MASTER.UM_ID
                                                 INNER JOIN ITEM_CATEGORY ON ITEM_MASTER.ITEM_CATEGORY_ID = ITEM_CATEGORY.ITEM_CAT_ID
-                                                LEFT OUTER JOIN dbo.LabelItem_Mapping lim ON lim.Fk_ItemId_Num = ITEM_MASTER.ITEM_ID
-                                                LEFT OUTER JOIN dbo.Label_Items litems ON lim.Fk_LabelDetailId = litems.Pk_LabelDetailId_Num where (item_master.item_code + isnull(ITEM_MASTER.Barcode_Vch,'') + " _
+                                                LEFT JOIN dbo.LabelItem_Mapping AS LIM ON LIM.Fk_ItemId_Num = dbo.ITEM_MASTER.ITEM_ID
+                                                  AND LIM.Fk_LabelDetailId IN (
+                                                  SELECT    Pk_LabelDetailId_Num
+                                                  FROM      dbo.Label_Items
+                                                  WHERE     fk_LabelId_num = 1 )
+        LEFT JOIN dbo.Label_Items AS litems ON litems.Pk_LabelDetailId_Num = LIM.Fk_LabelDetailId
+                                               AND litems.fk_LabelId_num = 1
+        LEFT JOIN dbo.Label_Master AS BrandMaster ON BrandMaster.Pk_LabelId_Num = litems.fk_LabelId_num
+                                                     AND BrandMaster.Pk_LabelId_Num = 1
+                            where (item_master.item_code + isnull(ITEM_MASTER.Barcode_Vch,'') + " _
             & " item_master.item_name + UNIT_MASTER.um_name + ITEM_CATEGORY.item_cat_name + isnull(litems.LabelItemName_vch,'')) " _
             & " like '%" & txtSearch.Text & "%'")
 
@@ -256,8 +271,8 @@ Public Class frm_Item_Master
                     & " UNIT_MASTER AS UNIT_MASTER_1 ON ITEM_MASTER.ISSUE_UM_ID = UNIT_MASTER_1.UM_ID INNER JOIN" _
                     & " UNIT_MASTER AS UNIT_MASTER_2 ON ITEM_MASTER.RECP_UM_ID = UNIT_MASTER_2.UM_ID " _
                     & " INNER JOIN dbo.HsnCode_Master ON dbo.HsnCode_Master.Pk_HsnId_num=dbo.ITEM_MASTER.fk_HsnId_num " _
-                    & " LEFT JOIN dbo.LabelItem_Mapping ON dbo.LabelItem_Mapping.Fk_ItemId_Num=dbo.ITEM_MASTER.ITEM_ID " _
-                    & " LEFT JOIN  dbo.Label_Items ON dbo.Label_Items.Pk_LabelDetailId_Num=LabelItem_Mapping.Fk_LabelDetailId " _
+                    & " LEFT JOIN dbo.LabelItem_Mapping ON dbo.LabelItem_Mapping.Fk_ItemId_Num=dbo.ITEM_MASTER.ITEM_ID AND LabelItem_Mapping.Fk_LabelDetailId IN (SELECT    Pk_LabelDetailId_Num  FROM      dbo.Label_Items WHERE     fk_LabelId_num = 1 ) " _
+                    & " LEFT JOIN  dbo.Label_Items ON dbo.Label_Items.Pk_LabelDetailId_Num=LabelItem_Mapping.Fk_LabelDetailId AND Label_Items.fk_LabelId_num = 1 LEFT JOIN dbo.Label_Master AS BrandMaster ON BrandMaster.Pk_LabelId_Num = Label_Items.fk_LabelId_num AND BrandMaster.Pk_LabelId_Num = 1" _
                     & " where ITEM_ID =" & Convert.ToString(ItemID)
             ds = Obj.Fill_DataSet(Qry)
             If ds.Tables(0).Rows.Count > 0 Then
@@ -458,9 +473,18 @@ Public Class frm_Item_Master
                                         FROM    Item_master im
                                         LEFT outer JOIN item_detail id ON im.item_id = id.item_id
                                         LEFT outer JOIN dbo.ITEM_CATEGORY ic ON im.ITEM_CATEGORY_ID = ic.ITEM_CAT_ID
-                                        LEFT OUTER JOIN dbo.LabelItem_Mapping lim ON lim.Fk_ItemId_Num = im.ITEM_ID
-                                        LEFT OUTER JOIN dbo.Label_Items litems ON lim.Fk_LabelDetailId = litems.Pk_LabelDetailId_Num 
+        LEFT JOIN dbo.LabelItem_Mapping AS LIM ON LIM.Fk_ItemId_Num = IM.ITEM_ID
+                                                  AND LIM.Fk_LabelDetailId IN (
+                                                  SELECT    Pk_LabelDetailId_Num
+                                                  FROM      dbo.Label_Items
+                                                  WHERE     fk_LabelId_num = 1 )
+        LEFT JOIN dbo.Label_Items AS litems ON litems.Pk_LabelDetailId_Num = LIM.Fk_LabelDetailId
+                                               AND litems.fk_LabelId_num = 1
+        LEFT JOIN dbo.Label_Master AS BrandMaster ON BrandMaster.Pk_LabelId_Num = litems.fk_LabelId_num
+                                                     AND BrandMaster.Pk_LabelId_Num = 1    
                                 where 1=1"
+
+        Dim str = frm_Show_search.qry
 
         frm_Show_search.column_name = "BARCODE_VCH"
         frm_Show_search.column_name1 = "ITEM_NAME"
@@ -474,7 +498,6 @@ Public Class frm_Item_Master
         frm_Show_search.ret_column = "ITEM_ID"
         frm_Show_search.item_rate_column = ""
         frm_Show_search.ShowDialog()
-
         get_row(frm_Show_search.search_result)
         frm_Show_search.Close()
 
