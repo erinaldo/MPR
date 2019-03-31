@@ -933,8 +933,16 @@ restart:
                                         FROM Item_master im
                                         LEFT OUTER JOIN item_detail id ON im.item_id = id.item_id
                                         LEFT OUTER JOIN dbo.ITEM_CATEGORY ic ON im.ITEM_CATEGORY_ID = ic.ITEM_CAT_ID
-                                        LEFT OUTER JOIN dbo.LabelItem_Mapping lim ON lim.Fk_ItemId_Num = im.ITEM_ID
-                                        LEFT OUTER JOIN dbo.Label_Items litems ON lim.Fk_LabelDetailId = litems.Pk_LabelDetailId_Num
+
+        LEFT JOIN dbo.LabelItem_Mapping AS LIM ON LIM.Fk_ItemId_Num = IM.ITEM_ID        
+                                                  AND LIM.Fk_LabelDetailId IN (
+                                                  SELECT    Pk_LabelDetailId_Num
+                                                  FROM      dbo.Label_Items
+                                                  WHERE     fk_LabelId_num = 1 )
+        LEFT JOIN dbo.Label_Items AS litems ON litems.Pk_LabelDetailId_Num = LIM.Fk_LabelDetailId
+                                               AND litems.fk_LabelId_num = 1
+        LEFT JOIN dbo.Label_Master AS BrandMaster ON BrandMaster.Pk_LabelId_Num = litems.fk_LabelId_num
+                                                     AND BrandMaster.Pk_LabelId_Num = 1
                                         INNER JOIN dbo.SUPPLIER_RATE_LIST_DETAIL As SRLD On SRLD.ITEM_ID = IM.ITEM_ID
                                         INNER JOIN dbo.SUPPLIER_RATE_LIST As SRL On SRL.SRL_ID=SRLD.SRL_ID 
                                         where srl.supp_id = " & cmbSupplier.SelectedValue & " And srl.active = 1 and  id.Is_active = 1 AND SRL.SRL_ID NOT IN(SELECT SRL_ID FROM dbo.CUSTOMER_RATE_LIST_MAPPING)"
