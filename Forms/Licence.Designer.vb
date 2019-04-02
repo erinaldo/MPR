@@ -186,12 +186,12 @@ Partial Class Licence
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.ClientSize = New System.Drawing.Size(800, 175)
+        Me.Controls.Add(Me.pnlRenew)
         Me.Controls.Add(Me.lblExpireDate)
         Me.Controls.Add(Me.btnClose)
         Me.Controls.Add(Me.btnRenewSettings)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.lblLicnceSMS)
-        Me.Controls.Add(Me.pnlRenew)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Name = "Licence"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen

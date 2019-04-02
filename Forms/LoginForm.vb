@@ -30,15 +30,15 @@ Public Class LoginForm
     Dim IsOnExpire As Boolean
     Public Sub LicenceValidate()
 
-        Dim chkDate As Date = obj.ExecuteScalar("SELECT TOP 1 CAST(SI_DATE AS DATE) FROM dbo.SALE_INVOICE_MASTER ORDER BY SI_ID DESC")
+        Dim chkDate As Date = obj.ExecuteScalar("SELECT TOP 1 CAST(SI_DATE AS DATE) FROM dbo.SALE_INVOICE_MASTER where si_id>10 ORDER BY SI_ID DESC")
 
-        If chkDate.ToString.Length = 0 Then
+        If chkDate.ToString() Is Nothing Then
             chkDate = Date.Now.ToString("dd-MMM-yyyy")
         End If
 
         Dim GetKey As String = obj.ExecuteScalar("SELECT D1 FROM templd")
 
-        If GetKey.ToString.Length > 0 Then
+        If Not String.IsNullOrEmpty(GetKey) Then
 
             Dim StrKey() As String = Decrypt(GetKey, Lockkey).Split(",")
 
