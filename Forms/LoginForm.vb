@@ -63,17 +63,17 @@ Public Class LoginForm
     Private Sub OK_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OK.Click
         Try
 
-            LicenceValidate()
+            'LicenceValidate()
 
-            If IsLicenceValid = False Then
-                Licence.Show()
-                Me.Close()
-                Exit Sub
-            End If
+            'If IsLicenceValid = False Then
+            '    Licence.Show()
+            '    Me.Close()
+            '    Exit Sub
+            'End If
 
-            If IsOnExpire = True Then
-                Licence.Show()
-            End If
+            'If IsOnExpire = True Then
+            '    Licence.Show()
+            'End If
 
 
             Dim result As Integer
