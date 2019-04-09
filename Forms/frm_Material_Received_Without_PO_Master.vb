@@ -1246,6 +1246,7 @@ restart:
             txtCashDiscount.Text = Convert.ToString(dtMRN.Rows(0)("CashDiscount_amt"))
             dt_Invoice_Date.Value = dtMRN.Rows(0)("Invoice_Date")
             txt_Invoice_No.Text = dtMRN.Rows(0)("Invoice_No")
+
             If (dtMRN.Rows(0)("FreightTaxApplied") = True) Then
                 chk_ApplyTax.Checked = True
             Else
