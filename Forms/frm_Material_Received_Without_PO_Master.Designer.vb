@@ -986,7 +986,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(60, 14)
         Me.Label9.TabIndex = 46
-        Me.Label9.Text = "Frieght :"
+        Me.Label9.Text = "Freight :"
         '
         'cmb_MRNAgainst
         '

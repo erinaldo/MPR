@@ -12,6 +12,7 @@ Public Class frm_Sale_Invoice
     Dim flag As String
     Dim Si_ID As Int16
     Dim Si_No As Int16
+    Dim EcomVendor_ID As Int16 = 0
     Dim gstnoRegex As New Regex("^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$")
     Dim mobileRegex As New Regex("^\d{10}$")
     Dim dtable_Item_List As DataTable
@@ -174,6 +175,18 @@ Public Class frm_Sale_Invoice
             prpty.Flag = 0
             prpty.dtable_Item_List = dtable_Item_List
 
+            prpty.ConsumerHeadID = EcomVendor_ID
+            If chk_ApplyTax.Checked = True Then
+                prpty.Freight_TaxApplied = 1
+                prpty.Freight_TaxValue = Convert.ToDouble(lblFreightTaxTotal.Text)
+            Else
+                prpty.Freight_TaxApplied = 0
+                prpty.Freight_TaxValue = 0.00
+            End If
+            prpty.freight_type = "A"
+            prpty.freight = Convert.ToDecimal(txtAmount.Text)
+
+
             If flag = "save" Then
 
                 clsObj.Insert_SALE_INVOICE_MASTER(prpty)
@@ -225,8 +238,9 @@ Public Class frm_Sale_Invoice
         txtvechicle_no.Text = ""
         txtGstNo.Text = ""
         txtTransport.Text = ""
-        txt_LRNO.Text = ""
         txtRemarks.Text = ""
+        chk_ApplyTax.Checked = False
+        btnSetEcomVendor.Text = "SETECOMMERCE"
         cmbinvtype.SelectedIndex = 0
         dtable_Item_List.Rows.Clear()
         'dtable_Item_List.Rows.Add()
@@ -880,6 +894,19 @@ WHERE   ( SUPPLIER_RATE_LIST_DETAIL.ITEM_ID =" & Convert.ToInt32(item_id) & " )
             txt_LRNO.Text = dr("LR_NO")
             cmbinvtype.Text = dr("INV_TYPE")
             txtEwayBillNo.Text = dr("EwayBillNo")
+            txtAmount.Text = Convert.ToString(dr("freight"))
+            If (dr("FreightTaxApplied") = True) Then
+                chk_ApplyTax.Checked = True
+            Else
+                chk_ApplyTax.Checked = False
+            End If
+            EcomVendor_ID = dr("ConsumerHeadID")
+
+            If (EcomVendor_ID > 0) Then
+                btnSetEcomVendor.Text = dr("ConsumerHeadName")
+            End If
+
+
             dtable_Item_List = clsObj.fill_Data_set("GET_INV_ITEM_DETAILS", "@V_SI_ID", strSIID).Tables(0)
             flxItems.DataSource = dtable_Item_List
             format_grid()
@@ -969,6 +996,20 @@ WHERE   ( SUPPLIER_RATE_LIST_DETAIL.ITEM_ID =" & Convert.ToInt32(item_id) & " )
         Dim CessTotal As Decimal = 0
         Dim Tax As Decimal = 0
 
+
+        Dim TaxAmount As Decimal = 0
+        Dim FreightTaxAmount As Decimal = 0
+        Dim FreightTaxAmount0 As Decimal = 0
+        Dim FreightTaxAmount3 As Decimal = 0
+        Dim FreightTaxAmount5 As Decimal = 0
+        Dim FreightTaxAmount12 As Decimal = 0
+        Dim FreightTaxAmount18 As Decimal = 0
+        Dim FreightTaxAmount28 As Decimal = 0
+
+        Dim FreightTaxTotal As Decimal = 0
+
+
+
         Dim iRow As Integer = 0
 
         For iRow = 1 To flxItems.Rows.Count - 1
@@ -986,7 +1027,28 @@ WHERE   ( SUPPLIER_RATE_LIST_DETAIL.ITEM_ID =" & Convert.ToInt32(item_id) & " )
                     totalAmount -= (totalAmount - (totalAmount / (1 + (flxItems.Item(iRow, "GST") / 100))))
                 End If
 
-                Tax = totalAmount * flxItems.Item(iRow, "GST") / 100
+
+                If chk_ApplyTax.Checked Then
+                    TaxAmount = totalAmount / Convert.ToDouble(lblItemValue.Text) * Convert.ToDouble(txtAmount.Text)
+                    If cmbinvtype.SelectedItem = "IGST" Then
+                        FreightTaxAmount = Math.Round((TaxAmount) * (flxItems.Rows(iRow).Item("GST") / 100), 2)
+                    Else
+                        Dim CgstandSgst As Decimal = Math.Round((TaxAmount * ((flxItems.Rows(iRow).Item("GST") / 2) / 100)), 2)
+                        FreightTaxAmount = Math.Round(CgstandSgst * 2, 2)
+                    End If
+
+                End If
+
+
+
+
+                'Tax = totalAmount * flxItems.Item(iRow, "GST") / 100
+                Tax = flxItems.Rows(iRow).Item("GST_Amount")
+                Tax = Tax + FreightTaxAmount
+
+                FreightTaxTotal += FreightTaxAmount
+                totalAmount = totalAmount + TaxAmount
+
 
                 GSTTaxTotal += Tax
 
@@ -1012,6 +1074,9 @@ WHERE   ( SUPPLIER_RATE_LIST_DETAIL.ITEM_ID =" & Convert.ToInt32(item_id) & " )
                 End Select
             End If
         Next
+
+        lblVatAmount.Text = GSTTaxTotal
+        lblFreightTaxTotal.Text = Math.Round(FreightTaxTotal, 2)
 
         lblGST0.Text = String.Format("0% - {0:0.00} @ {1}", Math.Round(GSTAmount0, 2), Math.Round(GSTTax0, 2))
         lblGST3.Text = String.Format("3% - {0:0.00} @ {1}", Math.Round(GSTAmount3, 2), Math.Round(GSTTax3, 2))
@@ -1129,9 +1194,12 @@ WHERE   ( SUPPLIER_RATE_LIST_DETAIL.ITEM_ID =" & Convert.ToInt32(item_id) & " )
             lblVatAmount.Text = total_vat_amount.ToString("#0.00")
             lblCessAmount.Text = total_cess_amount.ToString("#0.00")
             lblACessAmount.Text = total_Acess_amount.ToString("#0.00")
-            lblNetAmount.Text = (total_item_value - totdiscamt + total_vat_amount + total_cess_amount + total_Acess_amount + total_exice_amount).ToString("#0.00")
+            ' lblNetAmount.Text = (total_item_value - totdiscamt + total_vat_amount + total_cess_amount + total_Acess_amount + total_exice_amount).ToString("#0.00")
             Str = total_item_value.ToString("#0.00") + "," + total_vat_amount.ToString("#0.00") + "," + total_cess_amount.ToString("#0.00") + "," + total_Acess_amount.ToString("#0.00") + "," + lblNetAmount.Text + "," + total_exice_amount.ToString()
             SetGstLabels()
+            lblNetAmount.Text = (total_item_value - totdiscamt + Convert.ToDouble(IIf(IsNumeric(lblVatAmount.Text), lblVatAmount.Text, 0)) + total_cess_amount + total_Acess_amount + total_exice_amount + Convert.ToDouble(IIf(IsNumeric(txtAmount.Text), txtAmount.Text, 0))).ToString("#0.00")
+
+
             Return Str
         Catch ex As Exception
             'MsgBox(ex.Message)
@@ -1219,4 +1287,28 @@ WHERE   ( SUPPLIER_RATE_LIST_DETAIL.ITEM_ID =" & Convert.ToInt32(item_id) & " )
         End If
     End Sub
 
+    Private Sub btnSetEcomVendor_Click(sender As Object, e As EventArgs) Handles btnSetEcomVendor.Click
+        Dim frm_SetEcommerce_Vendor As frm_SetEcommerce_Vendor = New frm_SetEcommerce_Vendor()
+        frm_SetEcommerce_Vendor.ShowDialog()
+        If frm_SetEcommerce_Vendor.Vendor_ID > 0 Then
+            EcomVendor_ID = frm_SetEcommerce_Vendor.Vendor_ID
+            btnSetEcomVendor.Text = frm_SetEcommerce_Vendor.Vendor_Name.ToUpper()
+
+        Else
+            EcomVendor_ID = frm_SetEcommerce_Vendor.Vendor_ID
+            btnSetEcomVendor.Text = "SETECOMMERCE"
+        End If
+    End Sub
+
+    Private Sub chk_ApplyTax_CheckedChanged(sender As Object, e As EventArgs) Handles chk_ApplyTax.CheckedChanged
+        CalculateAmount()
+    End Sub
+
+    Private Sub txtAmount_Leave(sender As Object, e As EventArgs) Handles txtAmount.Leave
+        If String.IsNullOrEmpty(txtAmount.Text) Then
+            txtAmount.Text = "0.00"
+        Else
+            CalculateAmount()
+        End If
+    End Sub
 End Class

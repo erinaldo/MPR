@@ -193,7 +193,7 @@ AS
             @V_Division_ID, @SI_ID, 16, @TransactionDate, @V_Created_BY     
             
                 
-    END 
+    END
 	Go
 ---------------------------------------------------------------------------------------------------------------------------
 ALTER PROCEDURE [dbo].[PROC_OUTSIDE_SALE_MASTER_SALE_NEW]

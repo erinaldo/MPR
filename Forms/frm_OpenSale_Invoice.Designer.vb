@@ -684,7 +684,7 @@ Partial Class frm_openSale_Invoice
         Me.Label21.Name = "Label21"
         Me.Label21.Size = New System.Drawing.Size(60, 14)
         Me.Label21.TabIndex = 296
-        Me.Label21.Text = "Frieght :"
+        Me.Label21.Text = "Freight :"
         '
         'txtRemarks
         '

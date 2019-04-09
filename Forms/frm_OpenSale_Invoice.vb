@@ -120,7 +120,6 @@ Public Class frm_openSale_Invoice
                 Si_ID = Convert.ToInt32(ds1.Tables(0).Rows(0)(0))
             End If
             prpty.SI_ID = Si_ID
-
             Dim ds As New DataSet()
             ds = obj.fill_Data_set("GET_INV_NO", "@DIV_ID", v_the_current_division_id)
             If ds.Tables(0).Rows.Count = 0 Then
@@ -195,7 +194,7 @@ Public Class frm_openSale_Invoice
             prpty.LR_NO = txtLRNO.Text
             prpty.Flag = 1
             prpty.dtable_Item_List = dtable_Item_List
-
+            prpty.ConsumerHeadID = EcomVendor_ID
             If chk_ApplyTax.Checked = True Then
                 prpty.Freight_TaxApplied = 1
                 prpty.Freight_TaxValue = Convert.ToDouble(lblFreightTaxTotal.Text)
@@ -1311,6 +1310,7 @@ restart:
 
         Else
             EcomVendor_ID = frm_SetEcommerce_Vendor.Vendor_ID
+            btnSetEcomVendor.Text = "SETECOMMERCE"
         End If
 
     End Sub
