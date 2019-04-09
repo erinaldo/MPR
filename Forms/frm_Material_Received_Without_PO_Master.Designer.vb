@@ -340,7 +340,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.dgvList.BackgroundColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.dgvList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvList.GridColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.dgvList.Location = New System.Drawing.Point(2, 16)
+        Me.dgvList.Location = New System.Drawing.Point(6, 18)
         Me.dgvList.Name = "dgvList"
         Me.dgvList.ReadOnly = True
         Me.dgvList.RowHeadersVisible = False
@@ -468,6 +468,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.MRNdtDate.CalendarForeColor = System.Drawing.Color.White
         Me.MRNdtDate.CalendarMonthBackground = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.MRNdtDate.CustomFormat = "dd-MMM-yyyy"
+        Me.MRNdtDate.Enabled = False
         Me.MRNdtDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.MRNdtDate.Location = New System.Drawing.Point(475, 21)
         Me.MRNdtDate.Name = "MRNdtDate"
@@ -493,7 +494,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.lblSelectCapitalAccount.ForeColor = System.Drawing.Color.White
         Me.lblSelectCapitalAccount.Location = New System.Drawing.Point(379, 116)
         Me.lblSelectCapitalAccount.Name = "lblSelectCapitalAccount"
-        Me.lblSelectCapitalAccount.Size = New System.Drawing.Size(92, 15)
+        Me.lblSelectCapitalAccount.Size = New System.Drawing.Size(93, 15)
         Me.lblSelectCapitalAccount.TabIndex = 39
         Me.lblSelectCapitalAccount.Text = "Select Account :"
         '
@@ -527,9 +528,9 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.chk_Composition.ForeColor = System.Drawing.Color.White
         Me.chk_Composition.Location = New System.Drawing.Point(734, 113)
         Me.chk_Composition.Name = "chk_Composition"
-        Me.chk_Composition.Size = New System.Drawing.Size(127, 19)
+        Me.chk_Composition.Size = New System.Drawing.Size(141, 19)
         Me.chk_Composition.TabIndex = 8
-        Me.chk_Composition.Text = "Composite Dealer"
+        Me.chk_Composition.Text = "Composite / UN / Nill"
         Me.chk_Composition.UseVisualStyleBackColor = True
         '
         'txtBarcodeSearch
@@ -575,7 +576,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.Label49.ForeColor = System.Drawing.Color.White
         Me.Label49.Location = New System.Drawing.Point(639, 86)
         Me.Label49.Name = "Label49"
-        Me.Label49.Size = New System.Drawing.Size(68, 15)
+        Me.Label49.Size = New System.Drawing.Size(69, 15)
         Me.Label49.TabIndex = 34
         Me.Label49.Text = "MRN Type :"
         '
@@ -653,7 +654,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.Label2.ForeColor = System.Drawing.Color.White
         Me.Label2.Location = New System.Drawing.Point(13, 54)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(100, 15)
+        Me.Label2.Size = New System.Drawing.Size(101, 15)
         Me.Label2.TabIndex = 2
         Me.Label2.Text = "Vendor/Supplier :"
         '
@@ -676,7 +677,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.Label1.ForeColor = System.Drawing.Color.White
         Me.Label1.Location = New System.Drawing.Point(13, 24)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(94, 15)
+        Me.Label1.Size = New System.Drawing.Size(95, 15)
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "Purchase Type :"
         '
@@ -687,7 +688,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.chk_VatCal.ForeColor = System.Drawing.Color.White
         Me.chk_VatCal.Location = New System.Drawing.Point(734, 142)
         Me.chk_VatCal.Name = "chk_VatCal"
-        Me.chk_VatCal.Size = New System.Drawing.Size(153, 19)
+        Me.chk_VatCal.Size = New System.Drawing.Size(154, 19)
         Me.chk_VatCal.TabIndex = 32
         Me.chk_VatCal.Text = "Calculate Vat on Excise"
         Me.chk_VatCal.UseVisualStyleBackColor = True
@@ -748,7 +749,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.chk_ApplyTax.ForeColor = System.Drawing.Color.White
         Me.chk_ApplyTax.Location = New System.Drawing.Point(728, 402)
         Me.chk_ApplyTax.Name = "chk_ApplyTax"
-        Me.chk_ApplyTax.Size = New System.Drawing.Size(76, 19)
+        Me.chk_ApplyTax.Size = New System.Drawing.Size(77, 19)
         Me.chk_ApplyTax.TabIndex = 6
         Me.chk_ApplyTax.Text = "Apply Tax"
         Me.chk_ApplyTax.UseVisualStyleBackColor = True
@@ -945,7 +946,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.Label11.ForeColor = System.Drawing.Color.White
         Me.Label11.Location = New System.Drawing.Point(186, 449)
         Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(83, 15)
+        Me.Label11.Size = New System.Drawing.Size(84, 15)
         Me.Label11.TabIndex = 52
         Me.Label11.Text = "Exice Amount:"
         Me.Label11.Visible = False
@@ -1037,7 +1038,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.Label10.ForeColor = System.Drawing.Color.White
         Me.Label10.Location = New System.Drawing.Point(6, 387)
         Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(83, 15)
+        Me.Label10.Size = New System.Drawing.Size(84, 15)
         Me.Label10.TabIndex = 43
         Me.Label10.Text = "MRN Against :"
         '
@@ -1049,8 +1050,6 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.Panel17.Size = New System.Drawing.Size(117, 1)
         Me.Panel17.TabIndex = 6
         '
-        Me.MRNdtDate.Enabled = False
-        Me.chk_Composition.Text = "Composite / UN / Nill"
         'txtotherchrgs
         '
         Me.txtotherchrgs.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))

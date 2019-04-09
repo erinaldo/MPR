@@ -11,6 +11,8 @@ Namespace Sale_Invoice
         Dim _DC_GST_NO As Double
         Dim _SI_DATE As DateTime
         Dim _CUST_ID As Int32
+        Dim _ConsumerHeadID As Int32
+
         Dim _INVOICE_STATUS As Int32
         Dim _REMARKS As String
         Dim _PAYMENTS_REMARKS As String
@@ -40,6 +42,56 @@ Namespace Sale_Invoice
         Dim _DataTable As DataTable
 
         Dim _EwayBill_NO As String
+        Dim _Freight_TaxApplied As String
+        Dim _Freight_TaxValue As Double
+        Dim _freight As Double
+        Dim _freight_type As String
+
+
+        Public Property ConsumerHeadID() As Int32
+            Get
+                ConsumerHeadID = _ConsumerHeadID
+            End Get
+            Set(ByVal value As Int32)
+                _ConsumerHeadID = value
+            End Set
+        End Property
+
+        Public Property Freight_TaxApplied() As String
+            Get
+                Freight_TaxApplied = _Freight_TaxApplied
+            End Get
+            Set(ByVal value As String)
+                _Freight_TaxApplied = value
+            End Set
+        End Property
+
+        Public Property Freight_TaxValue() As Double
+            Get
+                Freight_TaxValue = _Freight_TaxValue
+            End Get
+            Set(ByVal value As Double)
+                _Freight_TaxValue = value
+            End Set
+        End Property
+
+        Public Property freight_type() As String
+            Get
+                freight_type = _freight_type
+            End Get
+            Set(ByVal value As String)
+                _freight_type = value
+            End Set
+        End Property
+
+        Public Property freight() As Double
+            Get
+                freight = _freight
+            End Get
+            Set(ByVal value As Double)
+                _freight = value
+            End Set
+        End Property
 
         Public Property EwayBill_NO() As String
             Get
@@ -361,6 +413,11 @@ Namespace Sale_Invoice
                 cmd.Parameters.AddWithValue("@v_SHIPP_ADD_ID", clsobj.SHIPP_ADD_ID)
                 cmd.Parameters.AddWithValue("@v_INV_TYPE", clsobj.INV_TYPE)
                 cmd.Parameters.AddWithValue("@v_LR_NO", clsobj.LR_NO)
+                cmd.Parameters.AddWithValue("@V_freight", clsobj.freight)
+                cmd.Parameters.AddWithValue("@V_freight_type", clsobj.freight_type)
+                cmd.Parameters.AddWithValue("@V_FreightTaxApplied", clsobj.Freight_TaxApplied)
+                cmd.Parameters.AddWithValue("@V_FreightTaxValue", clsobj.Freight_TaxValue)
+                cmd.Parameters.AddWithValue("@V_ConsumerHeadID", clsobj.ConsumerHeadID)
                 cmd.Parameters.AddWithValue("@V_MODE", 1)
                 cmd.Parameters.AddWithValue("@V_Flag", clsobj.Flag)
                 cmd.ExecuteNonQuery()
@@ -910,6 +967,11 @@ again:
                 cmd.Parameters.AddWithValue("@v_SHIPP_ADD_ID", clsobj.SHIPP_ADD_ID)
                 cmd.Parameters.AddWithValue("@v_INV_TYPE", clsobj.INV_TYPE)
                 cmd.Parameters.AddWithValue("@v_LR_NO", clsobj.LR_NO)
+                cmd.Parameters.AddWithValue("@V_freight", clsobj.freight)
+                cmd.Parameters.AddWithValue("@V_freight_type", clsobj.freight_type)
+                cmd.Parameters.AddWithValue("@V_FreightTaxApplied", clsobj.Freight_TaxApplied)
+                cmd.Parameters.AddWithValue("@V_FreightTaxValue", clsobj.Freight_TaxValue)
+                cmd.Parameters.AddWithValue("@V_ConsumerHeadID", clsobj.ConsumerHeadID)
                 cmd.Parameters.AddWithValue("@V_MODE", 2)
                 cmd.Parameters.AddWithValue("@v_EwayBill_NO", clsobj.EwayBill_NO)
                 cmd.ExecuteNonQuery()
