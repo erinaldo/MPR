@@ -20,7 +20,7 @@ Partial Class frm_Sale_Invoice
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frm_Sale_Invoice))
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.List = New System.Windows.Forms.TabPage()
@@ -95,6 +95,11 @@ Partial Class frm_Sale_Invoice
         Me.flxItems = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
         Me.CachedCryCustomerrateList1 = New MMSPlus.CachedCryCustomerrateList()
+        Me.txtAmount = New System.Windows.Forms.TextBox()
+        Me.chk_ApplyTax = New System.Windows.Forms.CheckBox()
+        Me.Label21 = New System.Windows.Forms.Label()
+        Me.lblFreightTaxTotal = New System.Windows.Forms.Label()
+        Me.btnSetEcomVendor = New System.Windows.Forms.Button()
         Me.TabControl1.SuspendLayout()
         Me.List.SuspendLayout()
         Me.GBMRSDetail.SuspendLayout()
@@ -186,12 +191,12 @@ Partial Class frm_Sale_Invoice
         Me.flxList.Location = New System.Drawing.Point(3, 16)
         Me.flxList.Name = "flxList"
         Me.flxList.RowHeadersVisible = False
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black
-        Me.flxList.RowsDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle6.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
+        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.Black
+        Me.flxList.RowsDefaultCellStyle = DataGridViewCellStyle6
         Me.flxList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.flxList.Size = New System.Drawing.Size(858, 422)
         Me.flxList.TabIndex = 0
@@ -242,6 +247,7 @@ Partial Class frm_Sale_Invoice
         '
         'GBDCMASTER
         '
+        Me.GBDCMASTER.Controls.Add(Me.btnSetEcomVendor)
         Me.GBDCMASTER.Controls.Add(Me.cmbSupplier)
         Me.GBDCMASTER.Controls.Add(Me.lblFormHeading)
         Me.GBDCMASTER.Controls.Add(Me.txtBarcodeSearch)
@@ -441,7 +447,7 @@ Partial Class frm_Sale_Invoice
         Me.Label4.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label4.Location = New System.Drawing.Point(585, 121)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(79, 15)
+        Me.Label4.Size = New System.Drawing.Size(80, 15)
         Me.Label4.TabIndex = 0
         Me.Label4.Text = "Invoice Type :"
         '
@@ -519,6 +525,10 @@ Partial Class frm_Sale_Invoice
         '
         'GBItemInfo
         '
+        Me.GBItemInfo.Controls.Add(Me.lblFreightTaxTotal)
+        Me.GBItemInfo.Controls.Add(Me.txtAmount)
+        Me.GBItemInfo.Controls.Add(Me.chk_ApplyTax)
+        Me.GBItemInfo.Controls.Add(Me.Label21)
         Me.GBItemInfo.Controls.Add(Me.txtRemarks)
         Me.GBItemInfo.Controls.Add(Me.Label20)
         Me.GBItemInfo.Controls.Add(Me.txtEwayBillNo)
@@ -613,7 +623,7 @@ Partial Class frm_Sale_Invoice
         '
         Me.lblGSTDetail.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblGSTDetail.ForeColor = System.Drawing.Color.Orange
-        Me.lblGSTDetail.Location = New System.Drawing.Point(716, 317)
+        Me.lblGSTDetail.Location = New System.Drawing.Point(716, 328)
         Me.lblGSTDetail.Name = "lblGSTDetail"
         Me.lblGSTDetail.Size = New System.Drawing.Size(182, 37)
         Me.lblGSTDetail.TabIndex = 278
@@ -771,7 +781,7 @@ Partial Class frm_Sale_Invoice
         '
         Me.lblACessAmount.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblACessAmount.ForeColor = System.Drawing.Color.Orange
-        Me.lblACessAmount.Location = New System.Drawing.Point(780, 373)
+        Me.lblACessAmount.Location = New System.Drawing.Point(780, 384)
         Me.lblACessAmount.Name = "lblACessAmount"
         Me.lblACessAmount.Size = New System.Drawing.Size(118, 20)
         Me.lblACessAmount.TabIndex = 23
@@ -782,7 +792,7 @@ Partial Class frm_Sale_Invoice
         '
         Me.Label17.AutoSize = True
         Me.Label17.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label17.Location = New System.Drawing.Point(706, 378)
+        Me.Label17.Location = New System.Drawing.Point(706, 389)
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(50, 15)
         Me.Label17.TabIndex = 22
@@ -806,7 +816,7 @@ Partial Class frm_Sale_Invoice
         Me.Label2.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label2.Location = New System.Drawing.Point(16, 353)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(73, 15)
+        Me.Label2.Size = New System.Drawing.Size(74, 15)
         Me.Label2.TabIndex = 0
         Me.Label2.Text = "Vehicle NO :"
         '
@@ -814,7 +824,7 @@ Partial Class frm_Sale_Invoice
         '
         Me.lblCessAmount.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblCessAmount.ForeColor = System.Drawing.Color.Orange
-        Me.lblCessAmount.Location = New System.Drawing.Point(793, 352)
+        Me.lblCessAmount.Location = New System.Drawing.Point(793, 363)
         Me.lblCessAmount.Name = "lblCessAmount"
         Me.lblCessAmount.Size = New System.Drawing.Size(105, 20)
         Me.lblCessAmount.TabIndex = 21
@@ -825,7 +835,7 @@ Partial Class frm_Sale_Invoice
         '
         Me.Label13.AutoSize = True
         Me.Label13.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label13.Location = New System.Drawing.Point(706, 357)
+        Me.Label13.Location = New System.Drawing.Point(706, 368)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(43, 15)
         Me.Label13.TabIndex = 20
@@ -846,7 +856,7 @@ Partial Class frm_Sale_Invoice
         '
         Me.Label12.AutoSize = True
         Me.Label12.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label12.Location = New System.Drawing.Point(706, 400)
+        Me.Label12.Location = New System.Drawing.Point(706, 411)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(62, 15)
         Me.Label12.TabIndex = 10
@@ -856,7 +866,7 @@ Partial Class frm_Sale_Invoice
         '
         Me.lblTotalDisc.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblTotalDisc.ForeColor = System.Drawing.Color.Orange
-        Me.lblTotalDisc.Location = New System.Drawing.Point(790, 394)
+        Me.lblTotalDisc.Location = New System.Drawing.Point(790, 405)
         Me.lblTotalDisc.Name = "lblTotalDisc"
         Me.lblTotalDisc.Size = New System.Drawing.Size(108, 20)
         Me.lblTotalDisc.TabIndex = 11
@@ -882,7 +892,7 @@ Partial Class frm_Sale_Invoice
         '
         Me.lblNetAmount.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblNetAmount.ForeColor = System.Drawing.Color.Lime
-        Me.lblNetAmount.Location = New System.Drawing.Point(794, 422)
+        Me.lblNetAmount.Location = New System.Drawing.Point(794, 433)
         Me.lblNetAmount.Name = "lblNetAmount"
         Me.lblNetAmount.Size = New System.Drawing.Size(104, 20)
         Me.lblNetAmount.TabIndex = 3
@@ -893,7 +903,7 @@ Partial Class frm_Sale_Invoice
         '
         Me.Label5.AutoSize = True
         Me.Label5.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label5.Location = New System.Drawing.Point(706, 425)
+        Me.Label5.Location = New System.Drawing.Point(706, 436)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(79, 15)
         Me.Label5.TabIndex = 4
@@ -903,7 +913,7 @@ Partial Class frm_Sale_Invoice
         '
         Me.lblVatAmount.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblVatAmount.ForeColor = System.Drawing.Color.Orange
-        Me.lblVatAmount.Location = New System.Drawing.Point(797, 297)
+        Me.lblVatAmount.Location = New System.Drawing.Point(797, 308)
         Me.lblVatAmount.Name = "lblVatAmount"
         Me.lblVatAmount.Size = New System.Drawing.Size(101, 20)
         Me.lblVatAmount.TabIndex = 5
@@ -925,9 +935,9 @@ Partial Class frm_Sale_Invoice
         '
         Me.Label6.AutoSize = True
         Me.Label6.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label6.Location = New System.Drawing.Point(706, 301)
+        Me.Label6.Location = New System.Drawing.Point(706, 312)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(66, 15)
+        Me.Label6.Size = New System.Drawing.Size(67, 15)
         Me.Label6.TabIndex = 7
         Me.Label6.Text = "GST Total :"
         '
@@ -964,6 +974,69 @@ Partial Class frm_Sale_Invoice
         Me.ImageList1.TransparentColor = System.Drawing.Color.Transparent
         Me.ImageList1.Images.SetKeyName(0, "Zoom_search_find_magnifying_glass.png")
         Me.ImageList1.Images.SetKeyName(1, "Inventory_box_shipment_product.png")
+        '
+        'txtAmount
+        '
+        Me.txtAmount.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.txtAmount.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.txtAmount.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtAmount.ForeColor = System.Drawing.Color.Orange
+        Me.txtAmount.Location = New System.Drawing.Point(814, 290)
+        Me.txtAmount.Name = "txtAmount"
+        Me.txtAmount.Size = New System.Drawing.Size(85, 18)
+        Me.txtAmount.TabIndex = 297
+        Me.txtAmount.Tag = ""
+        Me.txtAmount.Text = "0.00"
+        Me.txtAmount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'chk_ApplyTax
+        '
+        Me.chk_ApplyTax.AutoSize = True
+        Me.chk_ApplyTax.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.chk_ApplyTax.ForeColor = System.Drawing.Color.White
+        Me.chk_ApplyTax.Location = New System.Drawing.Point(751, 292)
+        Me.chk_ApplyTax.Name = "chk_ApplyTax"
+        Me.chk_ApplyTax.Size = New System.Drawing.Size(62, 19)
+        Me.chk_ApplyTax.TabIndex = 298
+        Me.chk_ApplyTax.Text = "Ap/Tax"
+        Me.chk_ApplyTax.UseVisualStyleBackColor = True
+        '
+        'Label21
+        '
+        Me.Label21.AutoSize = True
+        Me.Label21.Font = New System.Drawing.Font("Verdana", 9.0!)
+        Me.Label21.ForeColor = System.Drawing.Color.White
+        Me.Label21.Location = New System.Drawing.Point(701, 293)
+        Me.Label21.Name = "Label21"
+        Me.Label21.Size = New System.Drawing.Size(60, 14)
+        Me.Label21.TabIndex = 299
+        Me.Label21.Text = "Freight :"
+        '
+        'lblFreightTaxTotal
+        '
+        Me.lblFreightTaxTotal.AutoSize = True
+        Me.lblFreightTaxTotal.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblFreightTaxTotal.ForeColor = System.Drawing.Color.White
+        Me.lblFreightTaxTotal.Location = New System.Drawing.Point(15, 426)
+        Me.lblFreightTaxTotal.Name = "lblFreightTaxTotal"
+        Me.lblFreightTaxTotal.Size = New System.Drawing.Size(35, 14)
+        Me.lblFreightTaxTotal.TabIndex = 300
+        Me.lblFreightTaxTotal.Text = "0.00"
+        Me.lblFreightTaxTotal.Visible = False
+        '
+        'btnSetEcomVendor
+        '
+        Me.btnSetEcomVendor.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.btnSetEcomVendor.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black
+        Me.btnSetEcomVendor.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Lime
+        Me.btnSetEcomVendor.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnSetEcomVendor.Font = New System.Drawing.Font("Verdana", 6.25!)
+        Me.btnSetEcomVendor.Location = New System.Drawing.Point(844, 8)
+        Me.btnSetEcomVendor.Name = "btnSetEcomVendor"
+        Me.btnSetEcomVendor.Size = New System.Drawing.Size(22, 158)
+        Me.btnSetEcomVendor.TabIndex = 62
+        Me.btnSetEcomVendor.Text = "SETECOMMERCE"
+        Me.btnSetEcomVendor.UseVisualStyleBackColor = False
         '
         'frm_Sale_Invoice
         '
@@ -1061,4 +1134,9 @@ Partial Class frm_Sale_Invoice
     Friend WithEvents cmbSupplier As AutoCompleteCombo
     Friend WithEvents txtRemarks As TextBox
     Friend WithEvents Label20 As Label
+    Friend WithEvents txtAmount As TextBox
+    Friend WithEvents chk_ApplyTax As CheckBox
+    Friend WithEvents Label21 As Label
+    Friend WithEvents lblFreightTaxTotal As Label
+    Friend WithEvents btnSetEcomVendor As Button
 End Class
