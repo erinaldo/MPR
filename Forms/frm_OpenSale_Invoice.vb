@@ -1310,7 +1310,12 @@ restart:
 
         Else
             EcomVendor_ID = frm_SetEcommerce_Vendor.Vendor_ID
-            btnSetEcomVendor.Text = "SETECOMMERCE"
+            btnSetEcomVendor.Text = "Set
+
+E-Com
+merce
+
+Vendor"
         End If
 
     End Sub

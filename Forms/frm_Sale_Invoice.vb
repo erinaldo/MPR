@@ -240,7 +240,12 @@ Public Class frm_Sale_Invoice
         txtTransport.Text = ""
         txtRemarks.Text = ""
         chk_ApplyTax.Checked = False
-        btnSetEcomVendor.Text = "SETECOMMERCE"
+        btnSetEcomVendor.Text = "Set
+
+E-Com
+merce
+
+Vendor"
         cmbinvtype.SelectedIndex = 0
         dtable_Item_List.Rows.Clear()
         'dtable_Item_List.Rows.Add()
@@ -1292,11 +1297,16 @@ WHERE   ( SUPPLIER_RATE_LIST_DETAIL.ITEM_ID =" & Convert.ToInt32(item_id) & " )
         frm_SetEcommerce_Vendor.ShowDialog()
         If frm_SetEcommerce_Vendor.Vendor_ID > 0 Then
             EcomVendor_ID = frm_SetEcommerce_Vendor.Vendor_ID
-            btnSetEcomVendor.Text = frm_SetEcommerce_Vendor.Vendor_Name.ToUpper()
+            btnSetEcomVendor.Text = frm_SetEcommerce_Vendor.Vendor_Name
 
         Else
             EcomVendor_ID = frm_SetEcommerce_Vendor.Vendor_ID
-            btnSetEcomVendor.Text = "SETECOMMERCE"
+            btnSetEcomVendor.Text = "Set
+
+E-Com
+merce
+
+Vendor"
         End If
     End Sub
 

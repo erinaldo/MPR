@@ -147,7 +147,7 @@ Partial Class frm_openSale_Invoice
         '
         Me.BtnCancelInv.BackColor = System.Drawing.Color.Tomato
         Me.BtnCancelInv.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BtnCancelInv.Location = New System.Drawing.Point(474, 544)
+        Me.BtnCancelInv.Location = New System.Drawing.Point(608, 550)
         Me.BtnCancelInv.Name = "BtnCancelInv"
         Me.BtnCancelInv.Size = New System.Drawing.Size(141, 30)
         Me.BtnCancelInv.TabIndex = 4
@@ -158,7 +158,7 @@ Partial Class frm_openSale_Invoice
         '
         Me.BtnInvoice.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.BtnInvoice.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BtnInvoice.Location = New System.Drawing.Point(621, 544)
+        Me.BtnInvoice.Location = New System.Drawing.Point(755, 550)
         Me.BtnInvoice.Name = "BtnInvoice"
         Me.BtnInvoice.Size = New System.Drawing.Size(128, 30)
         Me.BtnInvoice.TabIndex = 3
@@ -169,12 +169,13 @@ Partial Class frm_openSale_Invoice
         '
         Me.BtnDc.BackColor = System.Drawing.Color.Green
         Me.BtnDc.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BtnDc.Location = New System.Drawing.Point(755, 544)
+        Me.BtnDc.Location = New System.Drawing.Point(474, 550)
         Me.BtnDc.Name = "BtnDc"
         Me.BtnDc.Size = New System.Drawing.Size(128, 30)
         Me.BtnDc.TabIndex = 2
         Me.BtnDc.Text = "Print Dc"
         Me.BtnDc.UseVisualStyleBackColor = False
+        Me.BtnDc.Visible = False
         '
         'GBMRSDetail
         '
