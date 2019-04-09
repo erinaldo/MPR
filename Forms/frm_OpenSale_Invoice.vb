@@ -275,7 +275,12 @@ Public Class frm_openSale_Invoice
         lblTotalDisc.Text = 0.00
         lblTotalQty.Text = 0.000
         lblGSTDetail.Text = ""
-        btnSetEcomVendor.Text = "SETECOMMERCE"
+        btnSetEcomVendor.Text = "Set
+
+E-Com
+merce
+
+Vendor"
         '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         ''''''''''''''''''''''''''TO GET Inv NO'''''''''''''''''''''''''''''
         '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -1302,7 +1307,7 @@ restart:
         frm_SetEcommerce_Vendor.ShowDialog()
         If frm_SetEcommerce_Vendor.Vendor_ID > 0 Then
             EcomVendor_ID = frm_SetEcommerce_Vendor.Vendor_ID
-            btnSetEcomVendor.Text = frm_SetEcommerce_Vendor.Vendor_Name.ToUpper()
+            btnSetEcomVendor.Text = frm_SetEcommerce_Vendor.Vendor_Name
 
         Else
             EcomVendor_ID = frm_SetEcommerce_Vendor.Vendor_ID

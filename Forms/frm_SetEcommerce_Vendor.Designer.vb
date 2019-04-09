@@ -30,11 +30,11 @@ Partial Class frm_SetEcommerce_Vendor
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(27, 17)
+        Me.Label1.Location = New System.Drawing.Point(8, 21)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(119, 15)
+        Me.Label1.Size = New System.Drawing.Size(122, 15)
         Me.Label1.TabIndex = 6
-        Me.Label1.Text = "Ecommerce Vendor:"
+        Me.Label1.Text = "E-commerce Vendor:"
         '
         'cmbSupplier
         '
@@ -43,17 +43,17 @@ Partial Class frm_SetEcommerce_Vendor
         Me.cmbSupplier.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmbSupplier.ForeColor = System.Drawing.Color.White
         Me.cmbSupplier.FormattingEnabled = True
-        Me.cmbSupplier.Location = New System.Drawing.Point(152, 17)
+        Me.cmbSupplier.Location = New System.Drawing.Point(133, 17)
         Me.cmbSupplier.Name = "cmbSupplier"
         Me.cmbSupplier.ResetOnClear = False
-        Me.cmbSupplier.Size = New System.Drawing.Size(386, 24)
+        Me.cmbSupplier.Size = New System.Drawing.Size(551, 24)
         Me.cmbSupplier.TabIndex = 1
         '
         'btn_Save
         '
         Me.btn_Save.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.btn_Save.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btn_Save.Location = New System.Drawing.Point(337, 47)
+        Me.btn_Save.Location = New System.Drawing.Point(479, 64)
         Me.btn_Save.Name = "btn_Save"
         Me.btn_Save.Size = New System.Drawing.Size(120, 27)
         Me.btn_Save.TabIndex = 2
@@ -64,7 +64,7 @@ Partial Class frm_SetEcommerce_Vendor
         '
         Me.btn_Cancel.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.btn_Cancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btn_Cancel.Location = New System.Drawing.Point(463, 47)
+        Me.btn_Cancel.Location = New System.Drawing.Point(609, 64)
         Me.btn_Cancel.Name = "btn_Cancel"
         Me.btn_Cancel.Size = New System.Drawing.Size(75, 27)
         Me.btn_Cancel.TabIndex = 3
@@ -76,7 +76,7 @@ Partial Class frm_SetEcommerce_Vendor
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.DimGray
-        Me.ClientSize = New System.Drawing.Size(541, 103)
+        Me.ClientSize = New System.Drawing.Size(696, 103)
         Me.ControlBox = False
         Me.Controls.Add(Me.btn_Cancel)
         Me.Controls.Add(Me.btn_Save)
