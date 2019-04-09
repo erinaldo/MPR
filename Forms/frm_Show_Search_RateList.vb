@@ -32,7 +32,7 @@ Public Class frm_Show_Search_RateList
             Dim BrandQuery As String
             Dim Dt As DataTable
             Dim Dtrow As DataRow
-            BrandQuery = " SELECT Pk_LabelDetailId_Num, LabelItemName_vch FROM dbo.Label_Items fk_LabelId_num=1 ORDER BY LabelItemName_vch "
+            BrandQuery = " SELECT Pk_LabelDetailId_Num, LabelItemName_vch FROM dbo.Label_Items where fk_LabelId_num=1 ORDER BY LabelItemName_vch "
             Dt = comFun.Fill_DataSet(BrandQuery).Tables(0)
             Dtrow = Dt.NewRow
             Dtrow("Pk_LabelDetailId_Num") = -1
