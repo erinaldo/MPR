@@ -32,6 +32,7 @@ Partial Class frm_CreditNoteNew
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.txt_INVDate = New System.Windows.Forms.DateTimePicker()
         Me.cbSetOpen = New System.Windows.Forms.CheckBox()
+        Me.cmbCustomer = New MMSPlus.AutoCompleteCombo()
         Me.lblInvType = New System.Windows.Forms.Label()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
@@ -70,7 +71,7 @@ Partial Class frm_CreditNoteNew
         Me.FLXGRD_MaterialItem = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
         Me.C1FlexGrid1 = New C1.Win.C1FlexGrid.C1FlexGrid()
-        Me.cmbCustomer = New MMSPlus.AutoCompleteCombo()
+        Me.btnSetEcomVendor = New System.Windows.Forms.Button()
         Me.TbRMRN.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
@@ -187,6 +188,7 @@ Partial Class frm_CreditNoteNew
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.btnSetEcomVendor)
         Me.GroupBox1.Controls.Add(Me.txt_INVDate)
         Me.GroupBox1.Controls.Add(Me.cbSetOpen)
         Me.GroupBox1.Controls.Add(Me.cmbCustomer)
@@ -223,12 +225,25 @@ Partial Class frm_CreditNoteNew
         '
         Me.cbSetOpen.AutoSize = True
         Me.cbSetOpen.ForeColor = System.Drawing.Color.Orange
-        Me.cbSetOpen.Location = New System.Drawing.Point(728, 35)
+        Me.cbSetOpen.Location = New System.Drawing.Point(674, 33)
         Me.cbSetOpen.Name = "cbSetOpen"
         Me.cbSetOpen.Size = New System.Drawing.Size(123, 17)
         Me.cbSetOpen.TabIndex = 0
         Me.cbSetOpen.Text = "Set Open Document"
         Me.cbSetOpen.UseVisualStyleBackColor = True
+        '
+        'cmbCustomer
+        '
+        Me.cmbCustomer.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.cmbCustomer.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmbCustomer.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmbCustomer.ForeColor = System.Drawing.Color.White
+        Me.cmbCustomer.FormattingEnabled = True
+        Me.cmbCustomer.Location = New System.Drawing.Point(128, 66)
+        Me.cmbCustomer.Name = "cmbCustomer"
+        Me.cmbCustomer.ResetOnClear = False
+        Me.cmbCustomer.Size = New System.Drawing.Size(669, 24)
+        Me.cmbCustomer.TabIndex = 1
         '
         'lblInvType
         '
@@ -542,7 +557,7 @@ Partial Class frm_CreditNoteNew
         Me.Label8.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label8.Location = New System.Drawing.Point(672, 379)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(90, 15)
+        Me.Label8.Size = New System.Drawing.Size(91, 15)
         Me.Label8.TabIndex = 17
         Me.Label8.Text = "Cess  Amount :"
         '
@@ -584,7 +599,7 @@ Partial Class frm_CreditNoteNew
         Me.Label4.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label4.Location = New System.Drawing.Point(672, 310)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(84, 15)
+        Me.Label4.Size = New System.Drawing.Size(85, 15)
         Me.Label4.TabIndex = 13
         Me.Label4.Text = "GST  Amount :"
         '
@@ -664,18 +679,20 @@ Partial Class frm_CreditNoteNew
         Me.C1FlexGrid1.Styles = New C1.Win.C1FlexGrid.CellStyleCollection(resources.GetString("C1FlexGrid1.Styles"))
         Me.C1FlexGrid1.TabIndex = 0
         '
-        'cmbCustomer
+        'btnSetEcomVendor
         '
-        Me.cmbCustomer.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.cmbCustomer.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmbCustomer.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmbCustomer.ForeColor = System.Drawing.Color.White
-        Me.cmbCustomer.FormattingEnabled = True
-        Me.cmbCustomer.Location = New System.Drawing.Point(128, 66)
-        Me.cmbCustomer.Name = "cmbCustomer"
-        Me.cmbCustomer.ResetOnClear = False
-        Me.cmbCustomer.Size = New System.Drawing.Size(714, 24)
-        Me.cmbCustomer.TabIndex = 1
+        Me.btnSetEcomVendor.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.btnSetEcomVendor.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnSetEcomVendor.FlatAppearance.BorderSize = 0
+        Me.btnSetEcomVendor.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LimeGreen
+        Me.btnSetEcomVendor.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnSetEcomVendor.Font = New System.Drawing.Font("Verdana", 7.25!)
+        Me.btnSetEcomVendor.Location = New System.Drawing.Point(816, 12)
+        Me.btnSetEcomVendor.Name = "btnSetEcomVendor"
+        Me.btnSetEcomVendor.Size = New System.Drawing.Size(68, 142)
+        Me.btnSetEcomVendor.TabIndex = 55
+        Me.btnSetEcomVendor.Text = "Set" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "E-Com" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "merce" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Vendor"
+        Me.btnSetEcomVendor.UseVisualStyleBackColor = False
         '
         'frm_CreditNoteNew
         '
@@ -751,4 +768,5 @@ Partial Class frm_CreditNoteNew
     Friend WithEvents txt_INVDate As DateTimePicker
     Friend WithEvents txtRoundOff As TextBox
     Friend WithEvents Label5 As Label
+    Friend WithEvents btnSetEcomVendor As Button
 End Class

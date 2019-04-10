@@ -18,6 +18,7 @@ Public Class frm_CreditNoteNew
     Dim CN_No As Integer
     Dim CN_Id As Integer
     Dim AccountId As Integer
+    Dim EcomVendor_ID As Int16 = 0
     Dim clsObj As New CreditNote.cls_Credit_note_Master
     Dim prpty As New CreditNote.cls_Credit_note_Prop
     Dim _rights As Form_Rights
@@ -52,8 +53,14 @@ Public Class frm_CreditNoteNew
             txtRemarks.Text = ""
             txtRoundOff.Text = 0
             CreditNoteId = 0
+            EcomVendor_ID = 0
         End If
+        btnSetEcomVendor.Text = "Set
 
+E-Com
+merce
+
+Vendor"
 
         dtable_Item_List = FLXGRD_MaterialItem.DataSource
         If Not dtable_Item_List Is Nothing Then dtable_Item_List.Rows.Clear()
@@ -253,6 +260,8 @@ Public Class frm_CreditNoteNew
                 prpty.CN_ItemValue = lblAmount.Text
                 prpty.CN_ItemTax = lblVatAmount.Text
                 prpty.CN_ItemCess = lblCessAmount.Text
+                prpty.ConsumerHeadID = EcomVendor_ID
+
 
                 prpty.CN_Type = ""
                 prpty.Ref_No = ""
@@ -345,7 +354,7 @@ Public Class frm_CreditNoteNew
                 prpty.Ref_Date = NULL_DATE
                 prpty.Proctype = 2
                 prpty.RoundOff = txtRoundOff.Text
-
+                prpty.ConsumerHeadID = EcomVendor_ID
                 clsObj.insert_CreditNote_MASTER(prpty, cmd)
 
                 Dim iRowCount As Int32
@@ -693,24 +702,24 @@ Public Class frm_CreditNoteNew
         If AccountId > 0 Then
             Query = "  SELECT SI_ID,SI_CODE+CAST(SI_NO as varchar(20)) AS SiNo FROM dbo.SALE_INVOICE_MASTER WHERE INVOICE_STATUS <> 4 and CUST_ID=" & AccountId & " and DIVISION_ID = " & v_the_current_division_id
             Dt = clsObj.Fill_DataSet(Query).Tables(0)
-                Dtrow = Dt.NewRow
-                Dtrow("SI_ID") = -1
-                Dtrow("SiNo") = "Select INV No"
-                Dt.Rows.InsertAt(Dtrow, 0)
-                cmbBillNo.DisplayMember = "SiNo"
-                cmbBillNo.ValueMember = "SI_ID"
-                cmbBillNo.DataSource = Dt
-                cmbBillNo.SelectedIndex = 0
-                ' cmbINVNo.Focus()
+            Dtrow = Dt.NewRow
+            Dtrow("SI_ID") = -1
+            Dtrow("SiNo") = "Select INV No"
+            Dt.Rows.InsertAt(Dtrow, 0)
+            cmbBillNo.DisplayMember = "SiNo"
+            cmbBillNo.ValueMember = "SI_ID"
+            cmbBillNo.DataSource = Dt
+            cmbBillNo.SelectedIndex = 0
+            ' cmbINVNo.Focus()
 
-                cmbBillNo.Visible = False
-                txt_INVNo.Visible = False
-                If cbSetOpen.Checked Then
-                    txt_INVNo.Visible = True
-                Else
-                    cmbBillNo.Visible = True
-                End If
+            cmbBillNo.Visible = False
+            txt_INVNo.Visible = False
+            If cbSetOpen.Checked Then
+                txt_INVNo.Visible = True
+            Else
+                cmbBillNo.Visible = True
             End If
+        End If
 
     End Sub
 
@@ -1113,6 +1122,13 @@ Public Class frm_CreditNoteNew
             End If
             txtRoundOff.Text = dr("RoundOff")
 
+            EcomVendor_ID = dr("ConsumerHeadID")
+
+            If (EcomVendor_ID > 0) Then
+                btnSetEcomVendor.Text = dr("ConsumerHeadName")
+            End If
+
+
             Dim ds As DataSet
             ds = clsObj.fill_Data_set("GetCreditNoteDetails", "@CreditNoteId", CreditNoteId)
             If ds.Tables(0).Rows.Count > 0 Then
@@ -1336,4 +1352,21 @@ restart:
 
     End Sub
 
+    Private Sub btnSetEcomVendor_Click(sender As Object, e As EventArgs) Handles btnSetEcomVendor.Click
+        Dim frm_SetEcommerce_Vendor As frm_SetEcommerce_Vendor = New frm_SetEcommerce_Vendor()
+        frm_SetEcommerce_Vendor.ShowDialog()
+        If frm_SetEcommerce_Vendor.Vendor_ID > 0 Then
+            EcomVendor_ID = frm_SetEcommerce_Vendor.Vendor_ID
+            btnSetEcomVendor.Text = frm_SetEcommerce_Vendor.Vendor_Name
+
+        Else
+            EcomVendor_ID = frm_SetEcommerce_Vendor.Vendor_ID
+            btnSetEcomVendor.Text = "Set
+
+E-Com
+merce
+
+Vendor"
+        End If
+    End Sub
 End Class

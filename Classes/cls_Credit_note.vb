@@ -39,6 +39,17 @@ Namespace CreditNote
         Dim _TaxAmt As Double
         Dim _CessAmt As Double
         Dim _CreditAmt As Double
+        Dim _ConsumerHeadID As Integer
+
+        Public Property ConsumerHeadID() As Int32
+            Get
+                ConsumerHeadID = _ConsumerHeadID
+            End Get
+            Set(ByVal value As Int32)
+                _ConsumerHeadID = value
+            End Set
+        End Property
+
 
         Public Property Proctype() As Integer
             Get
@@ -375,6 +386,7 @@ Namespace CreditNote
             cmd.Parameters.AddWithValue("@v_RoundOff", clsObj.RoundOff)
             cmd.Parameters.AddWithValue("@v_RefDate_dt", clsObj.Ref_Date)
             cmd.Parameters.AddWithValue("@V_Trans_Type", Transaction_Type.CreditNote)
+            cmd.Parameters.AddWithValue("@V_ConsumerHeadID", clsObj.ConsumerHeadID)
             cmd.Parameters.AddWithValue("@V_PROC_TYPE", clsObj.Proctype)
 
             cmd.ExecuteNonQuery()
