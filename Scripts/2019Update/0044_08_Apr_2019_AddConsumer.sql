@@ -942,3 +942,1458 @@ AS
 
 GO
 ---------------------------------------------------------------------------------------------------------------------------
+ALTER VIEW [dbo].[VWPurchaseRegister]
+AS
+    SELECT       
+  --ROW_NUMBER() OVER ( ORDER BY Received_ID ) AS SrNo ,      
+            BillDate AS [Bill Date] ,
+            BillNo AS [Bill No.] ,
+            ReceivedDate AS [Received Date] ,
+            CustomerName AS [Account Name] ,
+            ADDRESS ,
+            GSTNo AS [GST No.] ,
+            BillAmount AS [Bill Amount] ,
+            BillType AS [Bill Type] ,
+            GST0 AS [Nill Rated] ,
+            GST3 AS [Txbl. 3%] ,
+            GST3Tax AS [Tax @3%] ,
+            GST5 AS [Txbl. 5%] ,
+            GST5Tax AS [Tax @5%] ,
+            GST12 AS [Txbl. 12%] ,
+            GST12Tax AS [Tax @12%] ,
+            GST18 AS [Txbl. 18%] ,
+            GST18Tax AS [Tax @18%] ,
+            GST28 AS [Txbl. 28%] ,
+            GST28Tax AS [Tax @28%] ,
+            TaxableAmt AS [Total Txbl. GST] ,
+            TotalTax AS [Total GST Tax] ,
+            CAST([CESS %] AS INTEGER) AS [CESS %] ,
+            CAST([Cess Amount] AS NUMERIC(18, 2)) AS [Cess Amount] ,
+            CAST([ACess Amount] AS NUMERIC(18, 2)) AS [ACess Amount] ,
+            CAST(otherAmount AS NUMERIC(18, 2)) AS [Other Amount] ,
+            CAST(CashDiscount AS NUMERIC(18, 2)) AS [Cash Discount] ,
+            CAST(Freight AS NUMERIC(18, 2)) AS [Freight] ,
+            CAST(FreightTax AS NUMERIC(18, 2)) AS [Freight Tax]
+    FROM    ( SELECT    MRWPM.Received_ID ,
+                        CONVERT(VARCHAR(20), Received_Date, 106) ReceivedDate ,
+                        Invoice_No AS BillNo ,
+                        CONVERT(VARCHAR(20), Invoice_Date, 106) AS BillDate ,
+                        ACM.ACC_NAME AS CustomerName ,
+                        ACM.ADDRESS_PRIM AS ADDRESS ,
+                        ACM.VAT_NO AS GSTNo ,
+                        MRWPM.NET_AMOUNT AS BillAmount ,
+                        CASE WHEN MRWPM.MRN_TYPE = 1 THEN 'SGST/CGST'
+                             WHEN MRWPM.MRN_TYPE = 2 THEN 'IGST'
+                             WHEN MRWPM.MRN_TYPE = 3 THEN 'UTGST/CGST'
+                        END AS BillType ,
+                        CAST(SUM(CASE WHEN Item_vat = 0
+                                      THEN ( Item_Qty * Item_Rate )
+                                           - ( ISNULL(CASE WHEN DType = 'P'
+                                                           THEN CASE
+                                                              WHEN GSTPAID = 'Y'
+                                                              THEN ( ( ( Item_Qty
+                                                              * Item_Rate )
+                                                              - ( ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2)
+                                                              + ( ( ROUND(Item_Rate
+                                                              * Item_Qty, 2)
+                                                              - ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2) )
+                                                              * DiscountValue1
+                                                              / 100 ) ) )
+                                                              - ( ( ( Item_Qty
+                                                              * Item_Rate )
+                                                              - ( ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2)
+                                                              + ( ( ROUND(Item_Rate
+                                                              * Item_Qty, 2)
+                                                              - ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2) )
+                                                              * DiscountValue1
+                                                              / 100 ) ) )
+                                                              / ( 1
+                                                              + ( Item_vat
+                                                              / 100 ) ) ) )
+                                                              + ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2)
+                                                              + ( ( ROUND(Item_Rate
+                                                              * Item_Qty, 2)
+                                                              - ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2) )
+                                                              * DiscountValue1
+                                                              / 100 )
+                                                              ELSE ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2)
+                                                              + ( ( ROUND(Item_Rate
+                                                              * Item_Qty, 2)
+                                                              - ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2) )
+                                                              * DiscountValue1
+                                                              / 100 )
+                                                              END
+                                                           ELSE CASE
+                                                              WHEN GSTPAID = 'Y'
+                                                              THEN ( ( ( Item_Qty
+                                                              * Item_Rate )
+                                                              - ROUND(DiscountValue,
+                                                              2)
+                                                              + ROUND(DiscountValue1,
+                                                              2) )
+                                                              - ( ( ( Item_Qty
+                                                              * Item_Rate )
+                                                              - ROUND(DiscountValue,
+                                                              2)
+                                                              + ROUND(DiscountValue1,
+                                                              2) ) / ( 1
+                                                              + ( Item_vat
+                                                              / 100 ) ) ) )
+                                                              + ROUND(DiscountValue,
+                                                              2)
+                                                              + ROUND(DiscountValue1,
+                                                              2)
+                                                              ELSE ROUND(DiscountValue,
+                                                              2)
+                                                              + ROUND(DiscountValue1,
+                                                              2)
+                                                              END
+                                                      END, 0) )
+                                      ELSE 0
+                                 END) AS DECIMAL(18, 2)) AS GST0 ,
+                        CAST(SUM(CASE WHEN Item_vat = 3
+                                      THEN ( Item_Qty * Item_Rate )
+                                           - ( ISNULL(CASE WHEN DType = 'P'
+                                                           THEN CASE
+                                                              WHEN GSTPAID = 'Y'
+                                                              THEN ( ( ( Item_Qty
+                                                              * Item_Rate )
+                                                              - ( ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2)
+                                                              + ( ( ROUND(Item_Rate
+                                                              * Item_Qty, 2)
+                                                              - ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2) )
+                                                              * DiscountValue1
+                                                              / 100 ) ) )
+                                                              - ( ( ( Item_Qty
+                                                              * Item_Rate )
+                                                              - ( ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2)
+                                                              + ( ( ROUND(Item_Rate
+                                                              * Item_Qty, 2)
+                                                              - ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2) )
+                                                              * DiscountValue1
+                                                              / 100 ) ) )
+                                                              / ( 1
+                                                              + ( Item_vat
+                                                              / 100 ) ) ) )
+                                                              + ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2)
+                                                              + ( ( ROUND(Item_Rate
+                                                              * Item_Qty, 2)
+                                                              - ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2) )
+                                                              * DiscountValue1
+                                                              / 100 )
+                                                              ELSE ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2)
+                                                              + ( ( ROUND(Item_Rate
+                                                              * Item_Qty, 2)
+                                                              - ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2) )
+                                                              * DiscountValue1
+                                                              / 100 )
+                                                              END
+                                                           ELSE CASE
+                                                              WHEN GSTPAID = 'Y'
+                                                              THEN ( ( ( Item_Qty
+                                                              * Item_Rate )
+                                                              - ROUND(DiscountValue,
+                                                              2)
+                                                              + ROUND(DiscountValue1,
+                                                              2) )
+                                                              - ( ( ( Item_Qty
+                                                              * Item_Rate )
+                                                              - ROUND(DiscountValue,
+                                                              2)
+                                                              + ROUND(DiscountValue1,
+                                                              2) ) / ( 1
+                                                              + ( Item_vat
+                                                              / 100 ) ) ) )
+                                                              + ROUND(DiscountValue,
+                                                              2)
+                                                              + ROUND(DiscountValue1,
+                                                              2)
+                                                              ELSE ROUND(DiscountValue,
+                                                              2)
+                                                              + ROUND(DiscountValue1,
+                                                              2)
+                                                              END
+                                                      END, 0) )
+                                      ELSE 0
+                                 END) AS DECIMAL(18, 2)) AS GST3 ,
+                        CAST(CAST(SUM(CASE WHEN Item_vat = 3
+                                           THEN ( Item_Qty * Item_Rate )
+                                                - ( ISNULL(CASE
+                                                              WHEN DType = 'P'
+                                                              THEN CASE
+                                                              WHEN GSTPAID = 'Y'
+                                                              THEN ( ( ( Item_Qty
+                                                              * Item_Rate )
+                                                              - ( ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2)
+                                                              + ( ( ROUND(Item_Rate
+                                                              * Item_Qty, 2)
+                                                              - ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2) )
+                                                              * DiscountValue1
+                                                              / 100 ) ) )
+                                                              - ( ( ( Item_Qty
+                                                              * Item_Rate )
+                                                              - ( ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2)
+                                                              + ( ( ROUND(Item_Rate
+                                                              * Item_Qty, 2)
+                                                              - ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2) )
+                                                              * DiscountValue1
+                                                              / 100 ) ) )
+                                                              / ( 1
+                                                              + ( Item_vat
+                                                              / 100 ) ) ) )
+                                                              + ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2)
+                                                              + ( ( ROUND(Item_Rate
+                                                              * Item_Qty, 2)
+                                                              - ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2) )
+                                                              * DiscountValue1
+                                                              / 100 )
+                                                              ELSE ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2)
+                                                              + ( ( ROUND(Item_Rate
+                                                              * Item_Qty, 2)
+                                                              - ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2) )
+                                                              * DiscountValue1
+                                                              / 100 )
+                                                              END
+                                                              ELSE CASE
+                                                              WHEN GSTPAID = 'Y'
+                                                              THEN ( ( ( Item_Qty
+                                                              * Item_Rate )
+                                                              - ROUND(DiscountValue,
+                                                              2)
+                                                              + ROUND(DiscountValue1,
+                                                              2) )
+                                                              - ( ( ( Item_Qty
+                                                              * Item_Rate )
+                                                              - ROUND(DiscountValue,
+                                                              2)
+                                                              + ROUND(DiscountValue1,
+                                                              2) ) / ( 1
+                                                              + ( Item_vat
+                                                              / 100 ) ) ) )
+                                                              + ROUND(DiscountValue,
+                                                              2)
+                                                              + ROUND(DiscountValue1,
+                                                              2)
+                                                              ELSE ROUND(DiscountValue,
+                                                              2)
+                                                              + ROUND(DiscountValue1,
+                                                              2)
+                                                              END
+                                                           END, 0) )
+                                           ELSE 0
+                                      END * Item_vat / 100) AS DECIMAL(18, 2)) AS DECIMAL(18,
+                                                              2)) AS GST3Tax ,
+                        CAST(SUM(CASE WHEN Item_vat = 5
+                                      THEN ( Item_Qty * Item_Rate )
+                                           - ( ISNULL(CASE WHEN DType = 'P'
+                                                           THEN CASE
+                                                              WHEN GSTPAID = 'Y'
+                                                              THEN ( ( ( Item_Qty
+                                                              * Item_Rate )
+                                                              - ( ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2)
+                                                              + ( ( ROUND(Item_Rate
+                                                              * Item_Qty, 2)
+                                                              - ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2) )
+                                                              * DiscountValue1
+                                                              / 100 ) ) )
+                                                              - ( ( ( Item_Qty
+                                                              * Item_Rate )
+                                                              - ( ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2)
+                                                              + ( ( ROUND(Item_Rate
+                                                              * Item_Qty, 2)
+                                                              - ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2) )
+                                                              * DiscountValue1
+                                                              / 100 ) ) )
+                                                              / ( 1
+                                                              + ( Item_vat
+                                                              / 100 ) ) ) )
+                                                              + ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2)
+                                                              + ( ( ROUND(Item_Rate
+                                                              * Item_Qty, 2)
+                                                              - ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2) )
+                                                              * DiscountValue1
+                                                              / 100 )
+                                                              ELSE ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2)
+                                                              + ( ( ROUND(Item_Rate
+                                                              * Item_Qty, 2)
+                                                              - ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2) )
+                                                              * DiscountValue1
+                                                              / 100 )
+                                                              END
+                                                           ELSE CASE
+                                                              WHEN GSTPAID = 'Y'
+                                                              THEN ( ( ( Item_Qty
+                                                              * Item_Rate )
+                                                              - ROUND(DiscountValue,
+                                                              2)
+                                                              + ROUND(DiscountValue1,
+                                                              2) )
+                                                              - ( ( ( Item_Qty
+                                                              * Item_Rate )
+                                                              - ROUND(DiscountValue,
+                                                              2)
+                                                              + ROUND(DiscountValue1,
+                                                              2) ) / ( 1
+                                                              + ( Item_vat
+                                                              / 100 ) ) ) )
+                                                              + ROUND(DiscountValue,
+                                                              2)
+                                                              + ROUND(DiscountValue1,
+                                                              2)
+                                                              ELSE ROUND(DiscountValue,
+                                                              2)
+                                                              + ROUND(DiscountValue1,
+                                                              2)
+                                                              END
+                                                      END, 0) )
+                                      ELSE 0
+                                 END) AS DECIMAL(18, 2)) AS GST5 ,
+                        CAST(CAST(SUM(CASE WHEN Item_vat = 5
+                                           THEN ( Item_Qty * Item_Rate )
+                                                - ( ISNULL(CASE
+                                                              WHEN DType = 'P'
+                                                              THEN CASE
+                                                              WHEN GSTPAID = 'Y'
+                                                              THEN ( ( ( Item_Qty
+                                                              * Item_Rate )
+                                                              - ( ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2)
+                                                              + ( ( ROUND(Item_Rate
+                                                              * Item_Qty, 2)
+                                                              - ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2) )
+                                                              * DiscountValue1
+                                                              / 100 ) ) )
+                                                              - ( ( ( Item_Qty
+                                                              * Item_Rate )
+                                                              - ( ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2)
+                                                              + ( ( ROUND(Item_Rate
+                                                              * Item_Qty, 2)
+                                                              - ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2) )
+                                                              * DiscountValue1
+                                                              / 100 ) ) )
+                                                              / ( 1
+                                                              + ( Item_vat
+                                                              / 100 ) ) ) )
+                                                              + ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2)
+                                                              + ( ( ROUND(Item_Rate
+                                                              * Item_Qty, 2)
+                                                              - ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2) )
+                                                              * DiscountValue1
+                                                              / 100 )
+                                                              ELSE ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2)
+                                                              + ( ( ROUND(Item_Rate
+                                                              * Item_Qty, 2)
+                                                              - ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2) )
+                                                              * DiscountValue1
+                                                              / 100 )
+                                                              END
+                                                              ELSE CASE
+                                                              WHEN GSTPAID = 'Y'
+                                                              THEN ( ( ( Item_Qty
+                                                              * Item_Rate )
+                                                              - ROUND(DiscountValue,
+                                                              2)
+                                                              + ROUND(DiscountValue1,
+                                                              2) )
+                                                              - ( ( ( Item_Qty
+                                                              * Item_Rate )
+                                                              - ROUND(DiscountValue,
+                                                              2)
+                                                              + ROUND(DiscountValue1,
+                                                              2) ) / ( 1
+                                                              + ( Item_vat
+                                                              / 100 ) ) ) )
+                                                              + ROUND(DiscountValue,
+                                                              2)
+                                                              + ROUND(DiscountValue1,
+                                                              2)
+                                                              ELSE ROUND(DiscountValue,
+                                                              2)
+                                                              + ROUND(DiscountValue1,
+                                                              2)
+                                                              END
+                                                           END, 0) )
+                                           ELSE 0
+                                      END * Item_vat / 100) AS DECIMAL(18, 2)) AS DECIMAL(18,
+                                                              2)) AS GST5Tax ,
+                        CAST(SUM(CASE WHEN Item_vat = 12
+                                      THEN ( Item_Qty * Item_Rate )
+                                           - ( ISNULL(CASE WHEN DType = 'P'
+                                                           THEN CASE
+                                                              WHEN GSTPAID = 'Y'
+                                                              THEN ( ( ( Item_Qty
+                                                              * Item_Rate )
+                                                              - ( ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2)
+                                                              + ( ( ROUND(Item_Rate
+                                                              * Item_Qty, 2)
+                                                              - ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2) )
+                                                              * DiscountValue1
+                                                              / 100 ) ) )
+                                                              - ( ( ( Item_Qty
+                                                              * Item_Rate )
+                                                              - ( ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2)
+                                                              + ( ( ROUND(Item_Rate
+                                                              * Item_Qty, 2)
+                                                              - ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2) )
+                                                              * DiscountValue1
+                                                              / 100 ) ) )
+                                                              / ( 1
+                                                              + ( Item_vat
+                                                              / 100 ) ) ) )
+                                                              + ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2)
+                                                              + ( ( ROUND(Item_Rate
+                                                              * Item_Qty, 2)
+                                                              - ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2) )
+                                                              * DiscountValue1
+                                                              / 100 )
+                                                              ELSE ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2)
+                                                              + ( ( ROUND(Item_Rate
+                                                              * Item_Qty, 2)
+                                                              - ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2) )
+                                                              * DiscountValue1
+                                                              / 100 )
+                                                              END
+                                                           ELSE CASE
+                                                              WHEN GSTPAID = 'Y'
+                                                              THEN ( ( ( Item_Qty
+                                                              * Item_Rate )
+                                                              - ROUND(DiscountValue,
+                                                              2)
+                                                              + ROUND(DiscountValue1,
+                                                              2) )
+                                                              - ( ( ( Item_Qty
+                                                              * Item_Rate )
+                                                              - ROUND(DiscountValue,
+                                                              2)
+                                                              + ROUND(DiscountValue1,
+                                                              2) ) / ( 1
+                                                              + ( Item_vat
+                                                              / 100 ) ) ) )
+                                                              + ROUND(DiscountValue,
+                                                              2)
+                                                              + ROUND(DiscountValue1,
+                                                              2)
+                                                              ELSE ROUND(DiscountValue,
+                                                              2)
+                                                              + ROUND(DiscountValue1,
+                                                              2)
+                                                              END
+                                                      END, 0) )
+                                      ELSE 0
+                                 END) AS DECIMAL(18, 2)) AS GST12 ,
+                        CAST(CAST(SUM(CASE WHEN Item_vat = 12
+                                           THEN ( Item_Qty * Item_Rate )
+                                                - ( ISNULL(CASE
+                                                              WHEN DType = 'P'
+                                                              THEN CASE
+                                                              WHEN GSTPAID = 'Y'
+                                                              THEN ( ( ( Item_Qty
+                                                              * Item_Rate )
+                                                              - ( ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2)
+                                                              + ( ( ROUND(Item_Rate
+                                                              * Item_Qty, 2)
+                                                              - ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2) )
+                                                              * DiscountValue1
+                                                              / 100 ) ) )
+                                                              - ( ( ( Item_Qty
+                                                              * Item_Rate )
+                                                              - ( ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2)
+                                                              + ( ( ROUND(Item_Rate
+                                                              * Item_Qty, 2)
+                                                              - ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2) )
+                                                              * DiscountValue1
+                                                              / 100 ) ) )
+                                                              / ( 1
+                                                              + ( Item_vat
+                                                              / 100 ) ) ) )
+                                                              + ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2)
+                                                              + ( ( ROUND(Item_Rate
+                                                              * Item_Qty, 2)
+                                                              - ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2) )
+                                                              * DiscountValue1
+                                                              / 100 )
+                                                              ELSE ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2)
+                                                              + ( ( ROUND(Item_Rate
+                                                              * Item_Qty, 2)
+                                                              - ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2) )
+                                                              * DiscountValue1
+                                                              / 100 )
+                                                              END
+                                                              ELSE CASE
+                                                              WHEN GSTPAID = 'Y'
+                                                              THEN ( ( ( Item_Qty
+                                                              * Item_Rate )
+                                                              - ROUND(DiscountValue,
+                                                              2)
+                                                              + ROUND(DiscountValue1,
+                                                              2) )
+                                                              - ( ( ( Item_Qty
+                                                              * Item_Rate )
+                                                              - ROUND(DiscountValue,
+                                                              2)
+                                                              + ROUND(DiscountValue1,
+                                                              2) ) / ( 1
+                                                              + ( Item_vat
+                                                              / 100 ) ) ) )
+                                                              + ROUND(DiscountValue,
+                                                              2)
+                                                              + ROUND(DiscountValue1,
+                                                              2)
+                                                              ELSE ROUND(DiscountValue,
+                                                              2)
+                                                              + ROUND(DiscountValue1,
+                                                              2)
+                                                              END
+                                                           END, 0) )
+                                           ELSE 0
+                                      END * Item_vat / 100) AS DECIMAL(18, 2)) AS DECIMAL(18,
+                                                              2)) AS GST12Tax ,
+                        CAST(SUM(CASE WHEN Item_vat = 18
+                                      THEN ( Item_Qty * Item_Rate )
+                                           - ( ISNULL(CASE WHEN DType = 'P'
+                                                           THEN CASE
+                                                              WHEN GSTPAID = 'Y'
+                                                              THEN ( ( ( Item_Qty
+                                                              * Item_Rate )
+                                                              - ( ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2)
+                                                              + ( ( ROUND(Item_Rate
+                                                              * Item_Qty, 2)
+                                                              - ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2) )
+                                                              * DiscountValue1
+                                                              / 100 ) ) )
+                                                              - ( ( ( Item_Qty
+                                                              * Item_Rate )
+                                                              - ( ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2)
+                                                              + ( ( ROUND(Item_Rate
+                                                              * Item_Qty, 2)
+                                                              - ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2) )
+                                                              * DiscountValue1
+                                                              / 100 ) ) )
+                                                              / ( 1
+                                                              + ( Item_vat
+                                                              / 100 ) ) ) )
+                                                              + ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2)
+                                                              + ( ( ROUND(Item_Rate
+                                                              * Item_Qty, 2)
+                                                              - ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2) )
+                                                              * DiscountValue1
+                                                              / 100 )
+                                                              ELSE ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2)
+                                                              + ( ( ROUND(Item_Rate
+                                                              * Item_Qty, 2)
+                                                              - ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2) )
+                                                              * DiscountValue1
+                                                              / 100 )
+                                                              END
+                                                           ELSE CASE
+                                                              WHEN GSTPAID = 'Y'
+                                                              THEN ( ( ( Item_Qty
+                                                              * Item_Rate )
+                                                              - ROUND(DiscountValue,
+                                                              2)
+                                                              + ROUND(DiscountValue1,
+                                                              2) )
+                                                              - ( ( ( Item_Qty
+                                                              * Item_Rate )
+                                                              - ROUND(DiscountValue,
+                                                              2)
+                                                              + ROUND(DiscountValue1,
+                                                              2) ) / ( 1
+                                                              + ( Item_vat
+                                                              / 100 ) ) ) )
+                                                              + ROUND(DiscountValue,
+                                                              2)
+                                                              + ROUND(DiscountValue1,
+                                                              2)
+                                                              ELSE ROUND(DiscountValue,
+                                                              2)
+                                                              + ROUND(DiscountValue1,
+                                                              2)
+                                                              END
+                                                      END, 0) )
+                                      ELSE 0
+                                 END) AS DECIMAL(18, 2)) AS GST18 ,
+                        CAST(CAST(SUM(CASE WHEN Item_vat = 18
+                                           THEN ( Item_Qty * Item_Rate )
+                                                - ( ISNULL(CASE
+                                                              WHEN DType = 'P'
+                                                              THEN CASE
+                                                              WHEN GSTPAID = 'Y'
+                                                              THEN ( ( ( Item_Qty
+                                                              * Item_Rate )
+                                                              - ( ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2)
+                                                              + ( ( ROUND(Item_Rate
+                                                              * Item_Qty, 2)
+                                                              - ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2) )
+                                                              * DiscountValue1
+                                                              / 100 ) ) )
+                                                              - ( ( ( Item_Qty
+                                                              * Item_Rate )
+                                                              - ( ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2)
+                                                              + ( ( ROUND(Item_Rate
+                                                              * Item_Qty, 2)
+                                                              - ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2) )
+                                                              * DiscountValue1
+                                                              / 100 ) ) )
+                                                              / ( 1
+                                                              + ( Item_vat
+                                                              / 100 ) ) ) )
+                                                              + ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2)
+                                                              + ( ( ROUND(Item_Rate
+                                                              * Item_Qty, 2)
+                                                              - ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2) )
+                                                              * DiscountValue1
+                                                              / 100 )
+                                                              ELSE ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2)
+                                                              + ( ( ROUND(Item_Rate
+                                                              * Item_Qty, 2)
+                                                              - ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2) )
+                                                              * DiscountValue1
+                                                              / 100 )
+                                                              END
+                                                              ELSE CASE
+                                                              WHEN GSTPAID = 'Y'
+                                                              THEN ( ( ( Item_Qty
+                                                              * Item_Rate )
+                                                              - ROUND(DiscountValue,
+                                                              2)
+                                                              + ROUND(DiscountValue1,
+                                                              2) )
+                                                              - ( ( ( Item_Qty
+                                                              * Item_Rate )
+                                                              - ROUND(DiscountValue,
+                                                              2)
+                                                              + ROUND(DiscountValue1,
+                                                              2) ) / ( 1
+                                                              + ( Item_vat
+                                                              / 100 ) ) ) )
+                                                              + ROUND(DiscountValue,
+                                                              2)
+                                                              + ROUND(DiscountValue1,
+                                                              2)
+                                                              ELSE ROUND(DiscountValue,
+                                                              2)
+                                                              + ROUND(DiscountValue1,
+                                                              2)
+                                                              END
+                                                           END, 0) )
+                                           ELSE 0
+                                      END * Item_vat / 100) AS DECIMAL(18, 2)) AS DECIMAL(18,
+                                                              2)) AS GST18Tax ,
+                        CAST(SUM(CASE WHEN Item_vat = 28
+                                      THEN ( Item_Qty * Item_Rate )
+                                           - ( ISNULL(CASE WHEN DType = 'P'
+                                                           THEN CASE
+                                                              WHEN GSTPAID = 'Y'
+                                                              THEN ( ( ( Item_Qty
+                                                              * Item_Rate )
+                                                              - ( ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2)
+                                                              + ( ( ROUND(Item_Rate
+                                                              * Item_Qty, 2)
+                                                              - ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2) )
+                                                              * DiscountValue1
+                                                              / 100 ) ) )
+                                                              - ( ( ( Item_Qty
+                                                              * Item_Rate )
+                                                              - ( ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2)
+                                                              + ( ( ROUND(Item_Rate
+                                                              * Item_Qty, 2)
+                                                              - ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2) )
+                                                              * DiscountValue1
+                                                              / 100 ) ) )
+                                                              / ( 1
+                                                              + ( Item_vat
+                                                              / 100 ) ) ) )
+                                                              + ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2)
+                                                              + ( ( ROUND(Item_Rate
+                                                              * Item_Qty, 2)
+                                                              - ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2) )
+                                                              * DiscountValue1
+                                                              / 100 )
+                                                              ELSE ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2)
+                                                              + ( ( ROUND(Item_Rate
+                                                              * Item_Qty, 2)
+                                                              - ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2) )
+                                                              * DiscountValue1
+                                                              / 100 )
+                                                              END
+                                                           ELSE CASE
+                                                              WHEN GSTPAID = 'Y'
+                                                              THEN ( ( ( Item_Qty
+                                                              * Item_Rate )
+                                                              - ROUND(DiscountValue,
+                                                              2)
+                                                              + ROUND(DiscountValue1,
+                                                              2) )
+                                                              - ( ( ( Item_Qty
+                                                              * Item_Rate )
+                                                              - ROUND(DiscountValue,
+                                                              2)
+                                                              + ROUND(DiscountValue1,
+                                                              2) ) / ( 1
+                                                              + ( Item_vat
+                                                              / 100 ) ) ) )
+                                                              + ROUND(DiscountValue,
+                                                              2)
+                                                              + ROUND(DiscountValue1,
+                                                              2)
+                                                              ELSE ROUND(DiscountValue,
+                                                              2)
+                                                              + ROUND(DiscountValue1,
+                                                              2)
+                                                              END
+                                                      END, 0) )
+                                      ELSE 0
+                                 END) AS DECIMAL(18, 2)) AS GST28 ,
+                        CAST(CAST(SUM(CASE WHEN Item_vat = 28
+                                           THEN ( Item_Qty * Item_Rate )
+                                                - ( ISNULL(CASE
+                                                              WHEN DType = 'P'
+                                                              THEN CASE
+                                                              WHEN GSTPAID = 'Y'
+                                                              THEN ( ( ( Item_Qty
+                                                              * Item_Rate )
+                                                              - ( ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2)
+                                                              + ( ( ROUND(Item_Rate
+                                                              * Item_Qty, 2)
+                                                              - ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2) )
+                                                              * DiscountValue1
+                                                              / 100 ) ) )
+                                                              - ( ( ( Item_Qty
+                                                              * Item_Rate )
+                                                              - ( ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2)
+                                                              + ( ( ROUND(Item_Rate
+                                                              * Item_Qty, 2)
+                                                              - ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2) )
+                                                              * DiscountValue1
+                                                              / 100 ) ) )
+                                                              / ( 1
+                                                              + ( Item_vat
+                                                              / 100 ) ) ) )
+                                                              + ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2)
+                                                              + ( ( ROUND(Item_Rate
+                                                              * Item_Qty, 2)
+                                                              - ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2) )
+                                                              * DiscountValue1
+                                                              / 100 )
+                                                              ELSE ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2)
+                                                              + ( ( ROUND(Item_Rate
+                                                              * Item_Qty, 2)
+                                                              - ROUND(( Item_Rate
+                                                              * Item_Qty
+                                                              * DiscountValue )
+                                                              / 100, 2) )
+                                                              * DiscountValue1
+                                                              / 100 )
+                                                              END
+                                                              ELSE CASE
+                                                              WHEN GSTPAID = 'Y'
+                                                              THEN ( ( ( Item_Qty
+                                                              * Item_Rate )
+                                                              - ROUND(DiscountValue,
+                                                              2)
+                                                              + ROUND(DiscountValue1,
+                                                              2) )
+                                                              - ( ( ( Item_Qty
+                                                              * Item_Rate )
+                                                              - ROUND(DiscountValue,
+                                                              2)
+                                                              + ROUND(DiscountValue1,
+                                                              2) ) / ( 1
+                                                              + ( Item_vat
+                                                              / 100 ) ) ) )
+                                                              + ROUND(DiscountValue,
+                                                              2)
+                                                              + ROUND(DiscountValue1,
+                                                              2)
+                                                              ELSE ROUND(DiscountValue,
+                                                              2)
+                                                              + ROUND(DiscountValue1,
+                                                              2)
+                                                              END
+                                                           END, 0) )
+                                           ELSE 0
+                                      END * Item_vat / 100) AS DECIMAL(18, 2)) AS DECIMAL(18,
+                                                              2)) AS GST28Tax ,
+                        MAX(ISNULL(GROSS_AMOUNT, 0)) AS TaxableAmt ,
+                        MAX(ISNULL(GST_AMOUNT, 0)) TotalTax ,
+                        MAX(ISNULL(MRWPD.Item_cess, 0)) AS [CESS %] ,
+                        CAST(SUM(( ISNULL(MRWPD.Item_Qty, 0)
+                                   * ISNULL(MRWPD.Item_Rate, 0) )
+                                 * ISNULL(MRWPD.Item_cess, 0) / 100) AS NUMERIC(18,
+                                                              2)) AS [Cess Amount] ,
+                        CAST(SUM(ISNULL(MRWPD.Item_Qty, 0)
+                                 * ISNULL(MRWPD.ACess, 0)) AS NUMERIC(18, 2)) AS [ACess Amount] ,
+                        MAX(ISNULL(Other_Charges, 0)) AS otherAmount ,
+                        MAX(ISNULL(CashDiscount_Amt, 0)) CashDiscount ,
+                        MAX(ISNULL(MRWPM.freight, 0)) AS Freight ,
+                        MAX(ISNULL(MRWPM.FreightTaxValue, 0)) AS FreightTax
+              FROM      dbo.MATERIAL_RECIEVED_WITHOUT_PO_MASTER MRWPM
+                        LEFT JOIN dbo.MATERIAL_RECEIVED_WITHOUT_PO_DETAIL MRWPD ON MRWPD.Received_ID = MRWPM.Received_ID
+                        INNER JOIN dbo.ACCOUNT_MASTER ACM ON ACM.ACC_ID = MRWPM.Vendor_ID
+              GROUP BY  MRWPM.Received_ID ,
+                        Received_Date ,
+                        Invoice_No ,
+                        Invoice_Date ,
+                        ACC_NAME ,
+                        ADDRESS_PRIM ,
+                        VAT_NO ,
+                        NET_AMOUNT ,
+                        MRN_TYPE
+              UNION ALL
+              SELECT    MRAPM.Receipt_ID ,
+                        CONVERT(VARCHAR(20), Receipt_Date, 106) ReceivedDate ,
+                        Invoice_No AS BillNo ,
+                        CONVERT(VARCHAR(20), Invoice_Date, 106) AS BillDate ,
+                        ACM.ACC_NAME AS CustomerName ,
+                        ACM.ADDRESS_PRIM AS ADDRESS ,
+                        ACM.VAT_NO AS GSTNo ,
+                        MRAPM.NET_AMOUNT AS BillAmount ,
+                        CASE WHEN MRAPM.MRN_TYPE = 1 THEN 'SGST/CGST'
+                             WHEN MRAPM.MRN_TYPE = 2 THEN 'IGST'
+                             WHEN MRAPM.MRN_TYPE = 3 THEN 'UTGST/CGST'
+                        END AS BillType ,
+                        CAST(SUM(CASE WHEN Vat_Per = 0
+                                      THEN ( Item_Qty * Item_Rate )
+                                           - ( ISNULL(CASE WHEN DType = 'P'
+                                                           THEN ( ( Item_Qty
+                                                              * Item_Rate )
+                                                              * DiscountValue )
+                                                              / 100
+                                                           ELSE DiscountValue
+                                                      END, 0) )
+                                      ELSE 0
+                                 END) AS DECIMAL(18, 2)) AS GST0 ,
+                        CAST(SUM(CASE WHEN Vat_Per = 3
+                                      THEN ( Item_Qty * Item_Rate )
+                                           - ( ISNULL(CASE WHEN DType = 'P'
+                                                           THEN ( ( Item_Qty
+                                                              * Item_Rate )
+                                                              * DiscountValue )
+                                                              / 100
+                                                           ELSE DiscountValue
+                                                      END, 0) )
+                                      ELSE 0
+                                 END) AS DECIMAL(18, 2)) AS GST3 ,
+                        CAST(CAST(SUM(CASE WHEN Vat_Per = 3
+                                           THEN ( Item_Qty * Item_Rate )
+                                                - ( ISNULL(CASE
+                                                              WHEN DType = 'P'
+                                                              THEN ( ( Item_Qty
+                                                              * Item_Rate )
+                                                              * DiscountValue )
+                                                              / 100
+                                                              ELSE DiscountValue
+                                                           END, 0) )
+                                           ELSE 0
+                                      END * Vat_Per / 100) AS DECIMAL(18, 2)) AS DECIMAL(18,
+                                                              2)) AS GST3Tax ,
+                        CAST(SUM(CASE WHEN Vat_Per = 5
+                                      THEN ( Item_Qty * Item_Rate )
+                                           - ( ISNULL(CASE WHEN DType = 'P'
+                                                           THEN ( ( Item_Qty
+                                                              * Item_Rate )
+                                                              * DiscountValue )
+                                                              / 100
+                                                           ELSE DiscountValue
+                                                      END, 0) )
+                                      ELSE 0
+                                 END) AS DECIMAL(18, 2)) AS GST5 ,
+                        CAST(CAST(SUM(CASE WHEN Vat_Per = 5
+                                           THEN ( Item_Qty * Item_Rate )
+                                                - ( ISNULL(CASE
+                                                              WHEN DType = 'P'
+                                                              THEN ( ( Item_Qty
+                                                              * Item_Rate )
+                                                              * DiscountValue )
+                                                              / 100
+                                                              ELSE DiscountValue
+                                                           END, 0) )
+                                           ELSE 0
+                                      END * Vat_Per / 100) AS DECIMAL(18, 2)) AS DECIMAL(18,
+                                                              2)) AS GST5Tax ,
+                        CAST(SUM(CASE WHEN Vat_Per = 12
+                                      THEN ( Item_Qty * Item_Rate )
+                                           - ( ISNULL(CASE WHEN DType = 'P'
+                                                           THEN ( ( Item_Qty
+                                                              * Item_Rate )
+                                                              * DiscountValue )
+                                                              / 100
+                                                           ELSE DiscountValue
+                                                      END, 0) )
+                                      ELSE 0
+                                 END) AS DECIMAL(18, 2)) AS GST12 ,
+                        CAST(CAST(SUM(CASE WHEN Vat_Per = 12
+                                           THEN ( Item_Qty * Item_Rate )
+                                                - ( ISNULL(CASE
+                                                              WHEN DType = 'P'
+                                                              THEN ( ( Item_Qty
+                                                              * Item_Rate )
+                                                              * DiscountValue )
+                                                              / 100
+                                                              ELSE DiscountValue
+                                                           END, 0) )
+                                           ELSE 0
+                                      END * Vat_Per / 100) AS DECIMAL(18, 2)) AS DECIMAL(18,
+                                                              2)) AS GST12Tax ,
+                        CAST(SUM(CASE WHEN Vat_Per = 18
+                                      THEN ( Item_Qty * Item_Rate )
+                                           - ( ISNULL(CASE WHEN DType = 'P'
+                                                           THEN ( ( Item_Qty
+                                                              * Item_Rate )
+                                                              * DiscountValue )
+                                                              / 100
+                                                           ELSE DiscountValue
+                                                      END, 0) )
+                                      ELSE 0
+                                 END) AS DECIMAL(18, 2)) AS GST18 ,
+                        CAST(CAST(SUM(CASE WHEN Vat_Per = 18
+                                           THEN ( Item_Qty * Item_Rate )
+                                                - ( ISNULL(CASE
+                                                              WHEN DType = 'P'
+                                                              THEN ( ( Item_Qty
+                                                              * Item_Rate )
+                                                              * DiscountValue )
+                                                              / 100
+                                                              ELSE DiscountValue
+                                                           END, 0) )
+                                           ELSE 0
+                                      END * Vat_Per / 100) AS DECIMAL(18, 2)) AS DECIMAL(18,
+                                                              2)) AS GST18Tax ,
+                        CAST(SUM(CASE WHEN Vat_Per = 28
+                                      THEN ( Item_Qty * Item_Rate )
+                                           - ( ISNULL(CASE WHEN DType = 'P'
+                                                           THEN ( ( Item_Qty
+                                                              * Item_Rate )
+                                                              * DiscountValue )
+                                                              / 100
+                                                           ELSE DiscountValue
+                                                      END, 0) )
+                                      ELSE 0
+                                 END) AS DECIMAL(18, 2)) AS GST28 ,
+                        CAST(CAST(SUM(CASE WHEN Vat_Per = 28
+                                           THEN ( Item_Qty * Item_Rate )
+                                                - ( ISNULL(CASE
+                                                              WHEN DType = 'P'
+                                                              THEN ( ( Item_Qty
+                                                              * Item_Rate )
+                                                              * DiscountValue )
+                                                              / 100
+                                                              ELSE DiscountValue
+                                                           END, 0) )
+                                           ELSE 0
+                                      END * Vat_Per / 100) AS DECIMAL(18, 2)) AS DECIMAL(18,
+                                                              2)) AS GST28Tax ,
+                        MAX(ISNULL(GROSS_AMOUNT, 0)) AS TaxableAmt ,
+                        MAX(ISNULL(GST_AMOUNT, 0)) TotalTax ,
+                        0 AS [CESS %] ,
+                        0 AS [Cess Amount] ,
+                        0 AS [ACess Amount] ,
+                        MAX(ISNULL(Other_Charges, 0)) AS otherAmount ,
+                        MAX(ISNULL(CashDiscount_Amt, 0)) CashDiscount ,
+                        MAX(ISNULL(MRAPM.freight, 0)) AS Freight ,
+                        MAX(ISNULL(MRAPM.FreightTaxValue, 0)) AS FreightTax
+              FROM      dbo.MATERIAL_RECEIVED_AGAINST_PO_MASTER MRAPM
+                        LEFT JOIN dbo.MATERIAL_RECEIVED_AGAINST_PO_DETAIL MRAPD ON MRAPD.Receipt_ID = MRAPM.Receipt_ID
+                        INNER JOIN dbo.ACCOUNT_MASTER ACM ON ACM.ACC_ID = MRAPM.CUST_ID
+              GROUP BY  MRAPM.Receipt_ID ,
+                        Receipt_Date ,
+                        Invoice_No ,
+                        Invoice_Date ,
+                        ACC_NAME ,
+                        ADDRESS_PRIM ,
+                        VAT_NO ,
+                        NET_AMOUNT ,
+                        MRN_TYPE
+            ) tb  
+
+			GO
+			-----------------------------------------
+
+			ALTER VIEW [dbo].[Sales_Analysis]  
+AS  
+    SELECT  ACC_ID ,  
+            ACC_NAME ,  
+            VAT_NO ,  
+            ADDRESS_PRIM ,  
+            MOBILE_NO ,  
+            SI_ID ,  
+            BillNo ,  
+            BillAmount ,  
+            fk_CessId_num ,  
+            CessPercentage_num ,  
+            ITEM_QTY ,  
+            CAST(( ISNULL(GrossAmount, 0) / ITEM_QTY ) AS DECIMAL(18, 2)) AS Price_num ,  
+            GrossAmount ,  
+            VAT_AMOUNT ,  
+            CessAmount_num ,  
+            ACessAmount ,  
+            MRP_num ,  
+            ( ISNULL(GrossAmount, 0) + ISNULL(VAT_AMOUNT, 0)  
+              + ISNULL(CessAmount_num, 0) + ISNULL(ACessAmount, 0) ) AS ItemTotalAmount_num ,  
+            ITEM_ID ,  
+            ITEM_NAME ,  
+            BarCode_vch ,  
+            ITEM_CODE ,  
+            UM_Name ,  
+            fk_hsnid_num ,  
+            HsnCode_vch ,  
+            ITEM_CAT_ID ,  
+            ITEM_CAT_NAME ,  
+            TaxID_num ,  
+            TaxPercentage_num ,  
+            OrderDate ,  
+            BrandId ,  
+            BrandName ,  
+            SizeId ,  
+            SizeName ,  
+            ColorId ,  
+            ColorName ,  
+            CompanyId ,  
+            CompanyName ,  
+            DepartmentId ,  
+            DepartmentName ,  
+            TypeId ,  
+            TypeName,
+            Freight,
+            FreightTaxValue
+    FROM    ( SELECT    ACC_ID ,  
+                        ACC_NAME ,  
+                        VAT_NO ,  
+                        dbo.ACCOUNT_MASTER.ADDRESS_PRIM ,  
+                        dbo.ACCOUNT_MASTER.MOBILE_NO ,  
+                        dbo.SALE_INVOICE_MASTER.SI_ID ,  
+                        SI_CODE + CAST(SI_NO AS VARCHAR(20)) AS BillNo ,  
+                        NET_AMOUNT AS BillAmount ,  
+                        fk_CessId_num ,  
+                        dbo.CessMaster.CessPercentage_num ,  
+                        dbo.SALE_INVOICE_DETAIL.ITEM_QTY ,            
+          --orderdetails.Price_num ,    
+                        CAST(( CAST(( ISNULL(ITEM_QTY, 0) * ISNULL(ITEM_RATE,  
+                                                              0)  
+                                      - ( ISNULL(CASE WHEN DISCOUNT_TYPE = 'P'  
+                                                      THEN ( ( ISNULL(ITEM_QTY,  
+                                                              0)  
+                                                              * ISNULL(ITEM_RATE,  
+                                                              0) )  
+                                                             * DISCOUNT_VALUE )  
+                                                           / 100  
+                                                      ELSE DISCOUNT_VALUE  
+                                                 END, 0) ) ) AS DECIMAL(18, 2))  
+                               - CASE WHEN GSTPaid = 'y'  
+                                      THEN ( ( ( ISNULL(ITEM_QTY, 0)  
+                                                 * ISNULL(ITEM_RATE, 0) )  
+                                               - ( ISNULL(CASE  
+                                                              WHEN DISCOUNT_TYPE = 'P'  
+                                                              THEN ( ( ISNULL(ITEM_QTY,  
+                                                              0)  
+                                                              * ISNULL(ITEM_RATE,  
+                                                              0) )  
+                                                              * DISCOUNT_VALUE )  
+                                                              / 100  
+                                                              ELSE DISCOUNT_VALUE  
+                                                          END, 0) ) )  
+                                             - ( ( ( ISNULL(ITEM_QTY, 0)  
+                                                     * ISNULL(ITEM_RATE, 0) )  
+                                                   - ( ISNULL(CASE  
+                                                              WHEN DISCOUNT_TYPE = 'P'  
+                                                              THEN ( ( ISNULL(ITEM_QTY,  
+                                                              0)  
+                                                              * ISNULL(ITEM_RATE,  
+                                                              0) )  
+                                                              * DISCOUNT_VALUE )  
+                                                              / 100  
+                                                              ELSE DISCOUNT_VALUE  
+                                                              END, 0) ) )  
+                                                 / ( 1 + VAT_PER / 100 ) ) )  
+                                      ELSE 0  
+                                 END ) AS DECIMAL(18, 2)) AS GrossAmount ,  
+                        dbo.SALE_INVOICE_DETAIL.VAT_AMOUNT ,  
+                        CessAmount_num ,  
+                        ACessAmount ,  
+                        dbo.SALE_INVOICE_DETAIL.MRP AS MRP_num ,    
+       --SellingPrice_num ,    
+                        dbo.ITEM_MASTER.ITEM_ID ,  
+                        ITEM_NAME ,  
+                        BarCode_vch ,  
+                        ITEM_CODE ,  
+                        UM_Name ,  
+                        dbo.ITEM_MASTER.fk_hsnid_num ,  
+                        HsnCode_vch ,  
+                        ITEM_CAT_ID ,  
+                        ITEM_CAT_NAME ,  
+                        VAT_MASTER.vat_id AS TaxID_num ,  
+                        VAT_PER AS TaxPercentage_num ,  
+                        SI_DATE AS OrderDate ,  
+                        BrandItems.Pk_LabelDetailId_Num AS BrandId ,  
+                        BrandItems.LabelItemName_vch AS BrandName ,  
+                        SizeItems.Pk_LabelDetailId_Num AS SizeId ,  
+                        SizeItems.LabelItemName_vch AS SizeName ,  
+                        ColorItems.Pk_LabelDetailId_Num AS ColorId ,  
+                        ColorItems.LabelItemName_vch AS ColorName ,  
+                        CompanyItems.Pk_LabelDetailId_Num AS CompanyId ,  
+                        CompanyItems.LabelItemName_vch AS CompanyName ,  
+                        DepartmentItems.Pk_LabelDetailId_Num AS DepartmentId ,  
+                        DepartmentItems.LabelItemName_vch AS DepartmentName ,  
+                        TypeItems.Pk_LabelDetailId_Num AS TypeId ,  
+                        TypeItems.LabelItemName_vch AS TypeName,
+                        SALE_INVOICE_MASTER.freight,
+                        SALE_INVOICE_MASTER.FreightTaxValue
+              FROM      dbo.SALE_INVOICE_MASTER  
+                        JOIN dbo.SALE_INVOICE_DETAIL ON SALE_INVOICE_DETAIL.SI_ID = dbo.SALE_INVOICE_MASTER.SI_ID  
+                        JOIN dbo.ITEM_MASTER ON ITEM_MASTER.ITEM_ID = dbo.SALE_INVOICE_DETAIL.ITEM_ID  
+                        JOIN dbo.ITEM_CATEGORY ON ITEM_CATEGORY.ITEM_CAT_ID = dbo.ITEM_MASTER.ITEM_CATEGORY_ID  
+                        LEFT JOIN dbo.CessMaster ON cessmaster.pk_CessId_num = ITEM_MASTER.fk_CessId_num  
+                        JOIN dbo.HsnCode_Master ON Pk_HsnId_num = fk_hsnid_num  
+                        JOIN dbo.UNIT_MASTER ON dbo.UNIT_MASTER.UM_ID = ITEM_MASTER.UM_ID  
+                        JOIN dbo.VAT_MASTER ON VAT_MASTER.VAT_PERCENTAGE = dbo.SALE_INVOICE_DETAIL.VAT_PER          
+                  
+------------------------------------------Brand-------------------------------------------------------------------------------------          
+                        LEFT JOIN dbo.LabelItem_Mapping AS Brand ON Brand.Fk_ItemId_Num = dbo.ITEM_MASTER.ITEM_ID  
+                                                              AND Brand.Fk_LabelDetailId IN (  
+                                                              SELECT  
+                                                              Pk_LabelDetailId_Num  
+                                                              FROM  
+                                                              dbo.Label_Items  
+                                                              WHERE  
+                                            fk_LabelId_num = 1 )  
+                        LEFT JOIN dbo.Label_Items AS BrandItems ON BrandItems.Pk_LabelDetailId_Num = Brand.Fk_LabelDetailId  
+                                                              AND BrandItems.fk_LabelId_num = 1  
+                        LEFT JOIN dbo.Label_Master AS BrandMaster ON BrandMaster.Pk_LabelId_Num = BrandItems.fk_LabelId_num  
+                                                              AND BrandMaster.Pk_LabelId_Num = 1          
+                                                               
+---------------------------------------------Size-----------------------------------------------------------------------------------            
+                        LEFT JOIN dbo.LabelItem_Mapping AS Size ON Size.Fk_ItemId_Num = dbo.ITEM_MASTER.ITEM_ID  
+                                                              AND Size.Fk_LabelDetailId IN (  
+                                                              SELECT  
+                                                              Pk_LabelDetailId_Num  
+                                                              FROM  
+                                                              dbo.Label_Items  
+                                                              WHERE  
+                                                              fk_LabelId_num = 2 )  
+                        LEFT JOIN dbo.Label_Items AS SizeItems ON SizeItems.Pk_LabelDetailId_Num = Size.Fk_LabelDetailId  
+                                                              AND SizeItems.fk_LabelId_num = 2  
+                        LEFT JOIN dbo.Label_Master AS SizeMaster ON SizeMaster.Pk_LabelId_Num = SizeItems.fk_LabelId_num  
+                                                              AND SizeMaster.Pk_LabelId_Num = 2          
+                                                              
+---------------------------------------------Color-----------------------------------------------------------------------------------          
+                        LEFT JOIN dbo.LabelItem_Mapping AS Color ON Color.Fk_ItemId_Num = dbo.ITEM_MASTER.ITEM_ID  
+                                                              AND Color.Fk_LabelDetailId IN (  
+                                                              SELECT  
+                                                              Pk_LabelDetailId_Num  
+                                                              FROM  
+                                                              dbo.Label_Items  
+                                                              WHERE  
+                                                              fk_LabelId_num = 3 )  
+                        LEFT JOIN dbo.Label_Items AS ColorItems ON ColorItems.Pk_LabelDetailId_Num = Color.Fk_LabelDetailId  
+                                                              AND ColorItems.fk_LabelId_num = 3  
+                        LEFT JOIN dbo.Label_Master AS ColorMaster ON ColorMaster.Pk_LabelId_Num = ColorItems.fk_LabelId_num  
+                                                              AND ColorMaster.Pk_LabelId_Num = 3          
+                                                              
+---------------------------------------------Company-----------------------------------------------------------------------------------          
+                        LEFT JOIN dbo.LabelItem_Mapping AS Company ON Company.Fk_ItemId_Num = dbo.ITEM_MASTER.ITEM_ID  
+                                                              AND Company.Fk_LabelDetailId IN (  
+                                                              SELECT  
+                                                              Pk_LabelDetailId_Num  
+                                                              FROM  
+                                                              dbo.Label_Items  
+                                                              WHERE  
+         fk_LabelId_num = 4 )  
+                        LEFT JOIN dbo.Label_Items AS CompanyItems ON CompanyItems.Pk_LabelDetailId_Num = Company.Fk_LabelDetailId  
+                                                              AND CompanyItems.fk_LabelId_num = 4  
+                        LEFT JOIN dbo.Label_Master AS CompanyMaster ON CompanyMaster.Pk_LabelId_Num = CompanyItems.fk_LabelId_num  
+                                                              AND CompanyMaster.Pk_LabelId_Num = 4          
+                                                              
+---------------------------------------------Department-----------------------------------------------------------------------------------          
+                        LEFT JOIN dbo.LabelItem_Mapping AS Department ON Department.Fk_ItemId_Num = dbo.ITEM_MASTER.ITEM_ID  
+                                                              AND Department.Fk_LabelDetailId IN (  
+                                                              SELECT  
+                                                              Pk_LabelDetailId_Num  
+                                                              FROM  
+                                                              dbo.Label_Items  
+                                                              WHERE  
+                                                              fk_LabelId_num = 5 )  
+                        LEFT JOIN dbo.Label_Items AS DepartmentItems ON DepartmentItems.Pk_LabelDetailId_Num = Department.Fk_LabelDetailId  
+                                                              AND DepartmentItems.fk_LabelId_num = 5  
+                        LEFT JOIN dbo.Label_Master AS DepartmentMaster ON DepartmentMaster.Pk_LabelId_Num = DepartmentItems.fk_LabelId_num  
+                                                              AND DepartmentMaster.Pk_LabelId_Num = 5          
+                                                              
+---------------------------------------------Type-----------------------------------------------------------------------------------------          
+                        LEFT JOIN dbo.LabelItem_Mapping AS Type ON Type.Fk_ItemId_Num = dbo.ITEM_MASTER.ITEM_ID  
+                                                              AND Type.Fk_LabelDetailId IN (  
+                                                              SELECT  
+                                                              Pk_LabelDetailId_Num  
+                                                              FROM  
+                                                              dbo.Label_Items  
+                                                              WHERE  
+                                                              fk_LabelId_num = 6 )  
+                        LEFT JOIN dbo.Label_Items AS TypeItems ON TypeItems.Pk_LabelDetailId_Num = Type.Fk_LabelDetailId  
+                                                              AND TypeItems.fk_LabelId_num = 6  
+                        LEFT JOIN dbo.Label_Master AS TypeMaster ON TypeMaster.Pk_LabelId_Num = TypeItems.fk_LabelId_num  
+                                                              AND TypeMaster.Pk_LabelId_Num = 6  
+                        JOIN dbo.ACCOUNT_MASTER ON ACC_ID = SALE_INVOICE_MASTER.cust_ID  
+              WHERE     dbo.SALE_INVOICE_MASTER.INVOICE_STATUS <> 4  
+            ) tb    
+---------------------------------------------End-----------------------------------------------------------------------------------------          
+            GO
+			----------------------------------------
