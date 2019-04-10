@@ -1039,14 +1039,27 @@ FROM    ( SELECT    inv.NET_AMOUNT ,
                     STATE_CODE ,
                     STATE_NAME ,
                     VAT_PER ,
-                    SUM(( ( BAL_ITEM_QTY * BAL_ITEM_RATE )
-                          - ISNULL(CASE WHEN DISCOUNT_TYPE = 'P'
-                                        THEN ( ( BAL_ITEM_QTY * BAL_ITEM_RATE )
-                                               * DISCOUNT_VALUE ) / 100
-                                        ELSE DISCOUNT_VALUE
-                                   END, 0) )) AS Taxable_Value ,
-                    SUM(invd.CessAmount_num) + SUM(invd.ACessAmount) As Cess_Amount ,
-                    SUM(invd.VAT_AMOUNT) AS VAT_AMOUNT ,
+                    ( SUM(( ( BAL_ITEM_QTY * BAL_ITEM_RATE )
+                            - ISNULL(CASE WHEN DISCOUNT_TYPE = 'P'
+                                          THEN ( ( BAL_ITEM_QTY
+                                                   * BAL_ITEM_RATE )
+                                                 * DISCOUNT_VALUE ) / 100
+                                          ELSE DISCOUNT_VALUE
+                                     END, 0) ))
+                      + SUM(CASE WHEN ISNULL(inv.FreightTaxApplied, 0) > 0
+                                 THEN ISNULL(invd.freight, 0)
+                                 ELSE 0
+                            END) ) AS Taxable_Value ,
+                    ( SUM(invd.CessAmount_num) + SUM(invd.ACessAmount)
+                      + SUM(CASE WHEN ISNULL(inv.FreightTaxApplied, 0) > 0
+                                 THEN ISNULL(invd.freightcessvalue, 0)
+                                 ELSE 0
+                            END) ) AS Cess_Amount ,
+                    SUM(invd.VAT_AMOUNT
+                        + ( CASE WHEN ISNULL(inv.FreightTaxApplied, 0) > 0
+                                 THEN ISNULL(invd.freighttaxvalue, 0)
+                                 ELSE 0
+                            END )) AS VAT_AMOUNT ,
                     DISCOUNT_TYPE ,
                     DISCOUNT_VALUE ,
                     GSTPaid
@@ -1148,14 +1161,27 @@ FROM    ( SELECT    inv.NET_AMOUNT ,
                     STATE_CODE ,
                     STATE_NAME ,
                     VAT_PER ,
-                    SUM(( ( BAL_ITEM_QTY * BAL_ITEM_RATE )
-                          - ISNULL(CASE WHEN DISCOUNT_TYPE = 'P'
-                                        THEN ( ( BAL_ITEM_QTY * BAL_ITEM_RATE )
-                                               * DISCOUNT_VALUE ) / 100
-                                        ELSE DISCOUNT_VALUE
-                                   END, 0) )) AS Taxable_Value ,
-                    SUM(invd.CessAmount_num) + SUM(invd.ACessAmount) As Cess_Amount ,
-                    SUM(invd.VAT_AMOUNT) AS VAT_AMOUNT ,
+                    ( SUM(( ( BAL_ITEM_QTY * BAL_ITEM_RATE )
+                            - ISNULL(CASE WHEN DISCOUNT_TYPE = 'P'
+                                          THEN ( ( BAL_ITEM_QTY
+                                                   * BAL_ITEM_RATE )
+                                                 * DISCOUNT_VALUE ) / 100
+                                          ELSE DISCOUNT_VALUE
+                                     END, 0) ))
+                      + SUM(CASE WHEN ISNULL(inv.FreightTaxApplied, 0) > 0
+                                 THEN ISNULL(invd.freight, 0)
+                                 ELSE 0
+                            END) ) AS Taxable_Value ,
+                    ( SUM(invd.CessAmount_num) + SUM(invd.ACessAmount)
+                      + SUM(CASE WHEN ISNULL(inv.FreightTaxApplied, 0) > 0
+                                 THEN ISNULL(invd.freightcessvalue, 0)
+                                 ELSE 0
+                            END) ) AS Cess_Amount ,
+                    SUM(invd.VAT_AMOUNT
+                        + ( CASE WHEN ISNULL(inv.FreightTaxApplied, 0) > 0
+                                 THEN ISNULL(invd.freighttaxvalue, 0)
+                                 ELSE 0
+                            END )) AS VAT_AMOUNT ,
                     DISCOUNT_TYPE ,
                     DISCOUNT_VALUE ,
                     GSTPaid
@@ -1273,17 +1299,30 @@ FROM    ( SELECT    STATE_CODE ,
                                             STATE_CODE ,
                                             STATE_NAME ,
                                             VAT_PER ,
-                                            SUM(( ( BAL_ITEM_QTY
-                                                    * BAL_ITEM_RATE )
-                                                  - ISNULL(CASE
+                                            ( SUM(( ( BAL_ITEM_QTY
+                                                      * BAL_ITEM_RATE )
+                                                    - ISNULL(CASE
                                                               WHEN DISCOUNT_TYPE = 'P'
                                                               THEN ( ( BAL_ITEM_QTY
                                                               * BAL_ITEM_RATE )
                                                               * DISCOUNT_VALUE )
                                                               / 100
                                                               ELSE DISCOUNT_VALUE
-                                                           END, 0) )) AS Taxable_Value ,
-                                            SUM(invd.CessAmount_num) + SUM(invd.ACessAmount) Cess_Amount ,
+                                                             END, 0) ))
+                                              + SUM(CASE WHEN ISNULL(inv.FreightTaxApplied,
+                                                              0) > 0
+                                                         THEN ISNULL(invd.freight,
+                                                              0)
+                                                         ELSE 0
+                                                    END) ) AS Taxable_Value ,
+                                            ( SUM(invd.CessAmount_num)
+                                              + SUM(invd.ACessAmount)
+                                              + SUM(CASE WHEN ISNULL(inv.FreightTaxApplied,
+                                                              0) > 0
+                                                         THEN ISNULL(invd.freightcessvalue,
+                                                              0)
+                                                         ELSE 0
+                                                    END) ) AS Cess_Amount ,
                                             GSTPaid
                                   FROM      dbo.SALE_INVOICE_MASTER inv
                                             INNER JOIN dbo.SALE_INVOICE_DETAIL invd ON invd.SI_ID = inv.SI_ID
@@ -1410,17 +1449,30 @@ FROM    ( SELECT    STATE_CODE ,
                                             STATE_CODE ,
                                             STATE_NAME ,
                                             VAT_PER ,
-                                            SUM(( ( BAL_ITEM_QTY
-                                                    * BAL_ITEM_RATE )
-                                                  - ISNULL(CASE
+                                            ( SUM(( ( BAL_ITEM_QTY
+                                                      * BAL_ITEM_RATE )
+                                                    - ISNULL(CASE
                                                               WHEN DISCOUNT_TYPE = 'P'
                                                               THEN ( ( BAL_ITEM_QTY
                                                               * BAL_ITEM_RATE )
                                                               * DISCOUNT_VALUE )
                                                               / 100
                                                               ELSE DISCOUNT_VALUE
-                                                           END, 0) )) AS Taxable_Value ,
-                                            SUM(invd.CessAmount_num) + SUM(invd.ACessAmount) Cess_Amount ,
+                                                             END, 0) ))
+                                              + SUM(CASE WHEN ISNULL(inv.FreightTaxApplied,
+                                                              0) > 0
+                                                         THEN ISNULL(invd.freight,
+                                                              0)
+                                                         ELSE 0
+                                                    END) ) AS Taxable_Value ,
+                                            ( SUM(invd.CessAmount_num)
+                                              + SUM(invd.ACessAmount)
+                                              + SUM(CASE WHEN ISNULL(inv.FreightTaxApplied,
+                                                              0) > 0
+                                                         THEN ISNULL(invd.freightcessvalue,
+                                                              0)
+                                                         ELSE 0
+                                                    END) ) AS Cess_Amount ,
                                             GSTPaid
                                   FROM      dbo.SALE_INVOICE_MASTER inv
                                             INNER JOIN dbo.SALE_INVOICE_DETAIL invd ON invd.SI_ID = inv.SI_ID
@@ -1549,21 +1601,39 @@ GROUP BY main.STATE_CODE ,
         SUM(integrated_tax) AS integrated_tax
         FROM   ( SELECT    HsnCode_vch ,
                     SUM(invd.BAL_ITEM_QTY) AS Qty ,
-                    SUM(( ( BAL_ITEM_QTY * BAL_ITEM_RATE )
-                          - ISNULL(CASE WHEN DISCOUNT_TYPE = 'P'
-                                        THEN ( ( BAL_ITEM_QTY * BAL_ITEM_RATE )
-                                               * DISCOUNT_VALUE ) / 100
-                                        ELSE DISCOUNT_VALUE
-                                   END, 0) )) AS Taxable_Value ,
-                    SUM(invd.CessAmount_num) + SUM(invd.ACessAmount) Cess_Amount ,
-                    SUM(CASE WHEN inv.INV_TYPE <> 'I' THEN invd.VAT_AMOUNT
-                             ELSE 0
-                        END) AS non_integrated_tax ,
-                    SUM(CASE WHEN inv.INV_TYPE = 'I' THEN invd.VAT_AMOUNT
-                             ELSE 0
-                        END) AS integrated_tax ,
-                    GSTPaid ,
-                    VAT_PER
+        ( SUM(( ( BAL_ITEM_QTY * BAL_ITEM_RATE )
+                - ISNULL(CASE WHEN DISCOUNT_TYPE = 'P'
+                              THEN ( ( BAL_ITEM_QTY * BAL_ITEM_RATE )
+                                     * DISCOUNT_VALUE ) / 100
+                              ELSE DISCOUNT_VALUE
+                         END, 0) ))
+          + SUM(CASE WHEN ISNULL(inv.FreightTaxApplied, 0) > 0
+                     THEN ISNULL(invd.freight, 0)
+                     ELSE 0
+                END) ) AS Taxable_Value ,
+        ( SUM(invd.CessAmount_num) + SUM(invd.ACessAmount)
+          + SUM(CASE WHEN ISNULL(inv.FreightTaxApplied, 0) > 0
+                     THEN ISNULL(invd.freightcessvalue, 0)
+                     ELSE 0
+                END) ) AS Cess_Amount ,
+        SUM(CASE WHEN inv.INV_TYPE <> 'I'
+                 THEN invd.VAT_AMOUNT
+                      + ( CASE WHEN ISNULL(inv.FreightTaxApplied, 0) > 0
+                               THEN ISNULL(invd.freighttaxvalue, 0)
+                               ELSE 0
+                          END )
+                 ELSE 0
+            END) AS non_integrated_tax ,
+        SUM(CASE WHEN inv.INV_TYPE = 'I'
+                 THEN invd.VAT_AMOUNT
+                      + ( CASE WHEN ISNULL(inv.FreightTaxApplied, 0) > 0
+                               THEN ISNULL(invd.freighttaxvalue, 0)
+                               ELSE 0
+                          END )
+                 ELSE 0
+            END) AS integrated_tax ,
+        GSTPaid ,
+        VAT_PER
           FROM      dbo.SALE_INVOICE_MASTER inv
                     INNER JOIN dbo.SALE_INVOICE_DETAIL invd ON invd.SI_ID = inv.SI_ID
                     INNER JOIN dbo.ITEM_MASTER im ON invd.ITEM_ID = im.ITEM_ID
@@ -1577,8 +1647,6 @@ GROUP BY main.STATE_CODE ,
           " GROUP BY  HsnCode_vch ,
                     GSTPaid ,
                     VAT_PER
-
-
 
           UNION ALL
                       SELECT    HsnCode_vch ,
