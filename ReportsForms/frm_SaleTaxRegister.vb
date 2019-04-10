@@ -421,7 +421,9 @@ Public Class frm_SaleTaxRegister
         [Round Off] ,
         [CESS %] ,
         [Cess Amount] ,
-        [ACess Amount]
+        [ACess Amount] ,
+        Freight ,
+        [Freight Tax]
 FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY SIM.SI_ID ) AS [S. No.] ,
                     CONVERT(VARCHAR(20), SI_DATE, 106) AS Date ,
                     SI_CODE + CAST(si_no AS VARCHAR) AS [Bill NO.] ,
@@ -731,13 +733,16 @@ FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY SIM.SI_ID ) AS [S. No.] ,
                     MAX(SID.CessPercentage_num) AS [CESS %] ,
                     SUM(ISNULL(SID.CessAmount_num, 0)) AS [Cess Amount] ,
                     CAST(SUM(ISNULL(SID.ACess, 0) * ISNULL(SID.ITEM_QTY, 0)) AS NUMERIC(18,
-                                                              2)) AS [ACess Amount]
+                                                              2)) AS [ACess Amount] ,
+                    MAX(ISNULL(SIM.freight, 0)) AS Freight ,
+                    MAX(ISNULL(SIM.FreightTaxValue, 0)) AS [Freight Tax]
           FROM      dbo.SALE_INVOICE_MASTER SIM
                     JOIN dbo.SALE_INVOICE_DETAIL SID ON SIM.SI_ID = SID.SI_ID
                     JOIN dbo.ACCOUNT_MASTER ACM ON ACM.ACC_ID = SIM.CUST_ID
           WHERE     INVOICE_STATUS <> 4
-                    AND cast(SI_DATE AS date) between CAST('" & txtFromDate.Value.ToString("dd-MMM-yyyy") & "' AS date) AND CAST('" & txtToDate.Value.ToString("dd-MMM-yyyy") & "' AS date) " &
-          " GROUP BY SIM.SI_ID ,
+                    AND CAST(SI_DATE AS DATE) BETWEEN CAST('" & txtFromDate.Value.ToString("dd-MMM-yyyy") & "' AS DATE)
+                                              AND     CAST('" & txtToDate.Value.ToString("dd-MMM-yyyy") & "' AS DATE)
+          GROUP BY  SIM.SI_ID ,
                     SI_DATE ,
                     SI_CODE ,
                     SI_NO ,
@@ -749,8 +754,7 @@ FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY SIM.SI_ID ) AS [S. No.] ,
                     SIM.VAT_AMOUNT ,
                     INV_TYPE ,
                     SALE_TYPE
-        ) AS tbb
-        "
+        ) AS tbb"
 
         Dim dt As DataTable = objCommFunction.Fill_DataSet(Qry).Tables(0)
 
