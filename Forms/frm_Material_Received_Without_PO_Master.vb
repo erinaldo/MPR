@@ -473,7 +473,7 @@ Public Class frm_Material_Received_Without_PO_Master
                         If Convert.ToString(FLXGRD_MaterialItem.Item(iRow, "Freight_type")) = "" Then
                             prpty.Freighttype_Share = "A"
                         Else
-                            prpty.Freighttype_Share = Convert.ToDouble(FLXGRD_MaterialItem.Item(iRow, "Freight_type"))
+                            prpty.Freighttype_Share = FLXGRD_MaterialItem.Item(iRow, "Freight_type")
                         End If
 
                         If Convert.ToString(FLXGRD_MaterialItem.Item(iRow, "FreightTaxValue")) = "" Then

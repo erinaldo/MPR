@@ -627,6 +627,7 @@ Namespace material_recieved_without_po_master
             cmd.Parameters.AddWithValue("@V_FreightTaxValue", clsObj.Freight_TaxValue)
             cmd.Parameters.AddWithValue("@V_FK_ITCEligibility_ID", clsObj.FK_ITCEligibility_ID)
             cmd.Parameters.AddWithValue("@V_Reference_ID", clsObj.Reference_ID)
+            cmd.Parameters.AddWithValue("@V_IS_RCM_Applicable", clsObj.IS_RCM_Applicable)
 
             cmd.ExecuteNonQuery()
             cmd.Dispose()
@@ -773,7 +774,7 @@ Namespace material_recieved_without_po_master
                 cmd.Parameters.AddWithValue("@V_FreightTaxValue", clsObj.Freight_TaxValue)
                 cmd.Parameters.AddWithValue("@V_FK_ITCEligibility_ID", clsObj.FK_ITCEligibility_ID)
                 cmd.Parameters.AddWithValue("@V_Reference_ID", clsObj.Reference_ID)
-
+                cmd.Parameters.AddWithValue("@V_IS_RCM_Applicable", clsObj.IS_RCM_Applicable)
                 cmd.ExecuteNonQuery()
                 cmd.Dispose()
 
