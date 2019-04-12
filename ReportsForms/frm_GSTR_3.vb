@@ -22,7 +22,6 @@ Public Class frm_GSTR_3
 
     Private Sub btnShow_Click(sender As Object, e As EventArgs) Handles btnShow.Click
         ImportData()
-
     End Sub
 
     Private Sub ImportData()
@@ -537,15 +536,26 @@ FROM    ( SELECT    STATE_CODE ,
                     SUM(integrated_tax) AS integrated_tax
           FROM      ( SELECT    STATE_CODE ,
                                 STATE_NAME ,
-                                SUM(( ( BAL_ITEM_QTY * BAL_ITEM_RATE )
-                                      - ISNULL(CASE WHEN DISCOUNT_TYPE = 'P'
-                                                    THEN ( ( BAL_ITEM_QTY
-                                                             * BAL_ITEM_RATE )
-                                                           * DISCOUNT_VALUE )
-                                                         / 100
-                                                    ELSE DISCOUNT_VALUE
-                                               END, 0) )) AS Taxable_Value ,
-                                SUM(invd.VAT_AMOUNT) AS integrated_tax ,
+                                ( SUM(( ( BAL_ITEM_QTY * BAL_ITEM_RATE )
+                                        - ISNULL(CASE WHEN DISCOUNT_TYPE = 'P'
+                                                      THEN ( ( BAL_ITEM_QTY
+                                                              * BAL_ITEM_RATE )
+                                                             * DISCOUNT_VALUE )
+                                                           / 100
+                                                      ELSE DISCOUNT_VALUE
+                                                 END, 0) ))
+                                  + SUM(CASE WHEN ISNULL(inv.FreightTaxApplied,
+                                                         0) > 0
+                                             THEN ISNULL(invd.freight, 0)
+                                             ELSE 0
+                                        END) ) AS Taxable_Value ,
+                                SUM(invd.VAT_AMOUNT
+                                    + ( CASE WHEN ISNULL(inv.FreightTaxApplied,
+                                                         0) > 0
+                                             THEN ISNULL(invd.freighttaxvalue,
+                                                         0)
+                                             ELSE 0
+                                        END )) AS integrated_tax ,
                                 GSTPaid ,
                                 VAT_PER
                       FROM      dbo.SALE_INVOICE_MASTER inv
@@ -652,22 +662,47 @@ FROM    ( SELECT    STATE_CODE ,
         ISNULL(SUM(Cess_Amount), 0) AS Cess_Amount ,
         ISNULL(SUM(non_integrated_tax), 0) AS non_integrated_tax ,
         ISNULL(SUM(integrated_tax), 0) AS integrated_tax
-        FROM   ( SELECT    ISNULL(SUM(( ( BAL_ITEM_QTY * BAL_ITEM_RATE )
-                                 - ISNULL(CASE WHEN DISCOUNT_TYPE = 'P'
-                                               THEN ( ( BAL_ITEM_QTY
-                                                        * BAL_ITEM_RATE )
-                                                      * DISCOUNT_VALUE ) / 100
-                                               ELSE DISCOUNT_VALUE
-                                          END, 0) )), 0) AS Taxable_Value ,
-                    SUM(invd.CessAmount_num) + SUM(invd.ACessAmount) As Cess_Amount ,
-                    ISNULL(SUM(CASE WHEN inv.INV_TYPE <> 'I'
-                                    THEN invd.VAT_AMOUNT
-                                    ELSE 0
-                               END), 0) AS non_integrated_tax ,
-                    ISNULL(SUM(CASE WHEN inv.INV_TYPE = 'I'
-                                    THEN invd.VAT_AMOUNT
-                                    ELSE 0
-                               END), 0) AS integrated_tax ,
+        FROM   ( SELECT    ( SUM(( ( BAL_ITEM_QTY * BAL_ITEM_RATE )
+                                        - ISNULL(CASE WHEN DISCOUNT_TYPE = 'P'
+                                                      THEN ( ( BAL_ITEM_QTY
+                                                              * BAL_ITEM_RATE )
+                                                             * DISCOUNT_VALUE )
+                                                           / 100
+                                                      ELSE DISCOUNT_VALUE
+                                                 END, 0) ))
+                                  + SUM(CASE WHEN ISNULL(inv.FreightTaxApplied,
+                                                         0) > 0
+                                             THEN ISNULL(invd.freight, 0)
+                                             ELSE 0
+                                        END) ) AS Taxable_Value ,
+                                ( SUM(invd.CessAmount_num)
+                                  + SUM(invd.ACessAmount)
+                                  + SUM(CASE WHEN ISNULL(inv.FreightTaxApplied,
+                                                         0) > 0
+                                             THEN ISNULL(invd.freightcessvalue,
+                                                         0)
+                                             ELSE 0
+                                        END) ) AS Cess_Amount ,
+                                ISNULL(SUM(CASE WHEN inv.INV_TYPE <> 'I'
+                                                THEN invd.VAT_AMOUNT
+                                                     + ( CASE WHEN ISNULL(inv.FreightTaxApplied,
+                                                              0) > 0
+                                                              THEN ISNULL(invd.freighttaxvalue,
+                                                              0)
+                                                              ELSE 0
+                                                         END )
+                                                ELSE 0
+                                           END), 0) AS non_integrated_tax ,
+                                ISNULL(SUM(CASE WHEN inv.INV_TYPE = 'I'
+                                                THEN invd.VAT_AMOUNT
+                                                     + ( CASE WHEN ISNULL(inv.FreightTaxApplied,
+                                                              0) > 0
+                                                              THEN ISNULL(invd.freighttaxvalue,
+                                                              0)
+                                                              ELSE 0
+                                                         END )
+                                                ELSE 0
+                                           END), 0) AS integrated_tax ,
                     GSTPaid ,
                     VAT_PER
           FROM      dbo.SALE_INVOICE_MASTER inv
