@@ -348,8 +348,6 @@ Namespace DebitNote
                 _Tax_num = value
             End Set
         End Property
-
-
     End Class
 
     Public Class cls_DebitNote_Master

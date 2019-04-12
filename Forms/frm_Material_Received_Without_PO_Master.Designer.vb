@@ -210,6 +210,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.Label46 = New System.Windows.Forms.Label()
         Me.Label47 = New System.Windows.Forms.Label()
         Me.Label48 = New System.Windows.Forms.Label()
+        Me.Chk_IsRcmApplicable = New System.Windows.Forms.CheckBox()
         Me.TbPO.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.GroupBox5.SuspendLayout()
@@ -408,6 +409,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.Chk_IsRcmApplicable)
         Me.GroupBox1.Controls.Add(Me.cmbVendor)
         Me.GroupBox1.Controls.Add(Me.lblFormHeading)
         Me.GroupBox1.Controls.Add(Me.MRNdtDate)
@@ -2334,6 +2336,18 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.Label48.TabIndex = 0
         Me.Label48.Text = "Delivery Rate :"
         '
+        'Chk_IsRcmApplicable
+        '
+        Me.Chk_IsRcmApplicable.AutoSize = True
+        Me.Chk_IsRcmApplicable.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Chk_IsRcmApplicable.ForeColor = System.Drawing.Color.White
+        Me.Chk_IsRcmApplicable.Location = New System.Drawing.Point(687, 23)
+        Me.Chk_IsRcmApplicable.Name = "Chk_IsRcmApplicable"
+        Me.Chk_IsRcmApplicable.Size = New System.Drawing.Size(125, 19)
+        Me.Chk_IsRcmApplicable.TabIndex = 40
+        Me.Chk_IsRcmApplicable.Text = "Is Rcm Applicable"
+        Me.Chk_IsRcmApplicable.UseVisualStyleBackColor = True
+        '
         'frm_Material_Received_Without_PO_Master
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -2559,4 +2573,5 @@ Partial Class frm_Material_Received_Without_PO_Master
     Friend WithEvents lblITCEligibility As Label
     Friend WithEvents MRNdtDate As DateTimePicker
     Friend WithEvents cmbVendor As AutoCompleteCombo
+    Friend WithEvents Chk_IsRcmApplicable As CheckBox
 End Class

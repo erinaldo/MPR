@@ -483,6 +483,12 @@ again:
                             OrderDataRow("DType") = items_DataRow("DType")
                             OrderDataRow("DISC") = items_DataRow("DISC")
                             OrderDataRow("Amount") = items_DataRow("Amount")
+
+                            OrderDataRow("Freight") = items_DataRow("Freight")
+                            OrderDataRow("Freight_type") = items_DataRow("Freight_type")
+                            OrderDataRow("FreightTaxValue") = items_DataRow("FreightTaxValue")
+                            OrderDataRow("FreightCessValue") = items_DataRow("FreightCessValue")
+
                             'If (clsobj.Flag = 1) Then
                             OrderDataRow("GPAID") = items_DataRow("GPAID")
                             'End If
@@ -523,6 +529,13 @@ again:
                         cmd.Parameters.AddWithValue("@v_DISCOUNT_TYPE", Dtitemsnew.Rows(i)("DType"))
                         cmd.Parameters.AddWithValue("@v_DISCOUNT_VALUE", Dtitemsnew.Rows(i)("DISC"))
                         cmd.Parameters.AddWithValue("@V_MODE", 1)
+
+                        cmd.Parameters.AddWithValue("@V_Freight", Dtitemsnew.Rows(i)("Freight"))
+                        cmd.Parameters.AddWithValue("@V_Freight_type", Dtitemsnew.Rows(i)("Freight_type"))
+                        cmd.Parameters.AddWithValue("@V_FreightTaxValue", Dtitemsnew.Rows(i)("FreightTaxValue"))
+                        cmd.Parameters.AddWithValue("@V_FreightCessValue", Dtitemsnew.Rows(i)("FreightCessValue"))
+
+
                         'If (clsobj.Flag = 1) Then
                         cmd.Parameters.AddWithValue("@v_GSTPAID", Dtitemsnew.Rows(i)("GPAID"))
                         'End If
@@ -1035,6 +1048,11 @@ again:
                             OrderDataRow("GPAID") = items_DataRow("GPAID")
                             'End If
                             OrderDataRow("Amount") = items_DataRow("Amount")
+
+                            OrderDataRow("Freight") = items_DataRow("Freight")
+                            OrderDataRow("Freight_type") = items_DataRow("Freight_type")
+                            OrderDataRow("FreightTaxValue") = items_DataRow("FreightTaxValue")
+                            OrderDataRow("FreightCessValue") = items_DataRow("FreightCessValue")
                             Dtitemsnew.Rows.Add(OrderDataRow)
                             Dtitemsnew.AcceptChanges()
                         End If
@@ -1073,6 +1091,12 @@ again:
                         cmd.Parameters.AddWithValue("@v_DISCOUNT_TYPE", Dtitemsnew.Rows(i)("DType"))
                         cmd.Parameters.AddWithValue("@v_DISCOUNT_VALUE", Dtitemsnew.Rows(i)("DISC"))
                         cmd.Parameters.AddWithValue("@V_MODE", 1)
+
+                        cmd.Parameters.AddWithValue("@V_Freight", Dtitemsnew.Rows(i)("Freight"))
+                        cmd.Parameters.AddWithValue("@V_Freight_type", Dtitemsnew.Rows(i)("Freight_type"))
+                        cmd.Parameters.AddWithValue("@V_FreightTaxValue", Dtitemsnew.Rows(i)("FreightTaxValue"))
+                        cmd.Parameters.AddWithValue("@V_FreightCessValue", Dtitemsnew.Rows(i)("FreightCessValue"))
+
                         'If (clsobj.Flag = 1) Then
                         cmd.Parameters.AddWithValue("@v_GSTPAID", Dtitemsnew.Rows(i)("GPAID"))
                         'End If

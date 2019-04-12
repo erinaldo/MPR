@@ -399,6 +399,11 @@ again:
             dtable_Item_List.Columns.Add("HsnCodeId", GetType(System.Int32))
             dtable_Item_List.Columns.Add("LandingAmt", GetType(System.Decimal))
 
+            dtable_Item_List.Columns.Add("freight", GetType(System.Decimal))
+            dtable_Item_List.Columns.Add("freight_type", GetType(System.String))
+            dtable_Item_List.Columns.Add("FreightTaxValue", GetType(System.Decimal))
+            dtable_Item_List.Columns.Add("FreightCessValue", GetType(System.Decimal))
+
             dtable_Item_List.Rows.Add()
             flxItems.DataSource = dtable_Item_List
             format_grid()
@@ -416,6 +421,12 @@ again:
         flxItems.Cols("Batch_No").Visible = False
         flxItems.Cols("Stock_Detail_Id").Visible = False
         flxItems.Cols("MRP").Visible = False
+
+        flxItems.Cols("freight").Visible = False
+        flxItems.Cols("freight_type").Visible = False
+        flxItems.Cols("FreightTaxValue").Visible = False
+        flxItems.Cols("FreightCessValue").Visible = False
+
 
         'flxItems.Cols("Stock_Detail_Id").Visible = True
         flxItems.Cols("Item_Code").Caption = "Code"
@@ -738,6 +749,13 @@ restart:
                         dr("Batch_Qty") = ds.Tables(0).Rows(i)("Balance_Qty")
                         dr("Stock_Detail_Id") = ds.Tables(0).Rows(i)("STOCK_DETAIL_ID")
                         dr("transfer_Qty") = 0.000
+
+
+                        dr("freight") = 0
+                        dr("freight_type") = "A"
+                        dr("FreightTaxValue") = 0
+                        dr("FreightCessValue") = 0
+
                         dtable_Item_List.Rows.Add(dr)
                         dtable_Item_List.AcceptChanges()
                     Next
@@ -926,16 +944,17 @@ restart:
         Dim CessTotal As Decimal = 0
         Dim Tax As Decimal = 0
 
+
+
         Dim TaxAmount As Decimal = 0
         Dim FreightTaxAmount As Decimal = 0
-        Dim FreightTaxAmount0 As Decimal = 0
-        Dim FreightTaxAmount3 As Decimal = 0
-        Dim FreightTaxAmount5 As Decimal = 0
-        Dim FreightTaxAmount12 As Decimal = 0
-        Dim FreightTaxAmount18 As Decimal = 0
-        Dim FreightTaxAmount28 As Decimal = 0
-
+        Dim FreightCessAmount As Decimal = 0
         Dim FreightTaxTotal As Decimal = 0
+        Dim FreightCessTotal As Decimal = 0
+        Dim Cess As Decimal = 0
+
+
+
         Dim iRow As Integer = 0
 
         For iRow = 1 To flxItems.Rows.Count - 1
@@ -969,17 +988,25 @@ restart:
                         Dim CgstandSgst As Decimal = Math.Round((TaxAmount * ((flxItems.Rows(iRow).Item("GST") / 2) / 100)), 2)
                         FreightTaxAmount = Math.Round(CgstandSgst * 2, 2)
                     End If
-
+                    FreightCessAmount = Math.Round((TaxAmount) * (flxItems.Rows(iRow).Item("Cess") / 100), 2)
                 End If
 
 
+                flxItems.Rows(iRow).Item("Freight") = TaxAmount
+                flxItems.Rows(iRow).Item("Freight_type") = "A"
+                flxItems.Rows(iRow).Item("FreightTaxValue") = FreightTaxAmount
+                flxItems.Rows(iRow).Item("FreightCessValue") = FreightCessAmount
+                FreightCessTotal += FreightCessAmount
 
 
-                'Tax = totalAmount * flxItems.Item(iRow, "GST") / 100
                 Tax = flxItems.Rows(iRow).Item("GST_Amount")
                 Tax = Tax + FreightTaxAmount
 
+
                 FreightTaxTotal += FreightTaxAmount
+
+
+
                 totalAmount = totalAmount + TaxAmount
 
 
@@ -1008,6 +1035,7 @@ restart:
             End If
         Next
 
+        lblCessAmount.Text = Convert.ToDouble(lblCessAmount.Text) + FreightCessTotal
         lblVatAmount.Text = GSTTaxTotal
         lblFreightTaxTotal.Text = Math.Round(FreightTaxTotal, 2)
         lblGST0.Text = String.Format("0% - {0:0.00} @ {1}", Math.Round(GSTAmount0, 2), Math.Round(GSTTax0, 2))
@@ -1120,12 +1148,14 @@ restart:
             lblTotalDisc.Text = totdiscamt.ToString("#0.00")
             lblItemValue.Text = (total_item_value - totdiscamt).ToString("#0.00")
             lblVatAmount.Text = total_vat_amount.ToString("#0.00")
+
+
             lblCessAmount.Text = total_cess_amount.ToString("#0.00")
             lblACessAmount.Text = total_Acess_amount.ToString("#0.00")
             'lblNetAmount.Text = (total_item_value - totdiscamt + total_vat_amount + total_cess_amount + total_Acess_amount + total_exice_amount + Convert.ToDouble(IIf(IsNumeric(txtAmount.Text), txtAmount.Text, 0))).ToString("#0.00")
             ' Str = total_item_value.ToString("#0.00") + "," + total_vat_amount.ToString("#0.00") + "," + total_cess_amount.ToString("#0.00") + "," + total_Acess_amount.ToString("#0.00") + "," + lblNetAmount.Text + "," + total_exice_amount.ToString()
             SetGstLabels()
-            lblNetAmount.Text = (total_item_value - totdiscamt + Convert.ToDouble(IIf(IsNumeric(lblVatAmount.Text), lblVatAmount.Text, 0)) + total_cess_amount + total_Acess_amount + total_exice_amount + Convert.ToDouble(IIf(IsNumeric(txtAmount.Text), txtAmount.Text, 0))).ToString("#0.00")
+            lblNetAmount.Text = (total_item_value - totdiscamt + Convert.ToDouble(IIf(IsNumeric(lblVatAmount.Text), lblVatAmount.Text, 0)) + Convert.ToDouble(IIf(IsNumeric(lblCessAmount.Text), lblCessAmount.Text, 0)) + total_Acess_amount + total_exice_amount + Convert.ToDouble(IIf(IsNumeric(txtAmount.Text), txtAmount.Text, 0))).ToString("#0.00")
             Return Str
         Catch ex As Exception
             'MsgBox(ex.Message)
