@@ -7,6 +7,7 @@ Public Class frm_GSTR_3
 
     Dim objCommFunction As New CommonClass
     Dim row As DataRow
+    Dim rowRCM As DataRow
     Private stateId As String
     Dim Qry As String
     Dim _rights As Form_Rights
@@ -107,6 +108,13 @@ Public Class frm_GSTR_3
         xlWorkSheet.Cells(13, 11) = row("non_integrated_tax") / 2
         xlWorkSheet.Cells(13, 14) = row("Cess_Amount")
 
+        rowRCM = Get3_1_SectionRCMData()
+        xlWorkSheet.Cells(14, 2) = rowRCM("Taxable_Value")
+        xlWorkSheet.Cells(14, 5) = rowRCM("integrated_tax")
+        xlWorkSheet.Cells(14, 8) = rowRCM("non_integrated_tax") / 2
+        xlWorkSheet.Cells(14, 11) = rowRCM("non_integrated_tax") / 2
+        xlWorkSheet.Cells(14, 14) = rowRCM("Cess_Amount")
+
         'row = Get3_1_SectionData(" And LEN(ISNUll(am.VAT_NO,'')) = 0 ")
         'xlWorkSheet.Cells(15, 2) = row("Taxable_Value")
         'xlWorkSheet.Cells(15, 5) = row("integrated_tax")
@@ -115,11 +123,11 @@ Public Class frm_GSTR_3
         'xlWorkSheet.Cells(15, 14) = row("Cess_Amount")
 
         row = Get3_1_SectionData("")
-        xlWorkSheet.Cells(16, 2) = row("Taxable_Value")
-        xlWorkSheet.Cells(16, 5) = row("integrated_tax")
-        xlWorkSheet.Cells(16, 8) = row("non_integrated_tax") / 2
-        xlWorkSheet.Cells(16, 11) = row("non_integrated_tax") / 2
-        xlWorkSheet.Cells(16, 14) = row("Cess_Amount")
+        xlWorkSheet.Cells(16, 2) = row("Taxable_Value") + rowRCM("Taxable_Value")
+        xlWorkSheet.Cells(16, 5) = row("integrated_tax") + rowRCM("integrated_tax")
+        xlWorkSheet.Cells(16, 8) = (row("non_integrated_tax") / 2) + (rowRCM("non_integrated_tax") / 2)
+        xlWorkSheet.Cells(16, 11) = (row("non_integrated_tax") / 2) + (rowRCM("non_integrated_tax") / 2)
+        xlWorkSheet.Cells(16, 14) = row("Cess_Amount") + rowRCM("Cess_Amount")
         Return xlWorkSheet
     End Function
 
@@ -449,7 +457,7 @@ FROM    ( SELECT    SUM(ISNULL(IntraState_TaxableValue, 0)) AS IntraState_Taxabl
                                 JOIN dbo.DebitNote_Master M ON M.MRNId = MRAPM.MRN_NO
                                 JOIN dbo.DebitNote_Detail D ON M.DebitNote_Id = D.DebitNote_Id
                       WHERE     cast(DebitNote_Date AS date) between CAST('" & txtFromDate.Value.ToString("dd-MMM-yyyy") & "' AS date) AND CAST('" & txtToDate.Value.ToString("dd-MMM-yyyy") & "' AS date) " & "
-                                AND Item_Tax = 0
+                                AND Item_Tax = 0 
                     ) tb1
         ) TB"
 
@@ -491,7 +499,7 @@ FROM    ( SELECT    SUM(ISNULL(IntraState_TaxableValue, 0)) AS IntraState_Taxabl
             " FROM dbo.MATERIAL_RECIEVED_WITHOUT_PO_MASTER  AS mrn " &
             " INNER JOIN dbo.ACCOUNT_MASTER am ON mrn.Vendor_ID = am.ACC_ID" &
             " INNER JOIN dbo.CITY_MASTER cm ON cm.CITY_ID = am.CITY_ID" &
-            " WHERE MRN_STATUS <> 2 AND LEN(am.VAT_NO) > 0 and cast(Received_Date AS date) between CAST('" & txtFromDate.Value.ToString("dd-MMM-yyyy") & "' AS date) AND CAST('" & txtToDate.Value.ToString("dd-MMM-yyyy") & "' AS date) " &
+            " WHERE MRN_STATUS <> 2 AND ISNULL(IS_RCM_Applicable, 0) = 0 AND LEN(am.VAT_NO) > 0 and cast(Received_Date AS date) between CAST('" & txtFromDate.Value.ToString("dd-MMM-yyyy") & "' AS date) AND CAST('" & txtToDate.Value.ToString("dd-MMM-yyyy") & "' AS date) " &
             " UNION ALL" &
             " SELECT  SUM(CASE WHEN mrn.MRN_TYPE <> 2 THEN mrn.GST_AMOUNT ELSE 0 END) AS non_integrated_tax," &
             "         SUM(CASE WHEN mrn.MRN_TYPE = 2 THEN mrn.GST_AMOUNT ELSE 0 END) AS integrated_tax, " &
@@ -499,7 +507,7 @@ FROM    ( SELECT    SUM(ISNULL(IntraState_TaxableValue, 0)) AS IntraState_Taxabl
             " FROM dbo.MATERIAL_RECEIVED_AGAINST_PO_MASTER AS mrn " &
             " INNER JOIN dbo.ACCOUNT_MASTER am ON mrn.CUST_ID = am.ACC_ID" &
             " INNER JOIN dbo.CITY_MASTER cm ON cm.CITY_ID = am.CITY_ID" &
-            " WHERE MRN_STATUS <> 2 AND LEN(am.VAT_NO) > 0 and cast(Receipt_Date AS date) between CAST('" & txtFromDate.Value.ToString("dd-MMM-yyyy") & "' AS date) AND CAST('" & txtToDate.Value.ToString("dd-MMM-yyyy") & "' AS date) " & "
+            " WHERE MRN_STATUS <> 2 AND ISNULL(IS_RCM_Applicable, 0) = 0 AND LEN(am.VAT_NO) > 0 and cast(Receipt_Date AS date) between CAST('" & txtFromDate.Value.ToString("dd-MMM-yyyy") & "' AS date) AND CAST('" & txtToDate.Value.ToString("dd-MMM-yyyy") & "' AS date) " & "
            
             UNION ALL
             SELECT 	CASE WHEN cm.STATE_ID = cm1.STATE_ID THEN pt.GSTPerAmt END AS non_integrated_tax ,                    
@@ -783,6 +791,44 @@ FROM    ( SELECT    STATE_CODE ,
 
         Qry = Qry & " ) tb"
 
+        Return objCommFunction.Fill_DataSet(Qry).Tables(0).Rows(0)
+    End Function
+
+    Private Function Get3_1_SectionRCMData() As DataRow
+
+        Qry = "SELECT  ISNULL(SUM(CASE WHEN FreightTaxApplied = 1
+                        THEN ( ISNULL(GROSS_AMOUNT, 0) + ISNULL(freight, 0) )
+                        ELSE GROSS_AMOUNT
+                   END), 0) AS Taxable_Value ,
+        ISNULL(SUM(CASE WHEN MrnType = 'Integratedtax' THEN GST_AMOUNT
+                        ELSE 0
+                   END), 0) AS integrated_tax ,
+        ISNULL(SUM(CASE WHEN MrnType = 'nonintegratedTax' THEN GST_AMOUNT
+                        ELSE 0
+                   END), 0) AS non_integrated_tax ,
+        ISNULL(SUM(CESS_AMOUNT), 0) AS Cess_Amount
+FROM    ( SELECT    GROSS_AMOUNT ,
+                    GST_AMOUNT ,
+                    CESS_AMOUNT ,
+                    CASE WHEN MRN_TYPE <> 2 THEN 'nonintegratedTax'
+                         ELSE 'Integratedtax'
+                    END AS MrnType ,
+                    ISNULL(freight, 0) AS freight ,
+                    ISNULL(FreightTaxApplied, 0) AS FreightTaxApplied
+          FROM      dbo.MATERIAL_RECIEVED_WITHOUT_PO_MASTER
+          WHERE     ISNULL(IS_RCM_Applicable, 0) = 1
+          UNION ALL
+          SELECT    GROSS_AMOUNT ,
+                    GST_AMOUNT ,
+                    CESS_AMOUNT ,
+                    CASE WHEN MRN_TYPE <> 2 THEN 'nonintegratedTax'
+                         ELSE 'Integratedtax'
+                    END AS MrnType ,
+                    ISNULL(freight, 0) AS freight ,
+                    ISNULL(FreightTaxApplied, 0) AS FreightTaxApplied
+          FROM      dbo.MATERIAL_RECEIVED_AGAINST_PO_MASTER
+          WHERE     ISNULL(IS_RCM_Applicable, 0) = 1
+        ) tb"
         Return objCommFunction.Fill_DataSet(Qry).Tables(0).Rows(0)
     End Function
 
