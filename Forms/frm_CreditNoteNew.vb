@@ -1354,6 +1354,7 @@ restart:
 
     Private Sub btnSetEcomVendor_Click(sender As Object, e As EventArgs) Handles btnSetEcomVendor.Click
         Dim frm_SetEcommerce_Vendor As frm_SetEcommerce_Vendor = New frm_SetEcommerce_Vendor()
+        frm_SetEcommerce_Vendor.PVendor_ID = EcomVendor_ID
         frm_SetEcommerce_Vendor.ShowDialog()
         If frm_SetEcommerce_Vendor.Vendor_ID > 0 Then
             EcomVendor_ID = frm_SetEcommerce_Vendor.Vendor_ID

@@ -1311,6 +1311,7 @@ WHERE   ( SUPPLIER_RATE_LIST_DETAIL.ITEM_ID =" & Convert.ToInt32(item_id) & " )
 
     Private Sub btnSetEcomVendor_Click(sender As Object, e As EventArgs) Handles btnSetEcomVendor.Click
         Dim frm_SetEcommerce_Vendor As frm_SetEcommerce_Vendor = New frm_SetEcommerce_Vendor()
+        frm_SetEcommerce_Vendor.PVendor_ID = EcomVendor_ID
         frm_SetEcommerce_Vendor.ShowDialog()
         If frm_SetEcommerce_Vendor.Vendor_ID > 0 Then
             EcomVendor_ID = frm_SetEcommerce_Vendor.Vendor_ID
@@ -1320,10 +1321,10 @@ WHERE   ( SUPPLIER_RATE_LIST_DETAIL.ITEM_ID =" & Convert.ToInt32(item_id) & " )
             EcomVendor_ID = frm_SetEcommerce_Vendor.Vendor_ID
             btnSetEcomVendor.Text = "Set
 
-E-Com
-merce
+            E-Com
+            merce
 
-Vendor"
+            Vendor"
         End If
     End Sub
 

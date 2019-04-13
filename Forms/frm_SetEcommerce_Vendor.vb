@@ -1,5 +1,6 @@
 Public Class frm_SetEcommerce_Vendor
     Public Vendor_ID As Int16 = 0
+    Public PVendor_ID As Int16 = 0
     Public Vendor_Name As String = ""
     Dim obj As New CommonClass
 
@@ -26,8 +27,16 @@ Public Class frm_SetEcommerce_Vendor
             Vendor_ID = cmbSupplier.SelectedValue
             Vendor_Name = cmbSupplier.Text
         Else
-            Vendor_ID = 0
-            Vendor_Name = ""
+            If PVendor_ID = 0 Then
+                Vendor_ID = 0
+                Vendor_Name = ""
+            Else
+                cmbSupplier.SelectedValue = PVendor_ID
+                Vendor_ID = cmbSupplier.SelectedValue
+                Vendor_Name = cmbSupplier.Text
+            End If
+
+
         End If
 
 
