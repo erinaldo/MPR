@@ -43,6 +43,7 @@ Public Class frm_material_rec_against_PO
 
     Private Sub new_initilization()
         TabControl1.SelectTab(1)
+        Chk_IsRcmApplicable.Checked = False
         cmb_MRNAgainst.SelectedValue = "1"
         FLXGRD_PO_Items.DataSource = Nothing
         FLXGRD_PO_NON_STOCKABLEITEMS.DataSource = Nothing
@@ -213,6 +214,14 @@ Public Class frm_material_rec_against_PO
                     prop.Reference_ID = 10070
                 End If
 
+                If Chk_IsRcmApplicable.Checked Then
+                    prop.IS_RCM_Applicable = True
+                Else
+                    prop.IS_RCM_Applicable = False
+                End If
+
+
+
                 Master.insert_MATERIAL_RECIEVED_AGAINST_PO_MASTER(prop, cmd, FLXGRD_PO_Items.DataSource, FLXGRD_PO_NON_STOCKABLEITEMS.DataSource)
 
                 obj.MyCon_CommitTransaction(cmd)
@@ -320,10 +329,23 @@ Public Class frm_material_rec_against_PO
         dtable_Item_List.Columns.Add("Net_Amount", GetType(System.Double))
         dtable_Item_List.Columns.Add("Gross_Amount", GetType(System.Double))
 
+        dtable_Item_List.Columns.Add("freight", GetType(System.Decimal))
+        dtable_Item_List.Columns.Add("freight_type", GetType(System.String))
+        dtable_Item_List.Columns.Add("FreightTaxValue", GetType(System.Decimal))
+        dtable_Item_List.Columns.Add("FreightCessValue", GetType(System.Decimal))
+
+
+
         FLXGRD_PO_Items.DataSource = dtable_Item_List
         FLXGRD_PO_Items.Rows.Add()
         FLXGRD_PO_Items.Cols(1).Visible = False
         FLXGRD_PO_Items.Cols(2).Visible = False
+
+        FLXGRD_PO_Items.Cols("freight").Visible = False
+        FLXGRD_PO_Items.Cols("freight_type").Visible = False
+        FLXGRD_PO_Items.Cols("FreightTaxValue").Visible = False
+        FLXGRD_PO_Items.Cols("FreightCessValue").Visible = False
+
 
 
         FLXGRD_PO_Items.Cols(3).Caption = "BarCode"
@@ -385,6 +407,13 @@ Public Class frm_material_rec_against_PO
         datatbl_NonStockable_Items.Columns.Add("Net_Amount", GetType(System.Double))
         datatbl_NonStockable_Items.Columns.Add("Gross_Amount", GetType(System.Double))
         datatbl_NonStockable_Items.Columns.Add("IS_STOCKABLE", GetType(System.Boolean))
+
+        datatbl_NonStockable_Items.Columns.Add("freight", GetType(System.Decimal))
+        datatbl_NonStockable_Items.Columns.Add("freight_type", GetType(System.String))
+        datatbl_NonStockable_Items.Columns.Add("FreightTaxValue", GetType(System.Decimal))
+        datatbl_NonStockable_Items.Columns.Add("FreightCessValue", GetType(System.Decimal))
+
+
         FLXGRD_PO_NON_STOCKABLEITEMS.DataSource = datatbl_NonStockable_Items
 
         FLXGRD_PO_NON_STOCKABLEITEMS.Rows.Add()
@@ -432,7 +461,10 @@ Public Class frm_material_rec_against_PO
         FLXGRD_PO_NON_STOCKABLEITEMS.Cols("Net_Amount").Width = 100
         FLXGRD_PO_NON_STOCKABLEITEMS.Cols("Gross_Amount").Width = 100
 
-
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("freight").Visible = False
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("freight_type").Visible = False
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("FreightTaxValue").Visible = False
+        FLXGRD_PO_NON_STOCKABLEITEMS.Cols("FreightCessValue").Visible = False
         '----------------- Non Stockable Table ---------------------'
 
     End Sub
@@ -1120,7 +1152,7 @@ Public Class frm_material_rec_against_PO
                 tot_exice_amt = tot_exice_amt + (item_value * exice_per)
                 tot_vat_amt = tot_vat_amt + ((((dt.Rows(i)("Batch_qty") * dt.Rows(i)("Item_Rate")) - discamt) * dt.Rows(i)("Vat_Per")) / 100)
                 tot_cess_amt = tot_cess_amt + ((((dt.Rows(i)("Batch_qty") * dt.Rows(i)("Item_Rate")) - discamt) * dt.Rows(i)("Cess_Per")) / 100)
-                SetGstLabels()
+
 
             Next
         End If
@@ -1209,8 +1241,8 @@ Public Class frm_material_rec_against_PO
         'lblvatamt.Text = tot_vat_amt.ToString("0.00")
         lblcessamt.Text = tot_cess_amt.ToString("0.00")
         lblexciseamt.Text = tot_exice_amt.ToString("0.00")
-
-        Net_amt = (tot_gross_amt + Convert.ToDouble(IIf(IsNumeric(lblvatamt.Text), lblvatamt.Text, 0)) + tot_cess_amt + tot_exice_amt + Convert.ToDouble(IIf(IsNumeric(txtAmount.Text), txtAmount.Text, 0)) + Convert.ToDouble(IIf(IsNumeric(txtotherchrgs.Text), txtotherchrgs.Text, 0))) - Convert.ToDouble(IIf(IsNumeric(txtCashDiscount.Text), txtCashDiscount.Text, 0)) '- Convert.ToDouble(IIf(IsNumeric(txtdiscount.Text), txtdiscount.Text, 0))
+        SetGstLabels()
+        Net_amt = (tot_gross_amt + Convert.ToDouble(IIf(IsNumeric(lblvatamt.Text), lblvatamt.Text, 0)) + Convert.ToDouble(IIf(IsNumeric(lblcessamt.Text), lblcessamt.Text, 0)) + tot_exice_amt + Convert.ToDouble(IIf(IsNumeric(txtAmount.Text), txtAmount.Text, 0)) + Convert.ToDouble(IIf(IsNumeric(txtotherchrgs.Text), txtotherchrgs.Text, 0))) - Convert.ToDouble(IIf(IsNumeric(txtCashDiscount.Text), txtCashDiscount.Text, 0)) '- Convert.ToDouble(IIf(IsNumeric(txtdiscount.Text), txtdiscount.Text, 0))
         lblnetamt.Text = Net_amt.ToString("0.00")
 
     End Sub
@@ -1306,6 +1338,11 @@ restart:
 
         Dim FreightTaxTotal As Decimal = 0
 
+        Dim FreightCessAmount As Decimal = 0
+        Dim FreightCessTotal As Decimal = 0
+        Dim Cess As Decimal = 0
+
+
         Dim iRow As Integer = 0
 
         For iRow = 1 To FLXGRD_PO_Items.Rows.Count - 1
@@ -1341,11 +1378,11 @@ restart:
                     FreightTaxAmount = Math.Round((FreightTaxAmount * 2), 2)
                     FreightTaxAmount = Math.Round((Tax - FreightTaxAmount), 2)
                 End If
-
+                FreightCessAmount = Math.Round((TaxAmount) * (FLXGRD_PO_Items.Rows(iRow).Item("cess_per") / 100), 2)
 
 
             Else
-
+                FreightCessAmount = 0
                 If lblMRNType.Text = "2" Then
                     TaxAmount = 0
                     Tax = totalAmount * FLXGRD_PO_Items.Item(iRow, "vat_per") / 100
@@ -1360,7 +1397,11 @@ restart:
             End If
 
 
-
+            FLXGRD_PO_Items.Rows(iRow).Item("Freight") = TaxAmount
+            FLXGRD_PO_Items.Rows(iRow).Item("Freight_type") = "A"
+            FLXGRD_PO_Items.Rows(iRow).Item("FreightTaxValue") = FreightTaxAmount
+            FLXGRD_PO_Items.Rows(iRow).Item("FreightCessValue") = FreightCessAmount
+            FreightCessTotal += FreightCessAmount
 
 
             GSTTaxTotal += Tax
@@ -1417,6 +1458,8 @@ restart:
                     GSTTax28 += Tax
             End Select
         Next
+
+        lblcessamt.Text = Convert.ToDouble(lblcessamt.Text) + FreightCessTotal
         lblFreightTaxTotal.Text = Math.Round(FreightTaxTotal, 2)
         lblvatamt.Text = Math.Round(GSTTaxTotal, 2)
         lblGST0.Text = String.Format("0% - {0:0.00} @ {1}", Math.Round(GSTAmount0, 2), Math.Round(GSTTax0, 2))

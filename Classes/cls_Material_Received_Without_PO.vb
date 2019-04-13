@@ -666,12 +666,13 @@ Namespace material_recieved_without_po_master
             cmd.Parameters.AddWithValue("@v_DiscountValue", clsObj.DISC)
             cmd.Parameters.AddWithValue("@v_DiscountValue1", clsObj.DISC1)
 
-            cmd.Parameters.AddWithValue("@V_Freight", clsObj.DISC)
-            cmd.Parameters.AddWithValue("@V_Freight_type", clsObj.DISC)
-            cmd.Parameters.AddWithValue("@V_FreightTaxValue", clsObj.DISC)
-            cmd.Parameters.AddWithValue("@V_FreightCessValue", clsObj.DISC)
+            cmd.Parameters.AddWithValue("@V_Freight", clsObj.Freight_share)
+            cmd.Parameters.AddWithValue("@V_Freight_type", clsObj.Freighttype_Share)
+            cmd.Parameters.AddWithValue("@V_FreightTaxValue", clsObj.FreightTaxValue_Share)
+            cmd.Parameters.AddWithValue("@V_FreightCessValue", clsObj.FreightCessValue_Share)
 
             cmd.Parameters.AddWithValue("@v_GSTPaid", clsObj.GPaid)
+
             cmd.ExecuteNonQuery()
             cmd.Dispose()
 
@@ -709,10 +710,10 @@ Namespace material_recieved_without_po_master
             cmd.Parameters.AddWithValue("@v_DiscountValue", clsObj.DISC)
             cmd.Parameters.AddWithValue("@v_DiscountValue1", clsObj.DISC1)
 
-            cmd.Parameters.AddWithValue("@V_Freight", clsObj.DISC)
-            cmd.Parameters.AddWithValue("@V_Freight_type", clsObj.DISC)
-            cmd.Parameters.AddWithValue("@V_FreightTaxValue", clsObj.DISC)
-            cmd.Parameters.AddWithValue("@V_FreightCessValue", clsObj.DISC)
+            cmd.Parameters.AddWithValue("@V_Freight", clsObj.Freight_share)
+            cmd.Parameters.AddWithValue("@V_Freight_type", clsObj.Freighttype_Share)
+            cmd.Parameters.AddWithValue("@V_FreightTaxValue", clsObj.FreightTaxValue_Share)
+            cmd.Parameters.AddWithValue("@V_FreightCessValue", clsObj.FreightCessValue_Share)
 
             cmd.Parameters.AddWithValue("@v_GSTPaid", clsObj.GPaid)
 

@@ -48,6 +48,56 @@ Namespace material_rec_against_PO
         Dim _FK_ITCEligibility_ID As Double
         Dim _Reference_ID As Double
 
+
+        Dim _IS_RCM_Applicable As Boolean
+        Dim _Freight_share As Double
+        Dim _Freighttype_Share As String
+        Dim _FreightTaxValue_Share As Double
+        Dim _FreightCessValue_Share As Double
+
+        Public Property Freight_share() As Double
+            Get
+                Freight_share = _Freight_share
+            End Get
+            Set(ByVal value As Double)
+                _Freight_share = value
+            End Set
+        End Property
+        Public Property Freighttype_Share() As String
+            Get
+                Freighttype_Share = _Freighttype_Share
+            End Get
+            Set(ByVal value As String)
+                _Freighttype_Share = value
+            End Set
+        End Property
+        Public Property FreightCessValue_Share() As Double
+            Get
+                FreightCessValue_Share = _FreightCessValue_Share
+            End Get
+            Set(ByVal value As Double)
+                _FreightCessValue_Share = value
+            End Set
+        End Property
+        Public Property FreightTaxValue_Share() As Double
+            Get
+                FreightTaxValue_Share = _FreightTaxValue_Share
+            End Get
+            Set(ByVal value As Double)
+                _FreightTaxValue_Share = value
+            End Set
+        End Property
+        Public Property IS_RCM_Applicable() As Boolean
+            Get
+                IS_RCM_Applicable = _IS_RCM_Applicable
+            End Get
+            Set(ByVal value As Boolean)
+                _IS_RCM_Applicable = value
+            End Set
+        End Property
+
+
+
         Public Property FK_ITCEligibility_ID() As Double
             Get
                 FK_ITCEligibility_ID = _FK_ITCEligibility_ID
@@ -441,7 +491,7 @@ Namespace material_rec_against_PO
             cmd.Parameters.AddWithValue("@V_FreightTaxValue", clsObj.Freight_TaxValue)
             cmd.Parameters.AddWithValue("@V_FK_ITCEligibility_ID", clsObj.FK_ITCEligibility_ID)
             cmd.Parameters.AddWithValue("@V_Reference_ID", clsObj.Reference_ID)
-
+            cmd.Parameters.AddWithValue("@V_IS_RCM_Applicable", clsObj.IS_RCM_Applicable)
             cmd.ExecuteNonQuery()
             cmd.Parameters.Clear()
 
@@ -479,6 +529,11 @@ Namespace material_rec_against_PO
                     cmd.Parameters.AddWithValue("@V_PROC_TYPE", 1)
                     cmd.Parameters.AddWithValue("@v_DType", FlexGrid.Rows(iRow)("DType"))
                     cmd.Parameters.AddWithValue("@v_DiscountValue", FlexGrid.Rows(iRow)("DISC"))
+
+                    cmd.Parameters.AddWithValue("@V_Freight", FlexGrid.Rows(iRow)("Freight"))
+                    cmd.Parameters.AddWithValue("@V_Freight_type", FlexGrid.Rows(iRow)("Freight_type"))
+                    cmd.Parameters.AddWithValue("@V_FreightTaxValue", FlexGrid.Rows(iRow)("FreightTaxValue"))
+                    cmd.Parameters.AddWithValue("@V_FreightCessValue", FlexGrid.Rows(iRow)("FreightCessValue"))
 
                     cmd.ExecuteNonQuery()
                     cmd.Parameters.Clear()
