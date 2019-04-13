@@ -4632,10 +4632,728 @@ AS
     END                
  Go             
 ---------------------------------------------------------------------------------------------------------------------------
+ALTER PROCEDURE [dbo].[PROC_MATERIAL_RECIEVED_AGAINST_PO_MASTER]
+    (
+      @v_Receipt_ID NUMERIC(18, 0) ,
+      @v_Receipt_No NUMERIC(18, 0) ,
+      @v_Receipt_Code VARCHAR(20) ,
+      @v_PO_ID NUMERIC(18, 0) ,
+      @v_Receipt_Date DATETIME ,
+      @v_Remarks VARCHAR(500) ,
+      @v_MRN_NO NUMERIC(18, 0) ,
+      @v_MRN_PREFIX VARCHAR(50) ,
+      @v_Created_BY VARCHAR(100) ,
+      @v_Creation_Date DATETIME ,
+      @v_Modified_By VARCHAR(100) ,
+      @v_Modification_Date DATETIME ,
+      @v_Division_ID NUMERIC(18, 0) ,
+      @v_Proc_Type INT ,
+      @V_mrn_status INT ,
+      @v_freight NUMERIC(18, 2) ,
+      @v_Other_Charges NUMERIC(18, 2) ,
+      @v_Discount_amt NUMERIC(18, 2) ,
+      @v_GROSS_AMOUNT NUMERIC(18, 2) ,
+      @v_GST_AMOUNT NUMERIC(18, 2) ,
+      @v_CESS_AMOUNT NUMERIC(18, 2) ,
+      @v_NET_AMOUNT NUMERIC(18, 2) ,
+      @V_MRN_TYPE INT ,
+      @V_VAT_ON_EXICE INT ,
+      @v_Invoice_No NVARCHAR(50) ,
+      @v_Invoice_Date DATETIME ,
+      @V_CUST_ID NUMERIC(18, 0) ,
+      @v_MRNCompanies_ID INT ,
+      @v_CashDiscount_amt NUMERIC(18, 2) = NULL ,
+      @V_FreightTaxApplied INT ,
+      @V_FreightTaxValue NUMERIC(18, 2) ,
+      @V_FK_ITCEligibility_ID NUMERIC(18, 0) ,
+      @V_IS_RCM_Applicable BIT = 0 ,
+      @V_Reference_ID NUMERIC(18, 0)
+    )
+AS
+    BEGIN                            
+        IF @V_PROC_TYPE = 1
+            BEGIN                          
+                          
+                          
+                          
+                DECLARE @Remarks VARCHAR(250)                          
+                DECLARE @InputID NUMERIC                          
+                DECLARE @CInputID NUMERIC 
+                
+                DECLARE @RInputID NUMERIC                          
+                DECLARE @RCInputID NUMERIC
+                SET @RCInputID = 10018  
+                   
+                                         
+                SET @CInputID = 10016                          
+                DECLARE @RoundOff NUMERIC(18, 2)                          
+                DECLARE @CGST_Amount NUMERIC(18, 2)                          
+                SET @CGST_Amount = ( @v_GST_AMOUNT / 2 )                          
+                SET @RoundOff = ( @v_Other_Charges )                          
+                          
+                SET @InputID = ( SELECT CASE WHEN @V_MRN_TYPE = 1 THEN 10023
+                                             WHEN @V_MRN_TYPE = 2 THEN 10020
+                                             WHEN @V_MRN_TYPE = 3 THEN 10074
+                                        END AS inputid
+                               )                                          
+                          
+                          
+                SET @RInputID = ( SELECT    CASE WHEN @V_MRN_TYPE = 1
+                                                 THEN 10025
+                                                 WHEN @V_MRN_TYPE = 2
+                                                 THEN 10022
+                                                 WHEN @V_MRN_TYPE = 3
+                                                 THEN 10076
+                                            END AS inputid
+                                )                 
+                          
+                SELECT  @V_Receipt_No = ISNULL(MAX(Receipt_No), 0) + 1
+                FROM    MATERIAL_RECEIVED_AGAINST_PO_MASTER                                        
+                          
+                INSERT  INTO MATERIAL_RECEIVED_AGAINST_PO_MASTER
+                        ( Receipt_ID ,
+                          Receipt_No ,
+                          Receipt_Code ,
+                          Invoice_No ,
+                          Invoice_Date ,
+                          PO_ID ,
+                          Receipt_Date ,
+                          Remarks ,
+                          MRN_NO ,
+                          MRN_PREFIX ,
+                          Created_BY ,
+                          Creation_Date ,
+                          Modified_By ,
+                          Modification_Date ,
+                          Division_ID ,
+                          MRN_STATUS ,
+                          freight ,
+                          Other_charges ,
+                          Discount_amt ,
+                          GROSS_AMOUNT ,
+                          GST_AMOUNT ,
+                          CESS_AMOUNT ,
+                          NET_AMOUNT ,
+                          MRN_TYPE ,
+                          VAT_ON_EXICE ,
+                          MRNCompanies_ID ,
+                          IsPrinted ,
+                          CUST_ID ,
+                          CashDiscount_Amt ,
+                          FreightTaxApplied ,
+                          FreightTaxValue ,
+                          FK_ITCEligibility_ID ,
+                          Reference_ID                           
+                        )
+                VALUES  ( @V_Receipt_ID ,
+                          @V_Receipt_No ,
+                          @V_Receipt_Code ,
+                          @v_Invoice_No ,
+                          @v_Invoice_Date ,
+                          @V_PO_ID ,
+                          @v_Receipt_Date ,
+                          @V_Remarks ,
+                          @V_MRN_NO ,
+                          @V_MRN_PREFIX ,
+                          @V_Created_BY ,
+                          @V_Creation_Date ,
+                          @V_Modified_By ,
+                          @V_Modification_Date ,
+                          @V_Division_ID ,
+                          @V_mrn_status ,
+                          @v_freight ,
+                          @v_other_charges ,
+                          @v_Discount_amt ,
+                          @v_GROSS_AMOUNT ,
+                          @v_GST_AMOUNT ,
+                          @v_CESS_AMOUNT ,
+                          @v_NET_AMOUNT ,
+                          @v_MRN_TYPE ,
+                          @V_VAT_ON_EXICE ,
+                          @v_MRNCompanies_ID ,
+                          0 ,
+                          @V_CUST_ID ,
+                          @v_CashDiscount_amt ,
+                          @V_FreightTaxApplied ,
+                          @V_FreightTaxValue ,
+                          @V_FK_ITCEligibility_ID ,
+                          @V_Reference_ID               
+                        )    
+                          
+                          
+                --Minus Cash Discount---  
+                  
+                SET @v_GROSS_AMOUNT = ( @v_GROSS_AMOUNT
+                                        - ISNULL(@v_CashDiscount_amt, 0) )                      
+                          
+                          
+                SET @Remarks = 'Purchase against party bill no.: '
+                    + @v_Invoice_No + ' - '
+                    + CONVERT(VARCHAR(20), @v_Invoice_Date, 106)                           
+                          
+                EXECUTE Proc_Ledger_Insert @V_CUST_ID, @V_NET_AMOUNT, 0,
+                    @Remarks, @V_Division_ID, @V_Receipt_ID, 3,
+                    @v_Receipt_Date, @V_Created_BY                              
+                          
+                EXECUTE Proc_Ledger_Insert @V_Reference_ID, 0, @v_GROSS_AMOUNT,
+                    @Remarks, @V_Division_ID, @V_Receipt_ID, 3,
+                    @v_Receipt_Date, @V_Created_BY                           
+                          
+                SET @Remarks = 'Freight against party bill no.: '
+                    + @v_Invoice_No + ' - '
+                    + CONVERT(VARCHAR(20), @v_Invoice_Date, 106)                           
+                          
+                EXECUTE Proc_Ledger_Insert 10047, 0, @v_freight, @Remarks,
+                    @V_Division_ID, @V_Receipt_ID, 3, @v_Receipt_Date,
+                    @V_Created_BY              
+                          
+            
+            
+            
+            
+                IF ( @V_IS_RCM_Applicable = 0 )
+                    BEGIN  
+            
+            
+            
+                        SET @Remarks = 'GST against party invoice No- '
+                            + @v_Invoice_No + ' - '
+                            + CONVERT(VARCHAR(20), @v_Invoice_Date, 106)                           
+                          
+                        IF @V_MRN_TYPE <> 2
+                            BEGIN                
+                          
+                                EXECUTE Proc_Ledger_Insert @CInputID, 0,
+                                    @CGST_Amount, @Remarks, @V_Division_ID,
+                                    @v_Receipt_ID, 3, @v_Receipt_Date,
+                                    @V_Created_BY                           
+                          
+             
+                                EXECUTE Proc_Ledger_Insert @InputID, 0,
+                                    @CGST_Amount, @Remarks, @v_Division_ID,
+                                    @v_Receipt_ID, 3, @v_Receipt_Date,
+                                    @V_Created_BY                           
+                            END                        
+                          
+                          
+                        ELSE
+                            BEGIN                          
+                                EXECUTE Proc_Ledger_Insert @InputID, 0,
+                                    @v_GST_AMOUNT, @Remarks, @V_Division_ID,
+                                    @v_Receipt_ID, 3, @v_Receipt_Date,
+                                    @V_Created_BY                           
+                            END                   
+                                      
+                        SET @Remarks = 'Cess against party invoice No- '
+                            + @v_Invoice_No + ' - '
+                            + CONVERT(VARCHAR(20), @v_Invoice_Date, 106)                     
+                                      
+                        EXECUTE Proc_Ledger_Insert 10013, 0, @v_CESS_AMOUNT,
+                            @Remarks, @V_Division_ID, @v_Receipt_ID, 3,
+                            @v_Receipt_Date, @V_Created_BY                          
+                          
+                 
+                    END
+                 
+                ELSE
+                    BEGIN
+                        SET @Remarks = 'GST against party invoice No- '
+                            + @v_Invoice_No + ' - '
+                            + CONVERT(VARCHAR(20), @v_Invoice_Date, 106)                           
+                          
+                        IF @V_MRN_TYPE <> 2
+                            BEGIN                
+                          
+                                EXECUTE Proc_Ledger_Insert @RCInputID,
+                                    @CGST_Amount, 0, @Remarks, @V_Division_ID,
+                                    @v_Receipt_ID, 3, @v_Receipt_Date,
+                                    @V_Created_BY                           
+                          
+             
+                                EXECUTE Proc_Ledger_Insert @RInputID,
+                                    @CGST_Amount, 0, @Remarks, @v_Division_ID,
+                                    @v_Receipt_ID, 3, @v_Receipt_Date,
+                                    @V_Created_BY                           
+                            END                        
+                          
+                          
+                        ELSE
+                            BEGIN                          
+                                EXECUTE Proc_Ledger_Insert @RInputID,
+                                    @v_GST_AMOUNT, 0, @Remarks, @V_Division_ID,
+                                    @v_Receipt_ID, 3, @v_Receipt_Date,
+                                    @V_Created_BY                           
+                            END                   
+                                      
+                        SET @Remarks = 'Cess against party invoice No- '
+                            + @v_Invoice_No + ' - '
+                            + CONVERT(VARCHAR(20), @v_Invoice_Date, 106)                     
+                                      
+                        EXECUTE Proc_Ledger_Insert 10013, @v_CESS_AMOUNT, 0,
+                            @Remarks, @V_Division_ID, @v_Receipt_ID, 3,
+                            @v_Receipt_Date, @V_Created_BY                       
+                 
+                    END
+                 
+                 
+                 
+                 
+                          
+                SET @Remarks = 'Round Off against party invoice No- '
+                    + @v_Invoice_No + ' - '
+                    + CONVERT(VARCHAR(20), @v_Invoice_Date, 106)                          
+                          
+                --IF @RoundOff > 0      
+                --    BEGIN                          
+                          
+                --        EXECUTE Proc_Ledger_Insert 10054, @RoundOff, 0,      
+                --            @Remarks, @V_Division_ID, @v_Receipt_ID, 3,      
+                --            @v_Receipt_Date, @V_Created_BY                                 
+                --    END                          
+                          
+                --ELSE      
+                --    BEGIN                          
+                          
+                --        SET @RoundOff = -+@RoundOff                    
+                --        EXECUTE Proc_Ledger_Insert 10054, 0, @RoundOff,      
+                --            @Remarks, @V_Division_ID, @v_Receipt_ID, 3,      
+                --            @v_Receipt_Date, @V_Created_BY                           
+                          
+                --    END   
+                  
+                IF @RoundOff > 0
+                    BEGIN                                        
+                                        
+                        EXECUTE Proc_Ledger_Insert 10054, 0, @RoundOff,
+                            @Remarks, @V_Division_ID, @v_Receipt_ID, 3,
+                            @v_Receipt_Date, @V_Created_BY                                        
+     
+                    END                                        
+                                        
+                ELSE
+                    BEGIN                                        
+                                        
+                        SET @RoundOff = -+@RoundOff                                        
+                               
+                        EXECUTE Proc_Ledger_Insert 10054, @RoundOff, 0,
+                            @Remarks, @V_Division_ID, @v_Receipt_ID, 3,
+                            @v_Receipt_Date, @V_Created_BY                                        
+                                        
+                    END      
+                          
+                      
+                IF @V_Reference_ID = 10070
+                    BEGIN                          
+                          
+                          
+                        SET @Remarks = 'Stock Out against party  invoice No- '
+                            + @v_Invoice_No + ' - '
+                            + CONVERT(VARCHAR(20), @v_Invoice_Date, 106)                          
+                          
+                          
+                          
+                        EXECUTE Proc_Ledger_Insert 10073, 0, @v_NET_AMOUNT,
+                            @Remarks, @V_Division_ID, @v_Receipt_ID, 3,
+                            @v_Receipt_Date, @V_Created_BY      
+                          
+                    END                                         
+                          
+                UPDATE  MRN_SERIES
+                SET     CURRENT_USED = CURRENT_USED + 1
+                WHERE   DIV_ID = @v_Division_ID                
+                              
+                RETURN @V_MRN_NO                               
+                          
+            END                                        
+                          
+                          
+        IF @V_PROC_TYPE = 2
+            BEGIN                                        
+                          
+                UPDATE  MATERIAL_RECEIVED_AGAINST_PO_MASTER
+                SET     PO_ID = @V_PO_ID ,
+                        Receipt_Date = @v_Receipt_Date ,
+                        Remarks = @V_Remarks ,
+                        Created_BY = @V_Created_BY ,
+                        Creation_Date = @V_Creation_Date ,
+                        Modified_By = @V_Modified_By ,
+                        Modification_Date = @V_Modification_Date ,
+                        Division_ID = @V_Division_ID ,
+                        freight = @v_freight ,
+                        Other_charges = @v_Other_Charges ,
+                        Discount_amt = @v_Discount_amt ,
+                        VAT_ON_EXICE = @V_VAT_ON_EXICE ,
+                        MRNCompanies_ID = @v_MRNCompanies_ID ,
+                        CashDiscount_Amt = @v_CashDiscount_amt ,
+                        FreightTaxApplied = @V_FreightTaxApplied ,
+                        FreightTaxValue = @V_FreightTaxValue ,
+                        FK_ITCEligibility_ID = @V_FK_ITCEligibility_ID ,
+                        Reference_ID = @V_Reference_ID
+                WHERE   Receipt_ID = @V_Receipt_ID                  
+                      
+            END                                        
+                          
+                          
+        --IF @V_PROC_TYPE = 3                          
+        --    BEGIN                                          
+                          
+        --        DECLARE cur CURSOR                 
+        --        FOR                          
+        --            SELECT  Item_ID ,                          
+        --                    Item_Qty ,                          
+        --                    Indent_ID                          
+        --            FROM    MATERIAL_RECEIVED_AGAINST_PO_DETAIL                          
+        --            WHERE   Receipt_ID = @V_Receipt_ID                
+                          
+        --        DECLARE @itemid NUMERIC(18, 0)                                          
+                          
+        --        DECLARE @itemQty NUMERIC(18, 4)                                          
+                          
+        --        DECLARE @IndentID NUMERIC(18, 0)              
+                          
+        --        OPEN cur                                          
+                          
+        --        FETCH NEXT FROM cur INTO @itemid, @itemQty, @IndentID                                          
+                          
+        --        WHILE @@fetch_status = 0                          
+        --            BEGIN                
+                                             
+                          
+        --                UPDATE  PO_STATUS                          
+        --                SET     RECIEVED_QTY = RECIEVED_QTY - @itemQty ,                          
+  --                        BALANCE_QTY = BALANCE_QTY + @itemQty                          
+        --                WHERE   PO_ID = @V_PO_ID                          
+        --                        AND ITEM_ID = @itemid                          
+        --                        AND INDENT_ID = @IndentID                                            
+                          
+        --                UPDATE  ITEM_DETAIL                          
+        --                SET     CURRENT_STOCK = CURRENT_STOCK - @itemQty                          
+        --                WHERE   ITEM_ID = @itemid                          
+        --                AND DIV_ID = @V_Division_ID                          
+                          
+        --                FETCH NEXT FROM cur INTO @itemid, @itemQty, @IndentID                          
+        --            END              
+                                 
+        --        CLOSE cur              
+                                  
+        --        DEALLOCATE cur                          
+                          
+        --        DELETE  FROM MATERIAL_RECEIVED_AGAINST_PO_DETAIL                          
+        --        WHERE   Receipt_ID = @V_Receipt_ID                          
+                           
+        --        DELETE  FROM MATERIAL_RECEIVED_AGAINST_PO_MASTER                          
+  --        WHERE   Receipt_ID = @V_Receipt_ID                           
+        --    END                            
+                             
+    END 
+GO
 
 
 ---------------------------------------------------------------------------------------------------------------------------
+ALTER PROCEDURE [dbo].[PROC_MATERIAL_RECEIVED_AGAINST_PO_DETAIL]
+    (
+      @v_PO_ID NUMERIC(18, 0) ,
+      @v_DIV_ID NUMERIC(18, 0) ,
+      @v_Receipt_ID NUMERIC(18, 0) ,
+      @v_Item_ID NUMERIC(18, 0) ,
+      @v_Item_Qty NUMERIC(18, 4) ,
+      @v_Trans_Type NUMERIC(18, 0) ,--new added                      
+      @v_Creation_Date DATETIME ,--new added                      
+      @v_Expiry_Date DATETIME , -- new added                      
+      @v_Item_Rate NUMERIC(18, 2) ,
+      @v_Batch_no VARCHAR(50) ,
+      @v_Item_vat_per NUMERIC(18, 2) ,
+      @v_Item_cess_per NUMERIC(18, 2) ,
+      @v_Item_Exice_per NUMERIC(18, 2) ,
+      @v_Proc_Type INT ,
+      @v_DType CHAR(1) ,
+      @V_Freight NUMERIC(18, 2) = 0.00 ,
+      @V_Freight_type CHAR(10) = 'A' ,
+      @V_FreightTaxValue NUMERIC(18, 2) = 0.00 ,
+      @V_FreightCessValue NUMERIC(18, 2) = 0.00 ,
+      @v_DiscountValue NUMERIC(18, 2)
+    )
+AS
+    BEGIN                      
+              
+        IF @V_PROC_TYPE = 1
+            BEGIN                      
+              
+  --- added on 16-12-2009 for insertion in stock degail and insert transaction log      
+        
+                DECLARE @STOCK_DETAIL_ID NUMERIC(18, 0)        
+                SELECT  @STOCK_DETAIL_ID = MAX(STOCK_DETAIL_ID)
+                FROM    dbo.STOCK_DETAIL
+                WHERE   Item_id = @v_Item_ID           
+                            
+                EXEC Update_Stock_Detail_Adjustment @v_Item_ID, @v_Batch_no,
+                    @v_Expiry_Date, @v_Item_Qty, @v_Receipt_ID, @v_Trans_Type,
+                    @STOCK_DETAIL_ID OUTPUT                      
+              
+              
+              
+                INSERT  INTO MATERIAL_RECEIVED_AGAINST_PO_DETAIL
+                        ( Receipt_ID ,
+                          Item_ID ,
+                          PO_ID ,
+                          Item_Qty ,
+                          Item_Rate ,
+                          Vat_Per ,
+                          Cess_Per ,
+                          Bal_Item_Qty ,
+                          bal_vat_per ,
+                          stocK_dETAIL_Id ,
+                          Exice_Per ,
+                          Bal_Exice_Per ,
+                          DType ,
+                          DiscountValue,
+                          Freight ,
+                          Freight_type ,
+                          FreightTaxValue ,
+                          FreightCessValue                       
+                        )
+                VALUES  ( @V_Receipt_ID ,
+                          @V_Item_ID ,
+                          @v_PO_ID ,
+                          @V_Item_Qty ,
+                          @V_Item_Rate ,
+                          @v_Item_vat_per ,
+                          @v_Item_cess_per ,
+                          @V_Item_Qty ,
+                          @v_Item_vat_per ,
+                          @STOCK_DETAIL_ID ,
+                          @v_Item_Exice_per ,
+                          @v_Item_Exice_per ,
+                          @v_DType ,
+                          @v_DiscountValue,
+                           @V_Freight ,
+                          @V_Freight_type ,
+                          @V_FreightTaxValue ,
+                          @V_FreightCessValue                        
+                        )                      
+              
+              
+       --Inserting Transaction Log             
+                INSERT  INTO dbo.TransactionLog_Master
+                        ( Item_id ,
+                          Issue_Qty ,
+                          Receive_Qty ,
+                          Transaction_Date ,
+                          TransactionType_Id ,
+                          Transaction_Id ,
+                          Division_Id          
+                        )
+                VALUES  ( @V_Item_ID ,
+                          0 ,
+                          @V_Item_Qty ,
+                          @V_Creation_Date ,
+                          4 ,
+                          @V_Receipt_ID ,
+                          @v_DIV_ID          
+                        )          
+                           
+                           
+                UPDATE  PO_DETAIL
+                SET     BALANCE_QTY = BALANCE_QTY - @v_Item_Qty
+                WHERE   PO_ID = @v_PO_ID
+                        AND ITEM_ID = @v_Item_ID      
+                          
+                UPDATE  dbo.PO_STATUS
+                SET     BALANCE_QTY = BALANCE_QTY - @v_Item_Qty ,
+                        RECIEVED_QTY = RECIEVED_QTY + @v_Item_Qty
+                WHERE   PO_ID = @v_PO_ID
+                        AND ITEM_ID = @v_Item_ID                        
+              
+                UPDATE  ITEM_DETAIL
+                SET     CURRENT_STOCK = CURRENT_STOCK + @v_Item_Qty
+                WHERE   ITEM_ID = @v_Item_ID
+                        AND DIV_ID = @v_DIV_ID                      
+              
+              
+              
+              
+              
+              
+                --it will insert entry in transaction log with stock_detail_id                      
+                EXEC INSERT_TRANSACTION_LOG @v_Receipt_ID, @v_Item_ID,
+                    @V_Trans_Type, @STOCK_DETAIL_ID, @v_Item_Qty,
+                    @v_Creation_Date, 0                           
+  -----------------------------------------------------------------------------                      
+            END                      
+              
+--        IF @V_PROC_TYPE = 2             
+--            BEGIN                      
+--                UPDATE  MATERIAL_RECEIVED_AGAINST_PO_DETAIL                
+--                SET     Item_ID = @V_Item_ID,                
+--                        Item_Qty = @V_Item_Qty                
+--                WHERE   Receipt_ID = @V_Receipt_ID                      
+--            END                      
+--                      
+--        IF @V_PROC_TYPE = 3                 
+--            BEGIN                      
+--                      
+--                DECLARE cur CURSOR                
+--                    FOR SELECT  Item_ID,                
+--                                Item_Qty                
+--                        FROM    MATERIAL_RECEIVED_AGAINST_PO_DETAIL                
+--                        WHERE   Receipt_ID = @V_Receipt_ID                      
+--                      
+-- DECLARE @itemid NUMERIC(18, 0)                      
+--                DECLARE @itemQty NUMERIC(18, 4)                      
+--                      
+--                      
+--                OPEN cur                      
+--                FETCH NEXT FROM cur INTO @itemid, @itemQty                     
+--                WHILE @@fetch_status = 0                      
+--                    BEGIN             
+--                         
+--                        UPDATE  PO_STATUS                
+--                        SET     RECIEVED_QTY = RECIEVED_QTY - @itemQty,                
+--                                BALANCE_QTY = BALANCE_QTY + @itemQty                
+--                        WHERE   PO_ID = @V_PO_ID                
+--                    AND ITEM_ID = @itemid                      
+--                      
+--                        UPDATE  ITEM_DETAIL                
+--                        SET     CURRENT_STOCK = CURRENT_STOCK - @itemQty                
+--                        WHERE   ITEM_ID = @itemid                
+--                  AND DIV_ID = @v_DIV_ID                       
+--                      
+--                        FETCH NEXT FROM cur INTO @itemid, @itemQty                    
+--                    END                      
+--                CLOSE cur                      
+--                DEALLOCATE cur                      
+--                      
+--                DELETE  FROM MATERIAL_RECEIVED_AGAINST_PO_DETAIL                
+--                WHERE   Receipt_ID = @V_Receipt_ID                      
+--            END                      
+              
+    END   
+
+GO
 ---------------------------------------------------------------------------------------------------------------------------
+ALTER PROCEDURE [dbo].[Fill_PO_ITEMS]
+    (
+      @PO_ID NUMERIC(18, 0) ,
+      @DIV_ID NUMERIC(18, 0)
+    )
+AS
+    BEGIN             
+        DECLARE @con VARCHAR(100)            
+        DECLARE @open INT            
+            
+        SELECT  @open = open_po_qty
+        FROM    po_master
+        WHERE   po_id = @po_id            
+             
+-- if (@open=1)            
+-- begin            
+--  @con= ''            
+-- else                   
+--  @con='AND (PO_DETAIL.BALANCE_QTY > 0)'            
+-- end            
+              
+        SELECT  PO_DETAIL.PO_ID ,
+                IM.ITEM_ID ,
+                UNIT_MASTER.UM_ID ,
+                IM.barcode_vch AS ITEM_CODE ,
+                IM.ITEM_NAME ,
+                UNIT_MASTER.UM_Name ,
+                PO_DETAIL.ITEM_RATE ,
+                ISNULL(PO_DETAIL.DType, 'P') AS DType ,
+                ISNULL(PO_DETAIL.DiscountValue, 0.00) AS DISC ,
+                ISNULL(PO_DETAIL.VAT_PER, 0.00) AS VAT_PER ,
+                ISNULL(PO_DETAIL.CESS_PER, 0.00) AS CESS_PER ,
+                ISNULL(PO_DETAIL.EXICE_PER, 0.00) AS EXICE_PER ,
+                '' AS BATCH_NO ,
+                DATEADD(yy, 2, GETDATE()) AS EXPIRY_DATE ,
+                CAST(CASE WHEN ISNULL(PO_DETAIL.DType, 'P') = 'P'
+                          THEN ISNULL(CAST(PO_DETAIL.Balance_qty
+                                      * PO_DETAIL.ITEM_RATE AS NUMERIC(18, 2)),
+                                      0.00)
+                               - ISNULL(CAST(PO_DETAIL.Balance_qty
+                                        * PO_DETAIL.ITEM_RATE AS NUMERIC(18, 2)),
+                                        0.00) * ISNULL(PO_DETAIL.DiscountValue,
+                                                       0.00) / 100
+                          ELSE ISNULL(CAST(PO_DETAIL.Balance_qty
+                                      * PO_DETAIL.ITEM_RATE AS NUMERIC(18, 2)),
+                                      0.00) - ISNULL(PO_DETAIL.DiscountValue,
+                                                     0.00)
+                     END AS NUMERIC(18, 2)) AS Net_Amount ,
+                CASE WHEN ISNULL(PO_DETAIL.DType, 'P') = 'P'
+                     THEN ISNULL(CAST(( ( PO_DETAIL.Balance_qty
+                                          * PO_DETAIL.ITEM_RATE
+                                          - ISNULL(CAST(PO_DETAIL.Balance_qty
+                                                   * PO_DETAIL.ITEM_RATE AS NUMERIC(18,
+                                                              2)), 0.00)
+                                          * ISNULL(PO_DETAIL.DiscountValue,
+                                                   0.00) / 100 )
+                                        + ( PO_DETAIL.Balance_qty
+                                            * PO_DETAIL.ITEM_RATE
+                                            - ISNULL(CAST(PO_DETAIL.Balance_qty
+                                                     * PO_DETAIL.ITEM_RATE AS NUMERIC(18,
+                                                              2)), 0.00)
+                                            * ISNULL(PO_DETAIL.DiscountValue,
+                                                     0.00) / 100 )
+                                        * PO_DETAIL.EXICE_PER / 100 )
+                                 + ( ( PO_DETAIL.Balance_qty
+                                       * PO_DETAIL.ITEM_RATE
+                                       - ISNULL(CAST(PO_DETAIL.Balance_qty
+                                                * PO_DETAIL.ITEM_RATE AS NUMERIC(18,
+                                                              2)), 0.00)
+                                       * ISNULL(PO_DETAIL.DiscountValue, 0.00)
+                                       / 100 ) + ( PO_DETAIL.Balance_qty
+                                                   * PO_DETAIL.ITEM_RATE
+                                                   - ISNULL(CAST(PO_DETAIL.Balance_qty
+                                                            * PO_DETAIL.ITEM_RATE AS NUMERIC(18,
+                                                              2)), 0.00)
+                                                   * ISNULL(PO_DETAIL.DiscountValue,
+                                                            0.00) / 100 )
+                                     * PO_DETAIL.EXICE_PER / 100 )
+                                 * PO_DETAIL.VAT_PER / 100 AS NUMERIC(18, 2)),
+                                 0.00)
+                     ELSE ISNULL(CAST(( ( PO_DETAIL.Balance_qty
+                                          * PO_DETAIL.ITEM_RATE
+                                          - ISNULL(PO_DETAIL.DiscountValue,
+                                                   0.00) )
+                                        + ( PO_DETAIL.Balance_qty
+                                            * PO_DETAIL.ITEM_RATE
+                                            - ISNULL(PO_DETAIL.DiscountValue,
+                                                     0.00) )
+                                        * PO_DETAIL.EXICE_PER / 100 )
+                                 + ( ( PO_DETAIL.Balance_qty
+                                       * PO_DETAIL.ITEM_RATE
+                                       - ISNULL(PO_DETAIL.DiscountValue, 0.00) )
+                                     + ( PO_DETAIL.Balance_qty
+                                         * PO_DETAIL.ITEM_RATE
+                                         - ISNULL(PO_DETAIL.DiscountValue,
+                                                  0.00) )
+                                     * PO_DETAIL.EXICE_PER / 100 )
+                                 * PO_DETAIL.VAT_PER / 100 AS NUMERIC(18, 2)),
+                                 0.00)
+                END AS Gross_Amount ,
+                ITEM_DETAIL.IS_STOCKABLE ,
+                0 AS CostCenter_Id ,
+                '' AS CostCenter_Code ,
+                '' AS CostCenter_Name ,
+                PO_DETAIL.Balance_qty AS PO_QTY ,
+                0.00 AS BATCH_QTY ,
+                PM.OPEN_PO_QTY ,
+                (0) AS Freight ,
+                ('A') AS Freight_type ,
+                (0) AS FreightTaxValue ,
+                (0) AS FreightCessValue
+        FROM    ITEM_MASTER AS IM
+                INNER JOIN UNIT_MASTER ON IM.UM_ID = UNIT_MASTER.UM_ID
+                INNER JOIN PO_DETAIL ON IM.ITEM_ID = PO_DETAIL.ITEM_ID
+                INNER JOIN PO_MASTER AS PM ON PO_DETAIL.PO_ID = PM.PO_ID
+                INNER JOIN ITEM_DETAIL ON IM.ITEM_ID = ITEM_DETAIL.ITEM_ID
+        WHERE   ( PO_DETAIL.PO_ID = @PO_ID )
+                AND PO_DETAIL.BALANCE_QTY > 0      
+    --            AND ( ( CASE WHEN ( @open <> 1 ) THEN PO_DETAIL.BALANCE_QTY        
+    --                         ELSE 1        
+    --                    END ) > 0 )          
+    END 
+GO
 ---------------------------------------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------------------------

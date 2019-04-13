@@ -662,6 +662,12 @@ Public Class frm_material_rec_against_PO
         FLXGRD_PO_Items.Cols("exice_per").Visible = False
         FLXGRD_PO_Items.Cols("BATCH_NO").Visible = False
 
+        FLXGRD_PO_Items.Cols("freight").Visible = False
+        FLXGRD_PO_Items.Cols("freight_type").Visible = False
+        FLXGRD_PO_Items.Cols("FreightTaxValue").Visible = False
+        FLXGRD_PO_Items.Cols("FreightCessValue").Visible = False
+
+
         FLXGRD_PO_Items.Cols("BATCH_NO").Caption = "BatchNo"
         FLXGRD_PO_Items.Cols("expiry_date").Caption = "ExpiryDate"
         FLXGRD_PO_Items.Cols("BATCH_QTY").Caption = "Quantity"
@@ -957,7 +963,7 @@ Public Class frm_material_rec_against_PO
         Try
             Dim qry As String
 
-            qry = " SELECT  MATERIAL_RECEIVED_AGAINST_PO_MASTER.Receipt_ID," &
+            qry = " SELECT  ROW_NUMBER()OVER (ORDER BY Receipt_ID)AS SrNo, MATERIAL_RECEIVED_AGAINST_PO_MASTER.Receipt_ID," &
                     "         MATERIAL_RECEIVED_AGAINST_PO_MASTER.MRN_PREFIX" &
                     "         + CAST(MATERIAL_RECEIVED_AGAINST_PO_MASTER.MRN_NO AS VARCHAR(20)) AS [MRN No]," &
                     "         dbo.fn_Format(MATERIAL_RECEIVED_AGAINST_PO_MASTER.Receipt_Date) AS [MRN Date]," &
@@ -967,7 +973,7 @@ Public Class frm_material_rec_against_PO
                     "         CASE WHEN mrn_status = 1 THEN 'NORMAL'" &
                     "              WHEN mrn_status = 3 THEN 'CLEAR'" &
                     "              ELSE 'CANCEL'" &
-                    "         END AS MRNStatus, PO_MASTER.OPEN_PO_QTY" &
+                    "         END AS MRNStatus,  dbo.MATERIAL_RECEIVED_AGAINST_PO_MASTER.NET_AMOUNT AS BillAmt,Invoice_No AS BillNo,dbo.fn_Format(Invoice_date) AS BillDate, PO_MASTER.OPEN_PO_QTY " &
                     " FROM    MATERIAL_RECEIVED_AGAINST_PO_MASTER" &
                     "         INNER JOIN PO_MASTER ON MATERIAL_RECEIVED_AGAINST_PO_MASTER.PO_ID = PO_MASTER.PO_ID" &
                     "         INNER JOIN ACCOUNT_MASTER ON PO_MASTER.PO_SUPP_ID = ACCOUNT_MASTER.ACC_ID" &
@@ -982,10 +988,17 @@ Public Class frm_material_rec_against_PO
             dgvList.Cols(0).Width = 10
             dgvList.Cols("Receipt_ID").Visible = False
             dgvList.Cols("OPEN_PO_QTY").Visible = False
-            dgvList.Cols("MRN No").Width = 120
-            dgvList.Cols("MRN Date").Width = 120
-            dgvList.Cols("PO No").Width = 120
-            dgvList.Cols("PO Date").Width = 120
+            dgvList.Cols("PO Date").Visible = False
+
+            dgvList.Cols("SrNo").Width = 20
+            dgvList.Cols("MRN No").Width = 100
+            dgvList.Cols("MRN Date").Width = 80
+            dgvList.Cols("PO No").Width = 100
+
+            dgvList.Cols("BillNo").Width = 100
+            dgvList.Cols("BillDate").Width = 80
+            dgvList.Cols("BillAmt").Width = 70
+
             dgvList.Cols("Supplier").Width = 300
             dgvList.Cols("MRNStatus").Width = 80
 
