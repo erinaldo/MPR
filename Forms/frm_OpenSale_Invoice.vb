@@ -980,17 +980,21 @@ restart:
                 '    Dim CgstandSgst As Decimal = Math.Round((flxItems.Rows(i).Item("Amount") - discamt) * ((flxItems.Rows(i).Item("GST") / 2) / 100), 2)
                 '    flxItems.Rows(i).Item("GST_Amount") = Math.Round(CgstandSgst * 2, 2)
                 'End If
-                If chk_ApplyTax.Checked Then
-                    TaxAmount = totalAmount / Convert.ToDouble(lblItemValue.Text) * Convert.ToDouble(txtAmount.Text)
-                    If cmbinvtype.SelectedItem = "IGST" Then
-                        FreightTaxAmount = Math.Round((TaxAmount) * (flxItems.Rows(iRow).Item("GST") / 100), 2)
-                    Else
-                        Dim CgstandSgst As Decimal = Math.Round((TaxAmount * ((flxItems.Rows(iRow).Item("GST") / 2) / 100)), 2)
-                        FreightTaxAmount = Math.Round(CgstandSgst * 2, 2)
-                    End If
-                    FreightCessAmount = Math.Round((TaxAmount) * (flxItems.Rows(iRow).Item("Cess") / 100), 2)
-                End If
 
+
+                If (Convert.ToDouble(IIf(IsNumeric(lblVatAmount.Text), lblVatAmount.Text, 0)) > 0) Then
+
+                    If chk_ApplyTax.Checked Then
+                        TaxAmount = totalAmount / Convert.ToDouble(lblItemValue.Text) * Convert.ToDouble(txtAmount.Text)
+                        If cmbinvtype.SelectedItem = "IGST" Then
+                            FreightTaxAmount = Math.Round((TaxAmount) * (flxItems.Rows(iRow).Item("GST") / 100), 2)
+                        Else
+                            Dim CgstandSgst As Decimal = Math.Round((TaxAmount * ((flxItems.Rows(iRow).Item("GST") / 2) / 100)), 2)
+                            FreightTaxAmount = Math.Round(CgstandSgst * 2, 2)
+                        End If
+                        FreightCessAmount = Math.Round((TaxAmount) * (flxItems.Rows(iRow).Item("Cess") / 100), 2)
+                    End If
+                End If
 
                 flxItems.Rows(iRow).Item("Freight") = TaxAmount
                 flxItems.Rows(iRow).Item("Freight_type") = "A"
