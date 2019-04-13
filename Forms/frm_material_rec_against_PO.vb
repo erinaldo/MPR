@@ -184,7 +184,8 @@ Public Class frm_material_rec_against_PO
                 prop.freight = Convert.ToDouble(txtAmount.Text)
                 prop.Other_Charges = Convert.ToDouble(txtotherchrgs.Text)
                 prop.Discount_amt = Convert.ToDouble(txtdiscount.Text)
-                prop.GROSS_AMOUNT = (Convert.ToDouble(lblgrossamt.Text) - Convert.ToDouble(txtAmount.Text))
+                ' prop.GROSS_AMOUNT = (Convert.ToDouble(lblgrossamt.Text) - Convert.ToDouble(txtAmount.Text))
+                prop.GROSS_AMOUNT = (Convert.ToDouble(lblgrossamt.Text))
                 prop.GST_AMOUNT = Convert.ToDouble(lblvatamt.Text)
                 prop.CESS_AMOUNT = Convert.ToDouble(lblcessamt.Text)
                 prop.NET_AMOUNT = Convert.ToDouble(lblnetamt.Text)
@@ -1152,7 +1153,7 @@ Public Class frm_material_rec_against_PO
                 tot_exice_amt = tot_exice_amt + (item_value * exice_per)
                 tot_vat_amt = tot_vat_amt + ((((dt.Rows(i)("Batch_qty") * dt.Rows(i)("Item_Rate")) - discamt) * dt.Rows(i)("Vat_Per")) / 100)
                 tot_cess_amt = tot_cess_amt + ((((dt.Rows(i)("Batch_qty") * dt.Rows(i)("Item_Rate")) - discamt) * dt.Rows(i)("Cess_Per")) / 100)
-
+                'SetGstLabels()
 
             Next
         End If
@@ -1241,7 +1242,10 @@ Public Class frm_material_rec_against_PO
         'lblvatamt.Text = tot_vat_amt.ToString("0.00")
         lblcessamt.Text = tot_cess_amt.ToString("0.00")
         lblexciseamt.Text = tot_exice_amt.ToString("0.00")
-        SetGstLabels()
+        If tot_gross_amt > 0 Then
+            SetGstLabels()
+        End If
+
         Net_amt = (tot_gross_amt + Convert.ToDouble(IIf(IsNumeric(lblvatamt.Text), lblvatamt.Text, 0)) + Convert.ToDouble(IIf(IsNumeric(lblcessamt.Text), lblcessamt.Text, 0)) + tot_exice_amt + Convert.ToDouble(IIf(IsNumeric(txtAmount.Text), txtAmount.Text, 0)) + Convert.ToDouble(IIf(IsNumeric(txtotherchrgs.Text), txtotherchrgs.Text, 0))) - Convert.ToDouble(IIf(IsNumeric(txtCashDiscount.Text), txtCashDiscount.Text, 0)) '- Convert.ToDouble(IIf(IsNumeric(txtdiscount.Text), txtdiscount.Text, 0))
         lblnetamt.Text = Net_amt.ToString("0.00")
 
@@ -1378,7 +1382,7 @@ restart:
                     FreightTaxAmount = Math.Round((FreightTaxAmount * 2), 2)
                     FreightTaxAmount = Math.Round((Tax - FreightTaxAmount), 2)
                 End If
-                FreightCessAmount = Math.Round((TaxAmount) * (FLXGRD_PO_Items.Rows(iRow).Item("cess_per") / 100), 2)
+                FreightCessAmount = Math.Round((TaxAmount) * (FLXGRD_PO_Items.Rows(iRow).Item("Cess_Per") / 100), 2)
 
 
             Else
