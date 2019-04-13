@@ -33,7 +33,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.dgvList = New System.Windows.Forms.DataGridView()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.cmbVendor = New MMSPlus.AutoCompleteCombo()
+        Me.Chk_IsRcmApplicable = New System.Windows.Forms.CheckBox()
         Me.lblFormHeading = New System.Windows.Forms.Label()
         Me.MRNdtDate = New System.Windows.Forms.DateTimePicker()
         Me.cmbCapitalAccount = New System.Windows.Forms.ComboBox()
@@ -210,7 +210,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.Label46 = New System.Windows.Forms.Label()
         Me.Label47 = New System.Windows.Forms.Label()
         Me.Label48 = New System.Windows.Forms.Label()
-        Me.Chk_IsRcmApplicable = New System.Windows.Forms.CheckBox()
+        Me.cmbVendor = New MMSPlus.AutoCompleteCombo()
         Me.TbPO.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.GroupBox5.SuspendLayout()
@@ -440,18 +440,17 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         '
-        'cmbVendor
+        'Chk_IsRcmApplicable
         '
-        Me.cmbVendor.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.cmbVendor.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmbVendor.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmbVendor.ForeColor = System.Drawing.Color.White
-        Me.cmbVendor.FormattingEnabled = True
-        Me.cmbVendor.Location = New System.Drawing.Point(112, 50)
-        Me.cmbVendor.Name = "cmbVendor"
-        Me.cmbVendor.ResetOnClear = False
-        Me.cmbVendor.Size = New System.Drawing.Size(742, 24)
-        Me.cmbVendor.TabIndex = 2
+        Me.Chk_IsRcmApplicable.AutoSize = True
+        Me.Chk_IsRcmApplicable.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Chk_IsRcmApplicable.ForeColor = System.Drawing.Color.Orange
+        Me.Chk_IsRcmApplicable.Location = New System.Drawing.Point(687, 23)
+        Me.Chk_IsRcmApplicable.Name = "Chk_IsRcmApplicable"
+        Me.Chk_IsRcmApplicable.Size = New System.Drawing.Size(127, 19)
+        Me.Chk_IsRcmApplicable.TabIndex = 40
+        Me.Chk_IsRcmApplicable.Text = "Is Rcm Applicable"
+        Me.Chk_IsRcmApplicable.UseVisualStyleBackColor = True
         '
         'lblFormHeading
         '
@@ -2336,17 +2335,18 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.Label48.TabIndex = 0
         Me.Label48.Text = "Delivery Rate :"
         '
-        'Chk_IsRcmApplicable
+        'cmbVendor
         '
-        Me.Chk_IsRcmApplicable.AutoSize = True
-        Me.Chk_IsRcmApplicable.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Chk_IsRcmApplicable.ForeColor = System.Drawing.Color.White
-        Me.Chk_IsRcmApplicable.Location = New System.Drawing.Point(687, 23)
-        Me.Chk_IsRcmApplicable.Name = "Chk_IsRcmApplicable"
-        Me.Chk_IsRcmApplicable.Size = New System.Drawing.Size(125, 19)
-        Me.Chk_IsRcmApplicable.TabIndex = 40
-        Me.Chk_IsRcmApplicable.Text = "Is Rcm Applicable"
-        Me.Chk_IsRcmApplicable.UseVisualStyleBackColor = True
+        Me.cmbVendor.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.cmbVendor.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmbVendor.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmbVendor.ForeColor = System.Drawing.Color.White
+        Me.cmbVendor.FormattingEnabled = True
+        Me.cmbVendor.Location = New System.Drawing.Point(112, 50)
+        Me.cmbVendor.Name = "cmbVendor"
+        Me.cmbVendor.ResetOnClear = False
+        Me.cmbVendor.Size = New System.Drawing.Size(742, 24)
+        Me.cmbVendor.TabIndex = 2
         '
         'frm_Material_Received_Without_PO_Master
         '

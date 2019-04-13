@@ -100,6 +100,7 @@ Partial Class frm_material_rec_against_PO
         Me.FLXGRD_PO_NON_STOCKABLEITEMS = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
         Me.C1FlexGrid1 = New C1.Win.C1FlexGrid.C1FlexGrid()
+        Me.Chk_IsRcmApplicable = New System.Windows.Forms.CheckBox()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
@@ -219,7 +220,7 @@ Partial Class frm_material_rec_against_PO
         Me.Label6.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label6.Location = New System.Drawing.Point(384, 58)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(20, 15)
+        Me.Label6.Size = New System.Drawing.Size(21, 15)
         Me.Label6.TabIndex = 20
         Me.Label6.Text = "To"
         '
@@ -350,6 +351,7 @@ Partial Class frm_material_rec_against_PO
         'GroupBox1
         '
         Me.GroupBox1.BackColor = System.Drawing.Color.DimGray
+        Me.GroupBox1.Controls.Add(Me.Chk_IsRcmApplicable)
         Me.GroupBox1.Controls.Add(Me.cmbCapitalAccount)
         Me.GroupBox1.Controls.Add(Me.lblSelectCapitalAccount)
         Me.GroupBox1.Controls.Add(Me.cmbITCEligibility)
@@ -392,7 +394,7 @@ Partial Class frm_material_rec_against_PO
         Me.lblSelectCapitalAccount.ForeColor = System.Drawing.Color.White
         Me.lblSelectCapitalAccount.Location = New System.Drawing.Point(413, 126)
         Me.lblSelectCapitalAccount.Name = "lblSelectCapitalAccount"
-        Me.lblSelectCapitalAccount.Size = New System.Drawing.Size(92, 15)
+        Me.lblSelectCapitalAccount.Size = New System.Drawing.Size(93, 15)
         Me.lblSelectCapitalAccount.TabIndex = 43
         Me.lblSelectCapitalAccount.Text = "Select Account :"
         '
@@ -455,7 +457,7 @@ Partial Class frm_material_rec_against_PO
         Me.lblPODate.AutoSize = True
         Me.lblPODate.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblPODate.ForeColor = System.Drawing.Color.Orange
-        Me.lblPODate.Location = New System.Drawing.Point(502, 23)
+        Me.lblPODate.Location = New System.Drawing.Point(427, 23)
         Me.lblPODate.Name = "lblPODate"
         Me.lblPODate.Size = New System.Drawing.Size(87, 15)
         Me.lblPODate.TabIndex = 27
@@ -466,7 +468,7 @@ Partial Class frm_material_rec_against_PO
         Me.dtpReceiveDate.AutoSize = True
         Me.dtpReceiveDate.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.dtpReceiveDate.ForeColor = System.Drawing.Color.Orange
-        Me.dtpReceiveDate.Location = New System.Drawing.Point(755, 23)
+        Me.dtpReceiveDate.Location = New System.Drawing.Point(615, 23)
         Me.dtpReceiveDate.Name = "dtpReceiveDate"
         Me.dtpReceiveDate.Size = New System.Drawing.Size(87, 15)
         Me.dtpReceiveDate.TabIndex = 27
@@ -496,7 +498,7 @@ Partial Class frm_material_rec_against_PO
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(413, 23)
+        Me.Label3.Location = New System.Drawing.Point(357, 23)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(59, 15)
         Me.Label3.TabIndex = 8
@@ -506,7 +508,7 @@ Partial Class frm_material_rec_against_PO
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(678, 23)
+        Me.Label2.Location = New System.Drawing.Point(538, 23)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(69, 15)
         Me.Label2.TabIndex = 8
@@ -553,7 +555,7 @@ Partial Class frm_material_rec_against_PO
         Me.chk_VatCal.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.chk_VatCal.Location = New System.Drawing.Point(732, 128)
         Me.chk_VatCal.Name = "chk_VatCal"
-        Me.chk_VatCal.Size = New System.Drawing.Size(153, 19)
+        Me.chk_VatCal.Size = New System.Drawing.Size(154, 19)
         Me.chk_VatCal.TabIndex = 28
         Me.chk_VatCal.Text = "Calculate Vat on Excise"
         Me.chk_VatCal.UseVisualStyleBackColor = True
@@ -603,7 +605,7 @@ Partial Class frm_material_rec_against_PO
         Me.chk_ApplyTax.ForeColor = System.Drawing.Color.White
         Me.chk_ApplyTax.Location = New System.Drawing.Point(733, 406)
         Me.chk_ApplyTax.Name = "chk_ApplyTax"
-        Me.chk_ApplyTax.Size = New System.Drawing.Size(76, 19)
+        Me.chk_ApplyTax.Size = New System.Drawing.Size(77, 19)
         Me.chk_ApplyTax.TabIndex = 8
         Me.chk_ApplyTax.Text = "Apply Tax"
         Me.chk_ApplyTax.UseVisualStyleBackColor = True
@@ -747,7 +749,7 @@ Partial Class frm_material_rec_against_PO
         Me.Label16.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label16.Location = New System.Drawing.Point(676, 481)
         Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(90, 15)
+        Me.Label16.Size = New System.Drawing.Size(91, 15)
         Me.Label16.TabIndex = 80
         Me.Label16.Text = "CESS Amount :"
         '
@@ -832,7 +834,7 @@ Partial Class frm_material_rec_against_PO
         Me.Label50.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label50.Location = New System.Drawing.Point(676, 574)
         Me.Label50.Name = "Label50"
-        Me.Label50.Size = New System.Drawing.Size(76, 15)
+        Me.Label50.Size = New System.Drawing.Size(77, 15)
         Me.Label50.TabIndex = 56
         Me.Label50.Text = "Net Amount :"
         '
@@ -843,7 +845,7 @@ Partial Class frm_material_rec_against_PO
         Me.Label51.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label51.Location = New System.Drawing.Point(676, 549)
         Me.Label51.Name = "Label51"
-        Me.Label51.Size = New System.Drawing.Size(85, 15)
+        Me.Label51.Size = New System.Drawing.Size(86, 15)
         Me.Label51.TabIndex = 55
         Me.Label51.Text = "Discount Amt :"
         '
@@ -889,7 +891,7 @@ Partial Class frm_material_rec_against_PO
         Me.Label55.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label55.Location = New System.Drawing.Point(676, 430)
         Me.Label55.Name = "Label55"
-        Me.Label55.Size = New System.Drawing.Size(81, 15)
+        Me.Label55.Size = New System.Drawing.Size(82, 15)
         Me.Label55.TabIndex = 60
         Me.Label55.Text = "GST Amount :"
         '
@@ -900,7 +902,7 @@ Partial Class frm_material_rec_against_PO
         Me.Label56.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label56.Location = New System.Drawing.Point(676, 377)
         Me.Label56.Name = "Label56"
-        Me.Label56.Size = New System.Drawing.Size(99, 15)
+        Me.Label56.Size = New System.Drawing.Size(101, 15)
         Me.Label56.TabIndex = 57
         Me.Label56.Text = "Total Item Value :"
         '
@@ -946,7 +948,7 @@ Partial Class frm_material_rec_against_PO
         Me.Label10.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label10.Location = New System.Drawing.Point(11, 429)
         Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(83, 15)
+        Me.Label10.Size = New System.Drawing.Size(84, 15)
         Me.Label10.TabIndex = 45
         Me.Label10.Text = "MRN Against :"
         '
@@ -1005,7 +1007,7 @@ Partial Class frm_material_rec_against_PO
         Me.Label14.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label14.Location = New System.Drawing.Point(6, 259)
         Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(83, 15)
+        Me.Label14.Size = New System.Drawing.Size(84, 15)
         Me.Label14.TabIndex = 77
         Me.Label14.Text = "Exice Amount:"
         Me.Label14.Visible = False
@@ -1077,6 +1079,18 @@ Partial Class frm_material_rec_against_PO
         Me.C1FlexGrid1.Size = New System.Drawing.Size(0, 0)
         Me.C1FlexGrid1.Styles = New C1.Win.C1FlexGrid.CellStyleCollection(resources.GetString("C1FlexGrid1.Styles"))
         Me.C1FlexGrid1.TabIndex = 0
+        '
+        'Chk_IsRcmApplicable
+        '
+        Me.Chk_IsRcmApplicable.AutoSize = True
+        Me.Chk_IsRcmApplicable.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Chk_IsRcmApplicable.ForeColor = System.Drawing.Color.Orange
+        Me.Chk_IsRcmApplicable.Location = New System.Drawing.Point(719, 23)
+        Me.Chk_IsRcmApplicable.Name = "Chk_IsRcmApplicable"
+        Me.Chk_IsRcmApplicable.Size = New System.Drawing.Size(127, 19)
+        Me.Chk_IsRcmApplicable.TabIndex = 44
+        Me.Chk_IsRcmApplicable.Text = "Is Rcm Applicable"
+        Me.Chk_IsRcmApplicable.UseVisualStyleBackColor = True
         '
         'frm_material_rec_against_PO
         '
@@ -1185,4 +1199,5 @@ Partial Class frm_material_rec_against_PO
     Friend WithEvents lblSelectCapitalAccount As Label
     Friend WithEvents cmbITCEligibility As ComboBox
     Friend WithEvents lblITCEligibility As Label
+    Friend WithEvents Chk_IsRcmApplicable As CheckBox
 End Class

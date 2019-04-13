@@ -2831,7 +2831,7 @@ AS
                
             END                  
     END 
-    Go			
+ Go			
 ---------------------------------------------------------------------------------------------------------------------------
 ALTER PROCEDURE [dbo].[Proc_CreditNoteUpdateDeleteLedgerEntries]
     (
@@ -3449,7 +3449,7 @@ AS
             END            
     END 
 GO
-------------------------------------------------------Purchase---------------------------------------------------------------------
+------------------------------------------------------Purchase-------------------------------------------------------------
 ALTER TABLE dbo.MATERIAL_RECEIVED_AGAINST_PO_DETAIL ADD
 freight NUMERIC(18,2) DEFAULT 0,freight_type CHAR(10),
 FreightTaxValue NUMERIC(18,2) DEFAULT 0,FreightCessValue NUMERIC(18,2) DEFAULT 0
@@ -3509,39 +3509,39 @@ ALTER PROCEDURE [dbo].[PROC_MATERIAL_RECIEVED_WITHOUT_PO_MASTER]
       @V_Reference_ID NUMERIC(18, 0)
     )
 AS
-    BEGIN                                         
-        DECLARE @Remarks VARCHAR(250)                                        
-        DECLARE @InputID NUMERIC   
-        DECLARE @RInputID NUMERIC
-                                             
-        DECLARE @CInputID NUMERIC                                        
-        SET @CInputID = 10016  
-        
-        DECLARE @RCInputID NUMERIC                                        
-        SET @RCInputID = 10018                                          
-        
-        DECLARE @RoundOff NUMERIC(18, 2)                                        
-        DECLARE @CGST_Amount NUMERIC(18, 2)                                        
-        SET @CGST_Amount = ( @v_GST_AMOUNT / 2 )                                        
-        SET @RoundOff = ( @v_Other_Charges )                                        
-                                        
+    BEGIN                                           
+        DECLARE @Remarks VARCHAR(250)                                          
+        DECLARE @InputID NUMERIC     
+        DECLARE @RInputID NUMERIC  
+                                               
+        DECLARE @CInputID NUMERIC                                          
+        SET @CInputID = 10016    
+          
+        DECLARE @RCInputID NUMERIC                                          
+        SET @RCInputID = 10018                                            
+          
+        DECLARE @RoundOff NUMERIC(18, 2)                                          
+        DECLARE @CGST_Amount NUMERIC(18, 2)                                          
+        SET @CGST_Amount = ( @v_GST_AMOUNT / 2 )                                          
+        SET @RoundOff = ( @v_Other_Charges )                                          
+                                          
         SET @InputID = ( SELECT CASE WHEN @V_MRN_TYPE = 1 THEN 10023
                                      WHEN @V_MRN_TYPE = 2 THEN 10020
                                      WHEN @V_MRN_TYPE = 3 THEN 10074
                                 END AS inputid
-                       )
-                                
-                                
+                       )  
+                                  
+                                  
         SET @RInputID = ( SELECT    CASE WHEN @V_MRN_TYPE = 1 THEN 10025
                                          WHEN @V_MRN_TYPE = 2 THEN 10022
                                          WHEN @V_MRN_TYPE = 3 THEN 10076
                                     END AS inputid
-                        )      
-                        
-                                                         
+                        )        
+                          
+                                                           
         IF @V_PROC_TYPE = 1
-            BEGIN                                          
-                                        
+            BEGIN                                            
+                                          
                 INSERT  INTO MATERIAL_RECIEVED_WITHOUT_PO_MASTER
                         ( Received_ID ,
                           Received_Code ,
@@ -3579,7 +3579,7 @@ AS
                           FreightTaxValue ,
                           FK_ITCEligibility_ID ,
                           Reference_ID ,
-                          IS_RCM_Applicable                                      
+                          IS_RCM_Applicable                                        
                         )
                 VALUES  ( @V_Received_ID ,
                           @V_Received_Code ,
@@ -3618,191 +3618,191 @@ AS
                           @V_FreightTaxValue ,
                           @V_FK_ITCEligibility_ID ,
                           @V_Reference_ID ,
-                          @V_IS_RCM_Applicable                  
-                        )                                          
-                                        
-                                        
+                          @V_IS_RCM_Applicable                    
+                        )                                            
+                                          
+                                          
                 UPDATE  MRN_SERIES
                 SET     CURRENT_USED = CURRENT_USED + 1
-                WHERE   DIV_ID = @v_Division_ID     
-                  
-                  
-                --Minus Cash Discount---  
-                  
+                WHERE   DIV_ID = @v_Division_ID       
+                    
+                    
+                --Minus Cash Discount---    
+                    
                 SET @v_GROSS_AMOUNT = ( @v_GROSS_AMOUNT
-                                        - ISNULL(@v_CashDiscount_amt, 0) )                                       
-                                        
+                                        - ISNULL(@v_CashDiscount_amt, 0) )                                         
+                                          
                 SET @Remarks = 'Purchase against party invoice No- '
                     + @v_Invoice_No + ' - '
-                    + CONVERT(VARCHAR(20), @v_Invoice_Date, 106)                                         
-                                        
-                                        
+                    + CONVERT(VARCHAR(20), @v_Invoice_Date, 106)                                           
+                                          
+                                          
                 EXECUTE Proc_Ledger_Insert @v_Vendor_ID, @V_NET_AMOUNT, 0,
                     @Remarks, @V_Division_ID, @V_Received_ID, 2,
-                    @v_Received_Date, @V_Created_BY                          
-                                        
+                    @v_Received_Date, @V_Created_BY                            
+                                          
                 EXECUTE Proc_Ledger_Insert @V_Reference_ID, 0, @v_GROSS_AMOUNT,
                     @Remarks, @V_Division_ID, @V_Received_ID, 2,
-                    @v_Received_Date, @V_Created_BY                   
-                                        
-                                        
+                    @v_Received_Date, @V_Created_BY                     
+                                          
+                                          
                 SET @Remarks = 'Freight against party invoice No- '
                     + @v_Invoice_No + ' - '
-                    + CONVERT(VARCHAR(20), @v_Invoice_Date, 106)                
-                                        
+                    + CONVERT(VARCHAR(20), @v_Invoice_Date, 106)                  
+                                          
                 EXECUTE Proc_Ledger_Insert 10047, 0, @v_freight, @Remarks,
                     @V_Division_ID, @V_Received_ID, 2, @v_Received_Date,
-                    @V_Created_BY                                           
-                                        
-                                        
+                    @V_Created_BY                                             
+                                          
+                                          
                 SET @Remarks = 'GST against party invoice No- '
                     + @v_Invoice_No + ' - '
-                    + CONVERT(VARCHAR(20), @v_Invoice_Date, 106)                                         
-                                        
-                
+                    + CONVERT(VARCHAR(20), @v_Invoice_Date, 106)                                           
+                                          
+                  
                 IF ( @V_IS_RCM_Applicable = 0 )
-                    BEGIN
-                
+                    BEGIN  
+                  
                         IF @V_MRN_TYPE <> 2
-                            BEGIN                                
-                                        
+                            BEGIN                                  
+                                          
                                 EXECUTE Proc_Ledger_Insert @CInputID, 0,
                                     @CGST_Amount, @Remarks, @V_Division_ID,
                                     @V_Received_ID, 2, @v_Received_Date,
-                                    @V_Created_BY                                        
-                                        
-                                        
+                                    @V_Created_BY                                          
+                                          
+                                          
                                 EXECUTE Proc_Ledger_Insert @InputID, 0,
                                     @CGST_Amount, @Remarks, @v_Division_ID,
                                     @V_Received_ID, 2, @v_Received_Date,
-                                    @V_Created_BY                                        
-                            END                             
-                                        
-                                        
-                                        
+                                    @V_Created_BY                                          
+                            END                               
+                                          
+                                          
+                                          
                         ELSE
-                            BEGIN                                        
+                            BEGIN                                          
                                 EXECUTE Proc_Ledger_Insert @InputID, 0,
                                     @v_GST_AMOUNT, @Remarks, @V_Division_ID,
                                     @V_Received_ID, 2, @v_Received_Date,
-                                    @V_Created_BY                                        
-                            END                               
-                 
-                 
-                 
-                                           
+                                    @V_Created_BY                                          
+                            END                                 
+                   
+                   
+                   
+                                             
                         SET @Remarks = 'Cess against party invoice No- '
                             + @v_Invoice_No + ' - '
-                            + CONVERT(VARCHAR(20), @v_Invoice_Date, 106)                              
-                                    
-                                              
+                            + CONVERT(VARCHAR(20), @v_Invoice_Date, 106)                                
+                                      
+                                                
                         EXECUTE Proc_Ledger_Insert 10013, 0, @v_CESS_AMOUNT,
                             @Remarks, @V_Division_ID, @V_Received_ID, 2,
-                            @v_Received_Date, @V_Created_BY                                          
-                                        
-                    END
+                            @v_Received_Date, @V_Created_BY                                            
+                                          
+                    END  
                 ELSE
-                    BEGIN
-             
+                    BEGIN  
+               
                         IF @V_MRN_TYPE <> 2
-                            BEGIN                                
-                                        
-                                EXECUTE Proc_Ledger_Insert @RCInputID, 0,
-                                    @CGST_Amount, @Remarks, @V_Division_ID,
+                            BEGIN                                  
+                                          
+                                EXECUTE Proc_Ledger_Insert @RCInputID,
+                                    @CGST_Amount, 0, @Remarks, @V_Division_ID,
                                     @V_Received_ID, 2, @v_Received_Date,
-                                    @V_Created_BY                                        
-                                        
-                                        
-                                EXECUTE Proc_Ledger_Insert @RInputID, 0,
-                                    @CGST_Amount, @Remarks, @v_Division_ID,
+                                    @V_Created_BY                                          
+                                          
+           
+                                EXECUTE Proc_Ledger_Insert @RInputID,
+                                    @CGST_Amount, 0, @Remarks, @v_Division_ID,
                                     @V_Received_ID, 2, @v_Received_Date,
-                                    @V_Created_BY                                        
-                            END                             
-                                        
+                                    @V_Created_BY                                          
+                            END                               
+                                          
                         ELSE
-                            BEGIN                                        
-                                EXECUTE Proc_Ledger_Insert @RInputID, 0,
-                                    @v_GST_AMOUNT, @Remarks, @V_Division_ID,
+                            BEGIN                                          
+                                EXECUTE Proc_Ledger_Insert @RInputID,
+                                    @v_GST_AMOUNT, 0, @Remarks, @V_Division_ID,
                                     @V_Received_ID, 2, @v_Received_Date,
-                                    @V_Created_BY                                        
-                                                           
-                            END
-                 
-                 
-                                           
+                                    @V_Created_BY                                          
+                                                             
+                            END  
+                   
+                   
+                                             
                         SET @Remarks = 'Cess against party invoice No- '
                             + @v_Invoice_No + ' - '
-                            + CONVERT(VARCHAR(20), @v_Invoice_Date, 106)                              
-                                    
-                                              
-                        EXECUTE Proc_Ledger_Insert 10015, 0, @v_CESS_AMOUNT,
+                            + CONVERT(VARCHAR(20), @v_Invoice_Date, 106)                                
+                                      
+                                                
+                        EXECUTE Proc_Ledger_Insert 10015, @v_CESS_AMOUNT, 0,
                             @Remarks, @V_Division_ID, @V_Received_ID, 2,
-                            @v_Received_Date, @V_Created_BY     
-             
-                    END
-                    
-                                        
+                            @v_Received_Date, @V_Created_BY       
+               
+                    END  
+                      
+                                          
                 SET @Remarks = 'Add. Cess against party invoice No- '
                     + @v_Invoice_No + ' - '
-                    + CONVERT(VARCHAR(20), @v_Invoice_Date, 106)                    
-                                                   
+                    + CONVERT(VARCHAR(20), @v_Invoice_Date, 106)                      
+                                                     
                 EXECUTE Proc_Ledger_Insert 10011, 0, @v_ACESS_AMOUNT, @Remarks,
                     @V_Division_ID, @V_Received_ID, 2, @v_Received_Date,
-                    @V_Created_BY                          
-                                        
-                                        
-                                        
+                    @V_Created_BY                            
+                                          
+                                          
+                                          
                 SET @Remarks = 'Round Off against party invoice No- '
                     + @v_Invoice_No + ' - '
-                    + CONVERT(VARCHAR(20), @v_Invoice_Date, 106)                                        
-                                        
+                    + CONVERT(VARCHAR(20), @v_Invoice_Date, 106)                                          
+                                          
                 IF @RoundOff > 0
-                    BEGIN                                        
-                                        
+                    BEGIN                                          
+                                          
                         EXECUTE Proc_Ledger_Insert 10054, 0, @RoundOff,
                             @Remarks, @V_Division_ID, @V_Received_ID, 2,
-                            @v_Received_Date, @V_Created_BY                                        
-     
-                    END                                        
-                                        
+                            @v_Received_Date, @V_Created_BY                                          
+       
+                    END                                          
+                                          
                 ELSE
-                    BEGIN                                        
-                                        
-                        SET @RoundOff = -+@RoundOff                                        
-                               
+                    BEGIN                                          
+                                          
+                        SET @RoundOff = -+@RoundOff                                          
+                                 
                         EXECUTE Proc_Ledger_Insert 10054, @RoundOff, 0,
                             @Remarks, @V_Division_ID, @V_Received_ID, 2,
-                            @v_Received_Date, @V_Created_BY                                        
-                                        
-                    END                                         
-                                        
-                        
+                            @v_Received_Date, @V_Created_BY                                          
+                                          
+                    END                                           
+                                          
+                          
                 IF @V_Reference_ID = 10070
-                    BEGIN        
-                        
+                    BEGIN          
+                          
                         SET @Remarks = 'Stock Out against party  invoice No- '
                             + @v_Invoice_No + ' - '
-                            + CONVERT(VARCHAR(20), @v_Invoice_Date, 106)                 
-                                        
+                            + CONVERT(VARCHAR(20), @v_Invoice_Date, 106)                   
+                                          
                         EXECUTE Proc_Ledger_Insert 10073, 0, @v_NET_AMOUNT,
                             @Remarks, @V_Division_ID, @V_Received_ID, 2,
-                            @v_Received_Date, @V_Created_BY        
-                            
-                    END              
-                                        
-            END                   
+                            @v_Received_Date, @V_Created_BY          
+                              
+                    END                
                                           
+            END                     
+                                            
         IF @V_PROC_TYPE = 2
-            BEGIN                         
-                                                  
-                DECLARE @TransactionDate DATETIME  = @V_Received_Date                                
-                                                  
-                EXEC Proc_ReverseMRNEntry @V_Received_ID, @V_Vendor_ID                                    
-                                                  
-                --SELECT  @TransactionDate = Received_Date          
-                --FROM    MATERIAL_RECIEVED_WITHOUT_PO_MASTER          
-                --WHERE   Received_ID = @V_Received_ID                                  
-                                                  
+            BEGIN                           
+                                                    
+                DECLARE @TransactionDate DATETIME  = @V_Received_Date                                  
+                                                    
+                EXEC Proc_ReverseMRNEntry @V_Received_ID, @V_Vendor_ID                                      
+                                                    
+                --SELECT  @TransactionDate = Received_Date            
+                --FROM    MATERIAL_RECIEVED_WITHOUT_PO_MASTER            
+                --WHERE   Received_ID = @V_Received_ID                                    
+                                                    
                 UPDATE  MATERIAL_RECIEVED_WITHOUT_PO_MASTER
                 SET     Purchase_Type = @V_Purchase_Type ,
                         Vendor_ID = @V_Vendor_ID ,
@@ -3832,172 +3832,172 @@ AS
                         FK_ITCEligibility_ID = @V_FK_ITCEligibility_ID ,
                         Reference_ID = @V_Reference_ID ,
                         IS_RCM_Applicable = @V_IS_RCM_Applicable
-                WHERE   Received_ID = @V_Received_ID     
-                  
-                  
-                --Minus Cash Discount---  
-                  
+                WHERE   Received_ID = @V_Received_ID       
+                    
+                    
+                --Minus Cash Discount---    
+                    
                 SET @v_GROSS_AMOUNT = ( @v_GROSS_AMOUNT
-                                        - ISNULL(@v_CashDiscount_amt, 0) )            
-                                        
-                                        
+                                        - ISNULL(@v_CashDiscount_amt, 0) )              
+                                          
+                                          
                 SET @Remarks = 'Purchase against party invoice No- '
                     + @v_Invoice_No + ' - '
-                    + CONVERT(VARCHAR(20), @v_Invoice_Date, 106)               
-                                        
+                    + CONVERT(VARCHAR(20), @v_Invoice_Date, 106)                 
+                                          
                 EXECUTE Proc_Ledger_Insert @v_Vendor_ID, @V_NET_AMOUNT, 0,
                     @Remarks, @V_Division_ID, @V_Received_ID, 2,
-                    @TransactionDate, @V_Created_BY                
-                                        
+                    @TransactionDate, @V_Created_BY                  
+                                          
                 EXECUTE Proc_Ledger_Insert @V_Reference_ID, 0, @v_GROSS_AMOUNT,
                     @Remarks, @V_Division_ID, @V_Received_ID, 2,
-                    @TransactionDate, @V_Created_BY                  
-                                        
-                                        
+                    @TransactionDate, @V_Created_BY                    
+                                          
+                                          
                 SET @Remarks = 'Freight against party invoice No- '
                     + @v_Invoice_No + ' - '
-                    + CONVERT(VARCHAR(20), @v_Invoice_Date, 106)                
-                                        
+                    + CONVERT(VARCHAR(20), @v_Invoice_Date, 106)                  
+                                          
                 EXECUTE Proc_Ledger_Insert 10047, 0, @v_freight, @Remarks,
                     @V_Division_ID, @V_Received_ID, 2, @TransactionDate,
-                    @V_Created_BY                                        
-               
-               
-               
-                
-                
+                    @V_Created_BY                                          
+                 
+                 
+                 
+                  
+                  
                 IF ( @V_IS_RCM_Applicable = 0 )
-                    BEGIN                        
-                                        
+                    BEGIN                          
+                                          
                         SET @Remarks = 'GST against party invoice No- '
                             + @v_Invoice_No + ' - '
-                            + CONVERT(VARCHAR(20), @v_Invoice_Date, 106)                                         
-                                        
+                            + CONVERT(VARCHAR(20), @v_Invoice_Date, 106)                                           
+                                          
                         IF @V_MRN_TYPE <> 2
-                            BEGIN                                    
-                                        
+                            BEGIN                                      
+                                          
                                 EXECUTE Proc_Ledger_Insert @CInputID, 0,
                                     @CGST_Amount, @Remarks, @V_Division_ID,
                                     @V_Received_ID, 2, @TransactionDate,
-                                    @V_Created_BY                                        
-                                        
-                                        
+                                    @V_Created_BY                                          
+                                          
+                                          
                                 EXECUTE Proc_Ledger_Insert @InputID, 0,
                                     @CGST_Amount, @Remarks, @v_Division_ID,
                                     @V_Received_ID, 2, @TransactionDate,
-                                    @V_Created_BY                                        
-                            END                                  
-                                        
+                                    @V_Created_BY                                          
+                            END                                    
+                                          
                         ELSE
-                            BEGIN                                        
+                            BEGIN                                          
                                 EXECUTE Proc_Ledger_Insert @InputID, 0,
                                     @v_GST_AMOUNT, @Remarks, @V_Division_ID,
                                     @V_Received_ID, 2, @TransactionDate,
-                                    @V_Created_BY                                        
-                            END               
-                                                  
+                                    @V_Created_BY                                          
+                            END                 
+                                                    
                         SET @Remarks = 'Cess against party invoice No- '
                             + @v_Invoice_No + ' - '
-                            + CONVERT(VARCHAR(20), @v_Invoice_Date, 106)                              
-                                    
-                                        
+                            + CONVERT(VARCHAR(20), @v_Invoice_Date, 106)                                
+                                      
+                                          
                         EXECUTE Proc_Ledger_Insert 10013, 0, @v_CESS_AMOUNT,
                             @Remarks, @V_Division_ID, @V_Received_ID, 2,
-                            @TransactionDate, @V_Created_BY                                           
-                  
-                    END
+                            @TransactionDate, @V_Created_BY                                             
+                    
+                    END  
                 ELSE
-                    BEGIN
+                    BEGIN  
                         SET @Remarks = 'GST against party invoice No- '
                             + @v_Invoice_No + ' - '
-                            + CONVERT(VARCHAR(20), @v_Invoice_Date, 106)                                         
-                                        
+                            + CONVERT(VARCHAR(20), @v_Invoice_Date, 106)                                           
+                                          
                         IF @V_MRN_TYPE <> 2
-                            BEGIN                                    
-                                        
-                                EXECUTE Proc_Ledger_Insert @RCInputID, 0,
-                                    @CGST_Amount, @Remarks, @V_Division_ID,
+                            BEGIN                                      
+                                          
+                                EXECUTE Proc_Ledger_Insert @RCInputID,
+                                    @CGST_Amount, 0, @Remarks, @V_Division_ID,
                                     @V_Received_ID, 2, @TransactionDate,
-                                    @V_Created_BY                                        
-                                        
-                                        
-                                EXECUTE Proc_Ledger_Insert @RInputID, 0,
-                                    @CGST_Amount, @Remarks, @v_Division_ID,
+                                    @V_Created_BY                                         
+                                          
+                                          
+                                EXECUTE Proc_Ledger_Insert @RInputID,
+                                    @CGST_Amount, 0, @Remarks, @v_Division_ID,
                                     @V_Received_ID, 2, @TransactionDate,
-                                    @V_Created_BY                                        
-                            END                                  
-                                        
+                                    @V_Created_BY                                          
+                            END                                    
+                                          
                         ELSE
-                            BEGIN                                        
-                                EXECUTE Proc_Ledger_Insert @RInputID, 0,
-                                    @v_GST_AMOUNT, @Remarks, @V_Division_ID,
+                            BEGIN                                          
+                                EXECUTE Proc_Ledger_Insert @RInputID,
+                                    @v_GST_AMOUNT, 0, @Remarks, @V_Division_ID,
                                     @V_Received_ID, 2, @TransactionDate,
-                                    @V_Created_BY                                        
-                            END               
-                                                  
+                                    @V_Created_BY                                          
+                            END                 
+                                                    
                         SET @Remarks = 'Cess against party invoice No- '
                             + @v_Invoice_No + ' - '
-                            + CONVERT(VARCHAR(20), @v_Invoice_Date, 106)                              
-                                    
-                                        
-                        EXECUTE Proc_Ledger_Insert 10015, 0, @v_CESS_AMOUNT,
+                            + CONVERT(VARCHAR(20), @v_Invoice_Date, 106)                                
+                                      
+                                          
+                        EXECUTE Proc_Ledger_Insert 10015, @v_CESS_AMOUNT, 0,
                             @Remarks, @V_Division_ID, @V_Received_ID, 2,
-                            @TransactionDate, @V_Created_BY   
-                  
-                    END
-                  
-                  
-                  
-                                        
-                                        
+                            @TransactionDate, @V_Created_BY     
+                    
+                    END  
+                    
+                    
+                    
+                                          
+                                          
                 SET @Remarks = 'Add. Cess against party invoice No- '
                     + @v_Invoice_No + ' - '
-                    + CONVERT(VARCHAR(20), @v_Invoice_Date, 106)                     
-                                                  
+                    + CONVERT(VARCHAR(20), @v_Invoice_Date, 106)                       
+                                                    
                 EXECUTE Proc_Ledger_Insert 10011, 0, @v_ACESS_AMOUNT, @Remarks,
                     @V_Division_ID, @V_Received_ID, 2, @TransactionDate,
-                    @V_Created_BY                          
-                                        
+                    @V_Created_BY                            
+                                          
                 SET @Remarks = 'Round Off against party invoice No- '
                     + @v_Invoice_No + ' - '
-                    + CONVERT(VARCHAR(20), @v_Invoice_Date, 106)                                        
-                                        
+                    + CONVERT(VARCHAR(20), @v_Invoice_Date, 106)                                          
+                                          
                 IF @RoundOff > 0
-                    BEGIN                                        
-                                        
+                    BEGIN                                          
+                                          
                         EXECUTE Proc_Ledger_Insert 10054, 0, @RoundOff,
                             @Remarks, @V_Division_ID, @V_Received_ID, 2,
-                            @TransactionDate, @V_Created_BY               
-                    END                                        
-                                 
+                            @TransactionDate, @V_Created_BY                 
+                    END                                          
+                                   
                 ELSE
-                    BEGIN                                        
-                                        
-                        SET @RoundOff = -+@RoundOff                                        
-                                        
+                    BEGIN                                          
+                                          
+                        SET @RoundOff = -+@RoundOff                                          
+                                          
                         EXECUTE Proc_Ledger_Insert 10054, @RoundOff, 0,
                             @Remarks, @V_Division_ID, @V_Received_ID, 2,
-                            @TransactionDate, @V_Created_BY                
-                    END                
-                        
-                        
-                        
+                            @TransactionDate, @V_Created_BY                  
+                    END                  
+                          
+                          
+                          
                 IF @V_Reference_ID = 10070
-                    BEGIN        
-         
+                    BEGIN          
+           
                         SET @Remarks = 'Stock Out against party  invoice No- '
                             + @v_Invoice_No + ' - '
-                            + CONVERT(VARCHAR(20), @v_Invoice_Date, 106)                                           
-                                        
+                            + CONVERT(VARCHAR(20), @v_Invoice_Date, 106)                                             
+                     
                         EXECUTE Proc_Ledger_Insert 10073, 0, @v_NET_AMOUNT,
                             @Remarks, @V_Division_ID, @V_Received_ID, 2,
-                            @TransactionDate, @V_Created_BY         
-                            
-                    END                               
-                                        
-            END                                        
+                            @TransactionDate, @V_Created_BY           
+                              
+                    END                                 
+                                          
+            END                                          
     END 
-	GO
+GO
 ---------------------------------------------------------------------------------------------------------------------------
 ALTER PROCEDURE [dbo].[PROC_MATERIAL_RECEIVED_WITHOUT_PO_DETAIL]
     (
@@ -4028,26 +4028,26 @@ ALTER PROCEDURE [dbo].[PROC_MATERIAL_RECEIVED_WITHOUT_PO_DETAIL]
       @v_GSTPaid CHAR(1)
     )
 AS
-    BEGIN                    
-                    
-                    
-        DECLARE @STOCK_DETAIL_ID NUMERIC(18, 0)               
+    BEGIN                      
+                      
+                      
+        DECLARE @STOCK_DETAIL_ID NUMERIC(18, 0)                 
         IF @V_PROC_TYPE = 1
-            BEGIN                 
-                                   
-                          
+            BEGIN                   
+                                     
+                            
                 SELECT  @STOCK_DETAIL_ID = MAX(STOCK_DETAIL_ID)
                 FROM    dbo.STOCK_DETAIL
-                WHERE   Item_id = @v_Item_ID                           
-                                        
-                --it will insert entry in stock detail table and                 
-                --return stock_detail_id.                        
+                WHERE   Item_id = @v_Item_ID                             
+                                          
+                --it will insert entry in stock detail table and                   
+                --return stock_detail_id.                          
                 EXEC Update_Stock_Detail_Adjustment @v_Item_ID, @v_Batch_no,
                     @v_Expiry_Date, @v_Item_Qty, @v_Received_ID, @V_Trans_Type,
-                    @STOCK_DETAIL_ID OUTPUT                
-                             
-                             
-                             
+                    @STOCK_DETAIL_ID OUTPUT                  
+                               
+                               
+                               
                 INSERT  INTO MATERIAL_RECEIVED_WITHOUT_PO_DETAIL
                         ( Received_ID ,
                           Item_ID ,
@@ -4076,7 +4076,7 @@ AS
                           Freight ,
                           Freight_type ,
                           FreightTaxValue ,
-                          FreightCessValue                            
+                          FreightCessValue                              
                         )
                 VALUES  ( @V_Received_ID ,
                           @V_Item_ID ,
@@ -4105,11 +4105,11 @@ AS
                           @V_Freight ,
                           @V_Freight_type ,
                           @V_FreightTaxValue ,
-                          @V_FreightCessValue                  
-                        )                             
-                               
-                            
-                --Inserting Transaction Log               
+                          @V_FreightCessValue                    
+                        )                               
+                                 
+                              
+                --Inserting Transaction Log                 
                 INSERT  INTO dbo.TransactionLog_Master
                         ( Item_id ,
                           Issue_Qty ,
@@ -4117,7 +4117,7 @@ AS
                           Transaction_Date ,
                           TransactionType_Id ,
                           Transaction_Id ,
-                          Division_Id        
+                          Division_Id          
                         )
                 VALUES  ( @V_Item_ID ,
                           0 ,
@@ -4125,30 +4125,30 @@ AS
                           @V_Creation_Date ,
                           2 ,
                           @V_Received_ID ,
-                          @V_Division_Id            
-                        )            
-                                
-                --it will insert entry in transaction log with stock_detail_id                
+                          @V_Division_Id              
+                        )              
+                                  
+                --it will insert entry in transaction log with stock_detail_id                  
                 EXEC INSERT_TRANSACTION_LOG @v_Received_ID, @v_Item_ID,
                     @V_Trans_Type, @STOCK_DETAIL_ID, @v_Item_Qty,
-                    @v_Creation_Date, 0          
-                                            
-            END                    
-                    
+                    @v_Creation_Date, 0            
+                                              
+            END                      
+                      
         IF @V_PROC_TYPE = 2
-            BEGIN            
+            BEGIN              
                 SELECT  @STOCK_DETAIL_ID = MAX(STOCK_DETAIL_ID)
                 FROM    dbo.STOCK_DETAIL
-                WHERE   Item_id = @v_Item_ID                           
-                                        
-                --it will insert entry in stock detail table and                 
-                --return stock_detail_id.                        
+                WHERE   Item_id = @v_Item_ID                             
+                                          
+                --it will insert entry in stock detail table and                   
+                --return stock_detail_id.                          
                 EXEC Update_Stock_Detail_Adjustment @v_Item_ID, @v_Batch_no,
                     @v_Expiry_Date, @v_Item_Qty, @v_Received_ID, @V_Trans_Type,
-                    @STOCK_DETAIL_ID OUTPUT                
-                             
-                             
-                             
+                    @STOCK_DETAIL_ID OUTPUT                  
+                               
+                               
+                               
                 INSERT  INTO MATERIAL_RECEIVED_WITHOUT_PO_DETAIL
                         ( Received_ID ,
                           Item_ID ,
@@ -4177,7 +4177,7 @@ AS
                           Freight ,
                           Freight_type ,
                           FreightTaxValue ,
-                          FreightCessValue                            
+                          FreightCessValue                              
                         )
                 VALUES  ( @V_Received_ID ,
                           @V_Item_ID ,
@@ -4206,10 +4206,10 @@ AS
                           @V_Freight ,
                           @V_Freight_type ,
                           @V_FreightTaxValue ,
-                          @V_FreightCessValue                      
-                        )                        
-            END                      
-                    
+                          @V_FreightCessValue                        
+                        )                          
+            END                        
+                      
     END 
 Go
 ---------------------------------------------------------------------------------------------------------------------------
@@ -4343,8 +4343,7 @@ AS
                     
         DELETE  FROM dbo.MATERIAL_RECEIVED_WITHOUT_PO_DETAIL
         WHERE   Received_ID = @V_Received_ID   
-                                  
-                          
+                         
         DECLARE @CashOut NUMERIC(18, 2)                    
         DECLARE @CashIn NUMERIC(18, 2)                   
                           
@@ -4545,26 +4544,26 @@ AS
             BEGIN
                 IF @V_MRN_TYPE <> 2
                     BEGIN                      
-                        SET @CashIn = ( SELECT  ISNULL(SUM(CashOut), 0)
-                                        FROM    dbo.LedgerDetail
+                        SET @CashOut = ( SELECT ISNULL(SUM(CashIn), 0)
+                                         FROM   dbo.LedgerDetail
                                                 JOIN dbo.LedgerMaster ON dbo.LedgerMaster.LedgerId = dbo.LedgerDetail.LedgerId
-                                        WHERE   TransactionId = @V_Received_ID
+                                         WHERE  TransactionId = @V_Received_ID
                                                 AND TransactionTypeId = 2
                                                 AND AccountId = @RCInputID
-                                      )                      
+                                       )                      
                         UPDATE  dbo.LedgerMaster
                         SET     AmountInHand = AmountInHand - @CashOut
                                 + @CashIn
                         WHERE   AccountId = @RCInputID     
                     
                                       
-                        SET @CashIn = ( SELECT  ISNULL(SUM(CashOut), 0)
-                                        FROM    dbo.LedgerDetail
+                        SET @CashOut = ( SELECT ISNULL(SUM(CashIn), 0)
+                                         FROM   dbo.LedgerDetail
                                                 JOIN dbo.LedgerMaster ON dbo.LedgerMaster.LedgerId = dbo.LedgerDetail.LedgerId
-                                        WHERE   TransactionId = @V_Received_ID
+                                         WHERE  TransactionId = @V_Received_ID
                                                 AND TransactionTypeId = 2
                                                 AND AccountId = @RInputID
-                                      )      
+                                       )      
                                                   
                         UPDATE  dbo.LedgerMaster
                         SET     AmountInHand = AmountInHand - @CashOut
@@ -4574,13 +4573,13 @@ AS
                 ELSE
                     BEGIN                      
                       
-                        SET @CashIn = ( SELECT  ISNULL(SUM(CashOut), 0)
-                                        FROM    dbo.LedgerDetail
+                        SET @CashOut = ( SELECT ISNULL(SUM(CashIn), 0)
+                                         FROM   dbo.LedgerDetail
                                                 JOIN dbo.LedgerMaster ON dbo.LedgerMaster.LedgerId = dbo.LedgerDetail.LedgerId
-                                        WHERE   TransactionId = @V_Received_ID
+                                         WHERE  TransactionId = @V_Received_ID
                                                 AND TransactionTypeId = 2
                                                 AND AccountId = @RInputID
-                                      )                      
+                                       )                      
                         UPDATE  dbo.LedgerMaster
                         SET     AmountInHand = AmountInHand - @CashOut
                                 + @CashIn
@@ -4589,27 +4588,23 @@ AS
                    
                        
                                    
-                SET @CashIn = ( SELECT  ISNULL(SUM(CashOut), 0)
-                                FROM    dbo.LedgerDetail
+                SET @CashOut = ( SELECT ISNULL(SUM(CashIn), 0)
+                                 FROM   dbo.LedgerDetail
                                         JOIN dbo.LedgerMaster ON dbo.LedgerMaster.LedgerId = dbo.LedgerDetail.LedgerId
-                                WHERE   TransactionId = @V_Received_ID
+                                 WHERE  TransactionId = @V_Received_ID
                                         AND TransactionTypeId = 2
                                         AND AccountId = 10015
-                              )               
+                               )               
                                      
-                SET @CashOut = 0               
+                              
                                    
                 UPDATE  dbo.LedgerMaster
                 SET     AmountInHand = AmountInHand - @CashOut + @CashIn
                 WHERE   AccountId = 10015  
             END
-         
-                    
-         
-         
            
-           
-           
+        SET @CashOut = 0
+        SET @CashIn = 0
            
  --------------------------------A Cess Entries Deletion -------------------- 
            
@@ -4635,9 +4630,11 @@ AS
         WHERE   TransactionId = @V_Received_ID
                 AND TransactionTypeId = 2                    
     END                
-              
-    --------------------------------------------------------------------------------
-Go
+ Go             
+---------------------------------------------------------------------------------------------------------------------------
+
+
+---------------------------------------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------------------------
