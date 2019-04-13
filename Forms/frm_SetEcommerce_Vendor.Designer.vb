@@ -32,7 +32,7 @@ Partial Class frm_SetEcommerce_Vendor
         Me.Label1.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.Location = New System.Drawing.Point(8, 21)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(122, 15)
+        Me.Label1.Size = New System.Drawing.Size(123, 15)
         Me.Label1.TabIndex = 6
         Me.Label1.Text = "E-commerce Vendor:"
         '
@@ -53,7 +53,7 @@ Partial Class frm_SetEcommerce_Vendor
         '
         Me.btn_Save.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.btn_Save.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btn_Save.Location = New System.Drawing.Point(479, 64)
+        Me.btn_Save.Location = New System.Drawing.Point(564, 64)
         Me.btn_Save.Name = "btn_Save"
         Me.btn_Save.Size = New System.Drawing.Size(120, 27)
         Me.btn_Save.TabIndex = 2
@@ -64,12 +64,13 @@ Partial Class frm_SetEcommerce_Vendor
         '
         Me.btn_Cancel.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.btn_Cancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btn_Cancel.Location = New System.Drawing.Point(609, 64)
+        Me.btn_Cancel.Location = New System.Drawing.Point(398, 64)
         Me.btn_Cancel.Name = "btn_Cancel"
         Me.btn_Cancel.Size = New System.Drawing.Size(75, 27)
         Me.btn_Cancel.TabIndex = 3
         Me.btn_Cancel.Text = "Cancel"
         Me.btn_Cancel.UseVisualStyleBackColor = False
+        Me.btn_Cancel.Visible = False
         '
         'frm_SetEcommerce_Vendor
         '

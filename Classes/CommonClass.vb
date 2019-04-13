@@ -316,6 +316,39 @@ Public Class CommonClass
         End Try
     End Sub
 
+
+    Public Sub ComboBindConsumer(ByVal cnt As System.Windows.Forms.ComboBox, ByVal qry As String, ByVal text As String, ByVal value As String, Optional ByVal use_select As Boolean = False)
+        '' Common Function to Bind a Combo Box
+        Try
+            Dim ds1 As DataSet
+            ds1 = FillDataSet(qry)
+            cnt.ValueMember = value
+            cnt.DisplayMember = text
+            'cnt.DropDownStyle = ComboBoxStyle.DropDown
+            'cnt.AutoCompleteMode = AutoCompleteMode.Suggest
+            'cnt.AutoCompleteSource = AutoCompleteSource.ListItems
+            Dim dr As DataRow
+            If ds1.Tables(0).Rows.Count > 0 Then
+                If use_select Then
+                    dr = ds1.Tables(0).NewRow
+                    dr(value) = -1
+                    dr(text) = "--None--"
+                    ds1.Tables(0).Rows.InsertAt(dr, 0)
+                End If
+            Else
+                dr = ds1.Tables(0).NewRow
+                dr(value) = 0
+                'dr(text) = "--No Data Found--"
+                dr(text) = "--None--"
+                ds1.Tables(0).Rows.Add(dr)
+            End If
+            cnt.DataSource = ds1.Tables(0)
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "Error ComboBind")
+        End Try
+    End Sub
+
     Public Sub ComboBindForPayment(ByVal cnt As System.Windows.Forms.ComboBox, ByVal qry As String, ByVal text As String, ByVal value As String, Optional ByVal use_select As Boolean = False)
         '' Common Function to Bind a Combo Box
         Try

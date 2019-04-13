@@ -13,9 +13,10 @@ Public Class frm_SetEcommerce_Vendor
     End Sub
 
     Public Sub CustomerBind()
-        obj.ComboBind(cmbSupplier, "Select ACC_ID,LTRIM(ACC_NAME) AS ACC_NAME from ACCOUNT_MASTER WHERE Is_Active=1 And AG_ID in (1,2,3,6) Order by ACC_NAME", "ACC_NAME", "ACC_ID", True)
+        obj.ComboBindConsumer(cmbSupplier, "Select ACC_ID,LTRIM(ACC_NAME) AS ACC_NAME from ACCOUNT_MASTER WHERE Is_Active=1 And AG_ID in (1,2,3,6) Order by ACC_NAME", "ACC_NAME", "ACC_ID", True)
         cmbSupplier.SelectedIndex = cmbSupplier.FindStringExact(cmbSupplier.Text)
     End Sub
+
 
     Private Sub btn_Save_Click(sender As Object, e As EventArgs) Handles btn_Save.Click
         Me.Close()
@@ -23,7 +24,7 @@ Public Class frm_SetEcommerce_Vendor
 
     Private Sub cmbSupplier_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbSupplier.SelectedIndexChanged
         cmbSupplier.SelectedIndex = cmbSupplier.FindStringExact(cmbSupplier.Text)
-        If (cmbSupplier.SelectedIndex > 0) Then
+        If (cmbSupplier.SelectedValue <> -1) Then
             Vendor_ID = cmbSupplier.SelectedValue
             Vendor_Name = cmbSupplier.Text
         Else
@@ -34,6 +35,7 @@ Public Class frm_SetEcommerce_Vendor
                 cmbSupplier.SelectedValue = PVendor_ID
                 Vendor_ID = cmbSupplier.SelectedValue
                 Vendor_Name = cmbSupplier.Text
+                PVendor_ID = 0
             End If
 
 
