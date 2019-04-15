@@ -1718,7 +1718,7 @@ restart:
                     If cmbMRNType.Text = "IGST" Then
 
                         Tax = (totalAmount + TaxAmount) * FLXGRD_MaterialItem.Item(iRow, "vat_per") / 100
-                        FreightTaxAmount = Tax - (totalAmount * FLXGRD_MaterialItem.Item(iRow, "vat_per") / 100)
+                        FreightTaxAmount = Math.Round(Tax - (totalAmount * FLXGRD_MaterialItem.Item(iRow, "vat_per") / 100), 2)
                     Else
                         'TaxAmount = ((totalAmount / (Convert.ToDouble(IIf(IsNumeric(lblgrossamt.Text), lblgrossamt.Text, 0)))) * Convert.ToDecimal(txtAmount.Text))
                         Tax = Math.Round((totalAmount + TaxAmount) * (FLXGRD_MaterialItem.Item(iRow, "vat_per") / 2) / 100, 2)

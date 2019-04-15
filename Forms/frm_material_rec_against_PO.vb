@@ -1409,8 +1409,6 @@ restart:
                     Tax = Math.Round((Tax * 2), 2)
                     FreightTaxAmount = 0
                 End If
-
-
             End If
 
 

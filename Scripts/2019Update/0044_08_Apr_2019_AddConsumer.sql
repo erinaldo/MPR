@@ -5458,10 +5458,10 @@ AS
                 PO_DETAIL.Balance_qty AS PO_QTY ,
                 0.00 AS BATCH_QTY ,
                 PM.OPEN_PO_QTY ,
-                (0) AS Freight ,
+                (0.00) AS Freight ,
                 ('A') AS Freight_type ,
-                (0) AS FreightTaxValue ,
-                (0) AS FreightCessValue
+                (0.00) AS FreightTaxValue ,
+                (0.00) AS FreightCessValue
         FROM    ITEM_MASTER AS IM
                 INNER JOIN UNIT_MASTER ON IM.UM_ID = UNIT_MASTER.UM_ID
                 INNER JOIN PO_DETAIL ON IM.ITEM_ID = PO_DETAIL.ITEM_ID
