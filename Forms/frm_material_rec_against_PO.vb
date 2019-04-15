@@ -662,10 +662,10 @@ Public Class frm_material_rec_against_PO
         FLXGRD_PO_Items.Cols("exice_per").Visible = False
         FLXGRD_PO_Items.Cols("BATCH_NO").Visible = False
 
-        FLXGRD_PO_Items.Cols("freight").Visible = False
-        FLXGRD_PO_Items.Cols("freight_type").Visible = False
-        FLXGRD_PO_Items.Cols("FreightTaxValue").Visible = False
-        FLXGRD_PO_Items.Cols("FreightCessValue").Visible = False
+        'FLXGRD_PO_Items.Cols("freight").Visible = False
+        'FLXGRD_PO_Items.Cols("freight_type").Visible = False
+        'FLXGRD_PO_Items.Cols("FreightTaxValue").Visible = False
+        'FLXGRD_PO_Items.Cols("FreightCessValue").Visible = False
 
 
         FLXGRD_PO_Items.Cols("BATCH_NO").Caption = "BatchNo"
@@ -1382,12 +1382,12 @@ restart:
             If chk_ApplyTax.Checked = True Then
                 'Tax = (totalAmount * FLXGRD_MaterialItem.Item(iRow, "vat_per") / 100) + (totalAmount / Convert.ToDecimal(lblgrossamt.Text) * Convert.ToDecimal(txt_Amount.Text))
                 If lblMRNType.Text = "2" Then
-                    TaxAmount = ((totalAmount / (Convert.ToDouble(IIf(IsNumeric(lblgrossamt.Text), lblgrossamt.Text, 0)))) * Convert.ToDecimal(txtAmount.Text))
+                    TaxAmount = Math.Round(((totalAmount / (Convert.ToDouble(IIf(IsNumeric(lblgrossamt.Text), lblgrossamt.Text, 0)))) * Convert.ToDecimal(txtAmount.Text)), 2)
                     Tax = (totalAmount + TaxAmount) * FLXGRD_PO_Items.Item(iRow, "vat_per") / 100
-                    FreightTaxAmount = Tax - (totalAmount * FLXGRD_PO_Items.Item(iRow, "vat_per") / 100)
+                    FreightTaxAmount = Math.Round(Tax - (totalAmount * FLXGRD_PO_Items.Item(iRow, "vat_per") / 100), 2)
                 Else
 
-                    TaxAmount = ((totalAmount / (Convert.ToDouble(IIf(IsNumeric(lblgrossamt.Text), lblgrossamt.Text, 0)))) * Convert.ToDecimal(txtAmount.Text))
+                    TaxAmount = Math.Round(((totalAmount / (Convert.ToDouble(IIf(IsNumeric(lblgrossamt.Text), lblgrossamt.Text, 0)))) * Convert.ToDecimal(txtAmount.Text)), 2)
                     Tax = Math.Round((totalAmount + TaxAmount) * (FLXGRD_PO_Items.Item(iRow, "vat_per") / 2) / 100, 2)
                     Tax = Math.Round((Tax * 2), 2)
 

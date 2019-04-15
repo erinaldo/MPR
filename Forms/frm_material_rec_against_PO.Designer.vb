@@ -38,6 +38,7 @@ Partial Class frm_material_rec_against_PO
         Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.txt_Remarks = New System.Windows.Forms.TextBox()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.Chk_IsRcmApplicable = New System.Windows.Forms.CheckBox()
         Me.cmbCapitalAccount = New System.Windows.Forms.ComboBox()
         Me.lblSelectCapitalAccount = New System.Windows.Forms.Label()
         Me.cmbITCEligibility = New System.Windows.Forms.ComboBox()
@@ -100,7 +101,6 @@ Partial Class frm_material_rec_against_PO
         Me.FLXGRD_PO_NON_STOCKABLEITEMS = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
         Me.C1FlexGrid1 = New C1.Win.C1FlexGrid.C1FlexGrid()
-        Me.Chk_IsRcmApplicable = New System.Windows.Forms.CheckBox()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
@@ -375,6 +375,18 @@ Partial Class frm_material_rec_against_PO
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         '
+        'Chk_IsRcmApplicable
+        '
+        Me.Chk_IsRcmApplicable.AutoSize = True
+        Me.Chk_IsRcmApplicable.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Chk_IsRcmApplicable.ForeColor = System.Drawing.Color.Orange
+        Me.Chk_IsRcmApplicable.Location = New System.Drawing.Point(719, 23)
+        Me.Chk_IsRcmApplicable.Name = "Chk_IsRcmApplicable"
+        Me.Chk_IsRcmApplicable.Size = New System.Drawing.Size(127, 19)
+        Me.Chk_IsRcmApplicable.TabIndex = 44
+        Me.Chk_IsRcmApplicable.Text = "Is Rcm Applicable"
+        Me.Chk_IsRcmApplicable.UseVisualStyleBackColor = True
+        '
         'cmbCapitalAccount
         '
         Me.cmbCapitalAccount.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
@@ -596,7 +608,6 @@ Partial Class frm_material_rec_against_PO
         Me.lblFreightTaxTotal.Size = New System.Drawing.Size(35, 14)
         Me.lblFreightTaxTotal.TabIndex = 281
         Me.lblFreightTaxTotal.Text = "0.00"
-        Me.lblFreightTaxTotal.Visible = False
         '
         'chk_ApplyTax
         '
@@ -1079,18 +1090,6 @@ Partial Class frm_material_rec_against_PO
         Me.C1FlexGrid1.Size = New System.Drawing.Size(0, 0)
         Me.C1FlexGrid1.Styles = New C1.Win.C1FlexGrid.CellStyleCollection(resources.GetString("C1FlexGrid1.Styles"))
         Me.C1FlexGrid1.TabIndex = 0
-        '
-        'Chk_IsRcmApplicable
-        '
-        Me.Chk_IsRcmApplicable.AutoSize = True
-        Me.Chk_IsRcmApplicable.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Chk_IsRcmApplicable.ForeColor = System.Drawing.Color.Orange
-        Me.Chk_IsRcmApplicable.Location = New System.Drawing.Point(719, 23)
-        Me.Chk_IsRcmApplicable.Name = "Chk_IsRcmApplicable"
-        Me.Chk_IsRcmApplicable.Size = New System.Drawing.Size(127, 19)
-        Me.Chk_IsRcmApplicable.TabIndex = 44
-        Me.Chk_IsRcmApplicable.Text = "Is Rcm Applicable"
-        Me.Chk_IsRcmApplicable.UseVisualStyleBackColor = True
         '
         'frm_material_rec_against_PO
         '
