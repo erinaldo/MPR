@@ -662,10 +662,10 @@ Public Class frm_material_rec_against_PO
         FLXGRD_PO_Items.Cols("exice_per").Visible = False
         FLXGRD_PO_Items.Cols("BATCH_NO").Visible = False
 
-        'FLXGRD_PO_Items.Cols("freight").Visible = False
-        'FLXGRD_PO_Items.Cols("freight_type").Visible = False
-        'FLXGRD_PO_Items.Cols("FreightTaxValue").Visible = False
-        'FLXGRD_PO_Items.Cols("FreightCessValue").Visible = False
+        FLXGRD_PO_Items.Cols("freight").Visible = False
+        FLXGRD_PO_Items.Cols("freight_type").Visible = False
+        FLXGRD_PO_Items.Cols("FreightTaxValue").Visible = False
+        FLXGRD_PO_Items.Cols("FreightCessValue").Visible = False
 
 
         FLXGRD_PO_Items.Cols("BATCH_NO").Caption = "BatchNo"
