@@ -3636,10 +3636,26 @@ AS
                     + @v_Invoice_No + ' - '
                     + CONVERT(VARCHAR(20), @v_Invoice_Date, 106)                                           
                                           
+                  
+                IF ( @V_IS_RCM_Applicable = 0 )
+                    BEGIN 
                                           
-                EXECUTE Proc_Ledger_Insert @v_Vendor_ID, @V_NET_AMOUNT, 0,
-                    @Remarks, @V_Division_ID, @V_Received_ID, 2,
-                    @v_Received_Date, @V_Created_BY                            
+                        EXECUTE Proc_Ledger_Insert @v_Vendor_ID, @V_NET_AMOUNT,
+                            0, @Remarks, @V_Division_ID, @V_Received_ID, 2,
+                            @v_Received_Date, @V_Created_BY                            
+                    END
+                  
+                ELSE
+                    BEGIN
+                        DECLARE @GAmount NUMERIC(18, 2)
+                        SET @GAmount = ( ISNULL(@v_GROSS_AMOUNT, 0)
+                                         + ISNULL(@v_freight, 0) )
+                        EXECUTE Proc_Ledger_Insert @v_Vendor_ID, @GAmount, 0,
+                            @Remarks, @V_Division_ID, @V_Received_ID, 2,
+                            @v_Received_Date, @V_Created_BY  
+                    END
+                  
+                  
                                           
                 EXECUTE Proc_Ledger_Insert @V_Reference_ID, 0, @v_GROSS_AMOUNT,
                     @Remarks, @V_Division_ID, @V_Received_ID, 2,
@@ -3698,8 +3714,7 @@ AS
                                                 
                         EXECUTE Proc_Ledger_Insert 10013, 0, @v_CESS_AMOUNT,
                             @Remarks, @V_Division_ID, @V_Received_ID, 2,
-                            @v_Received_Date, @V_Created_BY                                            
-                                          
+                            @v_Received_Date, @V_Created_BY  
                     END  
                 ELSE
                     BEGIN  
@@ -3737,7 +3752,22 @@ AS
                                                 
                         EXECUTE Proc_Ledger_Insert 10015, @v_CESS_AMOUNT, 0,
                             @Remarks, @V_Division_ID, @V_Received_ID, 2,
-                            @v_Received_Date, @V_Created_BY       
+                            @v_Received_Date, @V_Created_BY
+                            
+                            
+                            
+                        SET @Remarks = 'Reverse charge against party invoice No- '
+                            + @v_Invoice_No + ' - '
+                            + CONVERT(VARCHAR(20), @v_Invoice_Date, 106)
+                            
+                        DECLARE @RcmExpense NUMERIC(18, 2)
+                            
+                        SET @RcmExpense = ( ISNULL(@v_GST_AMOUNT, 0)
+                                            + ISNULL(@v_CESS_AMOUNT, 0) )
+                           
+                        EXECUTE Proc_Ledger_Insert 10088, 0, @RcmExpense,
+                            @Remarks, @V_Division_ID, @V_Received_ID, 2,
+                            @v_Received_Date, @V_Created_BY           
                
                     END  
                       
@@ -3844,10 +3874,29 @@ AS
                 SET @Remarks = 'Purchase against party invoice No- '
                     + @v_Invoice_No + ' - '
                     + CONVERT(VARCHAR(20), @v_Invoice_Date, 106)                 
-                                          
-                EXECUTE Proc_Ledger_Insert @v_Vendor_ID, @V_NET_AMOUNT, 0,
-                    @Remarks, @V_Division_ID, @V_Received_ID, 2,
-                    @TransactionDate, @V_Created_BY                  
+                    
+                    
+                IF ( @V_IS_RCM_Applicable = 0 )
+                    BEGIN
+                                           
+                        EXECUTE Proc_Ledger_Insert @v_Vendor_ID, @V_NET_AMOUNT,
+                            0, @Remarks, @V_Division_ID, @V_Received_ID, 2,
+                            @TransactionDate, @V_Created_BY                  
+                    
+                    END
+                ELSE
+                    BEGIN
+                    
+                        SET @GAmount = ( ISNULL(@v_GROSS_AMOUNT, 0)
+                                         + ISNULL(@v_freight, 0) )
+                        EXECUTE Proc_Ledger_Insert @v_Vendor_ID, @GAmount, 0,
+                            @Remarks, @V_Division_ID, @V_Received_ID, 2,
+                            @TransactionDate, @V_Created_BY   
+                    
+                    END 
+                    
+                    
+                    
                                           
                 EXECUTE Proc_Ledger_Insert @V_Reference_ID, 0, @v_GROSS_AMOUNT,
                     @Remarks, @V_Division_ID, @V_Received_ID, 2,
@@ -3942,7 +3991,25 @@ AS
                                           
                         EXECUTE Proc_Ledger_Insert 10015, @v_CESS_AMOUNT, 0,
                             @Remarks, @V_Division_ID, @V_Received_ID, 2,
-                            @TransactionDate, @V_Created_BY     
+                            @TransactionDate, @V_Created_BY    
+                            
+                            
+                             
+                             
+                        SET @Remarks = 'Reverse charge against party invoice No- '
+                            + @v_Invoice_No + ' - '
+                            + CONVERT(VARCHAR(20), @v_Invoice_Date, 106)
+                            
+                        
+                            
+                        SET @RcmExpense = ( ISNULL(@v_GST_AMOUNT, 0)
+                                            + ISNULL(@v_CESS_AMOUNT, 0) )
+                           
+                        EXECUTE Proc_Ledger_Insert 10088, 0, @RcmExpense,
+                            @Remarks, @V_Division_ID, @V_Received_ID, 2,
+                            @TransactionDate, @V_Created_BY
+                             
+                             
                     
                     END  
                     
@@ -4302,33 +4369,33 @@ ALTER PROC [dbo].[Proc_ReverseMRNEntry]
       @V_Vendor_ID NUMERIC(18, 0)
     )
 AS
-    BEGIN      
-    
-    
-          
-        DECLARE @ReferenceID NUMERIC(18, 0)                                       
+    BEGIN        
+      
+      
+            
+        DECLARE @ReferenceID NUMERIC(18, 0)                                         
         SET @V_Vendor_ID = ( SELECT Vendor_ID
                              FROM   dbo.MATERIAL_RECIEVED_WITHOUT_PO_MASTER
                              WHERE  Received_ID = @V_Received_ID
-                           )                 
-                                             
-                                                                                                   
+                           )                   
+                                               
+                                                                                                     
         SET @ReferenceID = ( SELECT REFERENCE_ID
                              FROM   dbo.MATERIAL_RECIEVED_WITHOUT_PO_MASTER
                              WHERE  Received_ID = @V_Received_ID
-                           )
-                           
-                           
-                           
-        DECLARE @V_IS_RCM_Applicable BIT                                    
-        
+                           )  
+                             
+                             
+                             
+        DECLARE @V_IS_RCM_Applicable BIT                                      
+          
         SET @V_IS_RCM_Applicable = ( SELECT ISNULL(IS_RCM_Applicable, 0)
                                      FROM   dbo.MATERIAL_RECIEVED_WITHOUT_PO_MASTER
                                      WHERE  Received_ID = @V_Received_ID
-                                   )  
-        
-                         
-                         
+                                   )    
+          
+                           
+                           
         UPDATE  STOCK_DETAIL
         SET     STOCK_DETAIL.Item_Qty = ( STOCK_DETAIL.Item_Qty
                                           - MATERIAL_RECEIVED_WITHOUT_PO_DETAIL.ITEM_QTY ) ,
@@ -4337,299 +4404,321 @@ AS
         FROM    dbo.STOCK_DETAIL
                 JOIN dbo.MATERIAL_RECEIVED_WITHOUT_PO_DETAIL ON MATERIAL_RECEIVED_WITHOUT_PO_DETAIL.STOCK_DETAIL_ID = STOCK_DETAIL.STOCK_DETAIL_ID
                                                               AND MATERIAL_RECEIVED_WITHOUT_PO_DETAIL.ITEM_ID = STOCK_DETAIL.Item_id
-        WHERE   Received_ID = @V_Received_ID                    
-                          
+        WHERE   Received_ID = @V_Received_ID                      
                             
-                    
+                              
+                      
         DELETE  FROM dbo.MATERIAL_RECEIVED_WITHOUT_PO_DETAIL
-        WHERE   Received_ID = @V_Received_ID   
-                         
-        DECLARE @CashOut NUMERIC(18, 2)                    
-        DECLARE @CashIn NUMERIC(18, 2)                   
-                          
-        SET @CashIn = 0                  
-                          
+        WHERE   Received_ID = @V_Received_ID     
+                                    
+                            
+        DECLARE @CashOut NUMERIC(18, 2)                      
+        DECLARE @CashIn NUMERIC(18, 2)                     
+                            
+        SET @CashIn = 0                    
+                            
         SET @CashOut = ( SELECT ISNULL(SUM(CashIn), 0)
                          FROM   dbo.LedgerDetail
                                 JOIN dbo.LedgerMaster ON dbo.LedgerMaster.LedgerId = dbo.LedgerDetail.LedgerId
                          WHERE  TransactionId = @V_Received_ID
                                 AND TransactionTypeId = 2
                                 AND AccountId = @V_Vendor_ID
-                       )                    
-                    
+                       )                      
+                      
         UPDATE  dbo.LedgerMaster
         SET     AmountInHand = AmountInHand - @CashOut + @CashIn
-        WHERE   AccountId = @V_Vendor_ID          
-                
-                
-        SET @CashOut = 0        
+        WHERE   AccountId = @V_Vendor_ID            
+                  
+                  
+        SET @CashOut = 0          
         SET @CashIn = ( SELECT  ISNULL(SUM(CashOut), 0)
                         FROM    dbo.LedgerDetail
                                 JOIN dbo.LedgerMaster ON dbo.LedgerMaster.LedgerId = dbo.LedgerDetail.LedgerId
                         WHERE   TransactionId = @V_Received_ID
                                 AND TransactionTypeId = 2
                                 AND AccountId = 10047
-                      )                    
-                    
+                      )                      
+                      
         UPDATE  dbo.LedgerMaster
         SET     AmountInHand = AmountInHand - @CashOut + @CashIn
-        WHERE   AccountId = 10047                 
-                          
-           
-            
+        WHERE   AccountId = 10047                   
+                            
+             
+              
         IF @ReferenceID = 10070
-            BEGIN         
-                          
-                SET @CashOut = 0                
+            BEGIN           
+                            
+                SET @CashOut = 0                  
                 SET @CashIn = ( SELECT  ISNULL(SUM(CashOut), 0)
                                 FROM    dbo.LedgerDetail
                                         JOIN dbo.LedgerMaster ON dbo.LedgerMaster.LedgerId = dbo.LedgerDetail.LedgerId
                                 WHERE   TransactionId = @V_Received_ID
                                         AND TransactionTypeId = 2
                                         AND AccountId = 10073
-                              )                    
-                       
-                      
+                              )                      
+                         
+                        
                 UPDATE  dbo.LedgerMaster
                 SET     AmountInHand = AmountInHand - @CashOut + @CashIn
-                WHERE   AccountId = 10073                      
-                          
-            END                  
-                          
-                          
+                WHERE   AccountId = 10073                        
+                            
+            END                    
+                            
+                            
         SET @CashIn = ( SELECT  ISNULL(SUM(CashOut), 0)
                         FROM    dbo.LedgerDetail
                                 JOIN dbo.LedgerMaster ON dbo.LedgerMaster.LedgerId = dbo.LedgerDetail.LedgerId
                         WHERE   TransactionId = @V_Received_ID
                                 AND TransactionTypeId = 2
                                 AND AccountId = @ReferenceID
-                      )                      
-                      
-        SET @CashOut = 0                      
-                      
+                      )                        
+                        
+        SET @CashOut = 0                        
+                        
         UPDATE  dbo.LedgerMaster
         SET     AmountInHand = AmountInHand - @CashOut + @CashIn
-        WHERE   AccountId = @ReferenceID                  
-                          
-                             
-                             
-                             
+        WHERE   AccountId = @ReferenceID                    
+                            
+                               
+                               
+                               
         SET @CashIn = ( SELECT  ISNULL(SUM(CashOut), 0)
                         FROM    dbo.LedgerDetail
                                 JOIN dbo.LedgerMaster ON dbo.LedgerMaster.LedgerId = dbo.LedgerDetail.LedgerId
                         WHERE   TransactionId = @V_Received_ID
                                 AND TransactionTypeId = 2
                                 AND AccountId = 10054
-                      )                      
-                      
-        SET @CashOut = 0                      
-                      
+                      )                        
+                        
+        SET @CashOut = 0                        
+                        
         UPDATE  dbo.LedgerMaster
         SET     AmountInHand = AmountInHand - @CashOut + @CashIn
-        WHERE   AccountId = 10054                  
-                             
-        SET @CashIn = 0                  
+        WHERE   AccountId = 10054                    
+                               
+        SET @CashIn = 0                    
         SET @CashOut = ( SELECT ISNULL(SUM(Cashin), 0)
                          FROM   dbo.LedgerDetail
                                 JOIN dbo.LedgerMaster ON dbo.LedgerMaster.LedgerId = dbo.LedgerDetail.LedgerId
                          WHERE  TransactionId = @V_Received_ID
                                 AND TransactionTypeId = 2
                                 AND AccountId = 10054
-                       )                      
-                      
-                     
-                      
+                       )                        
+                        
+                       
+                        
         UPDATE  dbo.LedgerMaster
         SET     AmountInHand = AmountInHand - @CashOut + @CashIn
-        WHERE   AccountId = 10054                  
-                          
-        SET @CashIn = 0                  
-        SET @CashOut = 0                  
-                         
-        DECLARE @V_MRN_TYPE VARCHAR(1)                      
+        WHERE   AccountId = 10054                    
+                            
+        SET @CashIn = 0                    
+        SET @CashOut = 0                    
+                           
+        DECLARE @V_MRN_TYPE VARCHAR(1)                        
         SET @V_MRN_TYPE = ( SELECT  MRN_TYPE
                             FROM    dbo.MATERIAL_RECIEVED_WITHOUT_PO_MASTER
                             WHERE   Received_ID = @V_Received_ID
-                          )                      
-                          
-        DECLARE @InputID NUMERIC                      
-        DECLARE @CInputID NUMERIC 
-        DECLARE @RInputID NUMERIC                      
-        DECLARE @RCInputID NUMERIC    
-                          
-        SET @CInputID = 10016                    
-        SET @RCInputID = 10018 
-        
-                          
+                          )                        
+                            
+        DECLARE @InputID NUMERIC                        
+        DECLARE @CInputID NUMERIC   
+        DECLARE @RInputID NUMERIC                        
+        DECLARE @RCInputID NUMERIC      
+                            
+        SET @CInputID = 10016                      
+        SET @RCInputID = 10018   
+          
+              
         SET @InputID = ( SELECT CASE WHEN @V_MRN_TYPE = 1 THEN 10023
                                      WHEN @V_MRN_TYPE = 2 THEN 10020
                                      WHEN @V_MRN_TYPE = 3 THEN 10074
                                 END AS inputid
-                       )
-                                        
+                       )  
+                                          
         SET @RInputID = ( SELECT    CASE WHEN @V_MRN_TYPE = 1 THEN 10025
                                          WHEN @V_MRN_TYPE = 2 THEN 10022
                                          WHEN @V_MRN_TYPE = 3 THEN 10076
                                     END AS inputid
-                        ) 
-                                                         
- 
- 
+                        )   
+                                                           
+   
+   
         IF ( @V_IS_RCM_Applicable = 0 )
-            BEGIN
-                          
+            BEGIN  
+                            
                 IF @V_MRN_TYPE <> 2
-                    BEGIN                      
+                    BEGIN                        
                         SET @CashIn = ( SELECT  ISNULL(SUM(CashOut), 0)
                                         FROM    dbo.LedgerDetail
                                                 JOIN dbo.LedgerMaster ON dbo.LedgerMaster.LedgerId = dbo.LedgerDetail.LedgerId
                                         WHERE   TransactionId = @V_Received_ID
                                                 AND TransactionTypeId = 2
                                                 AND AccountId = @CInputID
-                                      )                      
+                                      )                        
                         UPDATE  dbo.LedgerMaster
                         SET     AmountInHand = AmountInHand - @CashOut
                                 + @CashIn
-                        WHERE   AccountId = @CInputID     
-                    
-                                      
-                        SET @CashIn = ( SELECT  ISNULL(SUM(CashOut), 0)
-                                        FROM    dbo.LedgerDetail
-                                                JOIN dbo.LedgerMaster ON dbo.LedgerMaster.LedgerId = dbo.LedgerDetail.LedgerId
-                                        WHERE   TransactionId = @V_Received_ID
-                                                AND TransactionTypeId = 2
-                                                AND AccountId = @InputID
-                                      )      
-                                                  
-                        UPDATE  dbo.LedgerMaster
-                        SET     AmountInHand = AmountInHand - @CashOut
-                                + @CashIn
-                        WHERE   AccountId = @InputID                      
-                    END                  
-                ELSE
-                    BEGIN                      
+                        WHERE   AccountId = @CInputID       
                       
+                                        
                         SET @CashIn = ( SELECT  ISNULL(SUM(CashOut), 0)
                                         FROM    dbo.LedgerDetail
                                                 JOIN dbo.LedgerMaster ON dbo.LedgerMaster.LedgerId = dbo.LedgerDetail.LedgerId
                                         WHERE   TransactionId = @V_Received_ID
                                                 AND TransactionTypeId = 2
                                                 AND AccountId = @InputID
-                                      )                      
+                                      )        
+                                                    
                         UPDATE  dbo.LedgerMaster
                         SET     AmountInHand = AmountInHand - @CashOut
                                 + @CashIn
-                        WHERE   AccountId = @InputID                      
-                    END                
-                   
-                       
-                                   
+                        WHERE   AccountId = @InputID                        
+                    END                    
+                ELSE
+                    BEGIN                        
+                        
+                        SET @CashIn = ( SELECT  ISNULL(SUM(CashOut), 0)
+                                        FROM    dbo.LedgerDetail
+                                                JOIN dbo.LedgerMaster ON dbo.LedgerMaster.LedgerId = dbo.LedgerDetail.LedgerId
+                                        WHERE   TransactionId = @V_Received_ID
+                                                AND TransactionTypeId = 2
+                                                AND AccountId = @InputID
+                                      )                        
+                        UPDATE  dbo.LedgerMaster
+                        SET     AmountInHand = AmountInHand - @CashOut
+                                + @CashIn
+                        WHERE   AccountId = @InputID                        
+                    END                  
+                     
+                         
+                                     
                 SET @CashIn = ( SELECT  ISNULL(SUM(CashOut), 0)
                                 FROM    dbo.LedgerDetail
                                         JOIN dbo.LedgerMaster ON dbo.LedgerMaster.LedgerId = dbo.LedgerDetail.LedgerId
                                 WHERE   TransactionId = @V_Received_ID
                                         AND TransactionTypeId = 2
                                         AND AccountId = 10013
-                              )               
+                              )                 
+                                       
+                SET @CashOut = 0                 
                                      
-                SET @CashOut = 0               
-                                   
                 UPDATE  dbo.LedgerMaster
                 SET     AmountInHand = AmountInHand - @CashOut + @CashIn
-                WHERE   AccountId = 10013                  
-            END
-         
-         
+                WHERE   AccountId = 10013                    
+            END  
+           
+           
         ELSE
-            BEGIN
+            BEGIN  
                 IF @V_MRN_TYPE <> 2
-                    BEGIN                      
+                    BEGIN                        
                         SET @CashOut = ( SELECT ISNULL(SUM(CashIn), 0)
                                          FROM   dbo.LedgerDetail
                                                 JOIN dbo.LedgerMaster ON dbo.LedgerMaster.LedgerId = dbo.LedgerDetail.LedgerId
                                          WHERE  TransactionId = @V_Received_ID
                                                 AND TransactionTypeId = 2
                                                 AND AccountId = @RCInputID
-                                       )                      
+                                       )                        
                         UPDATE  dbo.LedgerMaster
                         SET     AmountInHand = AmountInHand - @CashOut
                                 + @CashIn
-                        WHERE   AccountId = @RCInputID     
-                    
-                                      
-                        SET @CashOut = ( SELECT ISNULL(SUM(CashIn), 0)
-                                         FROM   dbo.LedgerDetail
-                                                JOIN dbo.LedgerMaster ON dbo.LedgerMaster.LedgerId = dbo.LedgerDetail.LedgerId
-                                         WHERE  TransactionId = @V_Received_ID
-                                                AND TransactionTypeId = 2
-                                                AND AccountId = @RInputID
-                                       )      
-                                                  
-                        UPDATE  dbo.LedgerMaster
-                        SET     AmountInHand = AmountInHand - @CashOut
-                                + @CashIn
-                        WHERE   AccountId = @RInputID                      
-                    END                  
-                ELSE
-                    BEGIN                      
+                        WHERE   AccountId = @RCInputID       
                       
+                                        
                         SET @CashOut = ( SELECT ISNULL(SUM(CashIn), 0)
                                          FROM   dbo.LedgerDetail
                                                 JOIN dbo.LedgerMaster ON dbo.LedgerMaster.LedgerId = dbo.LedgerDetail.LedgerId
                                          WHERE  TransactionId = @V_Received_ID
                                                 AND TransactionTypeId = 2
                                                 AND AccountId = @RInputID
-                                       )                      
+                                       )        
+                                                    
                         UPDATE  dbo.LedgerMaster
                         SET     AmountInHand = AmountInHand - @CashOut
                                 + @CashIn
-                        WHERE   AccountId = @RInputID                      
-                    END                
-                   
-                       
-                                   
+                        WHERE   AccountId = @RInputID                        
+                    END                    
+                ELSE
+                    BEGIN                        
+                        
+                        SET @CashOut = ( SELECT ISNULL(SUM(CashIn), 0)
+                                         FROM   dbo.LedgerDetail
+                                                JOIN dbo.LedgerMaster ON dbo.LedgerMaster.LedgerId = dbo.LedgerDetail.LedgerId
+                                         WHERE  TransactionId = @V_Received_ID
+                                                AND TransactionTypeId = 2
+                                                AND AccountId = @RInputID
+                                       )                        
+                        UPDATE  dbo.LedgerMaster
+                        SET     AmountInHand = AmountInHand - @CashOut
+                                + @CashIn
+                        WHERE   AccountId = @RInputID                        
+                    END                  
+                     
+                         
+                                     
                 SET @CashOut = ( SELECT ISNULL(SUM(CashIn), 0)
                                  FROM   dbo.LedgerDetail
                                         JOIN dbo.LedgerMaster ON dbo.LedgerMaster.LedgerId = dbo.LedgerDetail.LedgerId
                                  WHERE  TransactionId = @V_Received_ID
                                         AND TransactionTypeId = 2
                                         AND AccountId = 10015
-                               )               
+                               )    
                                      
-                              
-                                   
                 UPDATE  dbo.LedgerMaster
                 SET     AmountInHand = AmountInHand - @CashOut + @CashIn
-                WHERE   AccountId = 10015  
-            END
+                WHERE   AccountId = 10015    
+                
+                
+                
+                 SET @CashOut = 0 
+                 SET @Cashin = ( SELECT ISNULL(SUM(CashOut), 0)
+                                 FROM   dbo.LedgerDetail
+                                        JOIN dbo.LedgerMaster ON dbo.LedgerMaster.LedgerId = dbo.LedgerDetail.LedgerId
+                                 WHERE  TransactionId = @V_Received_ID
+                                        AND TransactionTypeId = 2
+                                        AND AccountId = 10088
+                               )    
+                                     
+                UPDATE  dbo.LedgerMaster
+                SET     AmountInHand = AmountInHand - @CashOut + @CashIn
+                WHERE   AccountId = 10088   
+                
+            END  
            
-        SET @CashOut = 0
-        SET @CashIn = 0
+                      
            
- --------------------------------A Cess Entries Deletion -------------------- 
            
-                    
+             
+             
+        SET @CashOut = 0  
+        SET @CashIn = 0  
+             
+ --------------------------------A Cess Entries Deletion --------------------   
+             
+                      
         SET @CashIn = ( SELECT  ISNULL(SUM(CashOut), 0)
                         FROM    dbo.LedgerDetail
                                 JOIN dbo.LedgerMaster ON dbo.LedgerMaster.LedgerId = dbo.LedgerDetail.LedgerId
                         WHERE   TransactionId = @V_Received_ID
                                 AND TransactionTypeId = 2
                                 AND AccountId = 10011
-                      )               
+                      )                 
+                                       
+        SET @CashOut = 0                 
                                      
-        SET @CashOut = 0               
-                                   
         UPDATE  dbo.LedgerMaster
         SET     AmountInHand = AmountInHand - @CashOut + @CashIn
-        WHERE   AccountId = 10011             
-                                  
-                                  
-        -------------------------------A Cess Entries Deletion -----------------------               
-                          
+        WHERE   AccountId = 10011               
+                                    
+                                    
+        -------------------------------A Cess Entries Deletion -----------------------                 
+                            
         DELETE  FROM dbo.LedgerDetail
         WHERE   TransactionId = @V_Received_ID
-                AND TransactionTypeId = 2                    
-    END                
+                AND TransactionTypeId = 2                      
+    END                  
+                
+    --------------------------------------------------------------------------------              
  Go             
 ---------------------------------------------------------------------------------------------------------------------------
 ALTER PROCEDURE [dbo].[PROC_MATERIAL_RECIEVED_AGAINST_PO_MASTER]
@@ -4670,34 +4759,34 @@ ALTER PROCEDURE [dbo].[PROC_MATERIAL_RECIEVED_AGAINST_PO_MASTER]
       @V_Reference_ID NUMERIC(18, 0)
     )
 AS
-    BEGIN                            
+    BEGIN                              
         IF @V_PROC_TYPE = 1
-            BEGIN                          
-                          
-                          
-                          
-                DECLARE @Remarks VARCHAR(250)                          
-                DECLARE @InputID NUMERIC                          
-                DECLARE @CInputID NUMERIC 
-                
-                DECLARE @RInputID NUMERIC                          
-                DECLARE @RCInputID NUMERIC
-                SET @RCInputID = 10018  
-                   
-                                         
-                SET @CInputID = 10016                          
-                DECLARE @RoundOff NUMERIC(18, 2)                          
-                DECLARE @CGST_Amount NUMERIC(18, 2)                          
-                SET @CGST_Amount = ( @v_GST_AMOUNT / 2 )                          
-                SET @RoundOff = ( @v_Other_Charges )                          
-                          
+            BEGIN                            
+                            
+                            
+                            
+                DECLARE @Remarks VARCHAR(250)                            
+                DECLARE @InputID NUMERIC                            
+                DECLARE @CInputID NUMERIC   
+                  
+                DECLARE @RInputID NUMERIC                            
+                DECLARE @RCInputID NUMERIC  
+                SET @RCInputID = 10018    
+                     
+                                           
+                SET @CInputID = 10016                            
+                DECLARE @RoundOff NUMERIC(18, 2)                            
+                DECLARE @CGST_Amount NUMERIC(18, 2)                            
+                SET @CGST_Amount = ( @v_GST_AMOUNT / 2 )                            
+                SET @RoundOff = ( @v_Other_Charges )                            
+                            
                 SET @InputID = ( SELECT CASE WHEN @V_MRN_TYPE = 1 THEN 10023
                                              WHEN @V_MRN_TYPE = 2 THEN 10020
                                              WHEN @V_MRN_TYPE = 3 THEN 10074
                                         END AS inputid
-                               )                                          
-                          
-                          
+                               )                                            
+                            
+                            
                 SET @RInputID = ( SELECT    CASE WHEN @V_MRN_TYPE = 1
                                                  THEN 10025
                                                  WHEN @V_MRN_TYPE = 2
@@ -4705,11 +4794,11 @@ AS
                                                  WHEN @V_MRN_TYPE = 3
                                                  THEN 10076
                                             END AS inputid
-                                )                 
-                          
+                                )                   
+                            
                 SELECT  @V_Receipt_No = ISNULL(MAX(Receipt_No), 0) + 1
-                FROM    MATERIAL_RECEIVED_AGAINST_PO_MASTER                                        
-                          
+                FROM    MATERIAL_RECEIVED_AGAINST_PO_MASTER                                          
+                            
                 INSERT  INTO MATERIAL_RECEIVED_AGAINST_PO_MASTER
                         ( Receipt_ID ,
                           Receipt_No ,
@@ -4743,7 +4832,7 @@ AS
                           FreightTaxApplied ,
                           FreightTaxValue ,
                           FK_ITCEligibility_ID ,
-                          Reference_ID                           
+                          Reference_ID                             
                         )
                 VALUES  ( @V_Receipt_ID ,
                           @V_Receipt_No ,
@@ -4777,199 +4866,230 @@ AS
                           @V_FreightTaxApplied ,
                           @V_FreightTaxValue ,
                           @V_FK_ITCEligibility_ID ,
-                          @V_Reference_ID               
-                        )    
-                          
-                          
-                --Minus Cash Discount---  
-                  
+                          @V_Reference_ID                 
+                        )      
+                            
+                            
+                --Minus Cash Discount---    
+                    
                 SET @v_GROSS_AMOUNT = ( @v_GROSS_AMOUNT
-                                        - ISNULL(@v_CashDiscount_amt, 0) )                      
-                          
-                          
+                                        - ISNULL(@v_CashDiscount_amt, 0) )                        
+                            
+                            
                 SET @Remarks = 'Purchase against party bill no.: '
                     + @v_Invoice_No + ' - '
-                    + CONVERT(VARCHAR(20), @v_Invoice_Date, 106)                           
-                          
-                EXECUTE Proc_Ledger_Insert @V_CUST_ID, @V_NET_AMOUNT, 0,
-                    @Remarks, @V_Division_ID, @V_Receipt_ID, 3,
-                    @v_Receipt_Date, @V_Created_BY                              
-                          
+                    + CONVERT(VARCHAR(20), @v_Invoice_Date, 106)                             
+                       
+                       
+                IF ( @V_IS_RCM_Applicable = 0 )
+                    BEGIN            
+                        EXECUTE Proc_Ledger_Insert @V_CUST_ID, @V_NET_AMOUNT,
+                            0, @Remarks, @V_Division_ID, @V_Receipt_ID, 3,
+                            @v_Receipt_Date, @V_Created_BY                                
+                    END 
+                ELSE
+                    BEGIN
+                        DECLARE @GAmount NUMERIC(18, 2)
+                        SET @GAmount = ( ISNULL(@v_GROSS_AMOUNT, 0)
+                                         + ISNULL(@v_freight, 0) )
+                        EXECUTE Proc_Ledger_Insert @V_CUST_ID, @GAmount, 0,
+                            @Remarks, @V_Division_ID, @V_Receipt_ID, 3,
+                            @v_Receipt_Date, @V_Created_BY  
+                    END
+                    
+                    
+                            
                 EXECUTE Proc_Ledger_Insert @V_Reference_ID, 0, @v_GROSS_AMOUNT,
                     @Remarks, @V_Division_ID, @V_Receipt_ID, 3,
-                    @v_Receipt_Date, @V_Created_BY                           
-                          
+                    @v_Receipt_Date, @V_Created_BY                             
+                            
                 SET @Remarks = 'Freight against party bill no.: '
                     + @v_Invoice_No + ' - '
-                    + CONVERT(VARCHAR(20), @v_Invoice_Date, 106)                           
-                          
+                    + CONVERT(VARCHAR(20), @v_Invoice_Date, 106)                             
+                            
                 EXECUTE Proc_Ledger_Insert 10047, 0, @v_freight, @Remarks,
                     @V_Division_ID, @V_Receipt_ID, 3, @v_Receipt_Date,
-                    @V_Created_BY              
-                          
-            
-            
-            
-            
+                    @V_Created_BY                
+         
+              
+              
+              
+              
                 IF ( @V_IS_RCM_Applicable = 0 )
-                    BEGIN  
-            
-            
-            
+                    BEGIN    
+              
+              
+              
                         SET @Remarks = 'GST against party invoice No- '
                             + @v_Invoice_No + ' - '
-                            + CONVERT(VARCHAR(20), @v_Invoice_Date, 106)                           
-                          
+                            + CONVERT(VARCHAR(20), @v_Invoice_Date, 106)                             
+                            
                         IF @V_MRN_TYPE <> 2
-                            BEGIN                
-                          
+                            BEGIN                  
+                            
                                 EXECUTE Proc_Ledger_Insert @CInputID, 0,
                                     @CGST_Amount, @Remarks, @V_Division_ID,
                                     @v_Receipt_ID, 3, @v_Receipt_Date,
-                                    @V_Created_BY                           
-                          
-             
+                                    @V_Created_BY                             
+                            
+               
                                 EXECUTE Proc_Ledger_Insert @InputID, 0,
                                     @CGST_Amount, @Remarks, @v_Division_ID,
                                     @v_Receipt_ID, 3, @v_Receipt_Date,
-                                    @V_Created_BY                           
-                            END                        
-                          
-                          
+                                    @V_Created_BY                             
+                            END                          
+                            
+                            
                         ELSE
-                            BEGIN                          
+                            BEGIN                            
                                 EXECUTE Proc_Ledger_Insert @InputID, 0,
                                     @v_GST_AMOUNT, @Remarks, @V_Division_ID,
                                     @v_Receipt_ID, 3, @v_Receipt_Date,
-                                    @V_Created_BY                           
-                            END                   
-                                      
+                                    @V_Created_BY                             
+                            END                     
+                                        
                         SET @Remarks = 'Cess against party invoice No- '
                             + @v_Invoice_No + ' - '
-                            + CONVERT(VARCHAR(20), @v_Invoice_Date, 106)                     
-                                      
+                            + CONVERT(VARCHAR(20), @v_Invoice_Date, 106)                       
+                                        
                         EXECUTE Proc_Ledger_Insert 10013, 0, @v_CESS_AMOUNT,
                             @Remarks, @V_Division_ID, @v_Receipt_ID, 3,
-                            @v_Receipt_Date, @V_Created_BY                          
-                          
-                 
-                    END
-                 
+                            @v_Receipt_Date, @V_Created_BY                            
+                            
+                   
+                    END  
+                   
                 ELSE
-                    BEGIN
+                    BEGIN  
                         SET @Remarks = 'GST against party invoice No- '
                             + @v_Invoice_No + ' - '
-                            + CONVERT(VARCHAR(20), @v_Invoice_Date, 106)                           
-                          
+                            + CONVERT(VARCHAR(20), @v_Invoice_Date, 106)                             
+                            
                         IF @V_MRN_TYPE <> 2
-                            BEGIN                
-                          
+                            BEGIN                  
+                            
                                 EXECUTE Proc_Ledger_Insert @RCInputID,
                                     @CGST_Amount, 0, @Remarks, @V_Division_ID,
                                     @v_Receipt_ID, 3, @v_Receipt_Date,
-                                    @V_Created_BY                           
-                          
-             
+                                    @V_Created_BY                             
+                            
+               
                                 EXECUTE Proc_Ledger_Insert @RInputID,
                                     @CGST_Amount, 0, @Remarks, @v_Division_ID,
                                     @v_Receipt_ID, 3, @v_Receipt_Date,
-                                    @V_Created_BY                           
-                            END                        
-                          
-                          
+                                    @V_Created_BY                             
+                            END                          
+                            
+                            
                         ELSE
-                            BEGIN                          
+                            BEGIN                            
                                 EXECUTE Proc_Ledger_Insert @RInputID,
                                     @v_GST_AMOUNT, 0, @Remarks, @V_Division_ID,
                                     @v_Receipt_ID, 3, @v_Receipt_Date,
-                                    @V_Created_BY                           
-                            END                   
-                                      
+                                    @V_Created_BY                             
+                            END                     
+                                        
                         SET @Remarks = 'Cess against party invoice No- '
                             + @v_Invoice_No + ' - '
-                            + CONVERT(VARCHAR(20), @v_Invoice_Date, 106)                     
-                                      
+                            + CONVERT(VARCHAR(20), @v_Invoice_Date, 106)                       
+                                        
                         EXECUTE Proc_Ledger_Insert 10013, @v_CESS_AMOUNT, 0,
                             @Remarks, @V_Division_ID, @v_Receipt_ID, 3,
-                            @v_Receipt_Date, @V_Created_BY                       
-                 
-                    END
-                 
-                 
-                 
-                 
-                          
+                            @v_Receipt_Date, @V_Created_BY
+                            
+                            
+                           
+                                            
+                        SET @Remarks = 'Reverse charge against party invoice No- '
+                            + @v_Invoice_No + ' - '
+                            + CONVERT(VARCHAR(20), @v_Invoice_Date, 106)
+                            
+                        DECLARE @RcmExpense NUMERIC(18, 2)
+                            
+                        SET @RcmExpense = ( ISNULL(@v_GST_AMOUNT, 0)
+                                            + ISNULL(@v_CESS_AMOUNT, 0) )
+                           
+                        EXECUTE Proc_Ledger_Insert 10088, 0, @RcmExpense,
+                            @Remarks, @V_Division_ID, @v_Receipt_ID, 3,
+                            @v_Receipt_Date, @V_Created_BY                             
+                   
+                    END  
+                   
+                   
+                   
+                   
+                            
                 SET @Remarks = 'Round Off against party invoice No- '
                     + @v_Invoice_No + ' - '
-                    + CONVERT(VARCHAR(20), @v_Invoice_Date, 106)                          
-                          
-                --IF @RoundOff > 0      
-                --    BEGIN                          
-                          
-                --        EXECUTE Proc_Ledger_Insert 10054, @RoundOff, 0,      
-                --            @Remarks, @V_Division_ID, @v_Receipt_ID, 3,      
-                --            @v_Receipt_Date, @V_Created_BY                                 
-                --    END                          
-                          
-                --ELSE      
-                --    BEGIN                          
-                          
-                --        SET @RoundOff = -+@RoundOff                    
-                --        EXECUTE Proc_Ledger_Insert 10054, 0, @RoundOff,      
-                --            @Remarks, @V_Division_ID, @v_Receipt_ID, 3,      
-                --            @v_Receipt_Date, @V_Created_BY                           
-                          
-                --    END   
-                  
+                    + CONVERT(VARCHAR(20), @v_Invoice_Date, 106)                            
+                            
+                --IF @RoundOff > 0        
+                --    BEGIN                            
+                            
+                --        EXECUTE Proc_Ledger_Insert 10054, @RoundOff, 0,        
+                --            @Remarks, @V_Division_ID, @v_Receipt_ID, 3,        
+                --            @v_Receipt_Date, @V_Created_BY                                   
+                --    END                            
+                            
+                --ELSE        
+                --    BEGIN                            
+                            
+                --        SET @RoundOff = -+@RoundOff                      
+                --        EXECUTE Proc_Ledger_Insert 10054, 0, @RoundOff,        
+                --            @Remarks, @V_Division_ID, @v_Receipt_ID, 3,        
+                --            @v_Receipt_Date, @V_Created_BY                             
+                            
+                --    END     
+                    
                 IF @RoundOff > 0
-                    BEGIN                                        
-                                        
+                    BEGIN                                          
+                                          
                         EXECUTE Proc_Ledger_Insert 10054, 0, @RoundOff,
                             @Remarks, @V_Division_ID, @v_Receipt_ID, 3,
-                            @v_Receipt_Date, @V_Created_BY                                        
-     
-                    END                                        
-                                        
+                            @v_Receipt_Date, @V_Created_BY                                          
+       
+                    END                                          
+                                          
                 ELSE
-                    BEGIN                                        
-                                        
-                        SET @RoundOff = -+@RoundOff                                        
-                               
+                    BEGIN                                          
+                                          
+                        SET @RoundOff = -+@RoundOff                                          
+                                 
                         EXECUTE Proc_Ledger_Insert 10054, @RoundOff, 0,
                             @Remarks, @V_Division_ID, @v_Receipt_ID, 3,
-                            @v_Receipt_Date, @V_Created_BY                                        
-                                        
-                    END      
-                          
-                      
+                            @v_Receipt_Date, @V_Created_BY                                          
+                                          
+                    END        
+                            
+                        
                 IF @V_Reference_ID = 10070
-                    BEGIN                          
-                          
-                          
+                    BEGIN                            
+                            
+                            
                         SET @Remarks = 'Stock Out against party  invoice No- '
                             + @v_Invoice_No + ' - '
-                            + CONVERT(VARCHAR(20), @v_Invoice_Date, 106)                          
-                          
-                          
-                          
+                            + CONVERT(VARCHAR(20), @v_Invoice_Date, 106)                            
+                            
+                            
+                            
                         EXECUTE Proc_Ledger_Insert 10073, 0, @v_NET_AMOUNT,
                             @Remarks, @V_Division_ID, @v_Receipt_ID, 3,
-                            @v_Receipt_Date, @V_Created_BY      
-                          
-                    END                                         
-                          
+                            @v_Receipt_Date, @V_Created_BY        
+                            
+                    END                                           
+                            
                 UPDATE  MRN_SERIES
                 SET     CURRENT_USED = CURRENT_USED + 1
-                WHERE   DIV_ID = @v_Division_ID                
-                              
-                RETURN @V_MRN_NO                               
-                          
-            END                                        
-                          
-                          
+                WHERE   DIV_ID = @v_Division_ID                  
+                                
+                RETURN @V_MRN_NO                                 
+                            
+            END                                          
+                            
+                            
         IF @V_PROC_TYPE = 2
-            BEGIN                                        
-                          
+            BEGIN                                          
+                            
                 UPDATE  MATERIAL_RECEIVED_AGAINST_PO_MASTER
                 SET     PO_ID = @V_PO_ID ,
                         Receipt_Date = @v_Receipt_Date ,
@@ -4989,62 +5109,62 @@ AS
                         FreightTaxValue = @V_FreightTaxValue ,
                         FK_ITCEligibility_ID = @V_FK_ITCEligibility_ID ,
                         Reference_ID = @V_Reference_ID
-                WHERE   Receipt_ID = @V_Receipt_ID                  
-                      
-            END                                        
-                          
-                          
-        --IF @V_PROC_TYPE = 3                          
-        --    BEGIN                                          
-                          
-        --        DECLARE cur CURSOR                 
-        --        FOR                          
-        --            SELECT  Item_ID ,                          
-        --                    Item_Qty ,                          
-        --                    Indent_ID                          
-        --            FROM    MATERIAL_RECEIVED_AGAINST_PO_DETAIL                          
-        --            WHERE   Receipt_ID = @V_Receipt_ID                
-                          
-        --        DECLARE @itemid NUMERIC(18, 0)                                          
-                          
-        --        DECLARE @itemQty NUMERIC(18, 4)                                          
-                          
-        --        DECLARE @IndentID NUMERIC(18, 0)              
-                          
-        --        OPEN cur                                          
-                          
-        --        FETCH NEXT FROM cur INTO @itemid, @itemQty, @IndentID                                          
-                          
-        --        WHILE @@fetch_status = 0                          
-        --            BEGIN                
-                                             
-                          
-        --                UPDATE  PO_STATUS                          
-        --                SET     RECIEVED_QTY = RECIEVED_QTY - @itemQty ,                          
-  --                        BALANCE_QTY = BALANCE_QTY + @itemQty                          
-        --                WHERE   PO_ID = @V_PO_ID                          
-        --                        AND ITEM_ID = @itemid                          
-        --                        AND INDENT_ID = @IndentID                                            
-                          
-        --                UPDATE  ITEM_DETAIL                          
-        --                SET     CURRENT_STOCK = CURRENT_STOCK - @itemQty                          
-        --                WHERE   ITEM_ID = @itemid                          
-        --                AND DIV_ID = @V_Division_ID                          
-                          
-        --                FETCH NEXT FROM cur INTO @itemid, @itemQty, @IndentID                          
-        --            END              
-                                 
-        --        CLOSE cur              
-                                  
-        --        DEALLOCATE cur                          
-                          
-        --        DELETE  FROM MATERIAL_RECEIVED_AGAINST_PO_DETAIL                          
-        --        WHERE   Receipt_ID = @V_Receipt_ID                          
-                           
-        --        DELETE  FROM MATERIAL_RECEIVED_AGAINST_PO_MASTER                          
-  --        WHERE   Receipt_ID = @V_Receipt_ID                           
-        --    END                            
+                WHERE   Receipt_ID = @V_Receipt_ID                    
+                        
+            END                                          
+                            
+                            
+        --IF @V_PROC_TYPE = 3                            
+        --    BEGIN                                            
+                            
+        --        DECLARE cur CURSOR                   
+        --        FOR                            
+        --            SELECT  Item_ID ,                            
+        --                    Item_Qty ,                            
+        --                    Indent_ID                            
+        --            FROM    MATERIAL_RECEIVED_AGAINST_PO_DETAIL                            
+        --            WHERE   Receipt_ID = @V_Receipt_ID                  
+                            
+        --        DECLARE @itemid NUMERIC(18, 0)                                            
+                            
+        --        DECLARE @itemQty NUMERIC(18, 4)                                            
+                            
+        --        DECLARE @IndentID NUMERIC(18, 0)                
+                            
+        --        OPEN cur                                            
+                            
+        --        FETCH NEXT FROM cur INTO @itemid, @itemQty, @IndentID                                            
+                            
+        --        WHILE @@fetch_status = 0                            
+        --            BEGIN                  
+                                               
+                            
+        --                UPDATE  PO_STATUS                            
+        --                SET     RECIEVED_QTY = RECIEVED_QTY - @itemQty ,                            
+  --                        BALANCE_QTY = BALANCE_QTY + @itemQty                            
+        --                WHERE   PO_ID = @V_PO_ID                            
+        --                        AND ITEM_ID = @itemid                            
+        --                        AND INDENT_ID = @IndentID                                              
+                            
+        --                UPDATE  ITEM_DETAIL                            
+        --                SET     CURRENT_STOCK = CURRENT_STOCK - @itemQty                            
+        --                WHERE   ITEM_ID = @itemid                            
+        --                AND DIV_ID = @V_Division_ID                
+                            
+        --                FETCH NEXT FROM cur INTO @itemid, @itemQty, @IndentID                            
+        --            END                
+                                   
+        --        CLOSE cur                
+                                    
+        --        DEALLOCATE cur                            
+                            
+        --        DELETE  FROM MATERIAL_RECEIVED_AGAINST_PO_DETAIL                            
+        --        WHERE   Receipt_ID = @V_Receipt_ID                            
                              
+        --        DELETE  FROM MATERIAL_RECEIVED_AGAINST_PO_MASTER                            
+  --        WHERE   Receipt_ID = @V_Receipt_ID                             
+        --    END                              
+                               
     END 
 GO
 
