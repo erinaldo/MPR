@@ -65,7 +65,7 @@ Public Class frm_Purchase_Analysis
         Dim FROMDATE As String = dtpFromDate.Value.ToString("dd-MMM-yyyy")
         Dim TODATE As String = dtpToDate.Value.ToString("dd-MMM-yyyy")
 
-        Query = "SELECT ROW_NUMBER() OVER (ORDER BY [Received_ID]) as SrNo,convert(varchar(20), Received_Date,106) as [Rec. Date], Invoice_No as [Bill No.],convert(varchar(20), Invoice_Date,106) as [Bill Date], BillAmount as [Bill Amount], ACC_NAME as [Account Name], ADDRESS_PRIM as [Address], VAT_NO as [GST No.], Mobile_no as [Mobile No.], BrandName as [Brand], CategoryName_vch as [Category], ITEM_NAME as [Item], BarCode_vch as [BAR Code], HsnCode_vch as [HSN Code],Cast(MRP_Num as Numeric(18,2)) as [MRP], Cast(BasePrice as Numeric(18,2)) AS [Base Price], Cast(Item_Qty as Numeric(18,2)) as [Quantity] ,um_name as [UOM], Cast(LandingRate as Numeric(18,2)) as [Purc. Rate], Cast(GrossAmount as Numeric(18,2)) AS [Taxable Value], VAT_PERCENTAGE as [GST%], Cast(GST_Amt as Numeric(18,2)) as [Tax], CessPercentage_num as [CESS%], Cast(Cess_Amount as Numeric(18,2)) AS [CESS], Cast(ACess_Amount as Numeric(18,2)) AS [ACESS],Cast(FreightValue as Numeric(18,2)) AS [Freight],Cast(FreightTax as Numeric(18,2)) AS [Fret.Tax], Cast(ItemTotalAmount as Numeric(18,2)) as [Total], SizeName as [Size], ColorName as [Color],CompanyName as [Make], DepartmentName as [Department], TypeName as [Type]  FROM Purchase_Analysis WHERE CAST(Received_Date AS DATE)BETWEEN CAST('" & FROMDATE & "' AS DATE) AND CAST('" & TODATE & "' AS DATE)"
+        Query = "SELECT ROW_NUMBER() OVER (ORDER BY [Received_ID]) as SrNo,convert(varchar(20), Received_Date,106) as [Rec. Date], Invoice_No as [Bill No.],convert(varchar(20), Invoice_Date,106) as [Bill Date], BillAmount as [Bill Amount], ACC_NAME as [Account Name], ADDRESS_PRIM as [Address], VAT_NO as [GST No.], Mobile_no as [Mobile No.], BrandName as [Brand], CategoryName_vch as [Category], ITEM_NAME as [Item], BarCode_vch as [BAR Code], HsnCode_vch as [HSN Code],Cast(MRP_Num as Numeric(18,2)) as [MRP], Cast(BasePrice as Numeric(18,2)) AS [Base Price], Cast(Item_Qty as Numeric(18,2)) as [Quantity] ,um_name as [UOM], Cast(LandingRate as Numeric(18,2)) as [Purc. Rate], Cast(GrossAmount as Numeric(18,2)) AS [Taxable Value], VAT_PERCENTAGE as [GST%], Cast(GST_Amt as Numeric(18,2)) as [Tax], Cast(ItemTotalAmount as Numeric(18,2)) as [Total], CessPercentage_num as [CESS%], Cast(Cess_Amount as Numeric(18,2)) AS [CESS], Cast(ACess_Amount as Numeric(18,2)) AS [ACESS],Cast(FreightValue as Numeric(18,2)) AS [Freight],Cast(FreightTax as Numeric(18,2)) AS [Fret.Tax],ISNULL(FreightCess, 0) AS [Fret.Cess], SizeName as [Size], ColorName as [Color],CompanyName as [Make], DepartmentName as [Department], TypeName as [Type]  FROM Purchase_Analysis WHERE CAST(Received_Date AS DATE)BETWEEN CAST('" & FROMDATE & "' AS DATE) AND CAST('" & TODATE & "' AS DATE)"
 
         If BrandIds <> "" Then
             BrandIds = BrandIds.Substring(0, BrandIds.Length() - 1)
@@ -283,8 +283,8 @@ Public Class frm_Purchase_Analysis
             dgvReport.Columns(19).Width = 80
             dgvReport.Columns(20).Width = 50
             dgvReport.Columns(21).Width = 80
-            dgvReport.Columns(22).Width = 50
-            dgvReport.Columns(23).Width = 100
+            dgvReport.Columns(22).Width = 100
+            dgvReport.Columns(23).Width = 50
         Else
 
             Dim TotalQty As Decimal = dt.AsEnumerable().Sum(Function(x) Convert.ToDecimal(x.Field(Of Decimal)("Quantity")))

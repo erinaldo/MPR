@@ -65,7 +65,7 @@ Public Class frm_Sale_Analysis
         Dim FROMDATE As String = dtpFromDate.Value.ToString("dd-MMM-yyyy")
         Dim TODATE As String = dtpToDate.Value.ToString("dd-MMM-yyyy")
 
-        Query = "SELECT ROW_NUMBER() OVER (ORDER BY [SI_ID]) as SrNo,convert(varchar(20), OrderDate,106) as [Bill Date], BillNo as [Bill No.], BillAmount as [Bill Amount], ACC_NAME as [Account Name], ADDRESS_PRIM as [Address], VAT_NO as [GST No.], Mobile_no as [Mobile No.], BrandName as [Brand], ITEM_CAT_NAME as [Category], Item_Name as [Item], BarCode_vch as [BAR Code], HsnCode_vch as [HSN Code],Cast(MRP_num as Numeric(18,2)) as [MRP], Cast(Price_num as Numeric(18,2)) AS [Base Price], Cast(ITEM_QTY as Numeric(18,2)) as [Quantity] ,um_name as [UOM], Cast(Price_num as Numeric(18,2)) as [Sale Rate], Cast(GrossAmount as Numeric(18,2)) AS [Taxable Value], TaxPercentage_num as [GST%], Cast(VAT_AMOUNT as Numeric(18,2)) as [Tax], CessPercentage_num as [CESS%], Cast(CessAmount_num as Numeric(18,2)) AS [CESS], Cast(ACessAmount as Numeric(18,2)) AS [ACESS], ISNULL(freight, 0) AS Freight , ISNULL(FreightTaxValue, 0) AS [Fret.Tax] , Cast(ItemTotalAmount_num as Numeric(18,2)) as [Total], SizeName as [Size], ColorName as [Color],CompanyName as [Make], DepartmentName as [Department], TypeName as [Type]  FROM Sales_Analysis WHERE CAST(OrderDate AS DATE)BETWEEN CAST('" & FROMDATE & "' AS DATE) AND CAST('" & TODATE & "' AS DATE)  "
+        Query = "SELECT ROW_NUMBER() OVER (ORDER BY [SI_ID]) as SrNo,convert(varchar(20), OrderDate,106) as [Bill Date], BillNo as [Bill No.], BillAmount as [Bill Amount], ACC_NAME as [Account Name], ADDRESS_PRIM as [Address], VAT_NO as [GST No.], Mobile_no as [Mobile No.], BrandName as [Brand], ITEM_CAT_NAME as [Category], Item_Name as [Item], BarCode_vch as [BAR Code], HsnCode_vch as [HSN Code],Cast(MRP_num as Numeric(18,2)) as [MRP], Cast(Price_num as Numeric(18,2)) AS [Base Price], Cast(ITEM_QTY as Numeric(18,2)) as [Quantity] ,um_name as [UOM], Cast(Price_num as Numeric(18,2)) as [Sale Rate], Cast(GrossAmount as Numeric(18,2)) AS [Taxable Value], TaxPercentage_num as [GST%], Cast(VAT_AMOUNT as Numeric(18,2)) as [Tax], Cast(ItemTotalAmount_num as Numeric(18,2)) as [Total],CessPercentage_num as [CESS%], Cast(CessAmount_num as Numeric(18,2)) AS [CESS], Cast(ACessAmount as Numeric(18,2)) AS [ACESS], ISNULL(freight, 0) AS Freight , ISNULL(FreightTaxValue, 0) AS [Fret.Tax] ,ISNULL(FreightCessValue, 0) AS [Fret.Cess],SizeName as [Size], ColorName as [Color],CompanyName as [Make], DepartmentName as [Department], TypeName as [Type]  FROM Sales_Analysis WHERE CAST(OrderDate AS DATE)BETWEEN CAST('" & FROMDATE & "' AS DATE) AND CAST('" & TODATE & "' AS DATE)  "
 
         If BrandIds <> "" Then
             BrandIds = BrandIds.Substring(0, BrandIds.Length() - 1)
@@ -270,9 +270,9 @@ Public Class frm_Sale_Analysis
             dgvReport.Columns(18).Width = 90
             dgvReport.Columns(19).Width = 50
             dgvReport.Columns(20).Width = 80
-            dgvReport.Columns(21).Width = 50
-            dgvReport.Columns(22).Width = 80
-            dgvReport.Columns(23).Width = 100
+            dgvReport.Columns(21).Width = 100
+            dgvReport.Columns(22).Width = 50
+            dgvReport.Columns(23).Width = 80
         Else
 
             Dim TotalQty As Decimal = dt.AsEnumerable().Sum(Function(x) Convert.ToDecimal(x.Field(Of Decimal)("Quantity")))
