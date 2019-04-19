@@ -423,7 +423,8 @@ Public Class frm_SaleTaxRegister
         [Cess Amount] ,
         [ACess Amount] ,
         Freight ,
-        [Freight Tax]
+        [Freight Tax],
+        [Freight Cess]
 FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY SIM.SI_ID ) AS [S. No.] ,
                     CONVERT(VARCHAR(20), SI_DATE, 106) AS Date ,
                     SI_CODE + CAST(si_no AS VARCHAR) AS [Bill NO.] ,
@@ -735,7 +736,8 @@ FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY SIM.SI_ID ) AS [S. No.] ,
                     CAST(SUM(ISNULL(SID.ACess, 0) * ISNULL(SID.ITEM_QTY, 0)) AS NUMERIC(18,
                                                               2)) AS [ACess Amount] ,
                     MAX(ISNULL(SIM.freight, 0)) AS Freight ,
-                    MAX(ISNULL(SIM.FreightTaxValue, 0)) AS [Freight Tax]
+                    MAX(ISNULL(SIM.FreightTaxValue, 0)) AS [Freight Tax],
+                    SUM(ISNULL(SID.FreightCessValue, 0)) AS [Freight Cess]
           FROM      dbo.SALE_INVOICE_MASTER SIM
                     JOIN dbo.SALE_INVOICE_DETAIL SID ON SIM.SI_ID = SID.SI_ID
                     JOIN dbo.ACCOUNT_MASTER ACM ON ACM.ACC_ID = SIM.CUST_ID
