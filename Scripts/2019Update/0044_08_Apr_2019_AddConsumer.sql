@@ -7,6 +7,21 @@ VALUES  ( '0044_08_Apr_2019_AddConsumer' ,
         )
 Go
 ---------------------------------------------------------------------------------------------------------------------------
+
+------------------------------------------Run this Qury in AdminPlus-------------------------------------------------------
+INSERT  INTO Adminplus.dbo.ACCOUNT_MASTER( ACC_ID , ACC_CODE , ACC_NAME ,ACC_DESC , AG_ID , OPENING_BAL , OPENING_BAL_TYPE ,
+          CONTACT_PERSON ,PERSON_DESIGNATION , PHONE_PRIM , PHONE_SEC , MOBILE_NO ,ADDRESS_PRIM , ADDRESS_SEC ,
+          CITY_ID ,VAT_NO ,VAT_DATE , IS_OUTSIDE ,CREATED_BY ,CREATION_DATE ,MODIFIED_BY ,MODIFIED_DATE ,
+          DIVISION_ID ,Fk_HSN_ID ,fk_GST_ID ,FK_GST_TYPE_ID ,Is_Active
+        )
+VALUES  ( 10088 , 'RE' ,'RCM Expenses' ,'RCM Expenses' ,11 ,0.00 ,'Dr' , '' , '' , '' , '' , '' , '' ,
+          '' , 1 ,'' ,'2018-03-26 00:00:00.000' , 0 ,'Admin' ,'2018-03-26 00:00:00.000' ,'' ,'2019-04-18 12:53:42' ,
+          1 , NULL , NULL , NULL ,1  
+        )
+---------------------------------------------------------------------------------------------------------
+
+
+
 ALTER TABLE dbo.SALE_INVOICE_MASTER ADD ConsumerHeadID NUMERIC(18,2) DEFAULT 0,
 freight NUMERIC(18,2) DEFAULT 0,freight_type CHAR(10),FreightTaxApplied BIT DEFAULT 0,
 FreightTaxValue   NUMERIC(18,2) DEFAULT 0
@@ -16,6 +31,7 @@ freight NUMERIC(18,2) DEFAULT 0,freight_type CHAR(10),
 FreightTaxValue NUMERIC(18,2) DEFAULT 0,FreightCessValue NUMERIC(18,2) DEFAULT 0
 
 Go
+
 ---------------------------------------------------------------------------------------------------------------------------
 ALTER PROC [dbo].[PROC_Cancel_Sale_Invoice]
     (
