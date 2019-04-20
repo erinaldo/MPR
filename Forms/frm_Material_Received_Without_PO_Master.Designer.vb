@@ -34,6 +34,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.Chk_IsRcmApplicable = New System.Windows.Forms.CheckBox()
+        Me.cmbVendor = New MMSPlus.AutoCompleteCombo()
         Me.lblFormHeading = New System.Windows.Forms.Label()
         Me.MRNdtDate = New System.Windows.Forms.DateTimePicker()
         Me.cmbCapitalAccount = New System.Windows.Forms.ComboBox()
@@ -210,7 +211,6 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.Label46 = New System.Windows.Forms.Label()
         Me.Label47 = New System.Windows.Forms.Label()
         Me.Label48 = New System.Windows.Forms.Label()
-        Me.cmbVendor = New MMSPlus.AutoCompleteCombo()
         Me.TbPO.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.GroupBox5.SuspendLayout()
@@ -445,12 +445,25 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.Chk_IsRcmApplicable.AutoSize = True
         Me.Chk_IsRcmApplicable.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Chk_IsRcmApplicable.ForeColor = System.Drawing.Color.Orange
-        Me.Chk_IsRcmApplicable.Location = New System.Drawing.Point(687, 23)
+        Me.Chk_IsRcmApplicable.Location = New System.Drawing.Point(736, 23)
         Me.Chk_IsRcmApplicable.Name = "Chk_IsRcmApplicable"
         Me.Chk_IsRcmApplicable.Size = New System.Drawing.Size(127, 19)
-        Me.Chk_IsRcmApplicable.TabIndex = 40
+        Me.Chk_IsRcmApplicable.TabIndex = 2
         Me.Chk_IsRcmApplicable.Text = "Is Rcm Applicable"
         Me.Chk_IsRcmApplicable.UseVisualStyleBackColor = True
+        '
+        'cmbVendor
+        '
+        Me.cmbVendor.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.cmbVendor.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmbVendor.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmbVendor.ForeColor = System.Drawing.Color.White
+        Me.cmbVendor.FormattingEnabled = True
+        Me.cmbVendor.Location = New System.Drawing.Point(112, 50)
+        Me.cmbVendor.Name = "cmbVendor"
+        Me.cmbVendor.ResetOnClear = False
+        Me.cmbVendor.Size = New System.Drawing.Size(742, 24)
+        Me.cmbVendor.TabIndex = 3
         '
         'lblFormHeading
         '
@@ -486,7 +499,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.cmbCapitalAccount.Location = New System.Drawing.Point(475, 113)
         Me.cmbCapitalAccount.Name = "cmbCapitalAccount"
         Me.cmbCapitalAccount.Size = New System.Drawing.Size(226, 23)
-        Me.cmbCapitalAccount.TabIndex = 7
+        Me.cmbCapitalAccount.TabIndex = 8
         '
         'lblSelectCapitalAccount
         '
@@ -495,7 +508,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.lblSelectCapitalAccount.ForeColor = System.Drawing.Color.White
         Me.lblSelectCapitalAccount.Location = New System.Drawing.Point(379, 116)
         Me.lblSelectCapitalAccount.Name = "lblSelectCapitalAccount"
-        Me.lblSelectCapitalAccount.Size = New System.Drawing.Size(93, 15)
+        Me.lblSelectCapitalAccount.Size = New System.Drawing.Size(92, 15)
         Me.lblSelectCapitalAccount.TabIndex = 39
         Me.lblSelectCapitalAccount.Text = "Select Account :"
         '
@@ -509,7 +522,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.cmbITCEligibility.Location = New System.Drawing.Point(112, 111)
         Me.cmbITCEligibility.Name = "cmbITCEligibility"
         Me.cmbITCEligibility.Size = New System.Drawing.Size(243, 23)
-        Me.cmbITCEligibility.TabIndex = 6
+        Me.cmbITCEligibility.TabIndex = 7
         '
         'lblITCEligibility
         '
@@ -530,7 +543,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.chk_Composition.Location = New System.Drawing.Point(734, 113)
         Me.chk_Composition.Name = "chk_Composition"
         Me.chk_Composition.Size = New System.Drawing.Size(141, 19)
-        Me.chk_Composition.TabIndex = 8
+        Me.chk_Composition.TabIndex = 9
         Me.chk_Composition.Text = "Composite / UN / Nill"
         Me.chk_Composition.UseVisualStyleBackColor = True
         '
@@ -544,7 +557,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.txtBarcodeSearch.MaxLength = 100
         Me.txtBarcodeSearch.Name = "txtBarcodeSearch"
         Me.txtBarcodeSearch.Size = New System.Drawing.Size(742, 19)
-        Me.txtBarcodeSearch.TabIndex = 9
+        Me.txtBarcodeSearch.TabIndex = 10
         '
         'Label52
         '
@@ -568,7 +581,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.cmbMRNType.Location = New System.Drawing.Point(734, 83)
         Me.cmbMRNType.Name = "cmbMRNType"
         Me.cmbMRNType.Size = New System.Drawing.Size(120, 23)
-        Me.cmbMRNType.TabIndex = 5
+        Me.cmbMRNType.TabIndex = 6
         '
         'Label49
         '
@@ -577,7 +590,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.Label49.ForeColor = System.Drawing.Color.White
         Me.Label49.Location = New System.Drawing.Point(639, 86)
         Me.Label49.Name = "Label49"
-        Me.Label49.Size = New System.Drawing.Size(69, 15)
+        Me.Label49.Size = New System.Drawing.Size(68, 15)
         Me.Label49.TabIndex = 34
         Me.Label49.Text = "MRN Type :"
         '
@@ -601,7 +614,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.txt_Invoice_No.Location = New System.Drawing.Point(112, 82)
         Me.txt_Invoice_No.Name = "txt_Invoice_No"
         Me.txt_Invoice_No.Size = New System.Drawing.Size(243, 19)
-        Me.txt_Invoice_No.TabIndex = 3
+        Me.txt_Invoice_No.TabIndex = 4
         '
         'dt_Invoice_Date
         '
@@ -612,7 +625,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.dt_Invoice_Date.Location = New System.Drawing.Point(475, 82)
         Me.dt_Invoice_Date.Name = "dt_Invoice_Date"
         Me.dt_Invoice_Date.Size = New System.Drawing.Size(112, 21)
-        Me.dt_Invoice_Date.TabIndex = 4
+        Me.dt_Invoice_Date.TabIndex = 5
         '
         'Label6
         '
@@ -655,7 +668,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.Label2.ForeColor = System.Drawing.Color.White
         Me.Label2.Location = New System.Drawing.Point(13, 54)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(101, 15)
+        Me.Label2.Size = New System.Drawing.Size(100, 15)
         Me.Label2.TabIndex = 2
         Me.Label2.Text = "Vendor/Supplier :"
         '
@@ -678,7 +691,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.Label1.ForeColor = System.Drawing.Color.White
         Me.Label1.Location = New System.Drawing.Point(13, 24)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(95, 15)
+        Me.Label1.Size = New System.Drawing.Size(94, 15)
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "Purchase Type :"
         '
@@ -689,7 +702,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.chk_VatCal.ForeColor = System.Drawing.Color.White
         Me.chk_VatCal.Location = New System.Drawing.Point(734, 142)
         Me.chk_VatCal.Name = "chk_VatCal"
-        Me.chk_VatCal.Size = New System.Drawing.Size(154, 19)
+        Me.chk_VatCal.Size = New System.Drawing.Size(153, 19)
         Me.chk_VatCal.TabIndex = 32
         Me.chk_VatCal.Text = "Calculate Vat on Excise"
         Me.chk_VatCal.UseVisualStyleBackColor = True
@@ -700,11 +713,12 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.lblMrnStatus.AutoSize = True
         Me.lblMrnStatus.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblMrnStatus.ForeColor = System.Drawing.Color.Orange
-        Me.lblMrnStatus.Location = New System.Drawing.Point(814, 22)
+        Me.lblMrnStatus.Location = New System.Drawing.Point(861, 22)
         Me.lblMrnStatus.Name = "lblMrnStatus"
         Me.lblMrnStatus.Size = New System.Drawing.Size(45, 15)
         Me.lblMrnStatus.TabIndex = 16
         Me.lblMrnStatus.Text = "Label6"
+        Me.lblMrnStatus.Visible = False
         '
         'Label5
         '
@@ -750,7 +764,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.chk_ApplyTax.ForeColor = System.Drawing.Color.White
         Me.chk_ApplyTax.Location = New System.Drawing.Point(728, 402)
         Me.chk_ApplyTax.Name = "chk_ApplyTax"
-        Me.chk_ApplyTax.Size = New System.Drawing.Size(77, 19)
+        Me.chk_ApplyTax.Size = New System.Drawing.Size(76, 19)
         Me.chk_ApplyTax.TabIndex = 6
         Me.chk_ApplyTax.Text = "Apply Tax"
         Me.chk_ApplyTax.UseVisualStyleBackColor = True
@@ -947,7 +961,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.Label11.ForeColor = System.Drawing.Color.White
         Me.Label11.Location = New System.Drawing.Point(186, 449)
         Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(84, 15)
+        Me.Label11.Size = New System.Drawing.Size(83, 15)
         Me.Label11.TabIndex = 52
         Me.Label11.Text = "Exice Amount:"
         Me.Label11.Visible = False
@@ -1039,7 +1053,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.Label10.ForeColor = System.Drawing.Color.White
         Me.Label10.Location = New System.Drawing.Point(6, 387)
         Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(84, 15)
+        Me.Label10.Size = New System.Drawing.Size(83, 15)
         Me.Label10.TabIndex = 43
         Me.Label10.Text = "MRN Against :"
         '
@@ -2334,19 +2348,6 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.Label48.Size = New System.Drawing.Size(92, 13)
         Me.Label48.TabIndex = 0
         Me.Label48.Text = "Delivery Rate :"
-        '
-        'cmbVendor
-        '
-        Me.cmbVendor.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.cmbVendor.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmbVendor.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmbVendor.ForeColor = System.Drawing.Color.White
-        Me.cmbVendor.FormattingEnabled = True
-        Me.cmbVendor.Location = New System.Drawing.Point(112, 50)
-        Me.cmbVendor.Name = "cmbVendor"
-        Me.cmbVendor.ResetOnClear = False
-        Me.cmbVendor.Size = New System.Drawing.Size(742, 24)
-        Me.cmbVendor.TabIndex = 2
         '
         'frm_Material_Received_Without_PO_Master
         '
