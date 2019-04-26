@@ -30,7 +30,7 @@ Public Class LoginForm
     Dim IsOnExpire As Boolean
     Public Sub LicenceValidate()
 
-        Dim chkDate As Date = obj.ExecuteScalar("SELECT TOP 1 CAST(SI_DATE AS DATE) FROM dbo.SALE_INVOICE_MASTER where si_id>10 ORDER BY SI_ID DESC")
+        Dim chkDate As Date = obj.ExecuteScalar("SELECT TOP 1 CAST(SI_DATE AS DATE) FROM dbo.SALE_INVOICE_MASTER  ORDER BY SI_ID DESC")
 
         If chkDate.ToString("dd-MMM-yyyy") Is Nothing Or chkDate.ToString("dd-MMM-yyyy") = "01-Jan-0001" Then
             chkDate = Date.Now.ToString("dd-MMM-yyyy")
