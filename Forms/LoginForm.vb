@@ -73,6 +73,7 @@ Public Class LoginForm
 
             If IsOnExpire = True Then
                 Licence.Show()
+
             End If
 
 
