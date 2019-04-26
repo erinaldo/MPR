@@ -15,7 +15,7 @@
         Division = obj.ExecuteScalar("SELECT TOP 1 UPPER(DIVISION_NAME) FROM dbo.DIVISION_SETTINGS")
         chkDate = obj.ExecuteScalar("SELECT TOP 1 CAST(SI_DATE AS DATE) FROM dbo.SALE_INVOICE_MASTER ORDER BY SI_ID DESC")
 
-        If chkDate.ToString() Is Nothing Or chkDate.ToString() = "01/01/0001 12:00:00 AM" Then
+        If chkDate.ToString() Is Nothing Or chkDate.ToString("dd-MMM-yyyy") = "01-Jan-0001" Then
             chkDate = Date.Now.ToString("dd-MMM-yyyy")
         End If
 

@@ -32,7 +32,7 @@ Public Class LoginForm
 
         Dim chkDate As Date = obj.ExecuteScalar("SELECT TOP 1 CAST(SI_DATE AS DATE) FROM dbo.SALE_INVOICE_MASTER where si_id>10 ORDER BY SI_ID DESC")
 
-        If chkDate.ToString() Is Nothing Or chkDate.ToString() = "01/01/0001 12:00:00 AM" Then
+        If chkDate.ToString("dd-MMM-yyyy") Is Nothing Or chkDate.ToString("dd-MMM-yyyy") = "01-Jan-0001" Then
             chkDate = Date.Now.ToString("dd-MMM-yyyy")
         End If
 
