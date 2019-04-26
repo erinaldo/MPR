@@ -24,7 +24,7 @@ Public Class LoginForm
         ' Add any initialization after the InitializeComponent() call.
 
     End Sub
-    Dim LicDate As String
+    Dim LicDate As Date
     Dim Lockkey As String = "$ync-3sh8-sqoy19"
     Dim IsLicenceValid As Boolean
     Dim IsOnExpire As Boolean
@@ -44,13 +44,13 @@ Public Class LoginForm
 
             LicDate = StrKey(1)
 
-            If chkDate < Convert.ToDateTime(LicDate).Date Then
+            If chkDate.ToString("dd-MMM-yyyy") < LicDate.ToString("dd-MMM-yyyy") Then
                 IsLicenceValid = True
             Else
                 IsLicenceValid = False
             End If
 
-            If Convert.ToDateTime(LicDate).Date.Subtract(chkDate).TotalDays < 30 Then
+            If Convert.ToDateTime(LicDate.ToString("dd-MMM-yyyy")).Subtract(chkDate.ToString("dd-MMM-yyyy")).TotalDays < 30 Then
                 IsOnExpire = True
             Else
                 IsOnExpire = False

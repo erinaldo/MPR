@@ -1,7 +1,7 @@
 ﻿Public Class Licence
     Dim obj As New CommonClass
     Dim Division As String
-    Dim LicDate As String = ""
+    Dim LicDate As Date
     Dim chkDate As Date
     Dim Lockkey As String = "$ync-3sh8-sqoy19"
 
@@ -25,14 +25,14 @@
 
             Dim StrKey() As String = Decrypt(GetKey, Lockkey).Split(",")
             LicDate = StrKey(1)
-            lblExpireDate.Text = "Expire On : " & LicDate
+            lblExpireDate.Text = "Expire On : " & LicDate.ToString("dd-MMM-yyyy")
 
-            If chkDate > Convert.ToDateTime(LicDate).Date Then
+            If Convert.ToDateTime(chkDate.ToString("dd-MMM-yyyy")) > Convert.ToDateTime(LicDate.ToString("dd-MMM-yyyy")) Then
                 lblLicnceSMS.Text = "Your Softwares License is Expired"
             End If
 
         Else
-            lblExpireDate.Text = "Expire On : " & LicDate
+            lblExpireDate.Text = "Expire On : " & LicDate.ToString("dd-MMM-yyyy")
         End If
 
     End Sub
@@ -49,10 +49,10 @@
         Dim StrKey() As String = Decrypt(txtKey.Text, Lockkey).Split(",")
 
         Dim Company As String = StrKey(0)
-        Dim RenewDate As String = StrKey(1)
+        Dim RenewDate As Date = Convert.ToDateTime(StrKey(1)).ToString("dd-MMM-yyyy")
 
         If Not String.IsNullOrEmpty(LicDate) Then
-            If Company.ToUpper() = Division.ToUpper() And RenewDate > Convert.ToDateTime(LicDate).Date Then
+            If Company.ToUpper() = Division.ToUpper() And Convert.ToDateTime(RenewDate.ToString("dd-MMM-yyyy")) > Convert.ToDateTime(LicDate.ToString("dd-MMM-yyyy")) Then
                 obj.ExecuteNonQuery("UPDATE templd SET D1='" & (txtKey.Text) & "'")
                 MsgBox("Congratulations! Your Systems activation completed sucessfully.", MsgBoxStyle.Information, "Licence Verify")
                 Me.Close()
@@ -65,7 +65,7 @@
             If Company.ToUpper() = Division.ToUpper() Then
                 obj.ExecuteNonQuery("UPDATE templd SET D1='" & (txtKey.Text) & "'")
                 MsgBox("Congratulations! Your Systems activation completed sucessfully.", MsgBoxStyle.Information, "Licence Verify")
-                Me.Close()
+                Application.Restart()
                 LoginForm.Show()
             Else
                 Cursor.Current = Cursors.Default

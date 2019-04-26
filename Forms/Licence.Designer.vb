@@ -196,7 +196,6 @@ Partial Class Licence
         Me.Name = "Licence"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Licence"
-        Me.TopMost = True
         Me.pnlRenew.ResumeLayout(False)
         Me.pnlRenew.PerformLayout()
         Me.ResumeLayout(False)
