@@ -143,7 +143,7 @@
       <HintPath>C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Data.dll</HintPath>
     </Reference>
     <Reference Include="System.Data.DataSetExtensions">
-      <HintPath>..\PPR\bin\Debug\System.Data.DataSetExtensions.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\v3.5\System.Data.DataSetExtensions.dll</HintPath>
     </Reference>
     <Reference Include="System.Data.Linq">
       <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\v3.5\System.Data.Linq.dll</HintPath>
