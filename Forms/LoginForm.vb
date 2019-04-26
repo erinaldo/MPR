@@ -44,7 +44,7 @@ Public Class LoginForm
 
             LicDate = StrKey(1)
 
-            If chkDate.ToString("dd-MMM-yyyy") < LicDate.ToString("dd-MMM-yyyy") Then
+            If Convert.ToDateTime(chkDate.ToString("dd-MMM-yyyy")) < Convert.ToDateTime(LicDate.ToString("dd-MMM-yyyy")) Then
                 IsLicenceValid = True
             Else
                 IsLicenceValid = False
