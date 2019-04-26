@@ -12,11 +12,10 @@
     End Sub
 
     Public Sub GetLCKey()
-
         Division = obj.ExecuteScalar("SELECT TOP 1 UPPER(DIVISION_NAME) FROM dbo.DIVISION_SETTINGS")
         chkDate = obj.ExecuteScalar("SELECT TOP 1 CAST(SI_DATE AS DATE) FROM dbo.SALE_INVOICE_MASTER ORDER BY SI_ID DESC")
 
-        If chkDate.ToString() Is Nothing Then
+        If chkDate.ToString() Is Nothing Or chkDate.ToString() = "01/01/0001 12:00:00 AM" Then
             chkDate = Date.Now.ToString("dd-MMM-yyyy")
         End If
 
@@ -54,7 +53,7 @@
 
         If Not String.IsNullOrEmpty(LicDate) Then
             If Company.ToUpper() = Division.ToUpper() And RenewDate > Convert.ToDateTime(LicDate).Date Then
-                obj.ExecuteNonQuery("UPDATE templd SET D1='" & Decrypt(txtKey.Text, Lockkey) & "'")
+                obj.ExecuteNonQuery("UPDATE templd SET D1='" & (txtKey.Text) & "'")
                 MsgBox("Congratulations! Your Systems activation completed sucessfully.", MsgBoxStyle.Information, "Licence Verify")
                 Me.Close()
                 LoginForm.Show()
@@ -64,7 +63,7 @@
             End If
         Else
             If Company.ToUpper() = Division.ToUpper() Then
-                obj.ExecuteNonQuery("UPDATE templd SET D1='" & Decrypt(txtKey.Text, Lockkey) & "'")
+                obj.ExecuteNonQuery("UPDATE templd SET D1='" & (txtKey.Text) & "'")
                 MsgBox("Congratulations! Your Systems activation completed sucessfully.", MsgBoxStyle.Information, "Licence Verify")
                 Me.Close()
                 LoginForm.Show()

@@ -32,7 +32,7 @@ Public Class LoginForm
 
         Dim chkDate As Date = obj.ExecuteScalar("SELECT TOP 1 CAST(SI_DATE AS DATE) FROM dbo.SALE_INVOICE_MASTER where si_id>10 ORDER BY SI_ID DESC")
 
-        If chkDate.ToString() Is Nothing Then
+        If chkDate.ToString() Is Nothing Or chkDate.ToString() = "01/01/0001 12:00:00 AM" Then
             chkDate = Date.Now.ToString("dd-MMM-yyyy")
         End If
 
@@ -63,17 +63,17 @@ Public Class LoginForm
     Private Sub OK_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OK.Click
         Try
 
-            'LicenceValidate()
+            LicenceValidate()
 
-            'If IsLicenceValid = False Then
-            '    Licence.Show()
-            '    Me.Close()
-            '    Exit Sub
-            'End If
+            If IsLicenceValid = False Then
+                Licence.Show()
+                Me.Close()
+                Exit Sub
+            End If
 
-            'If IsOnExpire = True Then
-            '    Licence.Show()
-            'End If
+            If IsOnExpire = True Then
+                Licence.Show()
+            End If
 
 
             Dim result As Integer
