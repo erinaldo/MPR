@@ -34,6 +34,8 @@ Public Class cls_Invoice_Settlement_prop
     Public Proctype As Int32
     Public TransactionId As Int32
     Public AmountSettled As Decimal
+    Public OpenCrNo As String = ""
+    Public OpenDrNo As String = ""
 End Class
 
 Public Enum PaymentStatus
@@ -125,6 +127,19 @@ Public Class cls_Invoice_Settlement
         cmd.Parameters.AddWithValue("@CreatedBy", clsObj.CreatedBy)
         cmd.Parameters.AddWithValue("@DivisionId", clsObj.DivisionId)
 
+        If clsObj.OpenCrNo <> "" Then
+            cmd.Parameters.AddWithValue("@OpenCrAmount", clsObj.AmountSettled)
+        End If
+
+        If clsObj.OpenDrNo <> "" Then
+            cmd.Parameters.AddWithValue("@OpenDrAmount", clsObj.AmountSettled)
+        End If
+
+        cmd.Parameters.AddWithValue("@OpenCrNo", clsObj.OpenCrNo)
+        cmd.Parameters.AddWithValue("@OpenDrNo", clsObj.OpenDrNo)
+
+        'CommonFunction.Parameter("OpenCrAmount").Value = clsObj.AmountSettled
+        'CommonFunction.Parameter("OpenCrNo").Value = undistributedAmountTable.Rows(Index)("PaymentTransactionNo")
         cmd.ExecuteNonQuery()
         cmd.Dispose()
     End Sub

@@ -30,6 +30,10 @@ ALTER TABLE dbo.SALE_INVOICE_DETAIL ADD
 freight NUMERIC(18,2) DEFAULT 0,freight_type CHAR(10),
 FreightTaxValue NUMERIC(18,2) DEFAULT 0,FreightCessValue NUMERIC(18,2) DEFAULT 0
 
+
+ALTER TABLE SettlementDetail ADD OpenCrAmount NUMERIC(18,2)DEFAULT 0, OpenCrNo NVARCHAR(50),
+ OpenDrAmount NUMERIC(18,2)DEFAULT 0, OpenDrNO NVARCHAR(50)
+
 Go
 
 ---------------------------------------------------------------------------------------------------------------------------

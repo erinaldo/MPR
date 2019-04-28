@@ -20,8 +20,8 @@ Partial Class frm_Supplier_Invoice_Settlement
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frm_Supplier_Invoice_Settlement))
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.List = New System.Windows.Forms.TabPage()
@@ -36,6 +36,7 @@ Partial Class frm_Supplier_Invoice_Settlement
         Me.TabPaymentControl = New System.Windows.Forms.TabControl()
         Me.tabTakePayment = New System.Windows.Forms.TabPage()
         Me.GBDCMASTER = New System.Windows.Forms.GroupBox()
+        Me.cmbCustomer = New MMSPlus.AutoCompleteCombo()
         Me.lblGSTPercentageValue = New System.Windows.Forms.Label()
         Me.chk_GSTApplicable = New System.Windows.Forms.CheckBox()
         Me.cmbGSTNature = New System.Windows.Forms.ComboBox()
@@ -67,6 +68,7 @@ Partial Class frm_Supplier_Invoice_Settlement
         Me.lblMRSCode = New System.Windows.Forms.Label()
         Me.tabApprovePayment = New System.Windows.Forms.TabPage()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.cmbCustomerApprovePayment = New MMSPlus.AutoCompleteCombo()
         Me.Label21 = New System.Windows.Forms.Label()
         Me.lblReceivedBy = New System.Windows.Forms.Label()
         Me.Label23 = New System.Windows.Forms.Label()
@@ -108,14 +110,14 @@ Partial Class frm_Supplier_Invoice_Settlement
         Me.PendingAmount = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.AmountToReceive = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.cmbCustomerSettleInvoice = New MMSPlus.AutoCompleteCombo()
         Me.lblUndistributedAmount = New System.Windows.Forms.Label()
         Me.Label24 = New System.Windows.Forms.Label()
         Me.btnDistributeAmount = New System.Windows.Forms.Button()
         Me.Label44 = New System.Windows.Forms.Label()
         Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
-        Me.cmbCustomer = New MMSPlus.AutoCompleteCombo()
-        Me.cmbCustomerApprovePayment = New MMSPlus.AutoCompleteCombo()
-        Me.cmbCustomerSettleInvoice = New MMSPlus.AutoCompleteCombo()
+        Me.lblOpenDrAmount = New System.Windows.Forms.Label()
+        Me.Label27 = New System.Windows.Forms.Label()
         Me.TabControl1.SuspendLayout()
         Me.List.SuspendLayout()
         Me.GBMRSDetail.SuspendLayout()
@@ -187,12 +189,12 @@ Partial Class frm_Supplier_Invoice_Settlement
         Me.flxList.Location = New System.Drawing.Point(3, 16)
         Me.flxList.Name = "flxList"
         Me.flxList.RowHeadersVisible = False
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black
-        Me.flxList.RowsDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        DataGridViewCellStyle4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle4.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
+        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Black
+        Me.flxList.RowsDefaultCellStyle = DataGridViewCellStyle4
         Me.flxList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.flxList.Size = New System.Drawing.Size(871, 430)
         Me.flxList.TabIndex = 0
@@ -313,6 +315,19 @@ Partial Class frm_Supplier_Invoice_Settlement
         Me.GBDCMASTER.Size = New System.Drawing.Size(879, 585)
         Me.GBDCMASTER.TabIndex = 0
         Me.GBDCMASTER.TabStop = False
+        '
+        'cmbCustomer
+        '
+        Me.cmbCustomer.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.cmbCustomer.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmbCustomer.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmbCustomer.ForeColor = System.Drawing.Color.White
+        Me.cmbCustomer.FormattingEnabled = True
+        Me.cmbCustomer.Location = New System.Drawing.Point(141, 46)
+        Me.cmbCustomer.Name = "cmbCustomer"
+        Me.cmbCustomer.ResetOnClear = False
+        Me.cmbCustomer.Size = New System.Drawing.Size(694, 24)
+        Me.cmbCustomer.TabIndex = 0
         '
         'lblGSTPercentageValue
         '
@@ -603,6 +618,7 @@ Partial Class frm_Supplier_Invoice_Settlement
         Me.lblAdvanceAmount.TabIndex = 2
         Me.lblAdvanceAmount.Text = "0.00"
         Me.lblAdvanceAmount.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblAdvanceAmount.Visible = False
         '
         'lblPendingAmount
         '
@@ -625,6 +641,7 @@ Partial Class frm_Supplier_Invoice_Settlement
         Me.lblMRSDate.Size = New System.Drawing.Size(104, 15)
         Me.lblMRSDate.TabIndex = 7
         Me.lblMRSDate.Text = "Advance Amount :"
+        Me.lblMRSDate.Visible = False
         '
         'lblMRSCode
         '
@@ -682,6 +699,19 @@ Partial Class frm_Supplier_Invoice_Settlement
         Me.GroupBox1.Size = New System.Drawing.Size(882, 583)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
+        '
+        'cmbCustomerApprovePayment
+        '
+        Me.cmbCustomerApprovePayment.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.cmbCustomerApprovePayment.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmbCustomerApprovePayment.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmbCustomerApprovePayment.ForeColor = System.Drawing.Color.White
+        Me.cmbCustomerApprovePayment.FormattingEnabled = True
+        Me.cmbCustomerApprovePayment.Location = New System.Drawing.Point(204, 48)
+        Me.cmbCustomerApprovePayment.Name = "cmbCustomerApprovePayment"
+        Me.cmbCustomerApprovePayment.ResetOnClear = False
+        Me.cmbCustomerApprovePayment.Size = New System.Drawing.Size(627, 24)
+        Me.cmbCustomerApprovePayment.TabIndex = 0
         '
         'Label21
         '
@@ -1020,12 +1050,12 @@ Partial Class frm_Supplier_Invoice_Settlement
         Me.dgvInvoiceToSettle.Location = New System.Drawing.Point(1, 117)
         Me.dgvInvoiceToSettle.Name = "dgvInvoiceToSettle"
         Me.dgvInvoiceToSettle.RowHeadersVisible = False
-        DataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Arial", 9.0!)
-        DataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.DarkOrange
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White
-        Me.dgvInvoiceToSettle.RowsDefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle3.BackColor = System.Drawing.Color.WhiteSmoke
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Arial", 9.0!)
+        DataGridViewCellStyle3.ForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.DarkOrange
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.White
+        Me.dgvInvoiceToSettle.RowsDefaultCellStyle = DataGridViewCellStyle3
         Me.dgvInvoiceToSettle.Size = New System.Drawing.Size(875, 420)
         Me.dgvInvoiceToSettle.TabIndex = 1
         '
@@ -1092,6 +1122,8 @@ Partial Class frm_Supplier_Invoice_Settlement
         '
         'GroupBox3
         '
+        Me.GroupBox3.Controls.Add(Me.lblOpenDrAmount)
+        Me.GroupBox3.Controls.Add(Me.Label27)
         Me.GroupBox3.Controls.Add(Me.cmbCustomerSettleInvoice)
         Me.GroupBox3.Controls.Add(Me.lblUndistributedAmount)
         Me.GroupBox3.Controls.Add(Me.Label24)
@@ -1103,12 +1135,25 @@ Partial Class frm_Supplier_Invoice_Settlement
         Me.GroupBox3.TabIndex = 0
         Me.GroupBox3.TabStop = False
         '
+        'cmbCustomerSettleInvoice
+        '
+        Me.cmbCustomerSettleInvoice.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.cmbCustomerSettleInvoice.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmbCustomerSettleInvoice.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmbCustomerSettleInvoice.ForeColor = System.Drawing.Color.White
+        Me.cmbCustomerSettleInvoice.FormattingEnabled = True
+        Me.cmbCustomerSettleInvoice.Location = New System.Drawing.Point(180, 28)
+        Me.cmbCustomerSettleInvoice.Name = "cmbCustomerSettleInvoice"
+        Me.cmbCustomerSettleInvoice.ResetOnClear = False
+        Me.cmbCustomerSettleInvoice.Size = New System.Drawing.Size(663, 24)
+        Me.cmbCustomerSettleInvoice.TabIndex = 0
+        '
         'lblUndistributedAmount
         '
         Me.lblUndistributedAmount.BackColor = System.Drawing.Color.Black
         Me.lblUndistributedAmount.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblUndistributedAmount.ForeColor = System.Drawing.Color.Gold
-        Me.lblUndistributedAmount.Location = New System.Drawing.Point(182, 71)
+        Me.lblUndistributedAmount.Location = New System.Drawing.Point(500, 71)
         Me.lblUndistributedAmount.Name = "lblUndistributedAmount"
         Me.lblUndistributedAmount.Size = New System.Drawing.Size(150, 25)
         Me.lblUndistributedAmount.TabIndex = 1
@@ -1119,7 +1164,7 @@ Partial Class frm_Supplier_Invoice_Settlement
         '
         Me.Label24.AutoSize = True
         Me.Label24.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label24.Location = New System.Drawing.Point(35, 75)
+        Me.Label24.Location = New System.Drawing.Point(353, 75)
         Me.Label24.Name = "Label24"
         Me.Label24.Size = New System.Drawing.Size(131, 15)
         Me.Label24.TabIndex = 74
@@ -1155,44 +1200,27 @@ Partial Class frm_Supplier_Invoice_Settlement
         Me.ImageList1.Images.SetKeyName(0, "Zoom_search_find_magnifying_glass.png")
         Me.ImageList1.Images.SetKeyName(1, "Inventory_box_shipment_product.png")
         '
-        'cmbCustomer
+        'lblOpenDrAmount
         '
-        Me.cmbCustomer.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.cmbCustomer.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmbCustomer.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmbCustomer.ForeColor = System.Drawing.Color.White
-        Me.cmbCustomer.FormattingEnabled = True
-        Me.cmbCustomer.Location = New System.Drawing.Point(141, 46)
-        Me.cmbCustomer.Name = "cmbCustomer"
-        Me.cmbCustomer.ResetOnClear = False
-        Me.cmbCustomer.Size = New System.Drawing.Size(694, 24)
-        Me.cmbCustomer.TabIndex = 0
+        Me.lblOpenDrAmount.BackColor = System.Drawing.Color.Black
+        Me.lblOpenDrAmount.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblOpenDrAmount.ForeColor = System.Drawing.Color.Gold
+        Me.lblOpenDrAmount.Location = New System.Drawing.Point(181, 72)
+        Me.lblOpenDrAmount.Name = "lblOpenDrAmount"
+        Me.lblOpenDrAmount.Size = New System.Drawing.Size(150, 25)
+        Me.lblOpenDrAmount.TabIndex = 77
+        Me.lblOpenDrAmount.Text = "0.00"
+        Me.lblOpenDrAmount.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'cmbCustomerApprovePayment
+        'Label27
         '
-        Me.cmbCustomerApprovePayment.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.cmbCustomerApprovePayment.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmbCustomerApprovePayment.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmbCustomerApprovePayment.ForeColor = System.Drawing.Color.White
-        Me.cmbCustomerApprovePayment.FormattingEnabled = True
-        Me.cmbCustomerApprovePayment.Location = New System.Drawing.Point(204, 48)
-        Me.cmbCustomerApprovePayment.Name = "cmbCustomerApprovePayment"
-        Me.cmbCustomerApprovePayment.ResetOnClear = False
-        Me.cmbCustomerApprovePayment.Size = New System.Drawing.Size(627, 24)
-        Me.cmbCustomerApprovePayment.TabIndex = 0
-        '
-        'cmbCustomerSettleInvoice
-        '
-        Me.cmbCustomerSettleInvoice.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.cmbCustomerSettleInvoice.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmbCustomerSettleInvoice.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmbCustomerSettleInvoice.ForeColor = System.Drawing.Color.White
-        Me.cmbCustomerSettleInvoice.FormattingEnabled = True
-        Me.cmbCustomerSettleInvoice.Location = New System.Drawing.Point(180, 28)
-        Me.cmbCustomerSettleInvoice.Name = "cmbCustomerSettleInvoice"
-        Me.cmbCustomerSettleInvoice.ResetOnClear = False
-        Me.cmbCustomerSettleInvoice.Size = New System.Drawing.Size(663, 24)
-        Me.cmbCustomerSettleInvoice.TabIndex = 0
+        Me.Label27.AutoSize = True
+        Me.Label27.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label27.Location = New System.Drawing.Point(36, 76)
+        Me.Label27.Name = "Label27"
+        Me.Label27.Size = New System.Drawing.Size(101, 15)
+        Me.Label27.TabIndex = 78
+        Me.Label27.Text = "Open Dr. Amount"
         '
         'frm_Supplier_Invoice_Settlement
         '
@@ -1316,4 +1344,6 @@ Partial Class frm_Supplier_Invoice_Settlement
     Friend WithEvents cmbCustomerSettleInvoice As AutoCompleteCombo
     Friend WithEvents cmbCustomer As AutoCompleteCombo
     Friend WithEvents cmbCustomerApprovePayment As AutoCompleteCombo
+    Friend WithEvents lblOpenDrAmount As Label
+    Friend WithEvents Label27 As Label
 End Class
