@@ -22,6 +22,7 @@ Partial Class Licence
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Licence))
         Me.lblLicnceSMS = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.btnRenewSettings = New System.Windows.Forms.Button()
@@ -34,6 +35,7 @@ Partial Class Licence
         Me.btnRenew = New System.Windows.Forms.Button()
         Me.txtKey = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
+        Me.Button1 = New System.Windows.Forms.Button()
         Me.pnlRenew.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -180,19 +182,39 @@ Partial Class Licence
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "Type your product key"
         '
+        'Button1
+        '
+        Me.Button1.BackColor = System.Drawing.Color.FromArgb(CType(CType(80, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
+        Me.Button1.BackgroundImage = Global.MMSPlus.My.Resources.Resources.mms_
+        Me.Button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.Button1.Enabled = False
+        Me.Button1.FlatAppearance.BorderSize = 0
+        Me.Button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(80, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
+        Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button1.ForeColor = System.Drawing.Color.White
+        Me.Button1.Location = New System.Drawing.Point(685, 16)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(100, 40)
+        Me.Button1.TabIndex = 6
+        Me.Button1.UseVisualStyleBackColor = False
+        '
         'Licence
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(80, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.ClientSize = New System.Drawing.Size(800, 175)
+        Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.pnlRenew)
         Me.Controls.Add(Me.lblExpireDate)
         Me.Controls.Add(Me.btnClose)
         Me.Controls.Add(Me.btnRenewSettings)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.lblLicnceSMS)
+        Me.DoubleBuffered = True
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "Licence"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Licence"
@@ -216,4 +238,5 @@ Partial Class Licence
     Friend WithEvents btnRenew As Button
     Friend WithEvents txtKey As TextBox
     Friend WithEvents Label1 As Label
+    Friend WithEvents Button1 As Button
 End Class

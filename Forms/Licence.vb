@@ -54,10 +54,12 @@
         If Not String.IsNullOrEmpty(LicDate) Then
             If Company.ToUpper() = Division.ToUpper() And Convert.ToDateTime(RenewDate.ToString("dd-MMM-yyyy")) > Convert.ToDateTime(LicDate.ToString("dd-MMM-yyyy")) Then
                 obj.ExecuteNonQuery("UPDATE templd SET D1='" & (txtKey.Text) & "'")
-                MsgBox("Congratulations! Your Systems activation completed sucessfully.", MsgBoxStyle.Information, "Licence Verify")
-                Application.Restart()
-                Me.Close()
-                LoginForm.Show()
+                MsgBox("Congratulations! Your Systems activation completed sucessfully. Please restart the application.", MsgBoxStyle.Information, "Licence Verify")
+                'LoginForm.Show()
+                'Application.Restart()
+                ''Me.Close()
+                Application.Exit()
+                Process.Start(Application.ExecutablePath)
             Else
                 Cursor.Current = Cursors.Default
                 MsgBox("Error: A problem occurred when Systems tried to activate. For a possible resolution, Contact your system administrator or technical support provider for assistance.", MsgBoxStyle.Critical, "Error: Licence Verify")
@@ -65,9 +67,12 @@
         Else
             If Company.ToUpper() = Division.ToUpper() Then
                 obj.ExecuteNonQuery("UPDATE templd SET D1='" & (txtKey.Text) & "'")
-                MsgBox("Congratulations! Your Systems activation completed sucessfully.", MsgBoxStyle.Information, "Licence Verify")
-                Application.Restart()
+                MsgBox("Congratulations! Your Systems activation completed sucessfully. Please restart the application", MsgBoxStyle.Information, "Licence Verify")
                 'LoginForm.Show()
+                'Application.Restart()
+                'Me.Close()
+                Application.Exit()
+                Process.Start(Application.ExecutablePath)
             Else
                 Cursor.Current = Cursors.Default
                 MsgBox("Error: A problem occurred when Systems tried to activate. For a possible resolution, Contact your system administrator or technical support provider for assistance.", MsgBoxStyle.Critical, "Error: Licence Verify")
