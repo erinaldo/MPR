@@ -528,15 +528,17 @@ FROM    ( SELECT    SUM(ISNULL(IntraState_TaxableValue, 0)) AS IntraState_Taxabl
 
     Private Function Get3_2_SectionData() As System.Data.DataTable
 
-        Qry = " Select  STATE_CODE ,
+        Qry = " SELECT STATE_CODE ,
         STATE_NAME ,
         SUM(Taxable_Value) AS Taxable_Value ,
         SUM(integrated_tax) AS integrated_tax
-FROM    ( SELECT    STATE_CODE ,
+ FROM   ( SELECT    STATE_CODE ,
                     STATE_NAME ,
                     CAST(SUM(CASE WHEN GSTPaid = 'Y'
-                                  THEN Taxable_Value - ( Taxable_Value
-                                                         - ( Taxable_Value
+                                  THEN Taxable_Value - ( ( Taxable_Value
+                                                           - GSTFreight )
+                                                         - ( ( Taxable_Value
+                                                              - GSTFreight )
                                                              / ( 1 + VAT_PER
                                                               / 100 ) ) )
                                   ELSE Taxable_Value
@@ -565,30 +567,31 @@ FROM    ( SELECT    STATE_CODE ,
                                              ELSE 0
                                         END )) AS integrated_tax ,
                                 GSTPaid ,
-                                VAT_PER
+                                VAT_PER ,
+                                SUM(ISNULL(invd.freight, 0)) AS GSTFreight
                       FROM      dbo.SALE_INVOICE_MASTER inv
                                 INNER JOIN dbo.SALE_INVOICE_DETAIL invd ON invd.SI_ID = inv.SI_ID
                                 INNER JOIN dbo.ACCOUNT_MASTER am ON am.ACC_ID = inv.CUST_ID
                                 INNER JOIN dbo.CITY_MASTER cm ON cm.CITY_ID = am.CITY_ID
                                 INNER JOIN dbo.STATE_MASTER sm ON sm.STATE_ID = cm.STATE_ID
                       WHERE     INV.INVOICE_STATUS <> 4
-                                 AND cast(SI_DATE AS date) between CAST('" & txtFromDate.Value.ToString("dd-MMM-yyyy") & "' AS date) AND CAST('" & txtToDate.Value.ToString("dd-MMM-yyyy") & "' AS date) " &
-                                " AND inv.INV_TYPE = 'I'
+                                AND CAST(SI_DATE AS DATE) BETWEEN CAST('" & txtFromDate.Value.ToString("dd-MMM-yyyy") & "' AS DATE)
+                                                          AND CAST('" & txtToDate.Value.ToString("dd-MMM-yyyy") & "' AS DATE)
+                                AND inv.INV_TYPE = 'I'
                                 AND LEN(ISNULL(VAT_NO, '')) = 0
                       GROUP BY  STATE_CODE ,
                                 STATE_NAME ,
                                 GSTPaid ,
                                 VAT_PER
-
                       UNION ALL
-
                       SELECT    STATE_CODE ,
                                 STATE_NAME ,
                                 Taxable_Value ,
                                 CASE WHEN Inv_Type = 'I' THEN GSTPerAmt
                                 END AS integrated_tax ,
                                 GSTPaid ,
-                                VAT_PER
+                                VAT_PER ,
+                                0 AS GSTFreight
                       FROM      ( SELECT    sm.STATE_CODE ,
                                             sm.STATE_NAME ,
                                             pt.GSTPerAmt ,
@@ -600,15 +603,17 @@ FROM    ( SELECT    STATE_CODE ,
                                                  THEN 5.00
                                                  WHEN pt.fk_GST_ID = 3
                                                  THEN 12.00
-                                                 WHEN pt.fk_GST_ID = 4 
+                                                 WHEN pt.fk_GST_ID = 4
                                                  THEN 18.00
                                                  WHEN pt.fk_GST_ID = 5
                                                  THEN 28.00
                                                  WHEN pt.fk_GST_ID = 6
                                                  THEN 3.00
                                             END AS VAT_PER ,
-                                            CASE WHEN cm.STATE_ID <> cm1.STATE_ID THEN 'I'
-                                                 WHEN cm.STATE_ID =  cm1.STATE_ID THEN 'S'          
+                                            CASE WHEN cm.STATE_ID <> cm1.STATE_ID
+                                                 THEN 'I'
+                                                 WHEN cm.STATE_ID = cm1.STATE_ID
+                                                 THEN 'S'
                                             END AS Inv_Type
                                   FROM      dbo.PaymentTransaction AS pt
                                             INNER JOIN dbo.ACCOUNT_MASTER am ON pt.AccountId = am.ACC_ID
@@ -617,39 +622,39 @@ FROM    ( SELECT    STATE_CODE ,
                                             INNER JOIN dbo.ACCOUNT_MASTER am1 ON pt.BankId = am1.ACC_ID
                                             INNER JOIN dbo.CITY_MASTER cm1 ON cm1.CITY_ID = am1.CITY_ID
                                             INNER JOIN dbo.STATE_MASTER sm1 ON sm1.STATE_ID = cm1.STATE_ID
-                                  WHERE     CAST(pt.PaymentDate AS DATE) between CAST('" & txtFromDate.Value.ToString("dd-MMM-yyyy") & "' AS date) AND CAST('" & txtToDate.Value.ToString("dd-MMM-yyyy") & "' AS date) " & "
-                                            And pt.GST_Applicable_Acc = 'Cr.' and pt.FK_GST_TYPE_ID = 2 and pt.StatusId <> 3
-                                            And Len(ISNULL(am.VAT_NO, '')) = 0
-                      ) subquery
+                                  WHERE     CAST(pt.PaymentDate AS DATE) BETWEEN CAST('" & txtFromDate.Value.ToString("dd-MMM-yyyy") & "' AS DATE)
+                                                              AND
+                                                              CAST('" & txtToDate.Value.ToString("dd-MMM-yyyy") & "' AS DATE)
+                                            AND pt.GST_Applicable_Acc = 'Cr.'
+                                            AND pt.FK_GST_TYPE_ID = 2
+                                            AND pt.StatusId <> 3
+                                            AND LEN(ISNULL(am.VAT_NO, '')) = 0
+                                ) subquery
                       WHERE     Inv_Type = 'I'
-
-
                     ) tb
           GROUP BY  STATE_CODE ,
                     STATE_NAME
           UNION ALL
           SELECT    STATE_CODE ,
                     STATE_NAME ,
-                    SUM(CAST(( d.TaxableAmt ) AS NUMERIC(18, 2)))
-                    * -1 AS Taxable_Value ,
+                    SUM(CAST(( d.TaxableAmt ) AS NUMERIC(18, 2))) * -1 AS Taxable_Value ,
                     ISNULL(SUM(CASE WHEN GSTType = 2
-                                    THEN CAST((d.TaxAmt) AS NUMERIC(18, 2))
+                                    THEN CAST(( d.TaxAmt ) AS NUMERIC(18, 2))
                                     ELSE 0
                                END), 0) * -1 AS integrated_tax
-          FROM      --dbo.SALE_INVOICE_MASTER AS inv
-                    --JOIN dbo.CreditNote_Master M ON M.INVId = inv.SI_ID
-                      CreditNote_Master M
+          FROM      CreditNote_Master M
                     JOIN dbo.CreditNote_DETAIL D ON M.CreditNote_Id = D.CreditNote_Id
                     INNER JOIN dbo.ACCOUNT_MASTER am ON am.ACC_ID = m.CN_CustId
                     INNER JOIN dbo.CITY_MASTER cm ON cm.CITY_ID = am.CITY_ID
                     INNER JOIN dbo.STATE_MASTER sm ON sm.STATE_ID = cm.STATE_ID
-          WHERE     cast(CreditNote_Date AS date) between CAST('" & txtFromDate.Value.ToString("dd-MMM-yyyy") & "' AS date) AND CAST('" & txtToDate.Value.ToString("dd-MMM-yyyy") & "' AS date) " &
-                    " AND GSTType = 2
-                     AND LEN(ISNULL(VAT_NO, '')) = 0
+          WHERE     CAST(CreditNote_Date AS DATE) BETWEEN CAST('" & txtFromDate.Value.ToString("dd-MMM-yyyy") & "' AS DATE)
+                                                  AND     CAST('" & txtToDate.Value.ToString("dd-MMM-yyyy") & "' AS DATE)
+                    AND GSTType = 2
+                    AND LEN(ISNULL(VAT_NO, '')) = 0
           GROUP BY  STATE_CODE ,
                     STATE_NAME
         ) tb
-        GROUP BY STATE_CODE ,
+ GROUP BY STATE_CODE ,
         STATE_NAME "
 
         Return objCommFunction.Fill_DataSet(Qry).Tables(0)
@@ -662,9 +667,9 @@ FROM    ( SELECT    STATE_CODE ,
         SUM(ISNULL(non_integrated_tax, 0)) AS non_integrated_tax ,
         SUM(ISNULL(integrated_tax, 0)) AS integrated_tax
         FROM   ( SELECT CAST(SUM(CASE WHEN GSTPaid = 'Y'
-                      THEN Taxable_Value - ( Taxable_Value - ( Taxable_Value
-                                                              / ( 1 + VAT_PER
-                                                              / 100 ) ) )
+                      THEN Taxable_Value - ( ( Taxable_Value - GSTFreight )
+                                             - ( ( Taxable_Value - GSTFreight )
+                                                 / ( 1 + VAT_PER / 100 ) ) )
                       ELSE Taxable_Value
                  END) AS DECIMAL(18, 2)) AS Taxable_Value ,
         ISNULL(SUM(Cess_Amount), 0) AS Cess_Amount ,
@@ -712,7 +717,8 @@ FROM    ( SELECT    STATE_CODE ,
                                                 ELSE 0
                                            END), 0) AS integrated_tax ,
                     GSTPaid ,
-                    VAT_PER
+                    VAT_PER,
+                    SUM(ISNULL(invd.freight, 0)) AS GSTFreight
           FROM      dbo.SALE_INVOICE_MASTER inv
                     INNER JOIN dbo.SALE_INVOICE_DETAIL invd ON invd.SI_ID = inv.SI_ID
                     INNER JOIN dbo.ACCOUNT_MASTER am ON am.ACC_ID = inv.CUST_ID
