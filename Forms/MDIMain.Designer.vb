@@ -111,6 +111,7 @@ Partial Class MDIMain
         Me.frm_SaleAnalysis = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_PurchaseAnalysis = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_StockAnalysis = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Frm_Account_Analysis = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_Stock = New System.Windows.Forms.ToolStripMenuItem()
         Me.frmStockValue = New System.Windows.Forms.ToolStripMenuItem()
         Me.StockValueCategoryWise = New System.Windows.Forms.ToolStripMenuItem()
@@ -179,7 +180,6 @@ Partial Class MDIMain
         Me.picLogo = New System.Windows.Forms.PictureBox()
         Me.TabControl2 = New System.Windows.Forms.TabControl()
         Me.frm_open_invoice = New System.Windows.Forms.ToolStripMenuItem()
-        Me.Frm_Account_Analysis = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.toolbar.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
@@ -1057,6 +1057,7 @@ Partial Class MDIMain
         '
         Me.frm_SaleAnalysis.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.frm_SaleAnalysis.ForeColor = System.Drawing.Color.White
+        Me.frm_SaleAnalysis.Image = Global.MMSPlus.My.Resources.Resources.Reports
         Me.frm_SaleAnalysis.Name = "frm_SaleAnalysis"
         Me.frm_SaleAnalysis.Size = New System.Drawing.Size(176, 22)
         Me.frm_SaleAnalysis.Text = "Sale Analysis"
@@ -1065,6 +1066,7 @@ Partial Class MDIMain
         '
         Me.frm_PurchaseAnalysis.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.frm_PurchaseAnalysis.ForeColor = System.Drawing.Color.White
+        Me.frm_PurchaseAnalysis.Image = Global.MMSPlus.My.Resources.Resources.Reports
         Me.frm_PurchaseAnalysis.Name = "frm_PurchaseAnalysis"
         Me.frm_PurchaseAnalysis.Size = New System.Drawing.Size(176, 22)
         Me.frm_PurchaseAnalysis.Text = "Purchase Analysis"
@@ -1073,9 +1075,19 @@ Partial Class MDIMain
         '
         Me.frm_StockAnalysis.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.frm_StockAnalysis.ForeColor = System.Drawing.Color.White
+        Me.frm_StockAnalysis.Image = Global.MMSPlus.My.Resources.Resources.Reports
         Me.frm_StockAnalysis.Name = "frm_StockAnalysis"
         Me.frm_StockAnalysis.Size = New System.Drawing.Size(176, 22)
         Me.frm_StockAnalysis.Text = "Stock Analysis"
+        '
+        'Frm_Account_Analysis
+        '
+        Me.Frm_Account_Analysis.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.Frm_Account_Analysis.ForeColor = System.Drawing.Color.White
+        Me.Frm_Account_Analysis.Image = Global.MMSPlus.My.Resources.Resources.Reports
+        Me.Frm_Account_Analysis.Name = "Frm_Account_Analysis"
+        Me.Frm_Account_Analysis.Size = New System.Drawing.Size(176, 22)
+        Me.Frm_Account_Analysis.Text = "Account Analysis"
         '
         'frm_Stock
         '
@@ -1724,14 +1736,6 @@ Partial Class MDIMain
         Me.frm_open_invoice.Name = "frm_open_invoice"
         Me.frm_open_invoice.Size = New System.Drawing.Size(181, 22)
         Me.frm_open_invoice.Text = "Opne Invoice"
-        '
-        'Frm_Account_Analysis
-        '
-        Me.Frm_Account_Analysis.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.Frm_Account_Analysis.ForeColor = System.Drawing.Color.White
-        Me.Frm_Account_Analysis.Name = "Frm_Account_Analysis"
-        Me.Frm_Account_Analysis.Size = New System.Drawing.Size(176, 22)
-        Me.Frm_Account_Analysis.Text = "Account Analysis"
         '
         'MDIMain
         '
