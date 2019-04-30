@@ -95,8 +95,10 @@ Public Class frm_Account_Payment
 
     Private Sub ClearControls()
         cmbAccountToDebit.SelectedIndex = 0
+        cmbAccountToCredit.SelectedIndex = -1
         dtpPaymentDate.Value = DateTime.Now
         cmbPaymentType.SelectedIndex = 0
+        lblGSTPercentageValue.Text = 0.00
         txtReferenceNo.Text = ""
         dtpReferenceDate.Value = DateTime.Now
         dtpBankDate.Value = DateTime.Now
