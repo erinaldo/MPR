@@ -2,7 +2,7 @@ INSERT  INTO dbo.DBScriptUpdateLog
         ( LogFileName ,
           ExecuteDateTime
         )
-VALUES  ( '0044_08_Apr_2019_AddConsumer' ,
+VALUES  ( '0044_08_Apr_2019_All_Proc_View_Function_Type' ,
           GETDATE()
         )
 Go
