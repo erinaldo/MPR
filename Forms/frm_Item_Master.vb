@@ -52,6 +52,7 @@ Public Class frm_Item_Master
         txtOpeningStock.Text = ""
         txtCurrentStock.Text = ""
         txtOpeningStock.ReadOnly = False
+        txt_OpeningRate.ReadOnly = False
         txtSearch.Focus()
 
     End Sub
@@ -369,7 +370,10 @@ Public Class frm_Item_Master
                 chkIsActive.Checked = Convert.ToBoolean(drv("IS_ACTIVE"))
                 Flag = "update"
             Else
-                txt_OpeningRate.Text = ""
+                txt_OpeningRate.ReadOnly = False
+                txtOpeningStock.ReadOnly = False
+                txt_OpeningRate.Text = "0.00"
+                txtOpeningStock.Text = "0.00"
                 Flag = "save"
             End If
             ds.Dispose()
