@@ -723,14 +723,20 @@ FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY SIM.SI_ID ) AS [S. No.] ,
                     CAST (SUM(CASE WHEN VAT_PER = 28 THEN SID.VAT_AMOUNT
                                    ELSE 0
                               END) AS DECIMAL(18, 2)) AS [Tax @28%] ,
+
+                    --ISNULL(NET_AMOUNT, 0) - ( ISNULL(GROSS_AMOUNT, 0)
+                    --                          + ISNULL(SIM.VAT_AMOUNT, 0)
+                    --                          + SUM(ISNULL(SID.CessAmount_num,
+                    --                                       0))
+                    --                          + CAST(SUM(ISNULL(SID.ACess, 0)
+                    --                                     * ISNULL(SID.ITEM_QTY,
+                    --                                          0)) AS NUMERIC(18,
+                    --                                          2)) ) AS [Round Off] ,
                     ISNULL(NET_AMOUNT, 0) - ( ISNULL(GROSS_AMOUNT, 0)
+                                              + ISNULL(SIM.freight, 0)
                                               + ISNULL(SIM.VAT_AMOUNT, 0)
-                                              + SUM(ISNULL(SID.CessAmount_num,
-                                                           0))
-                                              + CAST(SUM(ISNULL(SID.ACess, 0)
-                                                         * ISNULL(SID.ITEM_QTY,
-                                                              0)) AS NUMERIC(18,
-                                                              2)) ) AS [Round Off] ,
+                                              + ( ISNULL(SIM.CESS_AMOUNT, 0) ) ) AS [Round Off] ,
+
                     MAX(SID.CessPercentage_num) AS [CESS %] ,
                     SUM(ISNULL(SID.CessAmount_num, 0)) AS [Cess Amount] ,
                     CAST(SUM(ISNULL(SID.ACess, 0) * ISNULL(SID.ITEM_QTY, 0)) AS NUMERIC(18,
@@ -755,6 +761,8 @@ FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY SIM.SI_ID ) AS [S. No.] ,
                     GROSS_AMOUNT ,
                     SIM.VAT_AMOUNT ,
                     INV_TYPE ,
+                    SIM.freight ,
+                    SIM.CESS_AMOUNT ,
                     SALE_TYPE
         ) AS tbb"
 

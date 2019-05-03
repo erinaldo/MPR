@@ -823,6 +823,7 @@ FROM    ( SELECT    GROSS_AMOUNT ,
                     ISNULL(FreightTaxApplied, 0) AS FreightTaxApplied
           FROM      dbo.MATERIAL_RECIEVED_WITHOUT_PO_MASTER
           WHERE     ISNULL(IS_RCM_Applicable, 0) = 1
+                    AND cast(Received_Date AS date) between CAST('" & txtFromDate.Value.ToString("dd-MMM-yyyy") & "' AS date) AND CAST('" & txtToDate.Value.ToString("dd-MMM-yyyy") & "' AS date) 
           UNION ALL
           SELECT    GROSS_AMOUNT ,
                     GST_AMOUNT ,
@@ -834,6 +835,7 @@ FROM    ( SELECT    GROSS_AMOUNT ,
                     ISNULL(FreightTaxApplied, 0) AS FreightTaxApplied
           FROM      dbo.MATERIAL_RECEIVED_AGAINST_PO_MASTER
           WHERE     ISNULL(IS_RCM_Applicable, 0) = 1
+                    AND cast(Receipt_Date AS date) between CAST('" & txtFromDate.Value.ToString("dd-MMM-yyyy") & "' AS date) AND CAST('" & txtToDate.Value.ToString("dd-MMM-yyyy") & "' AS date) 
         ) tb"
         Return objCommFunction.Fill_DataSet(Qry).Tables(0).Rows(0)
     End Function
