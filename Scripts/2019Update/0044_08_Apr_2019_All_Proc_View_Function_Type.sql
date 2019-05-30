@@ -30,9 +30,28 @@ ALTER TABLE dbo.SALE_INVOICE_DETAIL ADD
 freight NUMERIC(18,2) DEFAULT 0,freight_type CHAR(10),
 FreightTaxValue NUMERIC(18,2) DEFAULT 0,FreightCessValue NUMERIC(18,2) DEFAULT 0
 
+ALTER TABLE dbo.CreditNote_Master ADD ConsumerHeadID NUMERIC(18,2) DEFAULT 0
+Go
 
 ALTER TABLE SettlementDetail ADD OpenCrAmount NUMERIC(18,2)DEFAULT 0, OpenCrNo NVARCHAR(50),
  OpenDrAmount NUMERIC(18,2)DEFAULT 0, OpenDrNO NVARCHAR(50)
+
+ ALTER TABLE dbo.MATERIAL_RECEIVED_AGAINST_PO_DETAIL ADD
+freight NUMERIC(18,2) DEFAULT 0,freight_type CHAR(10),
+FreightTaxValue NUMERIC(18,2) DEFAULT 0,FreightCessValue NUMERIC(18,2) DEFAULT 0
+
+ALTER TABLE dbo.MATERIAL_RECEIVED_WITHOUT_PO_DETAIL ADD
+freight NUMERIC(18,2) DEFAULT 0,freight_type CHAR(10),
+FreightTaxValue NUMERIC(18,2) DEFAULT 0,FreightCessValue NUMERIC(18,2) DEFAULT 0
+
+ALTER TABLE dbo.MATERIAL_RECIEVED_WITHOUT_PO_MASTER ADD
+IS_RCM_Applicable BIT DEFAULT 0
+
+ALTER TABLE dbo.MATERIAL_RECEIVED_AGAINST_PO_MASTER ADD
+IS_RCM_Applicable BIT DEFAULT 0
+
+GO
+
 
 Go
 
@@ -2418,8 +2437,7 @@ AS
             ) tb    
  GO
 ---------------------------------------------End-----------------------------------------------------------------------------------------          
-ALTER TABLE dbo.CreditNote_Master ADD ConsumerHeadID NUMERIC(18,2) DEFAULT 0
-Go
+
 ---------------------------------------------------------------------------------------------------------------------------
 -----------------------Credit Note-----------------------------------------------------------------------------------------    
 ALTER PROCEDURE [dbo].[PROC_CreditNote_MASTER]
@@ -3470,21 +3488,7 @@ AS
     END 
 GO
 ------------------------------------------------------Purchase-------------------------------------------------------------
-ALTER TABLE dbo.MATERIAL_RECEIVED_AGAINST_PO_DETAIL ADD
-freight NUMERIC(18,2) DEFAULT 0,freight_type CHAR(10),
-FreightTaxValue NUMERIC(18,2) DEFAULT 0,FreightCessValue NUMERIC(18,2) DEFAULT 0
 
-ALTER TABLE dbo.MATERIAL_RECEIVED_WITHOUT_PO_DETAIL ADD
-freight NUMERIC(18,2) DEFAULT 0,freight_type CHAR(10),
-FreightTaxValue NUMERIC(18,2) DEFAULT 0,FreightCessValue NUMERIC(18,2) DEFAULT 0
-
-ALTER TABLE dbo.MATERIAL_RECIEVED_WITHOUT_PO_MASTER ADD
-IS_RCM_Applicable BIT DEFAULT 0
-
-ALTER TABLE dbo.MATERIAL_RECEIVED_AGAINST_PO_MASTER ADD
-IS_RCM_Applicable BIT DEFAULT 0
-
-GO
 
 ---------------------------------------------------------------------------------------------------------------------------
 ALTER PROCEDURE [dbo].[PROC_MATERIAL_RECIEVED_WITHOUT_PO_MASTER]
