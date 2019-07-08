@@ -500,7 +500,7 @@ Partial Class frm_Item_Master
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(98, 13)
         Me.Label11.TabIndex = 31
-        Me.Label11.Text = "Average  Rate :"
+        Me.Label11.Text = "Purchase Cost :"
         '
         'Label26
         '
