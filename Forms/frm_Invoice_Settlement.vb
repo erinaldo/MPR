@@ -449,7 +449,7 @@ Public Class frm_Invoice_Settlement
        " ON OpeningBalanceId=PaymentTransactionId WHERE TYPE=2 AND FkAccountId=" & SettleInvoiceCustomerID & " ),0) SELECT @UndistributedAmount"
         UndistributedAmount = clsObj.ExecuteScalar(query)
 
-        OpenCrAmount = clsObj.ExecuteScalar("SELECT ( ISNULL(SUM(CN_Amount), 0) )- ( SELECT  ISNULL(SUM(OpenCrAmount), 0) FROM  SettlementDetail WHERE   OpenCrNo = CAST(CreditNote_No AS VARCHAR(20))) FROM dbo.CreditNote_Master WHERE INVId<=0 AND CN_CustId= " & SettleInvoiceCustomerID & " GROUP BY CreditNote_No ")
+        OpenCrAmount = clsObj.ExecuteScalar("SELECT ISNULL(SUM(OpenCrAmount), 0) FROM (SELECT ( ISNULL(SUM(CN_Amount), 0) )- ( SELECT  ISNULL(SUM(OpenCrAmount), 0) FROM  SettlementDetail WHERE   OpenCrNo = CAST(CreditNote_No AS VARCHAR(20)))AS  OpenCrAmount FROM dbo.CreditNote_Master WHERE INVId<=0 AND CN_CustId= " & SettleInvoiceCustomerID & " GROUP BY CreditNote_No )TB")
         If OpenCrAmount > 0 Then
             UndistributedAmount = (UndistributedAmount + OpenCrAmount)
             lblOpenCrAmount.Text = OpenCrAmount.ToString("0.00")
@@ -468,7 +468,8 @@ Public Class frm_Invoice_Settlement
 
         Dim query As String = " SELECT SI_ID, SI_CODE ,SI_NO, CONVERT(VARCHAR(20), SI_DATE, 106) as SI_DATE, NET_AMOUNT, " &
                 "ISNULL((SELECT SUM(AmountSettled) FROM dbo.SettlementDetail JOIN dbo.PaymentTransaction  ON dbo.PaymentTransaction.PaymentTransactionId = dbo.SettlementDetail.PaymentTransactionId WHERE InvoiceId = SI_ID AND AccountId=" & SettleInvoiceCustomerID & "),0) +" &
-                " ISNULL((SELECT SUM(AmountSettled) FROM dbo.SettlementDetail JOIN dbo.OpeningBalance  ON dbo.OpeningBalance.OpeningBalanceId = dbo.SettlementDetail.PaymentTransactionId WHERE InvoiceId = SI_ID AND fkAccountId=" & SettleInvoiceCustomerID & "),0) AS ReceivedAmount ,iSNULL(cn_amount,0) AS CnAmount" &
+                " ISNULL((SELECT SUM(AmountSettled) FROM dbo.SettlementDetail JOIN dbo.OpeningBalance  ON dbo.OpeningBalance.OpeningBalanceId = dbo.SettlementDetail.PaymentTransactionId WHERE InvoiceId = SI_ID AND fkAccountId=" & SettleInvoiceCustomerID & "),0)" &
+                "  + ISNULL(( SELECT   SUM(AmountSettled)  FROM     ( SELECT DISTINCT  ISNULL(AmountSettled, 0) AS AmountSettled ,CreditNote_No ,InvoiceId FROM      dbo.SettlementDetail  JOIN dbo.CreditNote_Master ON Cast(dbo.CreditNote_Master.CreditNote_No AS VARCHAR(20))= dbo.SettlementDetail.OpenCrNo  WHERE     InvoiceId = SI_ID AND SettlementDetail.PaymentTransactionId <= 0  AND CN_CustId=" & SettleInvoiceCustomerID & " ) tb  ), 0)  AS ReceivedAmount ,iSNULL(cn_amount,0) AS CnAmount" &
                 " FROM dbo.SALE_INVOICE_MASTER  LEFT JOIN dbo.CreditNote_Master ON INVId = SI_ID WHERE  INVOICE_STATUS <> 4 AND CUST_ID = " & SettleInvoiceCustomerID &
                 " UNION SELECT OpeningBalanceId,'Opening Balance',OpeningBalanceId,CONVERT(VARCHAR(20), OpeningDate, 106) AS OpeningDate ,OpeningAmount, ISNULL(( SELECT SUM(AmountSettled)FROM   dbo.SettlementDetail JOIN dbo.PaymentTransaction " &
                 " ON dbo.PaymentTransaction.PaymentTransactionId = dbo.SettlementDetail.PaymentTransactionId  WHERE  InvoiceId = OpeningBalanceId  AND AccountId = " & SettleInvoiceCustomerID &
