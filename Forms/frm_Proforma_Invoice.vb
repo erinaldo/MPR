@@ -1375,28 +1375,9 @@ Vendor"
     Dim cls_obj As New CommonClass
 
     Private Sub btnGenerateInvoice_Click(sender As Object, e As EventArgs) Handles btnGenerateInvoice.Click
-        Dim prpty_form_rights As New Form_Rights
-        Dim frmMain As New MDIMain()
-        Dim tbp As New TabPage
 
-        prpty_form_rights = cls_obj.Get_Form_Rights("frm_openSale_Invoice")
-        prpty_form_rights.allow_view = "Y"
-
-        Dim SaleInv As New frm_openSale_Invoice(prpty_form_rights)
-        SaleInv.PI_INVID = CStr(flxList("Si_ID", flxList.CurrentCell.RowIndex).Value())
-
-        tbp.Text = "Open Invoice"
-        tbp.Controls.Add(New frm_openSale_Invoice(prpty_form_rights))
-
-        ' Dim MainTabControl As TabControl = CType(frmMain.Controls("TabControl2"), TabControl)
-
-
-        '  AddHandler frmMain.Menu_Item_Click(sender, e) Handles frm_OpenSale_Invoice
-
-        frmMain.SetEventHandlers(tbp.Controls(0))
-        frmMain.TabControl2.TabPages.Add(tbp)
-        frmMain.TabControl2.SelectTab(0)
-        frmMain.TabControl2.BringToFront()
+        Dim id As Int32 = CStr(flxList("Si_ID", flxList.CurrentCell.RowIndex).Value())
+        Call MDIMain.OpenSaleInvoicefromproforma("frm_OpenSale_Invoice", id)
 
 
 
