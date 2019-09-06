@@ -191,6 +191,18 @@ Public Class LoginForm
 
     Private Sub LoginForm_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
+        Dim result As Int32
+        result = obj.get_record_count("select * from DIVISION_SETTINGS")
+
+        If result = 0 Then
+            Dim prp As New Form_Rights
+            prp.allow_trans = "Y"
+            prp.allow_view = "Y"
+            Dim obj As New frm_DivisionSettings(True, prp)
+            obj.ShowDialog()
+        End If
+
+
 
         Dim dsk As DataSet
         dsk = obj.FillDataSet("SELECT value FROM dbo.MMSSetting WHERE [Key]='Screen'")

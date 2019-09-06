@@ -464,7 +464,7 @@ Public Class frm_Supplier_Invoice_Settlement
        " ON OpeningBalanceId=PaymentTransactionId WHERE TYPE=1 AND FkAccountId=" & cmbCustomerSettleInvoice.SelectedValue & " ),0) SELECT @UndistributedAmount"
             UndistributedAmount = clsObj.ExecuteScalar(query)
 
-            OpenDrAmount = clsObj.ExecuteScalar("SELECT ( ISNULL(SUM(DN_Amount), 0) )- ( SELECT  ISNULL(SUM(OpenDrAmount), 0) FROM  SettlementDetail WHERE OpenDrNo = CAST(DebitNote_No AS VARCHAR(20))) FROM dbo.DebitNote_Master WHERE MRNId<=0 AND DN_CustId= " & SettleInvoiceCustomerID & " GROUP BY DebitNote_No ")
+            OpenDrAmount = clsObj.ExecuteScalar("SELECT ISNULL(SUM(OpenDrAmount), 0) FROM (SELECT ( ISNULL(SUM(DN_Amount), 0) )- ( SELECT  ISNULL(SUM(OpenDrAmount), 0) FROM  SettlementDetail WHERE OpenDrNo = CAST(DebitNote_No AS VARCHAR(20)))as OpenDrAmount FROM dbo.DebitNote_Master WHERE MRNId<=0 AND DN_CustId= " & SettleInvoiceCustomerID & " GROUP BY DebitNote_No)Tb ")
 
             If OpenDrAmount > 0 Then
                 UndistributedAmount = (UndistributedAmount + OpenDrAmount)
@@ -483,18 +483,20 @@ Public Class frm_Supplier_Invoice_Settlement
 
         Dim query As String = " SELECT MRN_NO AS MRN_ID ,MRN_PREFIX , MRN_NO , dbo.MATERIAL_RECEIVED_AGAINST_PO_MASTER.Creation_Date AS date , " &
             " MATERIAL_RECEIVED_AGAINST_PO_MASTER.NET_AMOUNT ,ISNULL(( SELECT SUM(AmountSettled) FROM   dbo.SettlementDetail  JOIN dbo.PaymentTransaction  ON dbo.PaymentTransaction.PaymentTransactionId = dbo.SettlementDetail.PaymentTransactionId WHERE  InvoiceId = Mrn_No AND AccountId=" & SettleInvoiceCustomerID & " ), 0)" &
-            " + ISNULL(( SELECT SUM(AmountSettled) FROM   dbo.SettlementDetail  JOIN dbo.OpeningBalance  ON dbo.OpeningBalance.OpeningBalanceId = dbo.SettlementDetail.PaymentTransactionId WHERE  InvoiceId = Mrn_No AND fkAccountId=" & SettleInvoiceCustomerID & " ), 0) AS ReceivedAmount ," &
+            " + ISNULL(( SELECT SUM(AmountSettled) FROM   dbo.SettlementDetail  JOIN dbo.OpeningBalance  ON dbo.OpeningBalance.OpeningBalanceId = dbo.SettlementDetail.PaymentTransactionId WHERE  InvoiceId = Mrn_No AND fkAccountId=" & SettleInvoiceCustomerID & " ), 0) " &
+            " + ISNULL(( SELECT   SUM(AmountSettled) FROM     ( SELECT DISTINCT ISNULL(AmountSettled, 0) AS AmountSettled ,DebitNote_No , InvoiceId FROM      dbo.SettlementDetail JOIN dbo.DebitNote_Master ON  CAST(dbo.DebitNote_Master.DebitNote_No AS VARCHAR(20))= dbo.SettlementDetail.OpenDrNO  WHERE     InvoiceId = MRN_NO AND SettlementDetail.PaymentTransactionId <= 0  AND DN_CustId = " & SettleInvoiceCustomerID & ") tb  ), 0) AS ReceivedAmount ," &
             " ISNULL(dn_amount, 0) AS DnAmount,Invoice_No FROM   dbo.MATERIAL_RECEIVED_AGAINST_PO_MASTER  JOIN dbo.PO_MASTER ON dbo.PO_MASTER.PO_ID = dbo.MATERIAL_RECEIVED_AGAINST_PO_MASTER.PO_ID " &
             "  LEFT JOIN dbo.DebitNote_Master ON MRNId = MRN_NO WHERE  PO_SUPP_ID =" & SettleInvoiceCustomerID &
             " union  SELECT MRN_NO ,MRN_PREFIX ,MRN_NO ,  dbo.MATERIAL_RECIEVED_WITHOUT_PO_MASTER.Creation_Date AS date ,  MATERIAL_RECIEVED_WITHOUT_PO_MASTER.NET_AMOUNT ," &
-            " ISNULL(( SELECT SUM(AmountSettled)  FROM   dbo.SettlementDetail  JOIN dbo.PaymentTransaction  ON dbo.PaymentTransaction.PaymentTransactionId = dbo.SettlementDetail.PaymentTransactionId  WHERE  InvoiceId = Mrn_No AND AccountId=" & SettleInvoiceCustomerID & "), 0)" &
-            "  + ISNULL(( SELECT SUM(AmountSettled) FROM   dbo.SettlementDetail  JOIN dbo.OpeningBalance  ON dbo.OpeningBalance.OpeningBalanceId = dbo.SettlementDetail.PaymentTransactionId WHERE  InvoiceId = Mrn_No AND fkAccountId=" & SettleInvoiceCustomerID & " ), 0) AS ReceivedAmount ,ISNULL(dn_amount, 0) AS DnAmount, Invoice_No " &
+            " ISNULL(( SELECT SUM(AmountSettled)  FROM   dbo.SettlementDetail  JOIN dbo.PaymentTransaction  ON dbo.PaymentTransaction.PaymentTransactionId = dbo.SettlementDetail.PaymentTransactionId  WHERE  InvoiceId = Mrn_No And AccountId=" & SettleInvoiceCustomerID & "), 0)" &
+            "  + ISNULL(( SELECT SUM(AmountSettled) FROM   dbo.SettlementDetail  JOIN dbo.OpeningBalance  ON dbo.OpeningBalance.OpeningBalanceId = dbo.SettlementDetail.PaymentTransactionId WHERE  InvoiceId = Mrn_No And fkAccountId=" & SettleInvoiceCustomerID & " ), 0)" &
+            "  + ISNULL(( SELECT   SUM(AmountSettled) FROM     ( SELECT DISTINCT ISNULL(AmountSettled, 0) AS AmountSettled ,DebitNote_No , InvoiceId FROM      dbo.SettlementDetail JOIN dbo.DebitNote_Master ON CAST(dbo.DebitNote_Master.DebitNote_No AS VARCHAR(20)) = dbo.SettlementDetail.OpenDrNO  WHERE     InvoiceId = MRN_NO AND SettlementDetail.PaymentTransactionId <= 0  AND DN_CustId = " & SettleInvoiceCustomerID & ") tb  ), 0) As ReceivedAmount ,ISNULL(dn_amount, 0) AS DnAmount, Invoice_No " &
             " FROM   dbo.MATERIAL_RECIEVED_WITHOUT_PO_MASTER  LEFT JOIN dbo.DebitNote_Master ON MRNId = MRN_NO WHERE  Vendor_ID =" & SettleInvoiceCustomerID &
              " UNION SELECT OpeningBalanceId,'Opening Balance',OpeningBalanceId,OpeningDate,OpeningAmount, ISNULL(( SELECT SUM(AmountSettled)FROM   dbo.SettlementDetail JOIN dbo.PaymentTransaction " &
             " ON dbo.PaymentTransaction.PaymentTransactionId = dbo.SettlementDetail.PaymentTransactionId  WHERE  InvoiceId = OpeningBalanceId  AND AccountId = " & SettleInvoiceCustomerID &
             " ), 0) AS ReceivedAmount ,0,'Opening Balance'+CAST(OpeningBalanceId as varchar(20)) FROM dbo.OpeningBalance WHERE TYPE=2 AND FkAccountId=" & SettleInvoiceCustomerID
 
-            Dim dt As DataTable = clsObj.Fill_DataSet(query).Tables(0)
+        Dim dt As DataTable = clsObj.Fill_DataSet(query).Tables(0)
             dgvInvoiceToSettle.RowCount = 0
 
             Dim index As Int16 = 0
