@@ -1391,12 +1391,14 @@ Vendor"
         ' Dim MainTabControl As TabControl = CType(frmMain.Controls("TabControl2"), TabControl)
 
 
-        '  AddHandler frmMain.Menu_Item_Click(sender, e) Handles frm_OpenSale_Invoice.Click
+        '  AddHandler frmMain.Menu_Item_Click(sender, e) Handles frm_OpenSale_Invoice
 
         frmMain.SetEventHandlers(tbp.Controls(0))
         frmMain.TabControl2.TabPages.Add(tbp)
         frmMain.TabControl2.SelectTab(0)
         frmMain.TabControl2.BringToFront()
+
+
 
     End Sub
 
