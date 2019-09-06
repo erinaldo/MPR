@@ -146,7 +146,7 @@ Module GlobalModule
         RptBrandWiseSale = 81
         RptPurchaseSummary_itemwise = 82
         RptAccPaymentInvoicerint = 83
-
+        RptProformaInvoicePrint = 84
     End Enum
     Public Enum IndentStatus As Integer
         Fresh = 1

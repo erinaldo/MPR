@@ -282,6 +282,12 @@
     <Compile Include="Forms\frm_Account_Payment.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Forms\frm_Proforma_Invoice.Designer.vb">
+      <DependentUpon>frm_Proforma_Invoice.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frm_Proforma_Invoice.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Forms\frm_SetEcommerce_Vendor.Designer.vb">
       <DependentUpon>frm_SetEcommerce_Vendor.vb</DependentUpon>
     </Compile>
@@ -980,6 +986,12 @@
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Reports\cry_Proforma_Invoice.vb">
+      <DependentUpon>cry_Proforma_Invoice.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Reports\cry_Tax_Invoice .vb">
       <DependentUpon>cry_Tax_Invoice .rpt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -1581,6 +1593,10 @@
     <EmbeddedResource Include="Forms\frm_Account_Payment.resx">
       <DependentUpon>frm_Account_Payment.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frm_Proforma_Invoice.resx">
+      <DependentUpon>frm_Proforma_Invoice.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\frm_SetEcommerce_Vendor.resx">
       <DependentUpon>frm_SetEcommerce_Vendor.vb</DependentUpon>
       <SubType>Designer</SubType>
@@ -1998,6 +2014,10 @@
     <EmbeddedResource Include="Reports\Cry_DeliveryNote.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>Cry_DeliveryNote.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\cry_Proforma_Invoice.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cry_Proforma_Invoice.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\cry_Tax_Invoice .rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
@@ -2474,6 +2494,7 @@
     <Content Include="Scripts\2018Update\0042_24_Oct_2018_Delivery Challan.sql" />
     <Content Include="Scripts\2018Update\0043_30_Oct_2018_Ac_Opening_and_DebitNote_Fix.sql" />
     <Content Include="Scripts\2019Update\0044_08_Apr_2019_All_Proc_View_Function_Type.sql" />
+    <Content Include="Scripts\2019Update\0045_19_AUG_2019_MRN_EDIT_ISSUE.sql" />
     <Content Include="Scripts\Updates\00001_29_Dec_Add_Duty_And_Taxes.sql" />
     <Content Include="Scripts\Updates\0001_04_Jan_2018_Stock_Transfer.sql" />
     <Content Include="Scripts\Updates\0001_16_JAN_2018.sql" />

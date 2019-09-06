@@ -1503,7 +1503,8 @@ Public MustInherit Class Connection
                 End If
 
 
-
+            ElseIf RptNo = enmReportName.RptProformaInvoicePrint Then
+                filepath = ReportFilePath & "cry_Proforma_Invoice.rpt"
 
             ElseIf RptNo = enmReportName.RptDCInvoicePrint Then
                 filepath = ReportFilePath & "cry_DC_Sale_Invoice.rpt"
@@ -1664,6 +1665,11 @@ Public MustInherit Class Connection
                     ElseIf RptNo = enmReportName.RptInvoicePrint Then
                         PInteger = CInt(value(ArrIndex))
                         rep.SetParameterValue("SI_ID", CInt(value(ArrIndex)))
+
+                    ElseIf RptNo = enmReportName.RptProformaInvoicePrint Then
+                        PInteger = CInt(value(ArrIndex))
+                        rep.SetParameterValue("SI_ID", CInt(value(ArrIndex)))
+
                     ElseIf RptNo = enmReportName.RptDCInvoicePrint Then
                         PInteger = CInt(value(ArrIndex))
                         rep.SetParameterValue("SI_ID", CInt(value(ArrIndex)))

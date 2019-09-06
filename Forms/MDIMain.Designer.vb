@@ -180,6 +180,7 @@ Partial Class MDIMain
         Me.picLogo = New System.Windows.Forms.PictureBox()
         Me.TabControl2 = New System.Windows.Forms.TabControl()
         Me.frm_open_invoice = New System.Windows.Forms.ToolStripMenuItem()
+        Me.frm_Proforma_Invoice = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.toolbar.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
@@ -624,7 +625,7 @@ Partial Class MDIMain
         '
         Me.frmsaleinvoice.AutoSize = False
         Me.frmsaleinvoice.BackColor = System.Drawing.Color.FromArgb(CType(CType(66, Byte), Integer), CType(CType(66, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.frmsaleinvoice.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.frm_Customer_Rate_List_Master, Me.frm_OpenSale_Invoice, Me.frm_Sale_Invoice, Me.frm_BillBook, Me.frm_EwayBill, Me.frm_CreditNote, Me.frm_GatePass})
+        Me.frmsaleinvoice.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.frm_Customer_Rate_List_Master, Me.frm_Proforma_Invoice, Me.frm_OpenSale_Invoice, Me.frm_Sale_Invoice, Me.frm_BillBook, Me.frm_EwayBill, Me.frm_CreditNote, Me.frm_GatePass})
         Me.frmsaleinvoice.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Bold)
         Me.frmsaleinvoice.ForeColor = System.Drawing.Color.White
         Me.frmsaleinvoice.Image = Global.MMSPlus.My.Resources.Resources.Client_list_text
@@ -640,7 +641,7 @@ Partial Class MDIMain
         Me.frm_Customer_Rate_List_Master.ForeColor = System.Drawing.Color.White
         Me.frm_Customer_Rate_List_Master.Image = Global.MMSPlus.My.Resources.Resources.Supplier_Rate_List
         Me.frm_Customer_Rate_List_Master.Name = "frm_Customer_Rate_List_Master"
-        Me.frm_Customer_Rate_List_Master.Size = New System.Drawing.Size(181, 22)
+        Me.frm_Customer_Rate_List_Master.Size = New System.Drawing.Size(200, 22)
         Me.frm_Customer_Rate_List_Master.Text = "Customer Rate List"
         '
         'frm_OpenSale_Invoice
@@ -649,7 +650,7 @@ Partial Class MDIMain
         Me.frm_OpenSale_Invoice.ForeColor = System.Drawing.Color.White
         Me.frm_OpenSale_Invoice.Image = Global.MMSPlus.My.Resources.Resources.Pad_note_paper_game_document
         Me.frm_OpenSale_Invoice.Name = "frm_OpenSale_Invoice"
-        Me.frm_OpenSale_Invoice.Size = New System.Drawing.Size(181, 22)
+        Me.frm_OpenSale_Invoice.Size = New System.Drawing.Size(200, 22)
         Me.frm_OpenSale_Invoice.Text = "Open Invoice"
         '
         'frm_Sale_Invoice
@@ -658,7 +659,7 @@ Partial Class MDIMain
         Me.frm_Sale_Invoice.ForeColor = System.Drawing.Color.White
         Me.frm_Sale_Invoice.Image = Global.MMSPlus.My.Resources.Resources.Stock_In
         Me.frm_Sale_Invoice.Name = "frm_Sale_Invoice"
-        Me.frm_Sale_Invoice.Size = New System.Drawing.Size(181, 22)
+        Me.frm_Sale_Invoice.Size = New System.Drawing.Size(200, 22)
         Me.frm_Sale_Invoice.Text = "Sale Invoice"
         '
         'frm_BillBook
@@ -667,7 +668,7 @@ Partial Class MDIMain
         Me.frm_BillBook.ForeColor = System.Drawing.Color.White
         Me.frm_BillBook.Image = Global.MMSPlus.My.Resources.Resources.Approve_PO
         Me.frm_BillBook.Name = "frm_BillBook"
-        Me.frm_BillBook.Size = New System.Drawing.Size(181, 22)
+        Me.frm_BillBook.Size = New System.Drawing.Size(200, 22)
         Me.frm_BillBook.Text = "Bill Book"
         '
         'frm_EwayBill
@@ -676,7 +677,7 @@ Partial Class MDIMain
         Me.frm_EwayBill.ForeColor = System.Drawing.Color.White
         Me.frm_EwayBill.Image = Global.MMSPlus.My.Resources.Resources.Approve_PO
         Me.frm_EwayBill.Name = "frm_EwayBill"
-        Me.frm_EwayBill.Size = New System.Drawing.Size(181, 22)
+        Me.frm_EwayBill.Size = New System.Drawing.Size(200, 22)
         Me.frm_EwayBill.Text = "Eway Bill"
         '
         'frm_CreditNote
@@ -685,7 +686,7 @@ Partial Class MDIMain
         Me.frm_CreditNote.ForeColor = System.Drawing.Color.White
         Me.frm_CreditNote.Image = Global.MMSPlus.My.Resources.Resources.Indent
         Me.frm_CreditNote.Name = "frm_CreditNote"
-        Me.frm_CreditNote.Size = New System.Drawing.Size(181, 22)
+        Me.frm_CreditNote.Size = New System.Drawing.Size(200, 22)
         Me.frm_CreditNote.Text = "Credit Note"
         '
         'frm_GatePass
@@ -694,7 +695,7 @@ Partial Class MDIMain
         Me.frm_GatePass.ForeColor = System.Drawing.Color.White
         Me.frm_GatePass.Image = Global.MMSPlus.My.Resources.Resources.How_to_add_archive_files
         Me.frm_GatePass.Name = "frm_GatePass"
-        Me.frm_GatePass.Size = New System.Drawing.Size(181, 22)
+        Me.frm_GatePass.Size = New System.Drawing.Size(200, 22)
         Me.frm_GatePass.Text = "Gate Pass"
         '
         'Recipe
@@ -1737,6 +1738,15 @@ Partial Class MDIMain
         Me.frm_open_invoice.Size = New System.Drawing.Size(181, 22)
         Me.frm_open_invoice.Text = "Opne Invoice"
         '
+        'frm_Proforma_Invoice
+        '
+        Me.frm_Proforma_Invoice.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.frm_Proforma_Invoice.ForeColor = System.Drawing.Color.White
+        Me.frm_Proforma_Invoice.Image = Global.MMSPlus.My.Resources.Resources.Approve_Indent
+        Me.frm_Proforma_Invoice.Name = "frm_Proforma_Invoice"
+        Me.frm_Proforma_Invoice.Size = New System.Drawing.Size(181, 22)
+        Me.frm_Proforma_Invoice.Text = "Proforma Invoice"
+        '
         'MDIMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1923,4 +1933,5 @@ Partial Class MDIMain
     Friend WithEvents frm_PurchaseAnalysis As ToolStripMenuItem
     Friend WithEvents frm_StockAnalysis As ToolStripMenuItem
     Friend WithEvents Frm_Account_Analysis As ToolStripMenuItem
+    Friend WithEvents frm_Proforma_Invoice As ToolStripMenuItem
 End Class

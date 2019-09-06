@@ -3,10 +3,8 @@ Imports System.Data.SqlClient
 Imports System.Data
 Imports C1.Win.C1FlexGrid
 Imports System.Text.RegularExpressions
-Public Class frm_openSale_Invoice
+Public Class frm_Proforma_Invoice
     Implements IForm
-
-    Public PI_INVID As String = ""
 
     Dim obj As New CommonClass
     Dim clsObj As New cls_Sale_Invoice_master
@@ -33,9 +31,9 @@ Public Class frm_openSale_Invoice
 
             strsql = "SELECT * FROM (SELECT SI_ID," &
             "(SI_CODE+CAST(SI_NO AS VARCHAR)) AS InvNo,('DC/'+CAST(DC_GST_NO AS VARCHAR) ) AS [DC NO]," &
-            " dbo.fn_Format(dbo.SALE_INVOICE_MASTER.CREATION_DATE) AS [INV DATE]," &
-            " NET_AMOUNT AS Amount,ACC_NAME Customer,CASE WHEN INVOICE_STATUS =1 THEN 'Fresh'  WHEN INVOICE_STATUS =2 THEN 'Pending' WHEN INVOICE_STATUS =3 THEN 'Clear'  WHEN INVOICE_STATUS =4 THEN 'Cancel' END AS Status FROM dbo.SALE_INVOICE_MASTER " &
-            "JOIN dbo.ACCOUNT_MASTER ON ACCOUNT_MASTER.ACC_ID=dbo.SALE_INVOICE_MASTER.CUST_ID where FLAG=1)tb " &
+            " dbo.fn_Format(dbo.PROFORMA_INVOICE_MASTER.CREATION_DATE) AS [INV DATE]," &
+            " NET_AMOUNT AS Amount,ACC_NAME Customer,CASE WHEN INVOICE_STATUS =1 THEN 'Fresh'  WHEN INVOICE_STATUS =2 THEN 'Pending' WHEN INVOICE_STATUS =3 THEN 'Clear'  WHEN INVOICE_STATUS =4 THEN 'Cancel' END AS Status FROM dbo.PROFORMA_INVOICE_MASTER " &
+            "JOIN dbo.ACCOUNT_MASTER ON ACCOUNT_MASTER.ACC_ID=dbo.PROFORMA_INVOICE_MASTER.CUST_ID where FLAG=1)tb " &
             "WHERE (CAST(SI_ID AS varchar) +InvNo+[DC NO]+[INV DATE]+ CAST(tb.Amount AS VARCHAR)+tb.Customer+tb.Status) LIKE '%" & condition & "%'  order by 1"
 
             Dim dt As DataTable = obj.Fill_DataSet(strsql).Tables(0)
@@ -62,7 +60,7 @@ Public Class frm_openSale_Invoice
             'obj.FormatGrid(flxItems)
             table_style()
             cmbCity.Enabled = False
-            Dim a As String = PI_INVID
+
             CustomerBind()
             cmbSupplier.Visible = True
             txtcustomer_name.Visible = False
@@ -117,13 +115,13 @@ Public Class frm_openSale_Invoice
 
             prpty = New cls_Sale_Invoice_prop
 
-            Dim ds1 As DataSet = obj.FillDataSet("Select isnull(max(SI_ID),0) + 1 from dbo.SALE_INVOICE_MASTER")
+            Dim ds1 As DataSet = obj.FillDataSet("Select isnull(max(SI_ID),0) + 1 from dbo.PROFORMA_INVOICE_MASTER")
             If flag = "save" Then
                 Si_ID = Convert.ToInt32(ds1.Tables(0).Rows(0)(0))
             End If
             prpty.SI_ID = Si_ID
             Dim ds As New DataSet()
-            ds = obj.fill_Data_set("GET_INV_NO", "@DIV_ID", v_the_current_division_id)
+            ds = obj.fill_Data_set("GET_PROFORMA_INV_NO", "@DIV_ID", v_the_current_division_id)
             If ds.Tables(0).Rows.Count = 0 Then
                 MsgBox("Invoice series does not exists", MsgBoxStyle.Information, gblMessageHeading)
                 ds.Dispose()
@@ -166,7 +164,7 @@ Public Class frm_openSale_Invoice
             End If
 
             prpty.INVOICE_STATUS = Convert.ToInt32(GlobalModule.InvoiceStatus.Clear)
-            prpty.REMARKS = ""
+            prpty.REMARKS = txtRemarks.Text
             prpty.PAYMENTS_REMARKS = ""
             prpty.ConsumerHeadID = EcomVendor_ID
             If rbtn_Cash.Checked Then
@@ -208,21 +206,23 @@ Public Class frm_openSale_Invoice
             prpty.freight = Convert.ToDecimal(txtAmount.Text)
 
             If flag = "save" Then
-                clsObj.Insert_SALE_INVOICE_MASTER(prpty)
+                clsObj.Insert_PROFORMA_INVOICE_MASTER(prpty)
                 If MsgBox("Invoice information has been Saved." & vbCrLf & "Do You Want to Print Preview.", MsgBoxStyle.Question + MsgBoxStyle.YesNo, gblMessageHeading) = MsgBoxResult.Yes Then
-                    obj.RptShow(enmReportName.RptInvoicePrint, "Si_ID", CStr(prpty.SI_ID), CStr(enmDataType.D_int))
+                    obj.RptShow(enmReportName.RptProformaInvoicePrint, "Si_ID", CStr(prpty.SI_ID), CStr(enmDataType.D_int))
                 End If
 
             Else
                 prpty.EwayBill_NO = txtEwayBillNo.Text.ToUpper()
-                clsObj.Update_SALE_INVOICE_MASTER(prpty)
+                clsObj.Update_PROFORMA_INVOICE_MASTER(prpty)
                 If MsgBox("Invoice information has been Updated." & vbCrLf & "Do You Want to Print Preview.", MsgBoxStyle.Question + MsgBoxStyle.YesNo, gblMessageHeading) = MsgBoxResult.Yes Then
-                    obj.RptShow(enmReportName.RptInvoicePrint, "Si_ID", CStr(prpty.SI_ID), CStr(enmDataType.D_int))
+                    obj.RptShow(enmReportName.RptProformaInvoicePrint, "Si_ID", CStr(prpty.SI_ID), CStr(enmDataType.D_int))
                 End If
             End If
             fill_grid()
 
+            txtRemarks.Text = ""
             new_initilization()
+
         Catch ex As Exception
             obj.MyCon_RollBackTransaction(cmd)
             MsgBox(gblMessageHeading_Error & vbCrLf & gblMessage_ContactInfo & vbCrLf & ex.Message, MsgBoxStyle.Critical, gblMessageHeading)
@@ -234,11 +234,11 @@ Public Class frm_openSale_Invoice
             If TabControl1.SelectedIndex = 0 Then
                 If flxList.SelectedRows.Count > 0 Then
                     'obj.RptShow(enmReportName.RptInvoicePrint, "Si_ID", CStr(flxList.SelectedRows(0).Cells("Si_id").Value), CStr(enmDataType.D_int))
-                    obj.RptShow(enmReportName.RptInvoicePrint, "Si_ID", CStr(flxList("Si_ID", flxList.CurrentCell.RowIndex).Value()), CStr(enmDataType.D_int))
+                    obj.RptShow(enmReportName.RptProformaInvoicePrint, "Si_ID", CStr(flxList("Si_ID", flxList.CurrentCell.RowIndex).Value()), CStr(enmDataType.D_int))
                 End If
             Else
                 If flag <> "save" Then
-                    obj.RptShow(enmReportName.RptInvoicePrint, "Si_ID", CStr(Si_ID), CStr(enmDataType.D_int))
+                    obj.RptShow(enmReportName.RptProformaInvoicePrint, "Si_ID", CStr(Si_ID), CStr(enmDataType.D_int))
                 End If
             End If
         Catch ex As Exception
@@ -287,7 +287,7 @@ Vendor"
         '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
         Dim ds As New DataSet()
-        ds = obj.fill_Data_set("GET_INV_NO", "@DIV_ID", v_the_current_division_id)
+        ds = obj.fill_Data_set("GET_PROFORMA_INV_NO", "@DIV_ID", v_the_current_division_id)
         If ds.Tables(0).Rows.Count = 0 Then
             lbl_INVNo.Text = "Invoice series does not exists"
             ds.Dispose()
@@ -466,6 +466,8 @@ again:
         flxItems.Cols("Expiry_date").AllowEditing = False
         flxItems.Cols("Expiry_date").Visible = False
         flxItems.Cols("batch_qty").AllowEditing = False
+        flxItems.Cols("batch_qty").Visible = False
+
         flxItems.Cols("Stock_Detail_Id").AllowEditing = False
         flxItems.Cols("transfer_Qty").AllowEditing = True
         flxItems.Cols("Item_Rate").AllowEditing = True
@@ -488,16 +490,16 @@ again:
         flxItems.Cols("UM_Name").Width = 32
         'flxItems.Cols("Batch_No").Width = 70
         flxItems.Cols("Amount").Width = 60
-        flxItems.Cols("Batch_Qty").Width = 45
+        flxItems.Cols("Batch_Qty").Width = 1
         flxItems.Cols("Stock_Detail_Id").Width = 10
-        flxItems.Cols("transfer_Qty").Width = 50
-        flxItems.Cols("Item_Rate").Width = 55
+        flxItems.Cols("transfer_Qty").Width = 70
+        flxItems.Cols("Item_Rate").Width = 65
         'flxItems.Cols("MRP").Width = 50
         flxItems.Cols("DType").Width = 40
         flxItems.Cols("DISC").Width = 40
         flxItems.Cols("GPAID").Width = 55
-        flxItems.Cols("GST").Width = 40
-        flxItems.Cols("GST_Amount").Width = 55
+        flxItems.Cols("GST").Width = 45
+        flxItems.Cols("GST_Amount").Width = 75
         flxItems.Cols("Cess").Width = 40
         flxItems.Cols("ACess").Width = 55
         flxItems.Cols("Cess_Amount").Width = 1
@@ -712,15 +714,15 @@ restart:
                                             " INNER JOIN STOCK_DETAIL SD ON ID.ITEM_ID = SD.Item_id " &
                                             " INNER JOIN UNIT_MASTER UM ON IM.UM_ID = UM.UM_ID" &
                                     " where " &
-                                            " IM.ITEM_ID = " & item_id & " and SD.Balance_Qty > 0"
+                                            " IM.ITEM_ID = " & item_id & " " 'And SD.Balance_Qty > 0"
                 ds = clsObj.Fill_DataSet(sqlqry)
 
                 Dim i As Integer
                 Dim dr As DataRow
 
-                If ds.Tables(0).Rows.Count > 0 Then
-                    'obj.RemoveBlankRow(dtable_Item_List, "item_id")
-                    For i = 0 To ds.Tables(0).Rows.Count - 1
+                'If ds.Tables(0).Rows.Count > 0 Then
+                'obj.RemoveBlankRow(dtable_Item_List, "item_id")
+                For i = 0 To ds.Tables(0).Rows.Count - 1
                         dr = dtable_Item_List.NewRow
                         dr("Item_Id") = ds.Tables(0).Rows(i)("ITEM_ID")
                         dr("Item_Code") = ds.Tables(0).Rows(i)("ITEM_CODE")
@@ -774,9 +776,9 @@ restart:
                     flxItems.Col = 7
                     flxItems.ColSel = 7
 
-                Else
-                    MsgBox("Stock is not avaialable for this Item.", MsgBoxStyle.Information)
-                End If
+                'Else
+                '    MsgBox("Stock is not avaialable for this Item.", MsgBoxStyle.Information)
+                'End If
             End If
 
         Catch ex As Exception
@@ -805,12 +807,12 @@ restart:
             Exit Sub
         End If
 
-        If Convert.ToDecimal(flxItems.Rows(e.Row)("transfer_Qty")) > Convert.ToDecimal(flxItems.Rows(e.Row)("Batch_Qty")) Then
-            MsgBox("transfer quantity cant be greater than batch quantity  !", MsgBoxStyle.Information, gblMessageHeading)
-            flxItems.Rows(e.Row)("transfer_Qty") = 0.0
-            ' generate_tree()
-        Else
-            Dim discamt As Decimal = 0.0
+        ''If Convert.ToDecimal(flxItems.Rows(e.Row)("transfer_Qty")) > Convert.ToDecimal(flxItems.Rows(e.Row)("Batch_Qty")) Then
+        ''    MsgBox("transfer quantity cant be greater than batch quantity  !", MsgBoxStyle.Information, gblMessageHeading)
+        ''    flxItems.Rows(e.Row)("transfer_Qty") = 0.0
+        ''    ' generate_tree()
+        ''Else
+        Dim discamt As Decimal = 0.0
 
             flxItems.Rows(e.Row)("Amount") = Math.Round(flxItems.Rows(e.Row)("transfer_Qty") * (flxItems.Rows(e.Row)("item_rate")), 2)
 
@@ -841,7 +843,7 @@ restart:
 
             '  generate_tree()
 
-        End If
+        'End If
 
         CalculateAmount()
 
@@ -861,10 +863,10 @@ restart:
         Status = flxList.SelectedRows(0).Cells("Status").Value
 
         If Status <> "Cancel" Then
-            Dim strSql As String
-            Dim count As Int32
-            strSql = " SELECT COUNT(*) FROM dbo.SettlementDetail JOIN dbo.PaymentTransaction ON dbo.PaymentTransaction.PaymentTransactionId = dbo.SettlementDetail.PaymentTransactionId  where  PM_TYPE=1 and InvoiceId= " & flxList("Si_ID", flxList.CurrentCell.RowIndex).Value()
-            count = obj.Fill_DataSet(strSql).Tables(0).Rows(0)(0)
+            'Dim strSql As String
+            Dim count As Int32 = 0
+            'strSql = " SELECT COUNT(*) FROM dbo.SettlementDetail JOIN dbo.PaymentTransaction ON dbo.PaymentTransaction.PaymentTransactionId = dbo.SettlementDetail.PaymentTransactionId  where  PM_TYPE=1 and InvoiceId= " & flxList("Si_ID", flxList.CurrentCell.RowIndex).Value()
+            'count = obj.Fill_DataSet(strSql).Tables(0).Rows(0)(0)
             If count > 0 Then
                 MsgBox("You Can't Edit Settled Invoice." & vbCrLf & "Please click in print to view/print this Invoice/ DC.", MsgBoxStyle.Information)
             Else
@@ -884,7 +886,7 @@ restart:
     Private Sub fill_InvoiceDetail(ByVal strSIID As Integer)
         Dim dt As DataTable
 
-        dt = clsObj.fill_Data_set("GET_INV_DETAIL", "@V_SI_ID", strSIID.ToString()).Tables(0)
+        dt = clsObj.fill_Data_set("GET_PROFORMA_INV_DETAIL", "@V_SI_ID", strSIID.ToString()).Tables(0)
         If dt.Rows.Count > 0 Then
             Dim dr As DataRow = dt.Rows(0)
             Si_No = dr("INVNO")
@@ -901,6 +903,7 @@ restart:
             txtvechicle_no.Text = dr("VEHICLE_NO")
             txtTransport.Text = dr("TRANSPORT")
             txtLRNO.Text = dr("LR_NO")
+            txtRemarks.Text = dr("Remarks")
             cmbinvtype.Text = dr("INV_TYPE")
             txtEwayBillNo.Text = dr("EwayBillNo")
             txtAmount.Text = Convert.ToString(dr("freight"))
@@ -917,7 +920,7 @@ restart:
             End If
             RemoveHandler flxItems.AfterDataRefresh, AddressOf flxItems_AfterDataRefresh
 
-            dtable_Item_List = clsObj.fill_Data_set("GET_INV_ITEM_DETAILS", "@V_SI_ID", strSIID).Tables(0)
+            dtable_Item_List = clsObj.fill_Data_set("GET_PROFORMA_INV_ITEM_DETAILS", "@V_SI_ID", strSIID).Tables(0)
             flxItems.DataSource = dtable_Item_List
             format_grid()
 
@@ -1177,7 +1180,7 @@ restart:
         If flxList.SelectedRows.Count > 0 Then
             'obj.RptShow(enmReportName.RptInvoicePrint, "Si_ID", CStr(flxList.SelectedRows(0).Cells("Si_id").Value), CStr(enmDataType.D_int))
 
-            obj.RptShow(enmReportName.RptInvoicePrint, "Si_ID", CStr(flxList("Si_ID", flxList.CurrentCell.RowIndex).Value()), CStr(enmDataType.D_int))
+            obj.RptShow(enmReportName.RptProformaInvoicePrint, "Si_ID", CStr(flxList("Si_ID", flxList.CurrentCell.RowIndex).Value()), CStr(enmDataType.D_int))
 
         End If
     End Sub
@@ -1368,4 +1371,33 @@ Vendor"
     Private Sub chk_ApplyTax_CheckedChanged(sender As Object, e As EventArgs) Handles chk_ApplyTax.CheckedChanged
         CalculateAmount()
     End Sub
+
+    Dim cls_obj As New CommonClass
+
+    Private Sub btnGenerateInvoice_Click(sender As Object, e As EventArgs) Handles btnGenerateInvoice.Click
+        Dim prpty_form_rights As New Form_Rights
+        Dim frmMain As New MDIMain()
+        Dim tbp As New TabPage
+
+        prpty_form_rights = cls_obj.Get_Form_Rights("frm_openSale_Invoice")
+        prpty_form_rights.allow_view = "Y"
+
+        Dim SaleInv As New frm_openSale_Invoice(prpty_form_rights)
+        SaleInv.PI_INVID = CStr(flxList("Si_ID", flxList.CurrentCell.RowIndex).Value())
+
+        tbp.Text = "Open Invoice"
+        tbp.Controls.Add(New frm_openSale_Invoice(prpty_form_rights))
+
+        ' Dim MainTabControl As TabControl = CType(frmMain.Controls("TabControl2"), TabControl)
+
+
+        '  AddHandler frmMain.Menu_Item_Click(sender, e) Handles frm_OpenSale_Invoice.Click
+
+        frmMain.SetEventHandlers(tbp.Controls(0))
+        frmMain.TabControl2.TabPages.Add(tbp)
+        frmMain.TabControl2.SelectTab(0)
+        frmMain.TabControl2.BringToFront()
+
+    End Sub
+
 End Class

@@ -150,11 +150,12 @@ Public Class frm_Item_Master
             Barcode_Vch ,
             ITEM_MASTER.ITEM_NAME ,
             UNIT_MASTER.UM_Name ,
+            CAST(ITEM_MASTER.Purchase_Rate AS NUMERIC(18, 2)) as Purchase_Rate,
             ITEM_CATEGORY.ITEM_CAT_NAME ,       
             ISNULL(litems.LabelItemName_vch, '') AS Brand,
             CASE WHEN ISNULL(Item_Detail.IS_ACTIVE,0) = 1 THEN 'Active'
-            ELSE 'InActive' End AS ItemStatus,
-           CAST( dbo.Get_Average_Rate_as_on_date(ITEM_MASTER.ITEM_ID,'" & Now.ToString("dd-MMM-yyyy") & "'," & v_the_current_division_id & ",0) AS NUMERIC(18, 2)) as [Avg Rate]
+            ELSE 'InActive' End AS ItemStatus            
+           -- CAST( dbo.Get_Average_Rate_as_on_date(ITEM_MASTER.ITEM_ID,'" & Now.ToString("dd-MMM-yyyy") & "'," & v_the_current_division_id & ",0) AS NUMERIC(18, 2)) as [Avg Rate]
   FROM      ITEM_MASTER
 			LEFT OUTER JOIN Item_Detail ON ITEM_MASTER.item_id = Item_Detail.item_id
             INNER JOIN UNIT_MASTER ON ITEM_MASTER.UM_ID = UNIT_MASTER.UM_ID
@@ -179,16 +180,17 @@ Public Class frm_Item_Master
             grdItemMaster.Columns(2).Width = 100
             grdItemMaster.Columns(3).HeaderText = "Item Name"
             grdItemMaster.Columns(3).Width = 250
-            grdItemMaster.Columns(4).HeaderText = "Item Unit"
-            grdItemMaster.Columns(4).Width = 100
-            grdItemMaster.Columns(5).HeaderText = "Item Category Name"
-            grdItemMaster.Columns(5).Width = 130
-            grdItemMaster.Columns(6).HeaderText = "Brand"
-            grdItemMaster.Columns(6).Width = 80
-            grdItemMaster.Columns(7).HeaderText = "Status"
-            grdItemMaster.Columns(7).Width = 60
-            grdItemMaster.Columns(8).HeaderText = "Purchase Cost"
+            grdItemMaster.Columns(4).HeaderText = "UOM"
+            grdItemMaster.Columns(4).Width = 40
+            grdItemMaster.Columns(5).HeaderText = "Pur.Cost"
+            grdItemMaster.Columns(5).Width = 60
+            grdItemMaster.Columns(6).HeaderText = "Item Category Name"
+            grdItemMaster.Columns(6).Width = 130
+            grdItemMaster.Columns(7).HeaderText = "Brand"
+            grdItemMaster.Columns(7).Width = 80
+            grdItemMaster.Columns(8).HeaderText = "Status"
             grdItemMaster.Columns(8).Width = 60
+
 
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "Error --> FillGrid")
@@ -226,11 +228,12 @@ Public Class frm_Item_Master
                                                 ITEM_MASTER.Barcode_Vch ,
                                                 ITEM_MASTER.ITEM_NAME ,
                                                 UNIT_MASTER.UM_Name ,
+                                                CAST(ITEM_MASTER.Purchase_Rate AS NUMERIC(18, 2)) as Purchase_Rate,
                                                 ITEM_CATEGORY.ITEM_CAT_NAME ,       
                                                 ISNULL(litems.LabelItemName_vch, '') AS Brand,
                                                 CASE WHEN ISNULL(Item_Detail.IS_ACTIVE,0) = 1 THEN 'Active'
-                                                ELSE 'InActive' End AS ItemStatus,
-                                                CAST( dbo.Get_Average_Rate_as_on_date(ITEM_MASTER.ITEM_ID,'" & Now.ToString("dd-MMM-yyyy") & "'," & v_the_current_division_id & ",0) AS NUMERIC(18, 2)) as [Avg Rate]
+                                                ELSE 'InActive' End AS ItemStatus
+                                               -- CAST( dbo.Get_Average_Rate_as_on_date(ITEM_MASTER.ITEM_ID,'" & Now.ToString("dd-MMM-yyyy") & "'," & v_the_current_division_id & ",0) AS NUMERIC(18, 2)) as [Avg Rate]
                                                 FROM  ITEM_MASTER
 			                                    LEFT OUTER JOIN Item_Detail ON ITEM_MASTER.item_id = Item_Detail.item_id
                                                 INNER JOIN UNIT_MASTER ON ITEM_MASTER.UM_ID = UNIT_MASTER.UM_ID
@@ -264,9 +267,9 @@ Public Class frm_Item_Master
             '    & " where ITEM_ID =" & Convert.ToString(ItemID)
             Qry = "SELECT UNIT_MASTER.UM_ID, UNIT_MASTER.UM_Name, ITEM_CATEGORY.ITEM_CAT_ID, ITEM_CATEGORY.ITEM_CAT_NAME, ITEM_MASTER.ITEM_ID, " _
                     & " ITEM_MASTER.ITEM_CODE, ITEM_MASTER.ITEM_NAME, ITEM_MASTER.ITEM_DESC, ITEM_MASTER.UM_ID AS Expr1,  " _
-                    & "  ITEM_MASTER.ISSUE_UM_ID, ITEM_MASTER.RECP_UM_ID, ITEM_MASTER.ITEM_CATEGORY_ID, " _
+                    & " ITEM_MASTER.ISSUE_UM_ID, ITEM_MASTER.RECP_UM_ID, ITEM_MASTER.ITEM_CATEGORY_ID, " _
                     & " ITEM_MASTER.CONV_FAC_ISSUE, ITEM_MASTER.CONV_FAC_RECP, CAST(ITEM_MASTER.RE_ORDER_LEVEL AS NUMERIC(18, 3)) AS RE_ORDER_LEVEL , CAST(ITEM_MASTER.RE_ORDER_QTY AS NUMERIC(18, 3)) AS RE_ORDER_QTY, " _
-                    & " CAST( dbo.Get_Average_Rate_as_on_date(ITEM_MASTER.ITEM_ID,'" & Now.ToString("dd-MMM-yyyy") & "'," & v_the_current_division_id & ",0) AS NUMERIC(18, 2)) as [Avg Rate]," _
+                    & " CAST(ITEM_MASTER.Purchase_Rate AS NUMERIC(18, 2)) as Purchase_Rate," _
                     & " ITEM_MASTER.TRANSFER_RATE, ITEM_MASTER.SALE_RATE, ITEM_MASTER.PURCHASE_RATE, ITEM_MASTER.VAT_ID, ITEM_MASTER.EXCISE_ID, " _
                     & " ITEM_MASTER.CREATED_BY, ITEM_MASTER.CREATION_DATE, ITEM_MASTER.MODIFIED_BY, ITEM_MASTER.MODIFIED_DATE, " _
                     & " ITEM_MASTER.DIVISION_ID, ITEM_MASTER.IS_STOCKABLE, UNIT_MASTER_1.UM_Name AS ISSUE_UOM, " _
@@ -300,7 +303,7 @@ Public Class frm_Item_Master
                 chkIsStockable.Checked = Convert.ToBoolean(drv("IS_STOCKABLE"))
                 chkIsActive.Checked = True
                 txtCurrentStock.Text = "0.000"
-                lblAverageRate.Text = drv("Avg Rate").ToString()
+                lblAverageRate.Text = drv("Purchase_Rate").ToString()
                 lblmrp.Text = drv("MRP").ToString()
                 lblSalerate.Text = drv("SALERATE").ToString()
                 lblhsn.Text = drv("HSNCODE").ToString()

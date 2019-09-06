@@ -1359,6 +1359,457 @@ again:
             End Try
         End Sub
 
+        Public Sub Insert_PROFORMA_INVOICE_MASTER(ByVal clsobj As cls_Sale_Invoice_prop)
+            Try
+                Dim tran As SqlTransaction
+                If con.State = ConnectionState.Closed Then con.Open()
+                tran = con.BeginTransaction()
+                cmd = New SqlCommand
+                cmd.Connection = con
+                cmd.Transaction = tran
+                cmd.CommandType = CommandType.StoredProcedure
+                cmd.CommandText = "PROC_PROFORMA_INVOICE_MASTER"
+                cmd.Parameters.AddWithValue("@v_SI_ID", clsobj.SI_ID)
+                cmd.Parameters.AddWithValue("@v_SI_CODE", clsobj.SI_CODE)
+                cmd.Parameters.AddWithValue("@v_SI_NO", clsobj.SI_NO)
+                cmd.Parameters.AddWithValue("@v_DC_NO", clsobj.DC_GST_NO)
+                cmd.Parameters.AddWithValue("@v_SI_DATE", clsobj.SI_DATE)
+                cmd.Parameters.AddWithValue("@v_CUST_ID", clsobj.CUST_ID)
+                cmd.Parameters.AddWithValue("@V_INVOICE_STATUS", clsobj.INVOICE_STATUS)
+                cmd.Parameters.AddWithValue("@v_REMARKS", clsobj.REMARKS)
+                cmd.Parameters.AddWithValue("@v_PAYMENTS_REMARKS", clsobj.PAYMENTS_REMARKS)
+                cmd.Parameters.AddWithValue("@v_SALE_TYPE", clsobj.SALE_TYPE)
+                cmd.Parameters.AddWithValue("@v_GROSS_AMOUNT", clsobj.GROSS_AMOUNT)
+                cmd.Parameters.AddWithValue("@v_VAT_AMOUNT", clsobj.VAT_AMOUNT)
+
+                cmd.Parameters.AddWithValue("@v_CESS_AMOUNT", clsobj.CESS_AMOUNT)
+                cmd.Parameters.AddWithValue("@v_ACESS_AMOUNT", clsobj.ACESS_AMOUNT)
+
+                cmd.Parameters.AddWithValue("@v_NET_AMOUNT", clsobj.NET_AMOUNT)
+                cmd.Parameters.AddWithValue("@V_IS_SAMPLE", clsobj.IS_SAMPLE)
+                cmd.Parameters.AddWithValue("@V_DELIVERY_NOTE_NO", clsobj.DELIVERY_NOTE_NO)
+                cmd.Parameters.AddWithValue("@V_VAT_CST_PER", clsobj.VAT_CST_PER)
+                cmd.Parameters.AddWithValue("@V_SAMPLE_ADDRESS", clsobj.SAMPLE_ADDRESS)
+                cmd.Parameters.AddWithValue("@v_CREATED_BY", clsobj.CREATED_BY)
+                cmd.Parameters.AddWithValue("@v_CREATION_DATE", clsobj.CREATION_DATE)
+                cmd.Parameters.AddWithValue("@v_MODIFIED_BY", clsobj.MODIFIED_BY)
+                cmd.Parameters.AddWithValue("@v_MODIFIED_DATE", clsobj.MODIFIED_DATE)
+                cmd.Parameters.AddWithValue("@v_DIVISION_ID", clsobj.DIVISION_ID)
+                cmd.Parameters.AddWithValue("@V_VEHICLE_NO", clsobj.VEHICLE_NO)
+                cmd.Parameters.AddWithValue("@V_TRANSPORT", clsobj.TRANSPORT)
+                cmd.Parameters.AddWithValue("@v_SHIPP_ADD_ID", clsobj.SHIPP_ADD_ID)
+                cmd.Parameters.AddWithValue("@v_INV_TYPE", clsobj.INV_TYPE)
+                cmd.Parameters.AddWithValue("@v_LR_NO", clsobj.LR_NO)
+                cmd.Parameters.AddWithValue("@V_freight", clsobj.freight)
+                cmd.Parameters.AddWithValue("@V_freight_type", clsobj.freight_type)
+                cmd.Parameters.AddWithValue("@V_FreightTaxApplied", clsobj.Freight_TaxApplied)
+                cmd.Parameters.AddWithValue("@V_FreightTaxValue", clsobj.Freight_TaxValue)
+                cmd.Parameters.AddWithValue("@V_ConsumerHeadID", clsobj.ConsumerHeadID)
+                cmd.Parameters.AddWithValue("@V_MODE", 1)
+                cmd.Parameters.AddWithValue("@V_Flag", clsobj.Flag)
+                cmd.ExecuteNonQuery()
+                cmd.Dispose()
+
+
+                ''   2) insert in stock transfer detail table of local database
+
+                Try
+
+
+                    'For j As Integer = 0 To dt.Rows.Count
+again:
+                    For i As Integer = 0 To clsobj.dtable_Item_List.Rows.Count - 1
+                        If IsNumeric(clsobj.dtable_Item_List.Rows(i)("transfer_qty")) Then
+
+
+                            If Convert.ToDouble(clsobj.dtable_Item_List.Rows(i)("transfer_qty")) <= 0 Then
+                                clsobj.dtable_Item_List.Rows.RemoveAt(i)
+                                clsobj.dtable_Item_List.AcceptChanges()
+                                GoTo again
+                            End If
+                        End If
+                    Next
+                    ' Next
+
+                    clsobj.dtable_Item_List.AcceptChanges()
+
+                    Dim Dtitemsnew As DataTable = clsobj.dtable_Item_List.Copy
+                    Dtitemsnew.Rows.Clear()
+                    Dtitemsnew.AcceptChanges()
+
+                    For Each items_DataRow As DataRow In clsobj.dtable_Item_List.Rows
+
+                        If (Dtitemsnew.Select("Item_Id=" & items_DataRow("Item_Id")).Length > 0) Then
+
+                            Dim items_row() As DataRow = Dtitemsnew.Select("item_id=" & items_DataRow("item_id"))
+
+                            items_row(0)("TRANSFER_QTY") = (items_row(0)("TRANSFER_QTY") + items_DataRow("TRANSFER_QTY"))
+                            items_row(0)("GST_Amount") = (items_row(0)("GST_Amount") + items_DataRow("GST_Amount"))
+                            items_row(0)("Cess_Amount") = (items_row(0)("Cess_Amount") + items_DataRow("Cess_Amount"))
+                            items_row(0)("Amount") = (items_row(0)("Amount") + items_DataRow("Amount"))
+                            If items_DataRow("DType").ToString() = "A" Then
+                                items_row(0)("DISC") = (items_row(0)("DISC") + items_DataRow("DISC"))
+                            End If
+
+                            Dtitemsnew.AcceptChanges()
+
+                        Else
+                            Dim OrderDataRow As DataRow = Dtitemsnew.NewRow()
+                            OrderDataRow("item_id") = items_DataRow("item_id")
+                            OrderDataRow("TRANSFER_QTY") = items_DataRow("TRANSFER_QTY")
+                            OrderDataRow("ITEM_RATE") = items_DataRow("ITEM_RATE")
+                            OrderDataRow("GST") = items_DataRow("GST")
+                            OrderDataRow("GST_Amount") = items_DataRow("GST_Amount")
+
+                            OrderDataRow("MRP") = items_DataRow("MRP")
+                            OrderDataRow("Cess") = items_DataRow("Cess")
+                            OrderDataRow("ACess") = items_DataRow("ACess")
+                            OrderDataRow("Cess_Amount") = items_DataRow("Cess_Amount")
+
+                            OrderDataRow("HsnCodeId") = items_DataRow("HsnCodeId")
+                            OrderDataRow("DType") = items_DataRow("DType")
+                            OrderDataRow("DISC") = items_DataRow("DISC")
+                            OrderDataRow("Amount") = items_DataRow("Amount")
+
+                            OrderDataRow("Freight") = items_DataRow("Freight")
+                            OrderDataRow("Freight_type") = items_DataRow("Freight_type")
+                            OrderDataRow("FreightTaxValue") = items_DataRow("FreightTaxValue")
+                            OrderDataRow("FreightCessValue") = items_DataRow("FreightCessValue")
+
+                            'If (clsobj.Flag = 1) Then
+                            OrderDataRow("GPAID") = items_DataRow("GPAID")
+                            'End If
+
+                            Dtitemsnew.Rows.Add(OrderDataRow)
+                            Dtitemsnew.AcceptChanges()
+                        End If
+                    Next
+
+                    Dtitemsnew.AcceptChanges()
+                    cmd = New SqlCommand
+
+                    For i As Integer = 0 To Dtitemsnew.Rows.Count - 1
+                        cmd.Parameters.Clear()
+                        cmd.Connection = con
+                        cmd.Transaction = tran
+                        cmd.CommandType = CommandType.StoredProcedure
+                        cmd.CommandText = "PROC_PROFORMA_INVOICE_DETAIL"
+                        cmd.Parameters.AddWithValue("@v_SI_ID", clsobj.SI_ID)
+                        cmd.Parameters.AddWithValue("@v_ITEM_ID", Dtitemsnew.Rows(i)("item_id"))
+                        cmd.Parameters.AddWithValue("@v_ITEM_QTY", Dtitemsnew.Rows(i)("TRANSFER_QTY"))
+                        cmd.Parameters.AddWithValue("@v_PKT", 0)
+                        cmd.Parameters.AddWithValue("@v_ITEM_RATE", Dtitemsnew.Rows(i)("ITEM_RATE"))
+                        cmd.Parameters.AddWithValue("@v_ITEM_AMOUNT", Dtitemsnew.Rows(i)("Amount"))
+                        cmd.Parameters.AddWithValue("@v_VAT_PER", Dtitemsnew.Rows(i)("GST"))
+                        cmd.Parameters.AddWithValue("@v_VAT_AMOUNT", Dtitemsnew.Rows(i)("GST_Amount"))
+
+                        cmd.Parameters.AddWithValue("@v_MRP", Dtitemsnew.Rows(i)("MRP"))
+                        cmd.Parameters.AddWithValue("@v_CESS_PER", Dtitemsnew.Rows(i)("Cess"))
+                        cmd.Parameters.AddWithValue("@v_CESS_AMOUNT", Dtitemsnew.Rows(i)("Cess_Amount"))
+                        cmd.Parameters.AddWithValue("@v_ACESS", Dtitemsnew.Rows(i)("ACess"))
+                        cmd.Parameters.AddWithValue("@v_CREATED_BY", clsobj.CREATED_BY)
+                        cmd.Parameters.AddWithValue("@v_CREATION_DATE", clsobj.CREATION_DATE)
+                        cmd.Parameters.AddWithValue("@v_MODIFIED_BY", clsobj.MODIFIED_BY)
+                        cmd.Parameters.AddWithValue("@v_MODIFIED_DATE", clsobj.MODIFIED_DATE)
+                        cmd.Parameters.AddWithValue("@v_DIVISION_ID", clsobj.DIVISION_ID)
+                        cmd.Parameters.AddWithValue("@v_TARRIF_ID", Dtitemsnew.Rows(i)("HsnCodeId"))
+                        cmd.Parameters.AddWithValue("@v_DISCOUNT_TYPE", Dtitemsnew.Rows(i)("DType"))
+                        cmd.Parameters.AddWithValue("@v_DISCOUNT_VALUE", Dtitemsnew.Rows(i)("DISC"))
+                        cmd.Parameters.AddWithValue("@V_MODE", 1)
+
+                        cmd.Parameters.AddWithValue("@V_Freight", Dtitemsnew.Rows(i)("Freight"))
+                        cmd.Parameters.AddWithValue("@V_Freight_type", Dtitemsnew.Rows(i)("Freight_type"))
+                        cmd.Parameters.AddWithValue("@V_FreightTaxValue", Dtitemsnew.Rows(i)("FreightTaxValue"))
+                        cmd.Parameters.AddWithValue("@V_FreightCessValue", Dtitemsnew.Rows(i)("FreightCessValue"))
+
+
+                        'If (clsobj.Flag = 1) Then
+                        cmd.Parameters.AddWithValue("@v_GSTPAID", Dtitemsnew.Rows(i)("GPAID"))
+                        'End If
+
+                        cmd.ExecuteNonQuery()
+                    Next
+
+
+                    'For i As Integer = 0 To clsobj.dtable_Item_List.Rows.Count - 1
+
+                    '    cmd.Parameters.Clear()
+                    '    cmd.CommandType = CommandType.StoredProcedure
+                    '    cmd.CommandText = "UPDATE_STOCK_DETAIL_ISSUE"
+                    '    cmd.Parameters.AddWithValue("@STOCK_DETAIL_ID", clsobj.dtable_Item_List.Rows(i)("Stock_Detail_Id"))
+                    '    cmd.Parameters.AddWithValue("@ISSUE_QTY", clsobj.dtable_Item_List.Rows(i)("TRANSFER_QTY"))
+                    '    cmd.ExecuteNonQuery()
+
+
+                    '    cmd.Parameters.Clear()
+                    '    cmd.CommandType = CommandType.StoredProcedure
+                    '    cmd.CommandText = "INSERT_SALE_INVOICE_STOCK_DETAIL"
+                    '    cmd.Parameters.AddWithValue("@SI_ID", clsobj.SI_ID)
+                    '    cmd.Parameters.AddWithValue("@ITEM_ID", clsobj.dtable_Item_List.Rows(i)("Item_id"))
+                    '    cmd.Parameters.AddWithValue("@STOCK_DETAIL_ID", clsobj.dtable_Item_List.Rows(i)("Stock_Detail_Id"))
+                    '    cmd.Parameters.AddWithValue("@ITEM_QTY", clsobj.dtable_Item_List.Rows(i)("TRANSFER_QTY"))
+                    '    cmd.Parameters.AddWithValue("@MODE", 1)
+                    '    cmd.ExecuteNonQuery()
+
+
+                    '    cmd.Parameters.Clear()
+                    '    cmd.CommandType = CommandType.StoredProcedure
+                    '    cmd.CommandText = "INSERT_TRANSACTION_LOG"
+                    '    cmd.Parameters.AddWithValue("@Transaction_ID", clsobj.SI_ID)
+                    '    cmd.Parameters.AddWithValue("@Item_ID", clsobj.dtable_Item_List.Rows(i)("Item_id"))
+                    '    cmd.Parameters.AddWithValue("@Transaction_Type", Transaction_Type.Sale_Invoice)
+                    '    cmd.Parameters.AddWithValue("@Quantity", clsobj.dtable_Item_List.Rows(i)("TRANSFER_QTY"))
+                    '    cmd.Parameters.AddWithValue("@Transaction_Date", Now)
+                    '    cmd.Parameters.AddWithValue("@Current_Stock", 0)
+                    '    cmd.Parameters.AddWithValue("@STOCK_DETAIL_ID", clsobj.dtable_Item_List.Rows(i)("Stock_Detail_Id"))
+                    '    cmd.ExecuteNonQuery()
+                    'Next
+
+
+                    cmd = New SqlCommand
+                    cmd.Parameters.Clear()
+                    cmd.Connection = con
+                    cmd.Transaction = tran
+                    cmd.CommandText = "update PROFORMA_INVOICE_SERIES set current_used=current_used + 1 where div_id=" & clsobj.DIVISION_ID
+                    cmd.ExecuteNonQuery()
+
+                    cmd.Dispose()
+
+                    tran.Commit()
+
+                    'trans_global.Commit()
+
+                Catch ex As Exception
+                    tran.Rollback()
+                    ' trans_global.Rollback()
+                    MsgBox(ex.Message)
+                End Try
+            Catch ex As Exception
+                MsgBox(ex.Message)
+            End Try
+        End Sub
+
+        Public Sub Update_PROFORMA_INVOICE_MASTER(ByVal clsobj As cls_Sale_Invoice_prop)
+            Try
+
+
+                Dim tran As SqlTransaction
+                If con.State = ConnectionState.Closed Then con.Open()
+                tran = con.BeginTransaction()
+
+                cmd = New SqlCommand
+                cmd.Connection = con
+                cmd.Transaction = tran
+                cmd.CommandType = CommandType.Text
+                cmd.CommandText = "DELETE FROM dbo.PROFORMA_INVOICE_DETAIL WHERE SI_ID =" + clsobj.SI_ID.ToString() + ""
+                cmd.ExecuteNonQuery()
+                cmd.Dispose()
+
+
+                cmd = New SqlCommand
+                cmd.Connection = con
+                cmd.Transaction = tran
+
+                cmd.CommandType = CommandType.StoredProcedure
+                cmd.CommandText = "PROC_PROFORMA_INVOICE_MASTER"
+                cmd.Parameters.AddWithValue("@v_SI_ID", clsobj.SI_ID)
+                cmd.Parameters.AddWithValue("@v_SI_CODE", clsobj.SI_CODE)
+                cmd.Parameters.AddWithValue("@v_SI_NO", clsobj.SI_NO)
+                cmd.Parameters.AddWithValue("@v_DC_NO", clsobj.DC_GST_NO)
+                cmd.Parameters.AddWithValue("@v_SI_DATE", clsobj.SI_DATE)
+                cmd.Parameters.AddWithValue("@v_CUST_ID", clsobj.CUST_ID)
+                cmd.Parameters.AddWithValue("@V_INVOICE_STATUS", clsobj.INVOICE_STATUS)
+                cmd.Parameters.AddWithValue("@v_REMARKS", clsobj.REMARKS)
+                cmd.Parameters.AddWithValue("@v_PAYMENTS_REMARKS", clsobj.PAYMENTS_REMARKS)
+                cmd.Parameters.AddWithValue("@v_SALE_TYPE", clsobj.SALE_TYPE)
+                cmd.Parameters.AddWithValue("@v_GROSS_AMOUNT", clsobj.GROSS_AMOUNT)
+                cmd.Parameters.AddWithValue("@v_VAT_AMOUNT", clsobj.VAT_AMOUNT)
+                cmd.Parameters.AddWithValue("@v_CESS_AMOUNT", clsobj.CESS_AMOUNT)
+                cmd.Parameters.AddWithValue("@v_ACESS_AMOUNT", clsobj.ACESS_AMOUNT)
+                cmd.Parameters.AddWithValue("@v_NET_AMOUNT", clsobj.NET_AMOUNT)
+                cmd.Parameters.AddWithValue("@V_IS_SAMPLE", clsobj.IS_SAMPLE)
+                cmd.Parameters.AddWithValue("@V_DELIVERY_NOTE_NO", clsobj.DELIVERY_NOTE_NO)
+                cmd.Parameters.AddWithValue("@V_VAT_CST_PER", clsobj.VAT_CST_PER)
+                cmd.Parameters.AddWithValue("@V_SAMPLE_ADDRESS", clsobj.SAMPLE_ADDRESS)
+                cmd.Parameters.AddWithValue("@v_CREATED_BY", clsobj.CREATED_BY)
+                cmd.Parameters.AddWithValue("@v_CREATION_DATE", clsobj.CREATION_DATE)
+                cmd.Parameters.AddWithValue("@v_MODIFIED_BY", clsobj.MODIFIED_BY)
+                cmd.Parameters.AddWithValue("@v_MODIFIED_DATE", clsobj.MODIFIED_DATE)
+                cmd.Parameters.AddWithValue("@v_DIVISION_ID", clsobj.DIVISION_ID)
+                cmd.Parameters.AddWithValue("@V_VEHICLE_NO", clsobj.VEHICLE_NO)
+                cmd.Parameters.AddWithValue("@V_TRANSPORT", clsobj.TRANSPORT)
+                cmd.Parameters.AddWithValue("@v_SHIPP_ADD_ID", clsobj.SHIPP_ADD_ID)
+                cmd.Parameters.AddWithValue("@v_INV_TYPE", clsobj.INV_TYPE)
+                cmd.Parameters.AddWithValue("@v_LR_NO", clsobj.LR_NO)
+                cmd.Parameters.AddWithValue("@V_freight", clsobj.freight)
+                cmd.Parameters.AddWithValue("@V_freight_type", clsobj.freight_type)
+                cmd.Parameters.AddWithValue("@V_FreightTaxApplied", clsobj.Freight_TaxApplied)
+                cmd.Parameters.AddWithValue("@V_FreightTaxValue", clsobj.Freight_TaxValue)
+                cmd.Parameters.AddWithValue("@V_ConsumerHeadID", clsobj.ConsumerHeadID)
+                cmd.Parameters.AddWithValue("@V_MODE", 2)
+                cmd.Parameters.AddWithValue("@v_EwayBill_NO", clsobj.EwayBill_NO)
+                cmd.ExecuteNonQuery()
+                cmd.Dispose()
+
+                Try
+
+
+again:
+                    For i As Integer = 0 To clsobj.dtable_Item_List.Rows.Count - 1
+                        If IsNumeric(clsobj.dtable_Item_List.Rows(i)("transfer_qty")) Then
+
+
+                            If Convert.ToDouble(clsobj.dtable_Item_List.Rows(i)("transfer_qty")) <= 0 Then
+                                clsobj.dtable_Item_List.Rows.RemoveAt(i)
+                                clsobj.dtable_Item_List.AcceptChanges()
+                                GoTo again
+                            End If
+                        End If
+                    Next
+
+
+                    Dim Dtitemsnew As DataTable = clsobj.dtable_Item_List.Copy
+                    Dtitemsnew.Rows.Clear()
+                    Dtitemsnew.AcceptChanges()
+
+                    For Each items_DataRow As DataRow In clsobj.dtable_Item_List.Rows
+
+
+
+                        If (Dtitemsnew.Select("Item_Id=" & items_DataRow("Item_Id")).Length > 0) Then
+
+                            Dim items_row() As DataRow = Dtitemsnew.Select("item_id=" & items_DataRow("item_id"))
+
+                            items_row(0)("TRANSFER_QTY") = (items_row(0)("TRANSFER_QTY") + items_DataRow("TRANSFER_QTY"))
+                            items_row(0)("GST_Amount") = (items_row(0)("GST_Amount") + items_DataRow("GST_Amount"))
+                            items_row(0)("Cess_Amount") = (items_row(0)("Cess_Amount") + items_DataRow("Cess_Amount"))
+                            items_row(0)("Amount") = (items_row(0)("Amount") + items_DataRow("Amount"))
+                            If items_DataRow("DType").ToString() = "A" Then
+                                items_row(0)("DISC") = (items_row(0)("DISC") + items_DataRow("DISC"))
+                            End If
+                            Dtitemsnew.AcceptChanges()
+
+                        Else
+                            Dim OrderDataRow As DataRow = Dtitemsnew.NewRow()
+                            OrderDataRow("item_id") = items_DataRow("item_id")
+                            OrderDataRow("TRANSFER_QTY") = items_DataRow("TRANSFER_QTY")
+                            OrderDataRow("ITEM_RATE") = items_DataRow("ITEM_RATE")
+                            OrderDataRow("GST") = items_DataRow("GST")
+                            OrderDataRow("GST_Amount") = items_DataRow("GST_Amount")
+
+                            OrderDataRow("MRP") = items_DataRow("MRP")
+                            OrderDataRow("Cess") = items_DataRow("Cess")
+                            OrderDataRow("ACess") = items_DataRow("ACess")
+                            OrderDataRow("Cess_Amount") = items_DataRow("Cess_Amount")
+
+                            OrderDataRow("HsnCodeId") = items_DataRow("HsnCodeId")
+                            OrderDataRow("DType") = items_DataRow("DType")
+                            OrderDataRow("DISC") = items_DataRow("DISC")
+                            'If (clsobj.Flag = 1) Then
+                            OrderDataRow("GPAID") = items_DataRow("GPAID")
+                            'End If
+                            OrderDataRow("Amount") = items_DataRow("Amount")
+
+                            OrderDataRow("Freight") = items_DataRow("Freight")
+                            OrderDataRow("Freight_type") = items_DataRow("Freight_type")
+                            OrderDataRow("FreightTaxValue") = items_DataRow("FreightTaxValue")
+                            OrderDataRow("FreightCessValue") = items_DataRow("FreightCessValue")
+                            Dtitemsnew.Rows.Add(OrderDataRow)
+                            Dtitemsnew.AcceptChanges()
+                        End If
+
+                        Dtitemsnew.AcceptChanges()
+                    Next
+
+
+                    cmd = New SqlCommand
+
+                    For i As Integer = 0 To Dtitemsnew.Rows.Count - 1
+                        cmd.Parameters.Clear()
+                        cmd.Connection = con
+                        cmd.Transaction = tran
+                        cmd.CommandType = CommandType.StoredProcedure
+                        cmd.CommandText = "PROC_PROFORMA_INVOICE_DETAIL"
+                        cmd.Parameters.AddWithValue("@v_SI_ID", clsobj.SI_ID)
+                        cmd.Parameters.AddWithValue("@v_ITEM_ID", Dtitemsnew.Rows(i)("item_id"))
+                        cmd.Parameters.AddWithValue("@v_ITEM_QTY", Dtitemsnew.Rows(i)("TRANSFER_QTY"))
+                        cmd.Parameters.AddWithValue("@v_PKT", 0)
+                        cmd.Parameters.AddWithValue("@v_ITEM_RATE", Dtitemsnew.Rows(i)("ITEM_RATE"))
+                        cmd.Parameters.AddWithValue("@v_ITEM_AMOUNT", Dtitemsnew.Rows(i)("Amount"))
+                        cmd.Parameters.AddWithValue("@v_VAT_PER", Dtitemsnew.Rows(i)("GST"))
+                        cmd.Parameters.AddWithValue("@v_VAT_AMOUNT", Dtitemsnew.Rows(i)("GST_Amount"))
+
+                        cmd.Parameters.AddWithValue("@v_MRP", Dtitemsnew.Rows(i)("MRP"))
+                        cmd.Parameters.AddWithValue("@v_CESS_PER", Dtitemsnew.Rows(i)("Cess"))
+                        cmd.Parameters.AddWithValue("@v_CESS_AMOUNT", Dtitemsnew.Rows(i)("Cess_Amount"))
+                        cmd.Parameters.AddWithValue("@v_ACESS", Dtitemsnew.Rows(i)("ACess"))
+                        cmd.Parameters.AddWithValue("@v_CREATED_BY", clsobj.CREATED_BY)
+                        cmd.Parameters.AddWithValue("@v_CREATION_DATE", clsobj.CREATION_DATE)
+                        cmd.Parameters.AddWithValue("@v_MODIFIED_BY", clsobj.MODIFIED_BY)
+                        cmd.Parameters.AddWithValue("@v_MODIFIED_DATE", clsobj.MODIFIED_DATE)
+                        cmd.Parameters.AddWithValue("@v_DIVISION_ID", clsobj.DIVISION_ID)
+                        cmd.Parameters.AddWithValue("@v_TARRIF_ID", Dtitemsnew.Rows(i)("HsnCodeId"))
+                        cmd.Parameters.AddWithValue("@v_DISCOUNT_TYPE", Dtitemsnew.Rows(i)("DType"))
+                        cmd.Parameters.AddWithValue("@v_DISCOUNT_VALUE", Dtitemsnew.Rows(i)("DISC"))
+                        cmd.Parameters.AddWithValue("@V_MODE", 1)
+
+                        cmd.Parameters.AddWithValue("@V_Freight", Dtitemsnew.Rows(i)("Freight"))
+                        cmd.Parameters.AddWithValue("@V_Freight_type", Dtitemsnew.Rows(i)("Freight_type"))
+                        cmd.Parameters.AddWithValue("@V_FreightTaxValue", Dtitemsnew.Rows(i)("FreightTaxValue"))
+                        cmd.Parameters.AddWithValue("@V_FreightCessValue", Dtitemsnew.Rows(i)("FreightCessValue"))
+
+                        'If (clsobj.Flag = 1) Then
+                        cmd.Parameters.AddWithValue("@v_GSTPAID", Dtitemsnew.Rows(i)("GPAID"))
+                        'End If
+                        cmd.ExecuteNonQuery()
+                    Next
+
+
+                    'For i As Integer = 0 To clsobj.dtable_Item_List.Rows.Count - 1
+
+                    '    cmd.Parameters.Clear()
+                    '    cmd.CommandType = CommandType.StoredProcedure
+                    '    cmd.CommandText = "UPDATE_STOCK_DETAIL_ISSUE"
+                    '    cmd.Parameters.AddWithValue("@STOCK_DETAIL_ID", clsobj.dtable_Item_List.Rows(i)("Stock_Detail_Id"))
+                    '    cmd.Parameters.AddWithValue("@ISSUE_QTY", clsobj.dtable_Item_List.Rows(i)("TRANSFER_QTY"))
+                    '    cmd.ExecuteNonQuery()
+
+
+                    '    cmd.Parameters.Clear()
+                    '    cmd.CommandType = CommandType.StoredProcedure
+                    '    cmd.CommandText = "INSERT_SALE_INVOICE_STOCK_DETAIL"
+                    '    cmd.Parameters.AddWithValue("@SI_ID", clsobj.SI_ID)
+                    '    cmd.Parameters.AddWithValue("@ITEM_ID", clsobj.dtable_Item_List.Rows(i)("Item_id"))
+                    '    cmd.Parameters.AddWithValue("@STOCK_DETAIL_ID", clsobj.dtable_Item_List.Rows(i)("Stock_Detail_Id"))
+                    '    cmd.Parameters.AddWithValue("@ITEM_QTY", clsobj.dtable_Item_List.Rows(i)("TRANSFER_QTY"))
+                    '    cmd.Parameters.AddWithValue("@MODE", 1)
+                    '    cmd.ExecuteNonQuery()
+
+
+                    'cmd.Parameters.Clear()
+                    'cmd.CommandType = CommandType.StoredProcedure
+                    'cmd.CommandText = "INSERT_TRANSACTION_LOG"
+                    'cmd.Parameters.AddWithValue("@Transaction_ID", clsobj.SI_ID)
+                    'cmd.Parameters.AddWithValue("@Item_ID", dt.Rows(i)("Item_id"))
+                    'cmd.Parameters.AddWithValue("@Transaction_Type", Transaction_Type.Sale_Invoice)
+                    'cmd.Parameters.AddWithValue("@Quantity", dt.Rows(i)("TRANSFER_QTY"))
+                    'cmd.Parameters.AddWithValue("@Transaction_Date", Now)
+                    'cmd.Parameters.AddWithValue("@Current_Stock", 0)
+                    'cmd.Parameters.AddWithValue("@STOCK_DETAIL_ID", dt.Rows(i)("Stock_Detail_Id"))
+                    'cmd.ExecuteNonQuery()
+                    'Next
+
+                    cmd.Dispose()
+                    tran.Commit()
+                Catch ex As Exception
+                    tran.Rollback()
+                    MsgBox(ex.Message)
+                End Try
+            Catch ex As Exception
+                MsgBox(ex.Message)
+            End Try
+        End Sub
+
     End Class
 
 End Namespace
