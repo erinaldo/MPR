@@ -12,7 +12,7 @@ Namespace Sale_Invoice
         Dim _SI_DATE As DateTime
         Dim _CUST_ID As Int32
         Dim _ConsumerHeadID As Int32
-
+        Dim _TempInvoiceId As Int32
         Dim _INVOICE_STATUS As Int32
         Dim _REMARKS As String
         Dim _PAYMENTS_REMARKS As String
@@ -48,6 +48,14 @@ Namespace Sale_Invoice
         Dim _freight_type As String
 
 
+        Public Property TempInvoiceId() As Int32
+            Get
+                TempInvoiceId = _TempInvoiceId
+            End Get
+            Set(ByVal value As Int32)
+                _TempInvoiceId = value
+            End Set
+        End Property
         Public Property ConsumerHeadID() As Int32
             Get
                 ConsumerHeadID = _ConsumerHeadID
@@ -420,6 +428,7 @@ Namespace Sale_Invoice
                 cmd.Parameters.AddWithValue("@V_ConsumerHeadID", clsobj.ConsumerHeadID)
                 cmd.Parameters.AddWithValue("@V_MODE", 1)
                 cmd.Parameters.AddWithValue("@V_Flag", clsobj.Flag)
+                cmd.Parameters.AddWithValue("@v_TempInvoiceId", clsobj.TempInvoiceId)
                 cmd.ExecuteNonQuery()
                 cmd.Dispose()
 

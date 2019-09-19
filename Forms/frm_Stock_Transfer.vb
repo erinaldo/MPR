@@ -80,7 +80,7 @@ Public Class frm_Stock_Transfer
             'obj.FormatGrid(flxItems)
             'obj.FormatGrid(flxList)
             table_style()
-            obj.ComboBind_Remote(cmbOutlet, "Select 'W-'+convert(varchar(10),Pk_DivisionId_num)as Pk_DivisionId_num,DivisionName_vch from DivisionMaster where Pk_DivisionId_num<>" & v_the_current_division_id & " UNION ALL select 'O-'+convert(varchar(10),Pk_OutletId_num) AS Pk_DivisionId_num,OutletName_vch AS DivisionName_vch from OutletMaster", "DivisionName_vch", "Pk_DivisionId_num", True)
+            obj.ComboBind_Remote(cmbOutlet, "Select 'W-'+convert(varchar(10),Pk_DivisionId_num)as Pk_DivisionId_num,DivisionName_vch +' - '+ Address_vch as DivisionName_vch  from DivisionMaster where Pk_DivisionId_num<>" & v_the_current_division_id & " UNION ALL select 'O-'+convert(varchar(10),Pk_OutletId_num) AS Pk_DivisionId_num,OutletName_vch+ ' - ' + Address_vch AS DivisionName_vch from OutletMaster", "DivisionName_vch", "Pk_DivisionId_num", True)
 
             new_initilization()
             fill_grid()

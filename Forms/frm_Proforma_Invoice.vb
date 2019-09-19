@@ -163,7 +163,7 @@ Public Class frm_Proforma_Invoice
 
             End If
 
-            prpty.INVOICE_STATUS = Convert.ToInt32(GlobalModule.InvoiceStatus.Clear)
+            prpty.INVOICE_STATUS = Convert.ToInt32(GlobalModule.InvoiceStatus.Fresh)
             prpty.REMARKS = txtRemarks.Text
             prpty.PAYMENTS_REMARKS = ""
             prpty.ConsumerHeadID = EcomVendor_ID
@@ -1376,11 +1376,18 @@ Vendor"
 
     Private Sub btnGenerateInvoice_Click(sender As Object, e As EventArgs) Handles btnGenerateInvoice.Click
 
+        Dim Status As String
+        Status = flxList.SelectedRows(0).Cells("Status").Value
+
+        If Status = "Clear" Then
+            MessageBox.Show("This Perform Invoice is already Processed")
+            Exit Sub
+        End If
+
         Dim id As Int32 = CStr(flxList("Si_ID", flxList.CurrentCell.RowIndex).Value())
         Call MDIMain.OpenSaleInvoicefromproforma("frm_OpenSale_Invoice", id)
 
-
-
     End Sub
+
 
 End Class

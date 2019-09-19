@@ -6,7 +6,7 @@ Imports System.Text.RegularExpressions
 Public Class frm_openSale_Invoice
     Implements IForm
 
-    Public PI_INVID As String = ""
+    Public PI_INVID As Int32 = 0
 
     Dim obj As New CommonClass
     Dim clsObj As New cls_Sale_Invoice_master
@@ -58,22 +58,88 @@ Public Class frm_openSale_Invoice
 
     Private Sub frm_Sale_Invoice_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Try
-
             'obj.FormatGrid(flxItems)
             table_style()
             cmbCity.Enabled = False
-            Dim a As String = PI_INVID
             CustomerBind()
             cmbSupplier.Visible = True
             txtcustomer_name.Visible = False
             CityBind()
             new_initilization()
+
+            If PI_INVID > 0 Then
+                fill_Performa_InvoiceDetail(PI_INVID)
+            End If
+
             fill_grid()
+
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, gblMessageHeading_Error)
         End Try
     End Sub
+    Private Sub fill_Performa_InvoiceDetail(ByVal strSIID As Integer)
+        Dim dt As DataTable
 
+        dt = clsObj.fill_Data_set("GET_PROFORMA_INV_DETAIL", "@V_SI_ID", strSIID.ToString()).Tables(0)
+        If dt.Rows.Count > 0 Then
+            Dim dr As DataRow = dt.Rows(0)
+
+            '  Si_No = dr("INVNO")
+            ' lbl_INVNo.Text = dr("SI_NO")
+
+            '  lbl_TransferDate.Text = Convert.ToDateTime(dr("InvDate"))
+
+            If dr("SALE_TYPE").ToString().Trim() = "Credit" Then
+                rdbtn_credit.Checked = True
+            Else
+                rbtn_Cash.Checked = True
+            End If
+
+            cmbSupplier.SelectedValue = dr("CUST_ID")
+            txtvechicle_no.Text = dr("VEHICLE_NO")
+            txtTransport.Text = dr("TRANSPORT")
+            txtLRNO.Text = dr("LR_NO")
+            txtRemarks.Text = dr("Remarks")
+            cmbinvtype.Text = dr("INV_TYPE")
+            txtEwayBillNo.Text = dr("EwayBillNo")
+            txtAmount.Text = Convert.ToString(dr("freight"))
+
+            If (dr("FreightTaxApplied") = True) Then
+                chk_ApplyTax.Checked = True
+            Else
+                chk_ApplyTax.Checked = False
+            End If
+            EcomVendor_ID = dr("ConsumerHeadID")
+
+            If (EcomVendor_ID > 0) Then
+                btnSetEcomVendor.Text = dr("ConsumerHeadName")
+            End If
+            RemoveHandler flxItems.AfterDataRefresh, AddressOf flxItems_AfterDataRefresh
+
+            dtable_Item_List = clsObj.fill_Data_set("GET_PROFORMA_INV_ITEM_DETAILS", "@V_SI_ID", strSIID).Tables(0)
+
+            Dim items As String = ""
+
+            Dim result() As DataRow = dtable_Item_List.Select("transfer_Qty > Batch_Qty")
+
+            For Each row As DataRow In result
+                items += row(1) & " - " & row(2)
+            Next
+
+            If items.Length > 0 Then
+                MsgBox("Stock required for : " & items, MsgBoxStyle.Information, gblMessageHeading)
+                Exit Sub
+            End If
+
+            flxItems.DataSource = dtable_Item_List
+            format_grid()
+
+            generate_tree()
+            AddHandler flxItems.AfterDataRefresh, AddressOf flxItems_AfterDataRefresh
+            CalculateAmount()
+
+        End If
+    End Sub
     Public Sub CustomerBind()
         clsObj.ComboBind(cmbSupplier, "Select ACC_ID,LTRIM(ACC_NAME +'  '+ CASE WHEN AG_ID=1 THEN 'Dr ' ELSE CASE WHEN AG_ID=2 THEN 'Cr ' ELSE '' END END +'  '+ ISNULL(VAT_NO,'')) AS ACC_NAME from ACCOUNT_MASTER WHERE Is_Active=1 And AG_ID in (1,2,3,6) Order by ACC_NAME", "ACC_NAME", "ACC_ID", True)
         cmbSupplier.SelectedIndex = cmbSupplier.FindStringExact(cmbSupplier.Text)
@@ -197,6 +263,9 @@ Public Class frm_openSale_Invoice
             prpty.Flag = 1
             prpty.dtable_Item_List = dtable_Item_List
             prpty.ConsumerHeadID = EcomVendor_ID
+            If PI_INVID > 0 Then
+                prpty.TempInvoiceId = PI_INVID
+            End If
             If chk_ApplyTax.Checked = True Then
                 prpty.Freight_TaxApplied = 1
                 prpty.Freight_TaxValue = Convert.ToDouble(lblFreightTaxTotal.Text)
@@ -212,7 +281,9 @@ Public Class frm_openSale_Invoice
                 If MsgBox("Invoice information has been Saved." & vbCrLf & "Do You Want to Print Preview.", MsgBoxStyle.Question + MsgBoxStyle.YesNo, gblMessageHeading) = MsgBoxResult.Yes Then
                     obj.RptShow(enmReportName.RptInvoicePrint, "Si_ID", CStr(prpty.SI_ID), CStr(enmDataType.D_int))
                 End If
-
+                If PI_INVID > 0 Then
+                    obj.ExecuteNonQuery("UPDATE PROFORMA_INVOICE_MASTER SET INVOICE_STATUS=3 WHERE SI_ID=" + PI_INVID.ToString())
+                End If
             Else
                 prpty.EwayBill_NO = txtEwayBillNo.Text.ToUpper()
                 clsObj.Update_SALE_INVOICE_MASTER(prpty)

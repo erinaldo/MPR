@@ -594,32 +594,35 @@ Public Class MDIMain
     Public Sub OpenSaleInvoicefromproforma(Name As String, Sid As Int32)
 
         prpty_form_rights = cls_obj.Get_Form_Rights(Name)
-        prpty_form_rights = cls_obj.Get_Form_Rights(Name)
+
         Dim tbp As New TabPage
         If prpty_form_rights.allow_view = "Y" Then
-            If Check_Form_in_tab(Name) = False Then
+            If Check_Form_in_tab("frm_openSale_Invoice") = False Then
 
                 Select Case UCase(Name)
                     Case UCase("frm_OpenSale_Invoice")
+                        Dim frm = New frm_openSale_Invoice(prpty_form_rights)
+                        frm.PI_INVID = Sid
                         tbp.Text = "Open Invoice"
-                        tbp.Controls.Add(New frm_openSale_Invoice(prpty_form_rights))
+                        tbp.Controls.Add(frm)
                     Case Else
                         MsgBox("Form not found!!!", MsgBoxStyle.Information Or MsgBoxStyle.OkOnly, gblMessageHeading)
                         Return
                 End Select
-            End If
-            If Name <> "tsmAccount" Then
-                SetEventHandlers(tbp.Controls(0))
-                TabControl2.TabPages.Add(tbp)
-                TabControl2.SelectTab(TabControl2.TabPages.Count - 1)
-                If TabControl2.TabCount = 0 Then
-                    picLogo.Visible = True
-                    TabControl2.SendToBack()
-                    toolbar.Visible = False
-                Else
-                    picLogo.Visible = False
-                    toolbar.Visible = True
-                    TabControl2.BringToFront()
+
+                If Name <> "tsmAccount" Then
+                    SetEventHandlers(tbp.Controls(0))
+                    TabControl2.TabPages.Add(tbp)
+                    TabControl2.SelectTab(TabControl2.TabPages.Count - 1)
+                    If TabControl2.TabCount = 0 Then
+                        picLogo.Visible = True
+                        TabControl2.SendToBack()
+                        toolbar.Visible = False
+                    Else
+                        picLogo.Visible = False
+                        toolbar.Visible = True
+                        TabControl2.BringToFront()
+                    End If
                 End If
             End If
         Else
