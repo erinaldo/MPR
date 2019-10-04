@@ -308,6 +308,7 @@ again:
             dtable_Item_List.Columns.Add("Stock_Detail_Id", GetType(System.Int32))
             dtable_Item_List.Columns.Add("Item_Rate", GetType(System.Double))
             dtable_Item_List.Columns.Add("transfer_Qty", GetType(System.Double))
+            dtable_Item_List.Columns.Add("PurCost", GetType(System.Double))
             dtable_Item_List.Rows.Add()
 
             flxItems.DataSource = dtable_Item_List
@@ -349,7 +350,7 @@ again:
 
         flxItems.Cols("Item_Id").Width = 10
         flxItems.Cols("Item_Code").Width = 120
-        flxItems.Cols("Item_Name").Width = 400
+        flxItems.Cols("Item_Name").Width = 330
         flxItems.Cols("UM_Name").Width = 50
         flxItems.Cols("Batch_No").Width = 10
         flxItems.Cols("Expiry_date").Width = 10
@@ -433,7 +434,7 @@ again:
 		                                ISNULL(im.BarCode_vch, '') AS BARCODE ,
                                         im.ITEM_NAME AS [ITEM NAME] ,
                                         im.MRP_Num AS MRP ,
-                                        CAST(im.sale_rate AS NUMERIC(18, 2)) AS RATE ,
+                                        CAST(ISNULL(im.Purchase_rate ,DBO.Get_Average_Rate_as_on_date(im.ITEM_ID, GETDATE(), im.DIVISION_ID, 1)) AS NUMERIC(18,2)) AS RATE ,
                                         ISNULL(litems.LabelItemName_vch, '') AS BRAND ,
                                         ic.ITEM_CAT_NAME AS CATEGORY
                                         FROM      Item_master im
@@ -521,7 +522,7 @@ restart:
                                         " UM.UM_Name , " &
                                         " SD.Batch_no , " &
                                         " dbo.fn_Format(SD.Expiry_date) AS Expiry_Date, " &
-                                        "CAST(im.sale_rate AS NUMERIC(18, 2))as Item_Rate," &
+                                        " CAST(ISNULL(IM.Purchase_rate ,DBO.Get_Average_Rate_as_on_date(IM.ITEM_ID, GETDATE(),IM.DIVISION_ID, 1)) AS NUMERIC(18,2)) as Item_Rate," &
                                         " SD.Balance_Qty, " &
                                         " 0.00  as transfer_qty, " &
                                         " SD.STOCK_DETAIL_ID  " &
@@ -551,6 +552,7 @@ restart:
                     dr("Batch_Qty") = ds.Tables(0).Rows(i)("Balance_Qty")
                     dr("Stock_Detail_Id") = ds.Tables(0).Rows(i)("STOCK_DETAIL_ID")
                     dr("transfer_Qty") = ds.Tables(0).Rows(i)("transfer_Qty")
+                    dr("PurCost") = ds.Tables(0).Rows(i)("Item_Rate")
                     dtable_Item_List.Rows.Add(dr)
                     dtable_Item_List.AcceptChanges()
                 Next
@@ -603,6 +605,10 @@ restart:
             generate_tree()
         Else
             generate_tree()
+        End If
+        Dim a As Int32 = e.Row
+        If Convert.ToDecimal(flxItems.Rows(e.Row)("Item_Rate")) > Convert.ToDecimal(flxItems.Rows(e.Row)("PurCost")) Then
+            MsgBox("Item rate can't be grater then Purchase cost : " & flxItems.Rows(e.Row)("PurCost"), MsgBoxStyle.Exclamation, gblMessageHeading)
         End If
     End Sub
 

@@ -33,6 +33,7 @@ Public Class frm_StockAdjustment
         Batch_Qty = 7
         Stock_Detail_Id = 8
         Adjustment_Qty = 10
+        Item_rate = 11
     End Enum
     Public Sub CloseClick(ByVal sender As Object, ByVal e As System.EventArgs) Implements IForm.CloseClick
 
@@ -285,7 +286,7 @@ restart:
 		                                ISNULL(im.BarCode_vch, '') AS BARCODE ,
                                         im.ITEM_NAME AS [ITEM NAME] ,
                                         CAST(im.MRP_Num AS NUMERIC(18, 2)) AS MRP ,
-                                        CAST(im.sale_rate AS NUMERIC(18, 2)) AS RATE ,
+                                        CAST(ISNULL(IM.Purchase_rate ,DBO.Get_Average_Rate_as_on_date(IM.ITEM_ID, GETDATE(),IM.DIVISION_ID, 1)) AS NUMERIC(18,2)) as RATE,                                       
                                         ISNULL(litems.LabelItemName_vch, '') AS BRAND ,
                                         ic.ITEM_CAT_NAME AS CATEGORY
                                         FROM      Item_master im
@@ -357,7 +358,7 @@ restart:
                                         " UM.UM_Name , " &
                                         " SD.Batch_no , " &
                                         " dbo.fn_Format(SD.Expiry_date) AS Expiry_Date, " &
-                                        " CAST( dbo.Get_Average_Rate_as_on_date(IM.ITEM_ID,'" & Now.ToString("dd-MMM-yyyy") & "'," & v_the_current_division_id & ",0) AS NUMERIC(18, 2)) as Item_Rate," &
+                                        " CAST(ISNULL(IM.Purchase_rate ,DBO.Get_Average_Rate_as_on_date(IM.ITEM_ID, '" & Now.ToString("dd-MMM-yyyy") & "'," & v_the_current_division_id & ", 1)) AS NUMERIC(18,2)) as Item_Rate," &
                                         " CAST(SD.Balance_Qty AS NUMERIC(18, 3)) AS Balance_Qty, " &
                                         " 0.000  as adjustment_qty, " &
                                         " SD.STOCK_DETAIL_ID  " &
@@ -406,6 +407,16 @@ restart:
     Private Sub grdWastageItem_AfterEdit(ByVal sender As System.Object, ByVal e As C1.Win.C1FlexGrid.RowColEventArgs) Handles grdAdjustmentItem.AfterEdit
         If grdAdjustmentItem.Rows(e.Row).IsNode Then Exit Sub
         If IsDBNull(grdAdjustmentItem.Rows(e.Row)("adjustment_Qty")) Or IsDBNull(grdAdjustmentItem.Rows(e.Row)("Batch_Qty")) Then Exit Sub
+
+        If (IsDBNull(grdAdjustmentItem.Rows(e.Row)("adjustment_Qty")) < 0 And (IsDBNull(grdAdjustmentItem.Rows(e.Row)("Batch_Qty")) < IsDBNull(grdAdjustmentItem.Rows(e.Row)("adjustment_Qty")))) Then
+            MsgBox("Adjustment quantity cant be greater than Batch quantity (Current Stock) !", MsgBoxStyle.Information, gblMessageHeading)
+            Exit Sub
+        End If
+
+        If Convert.ToDecimal(grdAdjustmentItem.Rows(e.Row)("Item_Rate")) = 0 Then
+            MsgBox("Must enter Item Rate (Purchase cost) !", MsgBoxStyle.Information, gblMessageHeading)
+            Exit Sub
+        End If
 
         If Convert.ToDecimal(grdAdjustmentItem.Rows(e.Row)("adjustment_Qty")) + Convert.ToDecimal(grdAdjustmentItem.Rows(e.Row)("Batch_Qty")) < 0 Then
             grdAdjustmentItem.Rows(e.Row)("adjustment_Qty") = 0.0
@@ -456,7 +467,7 @@ restart:
         grdAdjustmentItem.Cols("batch_qty").AllowEditing = False
         grdAdjustmentItem.Cols("Stock_Detail_Id").AllowEditing = False
         grdAdjustmentItem.Cols("adjustment_Qty").AllowEditing = True
-        grdAdjustmentItem.Cols("Item_Rate").AllowEditing = False
+        grdAdjustmentItem.Cols("Item_Rate").AllowEditing = True
 
         grdAdjustmentItem.Cols("Item_Id").Width = 80
         grdAdjustmentItem.Cols("Item_Code").Width = 70
@@ -490,10 +501,19 @@ restart:
             cs.BackColor = Color.OrangeRed
             cs.Border.Style = BorderStyleEnum.Raised
 
+            Dim cs1 As C1.Win.C1FlexGrid.CellStyle
+            cs1 = Me.grdAdjustmentItem.Styles.Add("Item_Rate")
+            cs1.ForeColor = Color.Black
+            cs1.BackColor = Color.Gold
+            cs1.Border.Style = BorderStyleEnum.Raised
+
             Dim i As Integer
 
             For i = 1 To grdAdjustmentItem.Rows.Count - 1
-                If Not grdAdjustmentItem.Rows(i).IsNode Then grdAdjustmentItem.SetCellStyle(i, enmgrdWastageItem.Adjustment_Qty, cs)
+                If Not grdAdjustmentItem.Rows(i).IsNode Then
+                    grdAdjustmentItem.SetCellStyle(i, enmgrdWastageItem.Adjustment_Qty, cs)
+                    grdAdjustmentItem.SetCellStyle(i, grdAdjustmentItem.Cols("Item_Rate").SafeIndex, cs1)
+                End If
             Next
         End If
     End Sub

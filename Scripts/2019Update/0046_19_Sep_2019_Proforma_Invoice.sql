@@ -829,5 +829,37 @@ AS
         ORDER BY SID.SI_ID ASC            
                     
     END     
+
+	GO
+
+	ALTER PROCEDURE [dbo].[GET_ITEM_BY_ID] ( @V_ITEM_ID NUMERIC )  
+AS  
+    BEGIN          
+        
+        SELECT  IM.ITEM_ID ,  
+                IM.ITEM_CODE ,  
+                IM.ITEM_NAME ,  
+                UM.UM_NAME ,  
+                vm.VAT_PERCENTAGE ,  
+                ISNULL(cm.CessPercentage_num, 0.00) AS CessPercentage_num ,  
+                ISNULL(IM.ACess, 0.00) AS ACess ,  
+                dbo.Get_Current_Stock(IM.ITEM_ID) AS Current_Stock ,  
+                IC.item_cat_name ,  
+                --CAST(dbo.Get_item_rate_from_previous_mrn(@V_ITEM_ID) AS NUMERIC(18,  
+                --                                              2)) AS prev_mrn_rate,
+                CAST(ISNULL(IM.Purchase_rate ,DBO.Get_Average_Rate_as_on_date(IM.ITEM_ID,
+                                                    GETDATE(),
+                                                    IM.DIVISION_ID, 1)) AS NUMERIC(18,  
+                                                              2)) AS prev_mrn_rate
+        FROM    ITEM_MASTER IM  
+                INNER JOIN VAT_MASTER vm ON vm.VAT_ID = IM.vat_id  
+                LEFT JOIN dbo.CessMaster cm ON cm.pk_CessId_num = IM.fk_CessId_num  
+                INNER JOIN UNIT_MASTER UM ON IM.UM_ID = UM.UM_ID  
+                INNER JOIN item_category IC ON IM.item_category_id = IC.item_cat_id  
+        WHERE   IM.ITEM_ID = @V_ITEM_ID       
+        
+    END       
+
+
     
     

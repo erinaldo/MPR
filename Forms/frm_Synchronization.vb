@@ -109,6 +109,23 @@ Public Class frm_Synchronization
                 PbarDataTransfer.Value = PbarDataTransfer.Maximum
             End If
 
+            tran = con.BeginTransaction()
+            cmd = New SqlCommand
+            cmd.CommandTimeout = 0
+            cmd.Connection = con
+            cmd.Transaction = tran
+            cmd.CommandType = CommandType.Text
+            cmd.CommandText = "DECLARE @citid AS INT;
+                               SET @citid = ( SELECT   CITY_ID
+                                              FROM     dbo.DIVISION_SETTINGS
+                                             );
+                               UPDATE  ACCOUNT_MASTER
+                               SET     CITY_ID = @citid
+                               WHERE   ACC_ID > 9998"
+            cmd.ExecuteNonQuery()
+            cmd.Dispose()
+            tran.Commit()
+
         Catch ex As Exception
             obj.MyCon_RollBackTransaction(cmd)
             MsgBox(gblMessageHeading_Error & vbCrLf & gblMessage_ContactInfo & vbCrLf & ex.Message, MsgBoxStyle.Critical, gblMessageHeading)

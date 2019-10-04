@@ -252,7 +252,6 @@ Module SyncronizeData
         End If
         Bulk_Copy(GlobalTables, lblStatus, pbardatatransfer)
 
-
     End Sub
 
     Public Function Get_Remote_DataSet(ByVal qry As String) As DataSet
@@ -531,8 +530,21 @@ Module SyncronizeData
             End If
 
             BulkCopy.Close()
+
+            cmd = New SqlCommand("DECLARE @citid AS INT;
+                               SET @citid = ( SELECT   CITY_ID
+                                              FROM     dbo.DIVISION_SETTINGS
+                                             );
+                               UPDATE  ACCOUNT_MASTER
+                               SET     CITY_ID = @citid
+                               WHERE   ACC_ID > 9998")
+            cmd.Transaction = tran
+            cmd.Connection = con
+            cmd.ExecuteNonQuery()
+
             tran.Commit()
             con.Close()
+
 
             MsgBox("Database updated successfully.")
 
