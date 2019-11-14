@@ -66,6 +66,7 @@ Partial Class MDICostCenter
         Me.ToolStripSeparator18 = New System.Windows.Forms.ToolStripSeparator()
         Me.btNew = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripSeparator19 = New System.Windows.Forms.ToolStripSeparator()
+        Me.OutletToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.toolbar.SuspendLayout()
         Me.SuspendLayout()
@@ -241,6 +242,7 @@ Partial Class MDICostCenter
         '
         Me.ToolStripMenuItem1.AutoSize = False
         Me.ToolStripMenuItem1.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        Me.ToolStripMenuItem1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OutletToolStripMenuItem})
         Me.ToolStripMenuItem1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ToolStripMenuItem1.ForeColor = System.Drawing.SystemColors.ControlLightLight
         Me.ToolStripMenuItem1.Image = Global.MMSPlus.My.Resources.Resources.Client_list_text
@@ -547,6 +549,12 @@ Partial Class MDICostCenter
         Me.ToolStripSeparator19.Name = "ToolStripSeparator19"
         Me.ToolStripSeparator19.Size = New System.Drawing.Size(6, 36)
         '
+        'OutletToolStripMenuItem
+        '
+        Me.OutletToolStripMenuItem.Name = "OutletToolStripMenuItem"
+        Me.OutletToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.OutletToolStripMenuItem.Text = "|Outlet\"
+        '
         'MDICostCenter
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -617,4 +625,5 @@ Partial Class MDICostCenter
     Friend WithEvents LogOffToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ExitToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem1 As ToolStripMenuItem
+    Friend WithEvents OutletToolStripMenuItem As ToolStripMenuItem
 End Class

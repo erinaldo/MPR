@@ -341,7 +341,7 @@ Partial Class frm_Material_Received_Without_PO_Master
         Me.dgvList.BackgroundColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.dgvList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvList.GridColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.dgvList.Location = New System.Drawing.Point(6, 18)
+        Me.dgvList.Location = New System.Drawing.Point(5, 16)
         Me.dgvList.Name = "dgvList"
         Me.dgvList.ReadOnly = True
         Me.dgvList.RowHeadersVisible = False

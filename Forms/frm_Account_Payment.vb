@@ -430,11 +430,17 @@ Public Class frm_Account_Payment
             Exit Sub
         End If
 
-        flag = "update"
-        PaymentId = Convert.ToInt32(flxList("PaymentId", flxList.CurrentCell.RowIndex).Value())
-        Dim result As Integer = MessageBox.Show("Are you sure you want to edit this Voucher ?", "Edit Voucher", MessageBoxButtons.YesNo)
-        If result = DialogResult.Yes Then
-            FillPaymentDetails(PaymentId)
+        If Convert.ToDateTime(flxList.SelectedRows(0).Cells("Date").Value).ToString("MM/dd/yyyy") > FreezeDate.ToString("MM/dd/yyyy") Then
+
+            flag = "update"
+            PaymentId = Convert.ToInt32(flxList("PaymentId", flxList.CurrentCell.RowIndex).Value())
+            Dim result As Integer = MessageBox.Show("Are you sure you want to edit this Voucher ?", "Edit Voucher", MessageBoxButtons.YesNo)
+            If result = DialogResult.Yes Then
+                FillPaymentDetails(PaymentId)
+            End If
+        Else
+            MessageBox.Show("System is freezed for this transaction date so further operation do not allowed.")
+        Return
         End If
     End Sub
 

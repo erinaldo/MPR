@@ -1020,19 +1020,23 @@ Public Class frm_DebitNoteNew
             RightsMsg()
             Exit Sub
         End If
+        If Convert.ToDateTime(dgvList.SelectedRows(0).Cells("DebitNote_Date").Value).ToString("MM/dd/yyyy") > FreezeDate.ToString("MM/dd/yyyy") Then
 
-        flag = "update"
-        DebitNoteId = Convert.ToInt32(dgvList("DebitNote_Id", dgvList.CurrentCell.RowIndex).Value())
-        FillPaymentDetails(DebitNoteId)
+            flag = "update"
+            DebitNoteId = Convert.ToInt32(dgvList("DebitNote_Id", dgvList.CurrentCell.RowIndex).Value())
+            FillPaymentDetails(DebitNoteId)
 
-        If FLXGRD_MaterialItem.Rows.Count - 1 > 0 Then
-            Dim Index As Int32 = 1
-            FLXGRD_MaterialItem.Row = Index
-            FLXGRD_MaterialItem.RowSel = Index
-            FLXGRD_MaterialItem.Col = 10
-            FLXGRD_MaterialItem.ColSel = 10
+            If FLXGRD_MaterialItem.Rows.Count - 1 > 0 Then
+                Dim Index As Int32 = 1
+                FLXGRD_MaterialItem.Row = Index
+                FLXGRD_MaterialItem.RowSel = Index
+                FLXGRD_MaterialItem.Col = 10
+                FLXGRD_MaterialItem.ColSel = 10
+            End If
+        Else
+            MessageBox.Show("System is freezed for this transaction date so further operation do not allowed.")
+            Return
         End If
-
     End Sub
 
     Public Sub FillPaymentDetails(DebitNoteId As Int16)

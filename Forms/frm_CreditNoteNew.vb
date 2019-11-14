@@ -1095,9 +1095,14 @@ Vendor"
             RightsMsg()
             Exit Sub
         End If
-        flag = "update"
-        CreditNoteId = Convert.ToInt32(dgvList("CreditNote_Id", dgvList.CurrentCell.RowIndex).Value())
-        FillPaymentDetails(CreditNoteId)
+        If Convert.ToDateTime(dgvList.SelectedRows(0).Cells("CreditNote_Date").Value).ToString("MM/dd/yyyy") > FreezeDate.ToString("MM/dd/yyyy") Then
+            flag = "update"
+            CreditNoteId = Convert.ToInt32(dgvList("CreditNote_Id", dgvList.CurrentCell.RowIndex).Value())
+            FillPaymentDetails(CreditNoteId)
+        Else
+            MessageBox.Show("System is freezed for this transaction date so further operation do not allowed.")
+            Return
+        End If
     End Sub
 
     Public Sub FillPaymentDetails(CreditNoteId As Int16)

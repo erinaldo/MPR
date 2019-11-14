@@ -96,6 +96,8 @@ Public Class LoginForm
                     'our entries are time based also.
                     'v_the_current_ServerDate = Now
 
+                    FreezeDate = obj.ExecuteScalar("SELECT TOP 1 FDate FROM TempFD ORDER BY CreatedDate DESC")
+
                     If Not rdoCostCenter.Visible Then
                         ' MDI_Warehouse.Show()
                         MDIMain.MDIMain_Load(Nothing, Nothing)

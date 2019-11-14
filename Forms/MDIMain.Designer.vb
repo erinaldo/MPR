@@ -31,6 +31,7 @@ Partial Class MDIMain
         Me.TransferDataToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.TransferDataBetweenDatesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.BackupDB = New System.Windows.Forms.ToolStripMenuItem()
+        Me.frm_Freeze = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_Division_Settings = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_Change_Password = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_user_rights = New System.Windows.Forms.ToolStripMenuItem()
@@ -65,6 +66,7 @@ Partial Class MDIMain
         Me.frm_ReverseMaterial_Received_Against_PO_Master = New System.Windows.Forms.ToolStripMenuItem()
         Me.frmsaleinvoice = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_Customer_Rate_List_Master = New System.Windows.Forms.ToolStripMenuItem()
+        Me.frm_Proforma_Invoice = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_OpenSale_Invoice = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_Sale_Invoice = New System.Windows.Forms.ToolStripMenuItem()
         Me.frm_BillBook = New System.Windows.Forms.ToolStripMenuItem()
@@ -180,7 +182,6 @@ Partial Class MDIMain
         Me.picLogo = New System.Windows.Forms.PictureBox()
         Me.TabControl2 = New System.Windows.Forms.TabControl()
         Me.frm_open_invoice = New System.Windows.Forms.ToolStripMenuItem()
-        Me.frm_Proforma_Invoice = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.toolbar.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
@@ -233,7 +234,7 @@ Partial Class MDIMain
         'MasterSetupToolStripMenuItem
         '
         Me.MasterSetupToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(22, Byte), Integer), CType(CType(22, Byte), Integer), CType(CType(22, Byte), Integer))
-        Me.MasterSetupToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Synchronization, Me.frm_Item_Master, Me.frm_StockAdjustment, Me.frm_Print_Barcode, Me.TransferDataToolStripMenuItem, Me.TransferDataBetweenDatesToolStripMenuItem, Me.BackupDB, Me.frm_Division_Settings, Me.frm_Change_Password, Me.frm_user_rights, Me.frm_Cost_Center, Me.frm_Item_rate_list})
+        Me.MasterSetupToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Synchronization, Me.frm_Item_Master, Me.frm_StockAdjustment, Me.frm_Print_Barcode, Me.TransferDataToolStripMenuItem, Me.TransferDataBetweenDatesToolStripMenuItem, Me.BackupDB, Me.frm_Freeze, Me.frm_Division_Settings, Me.frm_Change_Password, Me.frm_user_rights, Me.frm_Cost_Center, Me.frm_Item_rate_list})
         Me.MasterSetupToolStripMenuItem.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.MasterSetupToolStripMenuItem.ForeColor = System.Drawing.Color.White
         Me.MasterSetupToolStripMenuItem.Image = Global.MMSPlus.My.Resources.Resources.smserver
@@ -305,6 +306,15 @@ Partial Class MDIMain
         Me.BackupDB.Name = "BackupDB"
         Me.BackupDB.Size = New System.Drawing.Size(233, 22)
         Me.BackupDB.Text = "System Backup"
+        '
+        'frm_Freeze
+        '
+        Me.frm_Freeze.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.frm_Freeze.ForeColor = System.Drawing.Color.White
+        Me.frm_Freeze.Image = Global.MMSPlus.My.Resources.Resources.Cancel_PO
+        Me.frm_Freeze.Name = "frm_Freeze"
+        Me.frm_Freeze.Size = New System.Drawing.Size(233, 22)
+        Me.frm_Freeze.Text = "Freeze System"
         '
         'frm_Division_Settings
         '
@@ -641,8 +651,17 @@ Partial Class MDIMain
         Me.frm_Customer_Rate_List_Master.ForeColor = System.Drawing.Color.White
         Me.frm_Customer_Rate_List_Master.Image = Global.MMSPlus.My.Resources.Resources.Supplier_Rate_List
         Me.frm_Customer_Rate_List_Master.Name = "frm_Customer_Rate_List_Master"
-        Me.frm_Customer_Rate_List_Master.Size = New System.Drawing.Size(200, 22)
+        Me.frm_Customer_Rate_List_Master.Size = New System.Drawing.Size(181, 22)
         Me.frm_Customer_Rate_List_Master.Text = "Customer Rate List"
+        '
+        'frm_Proforma_Invoice
+        '
+        Me.frm_Proforma_Invoice.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.frm_Proforma_Invoice.ForeColor = System.Drawing.Color.White
+        Me.frm_Proforma_Invoice.Image = Global.MMSPlus.My.Resources.Resources.Approve_Indent
+        Me.frm_Proforma_Invoice.Name = "frm_Proforma_Invoice"
+        Me.frm_Proforma_Invoice.Size = New System.Drawing.Size(181, 22)
+        Me.frm_Proforma_Invoice.Text = "Proforma Invoice"
         '
         'frm_OpenSale_Invoice
         '
@@ -650,7 +669,7 @@ Partial Class MDIMain
         Me.frm_OpenSale_Invoice.ForeColor = System.Drawing.Color.White
         Me.frm_OpenSale_Invoice.Image = Global.MMSPlus.My.Resources.Resources.Pad_note_paper_game_document
         Me.frm_OpenSale_Invoice.Name = "frm_OpenSale_Invoice"
-        Me.frm_OpenSale_Invoice.Size = New System.Drawing.Size(200, 22)
+        Me.frm_OpenSale_Invoice.Size = New System.Drawing.Size(181, 22)
         Me.frm_OpenSale_Invoice.Text = "Open Invoice"
         '
         'frm_Sale_Invoice
@@ -659,7 +678,7 @@ Partial Class MDIMain
         Me.frm_Sale_Invoice.ForeColor = System.Drawing.Color.White
         Me.frm_Sale_Invoice.Image = Global.MMSPlus.My.Resources.Resources.Stock_In
         Me.frm_Sale_Invoice.Name = "frm_Sale_Invoice"
-        Me.frm_Sale_Invoice.Size = New System.Drawing.Size(200, 22)
+        Me.frm_Sale_Invoice.Size = New System.Drawing.Size(181, 22)
         Me.frm_Sale_Invoice.Text = "Sale Invoice"
         '
         'frm_BillBook
@@ -668,7 +687,7 @@ Partial Class MDIMain
         Me.frm_BillBook.ForeColor = System.Drawing.Color.White
         Me.frm_BillBook.Image = Global.MMSPlus.My.Resources.Resources.Approve_PO
         Me.frm_BillBook.Name = "frm_BillBook"
-        Me.frm_BillBook.Size = New System.Drawing.Size(200, 22)
+        Me.frm_BillBook.Size = New System.Drawing.Size(181, 22)
         Me.frm_BillBook.Text = "Bill Book"
         '
         'frm_EwayBill
@@ -677,7 +696,7 @@ Partial Class MDIMain
         Me.frm_EwayBill.ForeColor = System.Drawing.Color.White
         Me.frm_EwayBill.Image = Global.MMSPlus.My.Resources.Resources.Approve_PO
         Me.frm_EwayBill.Name = "frm_EwayBill"
-        Me.frm_EwayBill.Size = New System.Drawing.Size(200, 22)
+        Me.frm_EwayBill.Size = New System.Drawing.Size(181, 22)
         Me.frm_EwayBill.Text = "Eway Bill"
         '
         'frm_CreditNote
@@ -686,7 +705,7 @@ Partial Class MDIMain
         Me.frm_CreditNote.ForeColor = System.Drawing.Color.White
         Me.frm_CreditNote.Image = Global.MMSPlus.My.Resources.Resources.Indent
         Me.frm_CreditNote.Name = "frm_CreditNote"
-        Me.frm_CreditNote.Size = New System.Drawing.Size(200, 22)
+        Me.frm_CreditNote.Size = New System.Drawing.Size(181, 22)
         Me.frm_CreditNote.Text = "Credit Note"
         '
         'frm_GatePass
@@ -695,7 +714,7 @@ Partial Class MDIMain
         Me.frm_GatePass.ForeColor = System.Drawing.Color.White
         Me.frm_GatePass.Image = Global.MMSPlus.My.Resources.Resources.How_to_add_archive_files
         Me.frm_GatePass.Name = "frm_GatePass"
-        Me.frm_GatePass.Size = New System.Drawing.Size(200, 22)
+        Me.frm_GatePass.Size = New System.Drawing.Size(181, 22)
         Me.frm_GatePass.Text = "Gate Pass"
         '
         'Recipe
@@ -1738,15 +1757,6 @@ Partial Class MDIMain
         Me.frm_open_invoice.Size = New System.Drawing.Size(181, 22)
         Me.frm_open_invoice.Text = "Opne Invoice"
         '
-        'frm_Proforma_Invoice
-        '
-        Me.frm_Proforma_Invoice.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.frm_Proforma_Invoice.ForeColor = System.Drawing.Color.White
-        Me.frm_Proforma_Invoice.Image = Global.MMSPlus.My.Resources.Resources.Approve_Indent
-        Me.frm_Proforma_Invoice.Name = "frm_Proforma_Invoice"
-        Me.frm_Proforma_Invoice.Size = New System.Drawing.Size(181, 22)
-        Me.frm_Proforma_Invoice.Text = "Proforma Invoice"
-        '
         'MDIMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1934,4 +1944,5 @@ Partial Class MDIMain
     Friend WithEvents frm_StockAnalysis As ToolStripMenuItem
     Friend WithEvents Frm_Account_Analysis As ToolStripMenuItem
     Friend WithEvents frm_Proforma_Invoice As ToolStripMenuItem
+    Friend WithEvents frm_Freeze As ToolStripMenuItem
 End Class

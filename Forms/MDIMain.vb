@@ -85,6 +85,7 @@ Public Class MDIMain
                         tbp.Text = "EWay Bill"
                         tbp.Controls.Add(New frm_EwayBill(prpty_form_rights))
 
+
                     Case UCase("tsmAccount")
                         Try
                             Dim startInfo As New ProcessStartInfo()
@@ -840,6 +841,20 @@ Public Class MDIMain
 
     Private Sub frmsaleinvoice_Click(sender As Object, e As EventArgs) Handles frmsaleinvoice.Click
 
+    End Sub
+
+    Private Sub frm_Freeze_Click(sender As Object, e As EventArgs) Handles frm_Freeze.Click
+        Dim menuItem As New ToolStripMenuItem
+        If TypeOf sender Is ToolStripMenuItem Then
+            menuItem = CType(sender, ToolStripMenuItem)
+        End If
+        prpty_form_rights = cls_obj.Get_Form_Rights(menuItem.Name)
+        If prpty_form_rights.allow_view = "Y" Then
+            Dim frmsyn As New frm_Freeze(prpty_form_rights)
+            frmsyn.ShowDialog()
+        Else
+            RightsMsg()
+        End If
     End Sub
 
     'Private Sub MDIMain_MouseMove(sender As Object, e As MouseEventArgs) Handles MyBase.MouseMove

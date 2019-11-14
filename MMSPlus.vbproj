@@ -354,6 +354,12 @@
     <Compile Include="Forms\frm_Show_Search_RateList.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\frm_Freeze.Designer.vb">
+      <DependentUpon>frm_Freeze.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frm_Freeze.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\Licence.Designer.vb">
       <DependentUpon>Licence.vb</DependentUpon>
     </Compile>
@@ -1741,6 +1747,10 @@
       <DependentUpon>frm_Stock_Transfer.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frm_Freeze.resx">
+      <DependentUpon>frm_Freeze.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\frm_Synchronization.resx">
       <SubType>Designer</SubType>
       <DependentUpon>frm_Synchronization.vb</DependentUpon>
@@ -2496,6 +2506,7 @@
     <Content Include="Scripts\2019Update\0044_08_Apr_2019_All_Proc_View_Function_Type.sql" />
     <Content Include="Scripts\2019Update\0045_19_AUG_2019_MRN_EDIT_ISSUE.sql" />
     <Content Include="Scripts\2019Update\0046_19_Sep_2019_Proforma_Invoice.sql" />
+    <Content Include="Scripts\2019Update\0047_14_Nov_2019_SystemFreeze.sql" />
     <Content Include="Scripts\Updates\00001_29_Dec_Add_Duty_And_Taxes.sql" />
     <Content Include="Scripts\Updates\0001_04_Jan_2018_Stock_Transfer.sql" />
     <Content Include="Scripts\Updates\0001_16_JAN_2018.sql" />

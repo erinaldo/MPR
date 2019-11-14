@@ -98,9 +98,9 @@ Partial Class LoginForm
         Me.cmbCostCenter.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmbCostCenter.Font = New System.Drawing.Font("Arial", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmbCostCenter.ForeColor = System.Drawing.SystemColors.ControlLight
-        Me.cmbCostCenter.Location = New System.Drawing.Point(476, 238)
+        Me.cmbCostCenter.Location = New System.Drawing.Point(415, 238)
         Me.cmbCostCenter.Name = "cmbCostCenter"
-        Me.cmbCostCenter.Size = New System.Drawing.Size(282, 35)
+        Me.cmbCostCenter.Size = New System.Drawing.Size(343, 35)
         Me.cmbCostCenter.TabIndex = 10
         Me.cmbCostCenter.Visible = False
         '
