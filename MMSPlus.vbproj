@@ -390,6 +390,18 @@
     <Compile Include="ReportsForms\frm_DayBook.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="ReportsForms\frm_ANX1.Designer.vb">
+      <DependentUpon>frm_ANX1.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ReportsForms\frm_ANX1.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ReportsForms\frm_ANX2.Designer.vb">
+      <DependentUpon>frm_ANX2.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ReportsForms\frm_ANX2.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="ReportsForms\frm_MRN_Print_Barcode.Designer.vb">
       <DependentUpon>frm_MRN_Print_Barcode.vb</DependentUpon>
     </Compile>
@@ -1827,6 +1839,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ReportsForms\frm_DebtorsOS.resx">
       <DependentUpon>frm_DebtorsOS.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportsForms\frm_ANX1.resx">
+      <DependentUpon>frm_ANX1.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportsForms\frm_ANX2.resx">
+      <DependentUpon>frm_ANX2.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ReportsForms\frm_MRN_Print_Barcode.resx">
       <DependentUpon>frm_MRN_Print_Barcode.vb</DependentUpon>
