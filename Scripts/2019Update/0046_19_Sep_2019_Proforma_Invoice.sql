@@ -8,6 +8,170 @@ VALUES  ( '0046_19_Sep_2019_Proforma_Invoice' ,
 
 GO
 
+
+CREATE TABLE [dbo].[PROFORMA_INVOICE_MASTER](
+	[SI_ID] [numeric](18, 0) NOT NULL,
+	[SI_CODE] [varchar](50) NULL,
+	[SI_NO] [numeric](18, 0) NULL,
+	[DC_GST_NO] [numeric](18, 0) NULL,
+	[SI_DATE] [datetime] NULL,
+	[CUST_ID] [int] NULL,
+	[REMARKS] [varchar](500) NULL,
+	[PAYMENTS_REMARKS] [varchar](500) NULL,
+	[SALE_TYPE] [char](10) NULL,
+	[GROSS_AMOUNT] [numeric](18, 2) NULL,
+	[VAT_AMOUNT] [numeric](18, 2) NULL,
+	[NET_AMOUNT] [numeric](18, 2) NULL,
+	[IS_SAMPLE] [int] NULL,
+	[SAMPLE_ADDRESS] [varchar](500) NULL,
+	[VAT_CST_PER] [numeric](18, 2) NULL,
+	[INVOICE_STATUS] [int] NULL,
+	[DELIVERY_NOTE_NO] [varchar](50) NULL,
+	[CREATED_BY] [varchar](50) NULL,
+	[CREATION_DATE] [datetime] NULL,
+	[MODIFIED_BY] [varchar](50) NULL,
+	[MODIFIED_DATE] [datetime] NULL,
+	[DIVISION_ID] [int] NULL,
+	[is_InvCancel] [char](1) NULL,
+	[VEHICLE_NO] [varchar](100) NULL,
+	[SHIPP_ADD_ID] [int] NULL,
+	[INV_TYPE] [char](1) NULL,
+	[LR_NO] [varchar](100) NULL,
+	[SaleExecutiveId] [numeric](18, 0) NULL,
+	[REQ_ID] [numeric](18, 0) NULL,
+	[DELIVERED_BY] [nvarchar](100) NULL,
+	[TempInvoiceId] [numeric](18, 0) NULL,
+	[PAY_STATUS] [char](10) NULL,
+	[TRANSPORT] [varchar](50) NULL,
+	[REFERENCE_ID] [numeric](18, 0) NOT NULL,
+	[FLAG] [int] NULL,
+	[CESS_AMOUNT] [numeric](18, 2) NOT NULL,
+	[EwayBillNo] [varchar](50) NULL,
+	[ConsumerHeadID] [numeric](18, 2) NULL,
+	[freight] [numeric](18, 2) NULL,
+	[freight_type] [char](10) NULL,
+	[FreightTaxApplied] [bit] NULL,
+	[FreightTaxValue] [numeric](18, 2) NULL,
+ CONSTRAINT [PK_PROFORMA_INVOICE_MASTER] PRIMARY KEY CLUSTERED 
+(
+	[SI_ID] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+ALTER TABLE [dbo].[PROFORMA_INVOICE_MASTER] ADD  CONSTRAINT [DF_PROFORMA_INVOICE_MASTER_INVOICE_STATUS]  DEFAULT ((1)) FOR [INVOICE_STATUS]
+GO
+
+ALTER TABLE [dbo].[PROFORMA_INVOICE_MASTER] ADD  CONSTRAINT [DF_PROFORMA_INVOICE_MASTER_is_InvCancel]  DEFAULT ('N') FOR [is_InvCancel]
+GO
+
+ALTER TABLE [dbo].[PROFORMA_INVOICE_MASTER] ADD  DEFAULT ((10071)) FOR [REFERENCE_ID]
+GO
+
+ALTER TABLE [dbo].[PROFORMA_INVOICE_MASTER] ADD  DEFAULT ((0.00)) FOR [CESS_AMOUNT]
+GO
+
+ALTER TABLE [dbo].[PROFORMA_INVOICE_MASTER] ADD  DEFAULT ((0)) FOR [ConsumerHeadID]
+GO
+
+ALTER TABLE [dbo].[PROFORMA_INVOICE_MASTER] ADD  DEFAULT ((0)) FOR [freight]
+GO
+
+ALTER TABLE [dbo].[PROFORMA_INVOICE_MASTER] ADD  DEFAULT ((0)) FOR [FreightTaxApplied]
+GO
+
+ALTER TABLE [dbo].[PROFORMA_INVOICE_MASTER] ADD  DEFAULT ((0)) FOR [FreightTaxValue]
+GO
+
+CREATE TABLE [dbo].[PROFORMA_INVOICE_DETAIL](
+	[SI_ID] [numeric](18, 0) NULL,
+	[ITEM_ID] [numeric](18, 0) NULL,
+	[ITEM_QTY] [numeric](18, 3) NULL,
+	[PKT] [numeric](18, 3) NULL,
+	[ITEM_RATE] [numeric](18, 2) NULL,
+	[ITEM_AMOUNT] [numeric](18, 2) NULL,
+	[VAT_PER] [numeric](18, 2) NULL,
+	[VAT_AMOUNT] [numeric](18, 2) NULL,
+	[BAL_ITEM_RATE] [numeric](18, 2) NULL,
+	[BAL_ITEM_QTY] [numeric](18, 3) NULL,
+	[CREATED_BY] [varchar](50) NULL,
+	[CREATION_DATE] [datetime] NULL,
+	[MODIFIED_BY] [varchar](50) NULL,
+	[MODIFIED_DATE] [datetime] NULL,
+	[DIVISION_ID] [int] NULL,
+	[TARRIF_ID] [numeric](18, 0) NULL,
+	[ITEM_MRP] [numeric](18, 2) NULL,
+	[ITEM_MRP_DESC] [varchar](20) NULL,
+	[ASSESIBLE_PER] [numeric](18, 2) NULL,
+	[ASSESIBLE_VALUE] [numeric](18, 2) NULL,
+	[EXCISE_PER] [numeric](18, 2) NULL,
+	[EXCISE_AMOUNT] [numeric](18, 2) NULL,
+	[EDU_CESS_PER] [numeric](18, 2) NULL,
+	[EDU_CESS_VALUE] [numeric](18, 2) NULL,
+	[SHE_CESS_PER] [numeric](18, 2) NULL,
+	[SHE_CESS_VALUE] [numeric](18, 2) NULL,
+	[ITEM_DISCOUNT] [numeric](18, 2) NULL,
+	[DISCOUNT_TYPE] [varchar](5) NULL,
+	[DISCOUNT_VALUE] [numeric](18, 2) NULL,
+	[GSTPaid] [varchar](5) NULL,
+	[CessPercentage_num] [numeric](18, 2) NOT NULL,
+	[CessAmount_num] [numeric](18, 2) NOT NULL,
+	[MRP] [numeric](18, 2) NOT NULL,
+	[ACess] [numeric](18, 2) NULL,
+	[ACessAmount] [numeric](18, 2) NULL,
+	[freight] [numeric](18, 2) NULL,
+	[freight_type] [char](10) NULL,
+	[FreightTaxValue] [numeric](18, 2) NULL,
+	[FreightCessValue] [numeric](18, 2) NULL
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+ALTER TABLE [dbo].[PROFORMA_INVOICE_DETAIL] ADD  CONSTRAINT [DF_PROFORMA_INVOICE_DETAIL_PKT]  DEFAULT ((0)) FOR [PKT]
+GO
+
+ALTER TABLE [dbo].[PROFORMA_INVOICE_DETAIL] ADD  CONSTRAINT [DF_PROFORMA_INVOICE_DETAIL_CessPercentage_num]  DEFAULT ((0)) FOR [CessPercentage_num]
+GO
+
+ALTER TABLE [dbo].[PROFORMA_INVOICE_DETAIL] ADD  CONSTRAINT [DF_PROFORMA_INVOICE_DETAIL_CessAmount_num]  DEFAULT ((0)) FOR [CessAmount_num]
+GO
+
+ALTER TABLE [dbo].[PROFORMA_INVOICE_DETAIL] ADD  CONSTRAINT [DF_PROFORMA_INVOICE_DETAIL_MRP]  DEFAULT ((0.00)) FOR [MRP]
+GO
+
+ALTER TABLE [dbo].[PROFORMA_INVOICE_DETAIL] ADD  DEFAULT ((0)) FOR [ACess]
+GO
+
+ALTER TABLE [dbo].[PROFORMA_INVOICE_DETAIL] ADD  DEFAULT ((0)) FOR [ACessAmount]
+GO
+
+ALTER TABLE [dbo].[PROFORMA_INVOICE_DETAIL] ADD  DEFAULT ((0)) FOR [freight]
+GO
+
+ALTER TABLE [dbo].[PROFORMA_INVOICE_DETAIL] ADD  DEFAULT ((0)) FOR [FreightTaxValue]
+GO
+
+ALTER TABLE [dbo].[PROFORMA_INVOICE_DETAIL] ADD  DEFAULT ((0)) FOR [FreightCessValue]
+GO
+
+CREATE TABLE [dbo].[PROFORMA_INVOICE_SERIES](
+	[DIV_ID] [numeric](18, 0) NULL,
+	[PREFIX] [varchar](50) NULL,
+	[START_NO] [numeric](18, 0) NULL,
+	[END_NO] [numeric](18, 0) NULL,
+	[CURRENT_USED] [numeric](18, 0) NULL,
+	[IS_FINISHED] [char](1) NULL
+) ON [PRIMARY]
+
+GO
+
 ALTER PROCEDURE [dbo].[PROC_OUTSIDE_SALE_MASTER_SALE_NEW]  
     (  
       @v_SI_ID INT ,  
@@ -860,6 +1024,68 @@ AS
         
     END       
 
+go
 
+CREATE PROCEDURE [dbo].[GET_PROFORMA_INV_NO] ( @DIV_ID NUMERIC(18, 0) )
+AS
+    BEGIN      
+    
+        DECLARE @COUNT NUMERIC(18, 0)      
+    
+      
+    
+      
+    
+        SELECT  @COUNT = COUNT(CURRENT_USED)
+        FROM    dbo.PROFORMA_INVOICE_SERIES
+        WHERE   DIV_ID = @DIV_ID
+                AND IS_FINISHED = 'N'      
+    
+       
+    
+        IF @COUNT = 0
+            BEGIN      
+    
+                SELECT  '-1' ,
+                        '-1'      
+    
+            END      
+    
+        ELSE
+            BEGIN      
+    
+        
+    
+                SELECT  @COUNT = COUNT(CURRENT_USED)
+                FROM    PROFORMA_INVOICE_SERIES
+                WHERE   IS_FINISHED = 'N'
+                        AND DIV_ID = @DIV_ID
+                        AND CURRENT_USED >= START_NO - 1
+                        AND CURRENT_USED < END_NO      
+    
+       
+    
+                IF @count = 0
+                    BEGIN      
+    
+                        SELECT  '-2' ,
+                                '-2'      
+    
+                    END       
+    
+                ELSE
+                    BEGIN      
+    
+                        SELECT  PREFIX ,
+                                CURRENT_USED
+                        FROM    PROFORMA_INVOICE_SERIES
+                        WHERE   DIV_ID = @DIV_ID
+                                AND IS_FINISHED = 'N'      
+    
+                    END      
+    
+            END       
+    
+    END 
     
     

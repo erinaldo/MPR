@@ -706,7 +706,7 @@ Public Class frm_Supplier_Invoice_Settlement
             RightsMsg()
             Exit Sub
         End If
-        If Convert.ToDateTime(flxList.SelectedRows(0).Cells("Date").Value).ToString("MM/dd/yyyy") > FreezeDate.ToString("MM/dd/yyyy") Then
+        If CDate(flxList.SelectedRows(0).Cells("Date").Value) > CDate(FreezeDate) Then
 
             flag = "update"
             PaymentId = Convert.ToInt32(flxList("PaymentId", flxList.CurrentCell.RowIndex).Value())

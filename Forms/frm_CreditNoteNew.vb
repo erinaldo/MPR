@@ -1095,7 +1095,7 @@ Vendor"
             RightsMsg()
             Exit Sub
         End If
-        If Convert.ToDateTime(dgvList.SelectedRows(0).Cells("CreditNote_Date").Value).ToString("MM/dd/yyyy") > FreezeDate.ToString("MM/dd/yyyy") Then
+        If CDate(dgvList.SelectedRows(0).Cells("CreditNote_Date").Value) > CDate(FreezeDate) Then
             flag = "update"
             CreditNoteId = Convert.ToInt32(dgvList("CreditNote_Id", dgvList.CurrentCell.RowIndex).Value())
             FillPaymentDetails(CreditNoteId)

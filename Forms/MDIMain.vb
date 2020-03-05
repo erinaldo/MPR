@@ -857,6 +857,16 @@ Public Class MDIMain
         End If
     End Sub
 
+    Private Sub Recipe_Click(sender As Object, e As EventArgs) Handles Recipe.Click
+
+    End Sub
+
+    Private Sub GSTRegitorToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles GSTRegitorToolStripMenuItem.Click
+
+    End Sub
+
+
+
     'Private Sub MDIMain_MouseMove(sender As Object, e As MouseEventArgs) Handles MyBase.MouseMove
     '    If e.Button = Windows.Forms.MouseButtons.Left Then
     '        NewPoint = Control.MousePosition

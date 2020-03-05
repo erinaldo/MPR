@@ -1303,7 +1303,7 @@ restart:
         Else
 
 
-            If Convert.ToDateTime(dgvList.SelectedRows(0).Cells("Received_Date").Value).ToString("MM/dd/yyyy") > FreezeDate.ToString("MM/dd/yyyy") Then
+            If CDate(dgvList.SelectedRows(0).Cells("Received_Date").Value) > CDate(FreezeDate) Then
 
 
                 Dim dtMRN As New DataTable

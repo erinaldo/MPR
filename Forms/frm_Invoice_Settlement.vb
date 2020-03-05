@@ -667,7 +667,7 @@ Public Class frm_Invoice_Settlement
             Exit Sub
         End If
 
-        If Convert.ToDateTime(flxList.SelectedRows(0).Cells("Date").Value).ToString("MM/dd/yyyy") > FreezeDate.ToString("MM/dd/yyyy") Then
+        If CDate(flxList.SelectedRows(0).Cells("Date").Value) > CDate(FreezeDate) Then
             flag = "update"
             PaymentId = Convert.ToInt32(flxList("PaymentId", flxList.CurrentCell.RowIndex).Value())
             Dim result As Integer = MessageBox.Show("Are you sure you want to edit this Voucher ?", "Edit Voucher", MessageBoxButtons.YesNo)

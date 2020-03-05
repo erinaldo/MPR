@@ -1020,7 +1020,7 @@ Public Class frm_DebitNoteNew
             RightsMsg()
             Exit Sub
         End If
-        If Convert.ToDateTime(dgvList.SelectedRows(0).Cells("DebitNote_Date").Value).ToString("MM/dd/yyyy") > FreezeDate.ToString("MM/dd/yyyy") Then
+        If CDate(dgvList.SelectedRows(0).Cells("DebitNote_Date").Value) > CDate(FreezeDate) Then
 
             flag = "update"
             DebitNoteId = Convert.ToInt32(dgvList("DebitNote_Id", dgvList.CurrentCell.RowIndex).Value())

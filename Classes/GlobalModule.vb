@@ -34,7 +34,7 @@ Module GlobalModule
     Public gblDataBase_Name As String = ""
     Public gblCentraliseDataBase_Name As String = ""
     Public gblCentraliseServer_Name As String = ""
-    Public FreezeDate As DateTime
+    Public FreezeDate As Date
 
 
     Public v_division_type As division_type

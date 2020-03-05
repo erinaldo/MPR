@@ -60,7 +60,7 @@ Public Class frm_Freeze
         Try
             obj.ExecuteNonQuery("INSERT INTO TempFD VALUES('" & dtp_Date.Value.ToString("MM/dd/yyyy") & "','" & v_the_current_logged_in_user_name & "',GETDATE())")
 
-            FreezeDate = dtp_Date.Value.ToString("MM/dd/yyyy")
+            FreezeDate = dtp_Date.Value
 
             lbllastFreezeDate.Text = "Freeze Date: " & FreezeDate.ToString("dd-MMM-yyyy")
 

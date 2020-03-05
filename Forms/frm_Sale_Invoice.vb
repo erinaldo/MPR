@@ -871,7 +871,7 @@ WHERE   ( SUPPLIER_RATE_LIST_DETAIL.ITEM_ID =" & Convert.ToInt32(item_id) & " )
             Exit Sub
         End If
 
-        If Convert.ToDateTime(flxList.SelectedRows(0).Cells("INV DATE").Value).ToString("MM/dd/yyyy") > FreezeDate.ToString("MM/dd/yyyy") Then
+        If CDate(flxList.SelectedRows(0).Cells("INV DATE").Value) > CDate(FreezeDate) Then
             Dim Status As String
             Status = flxList.SelectedRows(0).Cells("Status").Value
 
