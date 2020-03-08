@@ -164,7 +164,7 @@ GROUP BY VAT_NO ,
         IGST_Act ,
         SuplyType ,
         HSN ,
-        VAT_PER"
+        VAT_PER ORDER BY STATE_CODE"
         RCMTableANX1 = objCommFunction.Fill_DataSet(Qry).Tables(0)
 
     End Sub
