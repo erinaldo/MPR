@@ -53,8 +53,6 @@ Public Class frm_ANX1
         End Try
     End Sub
 
-
-
     Private Sub BindDataANX1()
 
         Qry = " SELECT  STATE_CODE ,
@@ -142,10 +140,31 @@ GROUP BY STATE_CODE ,
 ORDER BY tb.OrderDate "
         b2bTableANX1 = objCommFunction.Fill_DataSet(Qry).Tables(0)
 
-        Qry = "SELECT  *
+        Qry = "SELECT  VAT_NO ,
+        ACC_NAME ,
+        STATE_CODE ,
+        STATE_NAME ,
+        DiffTaxRate ,
+        IGST_Act ,
+        SuplyType ,
+        HSN ,
+        VAT_PER ,
+        ISNULL(SUM(Taxable_Value), 0) AS Taxable_Value ,
+        ISNULL(SUM(integrated_tax), 0) AS integrated_tax ,
+        ISNULL(SUM(non_integrated_tax), 0) AS non_integrated_tax ,
+        ISNULL(SUM(Cess_Amount), 0) AS Cess_Amount
 FROM    VW_ANX1_SectionRCMD
 WHERE   CAST(Received_Date AS DATE) BETWEEN CAST('" & txtFromDate.Value.ToString("dd-MMM-yyyy") & "' AS DATE)
-                                    AND     CAST('" & txtToDate.Value.ToString("dd-MMM-yyyy") & "' AS DATE)"
+                                    AND     CAST('" & txtToDate.Value.ToString("dd-MMM-yyyy") & "' AS DATE)
+GROUP BY VAT_NO ,
+        ACC_NAME ,
+        STATE_CODE ,
+        STATE_NAME ,
+        DiffTaxRate ,
+        IGST_Act ,
+        SuplyType ,
+        HSN ,
+        VAT_PER"
         RCMTableANX1 = objCommFunction.Fill_DataSet(Qry).Tables(0)
 
     End Sub
